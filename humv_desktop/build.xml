@@ -16,30 +16,8 @@
 
     <taskdef name="izpack" classpath="${izpack.dir}/lib/compiler.jar"
                  classname="com.izforge.izpack.ant.IzPackTask" />
-
-
-    <!-- Initialize, create directories, etc. -->
-    <target name="init">
-        <echo message="${classes}" />
-        <!-- clean plugins dir-->
-        <delete dir="${bundle.dir}" />
-        <!-- make plugins dir-->
-        <mkdir dir="${bundle.dir}" />
-    </target>
-
-    <!-- JAR the +RazzãoApp -->
-
-    <target name="jar.humv" depends="init">
-        <mkdir dir="dist"/>
-        <jar destfile="${bundle.dir}/${file.name}-${version}.jar" manifest="${manifest.location}">
-            <fileset dir="target/classes" casesensitive="yes">
-                <include name="**" />
-                <exclude name="**/manifest.mf" />
-            </fileset>
-        </jar>
-    </target>
 		
-    <target name="make.installer" depends="jar.humv">
+    <target name="make.installer">
         <izpack input="${absolute.dir}/install.xml"
             output="${absolute.dir}/dist/${distro.name}-installer-${version}.jar"
             basedir="." izPackDir="${izpack.dir}/" />

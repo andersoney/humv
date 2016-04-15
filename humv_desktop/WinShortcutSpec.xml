@@ -4,7 +4,7 @@
 
 	<programGroup defaultName="HUMV UFRB" location="startMenu" />
 
-	<shortcut name="Vet UFRB" target="$INSTALL_PATH\HUMV-UFRB-v1.0.jar"
+	<shortcut name="HUMV UFRB" target="$INSTALL_PATH\humv_desktop-1.0-SNAPSHOT.jar"
 		iconFile="$INSTALL_PATH\images\humv-logo.ico" commandLine=""
 		workingDirectory="$INSTALL_PATH" description="Clique para iniciar o HUMV UFRB"
 		programGroup="no" desktop="yes" applications="yes" startMenu="yes"
