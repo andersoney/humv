@@ -1,0 +1,123 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.2.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+        http://www.springframework.org/schema/security
+      	http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+
+
+	<context:component-scan base-package="br.edu.ufrb.lasis.humv.service, br.edu.ufrb.lasis.humv.dao, br.edu.ufrb.lasis.humv.security, br.edu.ufrb.lasis.humv.entity, br.edu.ufrb.lasis.humv.impl" />
+
+	<!-- Enables the Spring MVC @RestController programming model -->
+	<tx:annotation-driven/>
+
+	<!-- Make this available across all of Spring MVC -->
+	<mvc:annotation-driven content-negotiation-manager="contentManager"/>
+
+	<bean id="contentManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<property name="ignoreAcceptHeader" value="true"/>
+		<property name="defaultContentType" value="application/json" />
+		<property name="favorPathExtension" value="false" />
+		<property name="useJaf" value="false"/>
+		<property name="mediaTypes">
+        <map>
+            <entry key="json" value="application/json" />
+            <!-- <entry key="xml" value="application/xml" />  -->
+       </map>
+    </property>
+	</bean>
+
+
+	<!-- ************** JSON ************** -->
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<bean
+					class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+				<bean
+					class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
+				<bean
+					class="org.springframework.http.converter.xml.SourceHttpMessageConverter" />
+				<bean class="org.springframework.http.converter.FormHttpMessageConverter" />
+				<bean
+					class="org.springframework.http.converter.StringHttpMessageConverter" />
+			</list>
+		</property>
+
+	</bean>
+	
+	<!-- ************** SECURITY ************** -->
+	
+    <sec:http pattern="/usuario/login" security="none"/>
+    <sec:http pattern="/usuario/signup" security="none"/>
+	
+	<!-- Rest authentication entry point configuration -->
+    <sec:http use-expressions="true" auto-config="true" entry-point-ref="restAuthenticationEntryPoint">
+        <sec:intercept-url pattern="/api/**" />
+        <sec:form-login authentication-success-handler-ref="mySuccessHandler"
+            authentication-failure-handler-ref="myFailureHandler" />
+ 
+        <sec:logout />
+    </sec:http>
+ 
+    <!-- Connect the custom authentication success handler -->
+    <bean id="mySuccessHandler"
+        class="br.edu.ufrb.lasis.humv.security.RestAuthenticationSuccessHandler" />
+    
+    <!-- Using default failure handler -->
+    <bean id="myFailureHandler"
+        class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler" />
+ 
+    <!-- Enable the annotations for defining the secure role -->
+    <sec:global-method-security secured-annotations="enabled" />
+    
+    <!-- Authentication manager -->
+    <sec:authentication-manager alias="authenticationManager">
+         
+        <sec:authentication-provider user-service-ref="detalhesUsuarioService" />
+        
+        <!--
+        <sec:authentication-provider>
+            <sec:user-service>
+                <sec:user name="temporary" password="temporary" authorities="ROLE_ADMIN" />
+                <sec:user name="user" password="userPass" authorities="ROLE_USER" />
+            </sec:user-service>
+        </sec:authentication-provider>
+        -->
+    </sec:authentication-manager>
+    
+    <bean id="detalhesUsuarioService" class="br.edu.ufrb.lasis.humv.security.DetalhesUsuarioService"/>
+    
+    <!-- 
+    <bean id="rememberMeServices"
+		class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
+		<property name="key" value="sgd-sec" />
+		<property name="alwaysRemember" value="true" />
+		<property name="userDetailsService" ref="detalhesUsuarioService" />
+		<property name="tokenValiditySeconds" value="60" />
+	</bean>
+
+	<bean id="rememberMeAuthenticationProvider"
+		class="org.springframework.security.authentication.RememberMeAuthenticationProvider">
+		<property name="key" value="sgd-sec" />
+	</bean>
+
+	<bean id="rememberMeFilter"
+		class="org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter">
+		<property name="rememberMeServices" ref="rememberMeServices" />
+		<property name="authenticationManager" ref="authenticationManager" />
+	</bean>
+	 -->
+    
+</beans>
