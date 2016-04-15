@@ -2,7 +2,6 @@
 <project name="Pacote de instalação HUMV UFRB - versão 1.0" default="make.installer" basedir=".">
     <!-- Set our global properties -->
 	
-    <property name="bundle.dir" value="jar" />
     <property name="file.name" value="HUMV-UFRB" />
     <property name="distro.name" value="HUMV-UFRB" />
     <property name="version" value="v1.0" />
