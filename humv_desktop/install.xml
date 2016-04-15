@@ -42,6 +42,7 @@
             <description>São necessários arquivos para a execução do programa</description>
             <file src="/Users/tassiovale/Dropbox/UFRB/Pesquisa e Extensão/2016 - VET-UFRB/humv/humv_desktop/jar/HUMV-UFRB-v1.0.jar" targetdir="$INSTALL_PATH"/>
             <fileset dir="/Users/tassiovale/Dropbox/UFRB/Pesquisa e Extensão/2016 - VET-UFRB/humv/humv_desktop/." includes="images/" targetdir="$INSTALL_PATH"/>
+            <fileset dir="/Users/tassiovale/Dropbox/UFRB/Pesquisa e Extensão/2016 - VET-UFRB/humv/humv_desktop/target/." includes="lib/" targetdir="$INSTALL_PATH"/>
             <fileset dir="/Users/tassiovale/Dropbox/UFRB/Pesquisa e Extensão/2016 - VET-UFRB/humv/humv_desktop/." includes="files/" targetdir="$INSTALL_PATH"/>
         </pack>
     </packs>	

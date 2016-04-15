@@ -25,7 +25,7 @@ public class HUMVApp {
      */
     public static void main(String args[]) {
 
-        try {
+       /*try {
 
             RESTMethods.setUsername("temporary");
             RESTMethods.setPassword("temporary");
@@ -43,8 +43,8 @@ public class HUMVApp {
         
         } catch (IOException ex) {
             Logger.getLogger(HUMVApp.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        /*
+        }*/
+        
         try {
             for (UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -53,40 +53,20 @@ public class HUMVApp {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VetMainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HUMVMainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                VetMainWindow mainWindow = new VetMainWindow();
+                HUMVMainWindow mainWindow = new HUMVMainWindow();
                 mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                mainWindow.setTitle("HUMV UFRB v1.0");
                 mainWindow.setVisible(true);
                 mainWindow.setExtendedState(mainWindow.getExtendedState() | JFrame.MAXIMIZED_BOTH);
                 mainWindow.setResizable(false);
             }
-        /*
-        try {
-            for (UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VetMainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                VetMainWindow mainWindow = new VetMainWindow();
-                mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                mainWindow.setVisible(true);
-                mainWindow.setExtendedState(mainWindow.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-                mainWindow.setResizable(false);
-            }
-        });*/
+        });
     }
 
 }
