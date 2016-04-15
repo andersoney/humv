@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -62,6 +63,8 @@ public class HUMVApp {
                 HUMVMainWindow mainWindow = new HUMVMainWindow();
                 mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 mainWindow.setTitle("HUMV UFRB v1.0");
+                ImageIcon img = new ImageIcon("images/humv-logo-jframe.ico");
+                mainWindow.setIconImage(img.getImage());
                 mainWindow.setVisible(true);
                 mainWindow.setExtendedState(mainWindow.getExtendedState() | JFrame.MAXIMIZED_BOTH);
                 mainWindow.setResizable(false);
