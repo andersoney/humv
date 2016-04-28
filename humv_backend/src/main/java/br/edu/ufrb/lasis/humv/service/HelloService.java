@@ -15,7 +15,7 @@ import br.edu.ufrb.lasis.humv.impl.HelloServiceImpl;
 
 @RestController
 @RequestMapping(value = "/api/hello")
-@Secured("ADMIN")
+@Secured("ROLE_ADMIN")
 public class HelloService {
 	
 	@Autowired

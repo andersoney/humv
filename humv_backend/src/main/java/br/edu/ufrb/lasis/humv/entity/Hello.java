@@ -7,12 +7,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Hello implements Serializable {
+public class Hello implements Serializable{
 
 	private static final long serialVersionUID = -106456548632220994L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	private long id;
     private String content;
 

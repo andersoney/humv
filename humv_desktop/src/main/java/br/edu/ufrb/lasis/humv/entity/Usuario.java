@@ -1,16 +1,14 @@
 package br.edu.ufrb.lasis.humv.entity;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Usuario {
 
-    private static final long serialVersionUID = -1487845401492394032L;
     private Integer siape;
     private String email;
     private String nome;
     private String senha;
-    private List<PapelUsuario> papelUsuario = new ArrayList<PapelUsuario>();
+    private String perfil;
+    private boolean ativo;
 
     public Integer getSiape() {
         return siape;
@@ -36,20 +34,28 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public List<PapelUsuario> getPapelUsuario() {
-        return papelUsuario;
-    }
-
-    public void setPapelUsuario(List<PapelUsuario> usuarioPapel) {
-        this.papelUsuario = usuarioPapel;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public String getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(String perfil) {
+        this.perfil = perfil;
     }
 
 }

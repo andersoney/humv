@@ -15,10 +15,9 @@
         http://www.springframework.org/schema/security
       	http://www.springframework.org/schema/security/spring-security-4.0.xsd">
 
-
 	<context:component-scan base-package="br.edu.ufrb.lasis.humv.service, br.edu.ufrb.lasis.humv.dao, br.edu.ufrb.lasis.humv.security, br.edu.ufrb.lasis.humv.entity, br.edu.ufrb.lasis.humv.impl" />
 
-	<!-- Enables the Spring MVC @RestController programming model -->
+	<!-- Enables the Spring MVC @RestController programming model --> 
 	<tx:annotation-driven/>
 
 	<!-- Make this available across all of Spring MVC -->
@@ -59,16 +58,19 @@
 	
 	<!-- ************** SECURITY ************** -->
 	
-    <sec:http pattern="/usuario/login" security="none"/>
-    <sec:http pattern="/usuario/signup" security="none"/>
-	
+    <sec:http pattern="/login" security="none" /> 
+    	
 	<!-- Rest authentication entry point configuration -->
     <sec:http use-expressions="true" auto-config="true" entry-point-ref="restAuthenticationEntryPoint">
-        <sec:intercept-url pattern="/api/**" />
+    	
+    	<sec:intercept-url pattern="/api/**" access="hasRole('ROLE_ADMIN')" /> <!--  method="GET" requires-channel="https" -->
+    	   
         <sec:form-login authentication-success-handler-ref="mySuccessHandler"
             authentication-failure-handler-ref="myFailureHandler" />
- 
         <sec:logout />
+        
+        <sec:csrf disabled="true"/>
+        <sec:http-basic />
     </sec:http>
  
     <!-- Connect the custom authentication success handler -->
@@ -85,19 +87,17 @@
     <!-- Authentication manager -->
     <sec:authentication-manager alias="authenticationManager">
          
-        <sec:authentication-provider user-service-ref="detalhesUsuarioService" />
+        <!-- <sec:authentication-provider user-service-ref="detalhesUsuarioService" />  -->
         
-        <!--
         <sec:authentication-provider>
             <sec:user-service>
-                <sec:user name="temporary" password="temporary" authorities="ROLE_ADMIN" />
-                <sec:user name="user" password="userPass" authorities="ROLE_USER" />
+                <sec:user name="humv" password="lAs1s_UFRB" authorities="ROLE_ADMIN" />
             </sec:user-service>
         </sec:authentication-provider>
-        -->
+        
     </sec:authentication-manager>
     
-    <bean id="detalhesUsuarioService" class="br.edu.ufrb.lasis.humv.security.DetalhesUsuarioService"/>
+    <!-- <bean id="detalhesUsuarioService" class="br.edu.ufrb.lasis.humv.security.DetalhesUsuarioService"/>  -->
     
     <!-- 
     <bean id="rememberMeServices"

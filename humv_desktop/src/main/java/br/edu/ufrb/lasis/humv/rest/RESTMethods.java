@@ -17,97 +17,87 @@ import org.springframework.stereotype.Component;
 @Component
 public class RESTMethods {
 
-    private static Client client = null;
-    private static String username = null;
-    private static String password = null;
+    private static final String SERVICE_USERNAME = "humv";
+    private static final String SERVICE_PASSWORD = "lAs1s_UFRB";
 
-    public static Client getCurrentClient() {
-        if (client == null) {
-            ClientConfig clientConfig = new DefaultClientConfig();
-            clientConfig.getFeatures().put(
-                    JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
-            client = Client.create(clientConfig);
-            client.addFilter(new HTTPBasicAuthFilter(username, password));
+    private static Client createClient(boolean requiresAuth) {
+        ClientConfig clientConfig = new DefaultClientConfig();
+        clientConfig.getFeatures().put(
+                JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
+        Client client = Client.create(clientConfig);
+        if (requiresAuth) {
+            client.addFilter(new HTTPBasicAuthFilter(SERVICE_USERNAME, SERVICE_PASSWORD));
         }
         return client;
     }
-    
-    public static ClientResponse get(String resource) {
-        //Example URL: "http://localhost:9090/JerseyJSONExample/rest/jsonServices/send"
-        WebResource webResource = getCurrentClient().resource(HUMVConfig.getVetBackendURL() + resource);
-        
+
+    public static ClientResponse get(String resource) throws RESTConnectionException {
+        //Exemplo de URL: "http://localhost:9090/JerseyJSONExample/rest/jsonServices/send"
+        WebResource webResource = createClient(true).resource(HUMVConfig.getVetBackendURL() + resource);
+
         ClientResponse response = webResource.accept("application/json")
                 .type("application/json").get(ClientResponse.class);
 
         if (response.getStatus() != 200) {
-            throw new RuntimeException("Failed : HTTP error code : "
-                    + response.getStatus());
+            throw new RESTConnectionException(response, "Erro: código HTTP - " + response.getStatus());
         }
         return response;
     }
-    
-    public static ClientResponse post(String resource, Object object) {
-        //Example URL: "http://localhost:9090/JerseyJSONExample/rest/jsonServices/send"
-        WebResource webResource = getCurrentClient().resource(HUMVConfig.getVetBackendURL() + resource);
-        
+
+    public static ClientResponse post(String resource, Object object) throws RESTConnectionException {
+        WebResource webResource = createClient(true).resource(HUMVConfig.getVetBackendURL() + resource);
+
         ClientResponse response = webResource.accept("application/json")
                 .type("application/json").post(ClientResponse.class, object);
 
         if (response.getStatus() != 200) {
-            throw new RuntimeException("Failed : HTTP error code : "
-                    + response.getStatus());
+            throw new RESTConnectionException(response, "Erro: código HTTP - " + response.getStatus());
         }
         return response;
     }
 
-    public static ClientResponse put(String resource, Object object) {
-        //Example URL: "http://localhost:9090/JerseyJSONExample/rest/jsonServices/send"
-        WebResource webResource = getCurrentClient().resource(HUMVConfig.getVetBackendURL() + resource);
-        
+    public static ClientResponse put(String resource, Object object) throws RESTConnectionException {
+        WebResource webResource = createClient(true).resource(HUMVConfig.getVetBackendURL() + resource);
+
         ClientResponse response = webResource.accept("application/json")
                 .type("application/json").put(ClientResponse.class, object);
 
         if (response.getStatus() != 200) {
-            throw new RuntimeException("Failed : HTTP error code : "
-                    + response.getStatus());
+            throw new RESTConnectionException(response, "Erro: código HTTP - " + response.getStatus());
         }
         return response;
     }
-    
-    public static ClientResponse delete(String resource) {
-        //Example URL: "http://localhost:9090/JerseyJSONExample/rest/jsonServices/send"
-        WebResource webResource = getCurrentClient().resource(HUMVConfig.getVetBackendURL() + resource);
-        
+
+    public static ClientResponse delete(String resource) throws RESTConnectionException {
+        WebResource webResource = createClient(true).resource(HUMVConfig.getVetBackendURL() + resource);
+
         ClientResponse response = webResource.accept("application/json")
                 .type("application/json").delete(ClientResponse.class);
 
         if (response.getStatus() != 200) {
-            throw new RuntimeException("Failed : HTTP error code : "
-                    + response.getStatus());
+            throw new RESTConnectionException(response, "Erro: código HTTP - " + response.getStatus());
         }
         return response;
     }
-    
-    public static Object getListFromJSON(ClientResponse response, TypeReference typeReference) throws IOException{
+
+    public static ClientResponse userLogin(String resource, String username, String senha) throws RESTConnectionException {
+        WebResource webResource = createClient(false).resource(
+                HUMVConfig.getVetBackendURL() + resource
+                + "?username=" + username + "&senha=" + senha
+        );
+
+        ClientResponse response = webResource.get(ClientResponse.class);
+
+        if (response.getStatus() != 200) {
+            throw new RESTConnectionException(response, "Erro: código HTTP - " + response.getStatus());
+        }
+        return response;
+    }
+
+    public static Object getObjectFromJSON(ClientResponse response, TypeReference typeReference) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         Object obj = mapper.readValue(response.getEntity(JsonNode.class), typeReference);
         return obj;
-    }
-
-    public static String getUsername() {
-        return username;
-    }
-
-    public static void setUsername(String username) {
-        RESTMethods.username = username;
-    }
-
-    public static String getPassword() {
-        return password;
-    }
-
-    public static void setPassword(String password) {
-        RESTMethods.password = password;
     }
 
 }

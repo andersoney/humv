@@ -1,13 +1,8 @@
 package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -15,18 +10,14 @@ import javax.persistence.Table;
 public class Usuario implements Serializable{
 
 	private static final long serialVersionUID = -1487845401492394032L;
-	
+
 	@Id
-	private Integer siape;
 	private String email;
+	private Integer siape;
 	private String nome;
 	private String senha;
+	private String perfil;
 	private boolean ativo;
-	
-
-	@OneToMany
-	@JoinColumn(name="USUARIO_ID")
-	private List<PapelUsuario> papelUsuario = new ArrayList<PapelUsuario>();
 	
 	public Integer getSiape() {
 		return siape;
@@ -60,20 +51,20 @@ public class Usuario implements Serializable{
 		this.ativo = ativo;
 	}
 
-	public List<PapelUsuario> getPapelUsuario() {
-		return papelUsuario;
-	}
-
-	public void setPapelUsuario(List<PapelUsuario> usuarioPapel) {
-		this.papelUsuario = usuarioPapel;
-	}
-
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(String perfil) {
+		this.perfil = perfil;
 	}
 	
 }

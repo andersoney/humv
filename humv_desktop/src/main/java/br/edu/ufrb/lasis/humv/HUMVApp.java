@@ -1,19 +1,18 @@
 package br.edu.ufrb.lasis.humv;
 
-import br.edu.ufrb.lasis.humv.entity.Hello;
-import br.edu.ufrb.lasis.humv.rest.RESTMethods;
-import br.edu.ufrb.lasis.humv.view.HUMVMainWindow;
-import com.sun.jersey.api.client.ClientResponse;
-import java.awt.EventQueue;
-import java.io.IOException;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import br.edu.ufrb.lasis.humv.view.main.HUMVMainPanel;
+import br.edu.ufrb.lasis.humv.view.main.HUMVMainWindow;
+import br.edu.ufrb.lasis.humv.view.main.LoginDialog;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import org.codehaus.jackson.type.TypeReference;
+import javax.swing.border.EmptyBorder;
 
 /**
  *
@@ -21,19 +20,43 @@ import org.codehaus.jackson.type.TypeReference;
  */
 public class HUMVApp {
 
+    public static JPanel mainPanel = null;
+
+    public static JPanel getMainPanelInstance() {
+        if (mainPanel == null) {
+            mainPanel = new HUMVMainPanel();
+        }
+        return mainPanel;
+    }
+
+    public static void setPainelCentralComLogo() {
+        getMainPanelInstance().removeAll();
+        ImageIcon icon = new ImageIcon("images/humv-logo-name.png");
+        JLabel labelLogo = new JLabel(icon);
+        labelLogo.setHorizontalAlignment(SwingConstants.CENTER);
+        getMainPanelInstance().add(labelLogo, BorderLayout.CENTER);
+        getMainPanelInstance().revalidate();
+    }
+
+    public static void setNovoPainelCentral(JPanel panel) {
+        getMainPanelInstance().removeAll();
+        JPanel outsidePanel = new JPanel(new FlowLayout());
+        outsidePanel.add(panel);
+        outsidePanel.setBorder(new EmptyBorder(30, 0, 0, 0));
+        getMainPanelInstance().add(outsidePanel, BorderLayout.CENTER);
+        getMainPanelInstance().revalidate();
+    }
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
 
-       /*try {
-
-            RESTMethods.setUsername("temporary");
-            RESTMethods.setPassword("temporary");
-            ClientResponse response = RESTMethods.get("/hello");
+        /*try {
+            ClientResponse response = RESTMethods.get("/api/hello");
             
             //Opção 1: para recuperar uma lista de objetos
-            List<Hello> list = (List<Hello>) RESTMethods.getListFromJSON(response, new TypeReference<List<Hello>>(){});
+            List<Hello> list = (List<Hello>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Hello>>(){});
             for(int i=0; i < list.size(); i++){
                 Hello hello = (Hello) list.get(i);
                 System.out.println("Text: " + hello.getContent());
@@ -43,9 +66,20 @@ public class HUMVApp {
             //String output = response.getEntity(String.class);
         
         } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        
+        Usuario usuario = new Usuario();
+        usuario.setNome("Tassio");
+        usuario.setSiape(2126496);
+        ClientResponse response;
+        try {
+            response = RESTMethods.post("/api/usuario", usuario);
+            String resposta = response.getEntity(String.class);
+        } catch (RESTConnectionException ex) {
             Logger.getLogger(HUMVApp.class.getName()).log(Level.SEVERE, null, ex);
         }*/
-        
+
         try {
             for (UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -57,19 +91,16 @@ public class HUMVApp {
             java.util.logging.Logger.getLogger(HUMVMainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                HUMVMainWindow mainWindow = new HUMVMainWindow();
-                mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                mainWindow.setTitle("HUMV UFRB v1.0");
-                ImageIcon img = new ImageIcon("images/humv-logo-jframe.ico");
-                mainWindow.setIconImage(img.getImage());
-                mainWindow.setVisible(true);
-                mainWindow.setExtendedState(mainWindow.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-                mainWindow.setResizable(false);
-            }
-        });
+        HUMVMainWindow mainWindow = new HUMVMainWindow();
+        mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainWindow.setTitle("HUMV UFRB v1.0");
+        ImageIcon img = new ImageIcon("images/humv-logo-jframe.ico");
+        mainWindow.setIconImage(img.getImage());
+        mainWindow.setVisible(true);
+        mainWindow.setExtendedState(mainWindow.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        mainWindow.setResizable(false);
+
+        new LoginDialog(mainWindow, true).setVisible(true);
     }
 
 }

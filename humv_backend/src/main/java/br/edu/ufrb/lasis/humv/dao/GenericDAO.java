@@ -22,7 +22,7 @@ import java.util.List;
  * @param <T> the class type to be used in the custom data access object
  * 
  * @author tassiovale
- */
+ */ 
 public abstract class GenericDAO<T extends Serializable> {
 
 	private final Class<T> persistentClass;
