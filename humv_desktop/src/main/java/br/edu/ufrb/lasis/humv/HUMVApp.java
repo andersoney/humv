@@ -1,6 +1,5 @@
 package br.edu.ufrb.lasis.humv;
 
-import br.edu.ufrb.lasis.humv.view.main.HUMVMainPanel;
 import br.edu.ufrb.lasis.humv.view.main.HUMVMainWindow;
 import br.edu.ufrb.lasis.humv.view.main.LoginDialog;
 import java.awt.BorderLayout;
@@ -24,7 +23,7 @@ public class HUMVApp {
 
     public static JPanel getMainPanelInstance() {
         if (mainPanel == null) {
-            mainPanel = new HUMVMainPanel();
+            mainPanel = new JPanel();
         }
         return mainPanel;
     }
@@ -33,8 +32,10 @@ public class HUMVApp {
         getMainPanelInstance().removeAll();
         ImageIcon icon = new ImageIcon("images/humv-logo-name.png");
         JLabel labelLogo = new JLabel(icon);
+        labelLogo.setBorder(new EmptyBorder(50, 0, 0, 0));
         labelLogo.setHorizontalAlignment(SwingConstants.CENTER);
         getMainPanelInstance().add(labelLogo, BorderLayout.CENTER);
+        getMainPanelInstance().repaint();
         getMainPanelInstance().revalidate();
     }
 
@@ -44,6 +45,7 @@ public class HUMVApp {
         outsidePanel.add(panel);
         outsidePanel.setBorder(new EmptyBorder(30, 0, 0, 0));
         getMainPanelInstance().add(outsidePanel, BorderLayout.CENTER);
+        getMainPanelInstance().repaint();
         getMainPanelInstance().revalidate();
     }
 

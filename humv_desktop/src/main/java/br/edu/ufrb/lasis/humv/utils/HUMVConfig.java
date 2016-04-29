@@ -18,6 +18,10 @@ import java.util.logging.Logger;
 public class HUMVConfig {
 
     private static String vetBackendUrl = null;
+    public static final String PERFIL_ADMINISTRADOR = "Administrador";
+    public static final String PERFIL_RECEPCIONISTA = "Recepcionista";
+    public static final String PERFIL_VETERINARIO = "Médico";
+    public static final String PERFIL_FARMACEUTICO = "Farmacêutico";
 
     public static String getVetBackendURL() {
         if (vetBackendUrl == null) {
@@ -25,8 +29,8 @@ public class HUMVConfig {
         }
         return vetBackendUrl;
     }
-    
-    private static String getConfigValue(String configParam){
+
+    private static String getConfigValue(String configParam) {
         try {
             Properties properties = new Properties();
             properties.load(new FileInputStream("files/config.properties"));

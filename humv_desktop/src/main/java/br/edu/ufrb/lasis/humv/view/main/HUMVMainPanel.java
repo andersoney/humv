@@ -5,71 +5,46 @@
  */
 package br.edu.ufrb.lasis.humv.view.main;
 
-import br.edu.ufrb.lasis.humv.HUMVApp;
-import br.edu.ufrb.lasis.humv.view.usuario.CadastrarUsuarioPanel;
+import br.edu.ufrb.lasis.humv.utils.HUMVConfig;
+import br.edu.ufrb.lasis.humv.view.factory.FabricaMenuAdministrador;
+import br.edu.ufrb.lasis.humv.view.factory.FabricaMenuFarmaceutico;
+import br.edu.ufrb.lasis.humv.view.factory.FabricaMenuRecepcionista;
+import br.edu.ufrb.lasis.humv.view.factory.FabricaMenuVeterinario;
+import br.edu.ufrb.lasis.humv.view.factory.MenuBarFabricaAbstrata;
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 /**
  *
  * @author tassiovale
  */
-public class HUMVMainPanel extends JPanel implements ActionListener {
+public class HUMVMainPanel extends JPanel {
 
-    private JMenuBar menuBar;
-    private JMenu menuUsuario, menuAjuda;
-    private JMenuItem menuItemCadastroUsuario, menuItemSair, menuItemSobre;
-
-    public HUMVMainPanel() {
-        initialize();
+    public HUMVMainPanel(String perfilUsuario) {
+        initialize(perfilUsuario);
     }
 
-    private void initialize() {
+    private void initialize(String perfilUsuario) {
         this.setLayout(new BorderLayout());
 
-        menuBar = new JMenuBar();
+        MenuBarFabricaAbstrata fabricaMenu = null;
 
-        menuUsuario = new JMenu("Usuário");
-        menuItemCadastroUsuario = new JMenuItem("Cadastro");
-        menuItemCadastroUsuario.addActionListener(this);
-        menuUsuario.add(menuItemCadastroUsuario);
-        menuItemSair = new JMenuItem("Sair");
-        menuUsuario.add(menuItemSair);
-        menuBar.add(menuUsuario);
-
-        menuAjuda = new JMenu("Ajuda");
-        menuItemSobre = new JMenuItem("Sobre");
-        menuAjuda.add(menuItemSobre);
-        menuBar.add(menuAjuda);
-
-        this.add(menuBar, BorderLayout.PAGE_START);
-
-    }
-
-    public JMenuBar getMenuBar() {
-        return menuBar;
-    }
-
-    public void setMenuBar(JMenuBar menuBar) {
-        this.menuBar = menuBar;
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(menuItemCadastroUsuario)) {
-            HUMVApp.setNovoPainelCentral(new CadastrarUsuarioPanel());
-        } else if (e.getSource().equals(menuItemSair)) {
-
-        } else if (e.getSource().equals(menuItemSobre)) {
-
+        switch (perfilUsuario) {
+            case HUMVConfig.PERFIL_ADMINISTRADOR:
+                fabricaMenu = new FabricaMenuAdministrador(this);
+                break;
+            case HUMVConfig.PERFIL_RECEPCIONISTA:
+                fabricaMenu = new FabricaMenuRecepcionista(this);
+                break;
+            case HUMVConfig.PERFIL_VETERINARIO:
+                fabricaMenu = new FabricaMenuVeterinario(this);
+                break;
+            default:
+                fabricaMenu = new FabricaMenuFarmaceutico(this);
+                break;
         }
+        
+        fabricaMenu.criaMenuBar();
     }
 
 }

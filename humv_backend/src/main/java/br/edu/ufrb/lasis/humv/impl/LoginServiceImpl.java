@@ -22,7 +22,7 @@ public class LoginServiceImpl {
 		Usuario u = usuarioDAO.findBySiapeOrEmail(username);
 		if(u != null){
 			if(senha.equals(u.getSenha())){
-				return "OK";
+				return "OK-" + u.getPerfil();
 			}else{
 				logger.error("[login] Erro durante login do usuário " + u.getSiape() + " - " + u.getNome() + ".");
 				return "Senha incorreta, por favor, digite-a novamente.";

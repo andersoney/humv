@@ -16,10 +16,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -73,9 +69,10 @@ public class LoginDialog extends javax.swing.JDialog implements ActionListener, 
 
             String resposta = response.getEntity(String.class);
 
-            if (resposta.equals("OK") /*|| textFieldUsername.getText().equals("1")*/) {
+            if (resposta.contains("OK") /*|| textFieldUsername.getText().equals("1")*/) {
                 this.dispose();
-                HUMVMainPanel panel = new HUMVMainPanel();
+                String perfil = resposta.split("-")[1];
+                HUMVMainPanel panel = new HUMVMainPanel(perfil);
                 panel.add(HUMVApp.getMainPanelInstance(), BorderLayout.CENTER);
                 window.setContentPane(panel);
                 HUMVApp.setPainelCentralComLogo();
