@@ -87,6 +87,7 @@ public class LoginDialog extends javax.swing.JDialog implements ActionListener, 
                 }
             }
         } catch (RESTConnectionException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
 
