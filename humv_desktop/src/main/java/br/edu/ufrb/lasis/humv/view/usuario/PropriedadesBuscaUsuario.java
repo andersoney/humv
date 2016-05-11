@@ -5,6 +5,7 @@
  */
 package br.edu.ufrb.lasis.humv.view.usuario;
 
+import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Usuario;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
@@ -20,7 +21,9 @@ import org.codehaus.jackson.type.TypeReference;
  *
  * @author tassi
  */
-public class PropriedadesBuscaUsuario extends PropriedadesBusca{
+public class PropriedadesBuscaUsuario extends PropriedadesBusca {
+
+    private UsuarioTableModel tableModel;
 
     public PropriedadesBuscaUsuario(String tipoOperacao) {
         super(tipoOperacao);
@@ -28,35 +31,36 @@ public class PropriedadesBuscaUsuario extends PropriedadesBusca{
 
     @Override
     public void buscar() {
-        try{
-        //escrever código que faz a consulta ao banco de dados e constrói o table model apropriado
-        ClientResponse response = RESTMethods.get("/api/usuario");
-        List<Usuario> lista = (List<Usuario>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Usuario>>(){});
-        UsuarioTableModel tableModel = new UsuarioTableModel(lista);
-        super.getTabelaResultado().setModel(tableModel);
-        super.getTabelaResultado().revalidate();
+        HUMVApp.exibirBarraCarregamento();
+        try {
+            ClientResponse response = RESTMethods.get("/api/usuario");
+            List<Usuario> lista = (List<Usuario>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Usuario>>() {
+            });
+            tableModel = new UsuarioTableModel(lista);
+            super.getTabelaResultado().setModel(tableModel);
+            super.getTabelaResultado().revalidate();
         } catch (RESTConnectionException | IOException ex) {
             JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
+        HUMVApp.esconderBarraCarregamento();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource().equals(super.getBotaoBusca())){
+        if (e.getSource().equals(super.getBotaoBusca())) {
             buscar();
-        }else
-            if(e.getSource().equals(super.getBotaoOperacao())){
-                if(super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_VISUALIZAR)){
-                    
-                }else
-                    if(super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_ALTERAR)){
-                        
-                    }else
-                        if(super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_REMOVER)){
-                            
-                        }
+        } else if (e.getSource().equals(super.getBotaoOperacao())) {
+            if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_VISUALIZAR)) {
+
+            } else if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_ALTERAR)) {
+                Usuario usuarioSelecionado = tableModel.getUsuarioSelecionado(getIndexLinhaSelecionada());
+                CadastrarUsuarioPanel painelCadastrarUsuario = new CadastrarUsuarioPanel(usuarioSelecionado);
+                HUMVApp.setNovoPainelCentral(painelCadastrarUsuario);
+            } else if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_REMOVER)) {
+
             }
+        }
     }
-    
+
 }

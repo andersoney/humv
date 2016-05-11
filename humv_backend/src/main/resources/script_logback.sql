@@ -1,4 +1,4 @@
-﻿-- Logback: the reliable, generic, fast and flexible logging framework.
+-- Logback: the reliable, generic, fast and flexible logging framework.
 -- Copyright (C) 1999-2010, QOS.ch. All rights reserved.
 -- See http://logback.qos.ch/license.html for the applicable licensing 
 -- conditions.

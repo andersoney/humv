@@ -6,11 +6,11 @@
 package br.edu.ufrb.lasis.humv.view.main;
 
 import br.edu.ufrb.lasis.humv.utils.HUMVConfig;
-import br.edu.ufrb.lasis.humv.view.factory.FabricaMenuAdministrador;
-import br.edu.ufrb.lasis.humv.view.factory.FabricaMenuFarmaceutico;
-import br.edu.ufrb.lasis.humv.view.factory.FabricaMenuRecepcionista;
-import br.edu.ufrb.lasis.humv.view.factory.FabricaMenuVeterinario;
-import br.edu.ufrb.lasis.humv.view.factory.MenuBarFabricaAbstrata;
+import br.edu.ufrb.lasis.humv.view.menufactory.FabricaMenuAdministrador;
+import br.edu.ufrb.lasis.humv.view.menufactory.FabricaMenuFarmaceutico;
+import br.edu.ufrb.lasis.humv.view.menufactory.FabricaMenuRecepcionista;
+import br.edu.ufrb.lasis.humv.view.menufactory.FabricaMenuVeterinario;
+import br.edu.ufrb.lasis.humv.view.menufactory.MenuBarFabricaAbstrata;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
@@ -21,12 +21,11 @@ import javax.swing.JPanel;
 public class HUMVMainPanel extends JPanel {
 
     public HUMVMainPanel(String perfilUsuario) {
+        this.setLayout(new BorderLayout());
         initialize(perfilUsuario);
     }
 
     private void initialize(String perfilUsuario) {
-        this.setLayout(new BorderLayout());
-
         MenuBarFabricaAbstrata fabricaMenu = null;
 
         switch (perfilUsuario) {

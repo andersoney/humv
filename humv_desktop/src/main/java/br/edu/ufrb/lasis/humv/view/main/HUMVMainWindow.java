@@ -5,6 +5,9 @@
  */
 package br.edu.ufrb.lasis.humv.view.main;
 
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+
 /**
  *
  * @author tassiovale
@@ -16,6 +19,14 @@ public class HUMVMainWindow extends javax.swing.JFrame {
      */
     public HUMVMainWindow() {
         initComponents();
+        customInitComponents();
+    }
+    
+    private void customInitComponents(){
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setTitle("HUMV UFRB v1.0");
+        ImageIcon img = new ImageIcon("images/humv-logo-jframe.ico");
+        this.setIconImage(img.getImage());
     }
 
     /**

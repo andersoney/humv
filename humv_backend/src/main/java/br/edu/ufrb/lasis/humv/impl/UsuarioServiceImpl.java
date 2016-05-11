@@ -35,12 +35,12 @@ public class UsuarioServiceImpl {
 	public String signup(Usuario usuario){
 		try{
 			usuarioDAO.saveUser(usuario);
-			logger.info("[signup] Usu√°rio salvo com sucesso: " + usuario.getNome() + ".");
+			logger.info("[signup] Usu·rio salvo com sucesso: " + usuario.getNome() + ".");
 			return "OK";
 		}catch(DataIntegrityViolationException ex){
 			if(ex.getMessage().toLowerCase().contains("constraint")){
-				logger.error("[signup] E-mail j√° cadastrado: " + usuario.getEmail() + ".");
-				return "Usu√°rio com e-mail " + usuario.getEmail() + " j√° cadastrado no sistema. Por favor, informe um e-mail diferente.";
+				logger.error("[signup] E-mail j· cadastrado: " + usuario.getEmail() + ".");
+				return "Usu√°rio com e-mail " + usuario.getEmail() + " j· cadastrado no sistema. Por favor, informe um e-mail diferente.";
 			}else{
 				return "Erro ao conectar-se com o banco de dados.";
 			}
@@ -49,14 +49,14 @@ public class UsuarioServiceImpl {
 
 	public String atualizarUsuario(Usuario usuario){
 		usuarioDAO.updateUser(usuario);
-		logger.info("[atualizarUsuario] Usu√°rio " + usuario.getEmail() + " atualizado com sucesso.");
+		logger.info("[atualizarUsuario] Usu·rio " + usuario.getEmail() + " atualizado com sucesso.");
 		return "OK";
 	}
 	
 	public String removerUsuario(@RequestParam String  email){
 		Usuario usuario = usuarioDAO.findByEmail(email);
 		usuarioDAO.removeUser(usuario);
-		logger.info("[removerUsuario] Usu√°rio " + usuario.getEmail() + " removido com sucesso.");
+		logger.info("[removerUsuario] Usu·rio " + usuario.getEmail() + " removido com sucesso.");
     	return "OK";
     }
 

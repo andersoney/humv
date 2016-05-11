@@ -24,6 +24,8 @@ import javax.swing.JOptionPane;
  * @author tassiovale
  */
 public class CadastrarUsuarioPanel extends javax.swing.JPanel implements ActionListener {
+    
+    private Usuario usuarioSelecionado = null;
 
     /**
      * Creates new form CadastrarUsuarioPanel
@@ -32,11 +34,28 @@ public class CadastrarUsuarioPanel extends javax.swing.JPanel implements ActionL
         initComponents();
         customInitComponents();
     }
+    
+    /**
+     * Creates new form CadastrarUsuarioPanel
+     */
+    public CadastrarUsuarioPanel(Usuario usuarioSelecionado) {
+        this.usuarioSelecionado = usuarioSelecionado;
+        initComponents();
+        customInitComponents();
+    }
 
     private void customInitComponents() {
         buttonOK.addActionListener(this);
         buttonCancelar.addActionListener(this);
         textFieldNome.setFocusable(true);
+        
+        if(usuarioSelecionado != null){
+            labelTitulo.setText("Alteração de usuário");
+            textFieldNome.setText(usuarioSelecionado.getNome());
+            textFieldEmail.setText(usuarioSelecionado.getEmail());
+            textFieldEmail.setEnabled(false);
+            textFieldSiape.setText(usuarioSelecionado.getSiape().toString());
+        }
     }
 
     @Override
@@ -81,10 +100,16 @@ public class CadastrarUsuarioPanel extends javax.swing.JPanel implements ActionL
                     usuario.setPerfil((String) comboBoxPerfilUsuario.getSelectedItem());
                     usuario.setAtivo(true);
                     
-                    ClientResponse response = RESTMethods.post("/api/usuario", usuario);
+                    ClientResponse response;
+                    if(usuarioSelecionado != null){
+                        response = RESTMethods.put("/api/usuario", usuario);
+                    }else{
+                        response = RESTMethods.post("/api/usuario", usuario);
+                    }
+                             
                     String resposta = response.getEntity(String.class);
                     if (resposta.equals("OK")) {
-                        JOptionPane.showMessageDialog(this, "Usuário cadastrado com sucesso", "Usuário cadastrado", JOptionPane.PLAIN_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Registro de usuário efetuado com sucesso", "Registro de usuário", JOptionPane.PLAIN_MESSAGE);
                         HUMVApp.setPainelCentralComLogo();
                     } else {
                         JOptionPane.showMessageDialog(this, resposta, "Erro", JOptionPane.ERROR_MESSAGE);
@@ -116,7 +141,7 @@ public class CadastrarUsuarioPanel extends javax.swing.JPanel implements ActionL
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        labelTitulo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -132,9 +157,9 @@ public class CadastrarUsuarioPanel extends javax.swing.JPanel implements ActionL
         passwordFieldSenha = new javax.swing.JPasswordField();
         passwordFieldConfirmSenha = new javax.swing.JPasswordField();
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Cadastro de usuário");
+        labelTitulo.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        labelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelTitulo.setText("Cadastro de usuário");
 
         jLabel2.setText("Nome:");
 
@@ -175,7 +200,7 @@ public class CadastrarUsuarioPanel extends javax.swing.JPanel implements ActionL
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(labelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -207,7 +232,7 @@ public class CadastrarUsuarioPanel extends javax.swing.JPanel implements ActionL
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(jLabel1)
+                .addComponent(labelTitulo)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -257,13 +282,13 @@ public class CadastrarUsuarioPanel extends javax.swing.JPanel implements ActionL
     private javax.swing.JButton buttonCancelar;
     private javax.swing.JButton buttonOK;
     private javax.swing.JComboBox<String> comboBoxPerfilUsuario;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel labelTitulo;
     private javax.swing.JPasswordField passwordFieldConfirmSenha;
     private javax.swing.JPasswordField passwordFieldSenha;
     private javax.swing.JTextField textFieldEmail;

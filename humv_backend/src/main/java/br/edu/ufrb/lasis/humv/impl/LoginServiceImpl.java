@@ -24,21 +24,21 @@ public class LoginServiceImpl {
 			if(senha.equals(u.getSenha())){
 				return "OK-" + u.getPerfil();
 			}else{
-				logger.error("[login] Erro durante login do usuÃ¡rio " + u.getSiape() + " - " + u.getNome() + ".");
+				logger.error("[login] Erro durante login do usuário " + u.getSiape() + " - " + u.getNome() + ".");
 				return "Senha incorreta, por favor, digite-a novamente.";
 			}
 		}else
 			if(!username.equals(ADMIN_USERNAME)){
-				logger.error("[login] Login com usuÃ¡rio invÃ¡lido: " + username + ".");
-				return "UsuÃ¡rio invÃ¡lido, por favor, digite-o novamente.";
+				logger.error("[login] Login com usuário inválido: " + username + ".");
+				return "Usuário inválido, por favor, digite-o novamente.";
 			}else
 				if(senha.equals(ADMIN_PASSWORD)){
 					Usuario usuario = new Usuario();
 					usuario.setEmail(ADMIN_USERNAME);
 					usuario.setSenha(ADMIN_PASSWORD);
-					return "OK";
+					return "OK-Administrador";
 				}else{
-					logger.error("[login] Erro durante login do usuÃ¡rio ADMIN do sistema.");
+					logger.error("[login] Erro durante login do usuário ADMIN do sistema.");
 					return "Senha incorreta, por favor, digite-a novamente.";
 				}
 

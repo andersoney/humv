@@ -36,7 +36,7 @@ public class UsuarioService {
     	return usuarioServiceImpl.signup(usuario);
     }
     
-    @RequestMapping(value = "/{email}", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public String atualizarUsuario(@RequestBody Usuario usuario){
     	return usuarioServiceImpl.atualizarUsuario(usuario);
     }

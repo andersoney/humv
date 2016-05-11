@@ -6,6 +6,8 @@
 package br.edu.ufrb.lasis.humv.view.main;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
+import static br.edu.ufrb.lasis.humv.HUMVApp.getBarraProgressoInstance;
+import static br.edu.ufrb.lasis.humv.HUMVApp.getMainPanelInstance;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.SecurityUtils;
@@ -31,10 +33,9 @@ public class LoginDialog extends javax.swing.JDialog implements ActionListener, 
      * Creates new form LoginDialog
      *
      * @param window
-     * @param modal
      */
-    public LoginDialog(JFrame window, boolean modal) {
-        super(window, modal);
+    public LoginDialog(JFrame window) {
+        super(window, false);
         this.window = window;
         initComponents();
         customInitComponents();
@@ -48,6 +49,7 @@ public class LoginDialog extends javax.swing.JDialog implements ActionListener, 
         textFieldUsername.addKeyListener(this);
         passwordField.addKeyListener(this);
         buttonEntrar.addActionListener(this);
+        buttonEntrar.addKeyListener(this);
 
         textFieldUsername.setFocusable(true);
     }
@@ -61,8 +63,7 @@ public class LoginDialog extends javax.swing.JDialog implements ActionListener, 
             if (!username.equals("humv")) {
                 try {
                     senha = SecurityUtils.criptography(senha);
-                } catch (Exception ex) {
-                }
+                } catch (Exception ex) {}
             }
 
             ClientResponse response = RESTMethods.userLogin("/login", username, senha);
@@ -74,6 +75,7 @@ public class LoginDialog extends javax.swing.JDialog implements ActionListener, 
                 String perfil = resposta.split("-")[1];
                 HUMVMainPanel panel = new HUMVMainPanel(perfil);
                 panel.add(HUMVApp.getMainPanelInstance(), BorderLayout.CENTER);
+                HUMVApp.getMainPanelInstance().add(getBarraProgressoInstance(), BorderLayout.PAGE_END);
                 window.setContentPane(panel);
                 HUMVApp.setPainelCentralComLogo();
             } else {
@@ -98,9 +100,10 @@ public class LoginDialog extends javax.swing.JDialog implements ActionListener, 
         login();
     }
 
+    
     @Override
-    public void keyTyped(KeyEvent e) {
-        if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER) {
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             login();
         }
     }
@@ -184,9 +187,9 @@ public class LoginDialog extends javax.swing.JDialog implements ActionListener, 
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JTextField textFieldUsername;
     // End of variables declaration//GEN-END:variables
-
+    
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyTyped(KeyEvent e) {
     }
 
     @Override

@@ -4,10 +4,12 @@ import br.edu.ufrb.lasis.humv.view.main.HUMVMainWindow;
 import br.edu.ufrb.lasis.humv.view.main.LoginDialog;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -19,20 +21,30 @@ import javax.swing.border.EmptyBorder;
  */
 public class HUMVApp {
 
-    public static JPanel mainPanel = null;
+    private static JPanel mainPanel = null;
+    private static HUMVMainWindow mainWindow;
 
     public static JPanel getMainPanelInstance() {
         if (mainPanel == null) {
             mainPanel = new JPanel();
+            mainPanel.setLayout(new BorderLayout());
         }
         return mainPanel;
+    }
+
+    public static JProgressBar getBarraProgressoInstance() {
+        JProgressBar barraProgresso = new JProgressBar();
+        barraProgresso.setIndeterminate(true);
+        barraProgresso.setString("Por favor, aguarde...");
+        barraProgresso.setStringPainted(true);
+        return barraProgresso;
     }
 
     public static void setPainelCentralComLogo() {
         getMainPanelInstance().removeAll();
         ImageIcon icon = new ImageIcon("images/humv-logo-name.png");
         JLabel labelLogo = new JLabel(icon);
-        labelLogo.setBorder(new EmptyBorder(50, 0, 0, 0));
+        labelLogo.setBorder(new EmptyBorder(30, 0, 0, 0));
         labelLogo.setHorizontalAlignment(SwingConstants.CENTER);
         getMainPanelInstance().add(labelLogo, BorderLayout.CENTER);
         getMainPanelInstance().repaint();
@@ -47,6 +59,18 @@ public class HUMVApp {
         getMainPanelInstance().add(outsidePanel, BorderLayout.CENTER);
         getMainPanelInstance().repaint();
         getMainPanelInstance().revalidate();
+    }
+
+    public static void exibirBarraCarregamento() {
+        //getMainPanelInstance().add(getBarraProgressoInstance(), BorderLayout.PAGE_END);
+        //getMainPanelInstance().repaint();
+        //getMainPanelInstance().revalidate();
+    }
+
+    public static void esconderBarraCarregamento() {
+        //getMainPanelInstance().remove(getBarraProgressoInstance());
+        //getMainPanelInstance().repaint();
+        //getMainPanelInstance().revalidate();
     }
 
     /**
@@ -81,28 +105,22 @@ public class HUMVApp {
         } catch (RESTConnectionException ex) {
             Logger.getLogger(HUMVApp.class.getName()).log(Level.SEVERE, null, ex);
         }*/
-
-        try {
-            for (UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+                    java.util.logging.Logger.getLogger(HUMVMainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                 }
+
+                mainWindow = new HUMVMainWindow();
+                mainWindow.setVisible(true);
+                mainWindow.setExtendedState(mainWindow.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+                mainWindow.setResizable(false);
+
+                new LoginDialog(mainWindow).setVisible(true);
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HUMVMainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-        HUMVMainWindow mainWindow = new HUMVMainWindow();
-        mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainWindow.setTitle("HUMV UFRB v1.0");
-        ImageIcon img = new ImageIcon("images/humv-logo-jframe.ico");
-        mainWindow.setIconImage(img.getImage());
-        mainWindow.setVisible(true);
-        mainWindow.setExtendedState(mainWindow.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-        mainWindow.setResizable(false);
-
-        new LoginDialog(mainWindow, true).setVisible(true);
+        });
     }
 
 }

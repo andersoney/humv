@@ -5,6 +5,10 @@
  */
 package br.edu.ufrb.lasis.humv.view.busca;
 
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author tassi
@@ -23,7 +27,13 @@ public class BuscaPanel extends javax.swing.JPanel {
     
     private void customInitComponents(String tituloPanel, PropriedadesBusca propriedadesBusca){
         labelTitulo.setText(tituloPanel);
-        propriedadesBusca.configurarBusca(buttonBuscar, tabelaResultado);
+        
+        tabelaResultado.setModel(
+                new DefaultTableModel(new Object [][] {}, new String [] {"Sem resultados"}));
+        DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) tabelaResultado.getTableHeader().getDefaultRenderer();
+        renderer.setHorizontalAlignment(JLabel.CENTER);
+        
+        propriedadesBusca.configurarBusca(textFieldPalavraChave, buttonBuscar, tabelaResultado);
         propriedadesBusca.configurarBotaoOperacaoPosBusca(buttonOperacao);
     }
 

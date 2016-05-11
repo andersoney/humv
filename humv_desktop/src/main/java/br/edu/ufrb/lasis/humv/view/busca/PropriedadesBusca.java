@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JButton;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
@@ -34,7 +35,8 @@ public abstract class PropriedadesBusca implements ActionListener, KeyListener, 
     
     public abstract void buscar();
     
-    public void configurarBusca(JButton botaoBusca, JTable tabelaResultado) {
+    public void configurarBusca(JTextField campoBusca, JButton botaoBusca, JTable tabelaResultado) {
+        campoBusca.addKeyListener(this);
         this.setBotaoBusca(botaoBusca);
         this.getBotaoBusca().addActionListener(this);
         this.getBotaoBusca().addKeyListener(this);
@@ -48,8 +50,8 @@ public abstract class PropriedadesBusca implements ActionListener, KeyListener, 
     }
     
     @Override
-    public void keyTyped(KeyEvent e) {
-        if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER) {
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             buscar();
         }
     }
@@ -60,7 +62,7 @@ public abstract class PropriedadesBusca implements ActionListener, KeyListener, 
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {}
+    public void keyTyped(KeyEvent e) {}
 
     @Override
     public void keyReleased(KeyEvent e) {}

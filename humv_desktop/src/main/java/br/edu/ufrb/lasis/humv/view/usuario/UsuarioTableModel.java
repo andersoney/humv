@@ -20,6 +20,13 @@ public class UsuarioTableModel extends AbstractTableModel {
     public UsuarioTableModel(List<Usuario> lista){
         this.lista = lista;
     }
+    
+    public Usuario getUsuarioSelecionado(int index){
+        if(index >=0 && index < lista.size()){
+            return lista.get(index);
+        }else
+            return null;
+    }
 
     @Override
     public int getRowCount() {
