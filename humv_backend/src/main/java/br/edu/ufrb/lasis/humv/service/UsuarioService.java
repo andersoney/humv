@@ -26,24 +26,24 @@ public class UsuarioService {
     	return usuarioServiceImpl.getAll(); 
     }
     
-    @RequestMapping(value = "/{email}", method = RequestMethod.GET)
-    public Usuario findById(@PathVariable("email") final String email){
+    @RequestMapping(method = RequestMethod.GET, value = "/{email}")
+    public Usuario findById(@PathVariable String email){
     	return usuarioServiceImpl.findById(email);
     }
     
     @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public String signup(@RequestBody Usuario usuario){
-    	return usuarioServiceImpl.signup(usuario);
+    public String cadastrarUsuario(@RequestBody Usuario usuario, @RequestParam(value="username") String  username){
+    	return usuarioServiceImpl.cadastrarUsuario(usuario, username);
     }
     
     @RequestMapping(method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public String atualizarUsuario(@RequestBody Usuario usuario){
-    	return usuarioServiceImpl.atualizarUsuario(usuario);
+    public String atualizarUsuario(@RequestBody Usuario usuario, @RequestParam(value="username") String  username){
+    	return usuarioServiceImpl.atualizarUsuario(usuario, username);
     }
     
-    @RequestMapping(value = "/{email}", method = RequestMethod.DELETE)
-    public String removerUsuario(@RequestParam String  email){
-    	return usuarioServiceImpl.removerUsuario(email);
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{email}")
+    public String removerUsuario(@PathVariable String  email, @RequestParam(value="username") String  username){
+    	return usuarioServiceImpl.removerUsuario(email, username);
     }
     
 	public UsuarioServiceImpl getUsuarioServiceImpl( ) {

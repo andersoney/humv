@@ -13,6 +13,8 @@ import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.codehaus.jackson.type.TypeReference;
@@ -31,7 +33,6 @@ public class PropriedadesBuscaUsuario extends PropriedadesBusca {
 
     @Override
     public void buscar() {
-        HUMVApp.exibirBarraCarregamento();
         try {
             ClientResponse response = RESTMethods.get("/api/usuario");
             List<Usuario> lista = (List<Usuario>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Usuario>>() {
@@ -43,22 +44,46 @@ public class PropriedadesBuscaUsuario extends PropriedadesBusca {
             JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
-        HUMVApp.esconderBarraCarregamento();
+        HUMVApp.esconderMensagemCarregamento();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(super.getBotaoBusca())) {
-            buscar();
+            HUMVApp.exibirMensagemCarregamento();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    buscar();
+                }
+            }).start();
         } else if (e.getSource().equals(super.getBotaoOperacao())) {
-            if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_VISUALIZAR)) {
-
-            } else if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_ALTERAR)) {
-                Usuario usuarioSelecionado = tableModel.getUsuarioSelecionado(getIndexLinhaSelecionada());
-                CadastrarUsuarioPanel painelCadastrarUsuario = new CadastrarUsuarioPanel(usuarioSelecionado);
-                HUMVApp.setNovoPainelCentral(painelCadastrarUsuario);
-            } else if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_REMOVER)) {
-
+            if (super.getIndexLinhaSelecionada() < 0) {
+                JOptionPane.showMessageDialog(super.getTabelaResultado(), "Por favor, selecione algum usuário da tabela para realizar a operação.", "Usuário não selecionado", JOptionPane.ERROR_MESSAGE);             
+            } else {
+                Usuario usuarioSelecionado = tableModel.getUsuarioSelecionado(super.getIndexLinhaSelecionada());
+                if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_VISUALIZAR)) {
+                    //Ainda falta implementar
+                } else if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_ALTERAR)) {
+                    CadastrarUsuarioPanel painelCadastrarUsuario = new CadastrarUsuarioPanel(usuarioSelecionado);
+                    HUMVApp.setNovoPainelCentral(painelCadastrarUsuario);
+                } else if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_REMOVER)) {
+                    try {
+                        System.out.println("/api/usuario/" + URLEncoder.encode(usuarioSelecionado.getEmail(), "UTF-8"));
+                        ClientResponse response = RESTMethods.delete("/api/usuario/" + URLEncoder.encode(usuarioSelecionado.getEmail(), "UTF-8"));
+      
+                        String resposta = response.getEntity(String.class);
+                        if (resposta.equals("OK")) {
+                            JOptionPane.showMessageDialog(super.getTabelaResultado(), "Usuário removido com sucesso", "Remoção de usuário", JOptionPane.PLAIN_MESSAGE);
+                            HUMVApp.setPainelCentralComLogo();
+                        } else {
+                            JOptionPane.showMessageDialog(super.getTabelaResultado(), resposta, "Erro", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } catch (RESTConnectionException | UnsupportedEncodingException ex) {
+                        JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
+                        ex.printStackTrace();
+                    }
+                }
             }
         }
     }

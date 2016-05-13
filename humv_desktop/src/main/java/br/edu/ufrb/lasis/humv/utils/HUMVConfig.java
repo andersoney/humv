@@ -33,7 +33,7 @@ public class HUMVConfig {
     private static String getConfigValue(String configParam) {
         try {
             Properties properties = new Properties();
-            properties.load(new FileInputStream("files/config.properties"));
+            properties.load(new FileInputStream("arquivos/config.properties"));
             return properties.getProperty(configParam);
         } catch (IOException ex) {
             Logger.getLogger(HUMVConfig.class.getName()).log(Level.SEVERE, null, ex);

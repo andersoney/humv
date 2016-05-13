@@ -6,8 +6,6 @@
 package br.edu.ufrb.lasis.humv.view.main;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
-import static br.edu.ufrb.lasis.humv.HUMVApp.getBarraProgressoInstance;
-import static br.edu.ufrb.lasis.humv.HUMVApp.getMainPanelInstance;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.SecurityUtils;
@@ -75,8 +73,8 @@ public class LoginDialog extends javax.swing.JDialog implements ActionListener, 
                 String perfil = resposta.split("-")[1];
                 HUMVMainPanel panel = new HUMVMainPanel(perfil);
                 panel.add(HUMVApp.getMainPanelInstance(), BorderLayout.CENTER);
-                HUMVApp.getMainPanelInstance().add(getBarraProgressoInstance(), BorderLayout.PAGE_END);
                 window.setContentPane(panel);
+                HUMVApp.setNomeUsuario(username);
                 HUMVApp.setPainelCentralComLogo();
             } else {
                 JOptionPane.showMessageDialog(this, resposta, "Falha na autenticação", JOptionPane.ERROR_MESSAGE);

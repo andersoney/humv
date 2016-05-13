@@ -1,5 +1,6 @@
 package br.edu.ufrb.lasis.humv.rest;
 
+import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.utils.HUMVConfig;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -33,7 +34,7 @@ public class RESTMethods {
 
     public static ClientResponse get(String resource) throws RESTConnectionException {
         //Exemplo de URL: "http://localhost:9090/JerseyJSONExample/rest/jsonServices/send"
-        WebResource webResource = createClient(true).resource(HUMVConfig.getVetBackendURL() + resource);
+        WebResource webResource = createClient(true).resource(getResourceURL(resource, false));
 
         ClientResponse response = webResource.accept("application/json")
                 .type("application/json").get(ClientResponse.class);
@@ -45,7 +46,7 @@ public class RESTMethods {
     }
 
     public static ClientResponse post(String resource, Object object) throws RESTConnectionException {
-        WebResource webResource = createClient(true).resource(HUMVConfig.getVetBackendURL() + resource);
+        WebResource webResource = createClient(true).resource(getResourceURL(resource, true));
 
         ClientResponse response = webResource.accept("application/json")
                 .type("application/json").post(ClientResponse.class, object);
@@ -57,7 +58,7 @@ public class RESTMethods {
     }
 
     public static ClientResponse put(String resource, Object object) throws RESTConnectionException {
-        WebResource webResource = createClient(true).resource(HUMVConfig.getVetBackendURL() + resource);
+        WebResource webResource = createClient(true).resource(getResourceURL(resource, true));
 
         ClientResponse response = webResource.accept("application/json")
                 .type("application/json").put(ClientResponse.class, object);
@@ -69,7 +70,7 @@ public class RESTMethods {
     }
 
     public static ClientResponse delete(String resource) throws RESTConnectionException {
-        WebResource webResource = createClient(true).resource(HUMVConfig.getVetBackendURL() + resource);
+        WebResource webResource = createClient(true).resource(getResourceURL(resource, true));
 
         ClientResponse response = webResource.accept("application/json")
                 .type("application/json").delete(ClientResponse.class);
@@ -98,6 +99,14 @@ public class RESTMethods {
         ObjectMapper mapper = new ObjectMapper();
         Object obj = mapper.readValue(response.getEntity(JsonNode.class), typeReference);
         return obj;
+    }
+    
+    private static String getResourceURL(String resourceName, boolean temUsername){
+        String URL =  HUMVConfig.getVetBackendURL() + resourceName;
+        if(temUsername){
+            URL = URL + "?username=" + HUMVApp.getNomeUsuario();
+        }
+        return URL;
     }
 
 }

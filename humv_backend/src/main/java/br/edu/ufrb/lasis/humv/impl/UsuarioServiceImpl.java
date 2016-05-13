@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 import br.edu.ufrb.lasis.humv.dao.UsuarioDAO;
 import br.edu.ufrb.lasis.humv.entity.Usuario;
 
@@ -32,31 +31,31 @@ public class UsuarioServiceImpl {
 		return usuarioDAO.findByEmail(email);
 	}
 
-	public String signup(Usuario usuario){
+	public String cadastrarUsuario(Usuario usuario, String usuarioResponsavel){
 		try{
 			usuarioDAO.saveUser(usuario);
-			logger.info("[signup] Usu·rio salvo com sucesso: " + usuario.getNome() + ".");
+			logger.info("[signup - " + usuarioResponsavel + "] Usu·rio salvo com sucesso: " + usuario.getNome() + ".");
 			return "OK";
 		}catch(DataIntegrityViolationException ex){
 			if(ex.getMessage().toLowerCase().contains("constraint")){
 				logger.error("[signup] E-mail j· cadastrado: " + usuario.getEmail() + ".");
-				return "Usu√°rio com e-mail " + usuario.getEmail() + " j· cadastrado no sistema. Por favor, informe um e-mail diferente.";
+				return "Usu·rio com e-mail " + usuario.getEmail() + " j· cadastrado no sistema. Por favor, informe um e-mail diferente.";
 			}else{
 				return "Erro ao conectar-se com o banco de dados.";
 			}
 		}
 	}
 
-	public String atualizarUsuario(Usuario usuario){
+	public String atualizarUsuario(Usuario usuario, String usuarioResponsavel){
 		usuarioDAO.updateUser(usuario);
-		logger.info("[atualizarUsuario] Usu·rio " + usuario.getEmail() + " atualizado com sucesso.");
+		logger.info("[atualizarUsuario - " + usuarioResponsavel + "] Usu·rio " + usuario.getEmail() + " atualizado com sucesso.");
 		return "OK";
 	}
 	
-	public String removerUsuario(@RequestParam String  email){
+	public String removerUsuario(String  email, String usuarioResponsavel){
 		Usuario usuario = usuarioDAO.findByEmail(email);
 		usuarioDAO.removeUser(usuario);
-		logger.info("[removerUsuario] Usu·rio " + usuario.getEmail() + " removido com sucesso.");
+		logger.info("[removerUsuario - " + usuarioResponsavel + "] Usu·rio " + usuario.getEmail() + " removido com sucesso.");
     	return "OK";
     }
 

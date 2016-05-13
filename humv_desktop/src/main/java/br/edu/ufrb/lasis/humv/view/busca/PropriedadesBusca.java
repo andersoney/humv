@@ -11,14 +11,12 @@ import java.awt.event.KeyListener;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 
 /**
  *
  * @author tassi
  */
-public abstract class PropriedadesBusca implements ActionListener, KeyListener, TableModelListener {
+public abstract class PropriedadesBusca implements ActionListener, KeyListener {
     
     public static final String OPCAO_VISUALIZAR = "Visualizar";
     public static final String OPCAO_ALTERAR = "Alterar";
@@ -27,7 +25,6 @@ public abstract class PropriedadesBusca implements ActionListener, KeyListener, 
     private String tipoOperacao;
     private JButton botaoBusca, botaoOperacao;
     private JTable tabelaResultado;
-    private int indexLinhaSelecionada;
     
     public PropriedadesBusca(String tipoOperacao){
         this.tipoOperacao = tipoOperacao;
@@ -54,11 +51,6 @@ public abstract class PropriedadesBusca implements ActionListener, KeyListener, 
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             buscar();
         }
-    }
-
-    @Override
-    public void tableChanged(TableModelEvent e) {
-        this.setIndexLinhaSelecionada(this.getTabelaResultado().getSelectedRow());
     }
 
     @Override
@@ -100,11 +92,7 @@ public abstract class PropriedadesBusca implements ActionListener, KeyListener, 
     }
 
     public int getIndexLinhaSelecionada() {
-        return indexLinhaSelecionada;
-    }
-
-    public void setIndexLinhaSelecionada(int indexLinhaSelecionada) {
-        this.indexLinhaSelecionada = indexLinhaSelecionada;
+        return this.getTabelaResultado().getSelectedRow();
     }
     
 }

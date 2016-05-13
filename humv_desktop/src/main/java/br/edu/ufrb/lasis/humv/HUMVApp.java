@@ -1,15 +1,15 @@
 package br.edu.ufrb.lasis.humv;
 
+import br.edu.ufrb.lasis.humv.entity.Usuario;
+import br.edu.ufrb.lasis.humv.view.main.CarregandoDialog;
 import br.edu.ufrb.lasis.humv.view.main.HUMVMainWindow;
 import br.edu.ufrb.lasis.humv.view.main.LoginDialog;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -21,8 +21,10 @@ import javax.swing.border.EmptyBorder;
  */
 public class HUMVApp {
 
-    private static JPanel mainPanel = null;
     private static HUMVMainWindow mainWindow;
+    private static JPanel mainPanel = null;
+    private static CarregandoDialog carregandoDialog = null;
+    private static String nomeUsuario;
 
     public static JPanel getMainPanelInstance() {
         if (mainPanel == null) {
@@ -32,23 +34,32 @@ public class HUMVApp {
         return mainPanel;
     }
 
-    public static JProgressBar getBarraProgressoInstance() {
-        JProgressBar barraProgresso = new JProgressBar();
-        barraProgresso.setIndeterminate(true);
-        barraProgresso.setString("Por favor, aguarde...");
-        barraProgresso.setStringPainted(true);
-        return barraProgresso;
+    private static CarregandoDialog getCarregandoDialogInstance() {
+        if (carregandoDialog == null) {
+            carregandoDialog = new CarregandoDialog(mainWindow);
+            carregandoDialog.pack();
+        }
+        return carregandoDialog;
+    }
+    
+    public static String getNomeUsuario() {
+        return nomeUsuario;
+    }
+    
+    public static void setNomeUsuario(String usuario) {
+        HUMVApp.nomeUsuario = usuario;
     }
 
     public static void setPainelCentralComLogo() {
         getMainPanelInstance().removeAll();
-        ImageIcon icon = new ImageIcon("images/humv-logo-name.png");
-        JLabel labelLogo = new JLabel(icon);
+        ImageIcon img = new ImageIcon("imagens/humv-logo-name.png");
+        JLabel labelLogo = new JLabel(img);
         labelLogo.setBorder(new EmptyBorder(30, 0, 0, 0));
         labelLogo.setHorizontalAlignment(SwingConstants.CENTER);
         getMainPanelInstance().add(labelLogo, BorderLayout.CENTER);
         getMainPanelInstance().repaint();
         getMainPanelInstance().revalidate();
+        System.gc();
     }
 
     public static void setNovoPainelCentral(JPanel panel) {
@@ -59,18 +70,15 @@ public class HUMVApp {
         getMainPanelInstance().add(outsidePanel, BorderLayout.CENTER);
         getMainPanelInstance().repaint();
         getMainPanelInstance().revalidate();
+        System.gc();
     }
 
-    public static void exibirBarraCarregamento() {
-        //getMainPanelInstance().add(getBarraProgressoInstance(), BorderLayout.PAGE_END);
-        //getMainPanelInstance().repaint();
-        //getMainPanelInstance().revalidate();
+    public static void exibirMensagemCarregamento() {
+        HUMVApp.getCarregandoDialogInstance().setVisible(true);
     }
 
-    public static void esconderBarraCarregamento() {
-        //getMainPanelInstance().remove(getBarraProgressoInstance());
-        //getMainPanelInstance().repaint();
-        //getMainPanelInstance().revalidate();
+    public static void esconderMensagemCarregamento() {
+        HUMVApp.getCarregandoDialogInstance().dispose();
     }
 
     /**
@@ -119,6 +127,9 @@ public class HUMVApp {
                 mainWindow.setResizable(false);
 
                 new LoginDialog(mainWindow).setVisible(true);
+
+                //Instanciar de início o dialog de carregando
+                HUMVApp.getCarregandoDialogInstance();
             }
         });
     }
