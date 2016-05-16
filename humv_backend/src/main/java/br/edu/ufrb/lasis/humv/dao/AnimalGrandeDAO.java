@@ -17,7 +17,7 @@ import br.edu.ufrb.lasis.humv.entity.Proprietario;
  * 
  * @author Luiz Antônio Pereira
  * 
- * @version 1
+ * @version 1.1
  * 
  * @since 16 de maio de 2016
  */
@@ -65,6 +65,10 @@ public class AnimalGrandeDAO  extends GenericDAO<AnimalGrande> implements Serial
 	@Transactional
 	public void removeLargeAnimal(AnimalGrande animal) {
 		super.delete(animal);
+	}
+	
+	public AnimalGrande findByRghumv(String rghumv) {
+		return (AnimalGrande) getCriteria().add(Restrictions.eq("rghumv", rghumv)).uniqueResult();
 	}
 
 	@Transactional

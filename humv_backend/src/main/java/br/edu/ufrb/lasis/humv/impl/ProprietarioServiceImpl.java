@@ -14,7 +14,7 @@ import br.edu.ufrb.lasis.humv.entity.Proprietario;
  *  
  *  @author Luiz Antônio Pereira
  *  
- *  @version 1
+ *  @version 1.1
  *  
  *  @since 15 de maio de 2016
  * */
@@ -47,7 +47,7 @@ public class ProprietarioServiceImpl {
 			}catch(DataIntegrityViolationException ex){
 				if(ex.getMessage().toLowerCase().contains("constraint")){
 					logger.error("[signup] CPF j� cadastrado: " + proprietario.getCpf() + ".");
-					return "Proprietário com CPF " + proprietario.getCpf() + " j� cadastrado no sistema. Por favor, informe um e-mail diferente.";
+					return "Proprietário com CPF " + proprietario.getCpf() + " j� cadastrado no sistema. Por favor, informe um CPF diferente.";
 				}else{
 					return "Erro ao conectar-se com o banco de dados.";
 				}
@@ -71,7 +71,7 @@ public class ProprietarioServiceImpl {
 			return proprietarioDAO;
 		}
 
-		public void setUsuarioDAO(ProprietarioDAO proprietarioDAO) {
+		public void setProprietarioDAO(ProprietarioDAO proprietarioDAO) {
 			this.proprietarioDAO = proprietarioDAO;
 		}
 }

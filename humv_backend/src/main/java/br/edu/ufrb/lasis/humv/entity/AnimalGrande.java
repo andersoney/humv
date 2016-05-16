@@ -3,16 +3,17 @@ package br.edu.ufrb.lasis.humv.entity;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**Entidade que modela informações de animais de pequeno porte.
+/**Entidade que modela informações de animais de grande porte.
  * A diferença entre um animal de pequeno e grande porte é a ausencia do campo 'pelagem' nesta entidade.
  * 
  * Ver requisito R003 em {@link https://docs.google.com/document/d/1plQtd_M9Qg4SAR9AH0MDhJac_dL5KciqMtWlCBimTDo}
  *  
  *  @author Luiz Antônio Pereira
  *  
- *  @version 1
+ *  @version 1.1
  *  
  *  @since 15 de maio de 2016
  * */
@@ -23,13 +24,14 @@ import javax.persistence.Table;
 public class AnimalGrande implements Serializable{
 	private static final long serialVersionUID = -4309147069247595796L;
 	
+	@Id
+	private String rghumv; // RGHUMV é um número de registro próprio do hospital veterinário.
 	private String nome;
 	private String especie;
 	private String raca;
 	private char sexo; // M = macho, F = femêa
 	private int idade;
 	private double peso;
-	private String rghumv; // RGHUMV é um número de registro próprio do hospital veterinário.
 	private String cpfProprietario; // Relacionamento entre animal e proprietario.
 
 	

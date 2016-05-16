@@ -17,7 +17,7 @@ import br.edu.ufrb.lasis.humv.entity.Proprietario;
  * 
  * @author Luiz Antônio Pereira
  * 
- * @version 1
+ * @version 1.1
  * 
  * @since 16 de maio de 2016
  */
@@ -65,6 +65,10 @@ public class AnimalPequenoDAO  extends GenericDAO<AnimalPequeno> implements Seri
 	@Transactional
 	public void removeLargeAnimal(AnimalPequeno animal) {
 		super.delete(animal);
+	}
+	
+	public AnimalPequeno findByRghumv(String rghumv) {
+		return (AnimalPequeno) getCriteria().add(Restrictions.eq("rghumv", rghumv)).uniqueResult();
 	}
 
 	@Transactional

@@ -17,7 +17,7 @@ import br.edu.ufrb.lasis.humv.impl.ProprietarioServiceImpl;
  *  
  *  @author Luiz Antônio Pereira
  *  
- *  @version 1
+ *  @version 1.1
  *  
  *  @since 15 de maio de 2016
  * */
@@ -26,8 +26,6 @@ import br.edu.ufrb.lasis.humv.impl.ProprietarioServiceImpl;
 @RequestMapping(value = "/api/proprietario")
 @Secured("ROLE_ADMIN")
 public class ProprietarioService {
-	
-		public class UsuarioService {
 		
 		@Autowired
 		private ProprietarioServiceImpl proprietarioServiceImpl;
@@ -63,7 +61,6 @@ public class ProprietarioService {
 
 		public void setProprietarioServiceImpl(ProprietarioServiceImpl proprietarioServiceImpl) {
 			this.proprietarioServiceImpl = proprietarioServiceImpl;
-		}
 
-	}
+		}
 }
