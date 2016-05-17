@@ -26,8 +26,8 @@ public class UsuarioService {
     	return usuarioServiceImpl.getAll(); 
     }
     
-    @RequestMapping(method = RequestMethod.GET, value = "/{email}")
-    public Usuario findById(@PathVariable String email){
+    @RequestMapping(method = RequestMethod.GET, value = "/{email:.*}")
+    public Usuario findById(@PathVariable final String email){
     	return usuarioServiceImpl.findById(email);
     }
     
@@ -41,8 +41,8 @@ public class UsuarioService {
     	return usuarioServiceImpl.atualizarUsuario(usuario, username);
     }
     
-    @RequestMapping(method = RequestMethod.DELETE, value = "/{email}")
-    public String removerUsuario(@PathVariable String  email, @RequestParam(value="username") String  username){
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{email:.*}")
+    public String removerUsuario(@PathVariable final String email, @RequestParam(value="username") String  username){
     	return usuarioServiceImpl.removerUsuario(email, username);
     }
     

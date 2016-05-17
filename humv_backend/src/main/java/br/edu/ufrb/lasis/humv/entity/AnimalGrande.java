@@ -22,6 +22,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="ANIMAIS_GRANDES")
 public class AnimalGrande implements Serializable{
+	
 	private static final long serialVersionUID = -4309147069247595796L;
 	
 	@Id
@@ -32,56 +33,70 @@ public class AnimalGrande implements Serializable{
 	private char sexo; // M = macho, F = femêa
 	private int idade;
 	private double peso;
-	private String cpfProprietario; // Relacionamento entre animal e proprietario.
+	private String cpfDono; // Relacionamento entre animal e proprietario.
 
-	
-	
-	public String getCpfProprietario() {
-		return cpfProprietario;
-	}
-	public void setCpfProprietario(Proprietario proprietario) {
-		cpfProprietario = proprietario.getCpf();
-	}
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
 	public String getRghumv() {
 		return rghumv;
 	}
+
 	public void setRghumv(String rghumv) {
 		this.rghumv = rghumv;
 	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
 	public String getEspecie() {
 		return especie;
 	}
+
 	public void setEspecie(String especie) {
 		this.especie = especie;
 	}
+
 	public String getRaca() {
 		return raca;
 	}
+
 	public void setRaca(String raca) {
 		this.raca = raca;
 	}
+
 	public char getSexo() {
 		return sexo;
 	}
+
 	public void setSexo(char sexo) {
 		this.sexo = sexo;
 	}
+
 	public int getIdade() {
 		return idade;
 	}
+
 	public void setIdade(int idade) {
 		this.idade = idade;
 	}
+
 	public double getPeso() {
 		return peso;
 	}
+
 	public void setPeso(double peso) {
 		this.peso = peso;
 	}
+
+	public String getCpfDono() {
+		return cpfDono;
+	}
+
+	public void setCpfDono(String cpfDono) {
+		this.cpfDono = cpfDono;
+	}
+
 }

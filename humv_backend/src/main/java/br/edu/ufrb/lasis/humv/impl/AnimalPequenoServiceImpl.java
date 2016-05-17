@@ -23,6 +23,7 @@ import br.edu.ufrb.lasis.humv.entity.AnimalPequeno;
 
 @Service
 public class AnimalPequenoServiceImpl {
+	
 	private final static Logger logger = LoggerFactory.getLogger(AnimalPequenoServiceImpl.class);
 
 	@Autowired
@@ -76,4 +77,5 @@ public class AnimalPequenoServiceImpl {
 	public void setAnimalPequenoDAO(AnimalPequenoDAO animalPequenoDAO) {
 		this.animalPequenoDAO = animalPequenoDAO;
 	}
+	
 }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import br.edu.ufrb.lasis.humv.entity.Proprietario;
+import br.edu.ufrb.lasis.humv.entity.Dono;
 import br.edu.ufrb.lasis.humv.impl.ProprietarioServiceImpl;
 
 /** Serviço para cadastro,atualização e remoção de proprietários de animais.
@@ -31,22 +31,22 @@ public class ProprietarioService {
 		private ProprietarioServiceImpl proprietarioServiceImpl;
 	    
 	    @RequestMapping
-	    public List<Proprietario> getAll(){
+	    public List<Dono> getAll(){
 	    	return proprietarioServiceImpl.getAll(); 
 	    }
 	    
 	    @RequestMapping(method = RequestMethod.GET, value = "/{cpf}")
-	    public Proprietario findById(@PathVariable String cpf){
+	    public Dono findById(@PathVariable String cpf){
 	    	return proprietarioServiceImpl.findById(cpf);
 	    }
 	    
 	    @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
-	    public String cadastrarProprietario(@RequestBody Proprietario proprietario, @RequestParam(value="username") String  username){
+	    public String cadastrarProprietario(@RequestBody Dono proprietario, @RequestParam(value="username") String  username){
 	    	return proprietarioServiceImpl.cadastrarProprietario(proprietario, username);
 	    }
 	    
 	    @RequestMapping(method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
-	    public String atualizarProprietario(@RequestBody Proprietario proprietario, @RequestParam(value="username") String  username){
+	    public String atualizarProprietario(@RequestBody Dono proprietario, @RequestParam(value="username") String  username){
 	    	return proprietarioServiceImpl.atualizarProprietario(proprietario, username);
 	    }
 	    

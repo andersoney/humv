@@ -8,9 +8,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import br.edu.ufrb.lasis.humv.entity.AnimalGrande;
-import br.edu.ufrb.lasis.humv.entity.Proprietario;
+import br.edu.ufrb.lasis.humv.entity.Dono;
 
 /**
  * The Class representing the data access for Large animal objects.
@@ -21,7 +22,7 @@ import br.edu.ufrb.lasis.humv.entity.Proprietario;
  * 
  * @since 16 de maio de 2016
  */
-
+@Repository
 public class AnimalGrandeDAO  extends GenericDAO<AnimalGrande> implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -73,7 +74,7 @@ public class AnimalGrandeDAO  extends GenericDAO<AnimalGrande> implements Serial
 
 	@Transactional
 	@SuppressWarnings("unchecked")
-	public List<AnimalGrande> findByProprietario(Proprietario proprietario) {
+	public List<AnimalGrande> findByProprietario(Dono proprietario) {
 		String cpf = proprietario.getNome();
 		Criteria criteria = getCriteria().add(Restrictions.ilike("proprietario", "%" + cpf + "%"));
 		criteria.addOrder(Order.asc("nome"));

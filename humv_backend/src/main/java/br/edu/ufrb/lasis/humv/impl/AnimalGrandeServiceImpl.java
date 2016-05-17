@@ -23,6 +23,7 @@ import br.edu.ufrb.lasis.humv.entity.AnimalGrande;
 
 @Service
 public class AnimalGrandeServiceImpl {
+	
 	private final static Logger logger = LoggerFactory.getLogger(AnimalGrandeServiceImpl.class);
 
 	@Autowired

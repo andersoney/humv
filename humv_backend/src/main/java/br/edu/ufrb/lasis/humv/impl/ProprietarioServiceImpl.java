@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-import br.edu.ufrb.lasis.humv.dao.ProprietarioDAO;
-import br.edu.ufrb.lasis.humv.entity.Proprietario;
+import br.edu.ufrb.lasis.humv.dao.DonoDAO;
+import br.edu.ufrb.lasis.humv.entity.Dono;
 
 /** Implementação do serviço para cadastro,atualização e remoção de proprietários de animais.
  *  
@@ -24,22 +24,22 @@ public class ProprietarioServiceImpl {
 	private final static Logger logger = LoggerFactory.getLogger(ProprietarioServiceImpl.class);
 
 		@Autowired
-		private ProprietarioDAO proprietarioDAO;
+		private DonoDAO proprietarioDAO;
 
-		public List<Proprietario> getAll(){
+		public List<Dono> getAll(){
 			try {
 				return proprietarioDAO.findAll();
 			} catch (Exception e) {
 				e.printStackTrace();
-				return new ArrayList<Proprietario>();
+				return new ArrayList<Dono>();
 			}
 		}
 
-		public Proprietario findById(String cpf){
+		public Dono findById(String cpf){
 			return proprietarioDAO.findByCpf(cpf);
 		}
 
-		public String cadastrarProprietario(Proprietario proprietario, String usuarioResponsavel){
+		public String cadastrarProprietario(Dono proprietario, String usuarioResponsavel){
 			try{
 				proprietarioDAO.saveOwner(proprietario);
 				logger.info("[signup - " + usuarioResponsavel + "] Proprietário salvo com sucesso: " + proprietario.getNome() + ".");
@@ -54,24 +54,24 @@ public class ProprietarioServiceImpl {
 			}
 		}
 
-		public String atualizarProprietario(Proprietario proprietario, String usuarioResponsavel){
+		public String atualizarProprietario(Dono proprietario, String usuarioResponsavel){
 			proprietarioDAO.updateOwner(proprietario);
 			logger.info("[atualizarProprietario - " + usuarioResponsavel + "] Proprietario " + proprietario.getCpf() + " atualizado com sucesso.");
 			return "OK";
 		}
 		
 		public String removerProprietario(String  cpf, String usuarioResponsavel){
-			Proprietario proprietario = proprietarioDAO.findByCpf(cpf);
+			Dono proprietario = proprietarioDAO.findByCpf(cpf);
 			proprietarioDAO.removeOwner(proprietario);
 			logger.info("[removerProprietario - " + usuarioResponsavel + "] Proprietario " + proprietario.getCpf() + " removido com sucesso.");
 	    	return "OK";
 	    }
 
-		public ProprietarioDAO getProprietarioDAO() {
+		public DonoDAO getProprietarioDAO() {
 			return proprietarioDAO;
 		}
 
-		public void setProprietarioDAO(ProprietarioDAO proprietarioDAO) {
+		public void setProprietarioDAO(DonoDAO proprietarioDAO) {
 			this.proprietarioDAO = proprietarioDAO;
 		}
 }

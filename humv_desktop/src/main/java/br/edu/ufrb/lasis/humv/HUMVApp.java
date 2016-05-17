@@ -1,11 +1,15 @@
 package br.edu.ufrb.lasis.humv;
 
 import br.edu.ufrb.lasis.humv.entity.Usuario;
+import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
+import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.view.main.CarregandoDialog;
 import br.edu.ufrb.lasis.humv.view.main.HUMVMainWindow;
 import br.edu.ufrb.lasis.humv.view.main.LoginDialog;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -86,52 +90,58 @@ public class HUMVApp {
      */
     public static void main(String args[]) {
 
-        /*try {
+        try {
+            /*try {
             ClientResponse response = RESTMethods.get("/api/hello");
             
             //Opção 1: para recuperar uma lista de objetos
             List<Hello> list = (List<Hello>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Hello>>(){});
             for(int i=0; i < list.size(); i++){
-                Hello hello = (Hello) list.get(i);
-                System.out.println("Text: " + hello.getContent());
+            Hello hello = (Hello) list.get(i);
+            System.out.println("Text: " + hello.getContent());
             }
             
             //Opção 2: para retornar um objeto único
             //String output = response.getEntity(String.class);
-        
-        } catch (IOException ex) {
+            
+            } catch (IOException ex) {
             ex.printStackTrace();
-        }
-        
-        Usuario usuario = new Usuario();
-        usuario.setNome("Tassio");
-        usuario.setSiape(2126496);
-        ClientResponse response;
-        try {
+            }
+            
+            Usuario usuario = new Usuario();
+            usuario.setNome("Tassio");
+            usuario.setSiape(2126496);
+            ClientResponse response;
+            try {
             response = RESTMethods.post("/api/usuario", usuario);
             String resposta = response.getEntity(String.class);
+            } catch (RESTConnectionException ex) {
+            Logger.getLogger(HUMVApp.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+            try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(HUMVMainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+            
+            mainWindow = new HUMVMainWindow();
+            mainWindow.setVisible(true);
+            mainWindow.setExtendedState(mainWindow.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+            mainWindow.setResizable(false);
+            
+            new LoginDialog(mainWindow).setVisible(true);
+            
+            //Instanciar de início o dialog de carregando
+            HUMVApp.getCarregandoDialogInstance();
+            }
+            });*/
+            HUMVApp.setNomeUsuario("humv");
+            RESTMethods.delete("/api/usuario", "tassio.vale@gmail.com");
         } catch (RESTConnectionException ex) {
             Logger.getLogger(HUMVApp.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-                    java.util.logging.Logger.getLogger(HUMVMainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-                }
-
-                mainWindow = new HUMVMainWindow();
-                mainWindow.setVisible(true);
-                mainWindow.setExtendedState(mainWindow.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-                mainWindow.setResizable(false);
-
-                new LoginDialog(mainWindow).setVisible(true);
-
-                //Instanciar de início o dialog de carregando
-                HUMVApp.getCarregandoDialogInstance();
-            }
-        });
+        }
     }
 
 }

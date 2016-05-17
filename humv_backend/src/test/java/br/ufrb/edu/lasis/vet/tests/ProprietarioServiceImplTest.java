@@ -1,7 +1,7 @@
 package br.ufrb.edu.lasis.vet.tests;
 
 import static org.junit.Assert.*;
-import br.edu.ufrb.lasis.humv.entity.Proprietario;
+import br.edu.ufrb.lasis.humv.entity.Dono;
 import br.edu.ufrb.lasis.humv.impl.ProprietarioServiceImpl;
 
 import org.junit.Test;
@@ -25,7 +25,7 @@ public class ProprietarioServiceImplTest {
 		
 		String resultadoEsperado = "Ok";
 		
-		Proprietario proprietario = new Proprietario();
+		Dono proprietario = new Dono();
 		proprietario.setNome("José Silva");
 		proprietario.setCpf("000.111.222-33");
 		proprietario.setCep("44380-000");

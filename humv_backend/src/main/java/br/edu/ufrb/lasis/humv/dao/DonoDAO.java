@@ -10,7 +10,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import br.edu.ufrb.lasis.humv.entity.Proprietario;
+import br.edu.ufrb.lasis.humv.entity.Dono;
 
 /**
  * The Class representing the data access for Animal owner objects.
@@ -22,7 +22,7 @@ import br.edu.ufrb.lasis.humv.entity.Proprietario;
  * @since 16 de maio de 2016
  */
 @Repository
-public class ProprietarioDAO extends GenericDAO<Proprietario> implements Serializable{
+public class DonoDAO extends GenericDAO<Dono> implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
@@ -40,7 +40,7 @@ public class ProprietarioDAO extends GenericDAO<Proprietario> implements Seriali
 	 *            the Animal owner to be saved
 	 */
 	@Transactional
-	public void saveOwner(Proprietario proprietario) {
+	public void saveOwner(Dono proprietario) {
 		super.save(proprietario);
 	}
 
@@ -51,7 +51,7 @@ public class ProprietarioDAO extends GenericDAO<Proprietario> implements Seriali
 	 *            the Animal owner to be updated
 	 */
 	@Transactional
-	public void updateOwner(Proprietario proprietario) {
+	public void updateOwner(Dono proprietario) {
 		super.update(proprietario);
 	}
 
@@ -62,7 +62,7 @@ public class ProprietarioDAO extends GenericDAO<Proprietario> implements Seriali
 	 *            the Animal owner to be removed
 	 */
 	@Transactional
-	public void removeOwner(Proprietario proprietario) {
+	public void removeOwner(Dono proprietario) {
 		super.delete(proprietario);
 	}
 
@@ -74,14 +74,16 @@ public class ProprietarioDAO extends GenericDAO<Proprietario> implements Seriali
 	 * @return the resulting owner
 	 */
 	
-	public Proprietario findByCpf(String cpf) {
-		return (Proprietario) getCriteria().add(Restrictions.eq("cpf", cpf)).uniqueResult();
+	public Dono findByCpf(String cpf) {
+		return (Dono) getCriteria().add(Restrictions.eq("cpf", cpf)).uniqueResult();
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Proprietario> findByNome(String nome){
+	public List<Dono> findByNome(String nome){
 		Criteria criteria = getCriteria().add(Restrictions.ilike("nome", "%" + nome + "%"));
-		criteria.addOrder(Order.asc("nome"));//?? Perguntar a Tassio se realmente deve ser "nome" ou n√£o seria nome 
-		return (List<Proprietario>) criteria.list();
+		criteria.addOrder(Order.asc("nome"));
+		//?? Perguntar a Tassio se realmente deve ser "nome" ou n√£o seria nome
+		//R: … "nome", pois se refere ao nome da coluna da tabela no banco de dados, e n„o ‡ vari·vel String nome
+		return (List<Dono>) criteria.list();
 	}
 }

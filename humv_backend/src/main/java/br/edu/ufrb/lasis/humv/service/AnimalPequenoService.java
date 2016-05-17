@@ -25,8 +25,8 @@ import br.edu.ufrb.lasis.humv.impl.AnimalPequenoServiceImpl;
 @RestController
 @RequestMapping(value = "/api/animalPequeno")
 @Secured("ROLE_ADMIN")
-
 public class AnimalPequenoService {
+	
 	@Autowired
 	private AnimalPequenoServiceImpl animalPequenoServiceImpl;
     

@@ -69,8 +69,8 @@ public class PropriedadesBuscaUsuario extends PropriedadesBusca {
                     HUMVApp.setNovoPainelCentral(painelCadastrarUsuario);
                 } else if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_REMOVER)) {
                     try {
-                        System.out.println("/api/usuario/" + URLEncoder.encode(usuarioSelecionado.getEmail(), "UTF-8"));
-                        ClientResponse response = RESTMethods.delete("/api/usuario/" + URLEncoder.encode(usuarioSelecionado.getEmail(), "UTF-8"));
+                        System.out.println("/api/usuario/" + usuarioSelecionado.getEmail());
+                        ClientResponse response = RESTMethods.delete("/api/usuario", usuarioSelecionado.getEmail());
       
                         String resposta = response.getEntity(String.class);
                         if (resposta.equals("OK")) {
@@ -79,7 +79,7 @@ public class PropriedadesBuscaUsuario extends PropriedadesBusca {
                         } else {
                             JOptionPane.showMessageDialog(super.getTabelaResultado(), resposta, "Erro", JOptionPane.ERROR_MESSAGE);
                         }
-                    } catch (RESTConnectionException | UnsupportedEncodingException ex) {
+                    } catch (RESTConnectionException ex) {
                         JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
                         ex.printStackTrace();
                     }

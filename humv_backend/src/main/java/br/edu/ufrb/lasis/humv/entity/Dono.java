@@ -16,8 +16,10 @@ import javax.persistence.Table;
  * */
 @Entity
 @Table(name="PROPRIETARIOS")
-public class Proprietario implements Serializable {
+public class Dono implements Serializable {
+	
 	private static final long serialVersionUID = -6125748157292589614L;
+	
 	@Id
 	private String cpf;
 	private String nome;
@@ -25,48 +27,63 @@ public class Proprietario implements Serializable {
 	private String estado;
 	private String cep;
 	private String telefone;
-	private String cidade; // Obs.: pode ser uma fazenda ou distrito em caso de zona rural.
 	
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+	private String cidade; // Obs.: pode ser uma fazenda ou distrito em caso de zona rural.
+
 	public String getCpf() {
 		return cpf;
 	}
+
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
 	public String getEndereco() {
 		return endereco;
 	}
+
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
+
 	public String getEstado() {
 		return estado;
 	}
+
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+
 	public String getCep() {
 		return cep;
 	}
+
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
+
 	public String getTelefone() {
 		return telefone;
 	}
+
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
+
 	public String getCidade() {
 		return cidade;
 	}
+
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
+	
 }

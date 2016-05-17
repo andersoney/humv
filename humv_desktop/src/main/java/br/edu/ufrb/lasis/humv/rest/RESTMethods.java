@@ -60,8 +60,7 @@ public class RESTMethods {
     public static ClientResponse put(String resource, Object object) throws RESTConnectionException {
         WebResource webResource = createClient(true).resource(getResourceURL(resource, true));
 
-        ClientResponse response = webResource.accept("application/json")
-                .type("application/json").put(ClientResponse.class, object);
+        ClientResponse response = webResource.accept("application/json").put(ClientResponse.class, object);
 
         if (response.getStatus() != 200) {
             throw new RESTConnectionException(response, "Erro: código HTTP - " + response.getStatus());
@@ -69,11 +68,10 @@ public class RESTMethods {
         return response;
     }
 
-    public static ClientResponse delete(String resource) throws RESTConnectionException {
+    public static ClientResponse delete(String resource, String path) throws RESTConnectionException {
         WebResource webResource = createClient(true).resource(getResourceURL(resource, true));
 
-        ClientResponse response = webResource.accept("application/json")
-                .type("application/json").delete(ClientResponse.class);
+        ClientResponse response = webResource.path("/"+path).delete(ClientResponse.class);
 
         if (response.getStatus() != 200) {
             throw new RESTConnectionException(response, "Erro: código HTTP - " + response.getStatus());

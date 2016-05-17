@@ -17,13 +17,16 @@ import javax.persistence.Table;
 @Entity
 @Table(name="ANIMAIS_PEQUENOS")
 public class AnimalPequeno extends AnimalGrande{
-	private static final long serialVersionUID = 643128194360002867L;
 	
+	private static final long serialVersionUID = 643128194360002867L;
 	private String pelagem;
+	
 	public String getPelagem() {
 		return pelagem;
 	}
+	
 	public void setPelagem(String pelagem) {
 		this.pelagem = pelagem;
 	}
+	
 }
