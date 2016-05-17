@@ -81,7 +81,7 @@ public class ProprietarioDAO extends GenericDAO<Proprietario> implements Seriali
 	@SuppressWarnings("unchecked")
 	public List<Proprietario> findByNome(String nome){
 		Criteria criteria = getCriteria().add(Restrictions.ilike("nome", "%" + nome + "%"));
-		criteria.addOrder(Order.asc("nome"));
+		criteria.addOrder(Order.asc("nome"));//?? Perguntar a Tassio se realmente deve ser "nome" ou não seria nome 
 		return (List<Proprietario>) criteria.list();
 	}
 }
