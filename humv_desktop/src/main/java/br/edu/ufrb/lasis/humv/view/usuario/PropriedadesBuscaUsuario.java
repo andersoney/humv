@@ -13,8 +13,6 @@ import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.codehaus.jackson.type.TypeReference;
@@ -69,9 +67,7 @@ public class PropriedadesBuscaUsuario extends PropriedadesBusca {
                     HUMVApp.setNovoPainelCentral(painelCadastrarUsuario);
                 } else if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_REMOVER)) {
                     try {
-                        System.out.println("/api/usuario/" + usuarioSelecionado.getEmail());
                         ClientResponse response = RESTMethods.delete("/api/usuario", usuarioSelecionado.getEmail());
-      
                         String resposta = response.getEntity(String.class);
                         if (resposta.equals("OK")) {
                             JOptionPane.showMessageDialog(super.getTabelaResultado(), "Usuário removido com sucesso", "Remoção de usuário", JOptionPane.PLAIN_MESSAGE);

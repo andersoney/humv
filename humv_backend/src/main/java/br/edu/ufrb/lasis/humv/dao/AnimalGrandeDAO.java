@@ -68,6 +68,7 @@ public class AnimalGrandeDAO  extends GenericDAO<AnimalGrande> implements Serial
 		super.delete(animal);
 	}
 	
+	@Transactional
 	public AnimalGrande findByRghumv(String rghumv) {
 		return (AnimalGrande) getCriteria().add(Restrictions.eq("rghumv", rghumv)).uniqueResult();
 	}

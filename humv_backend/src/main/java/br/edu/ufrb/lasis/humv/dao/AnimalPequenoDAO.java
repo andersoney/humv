@@ -68,6 +68,7 @@ public class AnimalPequenoDAO  extends GenericDAO<AnimalPequeno> implements Seri
 		super.delete(animal);
 	}
 	
+	@Transactional
 	public AnimalPequeno findByRghumv(String rghumv) {
 		return (AnimalPequeno) getCriteria().add(Restrictions.eq("rghumv", rghumv)).uniqueResult();
 	}

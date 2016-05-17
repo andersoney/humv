@@ -89,22 +89,26 @@ public class UsuarioDAO extends GenericDAO<Usuario> implements Serializable{
 		return (Usuario) criteria.uniqueResult();
 	}
 
+	@Transactional
 	public Usuario findBySiape(int siape) {
 		return (Usuario) getCriteria().add(Restrictions.eq("siape", siape)).uniqueResult();
 	}
 	
 	@SuppressWarnings("unchecked")
+	@Transactional
 	public List<Usuario> findByEmailList(String email){
 		Criteria criteria = getCriteria().add(Restrictions.ilike("email", "%" + email + "%"));
 		criteria.addOrder(Order.asc("nome"));
 		return (List<Usuario>) criteria.list();
 	}
 	
+	@Transactional
 	public Usuario findByEmail(String email) {
 		return (Usuario) getCriteria().add(Restrictions.eq("email", email)).uniqueResult();
 	}
 	
 	@SuppressWarnings("unchecked")
+	@Transactional
 	public List<Usuario> findByNome(String nome){
 		Criteria criteria = getCriteria().add(Restrictions.ilike("nome", "%" + nome + "%"));
 		criteria.addOrder(Order.asc("nome"));
