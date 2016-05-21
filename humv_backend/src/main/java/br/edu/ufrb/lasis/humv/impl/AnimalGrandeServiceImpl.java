@@ -15,7 +15,7 @@ import br.edu.ufrb.lasis.humv.entity.AnimalGrande;
  *  
  *  @author Luiz Antônio Pereira
  *  
- *  @version 1
+ *  @version 1.1
  *  
  *  @since 16 de maio de 2016
  * */
@@ -58,12 +58,22 @@ public class AnimalGrandeServiceImpl {
 	}
 
 	public String atualizarAnimalGrande(AnimalGrande animalGrande, String usuarioResponsavel){
+		if(animalGrandeDAO.findByRghumv(animalGrande.getRghumv())==null){
+			logger.error("[signup] Nenhum animal grande com o RGHUMV " + animalGrande.getRghumv() + "foi encontrado no sistema.");
+			return "Nenhum animal grande com o RGHUMV " + animalGrande.getRghumv() + " encontrado no sistema. Por favor, informe um RGHUMV diferente.";
+
+		}
 		animalGrandeDAO.updateLargeAnimal(animalGrande);
 		logger.info("[atualizarAnimalGrande - " + usuarioResponsavel + "] Animal Grande " + animalGrande.getRghumv() + " atualizado com sucesso.");
 		return "OK";
 	}
 	
 	public String removerAnimalGrande(String  rghumv, String usuarioResponsavel){
+		if(animalGrandeDAO.findByRghumv(rghumv)==null){
+			logger.error("[signup] Nenhum animal grande com o RGHUMV " + rghumv + "foi encontrado no sistema.");
+			return "Nenhum animal grande com o RGHUMV " + rghumv + " encontrado no sistema. Por favor, informe um RGHUMV diferente.";
+
+		}
 		AnimalGrande animalGrande = animalGrandeDAO.findByRghumv(rghumv);
 		animalGrandeDAO.removeLargeAnimal(animalGrande);
 		logger.info("[removerAnimalGrande - " + usuarioResponsavel + "] Animal Grande " + animalGrande.getRghumv() + " removido com sucesso.");

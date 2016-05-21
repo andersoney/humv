@@ -42,18 +42,18 @@ public class AnimalPequenoDAO  extends GenericDAO<AnimalPequeno> implements Seri
 	 *            the small animal to be saved
 	 */
 	@Transactional
-	public void saveLargeAnimal(AnimalPequeno animal) {
+	public void saveSmallAnimal(AnimalPequeno animal) {
 		super.save(animal);
 	}
 
 	/**
 	 * Updates a small animal in the database.
-	 *
+	 * 
 	 * @param animal
 	 *            the small animal to be updated
 	 */
 	@Transactional
-	public void updateLargeAnimal(AnimalPequeno animal) {
+	public void updateSmallAnimal(AnimalPequeno animal) {
 		super.update(animal);
 	}
 
@@ -64,7 +64,7 @@ public class AnimalPequenoDAO  extends GenericDAO<AnimalPequeno> implements Seri
 	 *            the small animal to be removed
 	 */
 	@Transactional
-	public void removeLargeAnimal(AnimalPequeno animal) {
+	public void removeSmallAnimal(AnimalPequeno animal) {
 		super.delete(animal);
 	}
 	
