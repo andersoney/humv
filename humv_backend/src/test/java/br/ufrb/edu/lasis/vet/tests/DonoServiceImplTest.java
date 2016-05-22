@@ -1,8 +1,8 @@
 package br.ufrb.edu.lasis.vet.tests;
 
 import static org.junit.Assert.*;
-import br.edu.ufrb.lasis.humv.entity.Dono;
-import br.edu.ufrb.lasis.humv.impl.ProprietarioServiceImpl;
+//import br.edu.ufrb.lasis.humv.entity.Dono;
+//import br.edu.ufrb.lasis.humv.impl.DonoServiceImpl;
 
 import org.junit.Test;
 
@@ -16,11 +16,11 @@ import org.junit.Test;
  * */
 
 
-public class ProprietarioServiceImplTest {
+public class DonoServiceImplTest {
 	
 	
 	@Test
-	public void testCadastrarNovoProprietario(){
+	public void testCadastrarNovoDono(){
 		/*ProprietarioServiceImpl proprietarioServiceImpl = new ProprietarioServiceImpl();
 		
 		String resultadoEsperado = "Ok";

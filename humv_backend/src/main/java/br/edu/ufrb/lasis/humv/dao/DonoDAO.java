@@ -83,7 +83,7 @@ public class DonoDAO extends GenericDAO<Dono> implements Serializable{
 		Criteria criteria = getCriteria().add(Restrictions.ilike("nome", "%" + nome + "%"));
 		criteria.addOrder(Order.asc("nome"));
 		//?? Perguntar a Tassio se realmente deve ser "nome" ou nÃ£o seria nome
-		//R: É "nome", pois se refere ao nome da coluna da tabela no banco de dados, e não à variável String nome
+		//R: "nome", pois se refere ao nome da coluna da tabela no banco de dados, e nï¿½o ï¿½ variï¿½vel String nome
 		return (List<Dono>) criteria.list();
 	}
 }
