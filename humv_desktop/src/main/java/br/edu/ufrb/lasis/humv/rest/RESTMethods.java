@@ -35,7 +35,6 @@ public class RESTMethods {
     public static ClientResponse get(String resource) throws RESTConnectionException {
         //Exemplo de URL: "http://localhost:9090/JerseyJSONExample/rest/jsonServices/send"
         WebResource webResource = createClient(true).resource(getResourceURL(resource, false));
-
         ClientResponse response = webResource.accept("application/json")
                 .type("application/json").get(ClientResponse.class);
 

@@ -6,6 +6,7 @@
 package br.edu.ufrb.lasis.humv.view.menufactory;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
+import br.edu.ufrb.lasis.humv.Projeto.CadastroAnimals;
 import br.edu.ufrb.lasis.humv.view.busca.BuscaPanel;
 import br.edu.ufrb.lasis.humv.view.usuario.CadastrarUsuarioPanel;
 import br.edu.ufrb.lasis.humv.view.usuario.PropriedadesBuscaUsuario;
@@ -22,6 +23,9 @@ public class FabricaMenuAdministrador extends MenuBarFabricaAbstrata {
 
     private JMenu menuUsuario;
     private JMenuItem menuItemCadastroUsuario, menuItemBuscaUsuario, menuItemAlteracaoUsuario, menuItemRemocaoUsuario, menuItemSair, menuItemSobre;
+
+    private JMenu menuCadastro;
+    private JMenuItem  cadastroAnimal;
 
     public FabricaMenuAdministrador(JPanel mainPanel) {
         super(mainPanel);
@@ -46,7 +50,7 @@ public class FabricaMenuAdministrador extends MenuBarFabricaAbstrata {
         menuItemRemocaoUsuario = new JMenuItem("Remoção");
         menuItemRemocaoUsuario.addActionListener(this);
         menuUsuario.add(menuItemRemocaoUsuario);
-        
+
         menuUsuario.addSeparator();
 
         menuItemSair = new JMenuItem("Sair");
@@ -54,6 +58,15 @@ public class FabricaMenuAdministrador extends MenuBarFabricaAbstrata {
         menuUsuario.add(menuItemSair);
 
         getMenuBar().add(menuUsuario);
+
+        menuCadastro = new JMenu("Cadastro");
+        menuCadastro.setMnemonic('C');
+        cadastroAnimal = new JMenuItem("Cadastro do animal");
+        cadastroAnimal.setMnemonic('C');
+        cadastroAnimal.addActionListener(this);
+        menuCadastro.add(cadastroAnimal);
+
+        getMenuBar().add(menuCadastro);
 
         super.criaMenuAjuda();
     }
@@ -72,6 +85,8 @@ public class FabricaMenuAdministrador extends MenuBarFabricaAbstrata {
 
         } else if (e.getSource().equals(menuItemSobre)) {
 
+        } else if (e.getSource().equals(cadastroAnimal)) {
+            HUMVApp.setNovoPainelCentral(new CadastroAnimals(null));
         }
     }
 
