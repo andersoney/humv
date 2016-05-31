@@ -1,10 +1,13 @@
 package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**Entidade que modela informações de animais de grande porte.
  * A diferença entre um animal de pequeno e grande porte é a ausencia do campo 'pelagem' nesta entidade.
@@ -13,7 +16,7 @@ import javax.persistence.Table;
  *  
  *  @author Luiz Antônio Pereira
  *  
- *  @version 1.1
+ *  @version 1.2
  *  
  *  @since 15 de maio de 2016
  * */
@@ -34,6 +37,9 @@ public class AnimalGrande implements Serializable{
 	private int idade;
 	private double peso;
 	private String cpfDono; // Relacionamento entre animal e proprietario.
+	
+	@Temporal(TemporalType.DATE)
+	private Date dataCadastro; // Data que o animal foi cadastrado no sistema.
 
 	public String getRghumv() {
 		return rghumv;
@@ -98,5 +104,12 @@ public class AnimalGrande implements Serializable{
 	public void setCpfDono(String cpfDono) {
 		this.cpfDono = cpfDono;
 	}
+	
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
 
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
 }

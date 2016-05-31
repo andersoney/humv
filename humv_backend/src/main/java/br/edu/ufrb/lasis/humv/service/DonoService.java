@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import br.edu.ufrb.lasis.humv.entity.Dono;
-import br.edu.ufrb.lasis.humv.impl.ProprietarioServiceImpl;
+import br.edu.ufrb.lasis.humv.impl.DonoServiceImpl;
 
-/** Serviço para cadastro,atualização e remoção de proprietários de animais.
+/** Serviço para cadastro,atualização e remoção de donos de animais.
  *  
  *  @author Luiz Antônio Pereira
  *  
@@ -23,44 +23,44 @@ import br.edu.ufrb.lasis.humv.impl.ProprietarioServiceImpl;
  * */
 
 @RestController
-@RequestMapping(value = "/api/proprietario")
+@RequestMapping(value = "/api/dono")
 @Secured("ROLE_ADMIN")
-public class ProprietarioService {
+public class DonoService {
 		
 		@Autowired
-		private ProprietarioServiceImpl proprietarioServiceImpl;
+		private DonoServiceImpl donoServiceImpl;
 	    
 	    @RequestMapping
 	    public List<Dono> getAll(){
-	    	return proprietarioServiceImpl.getAll(); 
+	    	return donoServiceImpl.getAll(); 
 	    }
 	    
 	    @RequestMapping(method = RequestMethod.GET, value = "/{cpf}")
 	    public Dono findById(@PathVariable String cpf){
-	    	return proprietarioServiceImpl.findById(cpf);
+	    	return donoServiceImpl.findById(cpf);
 	    }
 	    
 	    @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
-	    public String cadastrarProprietario(@RequestBody Dono proprietario, @RequestParam(value="username") String  username){
-	    	return proprietarioServiceImpl.cadastrarProprietario(proprietario, username);
+	    public String cadastrarDono(@RequestBody Dono dono, @RequestParam(value="username") String  username){
+	    	return donoServiceImpl.cadastrarDono(dono, username);
 	    }
 	    
 	    @RequestMapping(method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
-	    public String atualizarProprietario(@RequestBody Dono proprietario, @RequestParam(value="username") String  username){
-	    	return proprietarioServiceImpl.atualizarProprietario(proprietario, username);
+	    public String atualizarDono(@RequestBody Dono dono, @RequestParam(value="username") String  username){
+	    	return donoServiceImpl.atualizarDono(dono, username);
 	    }
 	    
 	    @RequestMapping(method = RequestMethod.DELETE, value = "/{cpf}")
-	    public String removerProprietario(@PathVariable String  cpf, @RequestParam(value="username") String  username){
-	    	return proprietarioServiceImpl.removerProprietario(cpf, username);
+	    public String removerDono(@PathVariable String  cpf, @RequestParam(value="username") String  username){
+	    	return donoServiceImpl.removerDono(cpf, username);
 	    }
 	    
-		public ProprietarioServiceImpl getProprietarioServiceImpl( ) {
-			return proprietarioServiceImpl;
+		public DonoServiceImpl getDonoServiceImpl( ) {
+			return donoServiceImpl;
 		}
 
-		public void setProprietarioServiceImpl(ProprietarioServiceImpl proprietarioServiceImpl) {
-			this.proprietarioServiceImpl = proprietarioServiceImpl;
+		public void setDonoServiceImpl(DonoServiceImpl donoServiceImpl) {
+			this.donoServiceImpl = donoServiceImpl;
 
 		}
 }

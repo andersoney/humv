@@ -15,7 +15,7 @@ import br.edu.ufrb.lasis.humv.entity.AnimalPequeno;
  *  
  *  @author Luiz Antônio Pereira
  *  
- *  @version 1
+ *  @version 1.1
  *  
  *  @since 16 de maio de 2016
  * */
@@ -44,7 +44,7 @@ public class AnimalPequenoServiceImpl {
 
 	public String cadastrarAnimalPequeno(AnimalPequeno animalPequeno, String usuarioResponsavel){
 		try{
-			animalPequenoDAO.saveLargeAnimal(animalPequeno);
+			animalPequenoDAO.saveSmallAnimal(animalPequeno);
 			logger.info("[signup - " + usuarioResponsavel + "] Animal Pequeno salvo com sucesso: " + animalPequeno.getNome() + ".");
 			return "OK";
 		}catch(DataIntegrityViolationException ex){
@@ -58,14 +58,24 @@ public class AnimalPequenoServiceImpl {
 	}
 
 	public String atualizarAnimalPequeno(AnimalPequeno animalPequeno, String usuarioResponsavel){
-		animalPequenoDAO.updateLargeAnimal(animalPequeno);
+		if(animalPequenoDAO.findByRghumv(animalPequeno.getRghumv())==null){
+			logger.error("[signup] Nenhum animal pequeno com o RGHUMV " + animalPequeno.getRghumv() + "foi encontrado no sistema.");
+			return "Nenhum animal pequeno com o RGHUMV " + animalPequeno.getRghumv() + " encontrado no sistema. Por favor, informe um RGHUMV diferente.";
+
+		}
+		animalPequenoDAO.updateSmallAnimal(animalPequeno);
 		logger.info("[atualizarAnimalPequeno - " + usuarioResponsavel + "] Animal Pequeno " + animalPequeno.getRghumv() + " atualizado com sucesso.");
 		return "OK";
 	}
 	
 	public String removerAnimalPequeno(String  rghumv, String usuarioResponsavel){
+		if(animalPequenoDAO.findByRghumv(rghumv)==null){
+			logger.error("[signup] Nenhum animal pequeno com o RGHUMV " + rghumv + "foi encontrado no sistema.");
+			return "Nenhum animal pequeno com o RGHUMV " + rghumv + " encontrado no sistema. Por favor, informe um RGHUMV diferente.";
+
+		}
 		AnimalPequeno animalPequeno = animalPequenoDAO.findByRghumv(rghumv);
-		animalPequenoDAO.removeLargeAnimal(animalPequeno);
+		animalPequenoDAO.removeSmallAnimal(animalPequeno);
 		logger.info("[removerAnimalPequeno - " + usuarioResponsavel + "] Animal Pequeno " + animalPequeno.getRghumv() + " removido com sucesso.");
     	return "OK";
     }
