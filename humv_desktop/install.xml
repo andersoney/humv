@@ -41,7 +41,7 @@
         <pack name="Base" required="yes">
             <description>São necessários arquivos para a execução do programa</description>
             <file src="C:\Users\tassi\Documents\GitHub\humv\humv_desktop\target\humv_desktop-1.0-SNAPSHOT.jar" targetdir="$INSTALL_PATH"/>
-            <fileset dir="C:\Users\tassi\Documents\GitHub\humv\humv_desktop\." includes="lib/" targetdir="$INSTALL_PATH"/>
+            <fileset dir="C:\Users\tassi\Documents\GitHub\humv\humv_desktop\target\." includes="lib/" targetdir="$INSTALL_PATH"/>
             <fileset dir="C:\Users\tassi\Documents\GitHub\humv\humv_desktop\." includes="arquivos/" targetdir="$INSTALL_PATH"/>
             <fileset dir="C:\Users\tassi\Documents\GitHub\humv\humv_desktop\." includes="imagens/" targetdir="$INSTALL_PATH"/>
         </pack>
