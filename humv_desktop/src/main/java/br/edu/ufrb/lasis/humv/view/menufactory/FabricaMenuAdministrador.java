@@ -6,11 +6,14 @@
 package br.edu.ufrb.lasis.humv.view.menufactory;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
-import br.edu.ufrb.lasis.humv.Projeto.CadastroAnimals;
+import br.edu.ufrb.lasis.humv.view.Animais.CadastroAnimals;
+import br.edu.ufrb.lasis.humv.view.Animais.PropriedadeBuscarAnimais;
 import br.edu.ufrb.lasis.humv.view.busca.BuscaPanel;
+import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import br.edu.ufrb.lasis.humv.view.usuario.CadastrarUsuarioPanel;
 import br.edu.ufrb.lasis.humv.view.usuario.PropriedadesBuscaUsuario;
 import java.awt.event.ActionEvent;
+import java.util.logging.Logger;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -25,7 +28,8 @@ public class FabricaMenuAdministrador extends MenuBarFabricaAbstrata {
     private JMenuItem menuItemCadastroUsuario, menuItemBuscaUsuario, menuItemAlteracaoUsuario, menuItemRemocaoUsuario, menuItemSair, menuItemSobre;
 
     private JMenu menuCadastro;
-    private JMenuItem  cadastroAnimal;
+    private JMenuItem cadastroAnimal,
+            buscarAnimal;
 
     public FabricaMenuAdministrador(JPanel mainPanel) {
         super(mainPanel);
@@ -59,12 +63,16 @@ public class FabricaMenuAdministrador extends MenuBarFabricaAbstrata {
 
         getMenuBar().add(menuUsuario);
 
-        menuCadastro = new JMenu("Cadastro");
-        menuCadastro.setMnemonic('C');
-        cadastroAnimal = new JMenuItem("Cadastro do animal");
+        menuCadastro = new JMenu("Animal");
+        menuCadastro.setMnemonic('A');
+        cadastroAnimal = new JMenuItem("Cadastro");
         cadastroAnimal.setMnemonic('C');
         cadastroAnimal.addActionListener(this);
         menuCadastro.add(cadastroAnimal);
+        buscarAnimal = new JMenuItem("Buscar");
+        buscarAnimal.addActionListener(this);
+        buscarAnimal.setMnemonic('B');
+        menuCadastro.add(buscarAnimal);
 
         getMenuBar().add(menuCadastro);
 
@@ -86,8 +94,22 @@ public class FabricaMenuAdministrador extends MenuBarFabricaAbstrata {
         } else if (e.getSource().equals(menuItemSobre)) {
 
         } else if (e.getSource().equals(cadastroAnimal)) {
-            HUMVApp.setNovoPainelCentral(new CadastroAnimals(null));
+            cadastroAnimais();
+        } else if (e.getSource().equals(buscarAnimal)) {
+            buscarAnimais();
         }
     }
+
+    private void cadastroAnimais() {
+        HUMVApp.setNovoPainelCentral(new CadastroAnimals(null));
+    }
+
+    private void buscarAnimais() {
+        PropriedadeBuscarAnimais propBA = new PropriedadeBuscarAnimais(PropriedadesBusca.OPCAO_VISUALIZAR);
+        BuscaPanel bus = new BuscaPanel("Teste", propBA);
+        LOG.info("Acessando Busca de Animal.");
+        HUMVApp.setNovoPainelCentral(bus);
+    }
+    private static final Logger LOG = Logger.getLogger(FabricaMenuAdministrador.class.getName());
 
 }
