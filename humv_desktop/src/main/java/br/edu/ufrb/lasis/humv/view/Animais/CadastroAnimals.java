@@ -31,22 +31,23 @@ import java.util.logging.Logger;
  * @author Andersoney
  */
 public class CadastroAnimals extends javax.swing.JPanel {
-
+    
     public CadastroAnimals(JFrame parent, AnimalGrande atualAnimal, String opcao) {
         this.atualAnimal = atualAnimal;
+        LOG.info(opcao);
         this.parent = parent;
         initComponents();
-        configurarAnimalAtual();
         configBotões_title(opcao);
+        configurarAnimalAtual();
     }
-
+    
     public void configBotões_title(String opcao1) {
         this.tituloJL.setText(opcao1 + " do animal");
         this.opcao = opcao1;
         switch (opcao1) {
             case PropriedadesBusca.OPCAO_ALTERAR:
-                this.confirmarJB.setText("Alterar");
-                this.rghumvJTF.setEditable(true);
+                this.donoDadosJPanel.setVisible(false);
+                this.rghumvJTF.setEnabled(false);
                 break;
             case PropriedadesBusca.OPCAO_REMOVER:
                 this.confirmarJB.setText("remover");
@@ -69,11 +70,14 @@ public class CadastroAnimals extends javax.swing.JPanel {
                 this.tipodeAtendimentoJCB.setEnabled(editable);
                 this.PelagemJTF.setEnabled(editable);
                 break;
+            case PropriedadesBusca.OPCAO_CADASTRAR:
+                this.confirmarJB.setText(PropriedadesBusca.OPCAO_CADASTRAR);
+                this.rghumvJTF.setEnabled(false);
             default:
                 break;
         }
     }
-
+    
     public CadastroAnimals(JFrame parent, boolean Pequeno) {
         this.opcao = "Cadastro";
         this.parent = parent;
@@ -106,13 +110,14 @@ public class CadastroAnimals extends javax.swing.JPanel {
         this.opcao = "Cadastro";
         this.parent = parent;
         initComponents();
+        //this.configBotões_title(opcao);
         this.tituloJL.setText("Cadastro do animal");
         this.pequenoPorteJRB.setSelected(true);
         Calendar cal = Calendar.getInstance();
         Date n = cal.getTime();
         SetarData(n);
     }
-
+    
     private void SetarData(Date n) {
         this.opcao = "Cadastro";
         adicionarAno();
@@ -122,9 +127,9 @@ public class CadastroAnimals extends javax.swing.JPanel {
         this.horaJCB.setSelectedIndex(n.getHours() + 1);
         this.minJCB.setSelectedIndex(n.getMinutes() + 1);
     }
-
+    
     private void configurarAnimalAtual() throws ClientHandlerException, UniformInterfaceException, HeadlessException {
-
+        
         if (atualAnimal instanceof AnimalPequeno) {
             AnimalPequeno atualAnimalF = null;
             atualAnimalF = (AnimalPequeno) this.atualAnimal;
@@ -170,7 +175,7 @@ public class CadastroAnimals extends javax.swing.JPanel {
             setPequenoPorte(false);
         }
     }
-
+    
     private void removerDono(String cpf) {
         ClientResponse response;
         try {
@@ -179,7 +184,7 @@ public class CadastroAnimals extends javax.swing.JPanel {
             Logger.getLogger(CadastroAnimals.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     private void adicionarAno() {
         Calendar cal = Calendar.getInstance();
         Date n = cal.getTime();
@@ -188,14 +193,14 @@ public class CadastroAnimals extends javax.swing.JPanel {
             this.anoJCB.addItem("" + (i + 1900));
         }
     }
-
+    
     public void setCPFNull() {
         this.cpf = null;
         this.nome = null;
         this.nomeDJL.setText("Nome: ");
         this.cpfDJL.setText("CPF: ");
     }
-
+    
     public void setCPF(String cpf, String nome) {
         this.cpf = cpf;
         this.nome = nome;
@@ -213,7 +218,7 @@ public class CadastroAnimals extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        donoDadosJPanel = new javax.swing.JPanel();
         buscarDJL = new javax.swing.JLabel();
         pesquisarDJB = new javax.swing.JButton();
         cpfBuscarJTF = new javax.swing.JTextField();
@@ -252,7 +257,7 @@ public class CadastroAnimals extends javax.swing.JPanel {
         tituloJL = new javax.swing.JLabel();
         confirmarJB = new javax.swing.JButton();
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do Dono"));
+        donoDadosJPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do Dono"));
 
         buscarDJL.setText("Digite o CPF do dono");
 
@@ -290,58 +295,58 @@ public class CadastroAnimals extends javax.swing.JPanel {
 
         minJCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Min", "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60" }));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout donoDadosJPanelLayout = new javax.swing.GroupLayout(donoDadosJPanel);
+        donoDadosJPanel.setLayout(donoDadosJPanelLayout);
+        donoDadosJPanelLayout.setHorizontalGroup(
+            donoDadosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(donoDadosJPanelLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(donoDadosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(donoDadosJPanelLayout.createSequentialGroup()
+                        .addGroup(donoDadosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(nomeDJL, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(donoDadosJPanelLayout.createSequentialGroup()
                                 .addComponent(diaJCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(mesJCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(anoJCB, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(donoDadosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cpfDJL, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(donoDadosJPanelLayout.createSequentialGroup()
                                 .addGap(33, 33, 33)
                                 .addComponent(horaJCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(minJCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(donoDadosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, donoDadosJPanelLayout.createSequentialGroup()
                             .addComponent(cpfBuscarJTF, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
                             .addGap(18, 18, 18)
                             .addComponent(pesquisarDJB))
                         .addComponent(buscarDJL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(donoDadosJPanelLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(cadastrarDJL, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        donoDadosJPanelLayout.setVerticalGroup(
+            donoDadosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(donoDadosJPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(buscarDJL)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(donoDadosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pesquisarDJB)
                     .addComponent(cpfBuscarJTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cadastrarDJL)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(donoDadosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nomeDJL)
                     .addComponent(cpfDJL))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(donoDadosJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(diaJCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(mesJCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(anoJCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -543,19 +548,19 @@ public class CadastroAnimals extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(cancelarJB)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(confirmarJB))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addContainerGap()
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(cancelarJB)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(confirmarJB))
                                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(92, 92, 92)
                                 .addComponent(tituloJL, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(donoDadosJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -564,7 +569,7 @@ public class CadastroAnimals extends javax.swing.JPanel {
                 .addGap(6, 6, 6)
                 .addComponent(tituloJL, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(donoDadosJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -600,7 +605,7 @@ public class CadastroAnimals extends javax.swing.JPanel {
         this.pequenoPorteJRB.setSelected(pequeno);
         this.pelagemJL.setVisible(pequeno);
         this.PelagemJTF.setVisible(pequeno);
-
+        
     }
 
     private void grandePorteJRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_grandePorteJRBActionPerformed
@@ -617,7 +622,20 @@ public class CadastroAnimals extends javax.swing.JPanel {
     }//GEN-LAST:event_cadastrarDJLMouseClicked
 
     private void confirmarJBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarJBActionPerformed
-        // TODO add your handling code here:
+        switch (this.opcao) {
+            case PropriedadesBusca.OPCAO_CADASTRAR:
+                LOG.info("Acessando metodo Cadastrar");
+                confirmarCadastro();
+                break;
+            case PropriedadesBusca.OPCAO_ALTERAR:
+                LOG.info("Acessando metodo alterar");
+                confirmarAlterar();
+                
+                break;
+        }
+    }//GEN-LAST:event_confirmarJBActionPerformed
+    
+    public void confirmarAlterar() throws HeadlessException {
         char sexo;
         float peso;
         int idade;
@@ -655,7 +673,6 @@ public class CadastroAnimals extends javax.swing.JPanel {
         } else {
             sexo = 'F';
         }
-
         try {
             peso = Float.parseFloat(this.pesoJTF.getText());
         } catch (Exception e) {
@@ -695,10 +712,169 @@ public class CadastroAnimals extends javax.swing.JPanel {
         especie = this.especieJTF.getText();
         raca = this.racaJTF.getText();
         ClientResponse response;
-        envioAoServidor(pequenoPort, especie, idade, nome, peso, raca, rghumv, sexo, pelagem);
-    }//GEN-LAST:event_confirmarJBActionPerformed
+        enviarAoServidorAlterar(pequenoPort, especie, idade, nome, peso, raca, rghumv, sexo, pelagem);
+        
+    }
 
-    public void envioAoServidor(boolean pequenoPort, String especie, int idade, String nome1, float peso, String raca, String rghumv, char sexo, String pelagem) throws HeadlessException, UniformInterfaceException, ClientHandlerException {
+    /**
+     * A ser verificada e alterada.
+     *
+     * @param pequenoPort
+     * @param especie
+     * @param idade
+     * @param nome1
+     * @param peso
+     * @param raca
+     * @param rghumv
+     * @param sexo
+     * @param pelagem
+     * @throws HeadlessException
+     * @throws UniformInterfaceException
+     * @throws ClientHandlerException
+     */
+    public void enviarAoServidorAlterar(boolean pequenoPort, String especie, int idade, String nome1, float peso, String raca, String rghumv, char sexo, String pelagem) throws HeadlessException, UniformInterfaceException, ClientHandlerException {
+        ClientResponse response;
+        if (!pequenoPort) {
+            LOG.info("Cadastrado um animal grande");
+            AnimalGrande aniGrand = new AnimalGrande();
+            aniGrand.setCpfDono(cpf);
+            aniGrand.setDataCadastro(new Date(this.anoJCB.getSelectedIndex() + (Calendar.getInstance().getTime().getYear() - 60),
+                    this.mesJCB.getSelectedIndex(),
+                    this.diaJCB.getSelectedIndex(),
+                    this.horaJCB.getSelectedIndex() - 1, this.minJCB.getSelectedIndex() - 1));
+            aniGrand.setEspecie(especie);
+            aniGrand.setIdade(idade);
+            aniGrand.setNome(nome1);
+            aniGrand.setPeso(peso);
+            aniGrand.setRaca(raca);
+            aniGrand.setRghumv(rghumv);
+            aniGrand.setSexo(sexo);
+            try {
+                response = RESTMethods.put(this.servicoAnimalG, aniGrand);
+                String resposta = response.getEntity(String.class);
+                if (!resposta.equalsIgnoreCase("ok")) {
+                    JOptionPane.showMessageDialog(this, resposta, "Falha no cadastro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            } catch (RESTConnectionException ex) {
+                Logger.getLogger(CadastroAnimals.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            LOG.info("Cadastrado um animal pequeno.");
+            AnimalPequeno aniPequeno = new AnimalPequeno();
+            aniPequeno.setCpfDono(cpf);
+            //Verificar aqui.
+            aniPequeno.setDataCadastro(new Date(this.anoJCB.getSelectedIndex() + (Calendar.getInstance().getTime().getYear() - 60),
+                    this.mesJCB.getSelectedIndex(),
+                    this.diaJCB.getSelectedIndex(),
+                    this.horaJCB.getSelectedIndex() - 1, this.minJCB.getSelectedIndex() - 1));
+            aniPequeno.setEspecie(especie);
+            aniPequeno.setIdade(idade);
+            aniPequeno.setNome(nome1);
+            aniPequeno.setPeso(peso);
+            aniPequeno.setRaca(raca);
+            aniPequeno.setRghumv(rghumv);
+            aniPequeno.setSexo(sexo);
+            aniPequeno.setPelagem(pelagem);
+            try {
+                response = RESTMethods.put(servicoAnimalP, aniPequeno);
+                String resposta = response.getEntity(String.class);
+                if (!resposta.equalsIgnoreCase("ok")) {
+                    JOptionPane.showMessageDialog(this, resposta, "Falha no cadastro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                } else {
+                    HUMVApp.exibirMensagemCarregamento();
+                    HUMVApp.setPainelCentralComLogo();
+                    HUMVApp.esconderMensagemCarregamento();
+                }
+            } catch (RESTConnectionException ex) {
+                Logger.getLogger(CadastroAnimals.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    public void confirmarCadastro() throws HeadlessException, UniformInterfaceException, ClientHandlerException {
+        // TODO add your handling code here:
+        char sexo;
+        float peso;
+        int idade;
+        boolean pequenoPort;
+        String pelagem = null;
+        String rghumv;
+        String tipoDeAtendimento = null;
+        String nome;
+        String especie;
+        String raca;
+        if (cpf == null) {
+            JOptionPane.showMessageDialog(this, "Escolha um dono na lista ou cadastre.");
+            return;
+        }
+        if (!Util.isNotNull(this.nomeAJTF.getText())) {
+            JOptionPane.showMessageDialog(this, "Nome do animal não pode ficar vazio.");
+            return;
+        }
+        if (!Util.isNotNull(this.especieJTF.getText())) {
+            JOptionPane.showMessageDialog(this, "Especie não pode ficar vazio.");
+            return;
+        }
+        if (!Util.isNotNull(this.racaJTF.getText())) {
+            JOptionPane.showMessageDialog(this, "Campo raça não pode ficar vazio.");
+            return;
+        }
+        try {
+            idade = Integer.parseInt(this.idadeJTF.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Digite uma idade valida.\nValor Inteiro.");
+            return;
+        }
+        if (this.machoJRB.isSelected()) {
+            sexo = 'M';
+        } else {
+            sexo = 'F';
+        }
+        try {
+            peso = Float.parseFloat(this.pesoJTF.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Digite um peso valido.");
+            return;
+        }
+        if (!Util.isNotNull(this.rghumvJTF.getText())) {
+            JOptionPane.showMessageDialog(this, "Preencha o RGHUMV.");
+            return;
+        } else {
+            rghumv = this.rghumvJTF.getText();
+        }
+        if (this.pequenoPorteJRB.isSelected()) {
+            if (!Util.isNotNull(this.PelagemJTF.getText())) {
+                JOptionPane.showMessageDialog(this, "Digite a pelagem do animal.");
+                return;
+            } else {
+                pelagem = this.PelagemJTF.getText();
+                pequenoPort = true;
+            }
+        } else {
+            pequenoPort = false;
+        }
+        if (this.anoJCB.getSelectedIndex() == 0
+                || this.mesJCB.getSelectedIndex() == 0
+                || this.diaJCB.getSelectedIndex() == 0
+                || this.horaJCB.getSelectedIndex() == 0
+                || this.minJCB.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Digite uma data e hora valida.");
+        }
+        if (this.tipodeAtendimentoJCB.getSelectedIndex() == 0) {
+            tipoDeAtendimento = "Normal";
+        } else if (this.tipodeAtendimentoJCB.getSelectedIndex() == 1) {
+            tipoDeAtendimento = "Emergencial";
+        }
+        nome = this.nomeAJTF.getText();
+        especie = this.especieJTF.getText();
+        raca = this.racaJTF.getText();
+        ClientResponse response;
+        envioAoServidorCadastro(pequenoPort, especie, idade, nome, peso, raca, rghumv, sexo, pelagem);
+    }
+    
+    public void envioAoServidorCadastro(boolean pequenoPort, String especie, int idade, String nome1, float peso, String raca, String rghumv, char sexo, String pelagem) throws HeadlessException, UniformInterfaceException, ClientHandlerException {
         ClientResponse response;
         if (!pequenoPort) {
             LOG.info("Cadastrado um animal grande");
@@ -772,7 +948,7 @@ public class CadastroAnimals extends javax.swing.JPanel {
         buscarDonoCPF();
 
     }//GEN-LAST:event_pesquisarDJBActionPerformed
-
+    
     private void buscarDonoCPF() throws ClientHandlerException, HeadlessException, UniformInterfaceException {
         // TODO add your handling code here:
 
@@ -814,6 +990,7 @@ public class CadastroAnimals extends javax.swing.JPanel {
     private javax.swing.JTextField cpfBuscarJTF;
     private javax.swing.JLabel cpfDJL;
     private javax.swing.JComboBox<String> diaJCB;
+    private javax.swing.JPanel donoDadosJPanel;
     private javax.swing.JLabel especieJL;
     private javax.swing.JTextField especieJTF;
     private javax.swing.JRadioButton femeaJRB;
@@ -821,7 +998,6 @@ public class CadastroAnimals extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> horaJCB;
     private javax.swing.JLabel idadeJL;
     private javax.swing.JTextField idadeJTF;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JRadioButton machoJRB;
     private javax.swing.JComboBox<String> mesJCB;
