@@ -70,13 +70,25 @@ public class PropriedadeBuscarAnimais extends PropriedadesBusca {
     public void actionPerformed(ActionEvent e) {
         //Verificar condições para busca.
         if (e.getSource().equals(this.getBotaoBusca())) {
-            LOG.info("Buscar");
             this.buscar();
-        } else if (e.getSource().equals(this.getBotaoOperacao())) {
+            LOG.info("Botao buscar para:" + this.getTipoOperacao());
+        } else if (e.getSource().equals(this.getBotaoOperacao()) && this.getTipoOperacao().equals(OPCAO_VISUALIZAR)) {
+            LOG.info("Clicado no botão operação para:" + this.getTipoOperacao());
             HUMVApp.exibirMensagemCarregamento();
             AnimalGrande atual = this.tableModel.getAnimais().get(this.getTabelaResultado().getSelectedRow());
-            System.err.println("" + atual.getCpfDono());
             HUMVApp.setNovoPainelCentral(new CadastroAnimals(null, atual, OPCAO_VISUALIZAR));
+            HUMVApp.esconderMensagemCarregamento();
+        } else if (e.getSource().equals(this.getBotaoOperacao()) && this.getTipoOperacao().equals(OPCAO_ALTERAR)) {
+            LOG.info("Clicado no botão operação para:" + this.getTipoOperacao());
+            HUMVApp.exibirMensagemCarregamento();
+            AnimalGrande atual = this.tableModel.getAnimais().get(this.getTabelaResultado().getSelectedRow());
+            HUMVApp.setNovoPainelCentral(new CadastroAnimals(null, atual, OPCAO_ALTERAR));
+            HUMVApp.esconderMensagemCarregamento();
+        } else if (e.getSource().equals(this.getBotaoOperacao()) && this.getTipoOperacao().equals(OPCAO_REMOVER)) {
+            LOG.info("Clicado no botão operação para:" + this.getTipoOperacao());
+            HUMVApp.exibirMensagemCarregamento();
+            AnimalGrande atual = this.tableModel.getAnimais().get(this.getTabelaResultado().getSelectedRow());
+            HUMVApp.setNovoPainelCentral(new CadastroAnimals(null, atual, OPCAO_REMOVER));
             HUMVApp.esconderMensagemCarregamento();
         }
     }

@@ -679,11 +679,6 @@ public class CadastroAnimals extends javax.swing.JPanel {
         } else {
             pequenoPort = false;
         }
-        if (this.tipodeAtendimentoJCB.getSelectedIndex() == 0) {
-            tipoDeAtendimento = "Normal";
-        } else if (this.tipodeAtendimentoJCB.getSelectedIndex() == 1) {
-            tipoDeAtendimento = "Emergencial";
-        }
         if (this.anoJCB.getSelectedIndex() == 0
                 || this.mesJCB.getSelectedIndex() == 0
                 || this.diaJCB.getSelectedIndex() == 0
@@ -691,9 +686,19 @@ public class CadastroAnimals extends javax.swing.JPanel {
                 || this.minJCB.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(this, "Digite uma data e hora valida.");
         }
+        if (this.tipodeAtendimentoJCB.getSelectedIndex() == 0) {
+            tipoDeAtendimento = "Normal";
+        } else if (this.tipodeAtendimentoJCB.getSelectedIndex() == 1) {
+            tipoDeAtendimento = "Emergencial";
+        }
         nome = this.nomeAJTF.getText();
         especie = this.especieJTF.getText();
         raca = this.racaJTF.getText();
+        ClientResponse response;
+        envioAoServidor(pequenoPort, especie, idade, nome, peso, raca, rghumv, sexo, pelagem);
+    }//GEN-LAST:event_confirmarJBActionPerformed
+
+    public void envioAoServidor(boolean pequenoPort, String especie, int idade, String nome1, float peso, String raca, String rghumv, char sexo, String pelagem) throws HeadlessException, UniformInterfaceException, ClientHandlerException {
         ClientResponse response;
         if (!pequenoPort) {
             LOG.info("Cadastrado um animal grande");
@@ -705,12 +710,11 @@ public class CadastroAnimals extends javax.swing.JPanel {
                     this.horaJCB.getSelectedIndex() - 1, this.minJCB.getSelectedIndex() - 1));
             aniGrand.setEspecie(especie);
             aniGrand.setIdade(idade);
-            aniGrand.setNome(nome);
+            aniGrand.setNome(nome1);
             aniGrand.setPeso(peso);
             aniGrand.setRaca(raca);
             aniGrand.setRghumv(rghumv);
             aniGrand.setSexo(sexo);
-
             try {
                 response = RESTMethods.post(this.servicoAnimalG, aniGrand);
                 String resposta = response.getEntity(String.class);
@@ -732,13 +736,12 @@ public class CadastroAnimals extends javax.swing.JPanel {
                     this.horaJCB.getSelectedIndex() - 1, this.minJCB.getSelectedIndex() - 1));
             aniPequeno.setEspecie(especie);
             aniPequeno.setIdade(idade);
-            aniPequeno.setNome(nome);
+            aniPequeno.setNome(nome1);
             aniPequeno.setPeso(peso);
             aniPequeno.setRaca(raca);
             aniPequeno.setRghumv(rghumv);
             aniPequeno.setSexo(sexo);
             aniPequeno.setPelagem(pelagem);
-
             try {
                 response = RESTMethods.post(servicoAnimalP, aniPequeno);
                 String resposta = response.getEntity(String.class);
@@ -754,7 +757,7 @@ public class CadastroAnimals extends javax.swing.JPanel {
                 Logger.getLogger(CadastroAnimals.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }//GEN-LAST:event_confirmarJBActionPerformed
+    }
 
     private void cancelarJBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarJBActionPerformed
         // TODO add your handling code here:

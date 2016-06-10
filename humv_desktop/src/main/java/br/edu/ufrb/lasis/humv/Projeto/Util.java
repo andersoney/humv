@@ -1,6 +1,5 @@
 package br.edu.ufrb.lasis.humv.Projeto;
 
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -102,10 +101,10 @@ public class Util {
     }
 
     public static boolean isEqual(String um, String dois) {
-        if(!Util.isNotNull(um)){
+        if (!Util.isNotNull(um)) {
             return false;
         }
-        if(!Util.isNotNull(dois)){
+        if (!Util.isNotNull(dois)) {
             return false;
         }
         if (um.equals(dois)) {

@@ -38,7 +38,7 @@ public class CadastroDono extends javax.swing.JDialog {
         initComponents();
         this.cidadeJRB.setSelected(true);
         this.cidadeFazendaJL.setText("Cidade");
-        
+
     }
 
     /**
