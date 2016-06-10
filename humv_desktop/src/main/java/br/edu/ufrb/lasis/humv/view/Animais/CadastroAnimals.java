@@ -2,6 +2,7 @@ package br.edu.ufrb.lasis.humv.view.Animais;
 
 import br.edu.ufrb.lasis.humv.utils.Util;
 import br.edu.ufrb.lasis.humv.Dono.CadastroDonoJDialog;
+import br.edu.ufrb.lasis.humv.HUMVApp;
 import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -35,18 +36,38 @@ public class CadastroAnimals extends javax.swing.JPanel {
         this.atualAnimal = atualAnimal;
         this.parent = parent;
         initComponents();
-        this.tituloJL.setText("Cadastro do animal");
         configurarAnimalAtual();
-        this.opcao = opcao;
-        switch (opcao) {
+        configBotões_title(opcao);
+    }
+
+    public void configBotões_title(String opcao1) {
+        this.tituloJL.setText(opcao1 + " do animal");
+        this.opcao = opcao1;
+        switch (opcao1) {
             case PropriedadesBusca.OPCAO_ALTERAR:
                 this.confirmarJB.setText("Alterar");
+                this.rghumvJTF.setEditable(true);
                 break;
             case PropriedadesBusca.OPCAO_REMOVER:
                 this.confirmarJB.setText("remover");
                 break;
             case PropriedadesBusca.OPCAO_VISUALIZAR:
-                this.confirmarJB.setVisible(false);
+                boolean editable = false;
+                this.confirmarJB.setVisible(editable);
+                this.rghumvJTF.setEnabled(editable);
+                this.cpfBuscarJTF.setEnabled(editable);
+                this.cadastrarDJL.setEnabled(editable);
+                this.nomeAJTF.setEnabled(editable);
+                this.especieJTF.setEnabled(editable);
+                this.racaJTF.setEnabled(editable);
+                this.machoJRB.setEnabled(editable);
+                this.femeaJRB.setEnabled(editable);
+                this.idadeJTF.setEnabled(editable);
+                this.pesoJTF.setEnabled(editable);
+                this.grandePorteJRB.setEnabled(editable);
+                this.pequenoPorteJRB.setEnabled(editable);
+                this.tipodeAtendimentoJCB.setEnabled(editable);
+                this.PelagemJTF.setEnabled(editable);
                 break;
             default:
                 break;
@@ -82,7 +103,7 @@ public class CadastroAnimals extends javax.swing.JPanel {
      */
     public CadastroAnimals(JFrame parent) {
         //this.removerDono();
-        this.opcao="Cadastro";
+        this.opcao = "Cadastro";
         this.parent = parent;
         initComponents();
         this.tituloJL.setText("Cadastro do animal");
@@ -103,35 +124,57 @@ public class CadastroAnimals extends javax.swing.JPanel {
     }
 
     private void configurarAnimalAtual() throws ClientHandlerException, UniformInterfaceException, HeadlessException {
-        this.cadastrarDJL.setEnabled(false);
-        this.cpfBuscarJTF.setEnabled(false);
 
-        if (this.atualAnimal instanceof AnimalPequeno) {
-            this.PelagemJTF.setText(((AnimalPequeno) this.atualAnimal).getPelagem());
-        }
-        this.SetarData(atualAnimal.getDataCadastro());
-        this.nomeAJTF.setText(this.atualAnimal.getNome());
-        this.especieJTF.setText(this.atualAnimal.getEspecie());
-        this.cpfBuscarJTF.setText(this.atualAnimal.getCpfDono());
-        this.buscarDonoCPF();
-        this.especieJTF.setText(this.atualAnimal.getEspecie());
-        this.idadeJTF.setText("" + this.atualAnimal.getIdade());
-        this.pesoJTF.setText("" + this.atualAnimal.getPeso());
-        this.racaJTF.setText(this.atualAnimal.getRaca());
-        this.rghumvJTF.setText("" + this.atualAnimal.getRghumv());
-        if (this.atualAnimal.getSexo() == 'm' || this.atualAnimal.getSexo() == 'M') {
-            this.machoJRB.setSelected(true);
-            this.femeaJRB.setSelected(false);
+        if (atualAnimal instanceof AnimalPequeno) {
+            AnimalPequeno atualAnimalF = null;
+            atualAnimalF = (AnimalPequeno) this.atualAnimal;
+            this.SetarData(atualAnimalF.getDataCadastro());
+            this.nomeAJTF.setText(atualAnimalF.getNome());
+            this.especieJTF.setText(atualAnimalF.getEspecie());
+            this.cpfBuscarJTF.setText(atualAnimalF.getCpfDono());
+            this.buscarDonoCPF();
+            this.especieJTF.setText(atualAnimalF.getEspecie());
+            this.idadeJTF.setText("" + atualAnimalF.getIdade());
+            this.pesoJTF.setText("" + atualAnimalF.getPeso());
+            this.racaJTF.setText(atualAnimalF.getRaca());
+            this.rghumvJTF.setText("" + atualAnimalF.getRghumv());
+            if (atualAnimalF.getSexo() == 'm' || atualAnimalF.getSexo() == 'M') {
+                this.machoJRB.setSelected(true);
+                this.femeaJRB.setSelected(false);
+            } else {
+                this.machoJRB.setSelected(false);
+                this.femeaJRB.setSelected(true);
+            }
+            setPequenoPorte(true);
+            this.PelagemJTF.setText(atualAnimalF.getPelagem());
         } else {
-            this.machoJRB.setSelected(false);
-            this.femeaJRB.setSelected(true);
+            AnimalGrande atualAnimalF = null;
+            atualAnimalF = this.atualAnimal;
+            this.SetarData(atualAnimalF.getDataCadastro());
+            this.nomeAJTF.setText(atualAnimalF.getNome());
+            this.especieJTF.setText(atualAnimalF.getEspecie());
+            this.cpfBuscarJTF.setText(atualAnimalF.getCpfDono());
+            this.buscarDonoCPF();
+            this.especieJTF.setText(atualAnimalF.getEspecie());
+            this.idadeJTF.setText("" + atualAnimalF.getIdade());
+            this.pesoJTF.setText("" + atualAnimalF.getPeso());
+            this.racaJTF.setText(atualAnimalF.getRaca());
+            this.rghumvJTF.setText("" + atualAnimalF.getRghumv());
+            if (atualAnimalF.getSexo() == 'm' || atualAnimalF.getSexo() == 'M') {
+                this.machoJRB.setSelected(true);
+                this.femeaJRB.setSelected(false);
+            } else {
+                this.machoJRB.setSelected(false);
+                this.femeaJRB.setSelected(true);
+            }
+            setPequenoPorte(false);
         }
     }
 
-    private void removerDono() {
+    private void removerDono(String cpf) {
         ClientResponse response;
         try {
-            response = RESTMethods.delete(this.servicoAnimalG + "/05741155529", "humv");
+            response = RESTMethods.delete(this.servicoAnimalG + cpf, "humv");
         } catch (RESTConnectionException ex) {
             Logger.getLogger(CadastroAnimals.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -544,16 +587,25 @@ public class CadastroAnimals extends javax.swing.JPanel {
 
     private void pequenoPorteJRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pequenoPorteJRBActionPerformed
         // TODO add your handling code here:
-        this.grandePorteJRB.setSelected(false);
-        this.pelagemJL.setVisible(true);
-        this.PelagemJTF.setVisible(true);
+        setPequenoPorte(true);
     }//GEN-LAST:event_pequenoPorteJRBActionPerformed
+    /**
+     * Se o anial for pequeno passar true
+     *
+     * @param pequeno Parametro se indica se o anial é pequeno ou grande, se
+     * pequeno ele configura com true. se grande, false.
+     */
+    public void setPequenoPorte(boolean pequeno) {
+        this.grandePorteJRB.setSelected(!pequeno);
+        this.pequenoPorteJRB.setSelected(pequeno);
+        this.pelagemJL.setVisible(pequeno);
+        this.PelagemJTF.setVisible(pequeno);
+
+    }
 
     private void grandePorteJRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_grandePorteJRBActionPerformed
         // TODO add your handling code here:
-        this.pequenoPorteJRB.setSelected(false);
-        this.pelagemJL.setVisible(false);
-        this.PelagemJTF.setVisible(false);
+        this.setPequenoPorte(false);
     }//GEN-LAST:event_grandePorteJRBActionPerformed
 
     private void cadastrarDJLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadastrarDJLMouseClicked
@@ -566,29 +618,32 @@ public class CadastroAnimals extends javax.swing.JPanel {
 
     private void confirmarJBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarJBActionPerformed
         // TODO add your handling code here:
-        if (cpf == null) {
-            JOptionPane.showMessageDialog(this, "Escolha um dono na lista ou cadastre.");
-            return;
-        }
         char sexo;
         float peso;
         int idade;
         boolean pequenoPort;
+        String pelagem = null;
+        String rghumv;
+        String tipoDeAtendimento = null;
+        String nome;
+        String especie;
+        String raca;
+        if (cpf == null) {
+            JOptionPane.showMessageDialog(this, "Escolha um dono na lista ou cadastre.");
+            return;
+        }
         if (!Util.isNotNull(this.nomeAJTF.getText())) {
             JOptionPane.showMessageDialog(this, "Nome do animal não pode ficar vazio.");
             return;
         }
-        String nome = this.nomeAJTF.getText();
         if (!Util.isNotNull(this.especieJTF.getText())) {
             JOptionPane.showMessageDialog(this, "Especie não pode ficar vazio.");
             return;
         }
-        String especie = this.especieJTF.getText();
         if (!Util.isNotNull(this.racaJTF.getText())) {
             JOptionPane.showMessageDialog(this, "Campo raça não pode ficar vazio.");
             return;
         }
-        String raca = this.racaJTF.getText();
         try {
             idade = Integer.parseInt(this.idadeJTF.getText());
         } catch (Exception e) {
@@ -600,20 +655,19 @@ public class CadastroAnimals extends javax.swing.JPanel {
         } else {
             sexo = 'F';
         }
+
         try {
             peso = Float.parseFloat(this.pesoJTF.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Digite um peso valido.");
             return;
         }
-        String rghumv;
         if (!Util.isNotNull(this.rghumvJTF.getText())) {
             JOptionPane.showMessageDialog(this, "Preencha o RGHUMV.");
             return;
         } else {
             rghumv = this.rghumvJTF.getText();
         }
-        String pelagem = null;
         if (this.pequenoPorteJRB.isSelected()) {
             if (!Util.isNotNull(this.PelagemJTF.getText())) {
                 JOptionPane.showMessageDialog(this, "Digite a pelagem do animal.");
@@ -625,7 +679,6 @@ public class CadastroAnimals extends javax.swing.JPanel {
         } else {
             pequenoPort = false;
         }
-        String tipoDeAtendimento = null;
         if (this.tipodeAtendimentoJCB.getSelectedIndex() == 0) {
             tipoDeAtendimento = "Normal";
         } else if (this.tipodeAtendimentoJCB.getSelectedIndex() == 1) {
@@ -638,8 +691,12 @@ public class CadastroAnimals extends javax.swing.JPanel {
                 || this.minJCB.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(this, "Digite uma data e hora valida.");
         }
+        nome = this.nomeAJTF.getText();
+        especie = this.especieJTF.getText();
+        raca = this.racaJTF.getText();
         ClientResponse response;
         if (!pequenoPort) {
+            LOG.info("Cadastrado um animal grande");
             AnimalGrande aniGrand = new AnimalGrande();
             aniGrand.setCpfDono(cpf);
             aniGrand.setDataCadastro(new Date(this.anoJCB.getSelectedIndex() + (Calendar.getInstance().getTime().getYear() - 60),
@@ -665,10 +722,14 @@ public class CadastroAnimals extends javax.swing.JPanel {
                 Logger.getLogger(CadastroAnimals.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
+            LOG.info("Cadastrado um animal pequeno.");
             AnimalPequeno aniPequeno = new AnimalPequeno();
             aniPequeno.setCpfDono(cpf);
             //Verificar aqui.
-            //aniPequeno.setDataCadastro(new Date(idade, WIDTH, idade, ERROR, WIDTH));
+            aniPequeno.setDataCadastro(new Date(this.anoJCB.getSelectedIndex() + (Calendar.getInstance().getTime().getYear() - 60),
+                    this.mesJCB.getSelectedIndex(),
+                    this.diaJCB.getSelectedIndex(),
+                    this.horaJCB.getSelectedIndex() - 1, this.minJCB.getSelectedIndex() - 1));
             aniPequeno.setEspecie(especie);
             aniPequeno.setIdade(idade);
             aniPequeno.setNome(nome);
@@ -684,6 +745,10 @@ public class CadastroAnimals extends javax.swing.JPanel {
                 if (!resposta.equalsIgnoreCase("ok")) {
                     JOptionPane.showMessageDialog(this, resposta, "Falha no cadastro", JOptionPane.ERROR_MESSAGE);
                     return;
+                } else {
+                    HUMVApp.exibirMensagemCarregamento();
+                    HUMVApp.setPainelCentralComLogo();
+                    HUMVApp.esconderMensagemCarregamento();
                 }
             } catch (RESTConnectionException ex) {
                 Logger.getLogger(CadastroAnimals.class.getName()).log(Level.SEVERE, null, ex);
@@ -695,6 +760,9 @@ public class CadastroAnimals extends javax.swing.JPanel {
         // TODO add your handling code here:
         this.setVisible(false);
         System.gc();
+        HUMVApp.exibirMensagemCarregamento();
+        HUMVApp.setPainelCentralComLogo();
+        HUMVApp.esconderMensagemCarregamento();
     }//GEN-LAST:event_cancelarJBActionPerformed
 
     private void pesquisarDJBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisarDJBActionPerformed
@@ -731,7 +799,6 @@ public class CadastroAnimals extends javax.swing.JPanel {
             this.pesquisarDJBActionPerformed(null);
         }
     }//GEN-LAST:event_cpfBuscarJTFKeyPressed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField PelagemJTF;
@@ -783,6 +850,6 @@ public class CadastroAnimals extends javax.swing.JPanel {
     final private String servicoAnimalG = "/api/animalGrande";
     private static final Logger LOG = Logger.getLogger(CadastroAnimals.class.getName());
     private String opcao;
-    static final public String OPCAO_CADASTRO="Cadastro";
+    static final public String OPCAO_CADASTRO = "Cadastro";
     private AnimalGrande atualAnimal;
 }

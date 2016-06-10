@@ -5,6 +5,7 @@
  */
 package br.edu.ufrb.lasis.humv.view.busca;
 
+import br.edu.ufrb.lasis.humv.HUMVApp;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -17,6 +18,7 @@ public class BuscaPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form BuscaPanel
+     *
      * @param tituloPanel
      * @param propriedadesBusca
      */
@@ -24,15 +26,15 @@ public class BuscaPanel extends javax.swing.JPanel {
         initComponents();
         customInitComponents(tituloPanel, propriedadesBusca);
     }
-    
-    private void customInitComponents(String tituloPanel, PropriedadesBusca propriedadesBusca){
+
+    private void customInitComponents(String tituloPanel, PropriedadesBusca propriedadesBusca) {
         labelTitulo.setText(tituloPanel);
-        
+
         tabelaResultado.setModel(
-                new DefaultTableModel(new Object [][] {}, new String [] {"Sem resultados"}));
+                new DefaultTableModel(new Object[][]{}, new String[]{"Sem resultados"}));
         DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) tabelaResultado.getTableHeader().getDefaultRenderer();
         renderer.setHorizontalAlignment(JLabel.CENTER);
-        
+
         propriedadesBusca.configurarBusca(textFieldPalavraChave, buttonBuscar, tabelaResultado);
         propriedadesBusca.configurarBotaoOperacaoPosBusca(buttonOperacao);
     }
@@ -54,6 +56,7 @@ public class BuscaPanel extends javax.swing.JPanel {
         tabelaResultado = new javax.swing.JTable();
         buttonOperacao = new javax.swing.JButton();
         buttonImprimirTabela = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(800, 600));
 
@@ -93,6 +96,13 @@ public class BuscaPanel extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setText("Calcelar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -111,7 +121,9 @@ public class BuscaPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(buttonBuscar))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(284, 284, 284)
+                        .addGap(193, 193, 193)
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
                         .addComponent(buttonImprimirTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(buttonOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -132,7 +144,8 @@ public class BuscaPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonOperacao)
-                    .addComponent(buttonImprimirTabela))
+                    .addComponent(buttonImprimirTabela)
+                    .addComponent(jButton1))
                 .addGap(31, 31, 31))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -145,13 +158,20 @@ public class BuscaPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonImprimirTabelaActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        HUMVApp.exibirMensagemCarregamento();
+        HUMVApp.setPainelCentralComLogo();
+        HUMVApp.esconderMensagemCarregamento();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonBuscar;
     private javax.swing.JButton buttonImprimirTabela;
     private javax.swing.JButton buttonOperacao;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelTitulo;
     private javax.swing.JScrollPane scrollPaneTabela;
     private javax.swing.JTable tabelaResultado;
