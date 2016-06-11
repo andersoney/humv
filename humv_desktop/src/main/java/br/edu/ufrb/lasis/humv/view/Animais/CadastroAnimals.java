@@ -39,6 +39,7 @@ public class CadastroAnimals extends javax.swing.JPanel {
         initComponents();
         configBotões_title(opcao);
         configurarAnimalAtual();
+        LOG.config("t");
     }
 
     public void configBotões_title(String opcao1) {
