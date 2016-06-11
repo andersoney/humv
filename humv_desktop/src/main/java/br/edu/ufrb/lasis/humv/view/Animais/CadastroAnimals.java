@@ -638,6 +638,7 @@ public class CadastroAnimals extends javax.swing.JPanel {
                 HUMVApp.exibirMensagemCarregamento();
                 deletarAnimal();
                 HUMVApp.esconderMensagemCarregamento();
+                HUMVApp.setPainelCentralComLogo();
                 break;
         }
         LOG.info(opcao);

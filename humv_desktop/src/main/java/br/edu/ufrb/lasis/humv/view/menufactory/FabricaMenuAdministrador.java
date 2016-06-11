@@ -5,7 +5,9 @@
  */
 package br.edu.ufrb.lasis.humv.view.menufactory;
 
+import br.edu.ufrb.lasis.humv.Dono.CadastrarDono;
 import br.edu.ufrb.lasis.humv.HUMVApp;
+import br.edu.ufrb.lasis.humv.Projeto.CadastroDono;
 import br.edu.ufrb.lasis.humv.view.Animais.CadastroAnimals;
 import br.edu.ufrb.lasis.humv.view.Animais.PropriedadeBuscarAnimais;
 import br.edu.ufrb.lasis.humv.view.busca.BuscaPanel;
@@ -27,11 +29,14 @@ public class FabricaMenuAdministrador extends MenuBarFabricaAbstrata {
     private JMenu menuUsuario;
     private JMenuItem menuItemCadastroUsuario, menuItemBuscaUsuario, menuItemAlteracaoUsuario, menuItemRemocaoUsuario, menuItemSair, menuItemSobre;
 
-    private JMenu menuCadastro;
+    private JMenu menuAnimal;
     private JMenuItem cadastroAnimal,
             buscarAnimal,
             alterarAnimal,
             removerAnimal;
+
+    private JMenu menuDono;
+    private JMenuItem cadastroDono;
 
     public FabricaMenuAdministrador(JPanel mainPanel) {
         super(mainPanel);
@@ -78,14 +83,23 @@ public class FabricaMenuAdministrador extends MenuBarFabricaAbstrata {
         removerAnimal.setMnemonic('R');
         removerAnimal.addActionListener(this);
 
-        menuCadastro = new JMenu("Animal");
-        menuCadastro.setMnemonic('A');
-        menuCadastro.add(cadastroAnimal);
-        menuCadastro.add(buscarAnimal);
-        menuCadastro.add(alterarAnimal);
-        menuCadastro.add(removerAnimal);
-        getMenuBar().add(menuCadastro);
+        menuAnimal = new JMenu("Animal");
+        menuAnimal.setMnemonic('A');
+        menuAnimal.add(cadastroAnimal);
+        menuAnimal.add(buscarAnimal);
+        menuAnimal.add(alterarAnimal);
+        menuAnimal.add(removerAnimal);
+        getMenuBar().add(menuAnimal);
 
+        menuDono = new JMenu("Dono");
+        menuDono.setMnemonic('D');
+        cadastroDono = new JMenuItem("Cadastro");
+        cadastroDono.setMnemonic('C');
+        cadastroDono.addActionListener(this);
+
+        menuDono.add(cadastroDono);
+
+        getMenuBar().add(menuDono);
         super.criaMenuAjuda();
     }
 
@@ -114,6 +128,10 @@ public class FabricaMenuAdministrador extends MenuBarFabricaAbstrata {
             BuscaPanel bus = new BuscaPanel("Busca de Animal para remover.", propBA);
             LOG.info("Acessando Busca de Animal para remover.");
             HUMVApp.setNovoPainelCentral(bus);
+        } else if (e.getSource().equals(cadastroDono)) {
+            LOG.info("Cadastro Dono");
+            CadastrarDono dono=new CadastrarDono();
+            HUMVApp.setNovoPainelCentral(dono);
         }
 
     }
