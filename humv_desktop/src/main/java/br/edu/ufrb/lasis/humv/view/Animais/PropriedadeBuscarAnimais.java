@@ -15,6 +15,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -79,13 +80,13 @@ public class PropriedadeBuscarAnimais extends PropriedadesBusca {
             HUMVApp.setNovoPainelCentral(new CadastroAnimals(null, atual, OPCAO_VISUALIZAR));
             HUMVApp.esconderMensagemCarregamento();
         } else if (e.getSource().equals(this.getBotaoOperacao()) && this.getTipoOperacao().equals(OPCAO_ALTERAR)) {
-            LOG.info("Clicado no botão operação para:" + this.getTipoOperacao());
+            LOG.log(Level.INFO, "Clicado no bot\u00e3o opera\u00e7\u00e3o para:{0}", this.getTipoOperacao());
             HUMVApp.exibirMensagemCarregamento();
             AnimalGrande atual = this.tableModel.getAnimais().get(this.getTabelaResultado().getSelectedRow());
             HUMVApp.setNovoPainelCentral(new CadastroAnimals(null, atual, OPCAO_ALTERAR));
             HUMVApp.esconderMensagemCarregamento();
-        } else if (e.getSource().equals(this.getBotaoOperacao()) && this.getTipoOperacao().equals(OPCAO_REMOVER)) {
-            LOG.info("Clicado no botão operação para:" + this.getTipoOperacao());
+        } else if (e.getSource().equals(this.getBotaoOperacao()) && this.getTipoOperacao().equals(PropriedadesBusca.OPCAO_REMOVER)) {
+            LOG.log(Level.INFO, "Clicado no bot\u00e3o opera\u00e7\u00e3o para:{0}", this.getTipoOperacao());
             HUMVApp.exibirMensagemCarregamento();
             AnimalGrande atual = this.tableModel.getAnimais().get(this.getTabelaResultado().getSelectedRow());
             HUMVApp.setNovoPainelCentral(new CadastroAnimals(null, atual, OPCAO_REMOVER));

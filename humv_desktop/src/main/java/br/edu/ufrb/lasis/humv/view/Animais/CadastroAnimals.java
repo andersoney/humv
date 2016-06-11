@@ -31,7 +31,7 @@ import java.util.logging.Logger;
  * @author Andersoney
  */
 public class CadastroAnimals extends javax.swing.JPanel {
-    
+
     public CadastroAnimals(JFrame parent, AnimalGrande atualAnimal, String opcao) {
         this.atualAnimal = atualAnimal;
         LOG.info(opcao);
@@ -40,7 +40,7 @@ public class CadastroAnimals extends javax.swing.JPanel {
         configBotões_title(opcao);
         configurarAnimalAtual();
     }
-    
+
     public void configBotões_title(String opcao1) {
         this.tituloJL.setText(opcao1 + " do animal");
         this.opcao = opcao1;
@@ -50,34 +50,36 @@ public class CadastroAnimals extends javax.swing.JPanel {
                 this.rghumvJTF.setEnabled(false);
                 break;
             case PropriedadesBusca.OPCAO_REMOVER:
-                this.confirmarJB.setText("remover");
+                this.confirmarJB.setText(PropriedadesBusca.OPCAO_REMOVER);
+                this.setSomenteVisualizacao(false);
                 break;
             case PropriedadesBusca.OPCAO_VISUALIZAR:
-                boolean editable = false;
-                this.confirmarJB.setVisible(editable);
-                this.rghumvJTF.setEnabled(editable);
-                this.cpfBuscarJTF.setEnabled(editable);
-                this.cadastrarDJL.setEnabled(editable);
-                this.nomeAJTF.setEnabled(editable);
-                this.especieJTF.setEnabled(editable);
-                this.racaJTF.setEnabled(editable);
-                this.machoJRB.setEnabled(editable);
-                this.femeaJRB.setEnabled(editable);
-                this.idadeJTF.setEnabled(editable);
-                this.pesoJTF.setEnabled(editable);
-                this.grandePorteJRB.setEnabled(editable);
-                this.pequenoPorteJRB.setEnabled(editable);
-                this.tipodeAtendimentoJCB.setEnabled(editable);
-                this.PelagemJTF.setEnabled(editable);
+                setSomenteVisualizacao(false);
                 break;
             case PropriedadesBusca.OPCAO_CADASTRAR:
                 this.confirmarJB.setText(PropriedadesBusca.OPCAO_CADASTRAR);
-                this.rghumvJTF.setEnabled(false);
             default:
                 break;
         }
     }
-    
+
+    public void setSomenteVisualizacao(boolean editable) {
+        this.rghumvJTF.setEnabled(editable);
+        this.cpfBuscarJTF.setEnabled(editable);
+        this.cadastrarDJL.setEnabled(editable);
+        this.nomeAJTF.setEnabled(editable);
+        this.especieJTF.setEnabled(editable);
+        this.racaJTF.setEnabled(editable);
+        this.machoJRB.setEnabled(editable);
+        this.femeaJRB.setEnabled(editable);
+        this.idadeJTF.setEnabled(editable);
+        this.pesoJTF.setEnabled(editable);
+        this.grandePorteJRB.setEnabled(editable);
+        this.pequenoPorteJRB.setEnabled(editable);
+        this.tipodeAtendimentoJCB.setEnabled(editable);
+        this.PelagemJTF.setEnabled(editable);
+    }
+
     public CadastroAnimals(JFrame parent, boolean Pequeno) {
         this.opcao = "Cadastro";
         this.parent = parent;
@@ -117,9 +119,8 @@ public class CadastroAnimals extends javax.swing.JPanel {
         Date n = cal.getTime();
         SetarData(n);
     }
-    
+
     private void SetarData(Date n) {
-        this.opcao = "Cadastro";
         adicionarAno();
         this.diaJCB.setSelectedIndex(n.getDate());
         this.mesJCB.setSelectedIndex(n.getMonth() + 1);
@@ -127,9 +128,9 @@ public class CadastroAnimals extends javax.swing.JPanel {
         this.horaJCB.setSelectedIndex(n.getHours() + 1);
         this.minJCB.setSelectedIndex(n.getMinutes() + 1);
     }
-    
+
     private void configurarAnimalAtual() throws ClientHandlerException, UniformInterfaceException, HeadlessException {
-        
+
         if (atualAnimal instanceof AnimalPequeno) {
             AnimalPequeno atualAnimalF = null;
             atualAnimalF = (AnimalPequeno) this.atualAnimal;
@@ -175,7 +176,7 @@ public class CadastroAnimals extends javax.swing.JPanel {
             setPequenoPorte(false);
         }
     }
-    
+
     private void removerDono(String cpf) {
         ClientResponse response;
         try {
@@ -184,7 +185,7 @@ public class CadastroAnimals extends javax.swing.JPanel {
             Logger.getLogger(CadastroAnimals.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void adicionarAno() {
         Calendar cal = Calendar.getInstance();
         Date n = cal.getTime();
@@ -193,14 +194,14 @@ public class CadastroAnimals extends javax.swing.JPanel {
             this.anoJCB.addItem("" + (i + 1900));
         }
     }
-    
+
     public void setCPFNull() {
         this.cpf = null;
         this.nome = null;
         this.nomeDJL.setText("Nome: ");
         this.cpfDJL.setText("CPF: ");
     }
-    
+
     public void setCPF(String cpf, String nome) {
         this.cpf = cpf;
         this.nome = nome;
@@ -605,7 +606,7 @@ public class CadastroAnimals extends javax.swing.JPanel {
         this.pequenoPorteJRB.setSelected(pequeno);
         this.pelagemJL.setVisible(pequeno);
         this.PelagemJTF.setVisible(pequeno);
-        
+
     }
 
     private void grandePorteJRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_grandePorteJRBActionPerformed
@@ -630,11 +631,29 @@ public class CadastroAnimals extends javax.swing.JPanel {
             case PropriedadesBusca.OPCAO_ALTERAR:
                 LOG.info("Acessando metodo alterar");
                 confirmarAlterar();
-                
+                break;
+            case PropriedadesBusca.OPCAO_REMOVER:
+                LOG.info("Acessando metodo remover.");
+                HUMVApp.exibirMensagemCarregamento();
+                deletarAnimal();
+                HUMVApp.esconderMensagemCarregamento();
                 break;
         }
+        LOG.info(opcao);
     }//GEN-LAST:event_confirmarJBActionPerformed
-    
+
+    public void deletarAnimal() throws UniformInterfaceException, HeadlessException, ClientHandlerException {
+        try {
+            ClientResponse response = RESTMethods.delete(this.servicoAnimalG, this.rghumvJTF.getText());
+            String resposta = response.getEntity(String.class);
+            if (!resposta.equalsIgnoreCase("ok")) {
+                JOptionPane.showMessageDialog(this, resposta, "Falha ao remover", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (RESTConnectionException ex) {
+            Logger.getLogger(CadastroAnimals.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void confirmarAlterar() throws HeadlessException {
         char sexo;
         float peso;
@@ -713,7 +732,7 @@ public class CadastroAnimals extends javax.swing.JPanel {
         raca = this.racaJTF.getText();
         ClientResponse response;
         enviarAoServidorAlterar(pequenoPort, especie, idade, nome, peso, raca, rghumv, sexo, pelagem);
-        
+
     }
 
     /**
@@ -792,7 +811,7 @@ public class CadastroAnimals extends javax.swing.JPanel {
             }
         }
     }
-    
+
     public void confirmarCadastro() throws HeadlessException, UniformInterfaceException, ClientHandlerException {
         // TODO add your handling code here:
         char sexo;
@@ -873,11 +892,10 @@ public class CadastroAnimals extends javax.swing.JPanel {
         ClientResponse response;
         envioAoServidorCadastro(pequenoPort, especie, idade, nome, peso, raca, rghumv, sexo, pelagem);
     }
-    
+
     public void envioAoServidorCadastro(boolean pequenoPort, String especie, int idade, String nome1, float peso, String raca, String rghumv, char sexo, String pelagem) throws HeadlessException, UniformInterfaceException, ClientHandlerException {
         ClientResponse response;
         if (!pequenoPort) {
-            LOG.info("Cadastrado um animal grande");
             AnimalGrande aniGrand = new AnimalGrande();
             aniGrand.setCpfDono(cpf);
             aniGrand.setDataCadastro(new Date(this.anoJCB.getSelectedIndex() + (Calendar.getInstance().getTime().getYear() - 60),
@@ -897,12 +915,17 @@ public class CadastroAnimals extends javax.swing.JPanel {
                 if (!resposta.equalsIgnoreCase("ok")) {
                     JOptionPane.showMessageDialog(this, resposta, "Falha no cadastro", JOptionPane.ERROR_MESSAGE);
                     return;
+                } else {
+                    HUMVApp.exibirMensagemCarregamento();
+                    HUMVApp.setPainelCentralComLogo();
+                    HUMVApp.esconderMensagemCarregamento();
+                    LOG.info("Cadastrado um animal grande");
                 }
             } catch (RESTConnectionException ex) {
                 Logger.getLogger(CadastroAnimals.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            LOG.info("Cadastrado um animal pequeno.");
+
             AnimalPequeno aniPequeno = new AnimalPequeno();
             aniPequeno.setCpfDono(cpf);
             //Verificar aqui.
@@ -928,6 +951,7 @@ public class CadastroAnimals extends javax.swing.JPanel {
                     HUMVApp.exibirMensagemCarregamento();
                     HUMVApp.setPainelCentralComLogo();
                     HUMVApp.esconderMensagemCarregamento();
+                    LOG.info("Cadastrado um animal pequeno.");
                 }
             } catch (RESTConnectionException ex) {
                 Logger.getLogger(CadastroAnimals.class.getName()).log(Level.SEVERE, null, ex);
@@ -948,7 +972,7 @@ public class CadastroAnimals extends javax.swing.JPanel {
         buscarDonoCPF();
 
     }//GEN-LAST:event_pesquisarDJBActionPerformed
-    
+
     private void buscarDonoCPF() throws ClientHandlerException, HeadlessException, UniformInterfaceException {
         // TODO add your handling code here:
 

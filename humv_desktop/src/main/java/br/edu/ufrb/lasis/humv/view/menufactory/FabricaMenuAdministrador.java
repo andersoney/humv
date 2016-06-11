@@ -30,7 +30,8 @@ public class FabricaMenuAdministrador extends MenuBarFabricaAbstrata {
     private JMenu menuCadastro;
     private JMenuItem cadastroAnimal,
             buscarAnimal,
-            alterarAnimal;
+            alterarAnimal,
+            removerAnimal;
 
     public FabricaMenuAdministrador(JPanel mainPanel) {
         super(mainPanel);
@@ -73,13 +74,16 @@ public class FabricaMenuAdministrador extends MenuBarFabricaAbstrata {
         alterarAnimal = new JMenuItem("Alterar");
         alterarAnimal.setMnemonic('A');
         alterarAnimal.addActionListener(this);
+        removerAnimal = new JMenuItem("Remover");
+        removerAnimal.setMnemonic('R');
+        removerAnimal.addActionListener(this);
 
         menuCadastro = new JMenu("Animal");
         menuCadastro.setMnemonic('A');
         menuCadastro.add(cadastroAnimal);
         menuCadastro.add(buscarAnimal);
         menuCadastro.add(alterarAnimal);
-
+        menuCadastro.add(removerAnimal);
         getMenuBar().add(menuCadastro);
 
         super.criaMenuAjuda();
@@ -105,6 +109,11 @@ public class FabricaMenuAdministrador extends MenuBarFabricaAbstrata {
             buscarAnimaisVisualização();
         } else if (e.getSource().equals(alterarAnimal)) {
             this.buscarAnimaisAlteracao();
+        } else if (e.getSource().equals(removerAnimal)) {
+            PropriedadeBuscarAnimais propBA = new PropriedadeBuscarAnimais(PropriedadesBusca.OPCAO_REMOVER);
+            BuscaPanel bus = new BuscaPanel("Busca de Animal para remover.", propBA);
+            LOG.info("Acessando Busca de Animal para remover.");
+            HUMVApp.setNovoPainelCentral(bus);
         }
 
     }
