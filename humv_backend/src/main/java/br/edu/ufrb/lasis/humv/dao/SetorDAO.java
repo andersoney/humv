@@ -69,7 +69,7 @@ public class SetorDAO  extends GenericDAO<Setor> implements Serializable {
 	
 	
 
-	@Transactional
+
 	@SuppressWarnings("unchecked")
 	public List<Setor> findByNome(String nome) {
 		Criteria criteria = getCriteria().add(Restrictions.ilike("nome", "%" + nome + "%"));
