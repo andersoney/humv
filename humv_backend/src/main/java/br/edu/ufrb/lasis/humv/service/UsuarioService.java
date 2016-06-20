@@ -31,8 +31,13 @@ public class UsuarioService {
     	return usuarioServiceImpl.findById(email);
     }
     
+    @RequestMapping(method = RequestMethod.GET, value = "/search")
+    public List<Usuario> search(@RequestParam(value="palavrachave") String palavrachave){
+    	return usuarioServiceImpl.search(palavrachave);
+    }
+    
     @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public String cadastrarUsuario(@RequestBody Usuario usuario, @RequestParam(value="username") String  username){
+    public String cadastrarUsuario(@RequestBody Usuario usuario, @RequestParam(value="username") String username){
     	return usuarioServiceImpl.cadastrarUsuario(usuario, username);
     }
     

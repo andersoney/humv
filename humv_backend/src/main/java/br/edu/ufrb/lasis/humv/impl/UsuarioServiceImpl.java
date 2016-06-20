@@ -30,6 +30,10 @@ public class UsuarioServiceImpl {
 	public Usuario findById(String email){
 		return usuarioDAO.findByEmail(email);
 	}
+	
+	public List<Usuario> search(String palavrachave){
+		return usuarioDAO.search(palavrachave);
+	}
 
 	public String cadastrarUsuario(Usuario usuario, String usuarioResponsavel){
 		try{

@@ -1,1 +1,4 @@
 /humv_desktop/target/
+humv_backend/src/main/webapp/WEB-INF/root-context.xml
+
+humv_backend/src/main/webapp/WEB-INF/root-context.xml
