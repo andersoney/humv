@@ -10,7 +10,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import br.edu.ufrb.lasis.humv.entity.AnimalPequeno;
+import br.edu.ufrb.lasis.humv.entity.Animal;
 import br.edu.ufrb.lasis.humv.entity.Dono;
 
 /**
@@ -23,7 +23,7 @@ import br.edu.ufrb.lasis.humv.entity.Dono;
  * @since 16 de maio de 2016
  */
 @Repository
-public class AnimalPequenoDAO  extends GenericDAO<AnimalPequeno> implements Serializable {
+public class AnimalDAO  extends GenericDAO<Animal> implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -42,7 +42,7 @@ public class AnimalPequenoDAO  extends GenericDAO<AnimalPequeno> implements Seri
 	 *            the small animal to be saved
 	 */
 	@Transactional
-	public void saveSmallAnimal(AnimalPequeno animal) {
+	public void saveAnimal(Animal animal) {
 		super.save(animal);
 	}
 
@@ -53,7 +53,7 @@ public class AnimalPequenoDAO  extends GenericDAO<AnimalPequeno> implements Seri
 	 *            the small animal to be updated
 	 */
 	@Transactional
-	public void updateSmallAnimal(AnimalPequeno animal) {
+	public void updateAnimal(Animal animal) {
 		super.update(animal);
 	}
 
@@ -64,29 +64,29 @@ public class AnimalPequenoDAO  extends GenericDAO<AnimalPequeno> implements Seri
 	 *            the small animal to be removed
 	 */
 	@Transactional
-	public void removeSmallAnimal(AnimalPequeno animal) {
+	public void removeAnimal(Animal animal) {
 		super.delete(animal);
 	}
 	
 	@Transactional
-	public AnimalPequeno findByRghumv(String rghumv) {
-		return (AnimalPequeno) getCriteria().add(Restrictions.eq("rghumv", rghumv)).uniqueResult();
+	public Animal findByRghumv(String rghumv) {
+		return (Animal) getCriteria().add(Restrictions.eq("rghumv", rghumv)).uniqueResult();
 	}
 
 	@Transactional
 	@SuppressWarnings("unchecked")
-	public List<AnimalPequeno> findByProprietario(Dono proprietario) {
+	public List<Animal> findByProprietario(Dono proprietario) {
 		String cpf = proprietario.getNome();
 		Criteria criteria = getCriteria().add(Restrictions.ilike("proprietario", "%" + cpf + "%"));
 		criteria.addOrder(Order.asc("nome"));
-		return (List<AnimalPequeno>) criteria.list();	
+		return (List<Animal>) criteria.list();	
 	}
 
 	@Transactional
 	@SuppressWarnings("unchecked")
-	public List<AnimalPequeno> findByNome(String nome) {
+	public List<Animal> findByNome(String nome) {
 		Criteria criteria = getCriteria().add(Restrictions.ilike("nome", "%" + nome + "%"));
 		criteria.addOrder(Order.asc("nome"));
-		return (List<AnimalPequeno>) criteria.list();	
+		return (List<Animal>) criteria.list();	
 	}
 }

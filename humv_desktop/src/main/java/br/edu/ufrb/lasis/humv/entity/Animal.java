@@ -3,13 +3,9 @@ package br.edu.ufrb.lasis.humv.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-/**Entidade que modela informações de animais de grande porte.
+
+/**Entidade que modela informações de animais de grande e pequeno porte.
  * A diferença entre um animal de pequeno e grande porte é a ausencia do campo 'pelagem' nesta entidade.
  * 
  * Ver requisito R003 em {@link https://docs.google.com/document/d/1plQtd_M9Qg4SAR9AH0MDhJac_dL5KciqMtWlCBimTDo}
@@ -22,13 +18,11 @@ import javax.persistence.TemporalType;
  * */
 
 
-@Entity
-@Table(name="ANIMAIS_GRANDES")
-public class AnimalGrande implements Serializable{
+public class Animal implements Serializable{
 	
 	private static final long serialVersionUID = -4309147069247595796L;
 	
-	@Id
+	
 	private String rghumv; // RGHUMV é um número de registro próprio do hospital veterinário.
 	private String nome;
 	private String especie;
@@ -37,8 +31,17 @@ public class AnimalGrande implements Serializable{
 	private int idade;
 	private double peso;
 	private String cpfDono; // Relacionamento entre animal e proprietario.
+	private String pelagem; // não se aplica para animais de grande porte.
+	private String porte; // pequeno ou grande
 	
-	@Temporal(TemporalType.DATE)
+	public String getPorte() {
+		return porte;
+	}
+
+	public void setPorte(String porte) {
+		this.porte = porte;
+	}
+
 	private Date dataCadastro; // Data que o animal foi cadastrado no sistema.
 
 	public String getRghumv() {
@@ -96,7 +99,7 @@ public class AnimalGrande implements Serializable{
 	public void setPeso(double peso) {
 		this.peso = peso;
 	}
-
+    
 	public String getCpfDono() {
 		return cpfDono;
 	}
@@ -111,5 +114,12 @@ public class AnimalGrande implements Serializable{
 
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
+	}
+	public String getPelagem() {
+		return pelagem;
+	}
+	
+	public void setPelagem(String pelagem) {
+		this.pelagem = pelagem;
 	}
 }

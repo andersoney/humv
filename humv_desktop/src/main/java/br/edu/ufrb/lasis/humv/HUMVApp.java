@@ -29,7 +29,10 @@ public class HUMVApp {
     private static JPanel mainPanel = null;
     private static CarregandoDialog carregandoDialog = null;
     private static String nomeUsuario;
-
+    
+    public HUMVMainWindow getMainWindow(){
+        return mainWindow;
+    }
     public static JPanel getMainPanelInstance() {
         if (mainPanel == null) {
             mainPanel = new JPanel();

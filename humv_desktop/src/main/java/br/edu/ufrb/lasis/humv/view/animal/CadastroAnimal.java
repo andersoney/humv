@@ -1,14 +1,18 @@
-package br.edu.ufrb.lasis.humv.Projeto;
+package br.edu.ufrb.lasis.humv.view.animal;
 
+import br.edu.ufrb.lasis.humv.view.dono.CadastroDonoJDialog;
+import br.edu.ufrb.lasis.humv.Projeto.Util;
 import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import br.edu.ufrb.lasis.humv.entity.AnimalGrande;
-import br.edu.ufrb.lasis.humv.entity.AnimalPequeno;
+import br.edu.ufrb.lasis.humv.entity.Animal;
 import br.edu.ufrb.lasis.humv.entity.Dono;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import com.sun.jersey.api.client.ClientResponse;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.Calendar;
 import java.util.logging.Level;
@@ -23,27 +27,88 @@ import java.util.logging.Logger;
  *
  * @author Andersoney
  */
-public class CadastroAnimals extends javax.swing.JPanel {
+public class CadastroAnimal extends javax.swing.JPanel implements ActionListener {
 
     JFrame parent;
     boolean grande = false;
     String cpf;
     String nome;
+    String porte;
     final private String servicoDono = "/api/dono";
     final private String servicoAnimalP = "/api/animalPequeno";
     final private String servicoAnimalG = "/api/animalGrande";
-    private static final Logger LOG = Logger.getLogger(CadastroAnimals.class.getName());
-
+    final private String servicoAnimal = "/api/animal";
+    private static final Logger LOG = Logger.getLogger(CadastroAnimal.class.getName());
+    private Animal animalSelecionado;
+    
+    public CadastroAnimal() {
+        initComponents();
+        customInitComponents();
+    }
+    public CadastroAnimal(Animal animalSelecionado) {
+        this.animalSelecionado = animalSelecionado;
+        initComponents();
+        customInitComponents();
+    }
+    private void customInitComponents() {
+        buttonOK.addActionListener(this);
+        buttonCancelar.addActionListener(this);
+        textFieldNome.setFocusable(true);
+        
+        if(animalSelecionado != null){
+            labelTitulo.setText("Alteração de dados do animal");
+            textFieldNome.setText(animalSelecionado.getNome());
+            textFieldEspecie.setText(animalSelecionado.getEspecie());
+            textFieldIdade.setText(""+animalSelecionado.getIdade());
+            textFieldRaca.setText(animalSelecionado.getRaca());
+            textFieldPeso.setText(""+animalSelecionado.getPeso());
+            textFieldRghumv.setText(animalSelecionado.getRghumv());
+            textFieldRghumv.setEnabled(false);
+            labelCpfDono.setText("CPF: "+animalSelecionado.getCpfDono());
+            if (Util.isCPF(animalSelecionado.getCpfDono())) {
+                ClientResponse response;
+                try {
+                    this.setCPFNull();
+                    response = RESTMethods.get(servicoDono + "/" + animalSelecionado.getCpfDono() + "");
+                    Dono at = response.getEntity(Dono.class);
+                    this.cpf = at.getCpf();
+                    this.labelCpfDono.setText("CPF: " + cpf);
+                    this.nomeDJL.setText("Nome: " + at.getNome());
+                } catch (RESTConnectionException ex) {
+                    Logger.getLogger(CadastroAnimal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if(animalSelecionado.getPorte().equalsIgnoreCase("pequeno")){
+                this.pequenoPorteJRB.setSelected(true);
+                pequenoPorteJRBActionPerformed(null);
+                this.pequenoPorteJRB.setEnabled(false);
+                this.grandePorteJRB.setEnabled(false);
+                textFieldPelagem.setText(animalSelecionado.getPelagem());
+            }else{
+                this.grandePorteJRB.setSelected(true);
+                grandePorteJRBActionPerformed(null);
+                this.pequenoPorteJRB.setEnabled(false);
+                this.grandePorteJRB.setEnabled(false);
+            }
+            if(animalSelecionado.getSexo()=='M'||animalSelecionado.getSexo()=='m'){
+                radioButtonMacho.setSelected(true);
+                radioButtonFemea.setSelected(false);
+            }else{
+                radioButtonMacho.setSelected(false);
+                radioButtonFemea.setSelected(true);
+            }
+        }
+    }
     /**
      * Creates new form CadastroAnimals
      *
      * @param parent
      */
-    public CadastroAnimals(JFrame parent) {
+    public CadastroAnimal(JFrame parent) {
         //this.removerDono();
         this.parent = parent;
         initComponents();
-        this.tituloJL.setText("Cadastro do animal");
+        this.labelTitulo.setText("Cadastro do animal");
         this.pequenoPorteJRB.setSelected(true);
         Calendar cal = Calendar.getInstance();
         Date n = cal.getTime();
@@ -55,19 +120,23 @@ public class CadastroAnimals extends javax.swing.JPanel {
         this.minJCB.setSelectedIndex(n.getMinutes() + 1);
     }
 
+    CadastroAnimal(Object object, Animal atual, String OPCAO_VISUALIZAR) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     private void removerDono() {
         ClientResponse response;
         try {
             response = RESTMethods.delete(this.servicoAnimalG + "/05741155529", "humv");
         } catch (RESTConnectionException ex) {
-            Logger.getLogger(CadastroAnimals.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CadastroAnimal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public CadastroAnimals(JFrame parent, boolean Pequeno) {
+    public CadastroAnimal(JFrame parent, boolean Pequeno) {
         this.parent = parent;
         initComponents();
-        this.tituloJL.setText("Cadastro de Animais");
+        this.labelTitulo.setText("Cadastro de Animais");
         this.pequenoPorteJRB.setSelected(true);
         Calendar cal = Calendar.getInstance();
         Date n = cal.getTime();
@@ -82,6 +151,7 @@ public class CadastroAnimals extends javax.swing.JPanel {
             pequenoPorteJRBActionPerformed(null);
             this.pequenoPorteJRB.setEnabled(false);
             this.grandePorteJRB.setEnabled(false);
+            
         } else {
             this.grandePorteJRB.setSelected(true);
             grandePorteJRBActionPerformed(null);
@@ -103,14 +173,14 @@ public class CadastroAnimals extends javax.swing.JPanel {
         this.cpf = null;
         this.nome = null;
         this.nomeDJL.setText("Nome: ");
-        this.cpfDJL.setText("CPF: ");
+        this.labelCpfDono.setText("CPF: ");
     }
 
     public void setCPF(String cpf, String nome) {
         this.cpf = cpf;
         this.nome = nome;
         this.nomeDJL.setText("Nome: " + nome);
-        this.cpfDJL.setText("CPF: " + cpf);
+        this.labelCpfDono.setText("CPF: " + cpf);
     }
 
     /**
@@ -127,39 +197,39 @@ public class CadastroAnimals extends javax.swing.JPanel {
         pesquisarDJB = new javax.swing.JButton();
         cpfBuscarJTF = new javax.swing.JTextField();
         nomeDJL = new javax.swing.JLabel();
-        cpfDJL = new javax.swing.JLabel();
-        cadastrarDJL = new javax.swing.JLabel();
+        labelCpfDono = new javax.swing.JLabel();
         diaJCB = new javax.swing.JComboBox<>();
         mesJCB = new javax.swing.JComboBox<>();
         anoJCB = new javax.swing.JComboBox<>();
         horaJCB = new javax.swing.JComboBox<>();
         minJCB = new javax.swing.JComboBox<>();
+        jbCadastrarNovoDono = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         nomeAJL = new javax.swing.JLabel();
-        nomeAJTF = new javax.swing.JTextField();
+        textFieldNome = new javax.swing.JTextField();
         especieJL = new javax.swing.JLabel();
-        especieJTF = new javax.swing.JTextField();
+        textFieldEspecie = new javax.swing.JTextField();
         racaJL = new javax.swing.JLabel();
-        racaJTF = new javax.swing.JTextField();
+        textFieldRaca = new javax.swing.JTextField();
         sexoJL = new javax.swing.JLabel();
-        machoJRB = new javax.swing.JRadioButton();
-        femeaJRB = new javax.swing.JRadioButton();
+        radioButtonMacho = new javax.swing.JRadioButton();
+        radioButtonFemea = new javax.swing.JRadioButton();
         idadeJL = new javax.swing.JLabel();
-        idadeJTF = new javax.swing.JTextField();
+        textFieldIdade = new javax.swing.JTextField();
         pesoJL = new javax.swing.JLabel();
-        pesoJTF = new javax.swing.JTextField();
+        textFieldPeso = new javax.swing.JTextField();
         rghumvJL = new javax.swing.JLabel();
-        rghumvJTF = new javax.swing.JTextField();
+        textFieldRghumv = new javax.swing.JTextField();
         porteDoAnimalJL = new javax.swing.JLabel();
         grandePorteJRB = new javax.swing.JRadioButton();
         pequenoPorteJRB = new javax.swing.JRadioButton();
         pelagemJL = new javax.swing.JLabel();
-        PelagemJTF = new javax.swing.JTextField();
+        textFieldPelagem = new javax.swing.JTextField();
         TipodeAtendimentoJL = new javax.swing.JLabel();
-        tipodeAtendimentoJCB = new javax.swing.JComboBox<>();
-        cancelarJB = new javax.swing.JButton();
-        tituloJL = new javax.swing.JLabel();
-        confirmarJB = new javax.swing.JButton();
+        comboBoxTipoAtendimento = new javax.swing.JComboBox<>();
+        buttonCancelar = new javax.swing.JButton();
+        labelTitulo = new javax.swing.JLabel();
+        buttonOK = new javax.swing.JButton();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do Dono"));
 
@@ -178,18 +248,11 @@ public class CadastroAnimals extends javax.swing.JPanel {
             }
         });
 
-        nomeDJL.setText("Nome");
+        nomeDJL.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        nomeDJL.setText("Nome:");
 
-        cpfDJL.setText("CPF");
-
-        cadastrarDJL.setFont(new java.awt.Font("Arial", 2, 11)); // NOI18N
-        cadastrarDJL.setForeground(new java.awt.Color(0, 0, 255));
-        cadastrarDJL.setText("Cadastrar novo Dono");
-        cadastrarDJL.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cadastrarDJLMouseClicked(evt);
-            }
-        });
+        labelCpfDono.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        labelCpfDono.setText("CPF:");
 
         diaJCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dia", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
 
@@ -199,40 +262,53 @@ public class CadastroAnimals extends javax.swing.JPanel {
 
         minJCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Min", "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60" }));
 
+        jbCadastrarNovoDono.setText("Cadastrar novo...");
+        jbCadastrarNovoDono.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbCadastrarNovoDonoMouseClicked(evt);
+            }
+        });
+        jbCadastrarNovoDono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCadastrarNovoDonoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nomeDJL, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(diaJCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(mesJCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(anoJCB, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cpfDJL, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(33, 33, 33)
-                                .addComponent(horaJCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(minJCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(cpfBuscarJTF, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
-                            .addGap(18, 18, 18)
-                            .addComponent(pesquisarDJB))
-                        .addComponent(buscarDJL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(anoJCB, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(cadastrarDJL, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 19, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(cpfBuscarJTF, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(buscarDJL, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(pesquisarDJB)
+                        .addGap(28, 28, 28)
+                        .addComponent(jbCadastrarNovoDono))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(horaJCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(minJCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelCpfDono, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,21 +318,20 @@ public class CadastroAnimals extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pesquisarDJB)
-                    .addComponent(cpfBuscarJTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cadastrarDJL)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(cpfBuscarJTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbCadastrarNovoDono))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nomeDJL)
-                    .addComponent(cpfDJL))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(labelCpfDono))
+                .addGap(45, 45, 45)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(diaJCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mesJCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(anoJCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(minJCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(horaJCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(minJCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(anoJCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mesJCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(diaJCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do Animal"));
@@ -269,17 +344,17 @@ public class CadastroAnimals extends javax.swing.JPanel {
 
         sexoJL.setText("Sexo");
 
-        machoJRB.setText("Macho");
-        machoJRB.addActionListener(new java.awt.event.ActionListener() {
+        radioButtonMacho.setText("Macho");
+        radioButtonMacho.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                machoJRBActionPerformed(evt);
+                radioButtonMachoActionPerformed(evt);
             }
         });
 
-        femeaJRB.setText("Fêmea");
-        femeaJRB.addActionListener(new java.awt.event.ActionListener() {
+        radioButtonFemea.setText("Fêmea");
+        radioButtonFemea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                femeaJRBActionPerformed(evt);
+                radioButtonFemeaActionPerformed(evt);
             }
         });
 
@@ -309,7 +384,7 @@ public class CadastroAnimals extends javax.swing.JPanel {
 
         TipodeAtendimentoJL.setText("Tipo de atendimento");
 
-        tipodeAtendimentoJCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal", "Emergencial", " " }));
+        comboBoxTipoAtendimento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal", "Emergencial", " " }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -321,34 +396,34 @@ public class CadastroAnimals extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(nomeAJL, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
-                            .addComponent(nomeAJTF))
+                            .addComponent(textFieldNome))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(especieJL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(especieJTF, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(textFieldEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(idadeJL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(idadeJTF, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(24, 24, 24)
+                            .addComponent(textFieldIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(99, 99, 99)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pesoJL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(pesoJTF)))
+                            .addComponent(textFieldPeso)
+                            .addComponent(pesoJL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(racaJL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(racaJTF, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                            .addComponent(textFieldRaca, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(sexoJL, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(machoJRB)
+                                .addComponent(radioButtonMacho)
                                 .addGap(18, 18, 18)
-                                .addComponent(femeaJRB))))
+                                .addComponent(radioButtonFemea))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(rghumvJL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(rghumvJTF, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(textFieldRghumv, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(porteDoAnimalJL, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -359,11 +434,11 @@ public class CadastroAnimals extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(TipodeAtendimentoJL)
-                            .addComponent(tipodeAtendimentoJCB, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(comboBoxTipoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(pelagemJL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(PelagemJTF, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(textFieldPelagem, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -373,33 +448,34 @@ public class CadastroAnimals extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(especieJL)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(especieJTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(textFieldEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(nomeAJL)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nomeAJTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(textFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(racaJL)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(racaJTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(textFieldRaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(sexoJL)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(machoJRB)
-                            .addComponent(femeaJRB))))
+                            .addComponent(radioButtonMacho)
+                            .addComponent(radioButtonFemea))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(idadeJL)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(idadeJTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textFieldIdade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textFieldPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(pesoJL)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pesoJTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(26, 26, 26)))
                 .addGap(11, 11, 11)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -414,32 +490,32 @@ public class CadastroAnimals extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(rghumvJL)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rghumvJTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(textFieldRghumv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pelagemJL)
                     .addComponent(TipodeAtendimentoJL))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PelagemJTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tipodeAtendimentoJCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textFieldPelagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboBoxTipoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        cancelarJB.setText("Cancelar");
-        cancelarJB.addActionListener(new java.awt.event.ActionListener() {
+        buttonCancelar.setText("Cancelar");
+        buttonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelarJBActionPerformed(evt);
+                buttonCancelarActionPerformed(evt);
             }
         });
 
-        tituloJL.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        tituloJL.setText("Titulo");
+        labelTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        labelTitulo.setText("Titulo");
 
-        confirmarJB.setText("Confirmar");
-        confirmarJB.addActionListener(new java.awt.event.ActionListener() {
+        buttonOK.setText("Confirmar");
+        buttonOK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                confirmarJBActionPerformed(evt);
+                buttonOKActionPerformed(evt);
             }
         });
 
@@ -449,71 +525,66 @@ public class CadastroAnimals extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(cancelarJB)
-                            .addGap(18, 18, 18)
-                            .addComponent(confirmarJB))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(92, 92, 92)
-                        .addComponent(tituloJL, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(52, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(92, 92, 92)
+                                .addComponent(labelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(155, 155, 155)
+                                .addComponent(buttonCancelar)
+                                .addGap(41, 41, 41)
+                                .addComponent(buttonOK)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addComponent(tituloJL, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(labelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelarJB)
-                    .addComponent(confirmarJB))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(buttonCancelar)
+                    .addComponent(buttonOK))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void machoJRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_machoJRBActionPerformed
+    private void radioButtonMachoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonMachoActionPerformed
         // TODO add your handling code here:
-        this.femeaJRB.setSelected(false);
-    }//GEN-LAST:event_machoJRBActionPerformed
+        this.radioButtonFemea.setSelected(false);
+    }//GEN-LAST:event_radioButtonMachoActionPerformed
 
-    private void femeaJRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_femeaJRBActionPerformed
+    private void radioButtonFemeaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonFemeaActionPerformed
         // TODO add your handling code here:
-        this.machoJRB.setSelected(false);
-    }//GEN-LAST:event_femeaJRBActionPerformed
+        this.radioButtonMacho.setSelected(false);
+    }//GEN-LAST:event_radioButtonFemeaActionPerformed
 
     private void pequenoPorteJRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pequenoPorteJRBActionPerformed
         // TODO add your handling code here:
         this.grandePorteJRB.setSelected(false);
         this.pelagemJL.setVisible(true);
-        this.PelagemJTF.setVisible(true);
+        this.textFieldPelagem.setVisible(true);
     }//GEN-LAST:event_pequenoPorteJRBActionPerformed
 
     private void grandePorteJRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_grandePorteJRBActionPerformed
         // TODO add your handling code here:
         this.pequenoPorteJRB.setSelected(false);
         this.pelagemJL.setVisible(false);
-        this.PelagemJTF.setVisible(false);
+        this.textFieldPelagem.setVisible(false);
     }//GEN-LAST:event_grandePorteJRBActionPerformed
 
-    private void cadastrarDJLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadastrarDJLMouseClicked
-        // TODO add your handling code here:
-        CadastroDono dono = new CadastroDono(parent, true, this);
-        dono.setTitle("Cadastro de dono de animais");
-        dono.setLocationRelativeTo(null);
-        dono.setVisible(true);
-    }//GEN-LAST:event_cadastrarDJLMouseClicked
-
-    private void confirmarJBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarJBActionPerformed
+    private void buttonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOKActionPerformed
         // TODO add your handling code here:
         if (cpf == null) {
             JOptionPane.showMessageDialog(this, "Escolha um dono na lista ou cadastre.");
@@ -523,61 +594,62 @@ public class CadastroAnimals extends javax.swing.JPanel {
         float peso;
         int idade;
         boolean pequenoPort;
-        if (!Util.isNotNull(this.nomeAJTF.getText())) {
+        if (!Util.isNotNull(this.textFieldNome.getText())) {
             JOptionPane.showMessageDialog(this, "Nome do animal não pode ficar vazio.");
             return;
         }
-        String nome = this.nomeAJTF.getText();
-        if (!Util.isNotNull(this.especieJTF.getText())) {
+        String nome = this.textFieldNome.getText();
+        if (!Util.isNotNull(this.textFieldEspecie.getText())) {
             JOptionPane.showMessageDialog(this, "Especie não pode ficar vazio.");
             return;
         }
-        String especie = this.especieJTF.getText();
-        if (!Util.isNotNull(this.racaJTF.getText())) {
+        String especie = this.textFieldEspecie.getText();
+        if (!Util.isNotNull(this.textFieldRaca.getText())) {
             JOptionPane.showMessageDialog(this, "Campo raça não pode ficar vazio.");
             return;
         }
-        String raca = this.racaJTF.getText();
+        String raca = this.textFieldRaca.getText();
         try {
-            idade = Integer.parseInt(this.idadeJTF.getText());
+            idade = Integer.parseInt(this.textFieldIdade.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Digite uma idade valida.\nValor Inteiro.");
             return;
         }
-        if (this.machoJRB.isSelected()) {
+        if (this.radioButtonMacho.isSelected()) {
             sexo = 'M';
         } else {
             sexo = 'F';
         }
         try {
-            peso = Float.parseFloat(this.pesoJTF.getText());
+            peso = Float.parseFloat(this.textFieldPeso.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Digite um peso valido.");
             return;
         }
         String rghumv;
-        if (!Util.isNotNull(this.rghumvJTF.getText())) {
+        if (!Util.isNotNull(this.textFieldRghumv.getText())) {
             JOptionPane.showMessageDialog(this, "Preencha o RGHUMV.");
             return;
         } else {
-            rghumv = this.rghumvJTF.getText();
+            rghumv = this.textFieldRghumv.getText();
         }
         String pelagem = null;
         if (this.pequenoPorteJRB.isSelected()) {
-            if (!Util.isNotNull(this.PelagemJTF.getText())) {
+            if (!Util.isNotNull(this.textFieldPelagem.getText())) {
                 JOptionPane.showMessageDialog(this, "Digite a pelagem do animal.");
                 return;
             } else {
-                pelagem = this.PelagemJTF.getText();
-                pequenoPort = true;
+                pelagem = this.textFieldPelagem.getText();              
             }
+            porte = "peqeno";
         } else {
-            pequenoPort = false;
+            porte = "grande";
+            pelagem = "não se aplica.";
         }
         String tipoDeAtendimento = null;
-        if (this.tipodeAtendimentoJCB.getSelectedIndex() == 0) {
+        if (this.comboBoxTipoAtendimento.getSelectedIndex() == 0) {
             tipoDeAtendimento = "Normal";
-        } else if (this.tipodeAtendimentoJCB.getSelectedIndex() == 1) {
+        } else if (this.comboBoxTipoAtendimento.getSelectedIndex() == 1) {
             tipoDeAtendimento = "Emergencial";
         }
         if (this.anoJCB.getSelectedIndex() == 0
@@ -588,63 +660,38 @@ public class CadastroAnimals extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Digite uma data e hora valida.");
         }
         ClientResponse response;
-        if (!pequenoPort) {
-            AnimalGrande aniGrand = new AnimalGrande();
-            aniGrand.setCpfDono(cpf);
-            aniGrand.setDataCadastro(new Date(this.anoJCB.getSelectedIndex() + (Calendar.getInstance().getTime().getYear() - 60),
+        
+        Animal animal = new Animal();
+        animal.setCpfDono(cpf);
+        animal.setDataCadastro(new Date(this.anoJCB.getSelectedIndex() + (Calendar.getInstance().getTime().getYear() - 60),
                     this.mesJCB.getSelectedIndex(),
                     this.diaJCB.getSelectedIndex(),
                     this.horaJCB.getSelectedIndex() - 1, this.minJCB.getSelectedIndex() - 1));
-            aniGrand.setEspecie(especie);
-            aniGrand.setIdade(idade);
-            aniGrand.setNome(nome);
-            aniGrand.setPeso(peso);
-            aniGrand.setRaca(raca);
-            aniGrand.setRghumv(rghumv);
-            aniGrand.setSexo(sexo);
-
-            try {
-                response = RESTMethods.post(this.servicoAnimalG, aniGrand);
-                String resposta = response.getEntity(String.class);
-                if (!resposta.equalsIgnoreCase("ok")) {
-                    JOptionPane.showMessageDialog(this, resposta, "Falha no cadastro", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-            } catch (RESTConnectionException ex) {
-                Logger.getLogger(CadastroAnimals.class.getName()).log(Level.SEVERE, null, ex);
+        animal.setEspecie(especie);
+        animal.setIdade(idade);
+        animal.setNome(nome);
+        animal.setPeso(peso);
+        animal.setRaca(raca);
+        animal.setRghumv(rghumv);
+        animal.setSexo(sexo);
+        animal.setPorte(porte);
+        animal.setPelagem(pelagem);
+        try {
+            response = RESTMethods.post(this.servicoAnimal, animal);
+            String resposta = response.getEntity(String.class);
+            if (!resposta.equalsIgnoreCase("ok")) {
+                JOptionPane.showMessageDialog(this, resposta, "Falha no cadastro", JOptionPane.ERROR_MESSAGE);
             }
-        } else {
-            AnimalPequeno aniPequeno = new AnimalPequeno();
-            aniPequeno.setCpfDono(cpf);
-            //Verificar aqui.
-            //aniPequeno.setDataCadastro(new Date(idade, WIDTH, idade, ERROR, WIDTH));
-            aniPequeno.setEspecie(especie);
-            aniPequeno.setIdade(idade);
-            aniPequeno.setNome(nome);
-            aniPequeno.setPeso(peso);
-            aniPequeno.setRaca(raca);
-            aniPequeno.setRghumv(rghumv);
-            aniPequeno.setSexo(sexo);
-            aniPequeno.setPelagem(pelagem);
+        } catch (RESTConnectionException ex) {
+            Logger.getLogger(CadastroAnimal.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+    }//GEN-LAST:event_buttonOKActionPerformed
 
-            try {
-                response = RESTMethods.post(servicoAnimalP, aniPequeno);
-                String resposta = response.getEntity(String.class);
-                if (!resposta.equalsIgnoreCase("ok")) {
-                    JOptionPane.showMessageDialog(this, resposta, "Falha no cadastro", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-            } catch (RESTConnectionException ex) {
-                Logger.getLogger(CadastroAnimals.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }//GEN-LAST:event_confirmarJBActionPerformed
-
-    private void cancelarJBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarJBActionPerformed
+    private void buttonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelarActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
         System.gc();
-    }//GEN-LAST:event_cancelarJBActionPerformed
+    }//GEN-LAST:event_buttonCancelarActionPerformed
 
     private void pesquisarDJBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisarDJBActionPerformed
         // TODO add your handling code here:
@@ -658,10 +705,10 @@ public class CadastroAnimals extends javax.swing.JPanel {
                     response = RESTMethods.get(servicoDono + "/" + this.cpfBuscarJTF.getText() + "");
                     Dono at = response.getEntity(Dono.class);
                     this.cpf = at.getCpf();
-                    this.cpfDJL.setText("CPF: " + cpf);
+                    this.labelCpfDono.setText("CPF: " + cpf);
                     this.nomeDJL.setText("Nome: " + at.getNome());
                 } catch (RESTConnectionException ex) {
-                    Logger.getLogger(CadastroAnimals.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(CadastroAnimal.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }else{
                 this.setCPFNull();
@@ -677,45 +724,61 @@ public class CadastroAnimals extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_cpfBuscarJTFKeyPressed
 
+    private void jbCadastrarNovoDonoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbCadastrarNovoDonoMouseClicked
+        CadastroDonoJDialog dono = new CadastroDonoJDialog(parent, true, this);
+        dono.setTitle("Cadastro de dono de animais");
+        dono.setLocationRelativeTo(null);
+        dono.setVisible(true);
+    }//GEN-LAST:event_jbCadastrarNovoDonoMouseClicked
+
+    private void jbCadastrarNovoDonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCadastrarNovoDonoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbCadastrarNovoDonoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField PelagemJTF;
     private javax.swing.JLabel TipodeAtendimentoJL;
     private javax.swing.JComboBox<String> anoJCB;
     private javax.swing.JLabel buscarDJL;
-    private javax.swing.JLabel cadastrarDJL;
-    private javax.swing.JButton cancelarJB;
-    private javax.swing.JButton confirmarJB;
+    private javax.swing.JButton buttonCancelar;
+    private javax.swing.JButton buttonOK;
+    private javax.swing.JComboBox<String> comboBoxTipoAtendimento;
     private javax.swing.JTextField cpfBuscarJTF;
-    private javax.swing.JLabel cpfDJL;
     private javax.swing.JComboBox<String> diaJCB;
     private javax.swing.JLabel especieJL;
-    private javax.swing.JTextField especieJTF;
-    private javax.swing.JRadioButton femeaJRB;
     private javax.swing.JRadioButton grandePorteJRB;
     private javax.swing.JComboBox<String> horaJCB;
     private javax.swing.JLabel idadeJL;
-    private javax.swing.JTextField idadeJTF;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton machoJRB;
+    private javax.swing.JButton jbCadastrarNovoDono;
+    private javax.swing.JLabel labelCpfDono;
+    private javax.swing.JLabel labelTitulo;
     private javax.swing.JComboBox<String> mesJCB;
     private javax.swing.JComboBox<String> minJCB;
     private javax.swing.JLabel nomeAJL;
-    private javax.swing.JTextField nomeAJTF;
     private javax.swing.JLabel nomeDJL;
     private javax.swing.JLabel pelagemJL;
     private javax.swing.JRadioButton pequenoPorteJRB;
     private javax.swing.JLabel pesoJL;
-    private javax.swing.JTextField pesoJTF;
     private javax.swing.JButton pesquisarDJB;
     private javax.swing.JLabel porteDoAnimalJL;
     private javax.swing.JLabel racaJL;
-    private javax.swing.JTextField racaJTF;
+    private javax.swing.JRadioButton radioButtonFemea;
+    private javax.swing.JRadioButton radioButtonMacho;
     private javax.swing.JLabel rghumvJL;
-    private javax.swing.JTextField rghumvJTF;
     private javax.swing.JLabel sexoJL;
-    private javax.swing.JComboBox<String> tipodeAtendimentoJCB;
-    private javax.swing.JLabel tituloJL;
+    private javax.swing.JTextField textFieldEspecie;
+    private javax.swing.JTextField textFieldIdade;
+    private javax.swing.JTextField textFieldNome;
+    private javax.swing.JTextField textFieldPelagem;
+    private javax.swing.JTextField textFieldPeso;
+    private javax.swing.JTextField textFieldRaca;
+    private javax.swing.JTextField textFieldRghumv;
     // End of variables declaration//GEN-END:variables
+    
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

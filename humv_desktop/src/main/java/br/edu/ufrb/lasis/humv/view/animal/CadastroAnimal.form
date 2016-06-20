@@ -18,26 +18,30 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="cancelarJB" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="confirmarJB" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="jPanel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
-                      <Component id="tituloJL" min="-2" pref="247" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
+                              <Component id="labelTitulo" min="-2" pref="247" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="155" max="-2" attributes="0"/>
+                              <Component id="buttonCancelar" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                              <Component id="buttonOK" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="52" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -45,17 +49,17 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-              <Component id="tituloJL" min="-2" pref="41" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="labelTitulo" min="-2" pref="41" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-              <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="cancelarJB" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="confirmarJB" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonOK" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="39" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -74,44 +78,45 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="nomeDJL" min="-2" pref="158" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="nomeDJL" alignment="0" min="-2" pref="158" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="diaJCB" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="mesJCB" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="anoJCB" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="anoJCB" min="-2" pref="54" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="cpfDJL" min="-2" pref="158" max="-2" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                                  <Component id="horaJCB" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="minJCB" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="cpfBuscarJTF" pref="243" max="32767" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="pesquisarDJB" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="buscarDJL" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                          <Component id="cadastrarDJL" min="-2" pref="340" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="cpfBuscarJTF" min="-2" pref="194" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="buscarDJL" min="-2" pref="194" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="0" pref="19" max="32767" attributes="0"/>
+                  <EmptySpace pref="23" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="pesquisarDJB" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                          <Component id="jbCadastrarNovoDono" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                          <Component id="horaJCB" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="minJCB" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="labelCpfDono" alignment="0" min="-2" pref="158" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -124,23 +129,22 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="pesquisarDJB" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cpfBuscarJTF" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jbCadastrarNovoDono" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="cadastrarDJL" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="nomeDJL" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cpfDJL" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelCpfDono" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="diaJCB" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="mesJCB" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="anoJCB" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="horaJCB" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="minJCB" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="horaJCB" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="anoJCB" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="mesJCB" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="diaJCB" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="20" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -166,27 +170,19 @@
         </Component>
         <Component class="javax.swing.JLabel" name="nomeDJL">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Nome"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Nome:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="cpfDJL">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="CPF"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="cadastrarDJL">
+        <Component class="javax.swing.JLabel" name="labelCpfDono">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="11" style="2"/>
+              <Font name="Tahoma" size="12" style="1"/>
             </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="0" red="0" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Cadastrar novo Dono"/>
+            <Property name="text" type="java.lang.String" value="CPF:"/>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cadastrarDJLMouseClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="diaJCB">
           <Properties>
@@ -374,6 +370,15 @@
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
+        <Component class="javax.swing.JButton" name="jbCadastrarNovoDono">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cadastrar novo..."/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jbCadastrarNovoDonoMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbCadastrarNovoDonoActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel2">
@@ -394,44 +399,44 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="nomeAJL" pref="172" max="32767" attributes="0"/>
-                              <Component id="nomeAJTF" max="32767" attributes="0"/>
+                              <Component id="textFieldNome" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="especieJL" alignment="0" max="32767" attributes="0"/>
-                              <Component id="especieJTF" alignment="0" min="-2" pref="172" max="-2" attributes="0"/>
+                              <Component id="textFieldEspecie" alignment="0" min="-2" pref="172" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="idadeJL" alignment="0" max="32767" attributes="0"/>
-                              <Component id="idadeJTF" alignment="0" min="-2" pref="172" max="-2" attributes="0"/>
+                              <Component id="textFieldIdade" alignment="0" min="-2" pref="172" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="textFieldPeso" max="32767" attributes="0"/>
                               <Component id="pesoJL" max="32767" attributes="0"/>
-                              <Component id="pesoJTF" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="racaJL" alignment="0" max="32767" attributes="0"/>
-                              <Component id="racaJTF" alignment="0" min="-2" pref="172" max="-2" attributes="0"/>
+                              <Component id="textFieldRaca" alignment="0" min="-2" pref="172" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="24" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="sexoJL" alignment="0" min="-2" pref="172" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="machoJRB" min="-2" max="-2" attributes="0"/>
+                                  <Component id="radioButtonMacho" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="femeaJRB" min="-2" max="-2" attributes="0"/>
+                                  <Component id="radioButtonFemea" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="rghumvJL" alignment="0" max="32767" attributes="0"/>
-                              <Component id="rghumvJTF" alignment="0" min="-2" pref="172" max="-2" attributes="0"/>
+                              <Component id="textFieldRghumv" alignment="0" min="-2" pref="172" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -446,12 +451,12 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="TipodeAtendimentoJL" min="-2" max="-2" attributes="0"/>
-                              <Component id="tipodeAtendimentoJCB" min="-2" pref="172" max="-2" attributes="0"/>
+                              <Component id="comboBoxTipoAtendimento" min="-2" pref="172" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="pelagemJL" alignment="0" max="32767" attributes="0"/>
-                              <Component id="PelagemJTF" alignment="0" min="-2" pref="172" max="-2" attributes="0"/>
+                              <Component id="textFieldPelagem" alignment="0" min="-2" pref="172" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -466,12 +471,12 @@
                       <Group type="102" attributes="0">
                           <Component id="especieJL" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="especieJTF" min="-2" max="-2" attributes="0"/>
+                          <Component id="textFieldEspecie" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Component id="nomeAJL" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="nomeAJTF" min="-2" max="-2" attributes="0"/>
+                          <Component id="textFieldNome" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -479,14 +484,14 @@
                       <Group type="102" attributes="0">
                           <Component id="racaJL" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="racaJTF" min="-2" max="-2" attributes="0"/>
+                          <Component id="textFieldRaca" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Component id="sexoJL" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="machoJRB" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="femeaJRB" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="radioButtonMacho" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="radioButtonFemea" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -495,12 +500,14 @@
                       <Group type="102" attributes="0">
                           <Component id="idadeJL" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="idadeJTF" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="textFieldIdade" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textFieldPeso" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <Group type="102" attributes="0">
                           <Component id="pesoJL" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="pesoJTF" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
@@ -521,7 +528,7 @@
                       <Group type="102" attributes="0">
                           <Component id="rghumvJL" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="rghumvJTF" min="-2" max="-2" attributes="0"/>
+                          <Component id="textFieldRghumv" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -531,8 +538,8 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="PelagemJTF" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="tipodeAtendimentoJCB" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textFieldPelagem" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="comboBoxTipoAtendimento" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="22" max="32767" attributes="0"/>
               </Group>
@@ -545,41 +552,41 @@
             <Property name="text" type="java.lang.String" value="Nome"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="nomeAJTF">
+        <Component class="javax.swing.JTextField" name="textFieldNome">
         </Component>
         <Component class="javax.swing.JLabel" name="especieJL">
           <Properties>
             <Property name="text" type="java.lang.String" value="Esp&#xe9;cie"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="especieJTF">
+        <Component class="javax.swing.JTextField" name="textFieldEspecie">
         </Component>
         <Component class="javax.swing.JLabel" name="racaJL">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ra&#xe7;a"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="racaJTF">
+        <Component class="javax.swing.JTextField" name="textFieldRaca">
         </Component>
         <Component class="javax.swing.JLabel" name="sexoJL">
           <Properties>
             <Property name="text" type="java.lang.String" value="Sexo"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="machoJRB">
+        <Component class="javax.swing.JRadioButton" name="radioButtonMacho">
           <Properties>
             <Property name="text" type="java.lang.String" value="Macho"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="machoJRBActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioButtonMachoActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="femeaJRB">
+        <Component class="javax.swing.JRadioButton" name="radioButtonFemea">
           <Properties>
             <Property name="text" type="java.lang.String" value="F&#xea;mea"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="femeaJRBActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioButtonFemeaActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="idadeJL">
@@ -587,21 +594,21 @@
             <Property name="text" type="java.lang.String" value="Idade"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="idadeJTF">
+        <Component class="javax.swing.JTextField" name="textFieldIdade">
         </Component>
         <Component class="javax.swing.JLabel" name="pesoJL">
           <Properties>
             <Property name="text" type="java.lang.String" value="Peso"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="pesoJTF">
+        <Component class="javax.swing.JTextField" name="textFieldPeso">
         </Component>
         <Component class="javax.swing.JLabel" name="rghumvJL">
           <Properties>
             <Property name="text" type="java.lang.String" value="RGHUMV"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="rghumvJTF">
+        <Component class="javax.swing.JTextField" name="textFieldRghumv">
         </Component>
         <Component class="javax.swing.JLabel" name="porteDoAnimalJL">
           <Properties>
@@ -629,14 +636,14 @@
             <Property name="text" type="java.lang.String" value="Pelagem"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="PelagemJTF">
+        <Component class="javax.swing.JTextField" name="textFieldPelagem">
         </Component>
         <Component class="javax.swing.JLabel" name="TipodeAtendimentoJL">
           <Properties>
             <Property name="text" type="java.lang.String" value="Tipo de atendimento"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="tipodeAtendimentoJCB">
+        <Component class="javax.swing.JComboBox" name="comboBoxTipoAtendimento">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="3">
@@ -652,15 +659,15 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="cancelarJB">
+    <Component class="javax.swing.JButton" name="buttonCancelar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelarJBActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCancelarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="tituloJL">
+    <Component class="javax.swing.JLabel" name="labelTitulo">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="14" style="1"/>
@@ -668,12 +675,12 @@
         <Property name="text" type="java.lang.String" value="Titulo"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="confirmarJB">
+    <Component class="javax.swing.JButton" name="buttonOK">
       <Properties>
         <Property name="text" type="java.lang.String" value="Confirmar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="confirmarJBActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonOKActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

@@ -41,7 +41,7 @@
                       <Component id="confirmarJB" min="-2" pref="84" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="77" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -100,11 +100,6 @@
                               <Component id="telefoneJTF" alignment="1" max="32767" attributes="0"/>
                               <Component id="telefoneJL" alignment="1" min="-2" pref="163" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="emailJTF" alignment="1" max="32767" attributes="0"/>
-                              <Component id="emailJL" alignment="1" min="-2" pref="163" max="-2" attributes="0"/>
-                          </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -126,18 +121,9 @@
                       <Component id="cpfJTF" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="telefoneJL" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="telefoneJTF" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="emailJL" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="emailJTF" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
+                  <Component id="telefoneJL" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="telefoneJTF" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -164,13 +150,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="telefoneJTF">
-        </Component>
-        <Component class="javax.swing.JLabel" name="emailJL">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Email"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="emailJTF">
         </Component>
       </SubComponents>
     </Container>
@@ -205,7 +184,7 @@
                       <Component id="cepJTF" alignment="0" pref="159" max="32767" attributes="0"/>
                       <Component id="estadoJCB" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="18" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -275,7 +254,7 @@
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="28">
-                <StringItem index="0" value="Estados"/>
+                <StringItem index="0" value="Estado"/>
                 <StringItem index="1" value="Acre"/>
                 <StringItem index="2" value="Amap&#xe1;"/>
                 <StringItem index="3" value="Amazonas"/>
@@ -289,10 +268,10 @@
                 <StringItem index="11" value="Mato Grosso do Sul"/>
                 <StringItem index="12" value="Minas Gerais"/>
                 <StringItem index="13" value="Par&#xe1;"/>
-                <StringItem index="14" value="Para&#xed;ba "/>
-                <StringItem index="15" value="Paran&#xe1; "/>
+                <StringItem index="14" value="Para&#xed;ba"/>
+                <StringItem index="15" value="Paran&#xe1;"/>
                 <StringItem index="16" value="Pernambuco"/>
-                <StringItem index="17" value="Piau&#xed; "/>
+                <StringItem index="17" value="Piau&#xed;"/>
                 <StringItem index="18" value="Rio de Janeiro"/>
                 <StringItem index="19" value="Rio Grande do Norte"/>
                 <StringItem index="20" value="Rio Grande do Sul"/>
@@ -302,7 +281,7 @@
                 <StringItem index="24" value="S&#xe3;o Paulo"/>
                 <StringItem index="25" value="Sergipe"/>
                 <StringItem index="26" value="Tocantins"/>
-                <StringItem index="27" value=" "/>
+                <StringItem index="27" value=""/>
               </StringArray>
             </Property>
           </Properties>
