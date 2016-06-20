@@ -129,11 +129,11 @@ public class CadastroAnimals extends javax.swing.JPanel {
         nomeDJL = new javax.swing.JLabel();
         cpfDJL = new javax.swing.JLabel();
         cadastrarDJL = new javax.swing.JLabel();
-        diaJCB = new javax.swing.JComboBox<>();
-        mesJCB = new javax.swing.JComboBox<>();
-        anoJCB = new javax.swing.JComboBox<>();
-        horaJCB = new javax.swing.JComboBox<>();
-        minJCB = new javax.swing.JComboBox<>();
+        diaJCB = new javax.swing.JComboBox<String>();
+        mesJCB = new javax.swing.JComboBox<String>();
+        anoJCB = new javax.swing.JComboBox<String>();
+        horaJCB = new javax.swing.JComboBox<String>();
+        minJCB = new javax.swing.JComboBox<String>();
         jPanel2 = new javax.swing.JPanel();
         nomeAJL = new javax.swing.JLabel();
         nomeAJTF = new javax.swing.JTextField();
@@ -156,7 +156,7 @@ public class CadastroAnimals extends javax.swing.JPanel {
         pelagemJL = new javax.swing.JLabel();
         PelagemJTF = new javax.swing.JTextField();
         TipodeAtendimentoJL = new javax.swing.JLabel();
-        tipodeAtendimentoJCB = new javax.swing.JComboBox<>();
+        tipodeAtendimentoJCB = new javax.swing.JComboBox<String>();
         cancelarJB = new javax.swing.JButton();
         tituloJL = new javax.swing.JLabel();
         confirmarJB = new javax.swing.JButton();
@@ -191,13 +191,13 @@ public class CadastroAnimals extends javax.swing.JPanel {
             }
         });
 
-        diaJCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dia", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        diaJCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Dia", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
 
-        mesJCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mes", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+        mesJCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mes", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
 
-        horaJCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hora", "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
+        horaJCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hora", "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
 
-        minJCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Min", "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60" }));
+        minJCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Min", "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -309,7 +309,7 @@ public class CadastroAnimals extends javax.swing.JPanel {
 
         TipodeAtendimentoJL.setText("Tipo de atendimento");
 
-        tipodeAtendimentoJCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal", "Emergencial", " " }));
+        tipodeAtendimentoJCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Normal", "Emergencial", " " }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -448,21 +448,21 @@ public class CadastroAnimals extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(cancelarJB)
-                            .addGap(18, 18, 18)
-                            .addComponent(confirmarJB))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(92, 92, 92)
-                        .addComponent(tituloJL, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cancelarJB)
+                        .addGap(18, 18, 18)
+                        .addComponent(confirmarJB))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(52, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(tituloJL, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
