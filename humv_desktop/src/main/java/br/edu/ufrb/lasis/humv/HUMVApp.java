@@ -29,6 +29,7 @@ public class HUMVApp {
     private static JPanel mainPanel = null;
     private static CarregandoDialog carregandoDialog = null;
     private static String nomeUsuario;
+    
 
     public static JPanel getMainPanelInstance() {
         if (mainPanel == null) {
@@ -120,7 +121,8 @@ public class HUMVApp {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                    UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+                 
                 } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
                     java.util.logging.Logger.getLogger(HUMVMainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                 }
