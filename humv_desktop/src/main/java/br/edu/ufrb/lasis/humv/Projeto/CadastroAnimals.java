@@ -263,6 +263,12 @@ public class CadastroAnimals extends javax.swing.JPanel {
 
         nomeAJL.setText("Nome");
 
+        nomeAJTF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nomeAJTFActionPerformed(evt);
+            }
+        });
+
         especieJL.setText("Espécie");
 
         racaJL.setText("Raça");
@@ -676,6 +682,10 @@ public class CadastroAnimals extends javax.swing.JPanel {
             this.pesquisarDJBActionPerformed(null);
         }
     }//GEN-LAST:event_cpfBuscarJTFKeyPressed
+
+    private void nomeAJTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeAJTFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nomeAJTFActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
