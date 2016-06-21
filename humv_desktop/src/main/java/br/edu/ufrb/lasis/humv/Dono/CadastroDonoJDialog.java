@@ -1,5 +1,7 @@
-package br.edu.ufrb.lasis.humv.Projeto;
+package br.edu.ufrb.lasis.humv.Dono;
 
+import br.edu.ufrb.lasis.humv.view.Animais.CadastroAnimals;
+import br.edu.ufrb.lasis.humv.utils.Util;
 import br.edu.ufrb.lasis.humv.entity.Dono;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
@@ -20,7 +22,7 @@ import javax.xml.bind.Unmarshaller;
  *
  * @author Andersoney
  */
-public class CadastroDono extends javax.swing.JDialog {
+public class CadastroDonoJDialog extends javax.swing.JDialog {
 
     CadastroAnimals parent;
     final String servicoDono = "/api/dono";
@@ -32,13 +34,13 @@ public class CadastroDono extends javax.swing.JDialog {
      * @param modal
      * @param cA
      */
-    public CadastroDono(java.awt.Frame parent, boolean modal, CadastroAnimals cA) {
+    public CadastroDonoJDialog(java.awt.Frame parent, boolean modal, CadastroAnimals cA) {
         super(parent, modal);
         this.parent = cA;
         initComponents();
         this.cidadeJRB.setSelected(true);
         this.cidadeFazendaJL.setText("Cidade");
-
+        
     }
 
     /**
@@ -57,6 +59,8 @@ public class CadastroDono extends javax.swing.JDialog {
         cpfJTF = new javax.swing.JTextField();
         telefoneJL = new javax.swing.JLabel();
         telefoneJTF = new javax.swing.JTextField();
+        emailJL = new javax.swing.JLabel();
+        emailJTF = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         enderecoJL = new javax.swing.JLabel();
         enderecoJTF = new javax.swing.JTextField();
@@ -64,13 +68,13 @@ public class CadastroDono extends javax.swing.JDialog {
         cepJL = new javax.swing.JLabel();
         cidadeJRB = new javax.swing.JRadioButton();
         fazendaJRB = new javax.swing.JRadioButton();
-        estadoJCB = new javax.swing.JComboBox<String>();
+        estadoJCB = new javax.swing.JComboBox<>();
         cidadeFazendaJTF = new javax.swing.JTextField();
         cidadeFazendaJL = new javax.swing.JLabel();
         confirmarJB = new javax.swing.JButton();
         cancelarJB = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 formMouseExited(evt);
@@ -100,6 +104,8 @@ public class CadastroDono extends javax.swing.JDialog {
 
         telefoneJL.setText("Telefone");
 
+        emailJL.setText("Email");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -121,6 +127,10 @@ public class CadastroDono extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(telefoneJTF)
                             .addComponent(telefoneJL, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(emailJTF)
+                            .addComponent(emailJL, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -136,9 +146,15 @@ public class CadastroDono extends javax.swing.JDialog {
                     .addComponent(nomeJTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cpfJTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(telefoneJL)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(telefoneJTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(telefoneJL)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(telefoneJTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(emailJL)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(emailJTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -162,7 +178,7 @@ public class CadastroDono extends javax.swing.JDialog {
             }
         });
 
-        estadoJCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Estados", "Acre", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba ", "Paraná ", "Pernambuco", "Piauí ", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins", " " }));
+        estadoJCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estados", "Acre", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba ", "Paraná ", "Pernambuco", "Piauí ", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins", " " }));
 
         cidadeFazendaJL.setText("Endereço");
 
@@ -186,7 +202,7 @@ public class CadastroDono extends javax.swing.JDialog {
                     .addComponent(cepJL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cepJTF, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                     .addComponent(estadoJCB, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,8 +278,7 @@ public class CadastroDono extends javax.swing.JDialog {
 
     private void cancelarJBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarJBActionPerformed
         // TODO add your handling code here:
-        int i = JOptionPane.showConfirmDialog(this, "Deseja mesmo cancelar o cadastro?","",JOptionPane.YES_NO_OPTION);
-     
+        int i = JOptionPane.showConfirmDialog(this, "Deseja mesmo Cancelar o cadastro?");
         if (i == JOptionPane.OK_OPTION) {
             this.dispose();
         } else {
@@ -289,9 +304,14 @@ public class CadastroDono extends javax.swing.JDialog {
             return;
         }
         String telefone = this.telefoneJTF.getText();
-        
-    
-       
+        String email = null;
+        if (!this.emailJTF.getText().trim().isEmpty()) {
+            if (!Util.isEmail(this.emailJTF.getText())) {
+                JOptionPane.showMessageDialog(this, "Digite um Email valido.");
+                return;
+            }
+            email = this.emailJTF.getText();
+        }
 
         if (!Util.isNotNull(this.enderecoJTF.getText())) {
             JOptionPane.showMessageDialog(this, "Digite um endereço valido.");
@@ -342,7 +362,7 @@ public class CadastroDono extends javax.swing.JDialog {
                 return;
             }
         } catch (RESTConnectionException ex) {
-            Logger.getLogger(CadastroDono.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CadastroDonoJDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.parent.setCPF(this.cpfJTF.getText(), this.nomeJTF.getText());
         this.dispose();
@@ -388,6 +408,8 @@ public class CadastroDono extends javax.swing.JDialog {
     private javax.swing.JButton confirmarJB;
     private javax.swing.JLabel cpfJL;
     private javax.swing.JTextField cpfJTF;
+    private javax.swing.JLabel emailJL;
+    private javax.swing.JTextField emailJTF;
     private javax.swing.JLabel enderecoJL;
     private javax.swing.JTextField enderecoJTF;
     private javax.swing.JComboBox<String> estadoJCB;

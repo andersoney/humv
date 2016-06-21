@@ -17,11 +17,12 @@ import javax.swing.JTextField;
  * @author tassi
  */
 public abstract class PropriedadesBusca implements ActionListener, KeyListener {
-    
+
     public static final String OPCAO_VISUALIZAR = "Visualizar";
     public static final String OPCAO_ALTERAR = "Alterar";
     public static final String OPCAO_REMOVER = "Remover";
-    
+    public static final String OPCAO_CADASTRAR = "Cadastro";
+
     private String tipoOperacao;
     private JButton botaoBusca, botaoOperacao;
     private JTable tabelaResultado;
@@ -30,9 +31,9 @@ public abstract class PropriedadesBusca implements ActionListener, KeyListener {
     public PropriedadesBusca(String tipoOperacao){
         this.tipoOperacao = tipoOperacao;
     }
-    
+
     public abstract void buscar();
-    
+
     public void configurarBusca(JTextField campoBusca, JButton botaoBusca, JTable tabelaResultado) {
         campoBusca.addKeyListener(this);
         this.setCampoPalavraChave(campoBusca);
@@ -41,13 +42,13 @@ public abstract class PropriedadesBusca implements ActionListener, KeyListener {
         this.getBotaoBusca().addKeyListener(this);
         this.setTabelaResultado(tabelaResultado);
     }
-    
+
     public void configurarBotaoOperacaoPosBusca(JButton botaoOperacao) {
         this.setBotaoOperacao(botaoOperacao);
         this.getBotaoOperacao().setText(this.getTipoOperacao());
         this.getBotaoOperacao().addActionListener(this);
     }
-    
+
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -56,10 +57,12 @@ public abstract class PropriedadesBusca implements ActionListener, KeyListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {}
+    public void keyTyped(KeyEvent e) {
+    }
 
     @Override
-    public void keyReleased(KeyEvent e) {}
+    public void keyReleased(KeyEvent e) {
+    }
 
     public String getTipoOperacao() {
         return this.tipoOperacao;
@@ -104,5 +107,5 @@ public abstract class PropriedadesBusca implements ActionListener, KeyListener {
     public int getIndexLinhaSelecionada() {
         return this.getTabelaResultado().getSelectedRow();
     }
-    
+
 }
