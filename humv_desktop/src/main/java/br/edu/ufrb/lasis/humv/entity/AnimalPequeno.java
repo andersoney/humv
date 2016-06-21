@@ -1,5 +1,7 @@
 package br.edu.ufrb.lasis.humv.entity;
 
+import java.io.Serializable;
+
 
 /**Entidade que modela informaÃ§Ãµes de animais de pequeno porte.
  * A diferenÃ§a entre um animal de pequeno e grande porte Ã© a presenÃ§a do campo 'pelagem' nesta entidade.
@@ -12,7 +14,7 @@ package br.edu.ufrb.lasis.humv.entity;
  *  
  *  @since 15 de maio de 2016
  * */
-public class AnimalPequeno extends AnimalGrande{
+public class AnimalPequeno extends AnimalGrande implements Serializable{
 	
 	private static final long serialVersionUID = 643128194360002867L;
 	private String pelagem;

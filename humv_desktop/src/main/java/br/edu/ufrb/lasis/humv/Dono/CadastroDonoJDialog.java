@@ -1,5 +1,7 @@
-package br.edu.ufrb.lasis.humv.Projeto;
+package br.edu.ufrb.lasis.humv.Dono;
 
+import br.edu.ufrb.lasis.humv.view.Animais.CadastroAnimals;
+import br.edu.ufrb.lasis.humv.utils.Util;
 import br.edu.ufrb.lasis.humv.entity.Dono;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
@@ -20,7 +22,7 @@ import javax.xml.bind.Unmarshaller;
  *
  * @author Andersoney
  */
-public class CadastroDono extends javax.swing.JDialog {
+public class CadastroDonoJDialog extends javax.swing.JDialog {
 
     CadastroAnimals parent;
     final String servicoDono = "/api/dono";
@@ -32,13 +34,13 @@ public class CadastroDono extends javax.swing.JDialog {
      * @param modal
      * @param cA
      */
-    public CadastroDono(java.awt.Frame parent, boolean modal, CadastroAnimals cA) {
+    public CadastroDonoJDialog(java.awt.Frame parent, boolean modal, CadastroAnimals cA) {
         super(parent, modal);
         this.parent = cA;
         initComponents();
         this.cidadeJRB.setSelected(true);
         this.cidadeFazendaJL.setText("Cidade");
-
+        
     }
 
     /**
@@ -360,7 +362,7 @@ public class CadastroDono extends javax.swing.JDialog {
                 return;
             }
         } catch (RESTConnectionException ex) {
-            Logger.getLogger(CadastroDono.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CadastroDonoJDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.parent.setCPF(this.cpfJTF.getText(), this.nomeJTF.getText());
         this.dispose();

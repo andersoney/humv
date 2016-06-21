@@ -1,5 +1,6 @@
 package br.edu.ufrb.lasis.humv.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,9 +19,8 @@ import java.util.Date;
  * @since 15 de maio de 2016
  *
  */
-public class AnimalGrande implements Serializable {
-
-    private static final long serialVersionUID = -4309147069247595796L;
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class AnimalGrande {
 
     private String rghumv; // RGHUMV Ã© um nÃºmero de registro prÃ³prio do hospital veterinÃ¡rio.
     private String nome;

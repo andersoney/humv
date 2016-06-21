@@ -11,6 +11,7 @@ import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 import com.sun.jersey.api.json.JSONConfiguration;
 import java.io.IOException;
 import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.springframework.stereotype.Component;
@@ -94,6 +95,7 @@ public class RESTMethods {
 
     public static Object getObjectFromJSON(ClientResponse response, TypeReference typeReference) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         Object obj = mapper.readValue(response.getEntity(JsonNode.class), typeReference);
         return obj;
     }

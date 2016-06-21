@@ -14,11 +14,11 @@
     <property name="absolute.dir" value="C:\Users\tassi\Documents\GitHub\humv\humv_desktop" />
 
     <taskdef name="izpack" classpath="${izpack.dir}/lib/compiler.jar"
-                 classname="com.izforge.izpack.ant.IzPackTask" />
+             classname="com.izforge.izpack.ant.IzPackTask" />
 		
     <target name="make.installer">
         <izpack input="${absolute.dir}/install.xml"
-            output="${absolute.dir}/dist/${distro.name}-installer-${version}.jar"
-            basedir="." izPackDir="${izpack.dir}/" />
+                output="${absolute.dir}/dist/${distro.name}-installer-${version}.jar"
+                basedir="." izPackDir="${izpack.dir}/" />
     </target> 
 </project>
