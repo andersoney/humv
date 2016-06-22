@@ -32,8 +32,8 @@ public class ProcedimentoServiceImpl {
 			return procedimentoDAO.findByName(nome);			
 	}
 	
-	public List<Procedimento> findByCode(Integer code){
-		return procedimentoDAO.findByCode(code);
+	public Procedimento findByCodigo(String codigo){
+		return procedimentoDAO.findByCode(codigo);
 	}
 	
 	public String cadastrarProcedimento(Procedimento procedimento , String usuarioResponsavel ){
@@ -52,7 +52,7 @@ public class ProcedimentoServiceImpl {
 	}
 
 	public String atualizarProcedimento(Procedimento procedimento, String usuarioResponsavel){
-		if(procedimentoDAO.findById(procedimento.getCodigo())==null){
+		if(procedimentoDAO.findByCode(procedimento.getCodigo())==null){
 			logger.error("[signup] Nenhum Procedimento com o c�digo " + procedimento.getCodigo() + "foi encontrado no sistema.");
 			return "Nenhum Procedimento com o c�digo " + procedimento.getCodigo() + "foi encontrado no sistema. Por favor, informe um C�digo diferente.";
 
@@ -62,13 +62,13 @@ public class ProcedimentoServiceImpl {
 		return "OK";
 	}
 	
-	public String removerProcedimento(Integer code, String usuarioResponsavel){
-		if(procedimentoDAO.findById(code) ==null){
-			logger.error("[signup] Nenhum Procedimento com o C�digo " + code + "foi encontrado no sistema.");
-			return "Nenhum Procedimento com o C�digo " + code + "foi encontrado no sistema. Por favor, informe um C�digo diferente.";
+	public String removerProcedimento(String codigo, String usuarioResponsavel){
+		if(procedimentoDAO.findByCode(codigo) ==null){
+			logger.error("[signup] Nenhum Procedimento com o C�digo " + codigo + "foi encontrado no sistema.");
+			return "Nenhum Procedimento com o C�digo " + codigo + "foi encontrado no sistema. Por favor, informe um C�digo diferente.";
 
 		}
-		Procedimento procedimento = procedimentoDAO.findById(code);
+		Procedimento procedimento = procedimentoDAO.findByCode(codigo);
 		procedimentoDAO.removerProcedimento(procedimento);
 		logger.info("[removerSetor - " + usuarioResponsavel + "] procedimento " + procedimento.getCodigo() + " removido com sucesso.");
     	return "OK";
@@ -81,5 +81,4 @@ public class ProcedimentoServiceImpl {
 	public void setProcedimentoDAO(ProcedimentoDAO procedimentoDAO) {
 		this.procedimentoDAO=procedimentoDAO;
 	}
-
 }

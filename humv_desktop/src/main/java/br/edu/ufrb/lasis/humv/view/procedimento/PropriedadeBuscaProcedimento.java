@@ -40,7 +40,7 @@ public class PropriedadeBuscaProcedimento extends PropriedadesBusca{
     public void buscar() {
         HUMVApp.exibirMensagemCarregamento();
         try {
-            ClientResponse response = RESTMethods.get("/api/animal");
+            ClientResponse response = RESTMethods.get("/api/procedimento");
 
             List<Procedimento> lista = (List<Procedimento>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Procedimento>>() {});
             tableModel = new ProcedimentoTableModel(lista);
@@ -69,14 +69,14 @@ public class PropriedadeBuscaProcedimento extends PropriedadesBusca{
             }).start();
         } else if (e.getSource().equals(super.getBotaoOperacao())) {
             if (super.getIndexLinhaSelecionada() < 0) {
-                JOptionPane.showMessageDialog(super.getTabelaResultado(), "Por favor, selecione algum animal da tabela para realizar a operação.", "Animal não selecionado", JOptionPane.ERROR_MESSAGE);             
+                JOptionPane.showMessageDialog(super.getTabelaResultado(), "Por favor, selecione algum procedimento da tabela para realizar a operação.", "Animal não selecionado", JOptionPane.ERROR_MESSAGE);             
             } else {
                 Procedimento procedimentoSelecionado = tableModel.getProcedimentoSelecionado(super.getIndexLinhaSelecionada());
                 if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_VISUALIZAR)) {
                     //Ainda falta implementar
                 } else if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_ALTERAR)) {
-                    CadastroProcedimento painelCadastroAnimal = new CadastroProcedimento(procedimentoSelecionado);
-                    HUMVApp.setNovoPainelCentral(painelCadastroAnimal);
+                    CadastroProcedimento painelAlteracao = new CadastroProcedimento(procedimentoSelecionado);
+                    HUMVApp.setNovoPainelCentral(painelAlteracao);
                 } else if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_REMOVER)) {
                     try {
                         ClientResponse response = RESTMethods.delete("/api/procedimento", ""+procedimentoSelecionado.getCodigo());

@@ -10,6 +10,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+
 import br.edu.ufrb.lasis.humv.entity.Setor;
 
 /**
@@ -68,6 +70,10 @@ public class SetorDAO  extends GenericDAO<Setor> implements Serializable {
 	}
 	
 	
+	@Transactional
+	public Setor findByCodigo(String codigo) {
+		return (Setor) getCriteria().add(Restrictions.eq("codigo", codigo)).uniqueResult();
+	}
 
 
 	@SuppressWarnings("unchecked")
@@ -75,7 +81,5 @@ public class SetorDAO  extends GenericDAO<Setor> implements Serializable {
 		Criteria criteria = getCriteria().add(Restrictions.ilike("nome", "%" + nome + "%"));
 		criteria.addOrder(Order.asc("nome"));
 		return (List<Setor>) criteria.list();	
-	}
-	
-	
+	}	
 }

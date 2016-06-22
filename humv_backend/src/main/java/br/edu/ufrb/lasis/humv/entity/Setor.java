@@ -1,15 +1,12 @@
-package br.edu.ufrb.lasis.humv.entity;
+﻿package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Id;
 
-/**Entidade que modela informa��es de setores.
-
+/**
  * 
  *
  *  
@@ -20,7 +17,7 @@ import javax.persistence.Table;
  *  @since 7 de junho de 2016
  * */
 @Entity
-@Table(name="SETOR")
+@Table(name="SETORES")
 public class Setor implements Serializable {
 	
 	
@@ -30,8 +27,8 @@ public class Setor implements Serializable {
 	private static final long serialVersionUID = 3567599639175582162L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) 
-	private int codigo;
+	private String codigo;
+	
 	private String nome;
 
 	public String getNome() {
@@ -42,11 +39,11 @@ public class Setor implements Serializable {
 		this.nome = nome;
 	}
 	
-	public long getCodigo(){
+	public String getCodigo(){
 		return codigo;
 	}
 
-	public void setCodigo(int id) {
+	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
 	

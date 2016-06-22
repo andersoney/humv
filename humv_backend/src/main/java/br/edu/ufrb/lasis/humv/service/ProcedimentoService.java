@@ -25,9 +25,9 @@ public class ProcedimentoService {
 		return procedimentoServiceImpl.getAll();
 	}
 	
-	@RequestMapping(method=RequestMethod.GET,value="/{code}")
-	public Procedimento findByCode(@PathVariable Integer code){
-		return  procedimentoServiceImpl.findByCode(code).get(0);
+	@RequestMapping(method=RequestMethod.GET,value="/{codigo}")
+	public Procedimento findByCodigo(@PathVariable String codigo){
+		return  procedimentoServiceImpl.findByCodigo(codigo);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
@@ -40,9 +40,9 @@ public class ProcedimentoService {
     	return procedimentoServiceImpl.atualizarProcedimento(procedimento, username);
     }
     
-    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-    public String removerSetor(@PathVariable Integer code, @RequestParam(value="username") String  username){
-    	return procedimentoServiceImpl.removerProcedimento(code, username);
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{codigo}")
+    public String removerSetor(@PathVariable String codigo, @RequestParam(value="username") String  username){
+    	return procedimentoServiceImpl.removerProcedimento(codigo, username);
     }
 
 	public ProcedimentoServiceImpl getProcedimentoServiceImpl() {

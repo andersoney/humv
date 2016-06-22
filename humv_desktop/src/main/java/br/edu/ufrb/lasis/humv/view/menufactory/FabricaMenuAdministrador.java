@@ -12,6 +12,10 @@ import br.edu.ufrb.lasis.humv.view.animal.CadastroAnimal;
 import br.edu.ufrb.lasis.humv.view.animal.PropriedadeBuscarAnimais;
 import br.edu.ufrb.lasis.humv.view.busca.BuscaPanel;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
+import br.edu.ufrb.lasis.humv.view.procedimento.CadastroProcedimento;
+import br.edu.ufrb.lasis.humv.view.procedimento.PropriedadeBuscaProcedimento;
+import br.edu.ufrb.lasis.humv.view.setor.CadastrarSetorJPanel;
+import br.edu.ufrb.lasis.humv.view.setor.PropriedadesBuscaSetor;
 import br.edu.ufrb.lasis.humv.view.usuario.CadastrarUsuarioPanel;
 import br.edu.ufrb.lasis.humv.view.usuario.PropriedadesBuscaUsuario;
 import java.awt.event.ActionEvent;
@@ -38,6 +42,18 @@ public class FabricaMenuAdministrador extends MenuBarFabricaAbstrata {
 
     private JMenu menuDono;
     private JMenuItem cadastroDono;
+    
+    private JMenu menuProcedimento;
+    private JMenuItem menuItemCadastrarProcedimento,
+            menuItemBuscarProcedimento,
+            menuItemAlterarProcedimento,
+            menuItemRemoverProcedimento;
+    
+    private JMenu menuSetor;
+    private JMenuItem menuItemCadastroSetor,
+            menuItemBuscarSetor,
+            menuItemAlterarSetor,
+            menuItemRemoverSetor;
 
     public FabricaMenuAdministrador(JPanel mainPanel) {
         super(mainPanel);
@@ -99,9 +115,41 @@ public class FabricaMenuAdministrador extends MenuBarFabricaAbstrata {
         cadastroDono.addActionListener(this);
 
         menuDono.add(cadastroDono);
-
         getMenuBar().add(menuDono);
+        
+        menuProcedimento = new JMenu("Procedimento");
+        menuItemCadastrarProcedimento = new JMenuItem("Cadastrar");
+        menuItemCadastrarProcedimento.addActionListener(this);
+        menuItemBuscarProcedimento = new JMenuItem("Buscar");
+        menuItemBuscarProcedimento.addActionListener(this);
+        menuItemAlterarProcedimento = new JMenuItem("Alterar");
+        menuItemAlterarProcedimento.addActionListener(this);
+        menuItemRemoverProcedimento = new JMenuItem("Remover");
+        menuItemRemoverProcedimento.addActionListener(this);
+        menuProcedimento.add(menuItemCadastrarProcedimento);
+        menuProcedimento.add(menuItemBuscarProcedimento);
+        menuProcedimento.add(menuItemAlterarProcedimento);
+        menuProcedimento.add(menuItemRemoverProcedimento);
+        getMenuBar().add(menuProcedimento);
+        
+        menuSetor = new JMenu("Setor");
+        menuItemCadastroSetor = new JMenuItem("Cadastrar");
+        menuItemCadastroSetor.addActionListener(this);
+        menuItemBuscarSetor = new JMenuItem("Buscar");
+        menuItemBuscarSetor.addActionListener(this);
+        menuItemAlterarSetor = new JMenuItem("Alterar");
+        menuItemAlterarSetor.addActionListener(this);
+        menuItemRemoverSetor = new JMenuItem("Remover");
+        menuItemRemoverSetor.addActionListener(this);
+        menuSetor.add(menuItemCadastroSetor);
+        menuSetor.add(menuItemBuscarSetor);
+        menuSetor.add(menuItemAlterarSetor);
+        menuSetor.add(menuItemRemoverSetor);
+        getMenuBar().add(menuSetor);
+        
         super.criaMenuAjuda();
+        
+    
     }
 
     @Override
@@ -133,6 +181,39 @@ public class FabricaMenuAdministrador extends MenuBarFabricaAbstrata {
             LOG.info("Cadastro Dono");
             CadastrarDonoJPanel dono=new CadastrarDonoJPanel();
             HUMVApp.setNovoPainelCentral(dono);
+        }else if(e.getSource().equals(menuItemCadastroSetor)){
+            LOG.info("Cadastro Setor");
+            CadastrarSetorJPanel setor=new CadastrarSetorJPanel();
+            HUMVApp.setNovoPainelCentral(setor);
+        }
+        else if(e.getSource().equals(menuItemAlterarSetor)){
+            LOG.info("Alterar setor");
+            PropriedadesBuscaSetor propBA = new PropriedadesBuscaSetor(PropriedadesBusca.OPCAO_ALTERAR);
+            BuscaPanel bus = new BuscaPanel("Busca de setor para alterar.", propBA);
+            LOG.info("Acessando Busca de Setor para alterar.");
+            HUMVApp.setNovoPainelCentral(bus);
+        } else if (e.getSource().equals(menuItemRemoverSetor)) {
+            PropriedadesBuscaSetor propBA = new PropriedadesBuscaSetor(PropriedadesBusca.OPCAO_REMOVER);
+            BuscaPanel bus = new BuscaPanel("Busca de animal para remover.", propBA);
+            LOG.info("Acessando Busca de Animal para remover.");
+            HUMVApp.setNovoPainelCentral(bus);
+        }else if(e.getSource().equals(menuItemCadastrarProcedimento)) {
+            PropriedadeBuscaProcedimento propBA = new PropriedadeBuscaProcedimento(PropriedadesBusca.OPCAO_CADASTRAR);
+            CadastroProcedimento procedimento=new CadastroProcedimento();
+            HUMVApp.setNovoPainelCentral(procedimento);
+            LOG.info("Acessando de cadastro para procedimento.");
+        }
+        else if(e.getSource().equals(menuItemAlterarProcedimento)) {
+            PropriedadeBuscaProcedimento propBA = new PropriedadeBuscaProcedimento(PropriedadesBusca.OPCAO_ALTERAR);
+            BuscaPanel bus = new BuscaPanel("Busca do procedimento para alterar.", propBA);
+            LOG.info("Acessando Busca de procedimento para alterar.");
+            HUMVApp.setNovoPainelCentral(bus);
+        }
+        else if (e.getSource().equals(menuItemRemoverProcedimento)) {
+            PropriedadeBuscaProcedimento propBA = new PropriedadeBuscaProcedimento(PropriedadesBusca.OPCAO_REMOVER);
+            BuscaPanel bus = new BuscaPanel("Busca de animal para remover.", propBA);
+            LOG.info("Acessando Busca de Animal para remover.");
+            HUMVApp.setNovoPainelCentral(bus);
         }
     }
 

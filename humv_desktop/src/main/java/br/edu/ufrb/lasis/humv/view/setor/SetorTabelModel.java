@@ -21,10 +21,7 @@ public class SetorTabelModel extends AbstractTableModel {
     List<Setor> setores;
     private static final Logger LOG = Logger.getLogger(SetorTabelModel.class.getName());
 
-    /**
-     *
-     * @param animais
-     */
+    
     public SetorTabelModel(List<Setor> setores) {
         this.setores = setores;
         titulos = new String[2];
@@ -33,10 +30,6 @@ public class SetorTabelModel extends AbstractTableModel {
     }
 
 
-    /**
-     *
-     * @param animais
-     */
     public void AdicionarSetores(List<Setor> setores) {
         this.setores.addAll(setores);
     }

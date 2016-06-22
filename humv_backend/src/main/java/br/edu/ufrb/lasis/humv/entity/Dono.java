@@ -15,7 +15,7 @@ import javax.persistence.Table;
  *  @since 15 de maio de 2016
  * */
 @Entity
-@Table(name="PROPRIETARIOS")
+@Table(name="DONOS")
 public class Dono implements Serializable {
 	
 	private static final long serialVersionUID = -6125748157292589614L;

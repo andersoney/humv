@@ -61,20 +61,25 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
+                      <Group type="102" attributes="0">
                           <Component id="textFieldCodSetor" max="32767" attributes="0"/>
                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                          <Component id="buttonPesqusar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="buttonCadastrarSetor" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="labelCodSetor" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="labelNomeSetor" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
+                  </Group>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="buttonPesqusar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="buttonCadastrarSetor" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="jLabelSetorCodigo" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -92,7 +97,10 @@
                       <Component id="textFieldCodSetor" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="36" max="32767" attributes="0"/>
-                  <Component id="labelNomeSetor" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="labelNomeSetor" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelSetorCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -130,6 +138,14 @@
             <Property name="text" type="java.lang.String" value="Nome: "/>
           </Properties>
         </Component>
+        <Component class="javax.swing.JLabel" name="jLabelSetorCodigo">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="11" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="C&#xf3;digo: "/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel2">
@@ -149,16 +165,13 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
+                              <Component id="textFieldNome" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="labelNome" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="labelCodigo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="textFieldCodigo" min="-2" pref="145" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                              <Component id="textFieldNome" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Component id="textFieldCodigo" min="-2" pref="145" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -244,13 +257,10 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="textFieldPreco">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="R$"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="labelPreco">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Pre&#xe7;o"/>
+            <Property name="text" type="java.lang.String" value="Pre&#xe7;o R$"/>
           </Properties>
         </Component>
       </SubComponents>

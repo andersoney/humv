@@ -58,11 +58,8 @@ public class ProcedimentoDAO extends GenericDAO<Procedimento> implements Seriali
 		criteria.addOrder(Order.asc("nome"));
 		return (List<Procedimento>)criteria.list();
 	}
-	
-	@SuppressWarnings("unchecked")
-	public List<Procedimento> findByCode(Integer code){
-		Criteria criteria=getCriteria().add(Restrictions.ilike("codigo", "%"+code+"%"));
-		criteria.addOrder(Order.asc("codigo"));
-		return (List<Procedimento>)criteria.list();
+	@Transactional
+	public Procedimento findByCode(String codigo){
+		return (Procedimento) getCriteria().add(Restrictions.eq("codigo", codigo)).uniqueResult();
 	}
 }

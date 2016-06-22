@@ -11,7 +11,7 @@ import br.edu.ufrb.lasis.humv.dao.SetorDAO;
 import br.edu.ufrb.lasis.humv.entity.Setor;
 
 
-/** Implementa��oo do servi�o para cadastro,atualiza��o e remo��o de setores.
+/** 
  *  
  *  @author Vinicius Moura
  *  
@@ -38,10 +38,8 @@ public class SetorServiceImpl {
 		}
 	}
 
-	public Setor findById(Long id){
-
-		return setorDAO.findById(id);
-		
+	public Setor findByCodigo(String codigo){
+		return setorDAO.findByCodigo(codigo);
 	}
 
 	public String cadastrarSetor(Setor setor , String usuarioResponsavel ){
@@ -59,8 +57,8 @@ public class SetorServiceImpl {
 		}
 	}
 
-	public String atualizarsetor(Setor setor, String usuarioResponsavel){
-		if(setorDAO.findById(setor.getCodigo())==null){
+	public String atualizarSetor(Setor setor, String usuarioResponsavel){
+		if(setorDAO.findByCodigo(setor.getCodigo())==null){
 			logger.error("[signup] Nenhum Setor com o c�digo " + setor.getCodigo() + "foi encontrado no sistema.");
 			return "Nenhum Setor com o c�digo " + setor.getCodigo() + "foi encontrado no sistema. Por favor, informe um C�digo diferente.";
 
@@ -70,13 +68,13 @@ public class SetorServiceImpl {
 		return "OK";
 	}
 	
-	public String removerSetor(long id, String usuarioResponsavel){
-		if(setorDAO.findById(id) ==null){
-			logger.error("[signup] Nenhum Setor com o C�digo " + id + "foi encontrado no sistema.");
-			return "Nenhum Setor com o C�digo " + id + "foi encontrado no sistema. Por favor, informe um C�digo diferente.";
+	public String removerSetor(String codigo, String usuarioResponsavel){
+		if(setorDAO.findByCodigo(codigo) ==null){
+			logger.error("[signup] Nenhum Setor com o C�digo " + codigo + "foi encontrado no sistema.");
+			return "Nenhum Setor com o C�digo " + codigo + "foi encontrado no sistema. Por favor, informe um C�digo diferente.";
 
 		}
-		Setor setor = setorDAO.findById(id);
+		Setor setor = setorDAO.findByCodigo(codigo);
 		setorDAO.removeSetor(setor);
 		logger.info("[removerSetor - " + usuarioResponsavel + "] Setor " + setor.getCodigo() + " removido com sucesso.");
     	return "OK";

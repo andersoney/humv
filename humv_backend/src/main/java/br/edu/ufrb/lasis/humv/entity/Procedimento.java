@@ -3,54 +3,54 @@ package br.edu.ufrb.lasis.humv.entity;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Id;
 
 @Entity
-@Table(name="Procedimento")
+@Table(name="PROCEDIMENTOS")
 public class Procedimento implements Serializable {
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1274972987399L;
 
 	@Id
-	Integer codigo;
+	@JoinColumn(name="CODIGO")
+	String codigo;
 	
-	@PrimaryKeyJoinColumn
 	String nome;
+	double valor;
+	String codSetor;
 	
-	Float valor;
+	public Procedimento(){}
+	
+	public String getCodSetor() {
+		return codSetor;
+	}
 
-	public Procedimento(){
-		
+	public void setCodSetor(String codSetor) {
+		this.codSetor = codSetor;
+	}
+
+	public void setValor(double valor) {
+		this.valor = valor;
 	}
 	
-	public Integer getCodigo(){
+	public double getValor(){
+		return this.valor;
+	}
+
+	public String getCodigo(){
 		return this.codigo;
+	}
+	
+	public void setCodigo(String codigo){
+		this.codigo=codigo;
 	}
 	
 	public String getNome(){
 		return this.nome;
 	}
 	
-	public Float getValor(){
-		return this.valor;
-	}
-	
-	public void setCodigo(Integer codigo){
-		this.codigo=codigo;
-	}
-	
 	public void setNome(String nome){
 		this.nome=nome;
 	}
-	
-	public void setValor(Float valor){
-		this.valor=valor;
-	}
-	
-	
 }

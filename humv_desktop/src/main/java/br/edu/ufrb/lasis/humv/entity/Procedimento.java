@@ -3,22 +3,15 @@ package br.edu.ufrb.lasis.humv.entity;
 import java.io.Serializable;
 
 public class Procedimento implements Serializable {
-
-    /**
-     *
-     */
     private static final long serialVersionUID = 1274972987399L;
-    Integer codigo;
+    String codigo;
     String nome;
-    Float valor;
-    
-    int codSetor;
+    String codSetor;
+    double valor;
 
-    public Procedimento() {
+    public Procedimento() {}
 
-    }
-
-    public Integer getCodigo() {
+    public String getCodigo() {
         return this.codigo;
     }
 
@@ -26,11 +19,11 @@ public class Procedimento implements Serializable {
         return this.nome;
     }
 
-    public Float getValor() {
+    public double getValor() {
         return this.valor;
     }
 
-    public void setCodigo(Integer codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
@@ -38,13 +31,13 @@ public class Procedimento implements Serializable {
         this.nome = nome;
     }
 
-    public void setValor(Float valor) {
+    public void setValor(double valor) {
         this.valor = valor;
     }
-    public Integer getCodSetor() {
+    public String getCodSetor() {
         return this.codSetor;
     }
-    public void setCodSetor(int codSetor) {
+    public void setCodSetor(String codSetor) {
         this.codSetor = codSetor;
     }
 }

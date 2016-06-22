@@ -37,8 +37,6 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
     String nome;
     String porte;
     final private String servicoDono = "/api/dono";
-    final private String servicoAnimalP = "/api/animalPequeno";
-    final private String servicoAnimalG = "/api/animalGrande";
     final private String servicoAnimal = "/api/animal";
     private static final Logger LOG = Logger.getLogger(CadastroAnimal.class.getName());
     private Animal animalSelecionado;
@@ -58,7 +56,7 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
         buttonOK.addActionListener(this);
         buttonCancelar.addActionListener(this);
         textFieldNome.setFocusable(true);
-
+        adicionarAno();
         if (animalSelecionado != null) {
             labelTitulo.setText("Alteração de dados do animal");
             textFieldNome.setText(animalSelecionado.getNome());
@@ -99,6 +97,19 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
                 radioButtonMacho.setSelected(false);
                 radioButtonFemea.setSelected(true);
             }
+            jLabelRghumv.setText("RGHUMV: " + animalSelecionado.getRghumv());
+        }
+        else{
+            try {
+                ClientResponse response = RESTMethods.get("/api/animal");
+
+                List<Animal> lista = (List<Animal>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Animal>>() {});
+                jLabelRghumv.setText("RGHUMV: " + (lista.size()+1));
+            }catch (RESTConnectionException | IOException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
+                LOG.warning(ex.getMessage());
+                Logger.getLogger(CadastroAnimal.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -115,7 +126,7 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
         this.pequenoPorteJRB.setSelected(true);
         Calendar cal = Calendar.getInstance();
         Date n = cal.getTime();
-        adicionarAno();
+        SetarData(n);
         this.diaJCB.setSelectedIndex(n.getDate());
         this.mesJCB.setSelectedIndex(n.getMonth() + 1);
         this.anoJCB.setSelectedIndex(n.getYear() - (n.getYear() - 60) + 1);
@@ -127,14 +138,7 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private void removerDono() {
-        ClientResponse response;
-        try {
-            response = RESTMethods.delete(this.servicoAnimalG + "/05741155529", "humv");
-        } catch (RESTConnectionException ex) {
-            Logger.getLogger(CadastroAnimal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    
 
     public CadastroAnimal(JFrame parent, boolean Pequeno) {
         this.parent = parent;
@@ -143,7 +147,7 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
         this.pequenoPorteJRB.setSelected(true);
         Calendar cal = Calendar.getInstance();
         Date n = cal.getTime();
-        adicionarAno();
+        this.SetarData(n);
         this.diaJCB.setSelectedIndex(n.getDate());
         this.mesJCB.setSelectedIndex(n.getMonth() + 1);
         this.anoJCB.setSelectedIndex(n.getYear() - (n.getYear() - 60) + 1);
@@ -228,6 +232,7 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
         textFieldPelagem = new javax.swing.JTextField();
         TipodeAtendimentoJL = new javax.swing.JLabel();
         comboBoxTipoAtendimento = new javax.swing.JComboBox<>();
+        jLabelRghumv = new javax.swing.JLabel();
         buttonCancelar = new javax.swing.JButton();
         labelTitulo = new javax.swing.JLabel();
         buttonOK = new javax.swing.JButton();
@@ -385,6 +390,9 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
 
         comboBoxTipoAtendimento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal", "Emergencial", " " }));
 
+        jLabelRghumv.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabelRghumv.setText("RGHUMV: ");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -419,22 +427,20 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
                                 .addComponent(radioButtonMacho)
                                 .addGap(18, 18, 18)
                                 .addComponent(radioButtonFemea))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(TipodeAtendimentoJL)
-                            .addComponent(comboBoxTipoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(comboBoxTipoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pelagemJL, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textFieldPelagem, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelRghumv)
                             .addComponent(porteDoAnimalJL, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(grandePorteJRB)
                                 .addGap(18, 18, 18)
-                                .addComponent(pequenoPorteJRB))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pelagemJL, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textFieldPelagem, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(pequenoPorteJRB)))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -488,7 +494,9 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pelagemJL)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldPelagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textFieldPelagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelRghumv))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
@@ -503,6 +511,11 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
         labelTitulo.setText("Titulo");
 
         buttonOK.setText("Confirmar");
+        buttonOK.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonOKMouseClicked(evt);
+            }
+        });
         buttonOK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOKActionPerformed(evt);
@@ -622,7 +635,7 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
 
             List<Animal> lista = (List<Animal>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Animal>>() {
             });
-            rghumv = "" + lista.size()+1;
+            rghumv = "" + (lista.size()+1);
         } catch (RESTConnectionException | IOException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
             LOG.warning(ex.getMessage());
@@ -698,11 +711,13 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
     animal.setPelagem (pelagem);
 
     
-        try {
+    try {
             response = RESTMethods.post(this.servicoAnimal, animal);
         String resposta = response.getEntity(String.class);
         if (!resposta.equalsIgnoreCase("ok")) {
             JOptionPane.showMessageDialog(this, resposta, "Falha no cadastro", JOptionPane.ERROR_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(null, "Sucesso no cadastro");
         }
     }
     catch (RESTConnectionException ex
@@ -712,7 +727,16 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
             Logger.getLogger(CadastroAnimal.class.getName()).log(Level.SEVERE, null, ex);
     }
     }//GEN-LAST:event_buttonOKActionPerformed
-
+    
+    private void SetarData(Date n) {
+        adicionarAno();
+        this.diaJCB.setSelectedIndex(n.getDate());
+        this.mesJCB.setSelectedIndex(n.getMonth() + 1);
+        this.anoJCB.setSelectedIndex(n.getYear() - (n.getYear() - 60) + 1);
+        this.horaJCB.setSelectedIndex(n.getHours() + 1);
+        this.minJCB.setSelectedIndex(n.getMinutes() + 1);
+    }
+    
     private void buttonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelarActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
@@ -767,6 +791,10 @@ at = response.getEntity(Dono.class
         // TODO add your handling code here:
     }//GEN-LAST:event_jbCadastrarNovoDonoActionPerformed
 
+    private void buttonOKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonOKMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonOKMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel TipodeAtendimentoJL;
@@ -781,6 +809,7 @@ at = response.getEntity(Dono.class
     private javax.swing.JRadioButton grandePorteJRB;
     private javax.swing.JComboBox<String> horaJCB;
     private javax.swing.JLabel idadeJL;
+    private javax.swing.JLabel jLabelRghumv;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton jbCadastrarNovoDono;
@@ -808,7 +837,7 @@ at = response.getEntity(Dono.class
     // End of variables declaration//GEN-END:variables
     
     @Override
-        public void actionPerformed(ActionEvent ae) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void actionPerformed(ActionEvent ae) {
+         //To change body of generated methods, choose Tools | Templates.
     }
 }

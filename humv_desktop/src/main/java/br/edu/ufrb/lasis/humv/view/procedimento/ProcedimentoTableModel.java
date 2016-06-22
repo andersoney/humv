@@ -21,32 +21,26 @@ public class ProcedimentoTableModel extends AbstractTableModel {
     List<Procedimento> procedimentos;
     private static final Logger LOG = Logger.getLogger(ProcedimentoTableModel.class.getName());
 
-    /**
-     *
-     * @param animais
-     */
-    public ProcedimentoTableModel(List<Procedimento> procedimento) {
+    public ProcedimentoTableModel(List<Procedimento> procedimentos) {
         this.procedimentos = procedimentos;
-        titulos = new String[3];
-        titulos[0] = "Nome do procedimento";
-        titulos[1] = "Valor";
-        titulos[2] = "Codigo";
+        titulos = new String[4];
+        titulos[0] = "Codigo";
+        titulos[1] = "Nome";
+        titulos[2] = "Setor";
+        titulos[3] = "Valor R$";
     }
 
 
-    /**
-     *
-     * @param animais
-     */
     public void AdicionarProcedimentos(List<Procedimento> procedimentos) {
         this.procedimentos.addAll(procedimentos);
     }
 
     public ProcedimentoTableModel() {
-        titulos = new String[3];
-        titulos[0] = "Nome do procedimento";
-        titulos[1] = "Valor";
-        titulos[2] = "Codigo";
+        titulos = new String[4];
+        titulos[0] = "Codigo";
+        titulos[1] = "Nome";
+        titulos[2] = "Setor";
+        titulos[3] = "Valor R$";
         procedimentos = new ArrayList<Procedimento>();
     }
 
@@ -91,10 +85,12 @@ public class ProcedimentoTableModel extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch (columnIndex) {
             case 0:
-                return this.procedimentos.get(rowIndex).getNome();
-            case 1:
                 return this.procedimentos.get(rowIndex).getCodigo();
+            case 1:
+                return this.procedimentos.get(rowIndex).getNome();
             case 2:
+                return this.procedimentos.get(rowIndex).getCodSetor();
+            case 3:
                 return this.procedimentos.get(rowIndex).getValor();
         }
         return null;

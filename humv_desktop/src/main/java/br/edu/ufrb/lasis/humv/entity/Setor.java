@@ -1,28 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ufrb.lasis.humv.entity;
 
-/**
- *
- * @author Luiz
- */
-public class Setor {
+import java.io.Serializable;
+public class Setor implements Serializable {
+    private static final long serialVersionUID = 3567599639175582162L;
+
+    private String codigo;
     private String nome;
-    private int id;
+
+    public Setor(){}
     
-    public void setNome(String nome){
-        this.nome = nome;
-    }
-    public String getNome(){
+    public String getNome() {
         return nome;
     }
-    public void setCodigo(int codigo){
-        this.id = codigo;
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
-    public int getCodigo(){
-        return id;
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 }
