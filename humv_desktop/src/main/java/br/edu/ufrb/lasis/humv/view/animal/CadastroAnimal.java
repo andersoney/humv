@@ -13,9 +13,12 @@ import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.Calendar;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.codehaus.jackson.type.TypeReference;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -39,31 +42,31 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
     final private String servicoAnimal = "/api/animal";
     private static final Logger LOG = Logger.getLogger(CadastroAnimal.class.getName());
     private Animal animalSelecionado;
-    
+
     public CadastroAnimal() {
         initComponents();
         customInitComponents();
     }
+
     public CadastroAnimal(Animal animalSelecionado) {
         this.animalSelecionado = animalSelecionado;
         initComponents();
         customInitComponents();
     }
+
     private void customInitComponents() {
         buttonOK.addActionListener(this);
         buttonCancelar.addActionListener(this);
         textFieldNome.setFocusable(true);
-        
-        if(animalSelecionado != null){
+
+        if (animalSelecionado != null) {
             labelTitulo.setText("Alteração de dados do animal");
             textFieldNome.setText(animalSelecionado.getNome());
             textFieldEspecie.setText(animalSelecionado.getEspecie());
-            textFieldIdade.setText(""+animalSelecionado.getIdade());
+            textFieldIdade.setText("" + animalSelecionado.getIdade());
             textFieldRaca.setText(animalSelecionado.getRaca());
-            textFieldPeso.setText(""+animalSelecionado.getPeso());
-            textFieldRghumv.setText(animalSelecionado.getRghumv());
-            textFieldRghumv.setEnabled(false);
-            labelCpfDono.setText("CPF: "+animalSelecionado.getCpfDono());
+            textFieldPeso.setText("" + animalSelecionado.getPeso());
+            labelCpfDono.setText("CPF: " + animalSelecionado.getCpfDono());
             if (Util.isCPF(animalSelecionado.getCpfDono())) {
                 ClientResponse response;
                 try {
@@ -77,27 +80,28 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
                     Logger.getLogger(CadastroAnimal.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            if(animalSelecionado.getPorte().equalsIgnoreCase("pequeno")){
+            if (animalSelecionado.getPorte().equalsIgnoreCase("pequeno")) {
                 this.pequenoPorteJRB.setSelected(true);
                 pequenoPorteJRBActionPerformed(null);
                 this.pequenoPorteJRB.setEnabled(false);
                 this.grandePorteJRB.setEnabled(false);
                 textFieldPelagem.setText(animalSelecionado.getPelagem());
-            }else{
+            } else {
                 this.grandePorteJRB.setSelected(true);
                 grandePorteJRBActionPerformed(null);
                 this.pequenoPorteJRB.setEnabled(false);
                 this.grandePorteJRB.setEnabled(false);
             }
-            if(animalSelecionado.getSexo()=='M'||animalSelecionado.getSexo()=='m'){
+            if (animalSelecionado.getSexo() == 'M' || animalSelecionado.getSexo() == 'm') {
                 radioButtonMacho.setSelected(true);
                 radioButtonFemea.setSelected(false);
-            }else{
+            } else {
                 radioButtonMacho.setSelected(false);
                 radioButtonFemea.setSelected(true);
             }
         }
     }
+
     /**
      * Creates new form CadastroAnimals
      *
@@ -150,7 +154,7 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
             pequenoPorteJRBActionPerformed(null);
             this.pequenoPorteJRB.setEnabled(false);
             this.grandePorteJRB.setEnabled(false);
-            
+
         } else {
             this.grandePorteJRB.setSelected(true);
             grandePorteJRBActionPerformed(null);
@@ -217,8 +221,6 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
         textFieldIdade = new javax.swing.JTextField();
         pesoJL = new javax.swing.JLabel();
         textFieldPeso = new javax.swing.JTextField();
-        rghumvJL = new javax.swing.JLabel();
-        textFieldRghumv = new javax.swing.JTextField();
         porteDoAnimalJL = new javax.swing.JLabel();
         grandePorteJRB = new javax.swing.JRadioButton();
         pequenoPorteJRB = new javax.swing.JRadioButton();
@@ -361,8 +363,6 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
 
         pesoJL.setText("Peso");
 
-        rghumvJL.setText("RGHUMV");
-
         porteDoAnimalJL.setText("Porte do animal");
 
         grandePorteJRB.setText("Grande");
@@ -412,7 +412,7 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(racaJL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(textFieldRaca, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(sexoJL, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -420,9 +420,9 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
                                 .addGap(18, 18, 18)
                                 .addComponent(radioButtonFemea))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(rghumvJL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(textFieldRghumv, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TipodeAtendimentoJL)
+                            .addComponent(comboBoxTipoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(porteDoAnimalJL, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -430,14 +430,11 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
                                 .addComponent(grandePorteJRB)
                                 .addGap(18, 18, 18)
                                 .addComponent(pequenoPorteJRB))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TipodeAtendimentoJL)
-                            .addComponent(comboBoxTipoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(pelagemJL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(textFieldPelagem, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(pelagemJL, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textFieldPelagem, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -477,28 +474,22 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
                         .addGap(26, 26, 26)))
                 .addGap(11, 11, 11)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                            .addGap(23, 23, 23)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(grandePorteJRB)
-                                .addComponent(pequenoPorteJRB)))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(porteDoAnimalJL)
-                            .addGap(32, 32, 32)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(grandePorteJRB)
+                            .addComponent(pequenoPorteJRB)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(rghumvJL)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFieldRghumv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(porteDoAnimalJL)
+                            .addComponent(TipodeAtendimentoJL))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(comboBoxTipoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pelagemJL)
-                    .addComponent(TipodeAtendimentoJL))
+                .addComponent(pelagemJL)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textFieldPelagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboBoxTipoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addComponent(textFieldPelagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         buttonCancelar.setText("Cancelar");
@@ -555,7 +546,7 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonCancelar)
                     .addComponent(buttonOK))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -625,65 +616,101 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
             JOptionPane.showMessageDialog(this, "Digite um peso valido.");
             return;
         }
-        String rghumv;
-        if (!Util.isNotNull(this.textFieldRghumv.getText())) {
-            JOptionPane.showMessageDialog(this, "Preencha o RGHUMV.");
+        String rghumv="";
+        try {
+            ClientResponse response = RESTMethods.get("/api/animal");
+
+            List<Animal> lista = (List<Animal>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Animal>>() {
+            });
+            rghumv = "" + lista.size()+1;
+        } catch (RESTConnectionException | IOException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
+            LOG.warning(ex.getMessage());
+            Logger.getLogger(CadastroAnimal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    String pelagem = null;
+
+    if (this.pequenoPorteJRB.isSelected () 
+        ) {
+            if (!Util.isNotNull(this.textFieldPelagem.getText())) {
+            JOptionPane.showMessageDialog(this, "Digite a pelagem do animal.");
             return;
         } else {
-            rghumv = this.textFieldRghumv.getText();
+            pelagem = this.textFieldPelagem.getText();
         }
-        String pelagem = null;
-        if (this.pequenoPorteJRB.isSelected()) {
-            if (!Util.isNotNull(this.textFieldPelagem.getText())) {
-                JOptionPane.showMessageDialog(this, "Digite a pelagem do animal.");
-                return;
-            } else {
-                pelagem = this.textFieldPelagem.getText();              
-            }
-            porte = "peqeno";
-        } else {
+        porte = "peqeno";
+    }
+
+    
+        else {
             porte = "grande";
-            pelagem = "não se aplica.";
-        }
-        String tipoDeAtendimento = null;
-        if (this.comboBoxTipoAtendimento.getSelectedIndex() == 0) {
+        pelagem = "não se aplica.";
+    }
+    String tipoDeAtendimento = null;
+
+    if (this.comboBoxTipoAtendimento.getSelectedIndex () 
+        == 0) {
             tipoDeAtendimento = "Normal";
-        } else if (this.comboBoxTipoAtendimento.getSelectedIndex() == 1) {
+    }
+
+    else if (this.comboBoxTipoAtendimento.getSelectedIndex () 
+        == 1) {
             tipoDeAtendimento = "Emergencial";
-        }
-        if (this.anoJCB.getSelectedIndex() == 0
+    }
+
+    if (this.anoJCB.getSelectedIndex () 
+        == 0
                 || this.mesJCB.getSelectedIndex() == 0
                 || this.diaJCB.getSelectedIndex() == 0
                 || this.horaJCB.getSelectedIndex() == 0
                 || this.minJCB.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(this, "Digite uma data e hora valida.");
-        }
-        ClientResponse response;
-        
-        Animal animal = new Animal();
-        animal.setCpfDono(cpf);
-        animal.setDataCadastro(new Date(this.anoJCB.getSelectedIndex() + (Calendar.getInstance().getTime().getYear() - 60),
+    }
+    ClientResponse response;
+
+    Animal animal = new Animal();
+
+    animal.setCpfDono (cpf);
+
+    animal.setDataCadastro (
+
+    new Date(this.anoJCB.getSelectedIndex() + (Calendar.getInstance().getTime().getYear() - 60),
                     this.mesJCB.getSelectedIndex(),
                     this.diaJCB.getSelectedIndex(),
                     this.horaJCB.getSelectedIndex() - 1, this.minJCB.getSelectedIndex() - 1));
-        animal.setEspecie(especie);
-        animal.setIdade(idade);
-        animal.setNome(nome);
-        animal.setPeso(peso);
-        animal.setRaca(raca);
-        animal.setRghumv(rghumv);
-        animal.setSexo(sexo);
-        animal.setPorte(porte);
-        animal.setPelagem(pelagem);
+    animal.setEspecie (especie);
+
+    animal.setIdade (idade);
+
+    animal.setNome (nome);
+
+    animal.setPeso (peso);
+
+    animal.setRaca (raca);
+
+    animal.setRghumv (rghumv);
+
+    animal.setSexo (sexo);
+
+    animal.setPorte (porte);
+
+    animal.setPelagem (pelagem);
+
+    
         try {
             response = RESTMethods.post(this.servicoAnimal, animal);
-            String resposta = response.getEntity(String.class);
-            if (!resposta.equalsIgnoreCase("ok")) {
-                JOptionPane.showMessageDialog(this, resposta, "Falha no cadastro", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (RESTConnectionException ex) {
+        String resposta = response.getEntity(String.class);
+        if (!resposta.equalsIgnoreCase("ok")) {
+            JOptionPane.showMessageDialog(this, resposta, "Falha no cadastro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    catch (RESTConnectionException ex
+
+    
+        ) {
             Logger.getLogger(CadastroAnimal.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+    }
     }//GEN-LAST:event_buttonOKActionPerformed
 
     private void buttonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelarActionPerformed
@@ -702,12 +729,18 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
                 try {
                     this.setCPFNull();
                     response = RESTMethods.get(servicoDono + "/" + this.cpfBuscarJTF.getText() + "");
-                    Dono at = response.getEntity(Dono.class);
+                    Dono 
+
+at = response.getEntity(Dono.class
+);
                     this.cpf = at.getCpf();
                     this.labelCpfDono.setText("CPF: " + cpf);
                     this.nomeDJL.setText("Nome: " + at.getNome());
-                } catch (RESTConnectionException ex) {
-                    Logger.getLogger(CadastroAnimal.class.getName()).log(Level.SEVERE, null, ex);
+                
+
+} catch (RESTConnectionException ex) {
+                    Logger.getLogger(CadastroAnimal.class
+.getName()).log(Level.SEVERE, null, ex);
                 }
             }else{
                 this.setCPFNull();
@@ -765,7 +798,6 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
     private javax.swing.JLabel racaJL;
     private javax.swing.JRadioButton radioButtonFemea;
     private javax.swing.JRadioButton radioButtonMacho;
-    private javax.swing.JLabel rghumvJL;
     private javax.swing.JLabel sexoJL;
     private javax.swing.JTextField textFieldEspecie;
     private javax.swing.JTextField textFieldIdade;
@@ -773,11 +805,10 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
     private javax.swing.JTextField textFieldPelagem;
     private javax.swing.JTextField textFieldPeso;
     private javax.swing.JTextField textFieldRaca;
-    private javax.swing.JTextField textFieldRghumv;
     // End of variables declaration//GEN-END:variables
     
     @Override
-    public void actionPerformed(ActionEvent ae) {
+        public void actionPerformed(ActionEvent ae) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -59,7 +59,7 @@
                   <Component id="buttonCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonOK" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="39" max="32767" attributes="0"/>
+              <EmptySpace pref="42" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -423,7 +423,7 @@
                               <Component id="racaJL" alignment="0" max="32767" attributes="0"/>
                               <Component id="textFieldRaca" alignment="0" min="-2" pref="172" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="99" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="sexoJL" alignment="0" min="-2" pref="172" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
@@ -434,9 +434,9 @@
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="rghumvJL" alignment="0" max="32767" attributes="0"/>
-                              <Component id="textFieldRghumv" alignment="0" min="-2" pref="172" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="TipodeAtendimentoJL" min="-2" max="-2" attributes="0"/>
+                              <Component id="comboBoxTipoAtendimento" alignment="0" min="-2" pref="172" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -448,16 +448,12 @@
                               </Group>
                           </Group>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
+                      <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="TipodeAtendimentoJL" min="-2" max="-2" attributes="0"/>
-                              <Component id="comboBoxTipoAtendimento" min="-2" pref="172" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="pelagemJL" alignment="0" max="32767" attributes="0"/>
+                              <Component id="pelagemJL" alignment="0" min="-2" pref="172" max="-2" attributes="0"/>
                               <Component id="textFieldPelagem" alignment="0" min="-2" pref="172" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -512,36 +508,27 @@
                   </Group>
                   <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="grandePorteJRB" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="pequenoPorteJRB" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="porteDoAnimalJL" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="grandePorteJRB" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="pequenoPorteJRB" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="rghumvJL" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="textFieldRghumv" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="porteDoAnimalJL" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="TipodeAtendimentoJL" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="comboBoxTipoAtendimento" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="pelagemJL" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="TipodeAtendimentoJL" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="pelagemJL" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="textFieldPelagem" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="comboBoxTipoAtendimento" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="22" max="32767" attributes="0"/>
+                  <Component id="textFieldPelagem" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="19" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -602,13 +589,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="textFieldPeso">
-        </Component>
-        <Component class="javax.swing.JLabel" name="rghumvJL">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="RGHUMV"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="textFieldRghumv">
         </Component>
         <Component class="javax.swing.JLabel" name="porteDoAnimalJL">
           <Properties>
