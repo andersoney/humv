@@ -1,11 +1,10 @@
 package br.edu.ufrb.lasis.humv.view.animal;
 
 import br.edu.ufrb.lasis.humv.view.dono.CadastroDonoJDialog;
-import br.edu.ufrb.lasis.humv.Projeto.Util;
+import br.edu.ufrb.lasis.humv.utils.Util;
 import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import br.edu.ufrb.lasis.humv.entity.AnimalGrande;
 import br.edu.ufrb.lasis.humv.entity.Animal;
 import br.edu.ufrb.lasis.humv.entity.Dono;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;

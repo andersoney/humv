@@ -1,0 +1,102 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package br.edu.ufrb.lasis.humv.view.procedimento;
+
+import br.edu.ufrb.lasis.humv.entity.Procedimento;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
+import javax.swing.table.AbstractTableModel;
+
+/**
+ *
+ * @author Andersoney
+ */
+public class ProcedimentoTableModel extends AbstractTableModel {
+
+    String[] titulos;
+    List<Procedimento> procedimentos;
+    private static final Logger LOG = Logger.getLogger(ProcedimentoTableModel.class.getName());
+
+    /**
+     *
+     * @param animais
+     */
+    public ProcedimentoTableModel(List<Procedimento> procedimento) {
+        this.procedimentos = procedimentos;
+        titulos = new String[3];
+        titulos[0] = "Nome do procedimento";
+        titulos[1] = "Valor";
+        titulos[2] = "Codigo";
+    }
+
+
+    /**
+     *
+     * @param animais
+     */
+    public void AdicionarProcedimentos(List<Procedimento> procedimentos) {
+        this.procedimentos.addAll(procedimentos);
+    }
+
+    public ProcedimentoTableModel() {
+        titulos = new String[3];
+        titulos[0] = "Nome do procedimento";
+        titulos[1] = "Valor";
+        titulos[2] = "Codigo";
+        procedimentos = new ArrayList<Procedimento>();
+    }
+
+    public Procedimento getProcedimentoSelecionado(int index) {
+        if (index >= 0 && index < procedimentos.size()) {
+            return procedimentos.get(index);
+        } else {
+            return null;
+        }
+
+    }
+
+    public void addProcedimento(Procedimento procedimento) {
+        this.procedimentos.add(procedimento);
+        this.fireTableDataChanged();
+    }
+
+    public List<Procedimento> getProcedimentos() {
+        return procedimentos;
+    }
+
+    @Override
+    public String getColumnName(int column) {
+        if (column > 0 || column < titulos.length) {
+            return this.titulos[column];
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public int getRowCount() {
+        return procedimentos.size();
+    }
+
+    @Override
+    public int getColumnCount() {
+        return titulos.length;
+    }
+
+    @Override
+    public Object getValueAt(int rowIndex, int columnIndex) {
+        switch (columnIndex) {
+            case 0:
+                return this.procedimentos.get(rowIndex).getNome();
+            case 1:
+                return this.procedimentos.get(rowIndex).getCodigo();
+            case 2:
+                return this.procedimentos.get(rowIndex).getValor();
+        }
+        return null;
+    }
+}

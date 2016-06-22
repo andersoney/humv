@@ -11,7 +11,7 @@ import br.edu.ufrb.lasis.humv.dao.SetorDAO;
 import br.edu.ufrb.lasis.humv.entity.Setor;
 
 
-/** Implementaçãoo do serviço para cadastro,atualização e remoção de setores.
+/** Implementaï¿½ï¿½oo do serviï¿½o para cadastro,atualizaï¿½ï¿½o e remoï¿½ï¿½o de setores.
  *  
  *  @author Vinicius Moura
  *  
@@ -51,8 +51,8 @@ public class SetorServiceImpl {
 			return "OK";
 		}catch(DataIntegrityViolationException ex){
 			if(ex.getMessage().toLowerCase().contains("constraint")){
-				logger.error("[signup] Nome do Setor já cadastrado: " + setor.getNome() + ".");
-				return "Setor " +  setor.getNome() + " Já cadastrado no sistema. Por favor, informe um Nome diferente.";
+				logger.error("[signup] Nome do Setor jï¿½ cadastrado: " + setor.getNome() + ".");
+				return "Setor " +  setor.getNome() + " Jï¿½ cadastrado no sistema. Por favor, informe um Nome diferente.";
 			}else{
 				return "Erro ao conectar-se com o banco de dados.";
 			}
@@ -60,25 +60,25 @@ public class SetorServiceImpl {
 	}
 
 	public String atualizarsetor(Setor setor, String usuarioResponsavel){
-		if(setorDAO.findById(setor.getId())==null){
-			logger.error("[signup] Nenhum Setor com o código " + setor.getId() + "foi encontrado no sistema.");
-			return "Nenhum Setor com o código " + setor.getId() + "foi encontrado no sistema. Por favor, informe um Código diferente.";
+		if(setorDAO.findById(setor.getCodigo())==null){
+			logger.error("[signup] Nenhum Setor com o cï¿½digo " + setor.getCodigo() + "foi encontrado no sistema.");
+			return "Nenhum Setor com o cï¿½digo " + setor.getCodigo() + "foi encontrado no sistema. Por favor, informe um Cï¿½digo diferente.";
 
 		}
 		setorDAO.updateSetor(setor);
-		logger.info("[atualizarSetor - " + usuarioResponsavel + "] Setor " + setor.getId() + " atualizado com sucesso.");
+		logger.info("[atualizarSetor - " + usuarioResponsavel + "] Setor " + setor.getCodigo() + " atualizado com sucesso.");
 		return "OK";
 	}
 	
 	public String removerSetor(long id, String usuarioResponsavel){
 		if(setorDAO.findById(id) ==null){
-			logger.error("[signup] Nenhum Setor com o Código " + id + "foi encontrado no sistema.");
-			return "Nenhum Setor com o Código " + id + "foi encontrado no sistema. Por favor, informe um Código diferente.";
+			logger.error("[signup] Nenhum Setor com o Cï¿½digo " + id + "foi encontrado no sistema.");
+			return "Nenhum Setor com o Cï¿½digo " + id + "foi encontrado no sistema. Por favor, informe um Cï¿½digo diferente.";
 
 		}
 		Setor setor = setorDAO.findById(id);
 		setorDAO.removeSetor(setor);
-		logger.info("[removerSetor - " + usuarioResponsavel + "] Setor " + setor.getId() + " removido com sucesso.");
+		logger.info("[removerSetor - " + usuarioResponsavel + "] Setor " + setor.getCodigo() + " removido com sucesso.");
     	return "OK";
     }
 

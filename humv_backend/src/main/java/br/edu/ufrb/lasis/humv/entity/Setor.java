@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**Entidade que modela informações de setores.
+/**Entidade que modela informaï¿½ï¿½es de setores.
 
  * 
  *
@@ -31,7 +31,7 @@ public class Setor implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
-	private long id;
+	private int codigo;
 	private String nome;
 
 	public String getNome() {
@@ -42,12 +42,12 @@ public class Setor implements Serializable {
 		this.nome = nome;
 	}
 	
-	public long getId(){
-		return id;
+	public long getCodigo(){
+		return codigo;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setCodigo(int id) {
+		this.codigo = codigo;
 	}
 	
 }

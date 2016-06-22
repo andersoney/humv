@@ -1,6 +1,6 @@
 package br.edu.ufrb.lasis.humv.view.dono;
 
-import br.edu.ufrb.lasis.humv.Projeto.Util;
+import br.edu.ufrb.lasis.humv.utils.Util;
 import br.edu.ufrb.lasis.humv.view.animal.CadastroAnimal;
 import br.edu.ufrb.lasis.humv.entity.Dono;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
