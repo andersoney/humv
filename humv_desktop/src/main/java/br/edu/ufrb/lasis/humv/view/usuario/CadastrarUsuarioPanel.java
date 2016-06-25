@@ -15,7 +15,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
@@ -185,7 +184,7 @@ public class CadastrarUsuarioPanel extends javax.swing.JPanel implements ActionL
             }
         });
 
-        comboBoxPerfilUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { br.edu.ufrb.lasis.humv.utils.HUMVConfig.PERFIL_ADMINISTRADOR, br.edu.ufrb.lasis.humv.utils.HUMVConfig.PERFIL_RECEPCIONISTA, br.edu.ufrb.lasis.humv.utils.HUMVConfig.PERFIL_VETERINARIO, br.edu.ufrb.lasis.humv.utils.HUMVConfig.PERFIL_FARMACEUTICO}));
+        comboBoxPerfilUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { br.edu.ufrb.lasis.humv.utils.HUMVConfig.PERFIL_ADMINISTRADOR, br.edu.ufrb.lasis.humv.utils.HUMVConfig.PERFIL_RECEPCIONISTA, br.edu.ufrb.lasis.humv.utils.HUMVConfig.PERFIL_VETERINARIO, br.edu.ufrb.lasis.humv.utils.HUMVConfig.PERFIL_FARMACEUTICO,br.edu.ufrb.lasis.humv.utils.HUMVConfig.PERFIL_ASSISTENTE_SOCIAL}));
 
         buttonCancelar.setText("Cancelar");
         buttonCancelar.addActionListener(new java.awt.event.ActionListener() {

@@ -21,7 +21,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+          <Component id="jPanel1" alignment="1" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -31,35 +31,42 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           <Component id="cancelarJB" min="-2" pref="84" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="confirmarJB" min="-2" pref="84" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jPanel5" max="32767" attributes="0"/>
-                      <Component id="jPanel4" max="32767" attributes="0"/>
+                      <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jPanel4" alignment="1" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="137" max="-2" attributes="0"/>
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                  <EmptySpace pref="27" max="32767" attributes="0"/>
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                   <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="confirmarJB" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cancelarJB" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="38" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -69,7 +76,7 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Dados Pessoais"/>
+                <TitledBorder title="Dados do cliente"/>
               </Border>
             </Property>
           </Properties>
@@ -83,26 +90,23 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="nomeJTF" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="nomeJL" alignment="1" pref="163" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="cpfJTF" alignment="0" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      <Component id="cpfJL" min="-2" pref="163" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="telefoneJL" min="-2" pref="163" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="jRadioButtonCnpj" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="telefoneJTF" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="telefoneJL" alignment="1" min="-2" pref="163" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="nomeJL" min="-2" pref="163" max="-2" attributes="0"/>
+                                  <Component id="nomeJTF" alignment="0" pref="200" max="32767" attributes="0"/>
+                                  <Component id="jTextFieldTelefone" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jRadioButtonCpf" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextFieldCpf" alignment="1" pref="200" max="32767" attributes="0"/>
+                                  <Component id="jTextFieldCnpj" alignment="1" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -112,20 +116,26 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="nomeJL" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cpfJL" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonCpf" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="nomeJTF" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cpfJTF" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldCpf" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="telefoneJL" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="telefoneJL" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonCnpj" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="telefoneJTF" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jTextFieldTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldCnpj" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -137,21 +147,46 @@
                 <Property name="text" type="java.lang.String" value="Nome"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="cpfJL">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="CPF"/>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JTextField" name="nomeJTF">
             </Component>
-            <Component class="javax.swing.JTextField" name="cpfJTF">
+            <Component class="javax.swing.JTextField" name="jTextFieldCpf">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="jTextFieldCpf = MaskUtils.mascaraCpf();"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="telefoneJL">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Telefone"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="telefoneJTF">
+            <Component class="javax.swing.JTextField" name="jTextFieldTelefone">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="jTextFieldTelefone=MaskUtils.mascaraTelefone();"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="jRadioButtonCpf">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="CPF"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonCpfActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="jRadioButtonCpf.setSelected(true);&#xd;&#xa;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="jRadioButtonCnpj">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="CNPJ"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonCnpjActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextFieldCnpj">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="jTextFieldCnpj = MaskUtils.mascaraCnpj();"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
@@ -169,24 +204,31 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="cidadeFazendaJL" alignment="1" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="cidadeFazendaJTF" alignment="0" max="32767" attributes="0"/>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="cidadeJRB2" pref="74" max="32767" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="fazendaJRB" min="-2" max="-2" attributes="0"/>
-                          </Group>
                           <Component id="enderecoJL2" alignment="0" max="32767" attributes="0"/>
-                          <Component id="enderecoJTF2" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="fazendaJRB" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="cidadeJRB2" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="enderecoJTF2" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                                  <Component id="cidadeFazendaJL" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="estadoJCB" alignment="1" pref="200" max="32767" attributes="0"/>
+                              <Component id="jTextFieldCep" alignment="1" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="cepJL2" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="cepJL2" alignment="0" max="32767" attributes="0"/>
-                          <Component id="cepJTF2" alignment="0" max="32767" attributes="0"/>
-                          <Component id="estadoJCB" alignment="0" pref="159" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -195,13 +237,12 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jTextFieldCep" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="cepJL2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="cepJTF2" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="enderecoJL2" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="enderecoJL2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cepJL2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="enderecoJTF2" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -229,7 +270,10 @@
             </Component>
             <Component class="javax.swing.JTextField" name="enderecoJTF2">
             </Component>
-            <Component class="javax.swing.JTextField" name="cepJTF2">
+            <Component class="javax.swing.JTextField" name="jTextFieldCep">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="jTextFieldCep = MaskUtils.mascaraCep();"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="cepJL2">
               <Properties>
@@ -243,6 +287,9 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cidadeJRB2ActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="cidadeJRB2.setSelected(true);"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JRadioButton" name="fazendaJRB">
               <Properties>
@@ -295,7 +342,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="cidadeFazendaJL">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Endere&#xe7;o"/>
+                <Property name="text" type="java.lang.String" value="Cidade"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -315,6 +362,14 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="confirmarJBActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="14" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="CADASTRAMENTO DE DONO"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

@@ -30,7 +30,7 @@ public class HUMVApp {
     private static CarregandoDialog carregandoDialog = null;
     private static String nomeUsuario;
     
-    public HUMVMainWindow getMainWindow(){
+    public static HUMVMainWindow getMainWindow(){
         return mainWindow;
     }
     public static JPanel getMainPanelInstance() {

@@ -1,5 +1,7 @@
 package br.edu.ufrb.lasis.humv.view.procedimento;
 
+import br.edu.ufrb.lasis.humv.HUMVApp;
+import br.edu.ufrb.lasis.humv.utils.MessagesUtils;
 import br.edu.ufrb.lasis.humv.entity.Procedimento;
 import br.edu.ufrb.lasis.humv.entity.Setor;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
@@ -18,7 +20,6 @@ import javax.swing.JOptionPane;
  * @author Luiz
  */
 public class CadastroProcedimento extends javax.swing.JPanel implements ActionListener {
-
     JFrame parent;
     String codSetor;
     String nomeProcedimento;
@@ -50,7 +51,7 @@ public class CadastroProcedimento extends javax.swing.JPanel implements ActionLi
         textFieldNome.setFocusable(true);
 
         if (procedimentoSelecionado != null) {
-            labelTitulo.setText("Alteração de dados do procedimento");
+            labelTitulo.setText("ALTERAÇÃO DO PROCEDIMENTO");
             textFieldNome.setText(procedimentoSelecionado.getNome());
             textFieldCodigo.setText(procedimentoSelecionado.getCodigo());
             textFieldPreco.setText(""+procedimentoSelecionado.getValor());
@@ -63,9 +64,6 @@ public class CadastroProcedimento extends javax.swing.JPanel implements ActionLi
             } catch (RESTConnectionException ex) {
                 Logger.getLogger(CadastroProcedimento.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        else{
-            labelTitulo.setText("Cadastro de dados do procedimento");
         }
     }
 
@@ -90,13 +88,13 @@ public class CadastroProcedimento extends javax.swing.JPanel implements ActionLi
         labelNome = new javax.swing.JLabel();
         textFieldCodigo = new javax.swing.JTextField();
         labelCodigo = new javax.swing.JLabel();
-        buttonConfirmar = new javax.swing.JButton();
-        buttonCancelar = new javax.swing.JButton();
         textFieldPreco = new javax.swing.JTextField();
         labelPreco = new javax.swing.JLabel();
         labelTitulo = new javax.swing.JLabel();
+        buttonConfirmar = new javax.swing.JButton();
+        buttonCancelar = new javax.swing.JButton();
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Informações de setor"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Informações do Setor"));
 
         buttonCadastrarSetor.setText("Cadastrar novo...");
         buttonCadastrarSetor.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -153,11 +151,11 @@ public class CadastroProcedimento extends javax.swing.JPanel implements ActionLi
                     .addComponent(buttonPesqusar)
                     .addComponent(buttonCadastrarSetor)
                     .addComponent(textFieldCodSetor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelNomeSetor)
                     .addComponent(jLabelSetorCodigo))
-                .addGap(31, 31, 31))
+                .addContainerGap())
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Informações do Procedimento"));
@@ -165,20 +163,6 @@ public class CadastroProcedimento extends javax.swing.JPanel implements ActionLi
         labelNome.setText("Nome");
 
         labelCodigo.setText("Código");
-
-        buttonConfirmar.setText("Confirmar");
-        buttonConfirmar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonConfirmarActionPerformed(evt);
-            }
-        });
-
-        buttonCancelar.setText("Cancelar");
-        buttonCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCancelarActionPerformed(evt);
-            }
-        });
 
         labelPreco.setText("Preço R$");
 
@@ -200,18 +184,11 @@ public class CadastroProcedimento extends javax.swing.JPanel implements ActionLi
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 144, Short.MAX_VALUE)
+                        .addGap(0, 178, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(textFieldPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(labelPreco))
-                                .addGap(157, 157, 157))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(buttonCancelar)
-                                .addGap(48, 48, 48)
-                                .addComponent(buttonConfirmar)
-                                .addGap(138, 138, 138))))))
+                            .addComponent(textFieldPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelPreco))
+                        .addGap(157, 157, 157))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,14 +205,25 @@ public class CadastroProcedimento extends javax.swing.JPanel implements ActionLi
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textFieldPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonConfirmar)
-                    .addComponent(buttonCancelar)))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        labelTitulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        labelTitulo.setText("Titulo");
+        labelTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        labelTitulo.setText("CADASTRAMENTO DE PROCEDIMENTO");
+
+        buttonConfirmar.setText("Confirmar");
+        buttonConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonConfirmarActionPerformed(evt);
+            }
+        });
+
+        buttonCancelar.setText("Cancelar");
+        buttonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -245,30 +233,39 @@ public class CadastroProcedimento extends javax.swing.JPanel implements ActionLi
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(buttonCancelar)
+                        .addGap(18, 18, 18)
+                        .addComponent(buttonConfirmar)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(218, 218, 218)
+                .addGap(125, 125, 125)
                 .addComponent(labelTitulo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
+                .addGap(34, 34, 34)
                 .addComponent(labelTitulo)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(97, 97, 97))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonCancelar)
+                    .addComponent(buttonConfirmar))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCadastrarSetorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCadastrarSetorMouseClicked
         // TODO add your handling code here:
         CadastroSetorJDialog setor = new CadastroSetorJDialog(parent, true, this);
-        setor.setTitle("Cadastro de dono de animais");
+        setor.setTitle("CADASTRAMENTO DE SETOR");
         setor.setLocationRelativeTo(null);
         setor.setVisible(true);
     }//GEN-LAST:event_buttonCadastrarSetorMouseClicked
@@ -288,9 +285,8 @@ public class CadastroProcedimento extends javax.swing.JPanel implements ActionLi
         }
     }
     private void buttonPesqusarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPesqusarActionPerformed
-        // TODO add your handling code here:
         ClientResponse response;
-        if (textFieldCodSetor.getText().length() > 0) {
+        if (!textFieldCodSetor.getText().isEmpty()) {
             try {
                 response = RESTMethods.get(servicoSetor + "/" + this.textFieldCodSetor.getText() + "");
                 Setor at = response.getEntity(Setor.class);
@@ -301,14 +297,13 @@ public class CadastroProcedimento extends javax.swing.JPanel implements ActionLi
                 Logger.getLogger(CadastroProcedimento.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Digite um código válido.");
+            MessagesUtils.validaCampoVazio("de busca");
         }
     }//GEN-LAST:event_buttonPesqusarActionPerformed
 
     private void buttonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmarActionPerformed
-        // TODO add your handling code here:
         if (nomeSetor == null) {
-            JOptionPane.showMessageDialog(this, "Escolha um setor na lista ou cadastre um novo.");
+            MessagesUtils.validaCampoVazio("setor");
             return;
         }
         char sexo;
@@ -316,17 +311,17 @@ public class CadastroProcedimento extends javax.swing.JPanel implements ActionLi
         int idade;
         boolean pequenoPort;
         if (this.textFieldNome.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Nome do procedimento não pode ficar vazio.");
+            MessagesUtils.validaCampoVazio("nome");
             return;
         }
         String nome = this.textFieldNome.getText();
         if (this.textFieldCodigo.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Código não pode ficar vazio.");
+            MessagesUtils.validaCampoVazio("codigo");
             return;
         }
         String codigo = this.textFieldCodigo.getText();
         if (textFieldPreco.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Campo preço não pode ficar vazio.");
+            MessagesUtils.validaCampoVazio("preço");
             return;
         }
         double valor = Double.parseDouble(this.textFieldPreco.getText());
@@ -340,9 +335,12 @@ public class CadastroProcedimento extends javax.swing.JPanel implements ActionLi
             ClientResponse response = RESTMethods.post(this.servicoProcedimento, procedimento);
             String resposta = response.getEntity(String.class);
             if (!resposta.equalsIgnoreCase("ok")) {
-                JOptionPane.showMessageDialog(this, resposta, "Falha no cadastro", JOptionPane.ERROR_MESSAGE);
+                MessagesUtils.erroCadastro("procedimento");
             }else{
-                JOptionPane.showMessageDialog(null, "Sucesso no cadastro");
+                MessagesUtils.sucessoCadastro("procedimento");
+                HUMVApp.exibirMensagemCarregamento();
+                HUMVApp.setPainelCentralComLogo();
+                HUMVApp.esconderMensagemCarregamento();
             }
         } catch (RESTConnectionException ex) {
             Logger.getLogger(CadastroProcedimento.class.getName()).log(Level.SEVERE, null, ex);
@@ -350,8 +348,14 @@ public class CadastroProcedimento extends javax.swing.JPanel implements ActionLi
     }//GEN-LAST:event_buttonConfirmarActionPerformed
 
     private void buttonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelarActionPerformed
-        this.setVisible(false);
-        System.gc();
+        int op = MessagesUtils.dialogoCancelar("o cadastro", "procedimento");
+        if(op == JOptionPane.OK_OPTION){
+            this.setVisible(false);
+            System.gc();
+            HUMVApp.exibirMensagemCarregamento();
+            HUMVApp.setPainelCentralComLogo();
+            HUMVApp.esconderMensagemCarregamento();
+        }
     }//GEN-LAST:event_buttonCancelarActionPerformed
 
 
@@ -376,7 +380,5 @@ public class CadastroProcedimento extends javax.swing.JPanel implements ActionLi
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void actionPerformed(ActionEvent ae) {
-       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public void actionPerformed(ActionEvent ae) {}
 }

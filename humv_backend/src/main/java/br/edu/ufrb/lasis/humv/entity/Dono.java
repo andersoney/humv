@@ -21,21 +21,29 @@ public class Dono implements Serializable {
 	private static final long serialVersionUID = -6125748157292589614L;
 	
 	@Id
-	private String cpf;
+	private String id; // recebe o numero do CPF ou CNPJ do novo dono.
+	private String tipoId; // Pode ser CPF ou CNPJ
 	private String nome;
 	private String endereco;
 	private String estado;
 	private String cep;
 	private String telefone;
-	
 	private String cidade; // Obs.: pode ser uma fazenda ou distrito em caso de zona rural.
 
-	public String getCpf() {
-		return cpf;
+	public String getId() {
+		return id;
 	}
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public String getTipoId() {
+		return tipoId;
+	}
+
+	public void setTipoId(String tipoId) {
+		this.tipoId = tipoId;
 	}
 
 	public String getNome() {

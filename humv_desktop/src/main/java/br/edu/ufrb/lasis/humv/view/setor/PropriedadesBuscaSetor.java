@@ -67,7 +67,7 @@ public class PropriedadesBuscaSetor extends PropriedadesBusca {
             }).start();
         } else if (ae.getSource().equals(super.getBotaoOperacao())) {
             if (super.getIndexLinhaSelecionada() < 0) {
-                JOptionPane.showMessageDialog(super.getTabelaResultado(), "Por favor, selecione algum setor da tabela para realizar a operação.", "Animal não selecionado", JOptionPane.ERROR_MESSAGE);             
+                JOptionPane.showMessageDialog(super.getTabelaResultado(), "Por favor, selecione algum setor da tabela para realizar a operação.", "Setor não selecionado", JOptionPane.ERROR_MESSAGE);             
             } else {
                 Setor setorSelecionado = tableModel.getSetorSelecionado(super.getIndexLinhaSelecionada());
                 if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_VISUALIZAR)) {

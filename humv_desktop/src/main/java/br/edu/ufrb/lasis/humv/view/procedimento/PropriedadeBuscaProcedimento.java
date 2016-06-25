@@ -69,7 +69,7 @@ public class PropriedadeBuscaProcedimento extends PropriedadesBusca{
             }).start();
         } else if (e.getSource().equals(super.getBotaoOperacao())) {
             if (super.getIndexLinhaSelecionada() < 0) {
-                JOptionPane.showMessageDialog(super.getTabelaResultado(), "Por favor, selecione algum procedimento da tabela para realizar a operação.", "Animal não selecionado", JOptionPane.ERROR_MESSAGE);             
+                JOptionPane.showMessageDialog(super.getTabelaResultado(), "Por favor, selecione algum procedimento da tabela para realizar a operação.", "Procedimento não selecionado", JOptionPane.ERROR_MESSAGE);             
             } else {
                 Procedimento procedimentoSelecionado = tableModel.getProcedimentoSelecionado(super.getIndexLinhaSelecionada());
                 if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_VISUALIZAR)) {

@@ -37,7 +37,7 @@ public class Animal implements Serializable{
 	private char sexo; // M = macho, F = femêa
 	private int idade;
 	private double peso;
-	private String cpfDono; // Relacionamento entre animal e proprietario.
+	private String idDono; // Relacionamento entre animal e proprietario.
 	private String pelagem; // não se aplica para animais de grande porte.
 	private String porte; // pequeno ou grande
 	
@@ -108,12 +108,12 @@ public class Animal implements Serializable{
 		this.peso = peso;
 	}
     
-	public String getCpfDono() {
-		return cpfDono;
+	public String getIdDono() {
+		return idDono;
 	}
 
-	public void setCpfDono(String cpfDono) {
-		this.cpfDono = cpfDono;
+	public void setIdDono(String idDono) {
+		this.idDono = idDono;
 	}
 	
 	public Date getDataCadastro() {

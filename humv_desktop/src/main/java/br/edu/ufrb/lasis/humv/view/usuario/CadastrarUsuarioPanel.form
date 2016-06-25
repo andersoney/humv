@@ -153,7 +153,7 @@
     <Component class="javax.swing.JComboBox" name="comboBoxPerfilUsuario">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { br.edu.ufrb.lasis.humv.utils.HUMVConfig.PERFIL_ADMINISTRADOR, br.edu.ufrb.lasis.humv.utils.HUMVConfig.PERFIL_RECEPCIONISTA, br.edu.ufrb.lasis.humv.utils.HUMVConfig.PERFIL_VETERINARIO, br.edu.ufrb.lasis.humv.utils.HUMVConfig.PERFIL_FARMACEUTICO})" type="code"/>
+          <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { br.edu.ufrb.lasis.humv.utils.HUMVConfig.PERFIL_ADMINISTRADOR, br.edu.ufrb.lasis.humv.utils.HUMVConfig.PERFIL_RECEPCIONISTA, br.edu.ufrb.lasis.humv.utils.HUMVConfig.PERFIL_VETERINARIO, br.edu.ufrb.lasis.humv.utils.HUMVConfig.PERFIL_FARMACEUTICO,br.edu.ufrb.lasis.humv.utils.HUMVConfig.PERFIL_ASSISTENTE_SOCIAL})" type="code"/>
         </Property>
       </Properties>
       <AuxValues>
