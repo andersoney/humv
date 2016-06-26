@@ -29,7 +29,7 @@ public class MessagesUtils {
         JOptionPane.showMessageDialog(null,msg , "Campo vazio", JOptionPane.WARNING_MESSAGE);
     }
     public static void validaCampoInvalido(String string){
-        String msg = string+" invalido! Por favor informe outro "+string+".";
+        String msg = string+" inválido! Por favor informe outro "+string+".";
         JOptionPane.showMessageDialog(null,msg , "Campo inválido", JOptionPane.WARNING_MESSAGE);
     }
     public static String buscaSemResultado(String string){

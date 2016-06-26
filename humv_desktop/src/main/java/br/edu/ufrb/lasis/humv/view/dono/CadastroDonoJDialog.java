@@ -185,7 +185,7 @@ public class CadastroDonoJDialog extends javax.swing.JDialog {
             }
         });
 
-        estadoJCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estados", "Acre", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins", "" }));
+        estadoJCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado", "Acre", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins", " " }));
 
         cidadeFazendaJL.setText("Cidade");
 
@@ -347,7 +347,7 @@ public class CadastroDonoJDialog extends javax.swing.JDialog {
             local = "Fazenda";
         }
         if (!Util.isNotNull(this.cidadeFazendaJTF.getText())) {
-            MessagesUtils.validaCampoVazio(local);
+            MessagesUtils.validaCampoVazio(local.toLowerCase());
             return;
         }
         String localT = local + ": " + this.cidadeFazendaJTF.getText();
