@@ -5,12 +5,7 @@
  */
 package br.edu.ufrb.lasis.humv.utils;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.text.DecimalFormat;
 import javax.swing.JFormattedTextField;
-import javax.swing.JTextField;
-
 /**
  *
  * @author Luiz
@@ -60,4 +55,3 @@ public class MaskUtils {
        return string.replaceAll("\\D", "");
     }
 }
-

@@ -74,8 +74,8 @@ public class DonoDAO extends GenericDAO<Dono> implements Serializable{
 	 * @return the resulting owner
 	 */
 	@Transactional
-	public Dono findByCpf(String cpf) {
-		return (Dono) getCriteria().add(Restrictions.eq("cpf", cpf)).uniqueResult();
+	public Dono findByKey(String id) {
+		return (Dono) getCriteria().add(Restrictions.eq("id", id)).uniqueResult();
 	}
 
 	@SuppressWarnings("unchecked")

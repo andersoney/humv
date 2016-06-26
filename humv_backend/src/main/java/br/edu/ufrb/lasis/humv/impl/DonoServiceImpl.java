@@ -35,8 +35,8 @@ public class DonoServiceImpl {
 			}
 		}
 
-		public Dono findById(String cpf){
-			return donoDAO.findByCpf(cpf);
+		public Dono findById(String id){
+			return donoDAO.findByKey(id);
 		}
 
 		public String cadastrarDono(Dono dono, String usuarioResponsavel){
@@ -55,7 +55,7 @@ public class DonoServiceImpl {
 		}
 
 		public String atualizarDono(Dono dono, String usuarioResponsavel){
-			if(donoDAO.findByCpf(dono.getId())==null){
+			if(donoDAO.findByKey(dono.getId())==null){
 				logger.error("[signup] Nenhum dono com o id " + dono.getId() + "foi encontrado no sistema.");
 				return "Nenhum dono com o CPF " + dono.getId() + " encontrado no sistema. Por favor, informe um CPF diferente.";
 			}
@@ -65,11 +65,11 @@ public class DonoServiceImpl {
 		}
 		
 		public String removerDono(String  cpf, String usuarioResponsavel){
-			if(donoDAO.findByCpf(cpf)==null){
+			if(donoDAO.findByKey(cpf)==null){
 				logger.error("[signup] Nenhum dono com o CPF " + cpf + "foi encontrado no sistema.");
 				return "Nenhum dono com o CPF " + cpf + " encontrado no sistema. Por favor, informe um CPF diferente.";
 			}
-			Dono dono = donoDAO.findByCpf(cpf);
+			Dono dono = donoDAO.findByKey(cpf);
 			donoDAO.removeOwner(dono);
 			logger.info("[removerDono - " + usuarioResponsavel + "] Dono " + dono.getId() + " removido com sucesso.");
 	    	return "OK";
