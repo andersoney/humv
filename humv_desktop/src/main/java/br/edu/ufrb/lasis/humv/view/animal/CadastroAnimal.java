@@ -655,11 +655,11 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
 
     private void pesquisarDJBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisarDJBActionPerformed
         if(jRadioButtonBuscaCpf.isSelected()){
-            if (Util.isCPF(this.jTextFieldBuscaCpf.getText())) {
+            if (Util.isCPF(MaskUtils.removeMascara(this.jTextFieldBuscaCpf.getText()))) {
                 ClientResponse response;
                 try {
                     this.setIdNull();
-                    response = RESTMethods.get(servicoDono + "/" + this.jTextFieldBuscaCpf.getText() + "");
+                    response = RESTMethods.get(servicoDono + "/" + MaskUtils.removeMascara(this.jTextFieldBuscaCpf.getText()) + "");
                     Dono at = response.getEntity(Dono.class);
                     this.idDono = at.getId();
                     this.labelCpfDono.setText("CPF: " + idDono);
@@ -672,11 +672,11 @@ public class CadastroAnimal extends javax.swing.JPanel implements ActionListener
                 MessagesUtils.validaCampoInvalido("CPF");
             }
         }else{
-            if (Util.isCNPJ(this.jTextFieldBuscaCnpj.getText())) {
+            if (Util.isCNPJ(MaskUtils.removeMascara(this.jTextFieldBuscaCnpj.getText()))) {
                 ClientResponse response;
                 try {
                     this.setIdNull();
-                    response = RESTMethods.get(servicoDono + "/" + this.jTextFieldBuscaCnpj.getText() + "");
+                    response = RESTMethods.get(servicoDono + "/" + MaskUtils.removeMascara(this.jTextFieldBuscaCpf.getText()) + "");
                     Dono at = response.getEntity(Dono.class);
                     this.idDono = at.getId();
                     this.labelCpfDono.setText("CNPJ: " + idDono);

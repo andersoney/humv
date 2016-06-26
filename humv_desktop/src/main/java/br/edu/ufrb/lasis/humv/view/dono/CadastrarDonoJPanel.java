@@ -311,18 +311,18 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
         }
         String nome = this.nomeJTF.getText();
         if(jRadioButtonCpf.isSelected()){
-            if (!Util.isCPF(this.jTextFieldCpf.getText())) {
+            if (!Util.isCPF(MaskUtils.removeMascara(this.jTextFieldCpf.getText()))) {
                 MessagesUtils.validaCampoInvalido("CPF");
                 return;
             }
-            id = this.jTextFieldCpf.getText();
+            id = MaskUtils.removeMascara(this.jTextFieldCpf.getText());
         }
         if(jRadioButtonCnpj.isSelected()){
-            if (!Util.isCNPJ(this.jTextFieldCnpj.getText())) {
+            if (!Util.isCNPJ(MaskUtils.removeMascara(this.jTextFieldCnpj.getText()))) {
                 MessagesUtils.validaCampoInvalido("CNPJ");
                 return;
             }
-            id = this.jTextFieldCnpj.getText();
+            id = MaskUtils.removeMascara(this.jTextFieldCnpj.getText());
         }
         if (!Util.isNotNull(this.jTextFieldTelefone.getText())) {
             MessagesUtils.validaCampoVazio("telefone");

@@ -56,5 +56,8 @@ public class MaskUtils {
         }catch(Exception e){}
         return null;
     }
+    public static String removeMascara(String string){
+       return string.replaceAll("\\D", "");
+    }
 }
 
