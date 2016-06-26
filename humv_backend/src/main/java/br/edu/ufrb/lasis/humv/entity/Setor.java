@@ -7,16 +7,19 @@ import javax.persistence.Table;
 import javax.persistence.Id;
 
 /**
- * 
+ * Entidade que modela informações de setor.
  *
- *  
- *  @author Vinicius Moura
- *  
- *  @version 1.0
- *  
- *  @since 7 de junho de 2016
- * */
-@Entity
+ *
+ * Ver requisitos R007 - R010
+ *
+ * 
+ * @author Vinicius Moura
+ * 
+ * @version 1.0
+ *
+ * @since 26 de junho de 2016
+ *
+ */@Entity
 @Table(name="SETORES")
 public class Setor implements Serializable {
 	

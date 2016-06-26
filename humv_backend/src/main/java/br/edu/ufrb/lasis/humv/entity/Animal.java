@@ -10,17 +10,20 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 
-/**Entidade que modela informações de animais de grande e pequeno porte.
- * A diferença entre um animal de pequeno e grande porte é a ausencia do campo 'pelagem' nesta entidade.
+/**
+ * Entidade que modela informações de animais de grande e pequeno porte.
+ *
+ *
+ * Ver requisitos R002 - R006
+ *
  * 
- * Ver requisito R003 em {@link https://docs.google.com/document/d/1plQtd_M9Qg4SAR9AH0MDhJac_dL5KciqMtWlCBimTDo}
- *  
- *  @author Luiz Antônio Pereira
- *  
- *  @version 1.2
- *  
- *  @since 15 de maio de 2016
- * */
+ * @author Luiz Antônio Pereira
+ * 
+ * @version 3
+ *
+ * @since 26 de junho de 2016
+ *
+ */
 
 
 @Entity

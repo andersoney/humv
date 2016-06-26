@@ -48,7 +48,7 @@ public class ProcedimentoDAO extends GenericDAO<Procedimento> implements Seriali
 	}
 	
 	@Transactional
-	public void removerProcedimento(Procedimento procedimento){
+	public void removeProcedimento(Procedimento procedimento){
 		super.delete(procedimento);
 	}
 	

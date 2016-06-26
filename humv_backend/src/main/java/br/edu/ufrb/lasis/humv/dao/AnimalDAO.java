@@ -14,7 +14,7 @@ import br.edu.ufrb.lasis.humv.entity.Animal;
 import br.edu.ufrb.lasis.humv.entity.Dono;
 
 /**
- * The Class representing the data access for Small animal objects.
+ * The Class representing the data access for animal objects.
  * 
  * @author Luiz Antônio Pereira
  * 
@@ -36,10 +36,9 @@ public class AnimalDAO  extends GenericDAO<Animal> implements Serializable {
 	}
 	
 	/**
-	 * Saves a small animal in the database.
+	 * Saves a animal in the database.
 	 *
-	 * @param animal
-	 *            the small animal to be saved
+	 * @param animal animal to be saved
 	 */
 	@Transactional
 	public void saveAnimal(Animal animal) {
@@ -47,10 +46,9 @@ public class AnimalDAO  extends GenericDAO<Animal> implements Serializable {
 	}
 
 	/**
-	 * Updates a small animal in the database.
+	 * Updates a animal in the database.
 	 * 
-	 * @param animal
-	 *            the small animal to be updated
+	 * @param animal animal to be updated
 	 */
 	@Transactional
 	public void updateAnimal(Animal animal) {
@@ -58,10 +56,9 @@ public class AnimalDAO  extends GenericDAO<Animal> implements Serializable {
 	}
 
 	/**
-	 * Removes a small animal in the database.
+	 * Removes a animal in the database.
 	 *
-	 * @param animal
-	 *            the small animal to be removed
+	 * @param animal the animal to be removed
 	 */
 	@Transactional
 	public void removeAnimal(Animal animal) {
@@ -75,9 +72,9 @@ public class AnimalDAO  extends GenericDAO<Animal> implements Serializable {
 
 	@Transactional
 	@SuppressWarnings("unchecked")
-	public List<Animal> findByProprietario(Dono proprietario) {
-		String cpf = proprietario.getNome();
-		Criteria criteria = getCriteria().add(Restrictions.ilike("proprietario", "%" + cpf + "%"));
+	public List<Animal> findByDono(Dono dono) {
+		String id = dono.getId();
+		Criteria criteria = getCriteria().add(Restrictions.ilike("idDono", "%" + id + "%"));
 		criteria.addOrder(Order.asc("nome"));
 		return (List<Animal>) criteria.list();	
 	}

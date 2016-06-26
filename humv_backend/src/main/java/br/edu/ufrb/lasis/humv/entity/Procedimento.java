@@ -7,6 +7,21 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Id;
 
+/**
+ * Entidade que modela informações de procedimento.
+ *
+ *
+ * Ver requisitos R011 - R014
+ *
+ * 
+ * @author Andersoney Rodrigues
+ * 
+ * @version 1.1
+ *
+ * @since 26 de junho de 2016
+ *
+ */
+
 @Entity
 @Table(name="PROCEDIMENTOS")
 public class Procedimento implements Serializable {

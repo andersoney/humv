@@ -35,9 +35,9 @@ public class DonoService {
 	    	return donoServiceImpl.getAll(); 
 	    }
 	    
-	    @RequestMapping(method = RequestMethod.GET, value = "/{cpf}")
-	    public Dono findById(@PathVariable String cpf){
-	    	return donoServiceImpl.findById(cpf);
+	    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+	    public Dono findById(@PathVariable String id){
+	    	return donoServiceImpl.findById(id);
 	    }
 	    
 	    @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
@@ -50,9 +50,9 @@ public class DonoService {
 	    	return donoServiceImpl.atualizarDono(dono, username);
 	    }
 	    
-	    @RequestMapping(method = RequestMethod.DELETE, value = "/{cpf}")
-	    public String removerDono(@PathVariable String  cpf, @RequestParam(value="username") String  username){
-	    	return donoServiceImpl.removerDono(cpf, username);
+	    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+	    public String removerDono(@PathVariable String  id, @RequestParam(value="username") String  username){
+	    	return donoServiceImpl.removerDono(id, username);
 	    }
 	    
 		public DonoServiceImpl getDonoServiceImpl( ) {

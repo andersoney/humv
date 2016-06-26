@@ -69,7 +69,7 @@ public class ProcedimentoServiceImpl {
 
 		}
 		Procedimento procedimento = procedimentoDAO.findByCode(codigo);
-		procedimentoDAO.removerProcedimento(procedimento);
+		procedimentoDAO.removeProcedimento(procedimento);
 		logger.info("[removerSetor - " + usuarioResponsavel + "] procedimento " + procedimento.getCodigo() + " removido com sucesso.");
     	return "OK";
     }

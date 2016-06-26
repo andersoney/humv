@@ -37,10 +37,10 @@ public class SetorDAO  extends GenericDAO<Setor> implements Serializable {
 	}
 	
 	/**
-	 * Saves a large animal in the database.
+	 * Saves a sector in the database.
 	 *
-	 * @param animal
-	 *            the large animal to be saved
+	 * @param sector
+	 *            the sector to be saved
 	 */
 	@Transactional
 	public void saveSetor(Setor setor) {
@@ -48,10 +48,10 @@ public class SetorDAO  extends GenericDAO<Setor> implements Serializable {
 	}
 
 	/**
-	 * Updates a large animal in the database.
+	 * Updates a sector in the database.
 	 *
-	 * @param animal
-	 *            the large animal to be updated
+	 * @param setor
+	 *            the sector to be updated
 	 */
 	@Transactional
 	public void updateSetor(Setor setor) {
@@ -59,10 +59,10 @@ public class SetorDAO  extends GenericDAO<Setor> implements Serializable {
 	}
 
 	/**
-	 * Removes a large animal in the database.
+	 * Removes a sector in the database.
 	 *
-	 * @param animal
-	 *            the large animal to be removed
+	 * @param sector
+	 *            the sector to be removed
 	 */
 	@Transactional
 	public void removeSetor(Setor setor) {

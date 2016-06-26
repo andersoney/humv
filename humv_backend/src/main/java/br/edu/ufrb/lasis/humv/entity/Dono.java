@@ -6,14 +6,20 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**Entidade que modela informações e métodos de propriétarios de animais.
+/**
+ * Entidade que modela informações de dono de animais.
+ *
+ *
+ * Ver requisitos R002 - R006
+ *
  * 
- *  @author Luiz Antônio Pereira
- *  
- *  @version 1
- *  
- *  @since 15 de maio de 2016
- * */
+ * @author Luiz Antônio Pereira
+ * 
+ * @version 3
+ *
+ * @since 26 de junho de 2016
+ *
+ */
 @Entity
 @Table(name="DONOS")
 public class Dono implements Serializable {
