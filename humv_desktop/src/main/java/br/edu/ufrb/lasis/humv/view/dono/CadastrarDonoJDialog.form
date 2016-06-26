@@ -31,20 +31,20 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="145" max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <Component id="jLabelTitulo" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="151" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jPanel2" max="32767" attributes="0"/>
+                  <Component id="jPanelInformacoesEndereco" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="cancelarJB" min="-2" pref="84" max="-2" attributes="0"/>
+                      <Component id="jButtonCancelar" min="-2" pref="84" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="confirmarJB" min="-2" pref="84" max="-2" attributes="0"/>
+                      <Component id="jButtonConfirmar" min="-2" pref="84" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jPanel1" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jPanelDadosPessoais" alignment="1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -54,15 +54,15 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <Component id="jLabelTitulo" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <Component id="jPanelDadosPessoais" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+              <Component id="jPanelInformacoesEndereco" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="confirmarJB" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cancelarJB" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonConfirmar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
           </Group>
@@ -70,16 +70,16 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="jPanel1">
+    <Container class="javax.swing.JPanel" name="jPanelDadosPessoais">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Dados Pessoais"/>
+            <TitledBorder title="Dados pessoais"/>
           </Border>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jPanel1KeyPressed"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jPanelDadosPessoaisKeyPressed"/>
       </Events>
 
       <Layout>
@@ -90,10 +90,10 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                           <Component id="jTextFieldTelefone" pref="200" max="32767" attributes="0"/>
-                          <Component id="nomeJL" alignment="0" min="-2" pref="163" max="-2" attributes="0"/>
-                          <Component id="nomeJTF" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jLabelNome" alignment="0" min="-2" pref="163" max="-2" attributes="0"/>
+                          <Component id="jTextFieldNome" alignment="1" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="telefoneJL" alignment="0" min="-2" pref="163" max="-2" attributes="0"/>
+                      <Component id="jLabelTelefone" alignment="0" min="-2" pref="163" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -113,17 +113,17 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="nomeJL" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelNome" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jRadioButtonCpf" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="nomeJTF" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldNome" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldCpf" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="telefoneJL" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jRadioButtonCnpj" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -137,21 +137,21 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="nomeJL">
+        <Component class="javax.swing.JLabel" name="jLabelNome">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Nome"/>
+            <Property name="text" type="java.lang.String" value="Nome:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="nomeJTF">
+        <Component class="javax.swing.JTextField" name="jTextFieldNome">
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldCpf">
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="jTextFieldCpf = MaskUtils.mascaraCpf();"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JLabel" name="telefoneJL">
+        <Component class="javax.swing.JLabel" name="jLabelTelefone">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Telefone"/>
+            <Property name="text" type="java.lang.String" value="Telefone:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldTelefone">
@@ -182,11 +182,11 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="jPanel2">
+    <Container class="javax.swing.JPanel" name="jPanelInformacoesEndereco">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Endere&#xe7;o"/>
+            <TitledBorder title="Informa&#xe7;&#xf5;es de endere&#xe7;o"/>
           </Border>
         </Property>
       </Properties>
@@ -197,23 +197,23 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="enderecoJL" alignment="0" min="-2" pref="159" max="-2" attributes="0"/>
-                      <Component id="enderecoJTF" pref="200" max="32767" attributes="0"/>
+                      <Component id="jLabelEndereco" alignment="0" min="-2" pref="159" max="-2" attributes="0"/>
+                      <Component id="jTextFieldEndereco" pref="200" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="cidadeFazendaJL" alignment="0" max="32767" attributes="0"/>
-                              <Component id="fazendaJRB" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jLabelCidadeFazenda" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jRadioButtonFazenda" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="cidadeJRB" min="-2" pref="74" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonCidade" min="-2" pref="74" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="cidadeFazendaJTF" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jTextFieldCidadeFazenda" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="cepJL" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelCep" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldCep" max="32767" attributes="0"/>
-                      <Component id="estadoJCB" alignment="0" pref="200" max="32767" attributes="0"/>
+                      <Component id="jComboBoxEstado" alignment="0" pref="200" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -224,64 +224,64 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="enderecoJL" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cepJL" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelEndereco" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelCep" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="enderecoJTF" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldEndereco" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldCep" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="cidadeJRB" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="fazendaJRB" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="estadoJCB" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jRadioButtonCidade" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jRadioButtonFazenda" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jComboBoxEstado" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="6" max="32767" attributes="0"/>
-                  <Component id="cidadeFazendaJL" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelCidadeFazenda" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="cidadeFazendaJTF" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextFieldCidadeFazenda" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="enderecoJL">
+        <Component class="javax.swing.JLabel" name="jLabelEndereco">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Endere&#xe7;o"/>
+            <Property name="text" type="java.lang.String" value="Endere&#xe7;o:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="enderecoJTF">
+        <Component class="javax.swing.JTextField" name="jTextFieldEndereco">
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldCep">
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="jTextFieldCep = MaskUtils.mascaraCep();"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JLabel" name="cepJL">
+        <Component class="javax.swing.JLabel" name="jLabelCep">
           <Properties>
-            <Property name="text" type="java.lang.String" value="CEP"/>
+            <Property name="text" type="java.lang.String" value="CEP:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="cidadeJRB">
+        <Component class="javax.swing.JRadioButton" name="jRadioButtonCidade">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cidade"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cidadeJRBActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonCidadeActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="fazendaJRB">
+        <Component class="javax.swing.JRadioButton" name="jRadioButtonFazenda">
           <Properties>
             <Property name="text" type="java.lang.String" value="Fazenda"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fazendaJRBActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonFazendaActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JComboBox" name="estadoJCB">
+        <Component class="javax.swing.JComboBox" name="jComboBoxEstado">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="28">
@@ -320,32 +320,35 @@
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JTextField" name="cidadeFazendaJTF">
+        <Component class="javax.swing.JTextField" name="jTextFieldCidadeFazenda">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldCidadeFazendaActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="cidadeFazendaJL">
+        <Component class="javax.swing.JLabel" name="jLabelCidadeFazenda">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Cidade"/>
+            <Property name="text" type="java.lang.String" value="Cidade:"/>
           </Properties>
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="confirmarJB">
+    <Component class="javax.swing.JButton" name="jButtonConfirmar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Confirmar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="confirmarJBActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonConfirmarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="cancelarJB">
+    <Component class="javax.swing.JButton" name="jButtonCancelar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelarJBActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCancelarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="jLabelTitulo">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="14" style="1"/>

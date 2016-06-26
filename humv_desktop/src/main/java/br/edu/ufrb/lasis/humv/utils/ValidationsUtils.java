@@ -3,24 +3,21 @@ package br.edu.ufrb.lasis.humv.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
+ * Utilitário: Validações de campo.
  *
- * @author Andersoney
+ *
+ *
+ * @author Andersoney Rodrigues
+ * 
+ * @version 2
+ *
+ * @since 26 de junho de 2016
+ *
  */
-public class Util {
 
-    /**
-     * Validate hex with regular expression
-     *
-     * @param hex hex for validation
-     * @return true valid hex, false invalid hex
-     */
-    public static boolean isEmail(final String email) {
+public class ValidationsUtils {
+    public static boolean isEmail(String email) {
         String EMAIL_PATTERN
                 = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                 + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
@@ -32,7 +29,7 @@ public class Util {
     }
 
     public static boolean isCPF(String CPF) {
-// considera-se erro CPF's formados por uma sequencia de numeros iguais
+        // considera-se erro CPF's formados por uma sequencia de numeros iguais
         if (CPF.equals("00000000000") || CPF.equals("11111111111")
                 || CPF.equals("22222222222") || CPF.equals("33333333333")
                 || CPF.equals("44444444444") || CPF.equals("55555555555")
@@ -45,15 +42,15 @@ public class Util {
         char dig10, dig11;
         int sm, i, r, num, peso;
 
-// "try" - protege o codigo para eventuais erros de conversao de tipo (int)
+        // "try" - protege o codigo para eventuais erros de conversao de tipo (int)
         try {
-// Calculo do 1o. Digito Verificador
+            // Calculo do 1o. Digito Verificador
             sm = 0;
             peso = 10;
             for (i = 0; i < 9; i++) {
-// converte o i-esimo caractere do CPF em um numero:
-// por exemplo, transforma o caractere '0' no inteiro 0         
-// (48 eh a posicao de '0' na tabela ASCII)         
+                // converte o i-esimo caractere do CPF em um numero:
+                // por exemplo, transforma o caractere '0' no inteiro 0         
+                // (48 eh a posicao de '0' na tabela ASCII)         
                 num = (int) (CPF.charAt(i) - 48);
                 sm = sm + (num * peso);
                 peso = peso - 1;
@@ -65,7 +62,7 @@ public class Util {
             } else {
                 dig10 = (char) (r + 48); // converte no respectivo caractere numerico
             }
-// Calculo do 2o. Digito Verificador
+            // Calculo do 2o. Digito Verificador
             sm = 0;
             peso = 11;
             for (i = 0; i < 10; i++) {
@@ -81,7 +78,7 @@ public class Util {
                 dig11 = (char) (r + 48);
             }
 
-// Verifica se os digitos calculados conferem com os digitos informados.
+            // Verifica se os digitos calculados conferem com os digitos informados.
             if ((dig10 == CPF.charAt(9)) && (dig11 == CPF.charAt(10))) {
                 return (true);
             } else {
@@ -89,28 +86,6 @@ public class Util {
             }
         } catch (Exception erro) {
             return (false);
-        }
-    }
-
-    public static boolean isNotNull(String qualquer) {
-        if (qualquer.trim().length() == 0) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    public static boolean isEqual(String um, String dois) {
-        if (!Util.isNotNull(um)) {
-            return false;
-        }
-        if (!Util.isNotNull(dois)) {
-            return false;
-        }
-        if (um.equals(dois)) {
-            return true;
-        } else {
-            return false;
         }
     }
 
@@ -169,4 +144,5 @@ public class Util {
 
         return str_cnpj.equals(cnpj_calc);
     }
+
 }

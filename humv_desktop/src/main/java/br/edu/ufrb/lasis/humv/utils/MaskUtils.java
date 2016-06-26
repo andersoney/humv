@@ -1,14 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ufrb.lasis.humv.utils;
 
 import javax.swing.JFormattedTextField;
 /**
+ * Utilitário: Máscaras de campo.
  *
- * @author Luiz
+ * @author Luiz Antônio Pereira
+ * 
+ * @version 1
+ *
+ * @since 26 de junho de 2016
+ *
  */
 public class MaskUtils {
     public static JFormattedTextField mascaraTelefone(){

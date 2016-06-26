@@ -3,7 +3,7 @@ import br.edu.ufrb.lasis.humv.utils.MessagesUtils;
 import br.edu.ufrb.lasis.humv.entity.Setor;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
-import br.edu.ufrb.lasis.humv.view.procedimento.CadastroProcedimento;
+import br.edu.ufrb.lasis.humv.view.procedimento.CadastrarProcedimentoJPanel;
 import com.sun.jersey.api.client.ClientResponse;
 import java.io.IOException;
 import java.util.List;
@@ -19,14 +19,14 @@ import org.codehaus.jackson.type.TypeReference;
  */
 public class CadastroSetorJDialog extends javax.swing.JDialog {
 
-    CadastroProcedimento parent;
+    CadastrarProcedimentoJPanel parent;
     final String servicoSetor = "/api/setor";
 
     Setor setorSelecionado;
     public CadastroSetorJDialog() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    public CadastroSetorJDialog(java.awt.Frame parent, boolean modal, CadastroProcedimento cadastroProcedimento) {
+    public CadastroSetorJDialog(java.awt.Frame parent, boolean modal, CadastrarProcedimentoJPanel cadastroProcedimento) {
         super(parent, modal);
         this.parent = cadastroProcedimento;
         initComponents();
@@ -38,73 +38,71 @@ public class CadastroSetorJDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jPanelInformacoesSetor = new javax.swing.JPanel();
         jLabelCodigo = new javax.swing.JLabel();
-        textFieldNome = new javax.swing.JTextField();
-        labelNome = new javax.swing.JLabel();
-        labelTitulo = new javax.swing.JLabel();
-        buttonConfirmar = new javax.swing.JButton();
-        buttonCancelar = new javax.swing.JButton();
+        jTextFieldNome = new javax.swing.JTextField();
+        jLabelNome = new javax.swing.JLabel();
+        jLabelTitulo = new javax.swing.JLabel();
+        jButtonConfirmar = new javax.swing.JButton();
+        jButtonCancelar = new javax.swing.JButton();
 
         setFocusTraversalPolicyProvider(true);
         setFocusable(false);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Informações do setor"));
+        jPanelInformacoesSetor.setBorder(javax.swing.BorderFactory.createTitledBorder("Informações do setor"));
 
         jLabelCodigo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabelCodigo.setText("Código:");
 
-        textFieldNome.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldNomeActionPerformed(evt);
+                jTextFieldNomeActionPerformed(evt);
             }
         });
 
-        labelNome.setText("Nome");
+        jLabelNome.setText("Nome:");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelInformacoesSetorLayout = new javax.swing.GroupLayout(jPanelInformacoesSetor);
+        jPanelInformacoesSetor.setLayout(jPanelInformacoesSetorLayout);
+        jPanelInformacoesSetorLayout.setHorizontalGroup(
+            jPanelInformacoesSetorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelInformacoesSetorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textFieldNome, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(labelNome)
+                .addGroup(jPanelInformacoesSetorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextFieldNome, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+                    .addGroup(jPanelInformacoesSetorLayout.createSequentialGroup()
+                        .addGroup(jPanelInformacoesSetorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelNome)
+                            .addComponent(jLabelCodigo))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelCodigo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        jPanelInformacoesSetorLayout.setVerticalGroup(
+            jPanelInformacoesSetorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelInformacoesSetorLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(labelNome)
+                .addComponent(jLabelNome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(textFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(jLabelCodigo)
                 .addGap(67, 67, 67))
         );
 
-        labelTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        labelTitulo.setText("CADASTRAMENTO DE SETOR");
+        jLabelTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabelTitulo.setText("CADASTRAMENTO DE SETOR");
 
-        buttonConfirmar.setText("Confirmar");
-        buttonConfirmar.addActionListener(new java.awt.event.ActionListener() {
+        jButtonConfirmar.setText("Confirmar");
+        jButtonConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonConfirmarActionPerformed(evt);
+                jButtonConfirmarActionPerformed(evt);
             }
         });
 
-        buttonCancelar.setText("Cancelar");
-        buttonCancelar.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCancelarActionPerformed(evt);
+                jButtonCancelarActionPerformed(evt);
             }
         });
 
@@ -116,53 +114,53 @@ public class CadastroSetorJDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanelInformacoesSetor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(labelTitulo)
+                                .addComponent(jLabelTitulo)
                                 .addGap(96, 96, 96))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(buttonCancelar)
+                                .addComponent(jButtonCancelar)
                                 .addGap(18, 18, 18)
-                                .addComponent(buttonConfirmar)
+                                .addComponent(jButtonConfirmar)
                                 .addContainerGap())))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(labelTitulo)
+                .addComponent(jLabelTitulo)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelInformacoesSetor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonConfirmar)
-                    .addComponent(buttonCancelar))
+                    .addComponent(jButtonConfirmar)
+                    .addComponent(jButtonCancelar))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelarActionPerformed
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         int op = MessagesUtils.dialogoCancelar("o cadastro", "setor");
         if (op == JOptionPane.OK_OPTION) {
             this.dispose();
             parent.setCodSetorNull();
         }   
-    }//GEN-LAST:event_buttonCancelarActionPerformed
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
-    private void buttonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmarActionPerformed
+    private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
         // TODO add your handling code here:
-        if (textFieldNome.getText().isEmpty()) {
+        if (jTextFieldNome.getText().isEmpty()) {
             MessagesUtils.validaCampoVazio("nome");
             return;
         }
         Setor setor = new Setor();
-        String nome = textFieldNome.getText();
+        String nome = jTextFieldNome.getText();
         setor.setNome(nome);
         String cod="";
         try {
@@ -185,23 +183,23 @@ public class CadastroSetorJDialog extends javax.swing.JDialog {
         } catch (RESTConnectionException ex) {
             Logger.getLogger(CadastroSetorJDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.parent.setCodSetor(this.textFieldNome.getText(), cod);
+        this.parent.setCodSetor(this.jTextFieldNome.getText(), cod);
         this.dispose();
-    }//GEN-LAST:event_buttonConfirmarActionPerformed
+    }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
-    private void textFieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldNomeActionPerformed
+    private void jTextFieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldNomeActionPerformed
+    }//GEN-LAST:event_jTextFieldNomeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonCancelar;
-    private javax.swing.JButton buttonConfirmar;
+    private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonConfirmar;
     private javax.swing.JLabel jLabelCodigo;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel labelNome;
-    private javax.swing.JLabel labelTitulo;
-    private javax.swing.JTextField textFieldNome;
+    private javax.swing.JLabel jLabelNome;
+    private javax.swing.JLabel jLabelTitulo;
+    private javax.swing.JPanel jPanelInformacoesSetor;
+    private javax.swing.JTextField jTextFieldNome;
     // End of variables declaration//GEN-END:variables
 
     private void customInitComponents() {

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ufrb.lasis.humv.view.animal;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
@@ -23,13 +18,13 @@ import org.codehaus.jackson.type.TypeReference;
  *
  * @author Andersoney
  */
-public class PropriedadeBuscarAnimais extends PropriedadesBusca {
+public class PropriedadesBuscaAnimais extends PropriedadesBusca {
 
     private final AnimalTableModel animalTableModel;
-    private static final Logger LOG = Logger.getLogger(PropriedadeBuscarAnimais.class.getName());
+    private static final Logger LOG = Logger.getLogger(PropriedadesBuscaAnimais.class.getName());
     AnimalTableModel tableModel;
 
-    public PropriedadeBuscarAnimais(String tipoOperacao) {
+    public PropriedadesBuscaAnimais(String tipoOperacao) {
         super(tipoOperacao);
         animalTableModel = new AnimalTableModel();
         super.setTabelaResultado(new JTable(animalTableModel));
@@ -70,7 +65,7 @@ public class PropriedadeBuscarAnimais extends PropriedadesBusca {
                 if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_VISUALIZAR)) {
                     //Ainda falta implementar
                 } else if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_ALTERAR)) {
-                    CadastroAnimal painelCadastroAnimal = new CadastroAnimal(animalSelecionado);
+                    CadastrarAnimalJPanel painelCadastroAnimal = new CadastrarAnimalJPanel(animalSelecionado);
                     HUMVApp.setNovoPainelCentral(painelCadastroAnimal);
                 } else if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_REMOVER)) {
                     try {

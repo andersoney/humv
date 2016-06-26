@@ -32,32 +32,43 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel implements ActionLi
         initComponents();
         customInitComponents();
     }
-    
+
     public CadastrarSetorJPanel(Setor setorSelecionado) {
         initComponents();
         customInitComponents();
         this.setorSelecionado = setorSelecionado;
+    }
+    
+    private String geraCodigoSetor() {
+        String cod = null;
+        try {
+            ClientResponse response = RESTMethods.get("/api/setor");
+            List<Setor> lista = (List<Setor>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Setor>>() {
+            });
+            int tam = lista.size();
+            if (tam == 0) {
+                cod =""+(tam + 1);
+            }
+            else{
+               cod=""+Integer.parseInt(lista.get(tam).getCodigo())+1;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CadastroSetorJDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return cod;
     }
 
     private void customInitComponents() {
         jButtonConfirmar.addActionListener(this);
         jButtonCancelar.addActionListener(this);
         jTextFieldNome.setFocusable(true);
-        //jLabelTitulo.setText("Cadastro de dados do setor");
-        try {
-                ClientResponse response = RESTMethods.get("/api/setor");
-                List<Setor> lista = (List<Setor>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Setor>>() {
-                });
-                int cod = lista.size() + 1;
-                jLabelCodigo.setText("Código: " + (cod + 1));
-            } catch (Exception ex) {
-                Logger.getLogger(CadastroSetorJDialog.class.getName()).log(Level.SEVERE, null, ex);
-        }
         if (setorSelecionado != null) {
             jLabelTitulo.setText("ALTERAÇÃO DO SETOR");
             jTextFieldNome.setText(setorSelecionado.getNome());
             jLabelCodigo.setText("Código: " + setorSelecionado.getCodigo());
-        } 
+        }else{
+            jLabelCodigo.setText("Código: " + geraCodigoSetor());
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -67,7 +78,7 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel implements ActionLi
         jLabelTitulo = new javax.swing.JLabel();
         jButtonConfirmar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        jPanelInformacoesSetor = new javax.swing.JPanel();
         jTextFieldNome = new javax.swing.JTextField();
         jLabelNome = new javax.swing.JLabel();
         jLabelCodigo = new javax.swing.JLabel();
@@ -89,31 +100,31 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel implements ActionLi
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Informações do setor"));
+        jPanelInformacoesSetor.setBorder(javax.swing.BorderFactory.createTitledBorder("Informações do setor"));
 
         jLabelNome.setText("Nome: ");
 
         jLabelCodigo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabelCodigo.setText("Código: ");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelInformacoesSetorLayout = new javax.swing.GroupLayout(jPanelInformacoesSetor);
+        jPanelInformacoesSetor.setLayout(jPanelInformacoesSetorLayout);
+        jPanelInformacoesSetorLayout.setHorizontalGroup(
+            jPanelInformacoesSetorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelInformacoesSetorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelInformacoesSetorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextFieldNome, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelInformacoesSetorLayout.createSequentialGroup()
+                        .addGroup(jPanelInformacoesSetorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelNome)
                             .addComponent(jLabelCodigo))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jPanelInformacoesSetorLayout.setVerticalGroup(
+            jPanelInformacoesSetorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelInformacoesSetorLayout.createSequentialGroup()
                 .addGap(8, 8, 8)
                 .addComponent(jLabelNome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -134,7 +145,7 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel implements ActionLi
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelInformacoesSetor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButtonCancelar)
@@ -148,7 +159,7 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel implements ActionLi
                 .addGap(42, 42, 42)
                 .addComponent(jLabelTitulo)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanelInformacoesSetor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonConfirmar)
@@ -164,7 +175,7 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel implements ActionLi
             HUMVApp.exibirMensagemCarregamento();
             HUMVApp.setPainelCentralComLogo();
             HUMVApp.esconderMensagemCarregamento();
-        } 
+        }
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
@@ -175,15 +186,8 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel implements ActionLi
         }
         String nome = jTextFieldNome.getText();
         Setor setor = new Setor();
-        try {
-            ClientResponse response = RESTMethods.get("/api/setor");
-            List<Setor> lista = (List<Setor>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Setor>>() {
-            });
-            String cod = ""+(lista.size() + 1);
-            setor.setCodigo(cod);
-        } catch (RESTConnectionException | IOException ex) {
-            MessagesUtils.erroConexao();
-        }
+        String cod = geraCodigoSetor();
+        setor.setCodigo(cod);
         setor.setNome(nome);
         try {
             ClientResponse response = RESTMethods.post(servicoSetor, setor);
@@ -191,7 +195,7 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel implements ActionLi
             if (!resposta.equalsIgnoreCase("ok")) {
                 MessagesUtils.erroCadastro("setor");
                 return;
-            }else{
+            } else {
                 MessagesUtils.sucessoCadastro("setor");
                 HUMVApp.exibirMensagemCarregamento();
                 HUMVApp.setPainelCentralComLogo();
@@ -209,7 +213,7 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel implements ActionLi
     private javax.swing.JLabel jLabelCodigo;
     private javax.swing.JLabel jLabelNome;
     private javax.swing.JLabel jLabelTitulo;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanelInformacoesSetor;
     private javax.swing.JTextField jTextFieldNome;
     // End of variables declaration//GEN-END:variables
 

@@ -19,20 +19,20 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jPanel1" max="32767" attributes="0"/>
+                  <Component id="jPanelDadosDono" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="buttonCancelar" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonCancelar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="buttonOK" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonConfirmar" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jPanelDadosAnimal" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              <Component id="labelTitulo" min="-2" pref="247" max="-2" attributes="0"/>
+              <Component id="jLabelTitulo" min="-2" pref="247" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="129" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -41,15 +41,15 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-              <Component id="labelTitulo" min="-2" max="-2" attributes="0"/>
+              <Component id="jLabelTitulo" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <Component id="jPanelDadosDono" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-              <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+              <Component id="jPanelDadosAnimal" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="buttonCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="buttonOK" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonConfirmar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="33" max="32767" attributes="0"/>
           </Group>
@@ -57,11 +57,11 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="jPanel1">
+    <Container class="javax.swing.JPanel" name="jPanelDadosDono">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Dados do Dono"/>
+            <TitledBorder title="Dados do dono"/>
           </Border>
         </Property>
       </Properties>
@@ -73,7 +73,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jDateChooserData" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                      <Component id="nomeDJL" alignment="0" min="-2" pref="158" max="-2" attributes="0"/>
+                      <Component id="jLabelNomeDono" alignment="0" min="-2" pref="158" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jTextFieldBuscaCpf" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
@@ -92,18 +92,18 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="labelCpfDono" alignment="0" min="-2" pref="157" max="-2" attributes="0"/>
+                              <Component id="jLabelCpfDono" alignment="0" min="-2" pref="157" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="pesquisarDJB" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jButtonPesquisarDono" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jbCadastrarNovoDono" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jButtonCadastrarNovoDono" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabelHora" min="-2" pref="23" max="-2" attributes="0"/>
                               <Component id="jSpinnerHoras" min="-2" pref="80" max="-2" attributes="0"/>
+                              <Component id="jLabelHora" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -122,15 +122,15 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="pesquisarDJB" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonPesquisarDono" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldBuscaCpf" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jbCadastrarNovoDono" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonCadastrarNovoDono" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldBuscaCnpj" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="nomeDJL" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelCpfDono" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelNomeDono" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelCpfDono" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -148,12 +148,12 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="pesquisarDJB">
+        <Component class="javax.swing.JButton" name="jButtonPesquisarDono">
           <Properties>
             <Property name="text" type="java.lang.String" value="Pesquisar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pesquisarDJBActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonPesquisarDonoActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldBuscaCpf">
@@ -164,7 +164,7 @@
             <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="jTextFieldBuscaCpf = MaskUtils.mascaraCpf();"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JLabel" name="nomeDJL">
+        <Component class="javax.swing.JLabel" name="jLabelNomeDono">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="12" style="1"/>
@@ -172,7 +172,7 @@
             <Property name="text" type="java.lang.String" value="Nome:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="labelCpfDono">
+        <Component class="javax.swing.JLabel" name="jLabelCpfDono">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="12" style="1"/>
@@ -180,13 +180,13 @@
             <Property name="text" type="java.lang.String" value="CPF:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jbCadastrarNovoDono">
+        <Component class="javax.swing.JButton" name="jButtonCadastrarNovoDono">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cadastrar novo..."/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jbCadastrarNovoDonoMouseClicked"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbCadastrarNovoDonoActionPerformed"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonCadastrarNovoDonoMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCadastrarNovoDonoActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JSpinner" name="jSpinnerHoras">
@@ -203,12 +203,12 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelDia">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Dia"/>
+            <Property name="text" type="java.lang.String" value="Dia:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelHora">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Hora"/>
+            <Property name="text" type="java.lang.String" value="Hora:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JRadioButton" name="jRadioButtonBuscaCpf">
@@ -234,11 +234,11 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="jPanel2">
+    <Container class="javax.swing.JPanel" name="jPanelDadosAnimal">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Dados do Animal"/>
+            <TitledBorder title="Dados do animal"/>
           </Border>
         </Property>
       </Properties>
@@ -251,49 +251,49 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="nomeAJL" min="-2" pref="172" max="-2" attributes="0"/>
-                              <Component id="textFieldNome" min="-2" pref="200" max="-2" attributes="0"/>
-                              <Component id="textFieldRaca" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                              <Component id="jLabelNomeAnimal" min="-2" pref="172" max="-2" attributes="0"/>
+                              <Component id="jTextFieldNomeAnimal" min="-2" pref="200" max="-2" attributes="0"/>
+                              <Component id="jTextFieldRaca" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="especieJL" min="-2" pref="172" max="-2" attributes="0"/>
+                                  <Component id="jLabelEspecie" min="-2" pref="172" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="textFieldEspecie" max="32767" attributes="0"/>
+                              <Component id="jTextFieldEspecie" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="TipodeAtendimentoJL" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelTipoAtendimento" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="pelagemJL" min="-2" pref="172" max="-2" attributes="0"/>
+                                  <Component id="jLabelPelagem" min="-2" pref="172" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Component id="idadeJL" min="-2" pref="172" max="-2" attributes="0"/>
+                                          <Component id="jLabelIdade" min="-2" pref="172" max="-2" attributes="0"/>
                                           <EmptySpace pref="100" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
-                                          <Component id="textFieldIdade" max="32767" attributes="0"/>
+                                          <Component id="jTextFieldIdade" max="32767" attributes="0"/>
                                           <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Component id="radioButtonMacho" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jRadioButtonMacho" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                                          <Component id="radioButtonFemea" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jRadioButtonFemea" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="sexoJL" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="porteDoAnimalJL" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelSexo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelPorte" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="grandePorteJRB" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jRadioButtonGrandePorte" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                                          <Component id="pequenoPorteJRB" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jRadioButtonPequenoPorte" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -302,13 +302,13 @@
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="racaJL" min="-2" pref="172" max="-2" attributes="0"/>
+                              <Component id="jLabelRaca" min="-2" pref="172" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="comboBoxTipoAtendimento" min="-2" pref="200" max="-2" attributes="0"/>
+                                  <Component id="jComboBoxTipoAtendimento" min="-2" pref="200" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabelRghumv" min="-2" max="-2" attributes="0"/>
-                                      <Component id="textFieldPelagem" min="-2" pref="200" max="-2" attributes="0"/>
+                                      <Component id="jTextFieldPelagem" min="-2" pref="200" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -324,49 +324,49 @@
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="especieJL" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelEspecie" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="textFieldEspecie" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldEspecie" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Component id="nomeAJL" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelNomeAnimal" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="textFieldNome" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldNomeAnimal" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="racaJL" min="-2" max="-2" attributes="0"/>
-                      <Component id="sexoJL" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelRaca" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelSexo" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="radioButtonMacho" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="radioButtonFemea" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonMacho" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonFemea" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="textFieldRaca" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldRaca" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="idadeJL" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="porteDoAnimalJL" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelIdade" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelPorte" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="textFieldIdade" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="grandePorteJRB" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="pequenoPorteJRB" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldIdade" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jRadioButtonGrandePorte" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jRadioButtonPequenoPorte" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="TipodeAtendimentoJL" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="pelagemJL" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelTipoAtendimento" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelPelagem" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="comboBoxTipoAtendimento" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="textFieldPelagem" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jComboBoxTipoAtendimento" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldPelagem" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jLabelRghumv" min="-2" max="-2" attributes="0"/>
@@ -376,92 +376,92 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="nomeAJL">
+        <Component class="javax.swing.JLabel" name="jLabelNomeAnimal">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Nome"/>
+            <Property name="text" type="java.lang.String" value="Nome:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="textFieldNome">
+        <Component class="javax.swing.JTextField" name="jTextFieldNomeAnimal">
         </Component>
-        <Component class="javax.swing.JLabel" name="especieJL">
+        <Component class="javax.swing.JLabel" name="jLabelEspecie">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Esp&#xe9;cie"/>
+            <Property name="text" type="java.lang.String" value="Esp&#xe9;cie:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="textFieldEspecie">
+        <Component class="javax.swing.JTextField" name="jTextFieldEspecie">
         </Component>
-        <Component class="javax.swing.JLabel" name="racaJL">
+        <Component class="javax.swing.JLabel" name="jLabelRaca">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Ra&#xe7;a"/>
+            <Property name="text" type="java.lang.String" value="Ra&#xe7;a:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="textFieldRaca">
+        <Component class="javax.swing.JTextField" name="jTextFieldRaca">
         </Component>
-        <Component class="javax.swing.JLabel" name="sexoJL">
+        <Component class="javax.swing.JLabel" name="jLabelSexo">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Sexo"/>
+            <Property name="text" type="java.lang.String" value="Sexo:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="radioButtonMacho">
+        <Component class="javax.swing.JRadioButton" name="jRadioButtonMacho">
           <Properties>
             <Property name="text" type="java.lang.String" value="Macho"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioButtonMachoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonMachoActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="radioButtonFemea">
+        <Component class="javax.swing.JRadioButton" name="jRadioButtonFemea">
           <Properties>
             <Property name="text" type="java.lang.String" value="F&#xea;mea"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioButtonFemeaActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonFemeaActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="idadeJL">
+        <Component class="javax.swing.JLabel" name="jLabelIdade">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Idade"/>
+            <Property name="text" type="java.lang.String" value="Idade:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="textFieldIdade">
+        <Component class="javax.swing.JTextField" name="jTextFieldIdade">
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="textFieldIdade = MaskUtils.mascaraIdade();"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="jTextFieldIdade = MaskUtils.mascaraIdade();"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JLabel" name="porteDoAnimalJL">
+        <Component class="javax.swing.JLabel" name="jLabelPorte">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Porte do animal"/>
+            <Property name="text" type="java.lang.String" value="Porte do animal:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="grandePorteJRB">
+        <Component class="javax.swing.JRadioButton" name="jRadioButtonGrandePorte">
           <Properties>
             <Property name="text" type="java.lang.String" value="Grande"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="grandePorteJRBActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonGrandePorteActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="pequenoPorteJRB">
+        <Component class="javax.swing.JRadioButton" name="jRadioButtonPequenoPorte">
           <Properties>
             <Property name="text" type="java.lang.String" value="Pequeno"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pequenoPorteJRBActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonPequenoPorteActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="pelagemJL">
+        <Component class="javax.swing.JLabel" name="jLabelPelagem">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Pelagem"/>
+            <Property name="text" type="java.lang.String" value="Pelagem:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="textFieldPelagem">
+        <Component class="javax.swing.JTextField" name="jTextFieldPelagem">
         </Component>
-        <Component class="javax.swing.JLabel" name="TipodeAtendimentoJL">
+        <Component class="javax.swing.JLabel" name="jLabelTipoAtendimento">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Tipo de atendimento"/>
+            <Property name="text" type="java.lang.String" value="Tipo de atendimento:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="comboBoxTipoAtendimento">
+        <Component class="javax.swing.JComboBox" name="jComboBoxTipoAtendimento">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="2">
@@ -484,15 +484,15 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="buttonCancelar">
+    <Component class="javax.swing.JButton" name="jButtonCancelar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCancelarActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCancelarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="labelTitulo">
+    <Component class="javax.swing.JLabel" name="jLabelTitulo">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="14" style="1"/>
@@ -500,13 +500,13 @@
         <Property name="text" type="java.lang.String" value="CADASTRAMENTO DE ANIMAL"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="buttonOK">
+    <Component class="javax.swing.JButton" name="jButtonConfirmar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Confirmar"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonOKMouseClicked"/>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonOKActionPerformed"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonConfirmarMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonConfirmarActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

@@ -23,14 +23,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import org.codehaus.jackson.type.TypeReference;
 
-public class PropriedadeBuscaProcedimento extends PropriedadesBusca{
+public class PropriedadesBuscaProcedimento extends PropriedadesBusca{
 
     
     private final ProcedimentoTableModel procedimentoTableModel;
-    private static final Logger LOG = Logger.getLogger(PropriedadeBuscaProcedimento.class.getName());
+    private static final Logger LOG = Logger.getLogger(PropriedadesBuscaProcedimento.class.getName());
     ProcedimentoTableModel tableModel;
 
-    public PropriedadeBuscaProcedimento(String tipoOperacao) {
+    public PropriedadesBuscaProcedimento(String tipoOperacao) {
         super(tipoOperacao);
         procedimentoTableModel = new ProcedimentoTableModel();
         super.setTabelaResultado(new JTable(procedimentoTableModel));
@@ -75,7 +75,7 @@ public class PropriedadeBuscaProcedimento extends PropriedadesBusca{
                 if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_VISUALIZAR)) {
                     //Ainda falta implementar
                 } else if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_ALTERAR)) {
-                    CadastroProcedimento painelAlteracao = new CadastroProcedimento(procedimentoSelecionado);
+                    CadastrarProcedimentoJPanel painelAlteracao = new CadastrarProcedimentoJPanel(procedimentoSelecionado);
                     HUMVApp.setNovoPainelCentral(painelAlteracao);
                 } else if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_REMOVER)) {
                     try {

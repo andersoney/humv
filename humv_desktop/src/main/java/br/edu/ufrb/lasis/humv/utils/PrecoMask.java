@@ -5,6 +5,18 @@ import java.awt.event.KeyListener;
 import java.text.DecimalFormat;
 import javax.swing.JTextField;
 
+/**
+ * Utilitário: KeyListner para preço.
+ *
+ * @author Luiz Antônio Pereira
+ * 
+ * @version 1
+ *
+ * @since 26 de junho de 2016
+ *
+ */
+
+
 public class PrecoMask implements KeyListener {
 
     JTextField jTextField;

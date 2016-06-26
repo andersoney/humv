@@ -2,14 +2,26 @@ package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
 
+/**
+ * Entidade que modela informações de procedimento.
+ *
+ *
+ * Ver requisitos R011 - R014
+ *
+ * @author Luiz Antônio Pereira
+ *
+ * @version 3
+ *
+ * @since 26 de junho de 2016
+ *
+ */
+
 public class Procedimento implements Serializable {
     private static final long serialVersionUID = 1274972987399L;
     String codigo;
     String nome;
     String codSetor;
     double valor;
-
-    public Procedimento() {}
 
     public String getCodigo() {
         return this.codigo;
@@ -40,4 +52,5 @@ public class Procedimento implements Serializable {
     public void setCodSetor(String codSetor) {
         this.codSetor = codSetor;
     }
+    
 }
