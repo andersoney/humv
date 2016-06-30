@@ -39,7 +39,7 @@ public class MessagesUtils {
         return "Nenhum resultado correspondente foi encontrado para este "+string+"! Por favor informe outro "+string+".";
     }
     public static void sucessoAtualizacao(String string){
-        String msg = "Atualização do "+string+" efetuado com sucesso!";
+        String msg = "Atualização do "+string+" efetuada com sucesso!";
         JOptionPane.showMessageDialog(null,msg , "Sucesso na atualização", JOptionPane.INFORMATION_MESSAGE);
     }
     public static void erroAtualizacao(String string){
@@ -47,7 +47,7 @@ public class MessagesUtils {
         JOptionPane.showMessageDialog(null,msg , "Erro na atualização", JOptionPane.ERROR_MESSAGE);
     }
     public static void sucessoRemocao(String string){
-        String msg = "Remocao do "+string+" efetuado com sucesso!";
+        String msg = "Remocao do "+string+" efetuada com sucesso!";
         JOptionPane.showMessageDialog(null,msg , "Sucesso na remoção", JOptionPane.INFORMATION_MESSAGE);
 
     }

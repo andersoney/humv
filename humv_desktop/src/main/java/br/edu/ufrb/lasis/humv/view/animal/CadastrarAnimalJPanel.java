@@ -36,6 +36,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements ActionL
     String idDono;
     String nome;
     String porte;
+    String rghumv;
     final private String servicoDono = "/api/dono";
     final private String servicoAnimal = "/api/animal";
     private static final Logger LOG = Logger.getLogger(CadastrarAnimalJPanel.class.getName());
@@ -109,10 +110,12 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements ActionL
                 jRadioButtonMacho.setSelected(false);
                 jRadioButtonFemea.setSelected(true);
             }
-            jLabelRghumv.setText("RGHUMV: " + animalSelecionado.getRghumv());
+            rghumv = animalSelecionado.getRghumv();
+            jLabelRghumv.setText("RGHUMV: " + rghumv);
         }
         else{
-            jLabelRghumv.setText("RGHUMV: " + geraRghumv());
+            rghumv = geraRghumv();
+            jLabelRghumv.setText("RGHUMV: " + rghumv);
         }
     }
 
@@ -532,20 +535,20 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements ActionL
     }// </editor-fold>//GEN-END:initComponents
     
     private String geraRghumv(){
-        String rghumv="";
+        String str="";
         try {
             ClientResponse response = RESTMethods.get("/api/animal");
 
             List<Animal> lista = (List<Animal>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Animal>>() {
             });
             int tam = lista.size();
-            rghumv =""+ (lista.size()+1);
+            str =""+ (lista.size()+1);
         } catch (RESTConnectionException | IOException ex) {
             MessagesUtils.erroConexao();
             LOG.warning(ex.getMessage());
             Logger.getLogger(CadastrarAnimalJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return rghumv;
+        return str;
     }
     
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
@@ -616,7 +619,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements ActionL
         animal.setNome (nomeAnimal);
         animal.setPeso (0);
         animal.setRaca (raca);
-        animal.setRghumv (geraRghumv());
+        animal.setRghumv (rghumv);
         animal.setSexo (sexo);
         animal.setPorte (porte);
         animal.setPelagem (pelagem);
@@ -628,9 +631,15 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements ActionL
             }
             String resposta = response.getEntity(String.class);
             if (!resposta.equalsIgnoreCase("ok")) {
-                MessagesUtils.erroCadastro("animal");
+                if(animalSelecionado==null)
+                    MessagesUtils.erroCadastro("animal");
+                else
+                    MessagesUtils.erroAtualizacao("animal");
             }else{
-                MessagesUtils.sucessoCadastro("animal");
+                if(animalSelecionado==null)
+                    MessagesUtils.sucessoCadastro("animal");
+                else
+                    MessagesUtils.sucessoAtualizacao("animal");
             }
         }
         catch (RESTConnectionException ex) {
