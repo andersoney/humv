@@ -46,12 +46,8 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel implements ActionLi
             List<Setor> lista = (List<Setor>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Setor>>() {
             });
             int tam = lista.size();
-            if (tam == 0) {
-                cod =""+(tam + 1);
-            }
-            else{
-               cod=""+Integer.parseInt(lista.get(tam).getCodigo())+1;
-            }
+            cod =""+(tam + 1);
+           
         } catch (Exception ex) {
             Logger.getLogger(CadastroSetorJDialog.class.getName()).log(Level.SEVERE, null, ex);
         }

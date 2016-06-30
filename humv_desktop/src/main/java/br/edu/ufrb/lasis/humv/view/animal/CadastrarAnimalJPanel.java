@@ -545,10 +545,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements ActionL
             List<Animal> lista = (List<Animal>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Animal>>() {
             });
             int tam = lista.size();
-            if(tam == 0) rghumv =""+ (lista.size()+1);
-            else{
-                rghumv =""+ (Integer.parseInt(lista.get(tam).getRghumv())+1);
-            }
+            rghumv =""+ (lista.size()+1);
         } catch (RESTConnectionException | IOException ex) {
             MessagesUtils.erroConexao();
             LOG.warning(ex.getMessage());
