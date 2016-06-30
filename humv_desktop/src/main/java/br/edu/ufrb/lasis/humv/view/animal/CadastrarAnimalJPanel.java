@@ -25,11 +25,6 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import org.codehaus.jackson.type.TypeReference;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
  * @author Andersoney
@@ -200,7 +195,6 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements ActionL
         jRadioButtonFemea = new javax.swing.JRadioButton();
         jLabelIdade = new javax.swing.JLabel();
         jTextFieldIdade = new javax.swing.JTextField();
-        jTextFieldIdade = MaskUtils.mascaraIdade();
         jLabelPorte = new javax.swing.JLabel();
         jRadioButtonGrandePorte = new javax.swing.JRadioButton();
         jRadioButtonPequenoPorte = new javax.swing.JRadioButton();
@@ -576,12 +570,12 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements ActionL
         }
         String especie = this.jTextFieldEspecie.getText();
         if (this.jTextFieldRaca.getText().isEmpty()) {
-            MessagesUtils.validaCampoVazio("raça");;
+            MessagesUtils.validaCampoVazio("raça");
             return;
         }
         String raca = this.jTextFieldRaca.getText();
         if(this.jTextFieldIdade.getText().isEmpty()){
-            MessagesUtils.validaCampoVazio("idade");;
+            MessagesUtils.validaCampoVazio("idade");
         }else{
             idade = Integer.parseInt(this.jTextFieldIdade.getText());
         }
@@ -594,7 +588,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements ActionL
         String pelagem;
         if (this.jRadioButtonPequenoPorte.isSelected () ) {
             if (this.jTextFieldPelagem.getText().isEmpty()) {
-                MessagesUtils.validaCampoVazio("pelagem");;
+                MessagesUtils.validaCampoVazio("pelagem");
                 return;
             } else {
                 pelagem = this.jTextFieldPelagem.getText();
@@ -627,7 +621,11 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements ActionL
         animal.setPorte (porte);
         animal.setPelagem (pelagem);
         try {
-            response = RESTMethods.post(this.servicoAnimal, animal);
+            if(animalSelecionado==null){
+                response = RESTMethods.post(this.servicoAnimal, animal);
+            }else{
+                response = RESTMethods.put(this.servicoAnimal, animal);
+            }
             String resposta = response.getEntity(String.class);
             if (!resposta.equalsIgnoreCase("ok")) {
                 MessagesUtils.erroCadastro("animal");

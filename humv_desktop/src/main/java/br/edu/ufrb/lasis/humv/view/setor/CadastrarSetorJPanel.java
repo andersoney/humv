@@ -34,9 +34,10 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel implements ActionLi
     }
 
     public CadastrarSetorJPanel(Setor setorSelecionado) {
+        this.setorSelecionado = setorSelecionado;
         initComponents();
         customInitComponents();
-        this.setorSelecionado = setorSelecionado;
+        
     }
     
     private String geraCodigoSetor() {
@@ -186,7 +187,12 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel implements ActionLi
         setor.setCodigo(cod);
         setor.setNome(nome);
         try {
-            ClientResponse response = RESTMethods.post(servicoSetor, setor);
+            ClientResponse response;
+            if(setorSelecionado==null){
+                response = RESTMethods.post(servicoSetor, setor);
+            }else{
+                response = RESTMethods.put(servicoSetor, setor);
+            }
             String resposta = response.getEntity(String.class);
             if (!resposta.equalsIgnoreCase("ok")) {
                 MessagesUtils.erroCadastro("setor");
