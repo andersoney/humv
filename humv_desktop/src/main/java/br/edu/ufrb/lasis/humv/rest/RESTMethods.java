@@ -60,7 +60,7 @@ public class RESTMethods {
     public static ClientResponse put(String resource, Object object) throws RESTConnectionException {
         WebResource webResource = createClient(true).resource(getResourceURL(resource, true));
 
-        ClientResponse response = webResource.accept("application/json").put(ClientResponse.class, object);
+        ClientResponse response = webResource.accept("application/json").type("application/json").put(ClientResponse.class, object);
 
         if (response.getStatus() != 200) {
             throw new RESTConnectionException(response, "Erro: código HTTP - " + response.getStatus());

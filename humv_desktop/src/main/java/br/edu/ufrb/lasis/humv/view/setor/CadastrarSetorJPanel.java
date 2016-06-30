@@ -25,6 +25,7 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel implements ActionLi
      * Creates new form CadastrarSetorJPanel
      *
      */
+    String cod;
     final String servicoSetor = "/api/setor";
     Setor setorSelecionado;
 
@@ -41,18 +42,18 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel implements ActionLi
     }
     
     private String geraCodigoSetor() {
-        String cod = null;
+        String str="";
         try {
             ClientResponse response = RESTMethods.get("/api/setor");
             List<Setor> lista = (List<Setor>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Setor>>() {
             });
             int tam = lista.size();
-            cod =""+(tam + 1);
+            str =""+(tam + 1);
            
         } catch (Exception ex) {
             Logger.getLogger(CadastroSetorJDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return cod;
+        return str;
     }
 
     private void customInitComponents() {
@@ -62,9 +63,11 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel implements ActionLi
         if (setorSelecionado != null) {
             jLabelTitulo.setText("ALTERAÇÃO DO SETOR");
             jTextFieldNome.setText(setorSelecionado.getNome());
-            jLabelCodigo.setText("Código: " + setorSelecionado.getCodigo());
+            cod = setorSelecionado.getCodigo();
+            jLabelCodigo.setText("Código: " + cod);
         }else{
-            jLabelCodigo.setText("Código: " + geraCodigoSetor());
+            cod = geraCodigoSetor();
+            jLabelCodigo.setText("Código: " + cod);
         }
     }
 
@@ -183,7 +186,6 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel implements ActionLi
         }
         String nome = jTextFieldNome.getText();
         Setor setor = new Setor();
-        String cod = geraCodigoSetor();
         setor.setCodigo(cod);
         setor.setNome(nome);
         try {
@@ -195,10 +197,16 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel implements ActionLi
             }
             String resposta = response.getEntity(String.class);
             if (!resposta.equalsIgnoreCase("ok")) {
-                MessagesUtils.erroCadastro("setor");
+                if(setorSelecionado==null) 
+                    MessagesUtils.erroCadastro("setor");
+                else 
+                    MessagesUtils.erroAtualizacao("setor");
                 return;
             } else {
-                MessagesUtils.sucessoCadastro("setor");
+                if(setorSelecionado==null) 
+                    MessagesUtils.sucessoCadastro("setor");
+                else 
+                    MessagesUtils.sucessoAtualizacao("setor");
                 HUMVApp.exibirMensagemCarregamento();
                 HUMVApp.setPainelCentralComLogo();
                 HUMVApp.esconderMensagemCarregamento();
