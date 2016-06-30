@@ -78,7 +78,7 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabelCodSetor" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelCodSetorBusca" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabelNomeSetor" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
@@ -100,7 +100,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabelCodSetor" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelCodSetorBusca" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jButtonPesqusar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -136,7 +136,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldCodSetor">
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelCodSetor">
+        <Component class="javax.swing.JLabel" name="jLabelCodSetorBusca">
           <Properties>
             <Property name="text" type="java.lang.String" value="Informe o c&#xf3;digo do setor"/>
           </Properties>

@@ -648,6 +648,9 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements ActionL
                     MessagesUtils.sucessoCadastro("animal");
                 else
                     MessagesUtils.sucessoAtualizacao("animal");
+                HUMVApp.exibirMensagemCarregamento();
+                HUMVApp.setPainelCentralComLogo();
+                HUMVApp.esconderMensagemCarregamento();
             }
         }
         catch (RESTConnectionException ex) {
