@@ -44,11 +44,16 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements ActionL
 
     public CadastrarAnimalJPanel() {
         initComponents();
+        jRadioButtonBuscaCpfActionPerformed(null);
+        jRadioButtonPequenoPorteActionPerformed(null);
+        jRadioButtonMachoActionPerformed(null);
         customInitComponents();
     }
 
     public CadastrarAnimalJPanel(Animal animalSelecionado) {
         this.animalSelecionado = animalSelecionado;
+        
+        
         initComponents();
         customInitComponents();
     }
@@ -58,7 +63,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements ActionL
         jButtonCancelar.addActionListener(this);
         jTextFieldNomeAnimal.setFocusable(true);
         if (animalSelecionado != null) {
-            jLabelTitulo.setText("Alteração de dados do animal");
+            jLabelTitulo.setText("ATUALIZAÇÃO DE ANIMAL");
             jTextFieldNomeAnimal.setText(animalSelecionado.getNome());
             jTextFieldEspecie.setText(animalSelecionado.getEspecie());
             jTextFieldIdade.setText("" + animalSelecionado.getIdade());
@@ -114,6 +119,9 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements ActionL
             jLabelRghumv.setText("RGHUMV: " + rghumv);
         }
         else{
+            jRadioButtonBuscaCpf.setSelected(true);
+            jRadioButtonMacho.setSelected(true);
+            jRadioButtonPequenoPorte.setSelected(true);
             rghumv = geraRghumv();
             jLabelRghumv.setText("RGHUMV: " + rghumv);
         }
@@ -127,14 +135,14 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements ActionL
     public CadastrarAnimalJPanel(JFrame parent) {
         this.parent = parent;
         initComponents();
-        this.jLabelTitulo.setText("Cadastro do animal");
+        this.jLabelTitulo.setText("CADASTRO DE ANIMAL");
         this.jRadioButtonPequenoPorte.setSelected(true);
     }
 
     public CadastrarAnimalJPanel(JFrame parent, boolean Pequeno) {
         this.parent = parent;
         initComponents();
-        this.jLabelTitulo.setText("Cadastro de Animais");
+        this.jLabelTitulo.setText("CADASTRO DE ANIMAL");
         this.jRadioButtonPequenoPorte.setSelected(true); 
         if (Pequeno) {
             this.jRadioButtonPequenoPorte.setSelected(true);

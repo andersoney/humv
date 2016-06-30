@@ -374,9 +374,9 @@ public class CadastrarDonoJDialog extends javax.swing.JDialog {
             }else{
                 MessagesUtils.sucessoCadastro("dono");
                 if(jRadioButtonCnpj.isSelected()){
-                    this.parent.setId(this.jTextFieldCnpj.getText(), this.jTextFieldNome.getText());
+                    this.parent.setId(MaskUtils.removeMascara(this.jTextFieldCnpj.getText()), this.jTextFieldNome.getText());
                 }else{
-                    this.parent.setId(this.jTextFieldCpf.getText(), this.jTextFieldNome.getText());
+                    this.parent.setId(MaskUtils.removeMascara(this.jTextFieldCpf.getText()), this.jTextFieldNome.getText());
                 }
             }
         } catch (RESTConnectionException ex) {
