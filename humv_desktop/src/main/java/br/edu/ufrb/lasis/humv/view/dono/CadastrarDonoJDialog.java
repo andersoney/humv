@@ -33,8 +33,18 @@ public class CadastrarDonoJDialog extends javax.swing.JDialog {
         super(parent, modal);
         this.parent = cA;
         initComponents();
+        this.jRadioButtonFazenda.setSelected(false);
         this.jRadioButtonCidade.setSelected(true);
-        this.jLabelCidadeFazenda.setText("Cidade");
+        this.jLabelCidadeFazenda.setText("Cidade:");
+            
+        this.jRadioButtonCpf.setSelected(true);
+        this.jRadioButtonCnpj.setSelected(false);
+        this.jTextFieldCpf.setEnabled(true);
+        this.jTextFieldCpf.setFocusable(true);
+        this.jTextFieldCnpj.setText("");
+        this.jTextFieldCnpj.setEnabled(false);
+        this.tipoId = "CPF";
+    
 
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
