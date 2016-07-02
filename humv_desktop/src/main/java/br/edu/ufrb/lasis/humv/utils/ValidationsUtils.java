@@ -1,5 +1,6 @@
 package br.edu.ufrb.lasis.humv.utils;
 
+import java.util.InputMismatchException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,14 +10,14 @@ import java.util.regex.Pattern;
  *
  *
  * @author Andersoney Rodrigues
- * 
+ *
  * @version 2
  *
  * @since 26 de junho de 2016
  *
  */
-
 public class ValidationsUtils {
+
     public static boolean isEmail(String email) {
         String EMAIL_PATTERN
                 = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
@@ -100,49 +101,70 @@ public class ValidationsUtils {
 
     }
 
-    static public boolean isCNPJ(String str_cnpj) {
-        int soma = 0, aux, dig;
-        String cnpj_calc = str_cnpj.substring(0, 12);
-
-        if (str_cnpj.length() != 14) {
-            return false;
+    static public boolean isCNPJ(String CNPJ) {
+        if (CNPJ.equals("00000000000000") || CNPJ.equals("11111111111111")
+                || CNPJ.equals("22222222222222") || CNPJ.equals("33333333333333")
+                || CNPJ.equals("44444444444444") || CNPJ.equals("55555555555555")
+                || CNPJ.equals("66666666666666") || CNPJ.equals("77777777777777")
+                || CNPJ.equals("88888888888888") || CNPJ.equals("99999999999999")
+                || (CNPJ.length() != 14)) {
+            return (false);
         }
 
-        char[] chr_cnpj = str_cnpj.toCharArray();
+        char dig13, dig14;
+        int sm, i, r, num, peso;
 
-        /* Primeira parte */
-        for (int i = 0; i < 4; i++) {
-            if (chr_cnpj[i] - 48 >= 0 && chr_cnpj[i] - 48 <= 9) {
-                soma += (chr_cnpj[i] - 48) * (6 - (i + 1));
+// "try" - protege o código para eventuais erros de conversao de tipo (int)
+        try {
+// Calculo do 1o. Digito Verificador
+            sm = 0;
+            peso = 2;
+            for (i = 11; i >= 0; i--) {
+// converte o i-ésimo caractere do CNPJ em um número:
+// por exemplo, transforma o caractere '0' no inteiro 0
+// (48 eh a posição de '0' na tabela ASCII)
+                num = (int) (CNPJ.charAt(i) - 48);
+                sm = sm + (num * peso);
+                peso = peso + 1;
+                if (peso == 10) {
+                    peso = 2;
+                }
             }
-        }
-        for (int i = 0; i < 8; i++) {
-            if (chr_cnpj[i + 4] - 48 >= 0 && chr_cnpj[i + 4] - 48 <= 9) {
-                soma += (chr_cnpj[i + 4] - 48) * (10 - (i + 1));
-            }
-        }
-        dig = 11 - (soma % 11);
 
-        cnpj_calc += (dig == 10 || dig == 11)
-                ? "0" : Integer.toString(dig);
-
-        /* Segunda parte */
-        soma = 0;
-        for (int i = 0; i < 5; i++) {
-            if (chr_cnpj[i] - 48 >= 0 && chr_cnpj[i] - 48 <= 9) {
-                soma += (chr_cnpj[i] - 48) * (7 - (i + 1));
+            r = sm % 11;
+            if ((r == 0) || (r == 1)) {
+                dig13 = '0';
+            } else {
+                dig13 = (char) ((11 - r) + 48);
             }
-        }
-        for (int i = 0; i < 8; i++) {
-            if (chr_cnpj[i + 5] - 48 >= 0 && chr_cnpj[i + 5] - 48 <= 9) {
-                soma += (chr_cnpj[i + 5] - 48) * (10 - (i + 1));
-            }
-        }
-        dig = 11 - (soma % 11);
-        cnpj_calc += (dig == 10 || dig == 11)
-                ? "0" : Integer.toString(dig);
 
-        return str_cnpj.equals(cnpj_calc);
+// Calculo do 2o. Digito Verificador
+            sm = 0;
+            peso = 2;
+            for (i = 12; i >= 0; i--) {
+                num = (int) (CNPJ.charAt(i) - 48);
+                sm = sm + (num * peso);
+                peso = peso + 1;
+                if (peso == 10) {
+                    peso = 2;
+                }
+            }
+
+            r = sm % 11;
+            if ((r == 0) || (r == 1)) {
+                dig14 = '0';
+            } else {
+                dig14 = (char) ((11 - r) + 48);
+            }
+
+// Verifica se os dígitos calculados conferem com os dígitos informados.
+            if ((dig13 == CNPJ.charAt(12)) && (dig14 == CNPJ.charAt(13))) {
+                return (true);
+            } else {
+                return (false);
+            }
+        } catch (InputMismatchException erro) {
+            return (false);
+        }
     }
-
 }

@@ -7,13 +7,18 @@ import br.edu.ufrb.lasis.humv.entity.Setor;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.view.setor.CadastroSetorJDialog;
+import br.edu.ufrb.lasis.humv.view.setor.SetorTabelModel;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import org.codehaus.jackson.type.TypeReference;
 
 /**
  *
@@ -295,6 +300,7 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements A
                 codSetor = at.getCodigo();
                 this.jLabelNomeSetor.setText("Nome: " + nomeSetor);
                 this.jLabelSetorCodigo.setText("Código: "+codSetor);
+                
             } catch (RESTConnectionException ex) {
                 Logger.getLogger(CadastrarProcedimentoJPanel.class.getName()).log(Level.SEVERE, null, ex);
             }

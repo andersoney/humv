@@ -322,7 +322,7 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
         }
         String nome = this.nomeJTF.getText();
         if(jRadioButtonCpf.isSelected()){
-            if (this.jTextFieldCpf.getText().isEmpty()) {
+            if (!ValidationsUtils.isCPF(MaskUtils.removeMascara(this.jTextFieldCpf.getText()))) {
                 MessagesUtils.validaCampoInvalido("CPF");
                 return;
             }
