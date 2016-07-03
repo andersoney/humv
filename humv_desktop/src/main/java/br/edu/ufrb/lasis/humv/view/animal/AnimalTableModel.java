@@ -27,9 +27,10 @@ public class AnimalTableModel extends AbstractTableModel {
      */
     public AnimalTableModel(List<Animal> animais) {
         this.animais = animais;
-        titulos = new String[2];
+        titulos = new String[3];
         titulos[0] = "Nome do animal";
         titulos[1] = "RGHUMV";
+        titulos[2] = "CPF/CNPJ do dono";
     }
 
 
@@ -42,9 +43,10 @@ public class AnimalTableModel extends AbstractTableModel {
     }
 
     public AnimalTableModel() {
-        titulos = new String[2];
+        titulos = new String[3];
         titulos[0] = "Nome do animal";
         titulos[1] = "RGHUMV";
+        titulos[2] = "CPF/CNPJ do dono";
         animais = new ArrayList<Animal>();
     }
 
@@ -91,9 +93,9 @@ public class AnimalTableModel extends AbstractTableModel {
             case 0:
                 return this.animais.get(rowIndex).getNome();
             case 1:
-                return this.animais.get(rowIndex).getIdDono();
-            case 2:
                 return this.animais.get(rowIndex).getRghumv();
+            case 2:
+                return this.animais.get(rowIndex).getIdDono();
         }
         return null;
     }
