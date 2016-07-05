@@ -6,36 +6,50 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**Entidade que modela informações e métodos de propriétarios de animais.
+/**
+ * Entidade que modela informações de dono de animais.
+ *
+ *
+ * Ver requisitos R002 - R006
+ *
  * 
- *  @author Luiz Antônio Pereira
- *  
- *  @version 1
- *  
- *  @since 15 de maio de 2016
- * */
+ * @author Luiz Antônio Pereira
+ * 
+ * @version 3
+ *
+ * @since 26 de junho de 2016
+ *
+ */
 @Entity
-@Table(name="PROPRIETARIOS")
+@Table(name="DONOS")
 public class Dono implements Serializable {
 	
 	private static final long serialVersionUID = -6125748157292589614L;
 	
 	@Id
-	private String cpf;
+	private String id; // recebe o numero do CPF ou CNPJ do novo dono.
+	private String tipoId; // Pode ser CPF ou CNPJ
 	private String nome;
 	private String endereco;
 	private String estado;
 	private String cep;
 	private String telefone;
-	
 	private String cidade; // Obs.: pode ser uma fazenda ou distrito em caso de zona rural.
 
-	public String getCpf() {
-		return cpf;
+	public String getId() {
+		return id;
 	}
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public String getTipoId() {
+		return tipoId;
+	}
+
+	public void setTipoId(String tipoId) {
+		this.tipoId = tipoId;
 	}
 
 	public String getNome() {

@@ -28,7 +28,7 @@ public abstract class PropriedadesBusca implements ActionListener, KeyListener {
     private JTable tabelaResultado;
     private JTextField campoPalavraChave;
     
-    public PropriedadesBusca(String tipoOperacao){
+    public PropriedadesBusca(String tipoOperacao) {
         this.tipoOperacao = tipoOperacao;
     }
 
@@ -96,16 +96,15 @@ public abstract class PropriedadesBusca implements ActionListener, KeyListener {
         this.tabelaResultado = tabelaResultado;
     }
 
-    public JTextField getCampoPalavraChave() {
-        return campoPalavraChave;
-    }
-
-    public void setCampoPalavraChave(JTextField campoPalavraChave) {
-        this.campoPalavraChave = campoPalavraChave;
-    }
-
     public int getIndexLinhaSelecionada() {
         return this.getTabelaResultado().getSelectedRow();
     }
-
+    public JTextField getCampoPalavraChave() {
+         return campoPalavraChave;
+    }
+ 
+    public void setCampoPalavraChave(JTextField campoPalavraChave) {
+         this.campoPalavraChave = campoPalavraChave;
+    }
+    
 }

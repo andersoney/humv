@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.edu.ufrb.lasis.humv.entity.Setor;
 import br.edu.ufrb.lasis.humv.impl.SetorServiceImpl;
 
-/** Implementaçãoo do serviço para cadastro,atualização e remoção de setores.
+/** 
  *  
  *  @author Vinicius Moura
  *  
@@ -35,9 +35,9 @@ public class SetorService {
     	return setorServiceImpl.getAll(); 
     }
     
-    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    public Setor findById(@PathVariable long id){
-    	return setorServiceImpl.findById(id);
+    @RequestMapping(method = RequestMethod.GET, value = "/{codigo}")
+    public Setor findByCodigo(@PathVariable String codigo){
+    	return setorServiceImpl.findByCodigo(""+codigo+"");
     }
     
     @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
@@ -47,12 +47,12 @@ public class SetorService {
     
     @RequestMapping(method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public String atualizarSetor(@RequestBody Setor setor, @RequestParam(value="username") String  username){
-    	return setorServiceImpl.atualizarsetor(setor, username);
+    	return setorServiceImpl.atualizarSetor(setor, username);
     }
     
-    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-    public String removerSetor(@PathVariable long id, @RequestParam(value="username") String  username){
-    	return setorServiceImpl.removerSetor(id, username);
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{codigo}")
+    public String removerSetor(@PathVariable String codigo, @RequestParam(value="username") String  username){
+    	return setorServiceImpl.removerSetor(codigo, username);
     }
 
 	public SetorServiceImpl getSetorServiceImpl() {
@@ -62,6 +62,4 @@ public class SetorService {
 	public void setSetorServiceImpl(SetorServiceImpl setorServiceImpl) {
 		this.setorServiceImpl = setorServiceImpl;
 	}
-    
-	
 }

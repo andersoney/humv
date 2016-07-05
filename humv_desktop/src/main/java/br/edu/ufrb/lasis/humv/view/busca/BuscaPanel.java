@@ -96,7 +96,8 @@ public class BuscaPanel extends javax.swing.JPanel {
             }
         });
 
-        cancelarJB.setText("Calcelar");
+        cancelarJB.setText("Cancelar");
+
         cancelarJB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelarJBActionPerformed(evt);
@@ -121,11 +122,11 @@ public class BuscaPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(buttonBuscar))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(193, 193, 193)
+                        .addGap(251, 251, 251)
                         .addComponent(cancelarJB)
                         .addGap(18, 18, 18)
                         .addComponent(buttonImprimirTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(buttonOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(63, Short.MAX_VALUE))
         );

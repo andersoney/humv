@@ -2,79 +2,92 @@ package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
 
-
-/**Entidade que modela informaÃ§Ãµes e mÃ©todos de propriÃ©tarios de animais.
- * 
- *  @author Luiz AntÃ´nio Pereira
- *  
- *  @version 1
- *  
- *  @since 15 de maio de 2016
- * */
+/**
+ * Entidade que modela informações de dono de animal.
+ *
+ * Ver requisitos R002 - R006
+ *
+ * @author Luiz Antônio Pereira
+ *
+ * @version 3
+ *
+ * @since 15 de maio de 2016
+ *
+ */
 public class Dono implements Serializable {
-	private String cpf;
-	private String nome;
-	private String endereco;
-	private String estado;
-	private String cep;
-	private String telefone;
-	
-	private String cidade; // Obs.: pode ser uma fazenda ou distrito em caso de zona rural.
 
-	public String getCpf() {
-		return cpf;
-	}
+    private static final long serialVersionUID = -6125748157292589614L;
+    private String id;
+    private String tipoId; // Pode ser CPF ou CNPJ
+    private String nome;
+    private String endereco;
+    private String estado;
+    private String cep;
+    private String telefone;
+    private String cidade; // Obs.: pode ser uma fazenda ou distrito em caso de zona rural.
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public String getTipoId() {
+        return tipoId;
+    }
 
-	public String getEndereco() {
-		return endereco;
-	}
+    public void setTipoId(String tipoId) {
+        this.tipoId = tipoId;
+    }
 
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public String getEstado() {
-		return estado;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
+    public String getEndereco() {
+        return endereco;
+    }
 
-	public String getCep() {
-		return cep;
-	}
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
 
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
+    public String getEstado() {
+        return estado;
+    }
 
-	public String getTelefone() {
-		return telefone;
-	}
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
+    public String getCep() {
+        return cep;
+    }
 
-	public String getCidade() {
-		return cidade;
-	}
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
 
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
-	}
-	
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
 }

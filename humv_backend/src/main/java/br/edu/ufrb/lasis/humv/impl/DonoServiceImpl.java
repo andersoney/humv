@@ -35,8 +35,8 @@ public class DonoServiceImpl {
 			}
 		}
 
-		public Dono findById(String cpf){
-			return donoDAO.findByCpf(cpf);
+		public Dono findById(String id){
+			return donoDAO.findByKey(id);
 		}
 
 		public String cadastrarDono(Dono dono, String usuarioResponsavel){
@@ -46,8 +46,8 @@ public class DonoServiceImpl {
 				return "OK";
 			}catch(DataIntegrityViolationException ex){
 				if(ex.getMessage().toLowerCase().contains("constraint")){
-					logger.error("[signup] CPF ja cadastrado: " + dono.getCpf() + ".");
-					return "Dono com CPF " + dono.getCpf() + " ja cadastrado no sistema. Por favor, informe um CPF diferente.";
+					logger.error("[signup] CPF ja cadastrado: " + dono.getId() + ".");
+					return "Dono com id " + dono.getId() + " ja cadastrado no sistema. Por favor, informe um CPF diferente.";
 				}else{
 					return "Erro ao conectar-se com o banco de dados.";
 				}
@@ -55,23 +55,23 @@ public class DonoServiceImpl {
 		}
 
 		public String atualizarDono(Dono dono, String usuarioResponsavel){
-			if(donoDAO.findByCpf(dono.getCpf())==null){
-				logger.error("[signup] Nenhum dono com o CPF " + dono.getCpf() + "foi encontrado no sistema.");
-				return "Nenhum dono com o CPF " + dono.getCpf() + " encontrado no sistema. Por favor, informe um CPF diferente.";
+			if(donoDAO.findByKey(dono.getId())==null){
+				logger.error("[signup] Nenhum dono com o id " + dono.getId() + "foi encontrado no sistema.");
+				return "Nenhum dono com o CPF " + dono.getId() + " encontrado no sistema. Por favor, informe um CPF diferente.";
 			}
 			donoDAO.updateOwner(dono);
-			logger.info("[atualizarDono - " + usuarioResponsavel + "] Dono " + dono.getCpf() + " atualizado com sucesso.");
+			logger.info("[atualizarDono - " + usuarioResponsavel + "] Dono " + dono.getId() + " atualizado com sucesso.");
 			return "OK";
 		}
 		
 		public String removerDono(String  cpf, String usuarioResponsavel){
-			if(donoDAO.findByCpf(cpf)==null){
+			if(donoDAO.findByKey(cpf)==null){
 				logger.error("[signup] Nenhum dono com o CPF " + cpf + "foi encontrado no sistema.");
 				return "Nenhum dono com o CPF " + cpf + " encontrado no sistema. Por favor, informe um CPF diferente.";
 			}
-			Dono dono = donoDAO.findByCpf(cpf);
+			Dono dono = donoDAO.findByKey(cpf);
 			donoDAO.removeOwner(dono);
-			logger.info("[removerDono - " + usuarioResponsavel + "] Dono " + dono.getCpf() + " removido com sucesso.");
+			logger.info("[removerDono - " + usuarioResponsavel + "] Dono " + dono.getId() + " removido com sucesso.");
 	    	return "OK";
 	    }
 

@@ -17,9 +17,9 @@ import br.edu.ufrb.lasis.humv.entity.Dono;
  * 
  * @author Luiz Antônio Pereira
  * 
- * @version 1
+ * @version 2
  * 
- * @since 16 de maio de 2016
+ * @since 26 de junho de 2016
  */
 @Repository
 public class DonoDAO extends GenericDAO<Dono> implements Serializable{
@@ -67,23 +67,21 @@ public class DonoDAO extends GenericDAO<Dono> implements Serializable{
 	}
 
 	/**
-	 * Find an specific owner by CPF.
+	 * Find an specific owner by id.
 	 * 
-	 * @param cpf
+	 * @param id
 	 *            the owner id 
 	 * @return the resulting owner
 	 */
 	@Transactional
-	public Dono findByCpf(String cpf) {
-		return (Dono) getCriteria().add(Restrictions.eq("cpf", cpf)).uniqueResult();
+	public Dono findByKey(String id) {
+		return (Dono) getCriteria().add(Restrictions.eq("id", id)).uniqueResult();
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Dono> findByNome(String nome){
 		Criteria criteria = getCriteria().add(Restrictions.ilike("nome", "%" + nome + "%"));
 		criteria.addOrder(Order.asc("nome"));
-		//?? Perguntar a Tassio se realmente deve ser "nome" ou não seria nome
-		//R: "nome", pois se refere ao nome da coluna da tabela no banco de dados, e n�o � vari�vel String nome
 		return (List<Dono>) criteria.list();
 	}
 }

@@ -3,9 +3,9 @@ package br.edu.ufrb.lasis.humv;
 import br.edu.ufrb.lasis.humv.entity.Usuario;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
-import br.edu.ufrb.lasis.humv.view.main.CarregandoDialog;
+import br.edu.ufrb.lasis.humv.view.main.CarregandoJDialog;
 import br.edu.ufrb.lasis.humv.view.main.HUMVMainWindow;
-import br.edu.ufrb.lasis.humv.view.main.LoginDialog;
+import br.edu.ufrb.lasis.humv.view.main.LoginJDialog;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.util.logging.Level;
@@ -27,9 +27,12 @@ public class HUMVApp {
 
     private static HUMVMainWindow mainWindow;
     private static JPanel mainPanel = null;
-    private static CarregandoDialog carregandoDialog = null;
+    private static CarregandoJDialog carregandoDialog = null;
     private static String nomeUsuario;
     
+    public static HUMVMainWindow getMainWindow(){
+        return mainWindow;
+    }
 
     public static JPanel getMainPanelInstance() {
         if (mainPanel == null) {
@@ -39,9 +42,9 @@ public class HUMVApp {
         return mainPanel;
     }
 
-    private static CarregandoDialog getCarregandoDialogInstance() {
+    private static CarregandoJDialog getCarregandoDialogInstance() {
         if (carregandoDialog == null) {
-            carregandoDialog = new CarregandoDialog(mainWindow);
+            carregandoDialog = new CarregandoJDialog(mainWindow);
             carregandoDialog.pack();
         }
         return carregandoDialog;
@@ -132,7 +135,7 @@ public class HUMVApp {
                 mainWindow.setExtendedState(mainWindow.getExtendedState() | JFrame.MAXIMIZED_BOTH);
                 mainWindow.setResizable(false);
 
-                new LoginDialog(mainWindow).setVisible(true);
+                new LoginJDialog(mainWindow).setVisible(true);
 
                 //Instanciar de início o dialog de carregando
                 HUMVApp.getCarregandoDialogInstance();

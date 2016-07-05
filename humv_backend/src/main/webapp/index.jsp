@@ -13,26 +13,34 @@
     <h2>Dono</h2>
     <ul>
     	<li>Obter todos: /api/dono (GET)</li>
-    	<li>Obter um dono: /api/dono/{cpf} (GET)</li>
+    	<li>Obter um dono: /api/dono/{id} (GET)</li>
     	<li>Inserir: /api/dono (POST)</li>
     	<li>Alterar: /api/dono (PUT)</li>
-    	<li>Excluir: /api/usuario/{cpf} (DELETE)</li>
+    	<li>Excluir: /api/dono/{id} (DELETE)</li>
     </ul>
-    <h2>Animal pequeno</h2>
+    <h2>Animal</h2>
     <ul>
-    	<li>Obter todos: /api/animalPequeno (GET)</li>
-    	<li>Obter um animal pequeno: /api/animalPequeno/{rghumv} (GET)</li>
-    	<li>Inserir: /api/animalPequeno (POST)</li>
-    	<li>Alterar: /api/animalPequeno (PUT)</li>
-    	<li>Excluir: /api/animalPequeno/{rghumv} (DELETE)</li>
+    	<li>Obter todos: /api/animal (GET)</li>
+    	<li>Obter um animal pequeno: /api/animal/{rghumv} (GET)</li>
+    	<li>Inserir: /api/animal (POST)</li>
+    	<li>Alterar: /api/animal (PUT)</li>
+    	<li>Excluir: /api/animal/{rghumv} (DELETE)</li>
     </ul>
-      <h2>Animal grande</h2>
+    <h2>Setor</h2>
     <ul>
-    	<li>Obter todos: /api/animalGrande (GET)</li>
-    	<li>Obter um animal grande: /api/animalGrande/{rghumv} (GET)</li>
-    	<li>Inserir: /api/animalGrande (POST)</li>
-    	<li>Alterar: /api/animalGrande (PUT)</li>
-    	<li>Excluir: /api/animalGrande/{rghumv} (DELETE)</li>
+    	<li>Obter todos: /api/setor (GET)</li>
+    	<li>Obter um setor: /api/setor/{codigo} (GET)</li>
+    	<li>Inserir: /api/setor (POST)</li>
+    	<li>Alterar: /api/setor (PUT)</li>
+    	<li>Excluir: /api/setor/{codigo} (DELETE)</li>
+    </ul>
+    <h2>Procedimento</h2>
+    <ul>
+    	<li>Obter todos: /api/procedimento (GET)</li>
+    	<li>Obter um procedimento: /api/procedimento/{codigo} (GET)</li>
+    	<li>Inserir: /api/procedimento (POST)</li>
+    	<li>Alterar: /api/procedimento (PUT)</li>
+    	<li>Excluir: /api/procedimento/{codigo} (DELETE)</li>
     </ul>
 </body>
 </html>
