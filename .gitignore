@@ -1,0 +1,8 @@
+
+humv_backend/target/**/*
+
+humv_backend/src/main/resources/logback.xml
+
+humv_backend/src/main/webapp/WEB-INF/root-context.xml
+
+humv_desktop/target/**/*
