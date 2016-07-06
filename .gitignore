@@ -1,4 +1,6 @@
 
 humv_backend/target/**/*
 
+humv_backend/target/classes/**/*
+
 humv_desktop/target/**/*
