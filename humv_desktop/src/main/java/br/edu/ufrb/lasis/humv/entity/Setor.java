@@ -18,9 +18,10 @@ import java.io.Serializable;
  */
 
 public class Setor implements Serializable {
+    
     private static final long serialVersionUID = 3567599639175582162L;
 
-    private String codigo;
+    private Integer codigo;
     private String nome;
     
     public String getNome() {
@@ -31,11 +32,11 @@ public class Setor implements Serializable {
         this.nome = nome;
     }
 
-    public String getCodigo() {
+    public Integer getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
+    public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
 

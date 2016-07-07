@@ -71,7 +71,7 @@ public class SetorDAO  extends GenericDAO<Setor> implements Serializable {
 	
 	
 	@Transactional
-	public Setor findByCodigo(String codigo) {
+	public Setor findByCodigo(Integer codigo) {
 		return (Setor) getCriteria().add(Restrictions.eq("codigo", codigo)).uniqueResult();
 	}
 

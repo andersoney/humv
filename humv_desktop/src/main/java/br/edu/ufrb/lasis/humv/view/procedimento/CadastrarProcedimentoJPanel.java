@@ -7,32 +7,23 @@ import br.edu.ufrb.lasis.humv.entity.Setor;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.view.setor.CadastroSetorJDialog;
-import br.edu.ufrb.lasis.humv.view.setor.SetorTabelModel;
 import com.sun.jersey.api.client.ClientResponse;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import org.codehaus.jackson.type.TypeReference;
 
 /**
  *
  * @author Luiz
  */
-public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements ActionListener {
-    JFrame parent;
-    String codSetor;
-    String nomeProcedimento;
-    String codProcedimento;
-    String valorProcedimento;
-    String nomeSetor;
-    final private String servicoSetor = "/api/setor";
-    final private String servicoProcedimento = "/api/procedimento";
+public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
+
+    private JFrame parent;
+    private Integer codSetor;
+    private String nomeSetor;
+    private final String servicoSetor = "/api/setor";
+    private final String servicoProcedimento = "/api/procedimento";
     private static final Logger LOG = Logger.getLogger(CadastrarProcedimentoJPanel.class.getName());
     private Procedimento procedimentoSelecionado;
 
@@ -51,22 +42,20 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements A
     }
 
     private void customInitComponents() {
-        jButtonConfirmar.addActionListener(this);
-        jButtonCancelar.addActionListener(this);
         jTextFieldNome.setFocusable(true);
 
         if (procedimentoSelecionado != null) {
             jLabelTitulo.setText("ALTERAÇÃO DO PROCEDIMENTO");
             jTextFieldNome.setText(procedimentoSelecionado.getNome());
-            jTextFieldCodigo.setText(procedimentoSelecionado.getCodigo());
-            jTextFieldPreco.setText(""+procedimentoSelecionado.getValor());
-            ClientResponse response = null;
+            jTextFieldCodigo.setText(procedimentoSelecionado.getCodigo().toString());
+            jTextFieldPreco.setText("" + procedimentoSelecionado.getValor());
             try {
-                response = RESTMethods.get(servicoSetor + "/" + procedimentoSelecionado.getCodSetor());
+                ClientResponse response = RESTMethods.get(servicoSetor + "/" + procedimentoSelecionado.getCodSetor());
                 Setor at = response.getEntity(Setor.class);
                 jLabelNomeSetor.setText("Nome: " + at.getNome());
                 codSetor = at.getCodigo();
-                jLabelSetorCodigo.setText("Código: "+ codSetor);
+                nomeSetor = at.getNome();
+                jLabelSetorCodigo.setText("Código: " + codSetor);
             } catch (RESTConnectionException ex) {
                 Logger.getLogger(CadastrarProcedimentoJPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -116,12 +105,12 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements A
             }
         });
 
-        jLabelCodSetorBusca.setText("Informe o código do setor");
+        jLabelCodSetorBusca.setText("Informe o código do setor:");
 
-        jLabelNomeSetor.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabelNomeSetor.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabelNomeSetor.setText("Nome: ");
 
-        jLabelSetorCodigo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabelSetorCodigo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabelSetorCodigo.setText("Código: ");
 
         javax.swing.GroupLayout jPanelInformacoesSetorLayout = new javax.swing.GroupLayout(jPanelInformacoesSetor);
@@ -157,11 +146,11 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements A
                     .addComponent(jButtonPesqusar)
                     .addComponent(jButtonCadastrarSetor)
                     .addComponent(jTextFieldCodSetor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanelInformacoesSetorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNomeSetor)
                     .addComponent(jLabelSetorCodigo))
-                .addContainerGap())
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jPanelInformacoesProcedimento.setBorder(javax.swing.BorderFactory.createTitledBorder("Informações do procedimento"));
@@ -170,7 +159,7 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements A
 
         jLabelCodigo.setText("Código:");
 
-        jLabelPreco.setText("Preço R$:");
+        jLabelPreco.setText("Preço R$ (ex.: 40,00):");
 
         javax.swing.GroupLayout jPanelInformacoesProcedimentoLayout = new javax.swing.GroupLayout(jPanelInformacoesProcedimento);
         jPanelInformacoesProcedimento.setLayout(jPanelInformacoesProcedimentoLayout);
@@ -215,7 +204,8 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements A
         );
 
         jLabelTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabelTitulo.setText("CADASTRAMENTO DE PROCEDIMENTO");
+        jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitulo.setText("CADASTRO DE PROCEDIMENTO");
 
         jButtonConfirmar.setText("Confirmar");
         jButtonConfirmar.addActionListener(new java.awt.event.ActionListener() {
@@ -244,12 +234,9 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements A
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButtonCancelar)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonConfirmar)))
+                        .addComponent(jButtonConfirmar))
+                    .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(125, 125, 125)
-                .addComponent(jLabelTitulo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,7 +251,7 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements A
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelar)
                     .addComponent(jButtonConfirmar))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -275,19 +262,20 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements A
         setor.setLocationRelativeTo(null);
         setor.setVisible(true);
     }//GEN-LAST:event_jButtonCadastrarSetorMouseClicked
-    
+
     public void setCodSetorNull() {
-        this.codSetor=" ";
+        this.codSetor = null;
         this.nomeSetor = null;
         this.jLabelNomeSetor.setText("Nome: ");
         this.jLabelCodSetorBusca.setText("Código: ");
     }
-    public void setCodSetor(String nome,String cod) {
-        this.codSetor=cod;
-        if(!cod.equals(" ")){
+
+    public void setCodSetor(String nome, Integer cod) {
+        this.codSetor = cod;
+        if (cod != null) {
             this.nomeSetor = nome;
-            this.jLabelNomeSetor.setText("Nome: "+nome);
-            this.jLabelSetorCodigo.setText("Código: "+cod);
+            this.jLabelNomeSetor.setText("Nome: " + nome);
+            this.jLabelSetorCodigo.setText("Código: " + cod);
         }
     }
     private void jButtonPesqusarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesqusarActionPerformed
@@ -299,8 +287,8 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements A
                 nomeSetor = at.getNome();
                 codSetor = at.getCodigo();
                 this.jLabelNomeSetor.setText("Nome: " + nomeSetor);
-                this.jLabelSetorCodigo.setText("Código: "+codSetor);
-                
+                this.jLabelSetorCodigo.setText("Código: " + codSetor);
+
             } catch (RESTConnectionException ex) {
                 Logger.getLogger(CadastrarProcedimentoJPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -314,10 +302,6 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements A
             MessagesUtils.validaCampoVazio("setor");
             return;
         }
-        char sexo;
-        float peso;
-        int idade;
-        boolean pequenoPort;
         if (this.jTextFieldNome.getText().isEmpty()) {
             MessagesUtils.validaCampoVazio("nome");
             return;
@@ -327,37 +311,54 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements A
             MessagesUtils.validaCampoVazio("código");
             return;
         }
-        String codigo = this.jTextFieldCodigo.getText();
+        Integer codigo = Integer.parseInt(jTextFieldCodigo.getText());
         if (jTextFieldPreco.getText().isEmpty()) {
             MessagesUtils.validaCampoVazio("preço");
             return;
         }
-        double valor = Double.parseDouble(this.jTextFieldPreco.getText());
         
+        double valor = 0;
+        
+        try{
+            String precoString = this.jTextFieldPreco.getText();
+            if(precoString.contains(",")){
+                String[] valores_precos = precoString.split(",");
+                if(valores_precos.length > 1){
+                    precoString = valores_precos[0] + "." + valores_precos[1];
+                }
+            }
+            valor = Double.parseDouble(precoString);
+        }catch(NumberFormatException ex){
+            MessagesUtils.valorInvalido("preço");
+            return;
+        }
+        
+
         Procedimento procedimento = new Procedimento();
         procedimento.setValor(valor);
         procedimento.setCodigo(codigo);
         procedimento.setNome(nome);
         procedimento.setCodSetor(codSetor);
         try {
-            ClientResponse response; 
-            if(procedimentoSelecionado == null){
+            ClientResponse response;
+            if (procedimentoSelecionado == null) {
                 response = RESTMethods.post(this.servicoProcedimento, procedimento);
-            }
-            else{
+            } else {
                 response = RESTMethods.put(this.servicoProcedimento, procedimento);
             }
             String resposta = response.getEntity(String.class);
             if (!resposta.equalsIgnoreCase("ok")) {
-                if(procedimentoSelecionado==null)
+                if (procedimentoSelecionado == null) {
                     MessagesUtils.erroCadastro("procedimento");
-                else
+                } else {
                     MessagesUtils.erroAtualizacao("procedimento");
-            }else{
-                if(procedimentoSelecionado==null)
+                }
+            } else {
+                if (procedimentoSelecionado == null) {
                     MessagesUtils.sucessoCadastro("procedimento");
-                else
+                } else {
                     MessagesUtils.sucessoAtualizacao("procedimento");
+                }
                 HUMVApp.exibirMensagemCarregamento();
                 HUMVApp.setPainelCentralComLogo();
                 HUMVApp.esconderMensagemCarregamento();
@@ -369,7 +370,7 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements A
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         int op = MessagesUtils.dialogoCancelar("o cadastro", "procedimento");
-        if(op == JOptionPane.OK_OPTION){
+        if (op == JOptionPane.OK_OPTION) {
             this.setVisible(false);
             System.gc();
             HUMVApp.exibirMensagemCarregamento();
@@ -399,6 +400,4 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements A
     private javax.swing.JTextField jTextFieldPreco;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void actionPerformed(ActionEvent ae) {}
 }

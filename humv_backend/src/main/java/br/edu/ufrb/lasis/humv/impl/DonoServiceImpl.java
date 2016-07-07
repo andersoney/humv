@@ -42,12 +42,12 @@ public class DonoServiceImpl {
 		public String cadastrarDono(Dono dono, String usuarioResponsavel){
 			try{
 				donoDAO.saveOwner(dono);
-				logger.info("[signup - " + usuarioResponsavel + "] Dono salvo com sucesso: " + dono.getNome() + ".");
+				logger.info("[cadastrarDono - " + usuarioResponsavel + "] Dono salvo com sucesso: " + dono.getNome() + ".");
 				return "OK";
 			}catch(DataIntegrityViolationException ex){
 				if(ex.getMessage().toLowerCase().contains("constraint")){
-					logger.error("[signup] CPF ja cadastrado: " + dono.getId() + ".");
-					return "Dono com id " + dono.getId() + " ja cadastrado no sistema. Por favor, informe um CPF diferente.";
+					//logger.error("[signup] CPF ja cadastrado: " + dono.getId() + ".");
+					return "Dono com CPF " + dono.getId() + " já cadastrado no sistema. Por favor, informe um CPF diferente.";
 				}else{
 					return "Erro ao conectar-se com o banco de dados.";
 				}
@@ -56,7 +56,7 @@ public class DonoServiceImpl {
 
 		public String atualizarDono(Dono dono, String usuarioResponsavel){
 			if(donoDAO.findByKey(dono.getId())==null){
-				logger.error("[signup] Nenhum dono com o id " + dono.getId() + "foi encontrado no sistema.");
+				//logger.error("[signup] Nenhum dono com o id " + dono.getId() + "foi encontrado no sistema.");
 				return "Nenhum dono com o CPF " + dono.getId() + " encontrado no sistema. Por favor, informe um CPF diferente.";
 			}
 			donoDAO.updateOwner(dono);
@@ -66,7 +66,7 @@ public class DonoServiceImpl {
 		
 		public String removerDono(String  cpf, String usuarioResponsavel){
 			if(donoDAO.findByKey(cpf)==null){
-				logger.error("[signup] Nenhum dono com o CPF " + cpf + "foi encontrado no sistema.");
+				//logger.error("[signup] Nenhum dono com o CPF " + cpf + "foi encontrado no sistema.");
 				return "Nenhum dono com o CPF " + cpf + " encontrado no sistema. Por favor, informe um CPF diferente.";
 			}
 			Dono dono = donoDAO.findByKey(cpf);

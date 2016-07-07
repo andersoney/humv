@@ -1,11 +1,9 @@
 package br.ufrb.edu.lasis.vet.tests;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
-import br.edu.ufrb.lasis.humv.entity.Setor;
-import br.edu.ufrb.lasis.humv.impl.SetorServiceImpl;
+//import static org.junit.Assert.*;
+//import org.junit.Test;
+//import br.edu.ufrb.lasis.humv.entity.Setor;
+//import br.edu.ufrb.lasis.humv.impl.SetorServiceImpl;
 
 public class SetorServiceImplTest {
 

@@ -32,19 +32,19 @@ public class ProcedimentoServiceImpl {
 			return procedimentoDAO.findByName(nome);			
 	}
 	
-	public Procedimento findByCodigo(String codigo){
+	public Procedimento findByCodigo(Integer codigo){
 		return procedimentoDAO.findByCode(codigo);
 	}
 	
 	public String cadastrarProcedimento(Procedimento procedimento , String usuarioResponsavel ){
 		try{
 			procedimentoDAO.saveProcedimento(procedimento);
-			logger.info("[signup - " + usuarioResponsavel + "] Procedimento cadastrado com sucesso: " + procedimento.getNome() + ".");
+			logger.info("[cadastrarProcedimento - " + usuarioResponsavel + "] Procedimento cadastrado com sucesso: " + procedimento.getNome() + ".");
 			return "OK";
 		}catch(DataIntegrityViolationException ex){
 			if(ex.getMessage().toLowerCase().contains("constraint")){
-				logger.error("[signup] Nome do Procedimento j� cadastrado: " + procedimento.getNome() + ".");
-				return "Setor " +  procedimento.getNome() + " J� cadastrado no sistema. Por favor, informe um Nome diferente.";
+				//logger.error("[signup] Nome do Procedimento j� cadastrado: " + procedimento.getNome() + ".");
+				return "Setor " +  procedimento.getNome() + " já cadastrado no sistema. Por favor, informe um Nome diferente.";
 			}else{
 				return "Erro ao conectar-se com o banco de dados.";
 			}
@@ -53,24 +53,23 @@ public class ProcedimentoServiceImpl {
 
 	public String atualizarProcedimento(Procedimento procedimento, String usuarioResponsavel){
 		if(procedimentoDAO.findByCode(procedimento.getCodigo())==null){
-			logger.error("[signup] Nenhum Procedimento com o c�digo " + procedimento.getCodigo() + "foi encontrado no sistema.");
-			return "Nenhum Procedimento com o c�digo " + procedimento.getCodigo() + "foi encontrado no sistema. Por favor, informe um C�digo diferente.";
+			//logger.error("[signup] Nenhum Procedimento com o c�digo " + procedimento.getCodigo() + "foi encontrado no sistema.");
+			return "Nenhum procedimento com o código " + procedimento.getCodigo() + "foi encontrado no sistema. Por favor, informe um código diferente.";
 
 		}
 		procedimentoDAO.updateProcedimento(procedimento);
-		logger.info("[atualizar Procedimento - " + usuarioResponsavel + "] Codigo do Procedimento " + procedimento.getCodigo() + " atualizado com sucesso.");
+		logger.info("[atualizarProcedimento - " + usuarioResponsavel + "] Código do Procedimento " + procedimento.getCodigo() + " atualizado com sucesso.");
 		return "OK";
 	}
 	
-	public String removerProcedimento(String codigo, String usuarioResponsavel){
-		if(procedimentoDAO.findByCode(codigo) ==null){
-			logger.error("[signup] Nenhum Procedimento com o C�digo " + codigo + "foi encontrado no sistema.");
-			return "Nenhum Procedimento com o C�digo " + codigo + "foi encontrado no sistema. Por favor, informe um C�digo diferente.";
-
+	public String removerProcedimento(Integer codigo, String usuarioResponsavel){
+		if(procedimentoDAO.findByCode(codigo) == null){
+			//logger.error("[signup] Nenhum Procedimento com o C�digo " + codigo + "foi encontrado no sistema.");
+			return "Nenhum Procedimento com o código " + codigo + "foi encontrado no sistema. Por favor, informe um código diferente.";
 		}
 		Procedimento procedimento = procedimentoDAO.findByCode(codigo);
 		procedimentoDAO.removeProcedimento(procedimento);
-		logger.info("[removerSetor - " + usuarioResponsavel + "] procedimento " + procedimento.getCodigo() + " removido com sucesso.");
+		logger.info("[removerProcedimento - " + usuarioResponsavel + "] procedimento " + procedimento.getCodigo() + " removido com sucesso.");
     	return "OK";
     }
 

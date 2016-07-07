@@ -70,7 +70,7 @@ public class BuscaPanel extends javax.swing.JPanel {
 
         buttonBuscar.setText("Buscar");
 
-        labelTitulo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        labelTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelTitulo.setText("jLabel2");
 

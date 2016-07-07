@@ -75,7 +75,7 @@
  
     <!-- Connect the custom authentication success handler -->
     <bean id="mySuccessHandler"
-        class="br.edu.ufrb.lasis.humv.security.RestAuthenticationSuccessHandler" />
+        class="br.edu.ufrb.lasis.humv.security.RestAuthenticationSuccessHandler" /> 
     
     <!-- Using default failure handler -->
     <bean id="myFailureHandler"

@@ -45,11 +45,11 @@ public class AnimalServiceImpl {
 	public String cadastrarAnimal(Animal animal, String usuarioResponsavel){
 		try{
 			animalDAO.saveAnimal(animal);
-			logger.info("[signup - " + usuarioResponsavel + "] Animal salvo com sucesso: " + animal.getNome() + ".");
+			logger.info("[cadastrarAnimal - " + usuarioResponsavel + "] Animal salvo com sucesso: " + animal.getNome() + ".");
 			return "OK";
 		}catch(DataIntegrityViolationException ex){
 			if(ex.getMessage().toLowerCase().contains("constraint")){
-				logger.error("[signup] RGHUMV já cadastrado: " + animal.getRghumv() + ".");
+				//logger.error("[signup] RGHUMV já cadastrado: " + animal.getRghumv() + ".");
 				return "Animal com RGHUMV " + animal.getRghumv() + " já cadstrado no sistema. Por favor, informe um RGHUMV diferente.";
 			}else{
 				return "Erro ao conectar-se com o banco de dados.";
@@ -59,7 +59,7 @@ public class AnimalServiceImpl {
 
 	public String atualizarAnimal(Animal animal, String usuarioResponsavel){
 		if(animalDAO.findByRghumv(animal.getRghumv())==null){
-			logger.error("[signup] Nenhum animal com o RGHUMV " + animal.getRghumv() + "foi encontrado no sistema.");
+			//logger.error("[signup] Nenhum animal com o RGHUMV " + animal.getRghumv() + "foi encontrado no sistema.");
 			return "Nenhum animal com o RGHUMV " + animal.getRghumv() + " encontrado no sistema. Por favor, informe um RGHUMV diferente.";
 
 		}
@@ -70,7 +70,7 @@ public class AnimalServiceImpl {
 	
 	public String removerAnimal(String  rghumv, String usuarioResponsavel){
 		if(animalDAO.findByRghumv(rghumv)==null){
-			logger.error("[signup] Nenhum animal com o RGHUMV " + rghumv + "foi encontrado no sistema.");
+			//logger.error("[signup] Nenhum animal com o RGHUMV " + rghumv + "foi encontrado no sistema.");
 			return "Nenhum animal com o RGHUMV " + rghumv + " encontrado no sistema. Por favor, informe um RGHUMV diferente.";
 
 		}

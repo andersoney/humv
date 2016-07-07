@@ -256,7 +256,8 @@ public class CadastrarDonoJDialog extends javax.swing.JDialog {
         });
 
         jLabelTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabelTitulo.setText("CADASTRAMENTO DE DONO");
+        jLabelTitulo.setText("CADASTRO DE DONO");
+        jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

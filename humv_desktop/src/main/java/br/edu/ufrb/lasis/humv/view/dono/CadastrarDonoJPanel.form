@@ -31,7 +31,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
@@ -42,13 +42,9 @@
                       </Group>
                       <Component id="jPanelInformacoesEndereco" alignment="0" max="32767" attributes="0"/>
                       <Component id="jPanelDadosPessoais" alignment="1" max="32767" attributes="0"/>
+                      <Component id="jLabelTitulo" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="137" max="-2" attributes="0"/>
-                  <Component id="jLabelTitulo" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -90,23 +86,20 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="telefoneJL" min="-2" pref="163" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jRadioButtonCnpj" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="nomeJL" min="-2" pref="163" max="-2" attributes="0"/>
+                              <Component id="nomeJTF" alignment="0" pref="200" max="32767" attributes="0"/>
+                              <Component id="jTextFieldTelefone" max="32767" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="nomeJL" min="-2" pref="163" max="-2" attributes="0"/>
-                                  <Component id="nomeJTF" alignment="0" pref="200" max="32767" attributes="0"/>
-                                  <Component id="jTextFieldTelefone" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jRadioButtonCpf" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextFieldCpf" alignment="1" pref="200" max="32767" attributes="0"/>
-                                  <Component id="jTextFieldCnpj" alignment="1" max="32767" attributes="0"/>
-                              </Group>
+                          <Component id="telefoneJL" alignment="0" min="-2" pref="163" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jRadioButtonCnpj" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jTextFieldCpf" alignment="1" pref="200" max="32767" attributes="0"/>
+                              <Component id="jTextFieldCnpj" alignment="1" max="32767" attributes="0"/>
+                              <Component id="jRadioButtonCpf" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -253,7 +246,7 @@
                           <Component id="jRadioButtonFazenda" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jComboBoxEstado" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="6" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="jLabelCidadeFazenda" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jTextFieldCidadeFazenda" min="-2" max="-2" attributes="0"/>
@@ -368,7 +361,8 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="CADASTRAMENTO DE DONO"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="CADASTRO DE DONO"/>
           </Properties>
         </Component>
       </SubComponents>

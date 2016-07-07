@@ -97,9 +97,19 @@ public class UsuarioDAO extends GenericDAO<Usuario> implements Serializable{
 		Integer conversionResult = NumberUtils.convertStringToInteger(palavrachave);
 		if (conversionResult != null) {
 			criteria.add(
-					Restrictions.or(Restrictions.eq("siape", conversionResult), Restrictions.ilike("email", "%" + palavrachave + "%")));
+					Restrictions.or(
+							Restrictions.eq("siape", conversionResult), 
+							Restrictions.ilike("email", "%" + palavrachave + "%"),
+							Restrictions.ilike("nome", "%" + palavrachave + "%")
+					)
+			);
 		} else {
-			criteria.add(Restrictions.ilike("email", "%" + palavrachave + "%"));
+			criteria.add(
+					Restrictions.or(
+							Restrictions.ilike("email", "%" + palavrachave + "%"),
+							Restrictions.ilike("nome", "%" + palavrachave + "%")
+					)
+			);
 		}
 		
 		return (List<Usuario>) criteria.list();

@@ -13,8 +13,6 @@ import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.MessagesUtils;
 import com.sun.jersey.api.client.ClientResponse;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Calendar;
@@ -29,7 +27,7 @@ import org.codehaus.jackson.type.TypeReference;
  *
  * @author Andersoney
  */
-public class CadastrarAnimalJPanel extends javax.swing.JPanel implements ActionListener {
+public class CadastrarAnimalJPanel extends javax.swing.JPanel {
 
     JFrame parent;
     boolean grande = false;
@@ -59,8 +57,6 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements ActionL
     }
 
     private void customInitComponents() {
-        jButtonConfirmar.addActionListener(this);
-        jButtonCancelar.addActionListener(this);
         jTextFieldNomeAnimal.setFocusable(true);
         if (animalSelecionado != null) {
             jLabelTitulo.setText("ATUALIZAÇÃO DE ANIMAL");
@@ -491,7 +487,8 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements ActionL
         });
 
         jLabelTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabelTitulo.setText("CADASTRAMENTO DE ANIMAL");
+        jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitulo.setText("CADASTRO DE ANIMAL");
 
         jButtonConfirmar.setText("Confirmar");
         jButtonConfirmar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -509,21 +506,18 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements ActionL
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelDadosDono, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelDadosDono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButtonCancelar)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonConfirmar))
-                    .addComponent(jPanelDadosAnimal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanelDadosAnimal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(129, 129, 129))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -807,7 +801,5 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements ActionL
     private javax.swing.JTextField jTextFieldPelagem;
     private javax.swing.JTextField jTextFieldRaca;
     // End of variables declaration//GEN-END:variables
-    
-    @Override
-    public void actionPerformed(ActionEvent ae) {}
+
 }

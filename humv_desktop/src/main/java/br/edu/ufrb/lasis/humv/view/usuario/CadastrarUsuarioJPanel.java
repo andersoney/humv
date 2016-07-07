@@ -11,18 +11,15 @@ import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.SecurityUtils;
 import com.sun.jersey.api.client.ClientResponse;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author tassiovale
  */
-public class CadastrarUsuarioJPanel extends javax.swing.JPanel implements ActionListener {
+public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
     
     private Usuario usuarioSelecionado = null;
 
@@ -36,6 +33,7 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel implements Action
     
     /**
      * Creates new form CadastrarUsuarioPanel
+     * @param usuarioSelecionado
      */
     public CadastrarUsuarioJPanel(Usuario usuarioSelecionado) {
         this.usuarioSelecionado = usuarioSelecionado;
@@ -44,8 +42,6 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel implements Action
     }
 
     private void customInitComponents() {
-        buttonOK.addActionListener(this);
-        buttonCancelar.addActionListener(this);
         textFieldNome.setFocusable(true);
         
         if(usuarioSelecionado != null){
@@ -54,80 +50,6 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel implements Action
             textFieldEmail.setText(usuarioSelecionado.getEmail());
             textFieldEmail.setEnabled(false);
             textFieldSiape.setText(usuarioSelecionado.getSiape().toString());
-        }
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        Integer siape;
-        try {
-            siape = Integer.parseInt(textFieldSiape.getText());
-        } catch (NumberFormatException ex) {
-            siape = -1;
-        }
-
-        if (e.getSource().equals(buttonOK)) {
-            if (textFieldNome.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "O campo nome não pode ser vazio.", "Nome inválido", JOptionPane.ERROR_MESSAGE);
-                textFieldNome.setFocusable(true);
-            } else if (textFieldEmail.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "O campo e-mail não pode ser vazio.", "E-mail inválido", JOptionPane.ERROR_MESSAGE);
-                textFieldEmail.setFocusable(true);
-            } else if (textFieldEmail.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "E-mail inválido. Por favor, digite-o novamente.", "E-mail inválido", JOptionPane.ERROR_MESSAGE);
-                textFieldEmail.setFocusable(true);
-            } else if (!textFieldSiape.getText().isEmpty() && siape <= 0) {
-                JOptionPane.showMessageDialog(this, "O campo SIAPE deve conter apenas números.", "SIAPE inválido", JOptionPane.ERROR_MESSAGE);
-                textFieldSiape.setText("");
-                textFieldSiape.setFocusable(true);
-            } else if (new String(passwordFieldSenha.getPassword()).length() < 4) {
-                JOptionPane.showMessageDialog(this, "A senha deve possuir 4 (quatro) ou mais caracteres.", "Senha inválida", JOptionPane.ERROR_MESSAGE);
-                passwordFieldSenha.setFocusable(true);
-            } else if (!(new String(passwordFieldSenha.getPassword()).equals(new String(passwordFieldConfirmSenha.getPassword())))) {
-                JOptionPane.showMessageDialog(this, "Senhas não conferem. Por favor, digite-as novamente.", "Senha inválida", JOptionPane.ERROR_MESSAGE);
-                passwordFieldSenha.setText("");
-                passwordFieldConfirmSenha.setText("");
-                passwordFieldSenha.setFocusable(true);
-            } else {
-
-                try {
-                    Usuario usuario = new Usuario();
-                    usuario.setNome(textFieldNome.getText());
-                    usuario.setSiape(siape);
-                    usuario.setEmail(textFieldEmail.getText());
-                    usuario.setSenha(SecurityUtils.criptography(new String(passwordFieldSenha.getPassword())));
-                    usuario.setPerfil((String) comboBoxPerfilUsuario.getSelectedItem());
-                    usuario.setAtivo(true);
-                    
-                    ClientResponse response;
-                    if(usuarioSelecionado != null){
-                        response = RESTMethods.put("/api/usuario", usuario);
-                    }else{
-                        response = RESTMethods.post("/api/usuario", usuario);
-                    }
-                             
-                    String resposta = response.getEntity(String.class);
-                    if (resposta.equals("OK")) {
-                        JOptionPane.showMessageDialog(this, "Registro de usuário efetuado com sucesso", "Registro de usuário", JOptionPane.PLAIN_MESSAGE);
-                        HUMVApp.setPainelCentralComLogo();
-                    } else {
-                        JOptionPane.showMessageDialog(this, resposta, "Erro", JOptionPane.ERROR_MESSAGE);
-                        textFieldNome.setFocusable(true);
-                    }
-                } catch (RESTConnectionException ex) {
-                    JOptionPane.showMessageDialog(this, "Erro ao tentar conectar-se com o servidor. Por favor, tente novamente mais tarde.", "Erro", JOptionPane.ERROR_MESSAGE);
-                    ex.printStackTrace();
-                } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
-                    JOptionPane.showMessageDialog(this, "Erro ao criptografar senha. Tente novamente mais tarde.", "Erro", JOptionPane.ERROR_MESSAGE);
-                    ex.printStackTrace();
-                }
-            }
-
-        } else if (e.getSource().equals(buttonCancelar)) {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja mesmo cancelar esta operação?", "Cancelar cadastro", JOptionPane.OK_CANCEL_OPTION);
-            if (resposta == JOptionPane.OK_OPTION) {
-                HUMVApp.setPainelCentralComLogo();
-            }
         }
     }
 
@@ -156,9 +78,9 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel implements Action
         passwordFieldSenha = new javax.swing.JPasswordField();
         passwordFieldConfirmSenha = new javax.swing.JPasswordField();
 
-        labelTitulo.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        labelTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelTitulo.setText("Cadastro de usuário");
+        labelTitulo.setText("CADASTRO DE USUÁRIO");
 
         jLabel2.setText("Nome:");
 
@@ -194,6 +116,11 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel implements Action
         });
 
         buttonOK.setText("OK");
+        buttonOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonOKActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -273,8 +200,76 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel implements Action
     }//GEN-LAST:event_textFieldSiapeActionPerformed
 
     private void buttonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelarActionPerformed
-        // TODO add your handling code here:
+        int resposta = JOptionPane.showConfirmDialog(this, "Deseja mesmo cancelar esta operação?", "Cancelar cadastro", JOptionPane.OK_CANCEL_OPTION);
+            if (resposta == JOptionPane.OK_OPTION) {
+                HUMVApp.setPainelCentralComLogo();
+            }
     }//GEN-LAST:event_buttonCancelarActionPerformed
+
+    private void buttonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOKActionPerformed
+        Integer siape;
+        try {
+            siape = Integer.parseInt(textFieldSiape.getText());
+        } catch (NumberFormatException ex) {
+            siape = -1;
+        }
+        
+        if (textFieldNome.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "O campo nome não pode ser vazio.", "Nome inválido", JOptionPane.ERROR_MESSAGE);
+                textFieldNome.setFocusable(true);
+            } else if (textFieldEmail.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "O campo e-mail não pode ser vazio.", "E-mail inválido", JOptionPane.ERROR_MESSAGE);
+                textFieldEmail.setFocusable(true);
+            } else if (textFieldEmail.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "E-mail inválido. Por favor, digite-o novamente.", "E-mail inválido", JOptionPane.ERROR_MESSAGE);
+                textFieldEmail.setFocusable(true);
+            } else if (!textFieldSiape.getText().isEmpty() && siape <= 0) {
+                JOptionPane.showMessageDialog(this, "O campo SIAPE deve conter apenas números.", "SIAPE inválido", JOptionPane.ERROR_MESSAGE);
+                textFieldSiape.setText("");
+                textFieldSiape.setFocusable(true);
+            } else if (new String(passwordFieldSenha.getPassword()).length() < 4) {
+                JOptionPane.showMessageDialog(this, "A senha deve possuir 4 (quatro) ou mais caracteres.", "Senha inválida", JOptionPane.ERROR_MESSAGE);
+                passwordFieldSenha.setFocusable(true);
+            } else if (!(new String(passwordFieldSenha.getPassword()).equals(new String(passwordFieldConfirmSenha.getPassword())))) {
+                JOptionPane.showMessageDialog(this, "Senhas não conferem. Por favor, digite-as novamente.", "Senha inválida", JOptionPane.ERROR_MESSAGE);
+                passwordFieldSenha.setText("");
+                passwordFieldConfirmSenha.setText("");
+                passwordFieldSenha.setFocusable(true);
+            } else {
+
+                try {
+                    Usuario usuario = new Usuario();
+                    usuario.setNome(textFieldNome.getText());
+                    usuario.setSiape(siape);
+                    usuario.setEmail(textFieldEmail.getText());
+                    usuario.setSenha(SecurityUtils.criptography(new String(passwordFieldSenha.getPassword())));
+                    usuario.setPerfil((String) comboBoxPerfilUsuario.getSelectedItem());
+                    usuario.setAtivo(true);
+                    
+                    ClientResponse response;
+                    if(usuarioSelecionado != null){
+                        response = RESTMethods.put("/api/usuario", usuario);
+                    }else{
+                        response = RESTMethods.post("/api/usuario", usuario);
+                    }
+                             
+                    String resposta = response.getEntity(String.class);
+                    if (resposta.equals("OK")) {
+                        JOptionPane.showMessageDialog(this, "Registro de usuário efetuado com sucesso", "Registro de usuário", JOptionPane.PLAIN_MESSAGE);
+                        HUMVApp.setPainelCentralComLogo();
+                    } else {
+                        JOptionPane.showMessageDialog(this, resposta, "Erro", JOptionPane.ERROR_MESSAGE);
+                        textFieldNome.setFocusable(true);
+                    }
+                } catch (RESTConnectionException ex) {
+                    JOptionPane.showMessageDialog(this, "Erro ao tentar conectar-se com o servidor. Por favor, tente novamente mais tarde.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
+                } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
+                    JOptionPane.showMessageDialog(this, "Erro ao criptografar senha. Tente novamente mais tarde.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
+                }
+            }
+    }//GEN-LAST:event_buttonOKActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

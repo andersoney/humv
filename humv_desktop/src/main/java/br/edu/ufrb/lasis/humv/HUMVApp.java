@@ -1,15 +1,10 @@
 package br.edu.ufrb.lasis.humv;
 
-import br.edu.ufrb.lasis.humv.entity.Usuario;
-import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
-import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.view.main.CarregandoJDialog;
 import br.edu.ufrb.lasis.humv.view.main.HUMVMainWindow;
 import br.edu.ufrb.lasis.humv.view.main.LoginJDialog;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;

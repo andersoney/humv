@@ -15,15 +15,16 @@ import java.io.Serializable;
  * @since 26 de junho de 2016
  *
  */
-
 public class Procedimento implements Serializable {
-    private static final long serialVersionUID = 1274972987399L;
-    String codigo;
-    String nome;
-    String codSetor;
-    double valor;
 
-    public String getCodigo() {
+    private static final long serialVersionUID = 1274972987399L;
+
+    private Integer codigo;
+    private String nome;
+    private Integer codSetor;
+    private double valor;
+
+    public Integer getCodigo() {
         return this.codigo;
     }
 
@@ -35,7 +36,7 @@ public class Procedimento implements Serializable {
         return this.valor;
     }
 
-    public void setCodigo(String codigo) {
+    public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
 
@@ -46,11 +47,13 @@ public class Procedimento implements Serializable {
     public void setValor(double valor) {
         this.valor = valor;
     }
-    public String getCodSetor() {
+
+    public Integer getCodSetor() {
         return this.codSetor;
     }
-    public void setCodSetor(String codSetor) {
+
+    public void setCodSetor(Integer codSetor) {
         this.codSetor = codSetor;
     }
-    
+
 }

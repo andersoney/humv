@@ -36,8 +36,8 @@ public class SetorService {
     }
     
     @RequestMapping(method = RequestMethod.GET, value = "/{codigo}")
-    public Setor findByCodigo(@PathVariable String codigo){
-    	return setorServiceImpl.findByCodigo(""+codigo+"");
+    public Setor findByCodigo(@PathVariable Integer codigo){
+    	return setorServiceImpl.findByCodigo(codigo);
     }
     
     @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
@@ -51,7 +51,7 @@ public class SetorService {
     }
     
     @RequestMapping(method = RequestMethod.DELETE, value = "/{codigo}")
-    public String removerSetor(@PathVariable String codigo, @RequestParam(value="username") String  username){
+    public String removerSetor(@PathVariable Integer codigo, @RequestParam(value="username") String  username){
     	return setorServiceImpl.removerSetor(codigo, username);
     }
 

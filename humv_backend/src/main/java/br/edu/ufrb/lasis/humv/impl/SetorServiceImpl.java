@@ -7,7 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+
+import br.edu.ufrb.lasis.humv.dao.ProcedimentoDAO;
 import br.edu.ufrb.lasis.humv.dao.SetorDAO;
+import br.edu.ufrb.lasis.humv.entity.Procedimento;
 import br.edu.ufrb.lasis.humv.entity.Setor;
 
 
@@ -28,6 +31,9 @@ public class SetorServiceImpl {
 
 	@Autowired
 	private SetorDAO setorDAO;
+	
+	@Autowired
+	private ProcedimentoDAO procedimentoDAO;
 
 	public List<Setor> getAll(){
 		try {
@@ -38,19 +44,19 @@ public class SetorServiceImpl {
 		}
 	}
 
-	public Setor findByCodigo(String codigo){
+	public Setor findByCodigo(Integer codigo){
 		return setorDAO.findByCodigo(codigo);
 	}
 
 	public String cadastrarSetor(Setor setor , String usuarioResponsavel ){
 		try{
 			setorDAO.saveSetor(setor);
-			logger.info("[signup - " + usuarioResponsavel + "] Setorcadastrado com sucesso: " + setor.getNome() + ".");
+			logger.info("[signup - " + usuarioResponsavel + "] Setor cadastrado com sucesso: " + setor.getNome() + ".");
 			return "OK";
 		}catch(DataIntegrityViolationException ex){
 			if(ex.getMessage().toLowerCase().contains("constraint")){
-				logger.error("[signup] Nome do Setor j� cadastrado: " + setor.getNome() + ".");
-				return "Setor " +  setor.getNome() + " J� cadastrado no sistema. Por favor, informe um Nome diferente.";
+				//logger.error("[signup] Nome do setor já cadastrado: " + setor.getNome() + "."); 
+				return "Setor " +  setor.getNome() + " já cadastrado no sistema. Por favor, informe um Nome diferente.";
 			}else{
 				return "Erro ao conectar-se com o banco de dados.";
 			}
@@ -58,9 +64,9 @@ public class SetorServiceImpl {
 	}
 
 	public String atualizarSetor(Setor setor, String usuarioResponsavel){
-		if(setorDAO.findByCodigo(setor.getCodigo())==null){
-			logger.error("[signup] Nenhum Setor com o c�digo " + setor.getCodigo() + "foi encontrado no sistema.");
-			return "Nenhum Setor com o c�digo " + setor.getCodigo() + "foi encontrado no sistema. Por favor, informe um C�digo diferente.";
+		if(setorDAO.findByCodigo(setor.getCodigo()) == null){
+			//logger.error("[signup] Nenhum setor com o código " + setor.getCodigo() + "foi encontrado no sistema.");
+			return "Nenhum setor com o código " + setor.getCodigo() + "foi encontrado no sistema. Por favor, informe um código diferente.";
 
 		}
 		setorDAO.updateSetor(setor);
@@ -68,14 +74,19 @@ public class SetorServiceImpl {
 		return "OK";
 	}
 	
-	public String removerSetor(String codigo, String usuarioResponsavel){
-		if(setorDAO.findByCodigo(codigo) ==null){
-			logger.error("[signup] Nenhum Setor com o C�digo " + codigo + "foi encontrado no sistema.");
-			return "Nenhum Setor com o C�digo " + codigo + "foi encontrado no sistema. Por favor, informe um C�digo diferente.";
+	public String removerSetor(Integer codigo, String usuarioResponsavel){
+		if(setorDAO.findByCodigo(codigo) == null){
+			//logger.error("[signup] Nenhum Setor com o código " + codigo + "foi encontrado no sistema.");
+			return "Nenhum Setor com o código " + codigo + "foi encontrado no sistema. Por favor, informe um código diferente.";
 
 		}
 		Setor setor = setorDAO.findByCodigo(codigo);
 		setorDAO.removeSetor(setor);
+		List<Procedimento> procedimentos = procedimentoDAO.findByCodigoSetor(codigo);
+		for(Procedimento proc : procedimentos){
+			proc.setCodSetor(null);
+			procedimentoDAO.updateProcedimento(proc);
+		}
 		logger.info("[removerSetor - " + usuarioResponsavel + "] Setor " + setor.getCodigo() + " removido com sucesso.");
     	return "OK";
     }

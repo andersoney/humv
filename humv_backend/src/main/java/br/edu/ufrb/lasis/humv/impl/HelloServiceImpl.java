@@ -32,11 +32,11 @@ public class HelloServiceImpl {
     public Hello findById(Long id) {
         try {
         	Hello hello = helloDAO.findById(id);
-			logger.info("[getAllHello] Realizando teste com o Hello RESTFul service.");
+			logger.info("[findById] Realizando teste com o Hello RESTFul service.");
 			return hello;
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error("[getAllHello] Erro ao realizar teste com o Hello RESTFul service.");
+			logger.error("[findById] Erro ao realizar teste com o Hello RESTFul service.");
 			return null;
 		}
     }

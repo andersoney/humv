@@ -26,7 +26,7 @@ public class ProcedimentoService {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET,value="/{codigo}")
-	public Procedimento findByCodigo(@PathVariable String codigo){
+	public Procedimento findByCodigo(@PathVariable Integer codigo){
 		return  procedimentoServiceImpl.findByCodigo(codigo);
 	}
 	
@@ -41,7 +41,7 @@ public class ProcedimentoService {
     }
     
     @RequestMapping(method = RequestMethod.DELETE, value = "/{codigo}")
-    public String removerSetor(@PathVariable String codigo, @RequestParam(value="username") String  username){
+    public String removerSetor(@PathVariable Integer codigo, @RequestParam(value="username") String  username){
     	return procedimentoServiceImpl.removerProcedimento(codigo, username);
     }
 

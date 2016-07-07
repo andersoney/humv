@@ -18,20 +18,17 @@ import br.edu.ufrb.lasis.humv.entity.Procedimento;
 @Repository
 public class ProcedimentoDAO extends GenericDAO<Procedimento> implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+
 	@Override
 	public Session getSession() {
 		// TODO Auto-generated method stub
 		return this.sessionFactory.getCurrentSession();
 	}
-	
+
 	@Transactional
 	/**
 	 * Aqui é salvo o procedimento na database.
@@ -46,20 +43,29 @@ public class ProcedimentoDAO extends GenericDAO<Procedimento> implements Seriali
 	public void updateProcedimento(Procedimento procedimento){
 		super.update(procedimento);
 	}
-	
+
 	@Transactional
 	public void removeProcedimento(Procedimento procedimento){
 		super.delete(procedimento);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Procedimento> findByName(String nome){
-		Criteria criteria=getCriteria().add(Restrictions.ilike("nome", "%"+nome+"%"));
+		Criteria criteria = getCriteria().add(Restrictions.ilike("nome", "%"+nome+"%"));
 		criteria.addOrder(Order.asc("nome"));
-		return (List<Procedimento>)criteria.list();
+		return (List<Procedimento>) criteria.list();
 	}
+	
 	@Transactional
-	public Procedimento findByCode(String codigo){
+	public Procedimento findByCode(Integer codigo){
 		return (Procedimento) getCriteria().add(Restrictions.eq("codigo", codigo)).uniqueResult();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<Procedimento> findByCodigoSetor(Integer codigo){
+		return (List<Procedimento>) getCriteria().add(Restrictions.eq("codSetor", codigo)).list();
+	}
+	
+	
 }
