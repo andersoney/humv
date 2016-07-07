@@ -9,6 +9,7 @@ import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Usuario;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
+import br.edu.ufrb.lasis.humv.utils.MessagesUtils;
 import br.edu.ufrb.lasis.humv.utils.SecurityUtils;
 import com.sun.jersey.api.client.ClientResponse;
 import java.io.UnsupportedEncodingException;
@@ -248,7 +249,11 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
                     
                     ClientResponse response;
                     if(usuarioSelecionado != null){
-                        response = RESTMethods.put("/api/usuario", usuario);
+                        if (MessagesUtils.dialogoRemoverAlterar("alterar", "usuário", usuarioSelecionado.getNome())) {
+                            response = RESTMethods.put("/api/usuario", usuario);
+                        }else{
+                            return;
+                        }
                     }else{
                         response = RESTMethods.post("/api/usuario", usuario);
                     }

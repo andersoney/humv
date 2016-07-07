@@ -63,7 +63,7 @@ public class MessagesUtils {
         String msg = "A remoção do " + string + " não pode ser efetuada. Tente novamente mais tarde.";
         JOptionPane.showMessageDialog(null, msg, "Erro na atualização", JOptionPane.ERROR_MESSAGE);
     }
-    
+
     public static void valorInvalido(String string) {
         String msg = "O campo " + string + " possui valor inválido. Por favor, forneça outro valor.";
         JOptionPane.showMessageDialog(null, msg, "Erro na atualização", JOptionPane.WARNING_MESSAGE);
@@ -73,6 +73,16 @@ public class MessagesUtils {
         String msg = "Deseja cancelar " + tarefa + " do " + operacao + "?";
         int op = JOptionPane.showConfirmDialog(null, msg, "Cancelar?", JOptionPane.YES_NO_OPTION);
         return op;
+    }
+
+    public static boolean dialogoRemoverAlterar(String operacao, String tipo, String nome) {
+        String msg = "Deseja " + operacao + " o " + tipo + " " + nome + "?";
+        int op = JOptionPane.showConfirmDialog(null, msg, "Cancelar?", JOptionPane.YES_NO_OPTION);
+        if (op == JOptionPane.YES_OPTION) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

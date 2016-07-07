@@ -9,6 +9,7 @@ import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Usuario;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
+import br.edu.ufrb.lasis.humv.utils.MessagesUtils;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
@@ -32,7 +33,7 @@ public class PropriedadesBuscaUsuario extends PropriedadesBusca {
     @Override
     public void buscar() {
         try {
-            ClientResponse response = RESTMethods.get("/api/usuario/search?palavrachave="+getCampoPalavraChave().getText());
+            ClientResponse response = RESTMethods.get("/api/usuario/search?palavrachave=" + getCampoPalavraChave().getText());
             List<Usuario> lista = (List<Usuario>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Usuario>>() {
             });
             tableModel = new UsuarioTableModel(lista);
@@ -57,7 +58,7 @@ public class PropriedadesBuscaUsuario extends PropriedadesBusca {
             }).start();
         } else if (e.getSource().equals(super.getBotaoOperacao())) {
             if (super.getIndexLinhaSelecionada() < 0) {
-                JOptionPane.showMessageDialog(super.getTabelaResultado(), "Por favor, selecione algum usuário da tabela para realizar a operação.", "Usuário não selecionado", JOptionPane.ERROR_MESSAGE);             
+                JOptionPane.showMessageDialog(super.getTabelaResultado(), "Por favor, selecione algum usuário da tabela para realizar a operação.", "Usuário não selecionado", JOptionPane.ERROR_MESSAGE);
             } else {
                 Usuario usuarioSelecionado = tableModel.getUsuarioSelecionado(super.getIndexLinhaSelecionada());
                 if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_VISUALIZAR)) {
@@ -66,18 +67,20 @@ public class PropriedadesBuscaUsuario extends PropriedadesBusca {
                     CadastrarUsuarioJPanel painelCadastrarUsuario = new CadastrarUsuarioJPanel(usuarioSelecionado);
                     HUMVApp.setNovoPainelCentral(painelCadastrarUsuario);
                 } else if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_REMOVER)) {
-                    try {
-                        ClientResponse response = RESTMethods.delete("/api/usuario", usuarioSelecionado.getEmail());
-                        String resposta = response.getEntity(String.class);
-                        if (resposta.equals("OK")) {
-                            JOptionPane.showMessageDialog(super.getTabelaResultado(), "Usuário removido com sucesso", "Remoção de usuário", JOptionPane.PLAIN_MESSAGE);
-                            HUMVApp.setPainelCentralComLogo();
-                        } else {
-                            JOptionPane.showMessageDialog(super.getTabelaResultado(), resposta, "Erro", JOptionPane.ERROR_MESSAGE);
+                    if (MessagesUtils.dialogoRemoverAlterar("remover", "usuário", usuarioSelecionado.getNome())) {
+                        try {
+                            ClientResponse response = RESTMethods.delete("/api/usuario", usuarioSelecionado.getEmail());
+                            String resposta = response.getEntity(String.class);
+                            if (resposta.equals("OK")) {
+                                JOptionPane.showMessageDialog(super.getTabelaResultado(), "Usuário removido com sucesso", "Remoção de usuário", JOptionPane.PLAIN_MESSAGE);
+                                HUMVApp.setPainelCentralComLogo();
+                            } else {
+                                JOptionPane.showMessageDialog(super.getTabelaResultado(), resposta, "Erro", JOptionPane.ERROR_MESSAGE);
+                            }
+                        } catch (RESTConnectionException ex) {
+                            JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
+                            ex.printStackTrace();
                         }
-                    } catch (RESTConnectionException ex) {
-                        JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
-                        ex.printStackTrace();
                     }
                 }
             }

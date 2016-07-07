@@ -344,7 +344,11 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
             if (procedimentoSelecionado == null) {
                 response = RESTMethods.post(this.servicoProcedimento, procedimento);
             } else {
-                response = RESTMethods.put(this.servicoProcedimento, procedimento);
+                 if (MessagesUtils.dialogoRemoverAlterar("alterar", "procedimento", procedimentoSelecionado.getNome())) {
+                    response = RESTMethods.put(this.servicoProcedimento, procedimento);
+                } else {
+                    return;
+                }
             }
             String resposta = response.getEntity(String.class);
             if (!resposta.equalsIgnoreCase("ok")) {

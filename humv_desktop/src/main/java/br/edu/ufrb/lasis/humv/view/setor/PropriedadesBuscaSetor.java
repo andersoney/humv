@@ -9,6 +9,7 @@ import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Setor;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
+import br.edu.ufrb.lasis.humv.utils.MessagesUtils;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
@@ -42,14 +43,15 @@ public class PropriedadesBuscaSetor extends PropriedadesBusca {
         try {
             ClientResponse response = RESTMethods.get("/api/setor");
 
-            List<Setor> lista = (List<Setor>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Setor>>() {});
+            List<Setor> lista = (List<Setor>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Setor>>() {
+            });
             tableModel = new SetorTabelModel(lista);
             super.getTabelaResultado().setModel(tableModel);
             super.getTabelaResultado().revalidate();
         } catch (RESTConnectionException | IOException ex) {
             JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
             LOG.warning(ex.getMessage());
-             Logger.getLogger(PropriedadesBuscaSetor.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PropriedadesBuscaSetor.class.getName()).log(Level.SEVERE, null, ex);
         }
         HUMVApp.esconderMensagemCarregamento();
 
@@ -67,27 +69,31 @@ public class PropriedadesBuscaSetor extends PropriedadesBusca {
             }).start();
         } else if (ae.getSource().equals(super.getBotaoOperacao())) {
             if (super.getIndexLinhaSelecionada() < 0) {
-                JOptionPane.showMessageDialog(super.getTabelaResultado(), "Por favor, selecione algum setor da tabela para realizar a operação.", "Setor não selecionado", JOptionPane.ERROR_MESSAGE);             
+                JOptionPane.showMessageDialog(super.getTabelaResultado(), "Por favor, selecione algum setor da tabela para realizar a operação.", "Setor não selecionado", JOptionPane.ERROR_MESSAGE);
             } else {
                 Setor setorSelecionado = tableModel.getSetorSelecionado(super.getIndexLinhaSelecionada());
                 if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_VISUALIZAR)) {
                     //Ainda falta implementar
                 } else if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_ALTERAR)) {
-                    CadastrarSetorJPanel painel = new CadastrarSetorJPanel(setorSelecionado);
-                    HUMVApp.setNovoPainelCentral(painel);
+                    if (MessagesUtils.dialogoRemoverAlterar("alterar", "setor", setorSelecionado.getNome())) {
+                        CadastrarSetorJPanel painel = new CadastrarSetorJPanel(setorSelecionado);
+                        HUMVApp.setNovoPainelCentral(painel);
+                    }
                 } else if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_REMOVER)) {
-                    try {
-                        ClientResponse response = RESTMethods.delete("/api/setor", ""+setorSelecionado.getCodigo());
-                        String resposta = response.getEntity(String.class);
-                        if (resposta.equals("OK")) {
-                            JOptionPane.showMessageDialog(super.getTabelaResultado(), "Setor removido com sucesso", "Remoção de setor", JOptionPane.PLAIN_MESSAGE);
-                            HUMVApp.setPainelCentralComLogo();
-                        } else {
-                            JOptionPane.showMessageDialog(super.getTabelaResultado(), resposta, "Erro", JOptionPane.ERROR_MESSAGE);
+                    if (MessagesUtils.dialogoRemoverAlterar("remover", "setor", setorSelecionado.getNome())) {
+                        try {
+                            ClientResponse response = RESTMethods.delete("/api/setor", "" + setorSelecionado.getCodigo());
+                            String resposta = response.getEntity(String.class);
+                            if (resposta.equals("OK")) {
+                                JOptionPane.showMessageDialog(super.getTabelaResultado(), "Setor removido com sucesso", "Remoção de setor", JOptionPane.PLAIN_MESSAGE);
+                                HUMVApp.setPainelCentralComLogo();
+                            } else {
+                                JOptionPane.showMessageDialog(super.getTabelaResultado(), resposta, "Erro", JOptionPane.ERROR_MESSAGE);
+                            }
+                        } catch (RESTConnectionException ex) {
+                            JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
+                            ex.printStackTrace();
                         }
-                    } catch (RESTConnectionException ex) {
-                        JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
-                        ex.printStackTrace();
                     }
                 }
             }
@@ -95,4 +101,3 @@ public class PropriedadesBuscaSetor extends PropriedadesBusca {
     }
 
 }
-    

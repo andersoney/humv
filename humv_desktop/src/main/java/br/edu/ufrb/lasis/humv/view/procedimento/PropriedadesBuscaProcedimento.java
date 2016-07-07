@@ -13,6 +13,7 @@ import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Procedimento;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
+import br.edu.ufrb.lasis.humv.utils.MessagesUtils;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
@@ -23,9 +24,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import org.codehaus.jackson.type.TypeReference;
 
-public class PropriedadesBuscaProcedimento extends PropriedadesBusca{
+public class PropriedadesBuscaProcedimento extends PropriedadesBusca {
 
-    
     private final ProcedimentoTableModel procedimentoTableModel;
     private static final Logger LOG = Logger.getLogger(PropriedadesBuscaProcedimento.class.getName());
     ProcedimentoTableModel tableModel;
@@ -42,7 +42,8 @@ public class PropriedadesBuscaProcedimento extends PropriedadesBusca{
         try {
             ClientResponse response = RESTMethods.get("/api/procedimento");
 
-            List<Procedimento> lista = (List<Procedimento>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Procedimento>>() {});
+            List<Procedimento> lista = (List<Procedimento>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Procedimento>>() {
+            });
             tableModel = new ProcedimentoTableModel(lista);
             super.getTabelaResultado().setModel(tableModel);
             super.getTabelaResultado().revalidate();
@@ -69,7 +70,7 @@ public class PropriedadesBuscaProcedimento extends PropriedadesBusca{
             }).start();
         } else if (e.getSource().equals(super.getBotaoOperacao())) {
             if (super.getIndexLinhaSelecionada() < 0) {
-                JOptionPane.showMessageDialog(super.getTabelaResultado(), "Por favor, selecione algum procedimento da tabela para realizar a operação.", "Procedimento não selecionado", JOptionPane.ERROR_MESSAGE);             
+                JOptionPane.showMessageDialog(super.getTabelaResultado(), "Por favor, selecione algum procedimento da tabela para realizar a operação.", "Procedimento não selecionado", JOptionPane.ERROR_MESSAGE);
             } else {
                 Procedimento procedimentoSelecionado = tableModel.getProcedimentoSelecionado(super.getIndexLinhaSelecionada());
                 if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_VISUALIZAR)) {
@@ -78,18 +79,20 @@ public class PropriedadesBuscaProcedimento extends PropriedadesBusca{
                     CadastrarProcedimentoJPanel painelAlteracao = new CadastrarProcedimentoJPanel(procedimentoSelecionado);
                     HUMVApp.setNovoPainelCentral(painelAlteracao);
                 } else if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_REMOVER)) {
-                    try {
-                        ClientResponse response = RESTMethods.delete("/api/procedimento", ""+procedimentoSelecionado.getCodigo());
-                        String resposta = response.getEntity(String.class);
-                        if (resposta.equals("OK")) {
-                            JOptionPane.showMessageDialog(super.getTabelaResultado(), "Procedimento removido com sucesso", "Remoção de procedimento", JOptionPane.PLAIN_MESSAGE);
-                            HUMVApp.setPainelCentralComLogo();
-                        } else {
-                            JOptionPane.showMessageDialog(super.getTabelaResultado(), resposta, "Erro", JOptionPane.ERROR_MESSAGE);
+                    if (MessagesUtils.dialogoRemoverAlterar("remover", "procedimento", procedimentoSelecionado.getNome())) {
+                        try {
+                            ClientResponse response = RESTMethods.delete("/api/procedimento", "" + procedimentoSelecionado.getCodigo());
+                            String resposta = response.getEntity(String.class);
+                            if (resposta.equals("OK")) {
+                                JOptionPane.showMessageDialog(super.getTabelaResultado(), "Procedimento removido com sucesso", "Remoção de procedimento", JOptionPane.PLAIN_MESSAGE);
+                                HUMVApp.setPainelCentralComLogo();
+                            } else {
+                                JOptionPane.showMessageDialog(super.getTabelaResultado(), resposta, "Erro", JOptionPane.ERROR_MESSAGE);
+                            }
+                        } catch (RESTConnectionException ex) {
+                            JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
+                            ex.printStackTrace();
                         }
-                    } catch (RESTConnectionException ex) {
-                        JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
-                        ex.printStackTrace();
                     }
                 }
             }

@@ -50,8 +50,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
 
     public CadastrarAnimalJPanel(Animal animalSelecionado) {
         this.animalSelecionado = animalSelecionado;
-        
-        
+
         initComponents();
         customInitComponents();
     }
@@ -64,7 +63,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
             jTextFieldEspecie.setText(animalSelecionado.getEspecie());
             jTextFieldIdade.setText("" + animalSelecionado.getIdade());
             jTextFieldRaca.setText(animalSelecionado.getRaca());
-            
+
             if (ValidationsUtils.isCPF(animalSelecionado.getIdDono())) {
                 jLabelCpfDono.setText("CPF: " + animalSelecionado.getIdDono());
                 ClientResponse response;
@@ -78,7 +77,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
                 } catch (RESTConnectionException ex) {
                     Logger.getLogger(CadastrarAnimalJPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }else if (ValidationsUtils.isCNPJ(animalSelecionado.getIdDono())) {
+            } else if (ValidationsUtils.isCNPJ(animalSelecionado.getIdDono())) {
                 jLabelCpfDono.setText("CNPJ: " + animalSelecionado.getIdDono());
                 ClientResponse response;
                 try {
@@ -113,8 +112,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
             }
             rghumv = animalSelecionado.getRghumv();
             jLabelRghumv.setText("RGHUMV: " + rghumv);
-        }
-        else{
+        } else {
             jRadioButtonBuscaCpf.setSelected(true);
             jRadioButtonMacho.setSelected(true);
             jRadioButtonPequenoPorte.setSelected(true);
@@ -139,7 +137,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
         this.parent = parent;
         initComponents();
         this.jLabelTitulo.setText("CADASTRO DE ANIMAL");
-        this.jRadioButtonPequenoPorte.setSelected(true); 
+        this.jRadioButtonPequenoPorte.setSelected(true);
         if (Pequeno) {
             this.jRadioButtonPequenoPorte.setSelected(true);
             jRadioButtonPequenoPorteActionPerformed(null);
@@ -535,16 +533,16 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
                 .addContainerGap(33, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-    
-    private String geraRghumv(){
-        String str="";
+
+    private String geraRghumv() {
+        String str = "";
         try {
             ClientResponse response = RESTMethods.get("/api/animal");
 
             List<Animal> lista = (List<Animal>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Animal>>() {
             });
             int tam = lista.size();
-            str =""+ (lista.size()+1);
+            str = "" + (lista.size() + 1);
         } catch (RESTConnectionException | IOException ex) {
             MessagesUtils.erroConexao();
             LOG.warning(ex.getMessage());
@@ -552,7 +550,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
         }
         return str;
     }
-    
+
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
 
         if (idDono == null) {
@@ -561,7 +559,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
         }
         char sexo;
         float peso;
-        int idade=-1;
+        int idade = -1;
         boolean pequenoPort;
         Date data;
         if (this.jTextFieldNomeAnimal.getText().isEmpty()) {
@@ -579,9 +577,9 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
             return;
         }
         String raca = this.jTextFieldRaca.getText();
-        if(this.jTextFieldIdade.getText().isEmpty()){
+        if (this.jTextFieldIdade.getText().isEmpty()) {
             MessagesUtils.validaCampoVazio("idade");
-        }else{
+        } else {
             idade = Integer.parseInt(this.jTextFieldIdade.getText());
         }
         if (this.jRadioButtonMacho.isSelected()) {
@@ -589,9 +587,9 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
         } else {
             sexo = 'F';
         }
-        
+
         String pelagem;
-        if (this.jRadioButtonPequenoPorte.isSelected () ) {
+        if (this.jRadioButtonPequenoPorte.isSelected()) {
             if (this.jTextFieldPelagem.getText().isEmpty()) {
                 MessagesUtils.validaCampoVazio("pelagem");
                 return;
@@ -599,16 +597,14 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
                 pelagem = this.jTextFieldPelagem.getText();
             }
             porte = "peqeno";
-        }
-        else {
+        } else {
             porte = "grande";
             pelagem = "não se aplica.";
         }
         String tipoDeAtendimento = null;
-        if (this.jComboBoxTipoAtendimento.getSelectedIndex () == 0) {
+        if (this.jComboBoxTipoAtendimento.getSelectedIndex() == 0) {
             tipoDeAtendimento = "Agendado";
-        }
-        else if (this.jComboBoxTipoAtendimento.getSelectedIndex () == 1) {
+        } else if (this.jComboBoxTipoAtendimento.getSelectedIndex() == 1) {
             tipoDeAtendimento = "Emergência";
         }
         data = jDateChooserData.getDate();
@@ -617,46 +613,48 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
         animal.setIdDono(idDono);
         animal.setDataCadastro(data);
         animal.setEspecie(especie);
-        animal.setIdade (idade);
-        animal.setNome (nomeAnimal);
-        animal.setPeso (0);
-        animal.setRaca (raca);
-        animal.setRghumv (rghumv);
-        animal.setSexo (sexo);
-        animal.setPorte (porte);
-        animal.setPelagem (pelagem);
+        animal.setIdade(idade);
+        animal.setNome(nomeAnimal);
+        animal.setPeso(0);
+        animal.setRaca(raca);
+        animal.setRghumv(rghumv);
+        animal.setSexo(sexo);
+        animal.setPorte(porte);
+        animal.setPelagem(pelagem);
         try {
-            if(animalSelecionado==null){
+            if (animalSelecionado == null) {
                 response = RESTMethods.post(this.servicoAnimal, animal);
-            }else{
+            } else if (MessagesUtils.dialogoRemoverAlterar("alterar", "animal", animalSelecionado.getNome())) {
                 response = RESTMethods.put(this.servicoAnimal, animal);
+            } else {
+                return;
             }
             String resposta = response.getEntity(String.class);
             if (!resposta.equalsIgnoreCase("ok")) {
-                if(animalSelecionado==null)
+                if (animalSelecionado == null) {
                     MessagesUtils.erroCadastro("animal");
-                else
+                } else {
                     MessagesUtils.erroAtualizacao("animal");
-            }else{
-                if(animalSelecionado==null)
+                }
+            } else {
+                if (animalSelecionado == null) {
                     MessagesUtils.sucessoCadastro("animal");
-                else
+                } else {
                     MessagesUtils.sucessoAtualizacao("animal");
+                }
                 HUMVApp.exibirMensagemCarregamento();
                 HUMVApp.setPainelCentralComLogo();
                 HUMVApp.esconderMensagemCarregamento();
             }
-        }
-        catch (RESTConnectionException ex) {
+        } catch (RESTConnectionException ex) {
             Logger.getLogger(CadastrarAnimalJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
-    
-    
-    
+
+
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         int op = MessagesUtils.dialogoCancelar("o cadastro", "animal");
-        if(op == JOptionPane.OK_OPTION){
+        if (op == JOptionPane.OK_OPTION) {
             this.setVisible(false);
             System.gc();
             HUMVApp.exibirMensagemCarregamento();
@@ -666,7 +664,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonPesquisarDonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarDonoActionPerformed
-        if(jRadioButtonBuscaCpf.isSelected()){
+        if (jRadioButtonBuscaCpf.isSelected()) {
             if (ValidationsUtils.isCPF(MaskUtils.removeMascara(this.jTextFieldBuscaCpf.getText()))) {
                 ClientResponse response;
                 try {
@@ -679,28 +677,26 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
                 } catch (RESTConnectionException ex) {
                     Logger.getLogger(CadastrarAnimalJPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }else{
+            } else {
                 this.setIdNull();
                 MessagesUtils.validaCampoInvalido("CPF");
             }
-        }else{
-            if (ValidationsUtils.isCNPJ(MaskUtils.removeMascara(this.jTextFieldBuscaCnpj.getText()))) {
-                ClientResponse response;
-                try {
-                    this.setIdNull();
-                    response = RESTMethods.get(servicoDono + "/" + MaskUtils.removeMascara(this.jTextFieldBuscaCpf.getText()) + "");
-                    Dono at = response.getEntity(Dono.class);
-                    this.idDono = at.getId();
-                    this.jLabelCpfDono.setText("CNPJ: " + idDono);
-                    this.jLabelNomeDono.setText("Nome: " + at.getNome());
-                } catch (RESTConnectionException ex) {
-                    Logger.getLogger(CadastrarAnimalJPanel.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }else{
+        } else if (ValidationsUtils.isCNPJ(MaskUtils.removeMascara(this.jTextFieldBuscaCnpj.getText()))) {
+            ClientResponse response;
+            try {
                 this.setIdNull();
-                MessagesUtils.validaCampoInvalido("CNPJ");
+                response = RESTMethods.get(servicoDono + "/" + MaskUtils.removeMascara(this.jTextFieldBuscaCpf.getText()) + "");
+                Dono at = response.getEntity(Dono.class);
+                this.idDono = at.getId();
+                this.jLabelCpfDono.setText("CNPJ: " + idDono);
+                this.jLabelNomeDono.setText("Nome: " + at.getNome());
+            } catch (RESTConnectionException ex) {
+                Logger.getLogger(CadastrarAnimalJPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }        
+        } else {
+            this.setIdNull();
+            MessagesUtils.validaCampoInvalido("CNPJ");
+        }
     }//GEN-LAST:event_jButtonPesquisarDonoActionPerformed
 
     private void jTextFieldBuscaCpfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBuscaCpfKeyPressed
@@ -717,11 +713,11 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonCadastrarNovoDonoMouseClicked
 
     private void jButtonCadastrarNovoDonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarNovoDonoActionPerformed
-      
+
     }//GEN-LAST:event_jButtonCadastrarNovoDonoActionPerformed
 
     private void jButtonConfirmarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonConfirmarMouseClicked
-      
+
     }//GEN-LAST:event_jButtonConfirmarMouseClicked
 
     private void jRadioButtonPequenoPorteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPequenoPorteActionPerformed
@@ -737,7 +733,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jRadioButtonGrandePorteActionPerformed
 
     private void jRadioButtonFemeaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonFemeaActionPerformed
-            this.jRadioButtonMacho.setSelected(false);
+        this.jRadioButtonMacho.setSelected(false);
     }//GEN-LAST:event_jRadioButtonFemeaActionPerformed
 
     private void jRadioButtonMachoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMachoActionPerformed
