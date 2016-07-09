@@ -9,7 +9,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import br.edu.ufrb.lasis.humv.dao.AnimalDAO;
 import br.edu.ufrb.lasis.humv.entity.Animal;
-import br.edu.ufrb.lasis.humv.entity.Dono;
 
 
 /** Implementação do serviço para cadastro,atualização e remoção de animais.

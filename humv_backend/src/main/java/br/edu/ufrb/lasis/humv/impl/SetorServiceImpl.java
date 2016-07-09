@@ -7,13 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-
 import br.edu.ufrb.lasis.humv.dao.ProcedimentoDAO;
 import br.edu.ufrb.lasis.humv.dao.SetorDAO;
 import br.edu.ufrb.lasis.humv.entity.Procedimento;
 import br.edu.ufrb.lasis.humv.entity.Setor;
-import br.edu.ufrb.lasis.humv.entity.Usuario;
-
 
 /** 
  *  

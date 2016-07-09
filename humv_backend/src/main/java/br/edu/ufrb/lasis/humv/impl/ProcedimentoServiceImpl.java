@@ -1,6 +1,5 @@
 package br.edu.ufrb.lasis.humv.impl;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -10,7 +9,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import br.edu.ufrb.lasis.humv.dao.ProcedimentoDAO;
 import br.edu.ufrb.lasis.humv.entity.Procedimento;
-import br.edu.ufrb.lasis.humv.entity.Setor;
 
 @Service
 public class ProcedimentoServiceImpl {
