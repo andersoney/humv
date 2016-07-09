@@ -17,7 +17,7 @@ import br.edu.ufrb.lasis.humv.entity.Projeto;
 import br.edu.ufrb.lasis.humv.impl.ProjetoServiceImpl;
 
 @RestController
-@RequestMapping(value = "/api/setor")
+@RequestMapping(value = "/api/projeto")
 @Secured("ROLE_ADMIN")
 public class ProjetoService {
 	
