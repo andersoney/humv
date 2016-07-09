@@ -10,9 +10,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-
 import br.edu.ufrb.lasis.humv.entity.Setor;
+import br.edu.ufrb.lasis.humv.utils.NumberUtils;
 
 /**
  * The Class representing the data access for Sector objects.
@@ -75,6 +74,29 @@ public class SetorDAO  extends GenericDAO<Setor> implements Serializable {
 		return (Setor) getCriteria().add(Restrictions.eq("codigo", codigo)).uniqueResult();
 	}
 
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<Setor> search(String palavrachave) {
+		Criteria criteria = getCriteria();
+
+		Integer conversionResult = NumberUtils.convertStringToInteger(palavrachave);
+		if (conversionResult != null) {
+			criteria.add(
+					Restrictions.or(
+							Restrictions.eq("codigo", conversionResult), 
+							Restrictions.ilike("nome", "%" + palavrachave + "%")
+					)
+			);
+		} else {
+			criteria.add(
+					Restrictions.or(
+							Restrictions.ilike("nome", "%" + palavrachave + "%")
+					)
+			);
+		}
+		
+		return (List<Setor>) criteria.list();
+	}
 
 	@SuppressWarnings("unchecked")
 	public List<Setor> findByNome(String nome) {

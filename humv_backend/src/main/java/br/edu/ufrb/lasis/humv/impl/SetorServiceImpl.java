@@ -12,6 +12,7 @@ import br.edu.ufrb.lasis.humv.dao.ProcedimentoDAO;
 import br.edu.ufrb.lasis.humv.dao.SetorDAO;
 import br.edu.ufrb.lasis.humv.entity.Procedimento;
 import br.edu.ufrb.lasis.humv.entity.Setor;
+import br.edu.ufrb.lasis.humv.entity.Usuario;
 
 
 /** 
@@ -46,6 +47,10 @@ public class SetorServiceImpl {
 
 	public Setor findByCodigo(Integer codigo){
 		return setorDAO.findByCodigo(codigo);
+	}
+	
+	public List<Setor> search(String palavrachave){
+		return setorDAO.search(palavrachave);
 	}
 
 	public String cadastrarSetor(Setor setor , String usuarioResponsavel ){

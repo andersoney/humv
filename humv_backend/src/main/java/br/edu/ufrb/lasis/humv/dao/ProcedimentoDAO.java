@@ -2,9 +2,7 @@ package br.edu.ufrb.lasis.humv.dao;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.transaction.Transactional;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,8 +10,8 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import br.edu.ufrb.lasis.humv.entity.Procedimento;
+import br.edu.ufrb.lasis.humv.utils.NumberUtils;
 
 @Repository
 public class ProcedimentoDAO extends GenericDAO<Procedimento> implements Serializable{
@@ -25,7 +23,6 @@ public class ProcedimentoDAO extends GenericDAO<Procedimento> implements Seriali
 
 	@Override
 	public Session getSession() {
-		// TODO Auto-generated method stub
 		return this.sessionFactory.getCurrentSession();
 	}
 
@@ -59,6 +56,30 @@ public class ProcedimentoDAO extends GenericDAO<Procedimento> implements Seriali
 	@Transactional
 	public Procedimento findByCode(Integer codigo){
 		return (Procedimento) getCriteria().add(Restrictions.eq("codigo", codigo)).uniqueResult();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<Procedimento> search(String palavrachave) {
+		Criteria criteria = getCriteria();
+
+		Integer conversionResult = NumberUtils.convertStringToInteger(palavrachave);
+		if (conversionResult != null) {
+			criteria.add(
+					Restrictions.or(
+							Restrictions.eq("codigo", conversionResult), 
+							Restrictions.ilike("nome", "%" + palavrachave + "%")
+					)
+			);
+		} else {
+			criteria.add(
+					Restrictions.or(
+							Restrictions.ilike("nome", "%" + palavrachave + "%")
+					)
+			);
+		}
+		
+		return (List<Procedimento>) criteria.list();
 	}
 	
 	@SuppressWarnings("unchecked")

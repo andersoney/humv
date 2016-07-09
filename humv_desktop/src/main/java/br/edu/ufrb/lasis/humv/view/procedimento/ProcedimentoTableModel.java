@@ -3,7 +3,6 @@ package br.edu.ufrb.lasis.humv.view.procedimento;
 import br.edu.ufrb.lasis.humv.entity.Procedimento;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -14,7 +13,6 @@ public class ProcedimentoTableModel extends AbstractTableModel {
 
     String[] titulos;
     List<Procedimento> procedimentos;
-    private static final Logger LOG = Logger.getLogger(ProcedimentoTableModel.class.getName());
 
     public ProcedimentoTableModel(List<Procedimento> procedimentos) {
         this.procedimentos = procedimentos;

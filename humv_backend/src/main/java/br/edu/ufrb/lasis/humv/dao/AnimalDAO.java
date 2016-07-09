@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import br.edu.ufrb.lasis.humv.entity.Animal;
 import br.edu.ufrb.lasis.humv.entity.Dono;
+import br.edu.ufrb.lasis.humv.utils.NumberUtils;
 
 /**
  * The Class representing the data access for animal objects.
@@ -66,7 +67,7 @@ public class AnimalDAO  extends GenericDAO<Animal> implements Serializable {
 	}
 	
 	@Transactional
-	public Animal findByRghumv(String rghumv) {
+	public Animal findByRghumv(Integer rghumv) {
 		return (Animal) getCriteria().add(Restrictions.eq("rghumv", rghumv)).uniqueResult();
 	}
 
@@ -77,6 +78,30 @@ public class AnimalDAO  extends GenericDAO<Animal> implements Serializable {
 		Criteria criteria = getCriteria().add(Restrictions.ilike("idDono", "%" + id + "%"));
 		criteria.addOrder(Order.asc("nome"));
 		return (List<Animal>) criteria.list();	
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<Animal> search(String palavrachave) {
+		Criteria criteria = getCriteria();
+
+		Integer conversionResult = NumberUtils.convertStringToInteger(palavrachave);
+		if (conversionResult != null) {
+			criteria.add(
+					Restrictions.or(
+							Restrictions.eq("rghumv", conversionResult), 
+							Restrictions.ilike("nome", "%" + palavrachave + "%")
+					)
+			);
+		} else {
+			criteria.add(
+					Restrictions.or(
+							Restrictions.ilike("nome", "%" + palavrachave + "%")
+					)
+			);
+		}
+		
+		return (List<Animal>) criteria.list();
 	}
 
 	@Transactional

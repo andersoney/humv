@@ -9,6 +9,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import br.edu.ufrb.lasis.humv.dao.DonoDAO;
 import br.edu.ufrb.lasis.humv.entity.Dono;
+import br.edu.ufrb.lasis.humv.entity.Procedimento;
 
 /** Implementação do serviço para cadastro,atualização e remoção de donos de animais.
  *  
@@ -23,63 +24,67 @@ import br.edu.ufrb.lasis.humv.entity.Dono;
 public class DonoServiceImpl {
 	private final static Logger logger = LoggerFactory.getLogger(DonoServiceImpl.class);
 
-		@Autowired
-		private DonoDAO donoDAO;
+	@Autowired
+	private DonoDAO donoDAO;
 
-		public List<Dono> getAll(){
-			try {
-				return donoDAO.findAll();
-			} catch (Exception e) {
-				e.printStackTrace();
-				return new ArrayList<Dono>();
-			}
+	public List<Dono> getAll(){
+		try {
+			return donoDAO.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ArrayList<Dono>();
 		}
+	}
 
-		public Dono findById(String id){
-			return donoDAO.findByKey(id);
-		}
+	public Dono findById(String id){
+		return donoDAO.findByKey(id);
+	}
 
-		public String cadastrarDono(Dono dono, String usuarioResponsavel){
-			try{
-				donoDAO.saveOwner(dono);
-				logger.info("[cadastrarDono - " + usuarioResponsavel + "] Dono salvo com sucesso: " + dono.getNome() + ".");
-				return "OK";
-			}catch(DataIntegrityViolationException ex){
-				if(ex.getMessage().toLowerCase().contains("constraint")){
-					//logger.error("[signup] CPF ja cadastrado: " + dono.getId() + ".");
-					return "Dono com CPF " + dono.getId() + " já cadastrado no sistema. Por favor, informe um CPF diferente.";
-				}else{
-					return "Erro ao conectar-se com o banco de dados.";
-				}
-			}
-		}
+	public List<Dono> search(String palavrachave){
+		return donoDAO.search(palavrachave);
+	}
 
-		public String atualizarDono(Dono dono, String usuarioResponsavel){
-			if(donoDAO.findByKey(dono.getId())==null){
-				//logger.error("[signup] Nenhum dono com o id " + dono.getId() + "foi encontrado no sistema.");
-				return "Nenhum dono com o CPF " + dono.getId() + " encontrado no sistema. Por favor, informe um CPF diferente.";
-			}
-			donoDAO.updateOwner(dono);
-			logger.info("[atualizarDono - " + usuarioResponsavel + "] Dono " + dono.getId() + " atualizado com sucesso.");
+	public String cadastrarDono(Dono dono, String usuarioResponsavel){
+		try{
+			donoDAO.saveOwner(dono);
+			logger.info("[cadastrarDono - " + usuarioResponsavel + "] Dono salvo com sucesso: " + dono.getNome() + ".");
 			return "OK";
-		}
-		
-		public String removerDono(String  cpf, String usuarioResponsavel){
-			if(donoDAO.findByKey(cpf)==null){
-				//logger.error("[signup] Nenhum dono com o CPF " + cpf + "foi encontrado no sistema.");
-				return "Nenhum dono com o CPF " + cpf + " encontrado no sistema. Por favor, informe um CPF diferente.";
+		}catch(DataIntegrityViolationException ex){
+			if(ex.getMessage().toLowerCase().contains("constraint")){
+				//logger.error("[signup] CPF ja cadastrado: " + dono.getId() + ".");
+				return "Dono com CPF " + dono.getId() + " já cadastrado no sistema. Por favor, informe um CPF diferente.";
+			}else{
+				return "Erro ao conectar-se com o banco de dados.";
 			}
-			Dono dono = donoDAO.findByKey(cpf);
-			donoDAO.removeOwner(dono);
-			logger.info("[removerDono - " + usuarioResponsavel + "] Dono " + dono.getId() + " removido com sucesso.");
-	    	return "OK";
-	    }
-
-		public DonoDAO getProprietarioDAO() {
-			return donoDAO;
 		}
+	}
 
-		public void setDonoDAO(DonoDAO donoDAO) {
-			this.donoDAO = donoDAO;
+	public String atualizarDono(Dono dono, String usuarioResponsavel){
+		if(donoDAO.findByKey(dono.getId())==null){
+			//logger.error("[signup] Nenhum dono com o id " + dono.getId() + "foi encontrado no sistema.");
+			return "Nenhum dono com o CPF " + dono.getId() + " encontrado no sistema. Por favor, informe um CPF diferente.";
 		}
+		donoDAO.updateOwner(dono);
+		logger.info("[atualizarDono - " + usuarioResponsavel + "] Dono " + dono.getId() + " atualizado com sucesso.");
+		return "OK";
+	}
+
+	public String removerDono(String  cpf, String usuarioResponsavel){
+		if(donoDAO.findByKey(cpf)==null){
+			//logger.error("[signup] Nenhum dono com o CPF " + cpf + "foi encontrado no sistema.");
+			return "Nenhum dono com o CPF " + cpf + " encontrado no sistema. Por favor, informe um CPF diferente.";
+		}
+		Dono dono = donoDAO.findByKey(cpf);
+		donoDAO.removeOwner(dono);
+		logger.info("[removerDono - " + usuarioResponsavel + "] Dono " + dono.getId() + " removido com sucesso.");
+		return "OK";
+	}
+
+	public DonoDAO getProprietarioDAO() {
+		return donoDAO;
+	}
+
+	public void setDonoDAO(DonoDAO donoDAO) {
+		this.donoDAO = donoDAO;
+	}
 }

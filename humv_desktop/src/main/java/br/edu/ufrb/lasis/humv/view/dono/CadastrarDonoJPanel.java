@@ -7,16 +7,13 @@ package br.edu.ufrb.lasis.humv.view.dono;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.utils.ValidationsUtils;
-import br.edu.ufrb.lasis.humv.utils.MessagesUtils;
+import br.edu.ufrb.lasis.humv.utils.MessageUtils;
 import br.edu.ufrb.lasis.humv.utils.MaskUtils;
 import br.edu.ufrb.lasis.humv.entity.Dono;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import com.sun.jersey.api.client.ClientResponse;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
 
 /**
  *
@@ -24,9 +21,11 @@ import javax.swing.JOptionPane;
  */
 public class CadastrarDonoJPanel extends javax.swing.JPanel {
 
-    final String servicoDono = "/api/dono";
+    private final String servicoDono = "/api/dono";
     private String id;
     private String tipoId;
+    private CadastrarDonoJDialog cadastroDonoJDialog = null;
+
     /**
      * Creates new form CadastrarDono
      */
@@ -34,8 +33,20 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
         initComponents();
         this.jRadioButtonFazenda.setSelected(false);
         this.jRadioButtonCidade.setSelected(true);
-        this.jLabelCidadeFazenda.setText("Cidade:");
-            
+        this.jRadioButtonCpf.setSelected(true);
+        this.jRadioButtonCnpj.setSelected(false);
+        this.jTextFieldCpf.setEnabled(true);
+        this.jTextFieldCpf.setFocusable(true);
+        this.jTextFieldCnpj.setText("");
+        this.jTextFieldCnpj.setEnabled(false);
+        this.tipoId = "CPF";
+    }
+
+    public CadastrarDonoJPanel(CadastrarDonoJDialog cadastroDonoJDialog) {
+        initComponents();
+        this.cadastroDonoJDialog = cadastroDonoJDialog;
+        this.jRadioButtonFazenda.setSelected(false);
+        this.jRadioButtonCidade.setSelected(true);
         this.jRadioButtonCpf.setSelected(true);
         this.jRadioButtonCnpj.setSelected(false);
         this.jTextFieldCpf.setEnabled(true);
@@ -74,7 +85,7 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
         jRadioButtonFazenda = new javax.swing.JRadioButton();
         jComboBoxEstado = new javax.swing.JComboBox<>();
         jTextFieldCidadeFazenda = new javax.swing.JTextField();
-        jLabelCidadeFazenda = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jButtonCancelar = new javax.swing.JButton();
         jButtonConfirmar = new javax.swing.JButton();
         jLabelTitulo = new javax.swing.JLabel();
@@ -167,9 +178,9 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
             }
         });
 
-        jComboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado", "Acre", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba ", "Paraná ", "Pernambuco", "Piauí ", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins", " " }));
+        jComboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bahia", "Acre", "Amapá", "Amazonas", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins", "" }));
 
-        jLabelCidadeFazenda.setText("Cidade:");
+        jLabel1.setText("Estado:");
 
         javax.swing.GroupLayout jPanelInformacoesEnderecoLayout = new javax.swing.GroupLayout(jPanelInformacoesEndereco);
         jPanelInformacoesEndereco.setLayout(jPanelInformacoesEnderecoLayout);
@@ -178,47 +189,52 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
             .addGroup(jPanelInformacoesEnderecoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelInformacoesEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldCidadeFazenda)
-                    .addComponent(jLabelEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextFieldEndereco)
+                    .addGroup(jPanelInformacoesEnderecoLayout.createSequentialGroup()
+                        .addComponent(jLabelEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+                        .addGap(206, 206, 206))
                     .addGroup(jPanelInformacoesEnderecoLayout.createSequentialGroup()
                         .addGroup(jPanelInformacoesEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelCep)
+                            .addComponent(jTextFieldCep, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(71, 71, 71)
+                        .addGroup(jPanelInformacoesEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldCidadeFazenda)
                             .addGroup(jPanelInformacoesEnderecoLayout.createSequentialGroup()
-                                .addComponent(jRadioButtonFazenda)
-                                .addGap(18, 18, 18)
-                                .addComponent(jRadioButtonCidade))
-                            .addComponent(jTextFieldEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelCidadeFazenda, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 1, Short.MAX_VALUE)))
-                .addGap(32, 32, 32)
-                .addGroup(jPanelInformacoesEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelInformacoesEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jComboBoxEstado, javax.swing.GroupLayout.Alignment.TRAILING, 0, 200, Short.MAX_VALUE)
-                        .addComponent(jTextFieldCep, javax.swing.GroupLayout.Alignment.TRAILING))
-                    .addComponent(jLabelCep))
+                                .addGroup(jPanelInformacoesEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addGroup(jPanelInformacoesEnderecoLayout.createSequentialGroup()
+                                        .addComponent(jRadioButtonCidade)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jRadioButtonFazenda))
+                                    .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanelInformacoesEnderecoLayout.setVerticalGroup(
             jPanelInformacoesEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelInformacoesEnderecoLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabelEndereco)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelInformacoesEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextFieldCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanelInformacoesEnderecoLayout.createSequentialGroup()
                         .addGroup(jPanelInformacoesEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelEndereco)
-                            .addComponent(jLabelCep))
+                            .addComponent(jLabelCep)
+                            .addComponent(jRadioButtonCidade))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelInformacoesEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButtonCidade)
-                    .addComponent(jRadioButtonFazenda)
-                    .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelCidadeFazenda)
+                        .addComponent(jTextFieldCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelInformacoesEnderecoLayout.createSequentialGroup()
+                        .addComponent(jRadioButtonFazenda)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldCidadeFazenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldCidadeFazenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         jButtonCancelar.setText("Cancelar");
@@ -248,9 +264,9 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
                 .addGroup(jPanelDadosDonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelDadosDonoLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButtonCancelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanelInformacoesEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanelDadosPessoais, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -259,17 +275,17 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
         jPanelDadosDonoLayout.setVerticalGroup(
             jPanelDadosDonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDadosDonoLayout.createSequentialGroup()
-                .addContainerGap(27, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabelTitulo)
                 .addGap(29, 29, 29)
                 .addComponent(jPanelDadosPessoais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanelInformacoesEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDadosDonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonConfirmar)
                     .addComponent(jButtonCancelar))
-                .addGap(38, 38, 38))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -280,7 +296,7 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelDadosDono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelDadosDono, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -289,20 +305,17 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jPanelDadosPessoaisKeyPressed
 
     private void jRadioButtonCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCidadeActionPerformed
-        // TODO add your handling code here:
         this.jRadioButtonFazenda.setSelected(false);
-        this.jLabelCidadeFazenda.setText("Cidade:");
     }//GEN-LAST:event_jRadioButtonCidadeActionPerformed
 
     private void jRadioButtonFazendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonFazendaActionPerformed
         // TODO add your handling code here:
         this.jRadioButtonCidade.setSelected(false);
-        this.jLabelCidadeFazenda.setText("Fazenda:");
     }//GEN-LAST:event_jRadioButtonFazendaActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         // TODO add your handling code here:
-        int i = MessagesUtils.dialogoCancelar("o cadastro", "dono");
+        int i = MessageUtils.dialogoCancelar("o cadastro", "dono");
         if (i == JOptionPane.OK_OPTION) {
             HUMVApp.exibirMensagemCarregamento();
             HUMVApp.setPainelCentralComLogo();
@@ -311,59 +324,61 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
-        // TODO add your handling code here:
-        if (this.nomeJTF.getText().isEmpty()) {
-            MessagesUtils.validaCampoVazio("nome");
+
+        String nome = this.nomeJTF.getText();
+        if (nome.isEmpty()) {
+            MessageUtils.validaCampoVazio("nome");
             return;
         }
-        String nome = this.nomeJTF.getText();
-        if(jRadioButtonCpf.isSelected()){
+
+        if (jRadioButtonCpf.isSelected()) {
             if (!ValidationsUtils.isCPF(MaskUtils.removeMascara(this.jTextFieldCpf.getText()))) {
-                MessagesUtils.validaCampoInvalido("CPF");
+                MessageUtils.validaCampoInvalido("CPF");
                 return;
             }
             id = MaskUtils.removeMascara(this.jTextFieldCpf.getText());
         }
-        if(jRadioButtonCnpj.isSelected()){
+
+        if (jRadioButtonCnpj.isSelected()) {
             if (!ValidationsUtils.isCNPJ(MaskUtils.removeMascara(this.jTextFieldCnpj.getText()))) {
-                MessagesUtils.validaCampoInvalido("CNPJ");
+                MessageUtils.validaCampoInvalido("CNPJ");
                 return;
             }
             id = MaskUtils.removeMascara(this.jTextFieldCnpj.getText());
         }
-        if (this.jTextFieldTelefone.getText().isEmpty()) {
-            MessagesUtils.validaCampoVazio("telefone");
-            return;
-        }
+
         String telefone = this.jTextFieldTelefone.getText();
-        if (this.jTextFieldEndereco.getText().isEmpty()) {
-            MessagesUtils.validaCampoVazio("endereço");
+        if (telefone.isEmpty()) {
+            MessageUtils.validaCampoVazio("telefone");
             return;
         }
+
         String endereco = this.jTextFieldEndereco.getText();
-        if (this.jTextFieldCep.getText().isEmpty()) {
-            MessagesUtils.validaCampoVazio("CEP");
+        if (endereco.isEmpty()) {
+            MessageUtils.validaCampoVazio("endereço");
             return;
         }
+
         String cep = this.jTextFieldCep.getText();
+        if (cep.isEmpty()) {
+            MessageUtils.validaCampoVazio("CEP");
+            return;
+        }
+
         String local;
         if (this.jRadioButtonCidade.isSelected()) {
             local = "Cidade";
         } else {
             local = "Fazenda";
         }
+
         if (this.jTextFieldCidadeFazenda.getText().isEmpty()) {
-            MessagesUtils.validaCampoVazio(local.toLowerCase());
+            MessageUtils.validaCampoVazio(local.toLowerCase());
             return;
         }
         String localT = local + ": " + this.jTextFieldCidadeFazenda.getText();
-        String estado;
-        if (this.jComboBoxEstado.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(this, "Escolha um estado válido.");
-            return;
-        } else {
-            estado = this.jComboBoxEstado.getSelectedItem().toString();
-        }
+
+        String estado = this.jComboBoxEstado.getSelectedItem().toString();
 
         Dono dono = new Dono();
         dono.setCep(cep);
@@ -374,21 +389,27 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
         dono.setNome(nome);
         dono.setTelefone(telefone);
         dono.setTipoId(tipoId);
+
         ClientResponse response;
         try {
             response = RESTMethods.post(servicoDono, dono);
             String resposta = response.getEntity(String.class);
             if (!resposta.equalsIgnoreCase("ok")) {
-                MessagesUtils.erroCadastro("dono");
+                MessageUtils.erroResposta(resposta);
                 return;
             }
-            MessagesUtils.sucessoCadastro("dono");
+            MessageUtils.sucessoCadastro("dono");
         } catch (RESTConnectionException ex) {
-            Logger.getLogger(CadastrarDonoJDialog.class.getName()).log(Level.SEVERE, null, ex);
+            MessageUtils.erroConexao();
         }
-        HUMVApp.exibirMensagemCarregamento();
-        HUMVApp.setPainelCentralComLogo();
-        HUMVApp.esconderMensagemCarregamento();
+
+        if (cadastroDonoJDialog != null) {
+            cadastroDonoJDialog.fecharDialog(nome, id);
+        } else {
+            HUMVApp.exibirMensagemCarregamento();
+            HUMVApp.setPainelCentralComLogo();
+            HUMVApp.esconderMensagemCarregamento();
+        }
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
     private void jRadioButtonCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCpfActionPerformed
@@ -408,8 +429,8 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
         this.jTextFieldCpf.setEnabled(false);
         this.tipoId = "CNPJ";
     }//GEN-LAST:event_jRadioButtonCnpjActionPerformed
-    
-    private void custonInitComponents(){
+
+    private void custonInitComponents() {
         jRadioButtonCpf.setSelected(true);
         this.jTextFieldCnpj.setVisible(false);
     }
@@ -418,8 +439,8 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonConfirmar;
     private javax.swing.JComboBox<String> jComboBoxEstado;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelCep;
-    private javax.swing.JLabel jLabelCidadeFazenda;
     private javax.swing.JLabel jLabelEndereco;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanelDadosDono;

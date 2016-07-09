@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import br.edu.ufrb.lasis.humv.entity.Procedimento;
+import br.edu.ufrb.lasis.humv.entity.Usuario;
 import br.edu.ufrb.lasis.humv.impl.ProcedimentoServiceImpl;
 
 @RestController
@@ -29,6 +30,11 @@ public class ProcedimentoService {
 	public Procedimento findByCodigo(@PathVariable Integer codigo){
 		return  procedimentoServiceImpl.findByCodigo(codigo);
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/search")
+    public List<Procedimento> search(@RequestParam(value="palavrachave") String palavrachave){
+    	return procedimentoServiceImpl.search(palavrachave);
+    }
 	
 	@RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public String cadastrarSetor(@RequestBody Procedimento procedimento, @RequestParam(value="username") String  username){

@@ -10,6 +10,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import br.edu.ufrb.lasis.humv.dao.ProcedimentoDAO;
 import br.edu.ufrb.lasis.humv.entity.Procedimento;
+import br.edu.ufrb.lasis.humv.entity.Setor;
 
 @Service
 public class ProcedimentoServiceImpl {
@@ -36,6 +37,10 @@ public class ProcedimentoServiceImpl {
 		return procedimentoDAO.findByCode(codigo);
 	}
 	
+	public List<Procedimento> search(String palavrachave){
+		return procedimentoDAO.search(palavrachave);
+	}
+	
 	public String cadastrarProcedimento(Procedimento procedimento , String usuarioResponsavel ){
 		try{
 			procedimentoDAO.saveProcedimento(procedimento);
@@ -44,7 +49,7 @@ public class ProcedimentoServiceImpl {
 		}catch(DataIntegrityViolationException ex){
 			if(ex.getMessage().toLowerCase().contains("constraint")){
 				//logger.error("[signup] Nome do Procedimento j� cadastrado: " + procedimento.getNome() + ".");
-				return "Setor " +  procedimento.getNome() + " já cadastrado no sistema. Por favor, informe um Nome diferente.";
+				return "Setor " +  procedimento.getNome() + " já cadastrado no sistema. Por favor, informe um nome diferente.";
 			}else{
 				return "Erro ao conectar-se com o banco de dados.";
 			}

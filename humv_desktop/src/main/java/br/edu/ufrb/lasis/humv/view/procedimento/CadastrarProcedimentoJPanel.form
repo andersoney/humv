@@ -36,7 +36,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
               <Component id="jLabelTitulo" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jPanelInformacoesSetor" min="-2" max="-2" attributes="0"/>
@@ -47,7 +47,7 @@
                   <Component id="jButtonCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonConfirmar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="21" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -81,14 +81,14 @@
                       </Group>
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="jButtonPesqusar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jButtonCadastrarSetor" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="jLabelSetorCodigo" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelSetorCodigo" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonPesqusar" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jButtonExibirLista" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jButtonCadastrarSetor" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -100,8 +100,9 @@
                   <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jButtonPesqusar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonCadastrarSetor" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldCodSetor" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonExibirLista" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonCadastrarSetor" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -116,15 +117,15 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="jButtonCadastrarSetor">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Cadastrar novo..."/>
+            <Property name="text" type="java.lang.String" value="Novo..."/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonCadastrarSetorMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCadastrarSetorActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonPesqusar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Pesquisar"/>
+            <Property name="text" type="java.lang.String" value="Selecionar"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonPesqusarActionPerformed"/>
@@ -153,6 +154,14 @@
             <Property name="text" type="java.lang.String" value="C&#xf3;digo: "/>
           </Properties>
         </Component>
+        <Component class="javax.swing.JButton" name="jButtonExibirLista">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Exibir lista"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonExibirListaActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanelInformacoesProcedimento">
@@ -170,29 +179,22 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jTextFieldNome" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jTextFieldNome" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabelNome" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabelCodigo" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jTextFieldCodigo" min="-2" pref="145" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="jLabelNome" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelCodigo" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextFieldCodigo" min="-2" pref="145" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="178" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jTextFieldPreco" min="-2" pref="149" max="-2" attributes="0"/>
-                              <Component id="jLabelPreco" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelPreco" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="157" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

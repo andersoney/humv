@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import br.edu.ufrb.lasis.humv.entity.Dono;
+import br.edu.ufrb.lasis.humv.utils.NumberUtils;
 
 /**
  * The Class representing the data access for Animal owner objects.
@@ -76,6 +77,30 @@ public class DonoDAO extends GenericDAO<Dono> implements Serializable{
 	@Transactional
 	public Dono findByKey(String id) {
 		return (Dono) getCriteria().add(Restrictions.eq("id", id)).uniqueResult();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<Dono> search(String palavrachave) {
+		Criteria criteria = getCriteria();
+
+		Integer conversionResult = NumberUtils.convertStringToInteger(palavrachave);
+		if (conversionResult != null) {
+			criteria.add(
+					Restrictions.or(
+							Restrictions.eq("id", conversionResult), 
+							Restrictions.ilike("nome", "%" + palavrachave + "%")
+					)
+			);
+		} else {
+			criteria.add(
+					Restrictions.or(
+							Restrictions.ilike("nome", "%" + palavrachave + "%")
+					)
+			);
+		}
+		
+		return (List<Dono>) criteria.list();
 	}
 
 	@SuppressWarnings("unchecked")

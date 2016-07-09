@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import br.edu.ufrb.lasis.humv.entity.Dono;
+import br.edu.ufrb.lasis.humv.entity.Procedimento;
 import br.edu.ufrb.lasis.humv.impl.DonoServiceImpl;
 
 /** Serviço para cadastro,atualização e remoção de donos de animais.
@@ -26,41 +27,46 @@ import br.edu.ufrb.lasis.humv.impl.DonoServiceImpl;
 @RequestMapping(value = "/api/dono")
 @Secured("ROLE_ADMIN")
 public class DonoService {
-		
-		@Autowired
-		private DonoServiceImpl donoServiceImpl;
-	    
-	    @RequestMapping
-	    public List<Dono> getAll(){
-	    	return donoServiceImpl.getAll(); 
-	    }
-	    
-	    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-	    public Dono findById(@PathVariable String id){
-	    	return donoServiceImpl.findById(id);
-	    }
-	    
-	    @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
-	    public String cadastrarDono(@RequestBody Dono dono, @RequestParam(value="username") String  username){
-	    	return donoServiceImpl.cadastrarDono(dono, username);
-	    }
-	    
-	    @RequestMapping(method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
-	    public String atualizarDono(@RequestBody Dono dono, @RequestParam(value="username") String  username){
-	    	return donoServiceImpl.atualizarDono(dono, username);
-	    }
-	    
-	    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-	    public String removerDono(@PathVariable String  id, @RequestParam(value="username") String  username){
-	    	return donoServiceImpl.removerDono(id, username);
-	    }
-	    
-		public DonoServiceImpl getDonoServiceImpl( ) {
-			return donoServiceImpl;
-		}
 
-		public void setDonoServiceImpl(DonoServiceImpl donoServiceImpl) {
-			this.donoServiceImpl = donoServiceImpl;
+	@Autowired
+	private DonoServiceImpl donoServiceImpl;
 
-		}
+	@RequestMapping
+	public List<Dono> getAll(){
+		return donoServiceImpl.getAll(); 
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
+	public Dono findById(@PathVariable String id){
+		return donoServiceImpl.findById(id);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/search")
+    public List<Dono> search(@RequestParam(value="palavrachave") String palavrachave){
+    	return donoServiceImpl.search(palavrachave);
+    }
+
+	@RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
+	public String cadastrarDono(@RequestBody Dono dono, @RequestParam(value="username") String  username){
+		return donoServiceImpl.cadastrarDono(dono, username);
+	}
+
+	@RequestMapping(method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
+	public String atualizarDono(@RequestBody Dono dono, @RequestParam(value="username") String  username){
+		return donoServiceImpl.atualizarDono(dono, username);
+	}
+
+	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+	public String removerDono(@PathVariable String  id, @RequestParam(value="username") String  username){
+		return donoServiceImpl.removerDono(id, username);
+	}
+
+	public DonoServiceImpl getDonoServiceImpl( ) {
+		return donoServiceImpl;
+	}
+
+	public void setDonoServiceImpl(DonoServiceImpl donoServiceImpl) {
+		this.donoServiceImpl = donoServiceImpl;
+
+	}
 }

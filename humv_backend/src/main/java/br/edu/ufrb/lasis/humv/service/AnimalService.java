@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import br.edu.ufrb.lasis.humv.entity.Animal;
+import br.edu.ufrb.lasis.humv.entity.Dono;
 import br.edu.ufrb.lasis.humv.impl.AnimalServiceImpl;
 
 /** Serviço para cadastro, atualização e remoção de animais de pequeno porte.
@@ -36,8 +37,13 @@ public class AnimalService {
     }
     
     @RequestMapping(method = RequestMethod.GET, value = "/{rghumv}")
-    public Animal findById(@PathVariable String rghumv){
+    public Animal findById(@PathVariable Integer rghumv){
     	return animalServiceImpl.findById(rghumv);
+    }
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/search")
+    public List<Animal> search(@RequestParam(value="palavrachave") String palavrachave){
+    	return animalServiceImpl.search(palavrachave);
     }
     
     @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
@@ -51,7 +57,7 @@ public class AnimalService {
     }
     
     @RequestMapping(method = RequestMethod.DELETE, value = "/{rghumv}")
-    public String removerAnimal(@PathVariable String  rghumv, @RequestParam(value="username") String  username){
+    public String removerAnimal(@PathVariable Integer rghumv, @RequestParam(value="username") String  username){
     	return animalServiceImpl.removerAnimal(rghumv, username);
     }
     

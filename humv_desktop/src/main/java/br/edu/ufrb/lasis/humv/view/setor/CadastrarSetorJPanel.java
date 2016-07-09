@@ -2,12 +2,10 @@ package br.edu.ufrb.lasis.humv.view.setor;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Setor;
-import br.edu.ufrb.lasis.humv.utils.MessagesUtils;
+import br.edu.ufrb.lasis.humv.utils.MessageUtils;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import com.sun.jersey.api.client.ClientResponse;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,6 +21,7 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel {
     private String cod;
     private final String servicoSetor = "/api/setor";
     private Setor setorSelecionado;
+    private CadastrarSetorJDialog cadastroSetorJDialog;
 
     public CadastrarSetorJPanel() {
         initComponents();
@@ -31,6 +30,13 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel {
 
     public CadastrarSetorJPanel(Setor setorSelecionado) {
         this.setorSelecionado = setorSelecionado;
+        initComponents();
+        customInitComponents();
+
+    }
+
+    public CadastrarSetorJPanel(CadastrarSetorJDialog cadastroSetorJDialog) {
+        this.cadastroSetorJDialog = cadastroSetorJDialog;
         initComponents();
         customInitComponents();
 
@@ -107,9 +113,9 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel {
                 .addComponent(jLabelNome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelCodigo)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -119,23 +125,23 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
                     .addComponent(jPanelInformacoesSetor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 169, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButtonCancelar)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonConfirmar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addGap(29, 29, 29)
                 .addComponent(jLabelTitulo)
                 .addGap(18, 18, 18)
                 .addComponent(jPanelInformacoesSetor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonConfirmar)
                     .addComponent(jButtonCancelar))
@@ -144,8 +150,13 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        int i = MessagesUtils.dialogoCancelar("o cadastro", "setor");
+        int i = MessageUtils.dialogoCancelar("o cadastro", "setor");
         if (i == JOptionPane.OK_OPTION) {
+
+            if (cadastroSetorJDialog != null) {
+                cadastroSetorJDialog.fecharDialog(null, null);
+            }
+
             HUMVApp.exibirMensagemCarregamento();
             HUMVApp.setPainelCentralComLogo();
             HUMVApp.esconderMensagemCarregamento();
@@ -154,7 +165,7 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel {
 
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
         if (jTextFieldNome.getText().isEmpty()) {
-            MessagesUtils.validaCampoVazio("nome");
+            MessageUtils.validaCampoVazio("nome");
             return;
         }
         String nome = jTextFieldNome.getText();
@@ -173,23 +184,27 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel {
             String resposta = response.getEntity(String.class);
             if (!resposta.equalsIgnoreCase("ok")) {
                 if (setorSelecionado == null) {
-                    MessagesUtils.erroCadastro("setor");
+                    MessageUtils.erroResposta(resposta);
                 } else {
-                    MessagesUtils.erroAtualizacao("setor");
+                    MessageUtils.erroResposta(resposta);
                 }
-                return;
             } else {
                 if (setorSelecionado == null) {
-                    MessagesUtils.sucessoCadastro("setor");
+                    MessageUtils.sucessoCadastro("setor");
                 } else {
-                    MessagesUtils.sucessoAtualizacao("setor");
+                    MessageUtils.sucessoAtualizacao("setor");
                 }
-                HUMVApp.exibirMensagemCarregamento();
-                HUMVApp.setPainelCentralComLogo();
-                HUMVApp.esconderMensagemCarregamento();
+
+                if (cadastroSetorJDialog != null) {
+                    cadastroSetorJDialog.fecharDialog(setor.getCodigo(), setor.getNome());
+                } else {
+                    HUMVApp.exibirMensagemCarregamento();
+                    HUMVApp.setPainelCentralComLogo();
+                    HUMVApp.esconderMensagemCarregamento();
+                }
             }
         } catch (RESTConnectionException ex) {
-            Logger.getLogger(CadastroSetorJDialog.class.getName()).log(Level.SEVERE, null, ex);
+            MessageUtils.erroConexao();
         }
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 

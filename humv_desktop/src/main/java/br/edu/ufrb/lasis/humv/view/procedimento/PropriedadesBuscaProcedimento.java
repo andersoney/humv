@@ -13,13 +13,12 @@ import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Procedimento;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
-import br.edu.ufrb.lasis.humv.utils.MessagesUtils;
+import br.edu.ufrb.lasis.humv.utils.MessageUtils;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import org.codehaus.jackson.type.TypeReference;
@@ -27,7 +26,6 @@ import org.codehaus.jackson.type.TypeReference;
 public class PropriedadesBuscaProcedimento extends PropriedadesBusca {
 
     private final ProcedimentoTableModel procedimentoTableModel;
-    private static final Logger LOG = Logger.getLogger(PropriedadesBuscaProcedimento.class.getName());
     ProcedimentoTableModel tableModel;
 
     public PropriedadesBuscaProcedimento(String tipoOperacao) {
@@ -40,7 +38,7 @@ public class PropriedadesBuscaProcedimento extends PropriedadesBusca {
     public void buscar() {
         HUMVApp.exibirMensagemCarregamento();
         try {
-            ClientResponse response = RESTMethods.get("/api/procedimento");
+            ClientResponse response = RESTMethods.get("/api/procedimento/search?palavrachave=" + getCampoPalavraChave().getText());
 
             List<Procedimento> lista = (List<Procedimento>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Procedimento>>() {
             });
@@ -48,8 +46,7 @@ public class PropriedadesBuscaProcedimento extends PropriedadesBusca {
             super.getTabelaResultado().setModel(tableModel);
             super.getTabelaResultado().revalidate();
         } catch (RESTConnectionException | IOException ex) {
-            JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
-            LOG.warning(ex.getMessage());
+            MessageUtils.erroConexao();
         }
         HUMVApp.esconderMensagemCarregamento();
     }
@@ -73,27 +70,32 @@ public class PropriedadesBuscaProcedimento extends PropriedadesBusca {
                 JOptionPane.showMessageDialog(super.getTabelaResultado(), "Por favor, selecione algum procedimento da tabela para realizar a operação.", "Procedimento não selecionado", JOptionPane.ERROR_MESSAGE);
             } else {
                 Procedimento procedimentoSelecionado = tableModel.getProcedimentoSelecionado(super.getIndexLinhaSelecionada());
-                if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_VISUALIZAR)) {
-                    //Ainda falta implementar
-                } else if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_ALTERAR)) {
-                    CadastrarProcedimentoJPanel painelAlteracao = new CadastrarProcedimentoJPanel(procedimentoSelecionado);
-                    HUMVApp.setNovoPainelCentral(painelAlteracao);
-                } else if (super.getTipoOperacao().equals(PropriedadesBusca.OPCAO_REMOVER)) {
-                    if (MessagesUtils.dialogoRemoverAlterar("remover", "procedimento", procedimentoSelecionado.getNome())) {
-                        try {
-                            ClientResponse response = RESTMethods.delete("/api/procedimento", "" + procedimentoSelecionado.getCodigo());
-                            String resposta = response.getEntity(String.class);
-                            if (resposta.equals("OK")) {
-                                JOptionPane.showMessageDialog(super.getTabelaResultado(), "Procedimento removido com sucesso", "Remoção de procedimento", JOptionPane.PLAIN_MESSAGE);
-                                HUMVApp.setPainelCentralComLogo();
-                            } else {
-                                JOptionPane.showMessageDialog(super.getTabelaResultado(), resposta, "Erro", JOptionPane.ERROR_MESSAGE);
+                switch (super.getTipoOperacao()) {
+                    case PropriedadesBusca.OPCAO_VISUALIZAR:
+                        //Ainda falta implementar
+                        break;
+                    case PropriedadesBusca.OPCAO_ALTERAR:
+                        CadastrarProcedimentoJPanel painelAlteracao = new CadastrarProcedimentoJPanel(procedimentoSelecionado);
+                        HUMVApp.setNovoPainelCentral(painelAlteracao);
+                        break;
+                    case PropriedadesBusca.OPCAO_REMOVER:
+                        if (MessageUtils.dialogoRemoverAlterar("remover", "procedimento", procedimentoSelecionado.getNome())) {
+                            try {
+                                ClientResponse response = RESTMethods.delete("/api/procedimento", "" + procedimentoSelecionado.getCodigo());
+                                String resposta = response.getEntity(String.class);
+                                if (resposta.equals("OK")) {
+                                    JOptionPane.showMessageDialog(super.getTabelaResultado(), "Procedimento removido com sucesso", "Remoção de procedimento", JOptionPane.PLAIN_MESSAGE);
+                                    HUMVApp.setPainelCentralComLogo();
+                                } else {
+                                    JOptionPane.showMessageDialog(super.getTabelaResultado(), resposta, "Erro", JOptionPane.ERROR_MESSAGE);
+                                }
+                            } catch (RESTConnectionException ex) {
+                                JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
+                                ex.printStackTrace();
                             }
-                        } catch (RESTConnectionException ex) {
-                            JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
-                            ex.printStackTrace();
-                        }
-                    }
+                        }   break;
+                    default:
+                        break;
                 }
             }
         }

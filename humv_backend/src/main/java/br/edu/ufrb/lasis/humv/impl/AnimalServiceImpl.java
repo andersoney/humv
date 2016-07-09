@@ -9,6 +9,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import br.edu.ufrb.lasis.humv.dao.AnimalDAO;
 import br.edu.ufrb.lasis.humv.entity.Animal;
+import br.edu.ufrb.lasis.humv.entity.Dono;
 
 
 /** Implementação do serviço para cadastro,atualização e remoção de animais.
@@ -38,8 +39,12 @@ public class AnimalServiceImpl {
 		}
 	}
 
-	public Animal findById(String rghumv){
+	public Animal findById(Integer rghumv){
 		return animalDAO.findByRghumv(rghumv);
+	}
+
+	public List<Animal> search(String palavrachave){
+		return animalDAO.search(palavrachave);
 	}
 
 	public String cadastrarAnimal(Animal animal, String usuarioResponsavel){
@@ -50,7 +55,7 @@ public class AnimalServiceImpl {
 		}catch(DataIntegrityViolationException ex){
 			if(ex.getMessage().toLowerCase().contains("constraint")){
 				//logger.error("[signup] RGHUMV já cadastrado: " + animal.getRghumv() + ".");
-				return "Animal com RGHUMV " + animal.getRghumv() + " já cadstrado no sistema. Por favor, informe um RGHUMV diferente.";
+				return "Animal com RGHUMV " + animal.getRghumv() + " já cadastrado no sistema. Por favor, informe um RGHUMV diferente.";
 			}else{
 				return "Erro ao conectar-se com o banco de dados.";
 			}
@@ -58,7 +63,7 @@ public class AnimalServiceImpl {
 	}
 
 	public String atualizarAnimal(Animal animal, String usuarioResponsavel){
-		if(animalDAO.findByRghumv(animal.getRghumv())==null){
+		if(animalDAO.findByRghumv(animal.getRghumv()) == null){
 			//logger.error("[signup] Nenhum animal com o RGHUMV " + animal.getRghumv() + "foi encontrado no sistema.");
 			return "Nenhum animal com o RGHUMV " + animal.getRghumv() + " encontrado no sistema. Por favor, informe um RGHUMV diferente.";
 
@@ -68,8 +73,8 @@ public class AnimalServiceImpl {
 		return "OK";
 	}
 	
-	public String removerAnimal(String  rghumv, String usuarioResponsavel){
-		if(animalDAO.findByRghumv(rghumv)==null){
+	public String removerAnimal(Integer  rghumv, String usuarioResponsavel){
+		if(animalDAO.findByRghumv(rghumv) == null){
 			//logger.error("[signup] Nenhum animal com o RGHUMV " + rghumv + "foi encontrado no sistema.");
 			return "Nenhum animal com o RGHUMV " + rghumv + " encontrado no sistema. Por favor, informe um RGHUMV diferente.";
 

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -33,7 +34,8 @@ public class Animal implements Serializable{
 	private static final long serialVersionUID = -4309147069247595796L;
 	
 	@Id
-	private String rghumv; // RGHUMV é um número de registro próprio do hospital veterinário.
+	@GeneratedValue
+	private Integer rghumv; // RGHUMV é um número de registro próprio do hospital veterinário.
 	private String nome;
 	private String especie;
 	private String raca;
@@ -55,11 +57,11 @@ public class Animal implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date dataCadastro; // Data que o animal foi cadastrado no sistema.
 
-	public String getRghumv() {
+	public Integer getRghumv() {
 		return rghumv;
 	}
 
-	public void setRghumv(String rghumv) {
+	public void setRghumv(Integer rghumv) {
 		this.rghumv = rghumv;
 	}
 

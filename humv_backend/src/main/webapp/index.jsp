@@ -31,6 +31,7 @@
     	<li>Obter todos: /api/setor (GET)</li>
     	<li>Obter um setor: /api/setor/{codigo} (GET)</li>
     	<li>Inserir: /api/setor (POST)</li>
+    	<li>Inserir retornando o setor cadastrado: /api/setor/retornaCadastrado (POST)</li>
     	<li>Alterar: /api/setor (PUT)</li>
     	<li>Excluir: /api/setor/{codigo} (DELETE)</li>
     </ul>

@@ -9,7 +9,7 @@ import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Usuario;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
-import br.edu.ufrb.lasis.humv.utils.MessagesUtils;
+import br.edu.ufrb.lasis.humv.utils.MessageUtils;
 import br.edu.ufrb.lasis.humv.utils.SecurityUtils;
 import com.sun.jersey.api.client.ClientResponse;
 import java.io.UnsupportedEncodingException;
@@ -158,7 +158,7 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addGap(29, 29, 29)
                 .addComponent(labelTitulo)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -188,7 +188,7 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonOK)
                     .addComponent(buttonCancelar))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -249,7 +249,7 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
                     
                     ClientResponse response;
                     if(usuarioSelecionado != null){
-                        if (MessagesUtils.dialogoRemoverAlterar("alterar", "usuário", usuarioSelecionado.getNome())) {
+                        if (MessageUtils.dialogoRemoverAlterar("alterar", "usuário", usuarioSelecionado.getNome())) {
                             response = RESTMethods.put("/api/usuario", usuario);
                         }else{
                             return;
@@ -259,15 +259,15 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
                     }
                              
                     String resposta = response.getEntity(String.class);
-                    if (resposta.equals("OK")) {
-                        JOptionPane.showMessageDialog(this, "Registro de usuário efetuado com sucesso", "Registro de usuário", JOptionPane.PLAIN_MESSAGE);
+                    if (resposta.equalsIgnoreCase("ok")) {
+                        MessageUtils.sucessoCadastro("usuário");
                         HUMVApp.setPainelCentralComLogo();
                     } else {
-                        JOptionPane.showMessageDialog(this, resposta, "Erro", JOptionPane.ERROR_MESSAGE);
+                        MessageUtils.erroResposta(resposta);
                         textFieldNome.setFocusable(true);
                     }
                 } catch (RESTConnectionException ex) {
-                    JOptionPane.showMessageDialog(this, "Erro ao tentar conectar-se com o servidor. Por favor, tente novamente mais tarde.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    MessageUtils.erroConexao();
                     ex.printStackTrace();
                 } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
                     JOptionPane.showMessageDialog(this, "Erro ao criptografar senha. Tente novamente mais tarde.", "Erro", JOptionPane.ERROR_MESSAGE);
