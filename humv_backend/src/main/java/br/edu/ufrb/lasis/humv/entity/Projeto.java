@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="PROJETO")
+@Table(name="PROJETOS")
 public class Projeto implements Serializable {
 
 	/**

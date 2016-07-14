@@ -151,7 +151,6 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
         jPanelDadosDono = new javax.swing.JPanel();
         jButtonPesquisarDono = new javax.swing.JButton();
         jTextFieldBuscaCpf = new javax.swing.JTextField();
-        jTextFieldBuscaCpf = MaskUtils.mascaraCpf();
         jLabelNomeDono = new javax.swing.JLabel();
         jLabelCpfDono = new javax.swing.JLabel();
         jButtonCadastrarNovoDono = new javax.swing.JButton();
@@ -591,7 +590,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
 
     private void jButtonPesquisarDonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarDonoActionPerformed
         if (jRadioButtonBuscaCpf.isSelected()) {
-            if (ValidationsUtils.isCPF(MaskUtils.removeMascara(this.jTextFieldBuscaCpf.getText()))) {
+            if (ValidationsUtils.isCPF(this.jTextFieldBuscaCpf.getText())) {
                 ClientResponse response;
                 try {
                     this.setIdNull();
@@ -609,7 +608,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
                 this.setIdNull();
                 MessageUtils.validaCampoInvalido("CPF");
             }
-        } else if (ValidationsUtils.isCNPJ(MaskUtils.removeMascara(this.jTextFieldBuscaCpf.getText()))) {
+        } else if (ValidationsUtils.isCNPJ(this.jTextFieldBuscaCpf.getText())) {
             ClientResponse response;
             try {
                 this.setIdNull();

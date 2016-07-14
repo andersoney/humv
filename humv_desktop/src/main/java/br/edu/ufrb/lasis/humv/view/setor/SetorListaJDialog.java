@@ -8,6 +8,7 @@ package br.edu.ufrb.lasis.humv.view.setor;
 import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Setor;
 import br.edu.ufrb.lasis.humv.view.procedimento.CadastrarProcedimentoJPanel;
+import br.edu.ufrb.lasis.humv.view.projeto.CadastrarProjetoJPanel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -33,6 +34,7 @@ import javax.swing.JScrollPane;
 public class SetorListaJDialog extends JDialog implements ActionListener {
 
     private CadastrarProcedimentoJPanel cadastroProcedimentoPanel;
+    private CadastrarProjetoJPanel cadastroProjetoPanel;
     private List<Setor> setores;
     private ArrayList<JRadioButton> radios;
     private JButton buttonOK;
@@ -40,6 +42,13 @@ public class SetorListaJDialog extends JDialog implements ActionListener {
     public SetorListaJDialog(CadastrarProcedimentoJPanel cadastroProcedimentoPanel, List<Setor> setores) {
         super(HUMVApp.getMainWindow(), true);
         this.cadastroProcedimentoPanel = cadastroProcedimentoPanel;
+        this.setores = setores;
+        initComponents();
+    }
+
+    public SetorListaJDialog(CadastrarProjetoJPanel cadastroProjetoPanel, List<Setor> setores) {
+        super(HUMVApp.getMainWindow(), true);
+        this.cadastroProjetoPanel = cadastroProjetoPanel;
         this.setores = setores;
         initComponents();
     }
@@ -87,12 +96,19 @@ public class SetorListaJDialog extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         for (int i = 0; i < radios.size(); i++) {
             if (radios.get(i).isSelected()) {
-                cadastroProcedimentoPanel.setCodigoSetor(setores.get(i).getCodigo());
-                cadastroProcedimentoPanel.getjLabelSetorCodigo().setText("Código: " + setores.get(i).getCodigo());
-                cadastroProcedimentoPanel.getjLabelNomeSetor().setText("Nome: " + setores.get(i).getNome());
-                dispose();
+                if (cadastroProcedimentoPanel != null) {
+                    cadastroProcedimentoPanel.setCodigoSetor(setores.get(i).getCodigo());
+                    cadastroProcedimentoPanel.getjLabelSetorCodigo().setText("Código: " + setores.get(i).getCodigo());
+                    cadastroProcedimentoPanel.getjLabelNomeSetor().setText("Nome: " + setores.get(i).getNome());
+                    dispose();
+                } else {
+                    cadastroProjetoPanel.setSetor(setores.get(i));
+                    cadastroProjetoPanel.getJLabelNomeSetor().setText("Nome: " + setores.get(i).getNome());
+                    dispose();
+
+                }
             }
+
         }
     }
-
 }

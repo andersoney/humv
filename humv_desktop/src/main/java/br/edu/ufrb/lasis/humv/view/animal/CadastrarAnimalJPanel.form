@@ -164,9 +164,6 @@
           <Events>
             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldBuscaCpfKeyPressed"/>
           </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="jTextFieldBuscaCpf = MaskUtils.mascaraCpf();"/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelNomeDono">
           <Properties>

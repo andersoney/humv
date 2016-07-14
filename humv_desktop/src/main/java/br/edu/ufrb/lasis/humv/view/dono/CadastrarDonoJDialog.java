@@ -27,7 +27,7 @@ public class CadastrarDonoJDialog extends JDialog{
     }
 
     private void initComponents() {
-        setTitle("Cadastro de setor");
+        setTitle("Cadastro de dono");
 
         cadastrarDonoPanel = new CadastrarDonoJPanel(this);
         setContentPane(cadastrarDonoPanel);
@@ -46,8 +46,8 @@ public class CadastrarDonoJDialog extends JDialog{
             cadastroAnimalPanel.getjLabelCpfDono().setText("CPF: " + cpf);
             cadastroAnimalPanel.setIdDono(cpf);
             cadastroAnimalPanel.getjLabelNomeDono().setText("Nome: " + nome);
+            dispose();
         }
-        dispose();
     }
     
 }
