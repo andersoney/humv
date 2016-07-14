@@ -1,6 +1,7 @@
 package br.edu.ufrb.lasis.humv.dao;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -64,7 +65,7 @@ private static final long serialVersionUID = 1L;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Projeto> findBySiapeResponsavel(int siape){
+	public List<Projeto> findBySiapeResponsavel(BigInteger siape){
 		Criteria criteria = getCriteria().add(Restrictions.ilike("siapeResponsavel", "%" + siape + "%"));
 		criteria.addOrder(Order.asc("siapeResponsavel"));
 		return (List<Projeto>) criteria.list();

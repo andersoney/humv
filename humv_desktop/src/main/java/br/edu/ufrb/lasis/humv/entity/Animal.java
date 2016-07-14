@@ -1,6 +1,7 @@
 package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -28,7 +29,7 @@ public class Animal implements Serializable {
     private char sexo; // M = macho, F = femêa
     private int idade;
     private double peso;
-    private String idDono; // Relacionamento entre animal e proprietario.
+    private BigInteger idDono; // Relacionamento entre animal e proprietario.
     private String pelagem; // não se aplica para animais de grande porte.
     private String porte; // pequeno ou grande
     private Date dataCadastro; // Data que o animal foi cadastrado no sistema.
@@ -97,11 +98,11 @@ public class Animal implements Serializable {
         this.peso = peso;
     }
 
-    public String getIdDono() {
+    public BigInteger getIdDono() {
         return idDono;
     }
 
-    public void setIdDono(String idDono) {
+    public void setIdDono(BigInteger idDono) {
         this.idDono = idDono;
     }
 

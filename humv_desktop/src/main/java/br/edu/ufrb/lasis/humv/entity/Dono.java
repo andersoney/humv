@@ -1,6 +1,7 @@
 package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 
 /**
  * Entidade que modela informações de dono de animal.
@@ -17,7 +18,7 @@ import java.io.Serializable;
 public class Dono implements Serializable {
 
     private static final long serialVersionUID = -6125748157292589614L;
-    private String id;
+    private BigInteger id;
     private String tipoId; // Pode ser CPF ou CNPJ
     private String nome;
     private String endereco;
@@ -26,11 +27,11 @@ public class Dono implements Serializable {
     private String telefone;
     private String cidade; // Obs.: pode ser uma fazenda ou distrito em caso de zona rural.
 
-    public String getId() {
+    public BigInteger getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(BigInteger id) {
         this.id = id;
     }
 
@@ -89,5 +90,4 @@ public class Dono implements Serializable {
     public void setCidade(String cidade) {
         this.cidade = cidade;
     }
-
 }

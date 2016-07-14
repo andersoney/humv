@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ufrb.lasis.humv.view.dono;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
@@ -13,6 +8,8 @@ import br.edu.ufrb.lasis.humv.entity.Dono;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import com.sun.jersey.api.client.ClientResponse;
+import java.math.BigInteger;
+import java.text.NumberFormat;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,9 +19,10 @@ import javax.swing.JOptionPane;
 public class CadastrarDonoJPanel extends javax.swing.JPanel {
 
     private final String servicoDono = "/api/dono";
-    private String id;
+    private BigInteger id;
     private String tipoId;
     private CadastrarDonoJDialog cadastroDonoJDialog = null;
+    private Dono donoSelecionado;
 
     /**
      * Creates new form CadastrarDono
@@ -56,7 +54,35 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
         this.tipoId = "CPF";
     }
 
-    @SuppressWarnings("unchecked")
+    public CadastrarDonoJPanel(Dono donoSelecionado) {
+        this.donoSelecionado = donoSelecionado;
+        initComponents();
+        customInitComponents();
+    }
+
+    private void customInitComponents() {
+        NumberFormat numberFormat; 
+        if (donoSelecionado != null) {
+            jLabelTitulo.setText("ATUALIZAÇÃO DE DONO");
+            nomeJTF.setText(donoSelecionado.getNome());
+            jTextFieldTelefone.setText(donoSelecionado.getTelefone());
+            jTextFieldCep.setText(donoSelecionado.getCep());
+            jTextFieldEndereco.setText(donoSelecionado.getEndereco());
+            jTextFieldCidadeFazenda.setText(donoSelecionado.getCidade());
+            if (donoSelecionado.getTipoId().equalsIgnoreCase("CPF")) {
+                jRadioButtonCpf.setSelected(true);
+                numberFormat = MaskUtils.formatarCPF();
+                jTextFieldCpf.setText(""+donoSelecionado.getId());
+            } else {
+                numberFormat = MaskUtils.formatarCNPJ();
+                jTextFieldCpf.setText(""+donoSelecionado.getId());
+                jRadioButtonCnpj.setSelected(true);
+            }
+        }
+    }
+
+
+@SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -336,7 +362,7 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
                 MessageUtils.validaCampoInvalido("CPF");
                 return;
             }
-            id = MaskUtils.removeMascara(this.jTextFieldCpf.getText());
+            id = BigInteger.valueOf(Integer.parseInt(MaskUtils.removeMascara(this.jTextFieldCnpj.getText())));
         }
 
         if (jRadioButtonCnpj.isSelected()) {
@@ -344,7 +370,8 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
                 MessageUtils.validaCampoInvalido("CNPJ");
                 return;
             }
-            id = MaskUtils.removeMascara(this.jTextFieldCnpj.getText());
+            
+            id = BigInteger.valueOf(Integer.parseInt(MaskUtils.removeMascara(this.jTextFieldCnpj.getText())));
         }
 
         String telefone = this.jTextFieldTelefone.getText();
@@ -393,7 +420,10 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
         ClientResponse response;
         try {
             response = RESTMethods.post(servicoDono, dono);
-            String resposta = response.getEntity(String.class);
+            String 
+
+resposta = response.getEntity(String.class
+);
             if (!resposta.equalsIgnoreCase("ok")) {
                 MessageUtils.erroResposta(resposta);
                 return;

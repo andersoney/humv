@@ -1,6 +1,7 @@
 package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -27,7 +28,7 @@ public class Dono implements Serializable {
 	private static final long serialVersionUID = -6125748157292589614L;
 	
 	@Id
-	private String id; // recebe o numero do CPF ou CNPJ do novo dono.
+	private BigInteger id; // recebe o numero do CPF ou CNPJ do novo dono.
 	private String tipoId; // Pode ser CPF ou CNPJ
 	private String nome;
 	private String endereco;
@@ -36,11 +37,11 @@ public class Dono implements Serializable {
 	private String telefone;
 	private String cidade; // Obs.: pode ser uma fazenda ou distrito em caso de zona rural.
 
-	public String getId() {
+	public BigInteger getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(BigInteger id) {
 		this.id = id;
 	}
 	

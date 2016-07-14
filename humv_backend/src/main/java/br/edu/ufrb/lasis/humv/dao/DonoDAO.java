@@ -1,6 +1,7 @@
 package br.edu.ufrb.lasis.humv.dao;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -75,7 +76,7 @@ public class DonoDAO extends GenericDAO<Dono> implements Serializable{
 	 * @return the resulting owner
 	 */
 	@Transactional
-	public Dono findByKey(String id) {
+	public Dono findByKey(BigInteger id) {
 		return (Dono) getCriteria().add(Restrictions.eq("id", id)).uniqueResult();
 	}
 
