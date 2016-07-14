@@ -15,6 +15,7 @@ import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.KeyEvent;
 import java.math.BigInteger;
+import java.text.NumberFormat;
 import java.util.Calendar;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
@@ -66,13 +67,14 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
 
     private void customInitComponents() {
         jTextFieldNomeAnimal.setFocusable(true);
+        NumberFormat numberFormat;
         if (animalSelecionado != null) {
             jLabelTitulo.setText("ATUALIZAÇÃO DE ANIMAL");
             jTextFieldNomeAnimal.setText(animalSelecionado.getNome());
             jTextFieldEspecie.setText(animalSelecionado.getEspecie());
             jTextFieldIdade.setText("" + animalSelecionado.getIdade());
             jTextFieldRaca.setText(animalSelecionado.getRaca());
-
+            numberFormat = MaskUtils.formatarCPF();
             if (ValidationsUtils.isCPF(""+animalSelecionado.getIdDono())) {
                 jLabelCpfDono.setText("CPF: " + animalSelecionado.getIdDono());
                 ClientResponse response;
@@ -86,7 +88,8 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
                 } catch (RESTConnectionException ex) {
                     MessageUtils.erroConexao();
                 }
-            } else if (ValidationsUtils.isCNPJ(""+animalSelecionado.getIdDono())) {
+            } else{
+                numberFormat = MaskUtils.formatarCNPJ();
                 jLabelCpfDono.setText("CNPJ: " + animalSelecionado.getIdDono());
                 ClientResponse response;
                 try {

@@ -1,12 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ufrb.lasis.humv.view.dono;
 
 import br.edu.ufrb.lasis.humv.entity.Dono;
+import br.edu.ufrb.lasis.humv.utils.MaskUtils;
 import br.edu.ufrb.lasis.humv.view.setor.SetorTabelModel;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -77,14 +74,18 @@ public class DonoTabelModel extends AbstractTableModel {
     }
 
     public Object getValueAt(int rowIndex, int columnIndex) {
+        NumberFormat numberFormat = MaskUtils.formatarCPF();
         switch (columnIndex) {
             case 0:
                 return this.donos.get(rowIndex).getNome();
             case 1:
+                if(this.donos.get(rowIndex).getTipoId().equalsIgnoreCase("cpf")){
+                    numberFormat = MaskUtils.formatarCPF();
+                }else{
+                    numberFormat = MaskUtils.formatarCNPJ();
+                }     
                 return this.donos.get(rowIndex).getId();
-            
         }
         return null;
-    }
-    
+    }    
 }

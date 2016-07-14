@@ -66,7 +66,7 @@ public class MaskUtils {
     
     public static NumberFormat formatarCNPJ(){
         NumberFormat numberFormat = NumberFormat.getInstance();
-        numberFormat.setMaximumIntegerDigits(11);
+        numberFormat.setMaximumIntegerDigits(14);
         numberFormat.setGroupingUsed(false);
         return numberFormat;
     }

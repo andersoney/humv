@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ufrb.lasis.humv.view.dono;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
@@ -14,6 +9,7 @@ import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import com.sun.jersey.api.client.ClientResponse;
 import java.math.BigInteger;
+import java.text.NumberFormat;
 import javax.swing.JOptionPane;
 
 /**
@@ -65,6 +61,7 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
     }
 
     private void customInitComponents() {
+        NumberFormat numberFormat; 
         if (donoSelecionado != null) {
             jLabelTitulo.setText("ATUALIZAÇÃO DE DONO");
             nomeJTF.setText(donoSelecionado.getNome());
@@ -74,7 +71,11 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
             jTextFieldCidadeFazenda.setText(donoSelecionado.getCidade());
             if (donoSelecionado.getTipoId().equalsIgnoreCase("CPF")) {
                 jRadioButtonCpf.setSelected(true);
+                numberFormat = MaskUtils.formatarCPF();
+                jTextFieldCpf.setText(""+donoSelecionado.getId());
             } else {
+                numberFormat = MaskUtils.formatarCNPJ();
+                jTextFieldCpf.setText(""+donoSelecionado.getId());
                 jRadioButtonCnpj.setSelected(true);
             }
         }
