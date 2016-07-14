@@ -1,6 +1,7 @@
 package br.edu.ufrb.lasis.humv.dao;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -74,7 +75,7 @@ public class AnimalDAO  extends GenericDAO<Animal> implements Serializable {
 	@Transactional
 	@SuppressWarnings("unchecked")
 	public List<Animal> findByDono(Dono dono) {
-		String id = dono.getId();
+		BigInteger id = dono.getId();
 		Criteria criteria = getCriteria().add(Restrictions.ilike("idDono", "%" + id + "%"));
 		criteria.addOrder(Order.asc("nome"));
 		return (List<Animal>) criteria.list();	

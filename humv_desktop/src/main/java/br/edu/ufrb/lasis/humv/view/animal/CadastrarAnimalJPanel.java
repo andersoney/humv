@@ -14,6 +14,7 @@ import br.edu.ufrb.lasis.humv.utils.MessageUtils;
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.KeyEvent;
+import java.math.BigInteger;
 import java.util.Calendar;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
@@ -26,7 +27,7 @@ import javax.swing.SpinnerDateModel;
 public class CadastrarAnimalJPanel extends javax.swing.JPanel {
 
     private boolean grande = false;
-    private String idDono;
+    private BigInteger idDono;
     private String nome;
     private String porte;
     private final String servicoDono = "/api/dono";
@@ -72,7 +73,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
             jTextFieldIdade.setText("" + animalSelecionado.getIdade());
             jTextFieldRaca.setText(animalSelecionado.getRaca());
 
-            if (ValidationsUtils.isCPF(animalSelecionado.getIdDono())) {
+            if (ValidationsUtils.isCPF(""+animalSelecionado.getIdDono())) {
                 jLabelCpfDono.setText("CPF: " + animalSelecionado.getIdDono());
                 ClientResponse response;
                 try {
@@ -85,7 +86,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
                 } catch (RESTConnectionException ex) {
                     MessageUtils.erroConexao();
                 }
-            } else if (ValidationsUtils.isCNPJ(animalSelecionado.getIdDono())) {
+            } else if (ValidationsUtils.isCNPJ(""+animalSelecionado.getIdDono())) {
                 jLabelCpfDono.setText("CNPJ: " + animalSelecionado.getIdDono());
                 ClientResponse response;
                 try {
@@ -140,7 +141,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
         return jLabelNomeDono;
     }
 
-    public void setIdDono(String idDono) {
+    public void setIdDono(BigInteger idDono) {
         this.idDono = idDono;
     }
 

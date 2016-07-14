@@ -91,7 +91,7 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
         jTextAreaPublicoAlvo = new javax.swing.JTextArea();
         jLabel11 = new javax.swing.JLabel();
         jButtonConfirmar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonCancelar = new javax.swing.JButton();
 
         jLabelTitulo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabelTitulo.setText("CADASTRAMENTO DE PROJETO");
@@ -204,12 +204,11 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel6))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel6))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jTextFieldFinalidade, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jTextFieldNomeProjeto))))
@@ -262,7 +261,12 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setText("Cancelar");
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -272,7 +276,7 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
+                        .addComponent(jButtonCancelar)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonConfirmar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -299,7 +303,7 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonConfirmar)
-                    .addComponent(jButton2))
+                    .addComponent(jButtonCancelar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -411,9 +415,20 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        // TODO add your handling code here:
+        int i = MessageUtils.dialogoCancelar("o cadastro", "projeto");
+        if (i == JOptionPane.OK_OPTION) {
+            HUMVApp.exibirMensagemCarregamento();
+            HUMVApp.setPainelCentralComLogo();
+            HUMVApp.esconderMensagemCarregamento();
+        }
+
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonConfirmar;
     private javax.swing.JButton jButtonExibirLista;
     private com.toedter.calendar.JCalendar jCalendar1;

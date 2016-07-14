@@ -1,5 +1,6 @@
 package br.edu.ufrb.lasis.humv.utils;
 
+import java.text.NumberFormat;
 import javax.swing.JFormattedTextField;
 /**
  * Utilitário: Máscaras de campo.
@@ -54,5 +55,19 @@ public class MaskUtils {
     }
     public static String removeMascara(String string){
        return string.replaceAll("\\D", "");
+    }
+    
+    public static NumberFormat formatarCPF(){
+        NumberFormat numberFormat = NumberFormat.getInstance();
+        numberFormat.setMaximumIntegerDigits(11);
+        numberFormat.setGroupingUsed(false);
+        return numberFormat;
+    }
+    
+    public static NumberFormat formatarCNPJ(){
+        NumberFormat numberFormat = NumberFormat.getInstance();
+        numberFormat.setMaximumIntegerDigits(11);
+        numberFormat.setGroupingUsed(false);
+        return numberFormat;
     }
 }

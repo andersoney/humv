@@ -13,6 +13,7 @@ import br.edu.ufrb.lasis.humv.entity.Dono;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import com.sun.jersey.api.client.ClientResponse;
+import java.math.BigInteger;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,7 +23,7 @@ import javax.swing.JOptionPane;
 public class CadastrarDonoJPanel extends javax.swing.JPanel {
 
     private final String servicoDono = "/api/dono";
-    private String id;
+    private BigInteger id;
     private String tipoId;
     private CadastrarDonoJDialog cadastroDonoJDialog = null;
     private Dono donoSelecionado;
@@ -360,7 +361,7 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
                 MessageUtils.validaCampoInvalido("CPF");
                 return;
             }
-            id = MaskUtils.removeMascara(this.jTextFieldCpf.getText());
+            id = BigInteger.valueOf(Integer.parseInt(MaskUtils.removeMascara(this.jTextFieldCnpj.getText())));
         }
 
         if (jRadioButtonCnpj.isSelected()) {
@@ -368,7 +369,8 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
                 MessageUtils.validaCampoInvalido("CNPJ");
                 return;
             }
-            id = MaskUtils.removeMascara(this.jTextFieldCnpj.getText());
+            
+            id = BigInteger.valueOf(Integer.parseInt(MaskUtils.removeMascara(this.jTextFieldCnpj.getText())));
         }
 
         String telefone = this.jTextFieldTelefone.getText();

@@ -1,6 +1,7 @@
 package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -23,12 +24,12 @@ public class Projeto implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
-	private String id ; 
+	private Integer id ; 
 	
 	private Date dataCadastro;
 	private String nome;
 	private String nomeResponsavel;
-	private String siapeResponsavel;
+	private BigInteger siapeResponsavel;
 	private String finalidade;
 	private Date dataInicio;
 	private Date dataFim;
@@ -38,12 +39,11 @@ public class Projeto implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="id_setor")
 	private Setor setor;
-
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -71,11 +71,11 @@ public class Projeto implements Serializable {
 		this.nomeResponsavel = nomeResponsavel;
 	}
 
-	public String getSiapeResponsavel() {
+	public BigInteger getSiapeResponsavel() {
 		return siapeResponsavel;
 	}
 
-	public void setSiapeResponsavel(String siapeResponsavel) {
+	public void setSiapeResponsavel(BigInteger siapeResponsavel) {
 		this.siapeResponsavel = siapeResponsavel;
 	}
 
@@ -130,8 +130,5 @@ public class Projeto implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	
-	
-	
+
 }

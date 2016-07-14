@@ -1,5 +1,6 @@
 package br.edu.ufrb.lasis.humv.service;
 
+import java.math.BigInteger;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -36,7 +37,7 @@ public class DonoService {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
-	public Dono findById(@PathVariable String id){
+	public Dono findById(@PathVariable BigInteger id){
 		return donoServiceImpl.findById(id);
 	}
 	
@@ -56,7 +57,7 @@ public class DonoService {
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-	public String removerDono(@PathVariable String  id, @RequestParam(value="username") String  username){
+	public String removerDono(@PathVariable BigInteger  id, @RequestParam(value="username") String  username){
 		return donoServiceImpl.removerDono(id, username);
 	}
 

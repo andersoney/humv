@@ -1,5 +1,6 @@
 package br.edu.ufrb.lasis.humv.impl;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -35,7 +36,7 @@ public class DonoServiceImpl {
 		}
 	}
 
-	public Dono findById(String id){
+	public Dono findById(BigInteger id){
 		return donoDAO.findByKey(id);
 	}
 
@@ -68,7 +69,7 @@ public class DonoServiceImpl {
 		return "OK";
 	}
 
-	public String removerDono(String  cpf, String usuarioResponsavel){
+	public String removerDono(BigInteger cpf, String usuarioResponsavel){
 		if(donoDAO.findByKey(cpf)==null){
 			//logger.error("[signup] Nenhum dono com o CPF " + cpf + "foi encontrado no sistema.");
 			return "Nenhum dono com o CPF " + cpf + " encontrado no sistema. Por favor, informe um CPF diferente.";
