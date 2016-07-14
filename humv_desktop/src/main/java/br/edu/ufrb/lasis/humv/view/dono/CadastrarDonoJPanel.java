@@ -25,6 +25,7 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
     private String id;
     private String tipoId;
     private CadastrarDonoJDialog cadastroDonoJDialog = null;
+    private Dono donoSelecionado;
 
     /**
      * Creates new form CadastrarDono
@@ -56,7 +57,30 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
         this.tipoId = "CPF";
     }
 
-    @SuppressWarnings("unchecked")
+    public CadastrarDonoJPanel(Dono donoSelecionado) {
+        this.donoSelecionado = donoSelecionado;
+        initComponents();
+        customInitComponents();
+    }
+
+    private void customInitComponents() {
+        if (donoSelecionado != null) {
+            jLabelTitulo.setText("ATUALIZAÇÃO DE DONO");
+            nomeJTF.setText(donoSelecionado.getNome());
+            jTextFieldTelefone.setText(donoSelecionado.getTelefone());
+            jTextFieldCep.setText(donoSelecionado.getCep());
+            jTextFieldEndereco.setText(donoSelecionado.getEndereco());
+            jTextFieldCidadeFazenda.setText(donoSelecionado.getCidade());
+            if (donoSelecionado.getTipoId().equalsIgnoreCase("CPF")) {
+                jRadioButtonCpf.setSelected(true);
+            } else {
+                jRadioButtonCnpj.setSelected(true);
+            }
+        }
+    }
+
+
+@SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -393,7 +417,10 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
         ClientResponse response;
         try {
             response = RESTMethods.post(servicoDono, dono);
-            String resposta = response.getEntity(String.class);
+            String 
+
+resposta = response.getEntity(String.class
+);
             if (!resposta.equalsIgnoreCase("ok")) {
                 MessageUtils.erroResposta(resposta);
                 return;
