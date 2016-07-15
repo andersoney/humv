@@ -2,25 +2,21 @@ package br.edu.ufrb.lasis.humv.view.dono;
 
 import br.edu.ufrb.lasis.humv.entity.Dono;
 import br.edu.ufrb.lasis.humv.utils.MaskUtils;
-import br.edu.ufrb.lasis.humv.view.setor.SetorTabelModel;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
 
 /**
  *
  * @author Luiz
  */
-public class DonoTabelModel extends AbstractTableModel {
+public class DonoTableModel extends AbstractTableModel {
 
     String[] titulos;
     List<Dono> donos;
-    private static final Logger LOG = Logger.getLogger(SetorTabelModel.class.getName());
 
     
-    public DonoTabelModel(List<Dono> donos) {
+    public DonoTableModel(List<Dono> donos) {
         this.donos = donos;
         titulos = new String[2];
         titulos[0] = "Nome";
@@ -32,7 +28,7 @@ public class DonoTabelModel extends AbstractTableModel {
         this.donos.addAll(donos);
     }
 
-    public DonoTabelModel() {
+    public DonoTableModel() {
         titulos = new String[2];
         titulos[0] = "Nome";
         titulos[1] = "CPF/CNPJ";
@@ -74,17 +70,17 @@ public class DonoTabelModel extends AbstractTableModel {
     }
 
     public Object getValueAt(int rowIndex, int columnIndex) {
-        NumberFormat numberFormat = MaskUtils.formatarCPF();
         switch (columnIndex) {
             case 0:
                 return this.donos.get(rowIndex).getNome();
             case 1:
-                if(this.donos.get(rowIndex).getTipoId().equalsIgnoreCase("cpf")){
-                    numberFormat = MaskUtils.formatarCPF();
+                String idStr;
+                if(donos.get(rowIndex).getTipoId().equalsIgnoreCase("cpf")){
+                    idStr = MaskUtils.formatarStringCPF(this.donos.get(rowIndex).getId());
                 }else{
-                    numberFormat = MaskUtils.formatarCNPJ();
+                    idStr = MaskUtils.formatarStringCNPJ(this.donos.get(rowIndex).getId());
                 }     
-                return this.donos.get(rowIndex).getId();
+                return idStr;
         }
         return null;
     }    

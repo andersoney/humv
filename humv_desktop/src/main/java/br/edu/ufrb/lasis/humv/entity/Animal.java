@@ -22,7 +22,7 @@ public class Animal implements Serializable {
 
     private static final long serialVersionUID = -4309147069247595796L;
 
-    private Integer rghumv; // RGHUMV é um número de registro próprio do hospital veterinário.
+    private BigInteger rghumv; // RGHUMV é um número de registro próprio do hospital veterinário.
     private String nome;
     private String especie;
     private String raca;
@@ -42,11 +42,11 @@ public class Animal implements Serializable {
         this.porte = porte;
     }
 
-    public Integer getRghumv() {
+    public BigInteger getRghumv() {
         return rghumv;
     }
 
-    public void setRghumv(Integer rghumv) {
+    public void setRghumv(BigInteger rghumv) {
         this.rghumv = rghumv;
     }
 

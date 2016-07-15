@@ -17,15 +17,11 @@ import javax.persistence.Table;
 @Table(name="PROJETOS")
 public class Projeto implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1746891834638705105L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
-	private Integer id ; 
-	
+	private BigInteger id;
 	private Date dataCadastro;
 	private String nome;
 	private String nomeResponsavel;
@@ -39,11 +35,12 @@ public class Projeto implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="id_setor")
 	private Setor setor;
-	public Integer getId() {
+	
+	public BigInteger getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(BigInteger id) {
 		this.id = id;
 	}
 

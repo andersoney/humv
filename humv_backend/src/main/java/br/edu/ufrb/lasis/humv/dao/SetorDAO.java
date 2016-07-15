@@ -1,6 +1,7 @@
 package br.edu.ufrb.lasis.humv.dao;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -70,7 +71,7 @@ public class SetorDAO  extends GenericDAO<Setor> implements Serializable {
 	
 	
 	@Transactional
-	public Setor findByCodigo(Integer codigo) {
+	public Setor findByCodigo(BigInteger codigo) {
 		return (Setor) getCriteria().add(Restrictions.eq("codigo", codigo)).uniqueResult();
 	}
 

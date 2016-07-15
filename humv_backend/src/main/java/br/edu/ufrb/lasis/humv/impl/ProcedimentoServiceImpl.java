@@ -1,5 +1,6 @@
 package br.edu.ufrb.lasis.humv.impl;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -31,7 +32,7 @@ public class ProcedimentoServiceImpl {
 			return procedimentoDAO.findByName(nome);			
 	}
 	
-	public Procedimento findByCodigo(Integer codigo){
+	public Procedimento findByCodigo(BigInteger codigo){
 		return procedimentoDAO.findByCode(codigo);
 	}
 	
@@ -65,7 +66,7 @@ public class ProcedimentoServiceImpl {
 		return "OK";
 	}
 	
-	public String removerProcedimento(Integer codigo, String usuarioResponsavel){
+	public String removerProcedimento(BigInteger codigo, String usuarioResponsavel){
 		if(procedimentoDAO.findByCode(codigo) == null){
 			//logger.error("[signup] Nenhum Procedimento com o C�digo " + codigo + "foi encontrado no sistema.");
 			return "Nenhum Procedimento com o código " + codigo + "foi encontrado no sistema. Por favor, informe um código diferente.";

@@ -26,40 +26,43 @@ import org.codehaus.jackson.type.TypeReference;
  */
 public class CadastrarProjetoJPanel extends javax.swing.JPanel {
 
-    private final String servicoSetor = "/api/setor";
     private final String servicoProjeto = "/api/projeto";
     private Projeto projetoSelecionado;
     private Setor setor;
-    
-    public void setSetor(Setor setor){
+
+    public void setSetor(Setor setor) {
         this.setor = setor;
     }
-    public JLabel getJLabelNomeSetor(){
+
+    public JLabel getJLabelNomeSetor() {
         return jLabelNomeSetor;
     }
+
     public CadastrarProjetoJPanel() {
         initComponents();
     }
-    
-     public CadastrarProjetoJPanel(Projeto projetoSelecionado) {
+
+    public CadastrarProjetoJPanel(Projeto projetoSelecionado) {
         this.projetoSelecionado = projetoSelecionado;
         initComponents();
         customInitComponents();
     }
-    
-     private void customInitComponents() {
-        
+
+    private void customInitComponents() {
+
         if (projetoSelecionado != null) {
             jLabelTitulo.setText("ATUALIZAÇÃO DE PROJETO");
             jTextFieldFinalidade.setText(projetoSelecionado.getFinalidade());
             jTextFieldNomeProjeto.setText(projetoSelecionado.getNome());
             jTextAreaPublicoAlvo.setText(projetoSelecionado.getPublicoAlvo());
             jTextFieldSiape.setText(projetoSelecionado.getSiapeResponsavel());
+            jTextFieldNomeOrientador.setText(projetoSelecionado.getNomeResponsavel());
             jDateChooserFim.setDate(projetoSelecionado.getDataFim());
             jDateChooserInicio.setDate(projetoSelecionado.getDataInicio());
-            jLabelNomeSetor.setText("Nome: "+projetoSelecionado.getSetor().getNome());
+            jLabelNomeSetor.setText("Nome: " + projetoSelecionado.getSetor().getNome());
         }
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -93,8 +96,9 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
         jButtonConfirmar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
 
-        jLabelTitulo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabelTitulo.setText("CADASTRAMENTO DE PROJETO");
+        jLabelTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitulo.setText("CADASTRO DE PROJETO");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do responsável"));
 
@@ -111,6 +115,7 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabelNomeSetor.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabelNomeSetor.setText("Nome:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -140,8 +145,8 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
                 .addGap(7, 7, 7)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldNomeOrientador, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextFieldNomeOrientador, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldSiape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -158,7 +163,7 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
 
         jLabel2.setText("Nome:");
 
-        jLabel6.setText("Finalidadade:");
+        jLabel6.setText("Finalidade:");
 
         jLabel7.setText("Duração:");
 
@@ -174,7 +179,7 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
         jTextAreaPublicoAlvo.setRows(5);
         jScrollPane1.setViewportView(jTextAreaPublicoAlvo);
 
-        jLabel11.setText("Publico alvo:");
+        jLabel11.setText("Público-alvo:");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -196,7 +201,7 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jLabel7)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10))
@@ -223,7 +228,7 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(8, 8, 8)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldNomeProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
@@ -239,13 +244,14 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
                                     .addComponent(jLabel7)
                                     .addComponent(jLabel10))
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel8))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel8)
+                                            .addComponent(jLabel9)))))
                             .addComponent(jDateChooserFim, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(26, 26, 26)
                 .addComponent(jLabel11)
@@ -274,21 +280,17 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonCancelar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonConfirmar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(142, 142, 142)
-                        .addComponent(jLabelTitulo)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabelTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButtonCancelar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonConfirmar))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -297,8 +299,8 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabelTitulo)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -319,7 +321,7 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(29, 29, 29)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -327,10 +329,11 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
     private void jButtonExibirListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExibirListaActionPerformed
         try {
             ClientResponse response = RESTMethods.get("/api/setor");
-            List<Setor> lista = (List<Setor>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Setor>>(){});
-            if(lista.isEmpty()){
+            List<Setor> lista = (List<Setor>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Setor>>() {
+            });
+            if (lista.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Não existem setores cadastrados.", "Lista de setores", JOptionPane.INFORMATION_MESSAGE);
-            }else{
+            } else {
                 new SetorListaJDialog(this, lista).setVisible(true);
             }
         } catch (RESTConnectionException | IOException ex) {
@@ -339,7 +342,7 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonExibirListaActionPerformed
 
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
-        Date dataInicio,dataFim;
+        Date dataInicio, dataFim;
         if (this.jTextFieldNomeOrientador.getText().isEmpty()) {
             MessageUtils.validaCampoVazio("nome do orientador");
             return;
@@ -350,19 +353,19 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
             return;
         }
         String siape = this.jTextFieldSiape.getText();
-        
+
         if (this.jTextFieldNomeProjeto.getText().isEmpty()) {
             MessageUtils.validaCampoVazio("nome do projeto");
             return;
         }
         String nomeProjeto = this.jTextFieldNomeProjeto.getText();
-        
+
         if (this.jTextFieldFinalidade.getText().isEmpty()) {
             MessageUtils.validaCampoVazio("finalidade");
             return;
         }
         String finalidade = this.jTextFieldFinalidade.getText();
-        
+
         if (this.jTextAreaPublicoAlvo.getText().isEmpty()) {
             MessageUtils.validaCampoVazio("público alvo");
             return;
@@ -378,11 +381,15 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
         projeto.setSetor(setor);
         projeto.setTipo(tipo);
         projeto.setSiapeResponsavel(siape);
+        projeto.setNomeResponsavel(nomeOrientador);
         projeto.setPublicoAlvo(publicoAlvo);
         projeto.setNome(nomeProjeto);
         projeto.setFinalidade(finalidade);
         projeto.setDataCadastro(new Date());
         
+        if(projetoSelecionado != null){
+            projeto.setId(projetoSelecionado.getId());
+        }
 
         try {
             if (projetoSelecionado == null) {
@@ -394,16 +401,12 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
             }
             String resposta = response.getEntity(String.class);
             if (!resposta.equalsIgnoreCase("ok")) {
-                if (projetoSelecionado == null) {
-                    MessageUtils.erroResposta(resposta);
-                } else {
-                    MessageUtils.erroResposta(resposta);
-                }
+                MessageUtils.erroResposta(resposta);
             } else {
                 if (projetoSelecionado == null) {
                     MessageUtils.sucessoCadastro("projeto");
                 } else {
-                    MessageUtils.sucessoAtualizacao("Projeto");
+                    MessageUtils.sucessoAtualizacao("projeto");
                 }
                 HUMVApp.exibirMensagemCarregamento();
                 HUMVApp.setPainelCentralComLogo();

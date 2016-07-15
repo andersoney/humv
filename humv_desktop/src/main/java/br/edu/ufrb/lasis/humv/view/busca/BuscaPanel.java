@@ -89,7 +89,7 @@ public class BuscaPanel extends javax.swing.JPanel {
 
         buttonOperacao.setText("jButton1");
 
-        buttonImprimirTabela.setText("Imprimir Tabela");
+        buttonImprimirTabela.setText("Imprimir");
         buttonImprimirTabela.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonImprimirTabelaActionPerformed(evt);

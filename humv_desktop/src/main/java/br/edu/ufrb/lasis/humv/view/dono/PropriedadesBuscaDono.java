@@ -25,12 +25,12 @@ import org.codehaus.jackson.type.TypeReference;
  */
 public class PropriedadesBuscaDono extends PropriedadesBusca {
 
-    private final DonoTabelModel donoTableModel;
-    DonoTabelModel tableModel;
+    private final DonoTableModel donoTableModel;
+    DonoTableModel tableModel;
 
     public PropriedadesBuscaDono(String tipoOperacao) {
         super(tipoOperacao);
-        donoTableModel = new DonoTabelModel();
+        donoTableModel = new DonoTableModel();
         super.setTabelaResultado(new JTable(donoTableModel));
     }
 
@@ -43,7 +43,7 @@ public class PropriedadesBuscaDono extends PropriedadesBusca {
 
             List<Dono> lista = (List<Dono>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Dono>>() {
             });
-            tableModel = new DonoTabelModel(lista);
+            tableModel = new DonoTableModel(lista);
             super.getTabelaResultado().setModel(tableModel);
             super.getTabelaResultado().revalidate();
         } catch (RESTConnectionException | IOException ex) {

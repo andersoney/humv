@@ -1,5 +1,6 @@
 package br.edu.ufrb.lasis.humv.impl;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -38,7 +39,7 @@ public class AnimalServiceImpl {
 		}
 	}
 
-	public Animal findById(Integer rghumv){
+	public Animal findById(BigInteger rghumv){
 		return animalDAO.findByRghumv(rghumv);
 	}
 
@@ -72,7 +73,7 @@ public class AnimalServiceImpl {
 		return "OK";
 	}
 	
-	public String removerAnimal(Integer  rghumv, String usuarioResponsavel){
+	public String removerAnimal(BigInteger rghumv, String usuarioResponsavel){
 		if(animalDAO.findByRghumv(rghumv) == null){
 			//logger.error("[signup] Nenhum animal com o RGHUMV " + rghumv + "foi encontrado no sistema.");
 			return "Nenhum animal com o RGHUMV " + rghumv + " encontrado no sistema. Por favor, informe um RGHUMV diferente.";

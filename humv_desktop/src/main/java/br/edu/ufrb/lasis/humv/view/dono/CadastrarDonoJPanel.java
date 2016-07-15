@@ -9,7 +9,6 @@ import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import com.sun.jersey.api.client.ClientResponse;
 import java.math.BigInteger;
-import java.text.NumberFormat;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,7 +28,6 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
      */
     public CadastrarDonoJPanel() {
         initComponents();
-        this.jRadioButtonFazenda.setSelected(false);
         this.jRadioButtonCidade.setSelected(true);
         this.jRadioButtonCpf.setSelected(true);
         this.jRadioButtonCnpj.setSelected(false);
@@ -38,20 +36,13 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
         this.jTextFieldCnpj.setText("");
         this.jTextFieldCnpj.setEnabled(false);
         this.tipoId = "CPF";
+        buttonGroupLocal.add(jRadioButtonCidade);
+        buttonGroupLocal.add(jRadioButtonFazenda);
     }
 
     public CadastrarDonoJPanel(CadastrarDonoJDialog cadastroDonoJDialog) {
-        initComponents();
+        this();
         this.cadastroDonoJDialog = cadastroDonoJDialog;
-        this.jRadioButtonFazenda.setSelected(false);
-        this.jRadioButtonCidade.setSelected(true);
-        this.jRadioButtonCpf.setSelected(true);
-        this.jRadioButtonCnpj.setSelected(false);
-        this.jTextFieldCpf.setEnabled(true);
-        this.jTextFieldCpf.setFocusable(true);
-        this.jTextFieldCnpj.setText("");
-        this.jTextFieldCnpj.setEnabled(false);
-        this.tipoId = "CPF";
     }
 
     public CadastrarDonoJPanel(Dono donoSelecionado) {
@@ -61,7 +52,6 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
     }
 
     private void customInitComponents() {
-        NumberFormat numberFormat; 
         if (donoSelecionado != null) {
             jLabelTitulo.setText("ATUALIZAÇÃO DE DONO");
             nomeJTF.setText(donoSelecionado.getNome());
@@ -70,22 +60,26 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
             jTextFieldEndereco.setText(donoSelecionado.getEndereco());
             jTextFieldCidadeFazenda.setText(donoSelecionado.getCidade());
             if (donoSelecionado.getTipoId().equalsIgnoreCase("CPF")) {
+                jTextFieldCpf.setText(MaskUtils.formatarStringCPF(donoSelecionado.getId()));
                 jRadioButtonCpf.setSelected(true);
-                numberFormat = MaskUtils.formatarCPF();
-                jTextFieldCpf.setText(""+donoSelecionado.getId());
+                jRadioButtonCnpj.setSelected(false);
+                jTextFieldCnpj.setEnabled(false);
+                this.tipoId = "CPF";
             } else {
-                numberFormat = MaskUtils.formatarCNPJ();
-                jTextFieldCpf.setText(""+donoSelecionado.getId());
+                jTextFieldCnpj.setText(MaskUtils.formatarStringCNPJ(donoSelecionado.getId()));
                 jRadioButtonCnpj.setSelected(true);
+                jRadioButtonCpf.setSelected(false);
+                jTextFieldCpf.setEnabled(false);
+                this.tipoId = "CNPJ";
             }
         }
     }
 
-
-@SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroupLocal = new javax.swing.ButtonGroup();
         jPanelDadosDono = new javax.swing.JPanel();
         jPanelDadosPessoais = new javax.swing.JPanel();
         nomeJL = new javax.swing.JLabel();
@@ -191,18 +185,8 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
         jLabelCep.setText("CEP:");
 
         jRadioButtonCidade.setText("Cidade");
-        jRadioButtonCidade.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonCidadeActionPerformed(evt);
-            }
-        });
 
         jRadioButtonFazenda.setText("Fazenda");
-        jRadioButtonFazenda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonFazendaActionPerformed(evt);
-            }
-        });
 
         jComboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bahia", "Acre", "Amapá", "Amazonas", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins", "" }));
 
@@ -301,7 +285,7 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
         jPanelDadosDonoLayout.setVerticalGroup(
             jPanelDadosDonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDadosDonoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(29, Short.MAX_VALUE)
                 .addComponent(jLabelTitulo)
                 .addGap(29, 29, 29)
                 .addComponent(jPanelDadosPessoais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -330,23 +314,20 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanelDadosPessoaisKeyPressed
 
-    private void jRadioButtonCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCidadeActionPerformed
-        this.jRadioButtonFazenda.setSelected(false);
-    }//GEN-LAST:event_jRadioButtonCidadeActionPerformed
-
-    private void jRadioButtonFazendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonFazendaActionPerformed
-        // TODO add your handling code here:
-        this.jRadioButtonCidade.setSelected(false);
-    }//GEN-LAST:event_jRadioButtonFazendaActionPerformed
-
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         // TODO add your handling code here:
         int i = MessageUtils.dialogoCancelar("o cadastro", "dono");
         if (i == JOptionPane.OK_OPTION) {
-            HUMVApp.exibirMensagemCarregamento();
-            HUMVApp.setPainelCentralComLogo();
-            HUMVApp.esconderMensagemCarregamento();
+            if (cadastroDonoJDialog != null) {
+                cadastroDonoJDialog.dispose();
+            } else {
+                HUMVApp.exibirMensagemCarregamento();
+                HUMVApp.setPainelCentralComLogo();
+                HUMVApp.esconderMensagemCarregamento();
+            }
         }
+
+
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
@@ -361,17 +342,18 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
             if (!ValidationsUtils.isCPF(MaskUtils.removeMascara(this.jTextFieldCpf.getText()))) {
                 MessageUtils.validaCampoInvalido("CPF");
                 return;
+            } else {
+                id = new BigInteger(MaskUtils.removeMascara(this.jTextFieldCpf.getText()));
             }
-            id = BigInteger.valueOf(Integer.parseInt(MaskUtils.removeMascara(this.jTextFieldCnpj.getText())));
         }
 
         if (jRadioButtonCnpj.isSelected()) {
             if (!ValidationsUtils.isCNPJ(MaskUtils.removeMascara(this.jTextFieldCnpj.getText()))) {
                 MessageUtils.validaCampoInvalido("CNPJ");
                 return;
+            } else {
+                id = new BigInteger(MaskUtils.removeMascara(this.jTextFieldCnpj.getText()));
             }
-            
-            id = BigInteger.valueOf(Integer.parseInt(MaskUtils.removeMascara(this.jTextFieldCnpj.getText())));
         }
 
         String telefone = this.jTextFieldTelefone.getText();
@@ -394,16 +376,16 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
 
         String local;
         if (this.jRadioButtonCidade.isSelected()) {
-            local = "Cidade";
+            local = "";
         } else {
-            local = "Fazenda";
+            local = "Fazenda ";
         }
 
         if (this.jTextFieldCidadeFazenda.getText().isEmpty()) {
             MessageUtils.validaCampoVazio(local.toLowerCase());
             return;
         }
-        String localT = local + ": " + this.jTextFieldCidadeFazenda.getText();
+        String localT = local + this.jTextFieldCidadeFazenda.getText();
 
         String estado = this.jComboBoxEstado.getSelectedItem().toString();
 
@@ -419,16 +401,23 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
 
         ClientResponse response;
         try {
-            response = RESTMethods.post(servicoDono, dono);
-            String 
+            if (donoSelecionado == null) {
+                response = RESTMethods.post(servicoDono, dono);
+            } else {
+                response = RESTMethods.put(servicoDono, dono);
+            }
 
-resposta = response.getEntity(String.class
-);
+            String resposta = response.getEntity(String.class);
             if (!resposta.equalsIgnoreCase("ok")) {
                 MessageUtils.erroResposta(resposta);
                 return;
             }
-            MessageUtils.sucessoCadastro("dono");
+
+            if (donoSelecionado == null) {
+                MessageUtils.sucessoCadastro("dono");
+            } else {
+                MessageUtils.sucessoAtualizacao("dono");
+            }
         } catch (RESTConnectionException ex) {
             MessageUtils.erroConexao();
         }
@@ -446,7 +435,6 @@ resposta = response.getEntity(String.class
         this.jRadioButtonCnpj.setSelected(false);
         this.jTextFieldCpf.setEnabled(true);
         this.jTextFieldCpf.setFocusable(true);
-        this.jTextFieldCnpj.setText("");
         this.jTextFieldCnpj.setEnabled(false);
         this.tipoId = "CPF";
     }//GEN-LAST:event_jRadioButtonCpfActionPerformed
@@ -455,17 +443,12 @@ resposta = response.getEntity(String.class
         this.jRadioButtonCpf.setSelected(false);
         this.jTextFieldCnpj.setEnabled(true);
         this.jTextFieldCnpj.setFocusable(true);
-        this.jTextFieldCpf.setText("");
         this.jTextFieldCpf.setEnabled(false);
         this.tipoId = "CNPJ";
     }//GEN-LAST:event_jRadioButtonCnpjActionPerformed
 
-    private void custonInitComponents() {
-        jRadioButtonCpf.setSelected(true);
-        this.jTextFieldCnpj.setVisible(false);
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroupLocal;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonConfirmar;
     private javax.swing.JComboBox<String> jComboBoxEstado;

@@ -15,7 +15,6 @@ import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.KeyEvent;
 import java.math.BigInteger;
-import java.text.NumberFormat;
 import java.util.Calendar;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
@@ -29,8 +28,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
 
     private boolean grande = false;
     private BigInteger idDono;
-    private String nome;
-    private String porte;
+    private String porte, nome;
     private final String servicoDono = "/api/dono";
     private final String servicoAnimal = "/api/animal";
     private Animal animalSelecionado;
@@ -67,16 +65,14 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
 
     private void customInitComponents() {
         jTextFieldNomeAnimal.setFocusable(true);
-        NumberFormat numberFormat;
         if (animalSelecionado != null) {
             jLabelTitulo.setText("ATUALIZAÇÃO DE ANIMAL");
             jTextFieldNomeAnimal.setText(animalSelecionado.getNome());
             jTextFieldEspecie.setText(animalSelecionado.getEspecie());
             jTextFieldIdade.setText("" + animalSelecionado.getIdade());
             jTextFieldRaca.setText(animalSelecionado.getRaca());
-            numberFormat = MaskUtils.formatarCPF();
-            if (ValidationsUtils.isCPF(""+animalSelecionado.getIdDono())) {
-                jLabelCpfDono.setText("CPF: " + animalSelecionado.getIdDono());
+            if (ValidationsUtils.isCPF(animalSelecionado.getIdDono().toString())) {
+                jLabelCpfDono.setText("CPF: " +  MaskUtils.formatarStringCPF(animalSelecionado.getIdDono()));
                 ClientResponse response;
                 try {
                     this.setIdNull();
@@ -89,8 +85,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
                     MessageUtils.erroConexao();
                 }
             } else{
-                numberFormat = MaskUtils.formatarCNPJ();
-                jLabelCpfDono.setText("CNPJ: " + animalSelecionado.getIdDono());
+                jLabelCpfDono.setText("CNPJ: " + MaskUtils.formatarStringCNPJ(animalSelecionado.getIdDono()));
                 ClientResponse response;
                 try {
                     this.setIdNull();
@@ -260,22 +255,22 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jRadioButtonBuscaCnpj))
                                     .addComponent(jTextFieldBuscaCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                                 .addComponent(jButtonPesquisarDono)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonCadastrarNovoDono))
-                    .addGroup(jPanelDadosDonoLayout.createSequentialGroup()
-                        .addGroup(jPanelDadosDonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelCpfDono, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelNomeDono, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanelDadosDonoLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelDadosDonoLayout.createSequentialGroup()
+                        .addGroup(jPanelDadosDonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelDadosDonoLayout.createSequentialGroup()
                                 .addComponent(jDateChooserData, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanelDadosDonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanelDadosDonoLayout.createSequentialGroup()
                                         .addComponent(jLabelHora)
                                         .addGap(83, 83, 83))
-                                    .addComponent(jSpinnerHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jSpinnerHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabelNomeDono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
+                            .addComponent(jLabelCpfDono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -492,7 +487,6 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
         }
 
         char sexo;
-        float peso;
         int idade = -1;
         Date data;
         if (this.jTextFieldNomeAnimal.getText().isEmpty()) {
@@ -554,6 +548,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
             if (animalSelecionado == null) {
                 response = RESTMethods.post(this.servicoAnimal, animal);
             } else if (MessageUtils.dialogoRemoverAlterar("alterar", "animal", animalSelecionado.getNome())) {
+                animal.setRghumv(animalSelecionado.getRghumv());
                 response = RESTMethods.put(this.servicoAnimal, animal);
             } else {
                 return;

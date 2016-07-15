@@ -15,14 +15,14 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Luiz
  */
-public class SetorTabelModel extends AbstractTableModel {
+public class SetorTableModel extends AbstractTableModel {
 
     String[] titulos;
     List<Setor> setores;
-    private static final Logger LOG = Logger.getLogger(SetorTabelModel.class.getName());
+    private static final Logger LOG = Logger.getLogger(SetorTableModel.class.getName());
 
     
-    public SetorTabelModel(List<Setor> setores) {
+    public SetorTableModel(List<Setor> setores) {
         this.setores = setores;
         titulos = new String[2];
         titulos[0] = "Nome do setor";
@@ -34,7 +34,7 @@ public class SetorTabelModel extends AbstractTableModel {
         this.setores.addAll(setores);
     }
 
-    public SetorTabelModel() {
+    public SetorTableModel() {
         titulos = new String[2];
         titulos[0] = "Nome do setor";
         titulos[1] = "Código do setor";

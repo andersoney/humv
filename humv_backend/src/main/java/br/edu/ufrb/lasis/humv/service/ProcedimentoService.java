@@ -1,5 +1,6 @@
 package br.edu.ufrb.lasis.humv.service;
 
+import java.math.BigInteger;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -26,7 +27,7 @@ public class ProcedimentoService {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET,value="/{codigo}")
-	public Procedimento findByCodigo(@PathVariable Integer codigo){
+	public Procedimento findByCodigo(@PathVariable BigInteger codigo){
 		return  procedimentoServiceImpl.findByCodigo(codigo);
 	}
 	
@@ -46,7 +47,7 @@ public class ProcedimentoService {
     }
     
     @RequestMapping(method = RequestMethod.DELETE, value = "/{codigo}")
-    public String removerSetor(@PathVariable Integer codigo, @RequestParam(value="username") String  username){
+    public String removerSetor(@PathVariable BigInteger codigo, @RequestParam(value="username") String  username){
     	return procedimentoServiceImpl.removerProcedimento(codigo, username);
     }
 

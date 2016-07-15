@@ -1,13 +1,13 @@
 package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Date;
 
 public class Projeto implements Serializable {
 
     private static final long serialVersionUID = -1746891834638705105L;
-    private Integer id;
-
+    private BigInteger id;
     private Date dataCadastro;
     private String nome;
     private String nomeResponsavel;
@@ -19,11 +19,11 @@ public class Projeto implements Serializable {
     private String publicoAlvo;
     private Setor setor;
 
-    public Integer getId() {
+    public BigInteger getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(BigInteger id) {
         this.id = id;
     }
 

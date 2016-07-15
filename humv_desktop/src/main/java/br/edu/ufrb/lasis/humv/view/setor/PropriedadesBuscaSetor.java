@@ -25,12 +25,12 @@ import org.codehaus.jackson.type.TypeReference;
  */
 public class PropriedadesBuscaSetor extends PropriedadesBusca {
 
-    private final SetorTabelModel setorTableModel;
-    SetorTabelModel tableModel;
+    private final SetorTableModel setorTableModel;
+    SetorTableModel tableModel;
 
     public PropriedadesBuscaSetor(String tipoOperacao) {
         super(tipoOperacao);
-        setorTableModel = new SetorTabelModel();
+        setorTableModel = new SetorTableModel();
         super.setTabelaResultado(new JTable(setorTableModel));
     }
 
@@ -42,7 +42,7 @@ public class PropriedadesBuscaSetor extends PropriedadesBusca {
 
             List<Setor> lista = (List<Setor>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Setor>>() {
             });
-            tableModel = new SetorTabelModel(lista);
+            tableModel = new SetorTableModel(lista);
             super.getTabelaResultado().setModel(tableModel);
             super.getTabelaResultado().revalidate();
         } catch (RESTConnectionException | IOException ex) {

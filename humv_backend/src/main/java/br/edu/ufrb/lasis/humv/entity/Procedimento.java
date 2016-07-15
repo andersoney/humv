@@ -1,6 +1,7 @@
 package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import javax.persistence.Entity;
 //import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
@@ -29,18 +30,18 @@ public class Procedimento implements Serializable {
 
 	@Id
 	//@GeneratedValue
-	private Integer codigo;
+	private BigInteger codigo;
 	private String nome;
 	private double valor;
-	private Integer codSetor;
+	private BigInteger codSetor;
 	
 	public Procedimento(){}
 	
-	public Integer getCodSetor() {
+	public BigInteger getCodSetor() {
 		return codSetor;
 	}
 
-	public void setCodSetor(Integer codSetor) {
+	public void setCodSetor(BigInteger codSetor) {
 		this.codSetor = codSetor;
 	}
 
@@ -52,11 +53,11 @@ public class Procedimento implements Serializable {
 		return this.valor;
 	}
 
-	public Integer getCodigo(){
+	public BigInteger getCodigo(){
 		return this.codigo;
 	}
 	
-	public void setCodigo(Integer codigo){
+	public void setCodigo(BigInteger codigo){
 		this.codigo = codigo;
 	}
 	

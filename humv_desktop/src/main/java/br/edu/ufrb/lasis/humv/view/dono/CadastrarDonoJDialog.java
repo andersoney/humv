@@ -6,6 +6,7 @@
 package br.edu.ufrb.lasis.humv.view.dono;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
+import br.edu.ufrb.lasis.humv.utils.MaskUtils;
 import br.edu.ufrb.lasis.humv.view.animal.CadastrarAnimalJPanel;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -44,7 +45,7 @@ public class CadastrarDonoJDialog extends JDialog{
 
     public void fecharDialog(String nome, BigInteger cpf) {
         if (!(nome == null || cpf == null || nome.isEmpty())) {
-            cadastroAnimalPanel.getjLabelCpfDono().setText("CPF: " + cpf);
+            cadastroAnimalPanel.getjLabelCpfDono().setText("CPF: " + MaskUtils.formatarStringCPF(cpf));
             cadastroAnimalPanel.setIdDono(cpf);
             cadastroAnimalPanel.getjLabelNomeDono().setText("Nome: " + nome);
             dispose();

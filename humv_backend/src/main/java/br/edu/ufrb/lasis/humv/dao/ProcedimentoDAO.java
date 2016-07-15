@@ -1,6 +1,7 @@
 package br.edu.ufrb.lasis.humv.dao;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.hibernate.Criteria;
@@ -54,7 +55,7 @@ public class ProcedimentoDAO extends GenericDAO<Procedimento> implements Seriali
 	}
 	
 	@Transactional
-	public Procedimento findByCode(Integer codigo){
+	public Procedimento findByCode(BigInteger codigo){
 		return (Procedimento) getCriteria().add(Restrictions.eq("codigo", codigo)).uniqueResult();
 	}
 
@@ -84,7 +85,7 @@ public class ProcedimentoDAO extends GenericDAO<Procedimento> implements Seriali
 	
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public List<Procedimento> findByCodigoSetor(Integer codigo){
+	public List<Procedimento> findByCodigoSetor(BigInteger codigo){
 		return (List<Procedimento>) getCriteria().add(Restrictions.eq("codSetor", codigo)).list();
 	}
 	

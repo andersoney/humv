@@ -1,6 +1,7 @@
 package br.edu.ufrb.lasis.humv.view.procedimento;
 
 import br.edu.ufrb.lasis.humv.entity.Procedimento;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -17,7 +18,7 @@ public class ProcedimentoTableModel extends AbstractTableModel {
     public ProcedimentoTableModel(List<Procedimento> procedimentos) {
         this.procedimentos = procedimentos;
         titulos = new String[4];
-        titulos[0] = "Codigo";
+        titulos[0] = "Código";
         titulos[1] = "Nome";
         titulos[2] = "Setor";
         titulos[3] = "Valor R$";
@@ -30,7 +31,7 @@ public class ProcedimentoTableModel extends AbstractTableModel {
 
     public ProcedimentoTableModel() {
         titulos = new String[4];
-        titulos[0] = "Codigo";
+        titulos[0] = "Código";
         titulos[1] = "Nome";
         titulos[2] = "Setor";
         titulos[3] = "Valor R$";
@@ -84,7 +85,7 @@ public class ProcedimentoTableModel extends AbstractTableModel {
             case 2:
                 return this.procedimentos.get(rowIndex).getCodSetor();
             case 3:
-                return this.procedimentos.get(rowIndex).getValor();
+                return new DecimalFormat("#.00").format(procedimentos.get(rowIndex).getValor());
         }
         return null;
     }

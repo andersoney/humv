@@ -1,6 +1,7 @@
 ﻿package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,7 +29,7 @@ public class Setor implements Serializable {
 	
 	@Id
 	@GeneratedValue
-	private Integer codigo;
+	private BigInteger codigo;
 	private String nome;
 
 	public String getNome() {
@@ -39,11 +40,11 @@ public class Setor implements Serializable {
 		this.nome = nome;
 	}
 	
-	public Integer getCodigo(){
+	public BigInteger getCodigo(){
 		return codigo;
 	}
 
-	public void setCodigo(Integer codigo) {
+	public void setCodigo(BigInteger codigo) {
 		this.codigo = codigo;
 	}
 	

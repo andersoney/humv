@@ -11,6 +11,7 @@ import br.edu.ufrb.lasis.humv.view.setor.CadastrarSetorJDialog;
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,7 +25,7 @@ import org.codehaus.jackson.type.TypeReference;
 public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
 
     private JFrame parent;
-    private Integer codSetor = null;
+    private BigInteger codSetor = null;
     private String nomeSetor;
     private final String servicoSetor = "/api/setor";
     private final String servicoProcedimento = "/api/procedimento";
@@ -65,7 +66,7 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
         }
     }
     
-    public void setCodigoSetor(Integer novoCodigo){
+    public void setCodigoSetor(BigInteger novoCodigo){
         this.codSetor = novoCodigo;
     }
 
@@ -311,7 +312,7 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
             MessageUtils.validaCampoVazio("código");
             return;
         }
-        Integer codigo = Integer.parseInt(jTextFieldCodigo.getText());
+        BigInteger codigo = new BigInteger(jTextFieldCodigo.getText());
         if (jTextFieldPreco.getText().isEmpty()) {
             MessageUtils.validaCampoVazio("preço");
             return;

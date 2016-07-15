@@ -1,6 +1,8 @@
 package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -13,17 +15,17 @@ public class Usuario implements Serializable{
 
 	@Id
 	private String email;
-	private Integer siape;
+	private BigInteger siape;
 	private String nome;
 	private String senha;
 	private String perfil;
 	private boolean ativo;
 	
-	public Integer getSiape() {
+	public BigInteger getSiape() {
 		return siape;
 	}
 
-	public void setSiape(Integer siape) {
+	public void setSiape(BigInteger siape) {
 		this.siape = siape;
 	}
 

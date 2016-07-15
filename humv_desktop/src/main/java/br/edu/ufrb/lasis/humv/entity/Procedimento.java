@@ -1,6 +1,7 @@
 package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 
 /**
  * Entidade que modela informações de procedimento.
@@ -19,12 +20,12 @@ public class Procedimento implements Serializable {
 
     private static final long serialVersionUID = 1274972987399L;
 
-    private Integer codigo;
+    private BigInteger codigo;
     private String nome;
-    private Integer codSetor;
+    private BigInteger codSetor;
     private double valor;
 
-    public Integer getCodigo() {
+    public BigInteger getCodigo() {
         return this.codigo;
     }
 
@@ -36,7 +37,7 @@ public class Procedimento implements Serializable {
         return this.valor;
     }
 
-    public void setCodigo(Integer codigo) {
+    public void setCodigo(BigInteger codigo) {
         this.codigo = codigo;
     }
 
@@ -48,11 +49,11 @@ public class Procedimento implements Serializable {
         this.valor = valor;
     }
 
-    public Integer getCodSetor() {
+    public BigInteger getCodSetor() {
         return this.codSetor;
     }
 
-    public void setCodSetor(Integer codSetor) {
+    public void setCodSetor(BigInteger codSetor) {
         this.codSetor = codSetor;
     }
 

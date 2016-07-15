@@ -1,5 +1,6 @@
 package br.edu.ufrb.lasis.humv.service;
 
+import java.math.BigInteger;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -36,7 +37,7 @@ public class AnimalService {
     }
     
     @RequestMapping(method = RequestMethod.GET, value = "/{rghumv}")
-    public Animal findById(@PathVariable Integer rghumv){
+    public Animal findById(@PathVariable BigInteger rghumv){
     	return animalServiceImpl.findById(rghumv);
     }
 	
@@ -56,7 +57,7 @@ public class AnimalService {
     }
     
     @RequestMapping(method = RequestMethod.DELETE, value = "/{rghumv}")
-    public String removerAnimal(@PathVariable Integer rghumv, @RequestParam(value="username") String  username){
+    public String removerAnimal(@PathVariable BigInteger rghumv, @RequestParam(value="username") String  username){
     	return animalServiceImpl.removerAnimal(rghumv, username);
     }
     

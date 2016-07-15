@@ -95,10 +95,8 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jButtonCadastrarNovoDono" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabelCpfDono" alignment="0" min="-2" pref="157" max="-2" attributes="0"/>
-                              <Component id="jLabelNomeDono" alignment="0" min="-2" pref="158" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jDateChooserData" min="-2" pref="200" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -110,6 +108,8 @@
                                       <Component id="jSpinnerHoras" alignment="1" min="-2" pref="117" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
+                              <Component id="jLabelNomeDono" alignment="0" pref="442" max="32767" attributes="0"/>
+                              <Component id="jLabelCpfDono" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>

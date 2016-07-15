@@ -68,7 +68,7 @@ public class AnimalDAO  extends GenericDAO<Animal> implements Serializable {
 	}
 	
 	@Transactional
-	public Animal findByRghumv(Integer rghumv) {
+	public Animal findByRghumv(BigInteger rghumv) {
 		return (Animal) getCriteria().add(Restrictions.eq("rghumv", rghumv)).uniqueResult();
 	}
 

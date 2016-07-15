@@ -13,6 +13,7 @@ import br.edu.ufrb.lasis.humv.utils.MessageUtils;
 import br.edu.ufrb.lasis.humv.utils.SecurityUtils;
 import com.sun.jersey.api.client.ClientResponse;
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import javax.swing.JOptionPane;
 
@@ -208,11 +209,11 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_buttonCancelarActionPerformed
 
     private void buttonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOKActionPerformed
-        Integer siape;
+        BigInteger siape;
         try {
-            siape = Integer.parseInt(textFieldSiape.getText());
+            siape = new BigInteger(textFieldSiape.getText());
         } catch (NumberFormatException ex) {
-            siape = -1;
+            siape = new BigInteger("-1");
         }
         
         if (textFieldNome.getText().isEmpty()) {
@@ -224,7 +225,7 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
             } else if (textFieldEmail.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "E-mail inválido. Por favor, digite-o novamente.", "E-mail inválido", JOptionPane.ERROR_MESSAGE);
                 textFieldEmail.setFocusable(true);
-            } else if (!textFieldSiape.getText().isEmpty() && siape <= 0) {
+            } else if (!textFieldSiape.getText().isEmpty() && siape.compareTo(new BigInteger("0")) <= 0) {
                 JOptionPane.showMessageDialog(this, "O campo SIAPE deve conter apenas números.", "SIAPE inválido", JOptionPane.ERROR_MESSAGE);
                 textFieldSiape.setText("");
                 textFieldSiape.setFocusable(true);

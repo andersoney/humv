@@ -5,7 +5,9 @@ import br.edu.ufrb.lasis.humv.entity.Setor;
 import br.edu.ufrb.lasis.humv.utils.MessageUtils;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
+import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
+import java.math.BigInteger;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,7 +21,7 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel {
      *
      */
     private String cod;
-    private final String servicoSetor = "/api/setor";
+    private String servicoSetor = "/api/setor";
     private Setor setorSelecionado;
     private CadastrarSetorJDialog cadastroSetorJDialog;
 
@@ -152,14 +154,14 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel {
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         int i = MessageUtils.dialogoCancelar("o cadastro", "setor");
         if (i == JOptionPane.OK_OPTION) {
-
             if (cadastroSetorJDialog != null) {
-                cadastroSetorJDialog.fecharDialog(null, null);
-            }
+                cadastroSetorJDialog.dispose();
+            } else {
+                HUMVApp.exibirMensagemCarregamento();
+                HUMVApp.setPainelCentralComLogo();
+                HUMVApp.esconderMensagemCarregamento();
 
-            HUMVApp.exibirMensagemCarregamento();
-            HUMVApp.setPainelCentralComLogo();
-            HUMVApp.esconderMensagemCarregamento();
+            }
         }
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
@@ -172,32 +174,37 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel {
         Setor setor = new Setor();
         setor.setNome(nome);
         if (setorSelecionado != null) {
-            setor.setCodigo(Integer.parseInt(cod));
+            setor.setCodigo(new BigInteger(cod));
         }
         try {
             ClientResponse response;
             if (setorSelecionado == null) {
-                response = RESTMethods.post(servicoSetor, setor);
+                String setorURL = servicoSetor;
+                if (cadastroSetorJDialog != null) {
+                    setorURL += "/retornaCadastrado";
+                }
+                response = RESTMethods.post(setorURL, setor);
             } else {
                 response = RESTMethods.put(servicoSetor, setor);
             }
-            String resposta = response.getEntity(String.class);
-            if (!resposta.equalsIgnoreCase("ok")) {
-                if (setorSelecionado == null) {
-                    MessageUtils.erroResposta(resposta);
-                } else {
-                    MessageUtils.erroResposta(resposta);
-                }
+            if (cadastroSetorJDialog != null) {
+                Setor setorRetornado = response.getEntity(Setor.class);
+                MessageUtils.sucessoCadastro("setor");
+                cadastroSetorJDialog.fecharDialog(setorRetornado.getCodigo(), setorRetornado.getNome());
             } else {
-                if (setorSelecionado == null) {
-                    MessageUtils.sucessoCadastro("setor");
+                String resposta = response.getEntity(String.class);
+                if (!resposta.equalsIgnoreCase("ok")) {
+                    if (setorSelecionado == null) {
+                        MessageUtils.erroResposta(resposta);
+                    } else {
+                        MessageUtils.erroResposta(resposta);
+                    }
                 } else {
-                    MessageUtils.sucessoAtualizacao("setor");
-                }
-
-                if (cadastroSetorJDialog != null) {
-                    cadastroSetorJDialog.fecharDialog(setor.getCodigo(), setor.getNome());
-                } else {
+                    if (setorSelecionado == null) {
+                        MessageUtils.sucessoCadastro("setor");
+                    } else {
+                        MessageUtils.sucessoAtualizacao("setor");
+                    }
                     HUMVApp.exibirMensagemCarregamento();
                     HUMVApp.setPainelCentralComLogo();
                     HUMVApp.esconderMensagemCarregamento();
@@ -205,6 +212,8 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel {
             }
         } catch (RESTConnectionException ex) {
             MessageUtils.erroConexao();
+        } catch (ClientHandlerException ex) {
+            JOptionPane.showMessageDialog(null, "Erro no cadastro do setor. Por favor, tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 

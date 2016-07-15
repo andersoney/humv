@@ -6,7 +6,7 @@
 package br.edu.ufrb.lasis.humv.view.projeto;
 
 import br.edu.ufrb.lasis.humv.entity.Projeto;
-import br.edu.ufrb.lasis.humv.view.setor.SetorTabelModel;
+import br.edu.ufrb.lasis.humv.view.setor.SetorTableModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -20,14 +20,14 @@ public class ProjetoTableModel extends AbstractTableModel {
 
     String[] titulos;
     List<Projeto> projetos;
-    private static final Logger LOG = Logger.getLogger(SetorTabelModel.class.getName());
+    private static final Logger LOG = Logger.getLogger(SetorTableModel.class.getName());
 
     
     public ProjetoTableModel(List<Projeto> projetos) {
         this.projetos = projetos;
         titulos = new String[2];
         titulos[0] = "Nome do projeto";
-        titulos[1] = "Nome do orientaador";
+        titulos[1] = "Nome do orientador";
     }
 
 

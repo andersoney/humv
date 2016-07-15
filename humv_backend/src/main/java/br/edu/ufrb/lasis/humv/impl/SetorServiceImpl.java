@@ -1,5 +1,6 @@
 package br.edu.ufrb.lasis.humv.impl;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -42,7 +43,7 @@ public class SetorServiceImpl {
 		}
 	}
 
-	public Setor findByCodigo(Integer codigo){
+	public Setor findByCodigo(BigInteger codigo){
 		return setorDAO.findByCodigo(codigo);
 	}
 	
@@ -76,7 +77,7 @@ public class SetorServiceImpl {
 		return "OK";
 	}
 	
-	public String removerSetor(Integer codigo, String usuarioResponsavel){
+	public String removerSetor(BigInteger codigo, String usuarioResponsavel){
 		if(setorDAO.findByCodigo(codigo) == null){
 			//logger.error("[signup] Nenhum Setor com o código " + codigo + "foi encontrado no sistema.");
 			return "Nenhum Setor com o código " + codigo + "foi encontrado no sistema. Por favor, informe um código diferente.";

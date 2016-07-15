@@ -1,5 +1,6 @@
 package br.edu.ufrb.lasis.humv.service;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-
 import br.edu.ufrb.lasis.humv.entity.Projeto;
 import br.edu.ufrb.lasis.humv.impl.ProjetoServiceImpl;
 
@@ -30,8 +29,13 @@ public class ProjetoService {
     }
     
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    public Projeto findById(@PathVariable String id){
+    public Projeto findById(@PathVariable BigInteger id){
     	return projetoServiceImpl.findById(id);
+    }
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/search")
+    public List<Projeto> search(@RequestParam(value="palavrachave") String palavrachave){
+    	return projetoServiceImpl.search(palavrachave);
     }
     
     @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
@@ -45,7 +49,7 @@ public class ProjetoService {
     }
     
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-    public String removerProjeto(@PathVariable String id, @RequestParam(value="username") String  username){
+    public String removerProjeto(@PathVariable BigInteger id, @RequestParam(value="username") String  username){
     	return projetoServiceImpl.removerProjeto(id, username);
     }
     

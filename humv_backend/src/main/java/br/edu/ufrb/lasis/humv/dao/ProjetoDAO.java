@@ -12,15 +12,13 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-
 import br.edu.ufrb.lasis.humv.entity.Projeto;
 
 @Repository
 public class ProjetoDAO extends GenericDAO<Projeto> implements Serializable {
 
-private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1L;
+
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -29,8 +27,8 @@ private static final long serialVersionUID = 1L;
 		return sessionFactory.getCurrentSession();
 	}
 
-	
-	
+
+
 	/**
 	 * Saves an project in the database.
 	 *
@@ -52,7 +50,7 @@ private static final long serialVersionUID = 1L;
 	public void updateProjeto(Projeto projeto) {
 		super.update(projeto);
 	}
-	
+
 	/**
 	 * Removes an project in the database.
 	 *
@@ -63,23 +61,37 @@ private static final long serialVersionUID = 1L;
 	public void removeProjeto(Projeto projeto) {
 		super.delete(projeto);
 	}
-	
+
 	@SuppressWarnings("unchecked")
+	@Transactional
 	public List<Projeto> findBySiapeResponsavel(BigInteger siape){
-		Criteria criteria = getCriteria().add(Restrictions.ilike("siapeResponsavel", "%" + siape + "%"));
+		Criteria criteria = getCriteria().add(Restrictions.eq("siapeResponsavel", siape));
 		criteria.addOrder(Order.asc("siapeResponsavel"));
 		return (List<Projeto>) criteria.list();
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<Projeto> search(String palavrachave) {
+		Criteria criteria = getCriteria();
+		criteria.add(
+				Restrictions.or(
+						Restrictions.ilike("nome", "%" + palavrachave + "%"), 
+						Restrictions.ilike("nomeResponsavel", "%" + palavrachave + "%")
+						)
+				);
+		return (List<Projeto>) criteria.list();
+	}
+
 	@SuppressWarnings("unchecked")
 	public List<Projeto> findByNome(String nome){
 		Criteria criteria = getCriteria().add(Restrictions.ilike("nome", "%" + nome + "%"));
 		criteria.addOrder(Order.asc("nome"));
 		return (List<Projeto>) criteria.list();
 	}
-	
+
 	@Transactional
-	public Projeto findByKey(String id) {
+	public Projeto findById(BigInteger id) {
 		return (Projeto) getCriteria().add(Restrictions.eq("id", id)).uniqueResult();
 	}
 
