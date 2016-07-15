@@ -190,7 +190,7 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel {
             if (cadastroSetorJDialog != null) {
                 Setor setorRetornado = response.getEntity(Setor.class);
                 MessageUtils.sucessoCadastro("setor");
-                cadastroSetorJDialog.fecharDialog(setorRetornado.getCodigo(), setorRetornado.getNome());
+                cadastroSetorJDialog.fecharDialog(setorRetornado);
             } else {
                 String resposta = response.getEntity(String.class);
                 if (!resposta.equalsIgnoreCase("ok")) {

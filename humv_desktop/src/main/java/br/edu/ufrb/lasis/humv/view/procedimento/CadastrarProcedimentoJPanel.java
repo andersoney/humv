@@ -25,7 +25,7 @@ import org.codehaus.jackson.type.TypeReference;
 public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
 
     private JFrame parent;
-    private BigInteger codSetor = null;
+    private Setor setor = null;
     private String nomeSetor;
     private final String servicoSetor = "/api/setor";
     private final String servicoProcedimento = "/api/procedimento";
@@ -53,21 +53,16 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
             jTextFieldNome.setText(procedimentoSelecionado.getNome());
             jTextFieldCodigo.setText(procedimentoSelecionado.getCodigo().toString());
             jTextFieldPreco.setText("" + procedimentoSelecionado.getValor());
-            try {
-                ClientResponse response = RESTMethods.get(servicoSetor + "/" + procedimentoSelecionado.getCodSetor());
-                Setor at = response.getEntity(Setor.class);
-                nomeSetor = at.getNome();
-                jLabelNomeSetor.setText("Nome: " + nomeSetor);
-                codSetor = at.getCodigo();
-                jLabelSetorCodigo.setText("Código: " + codSetor);
-            } catch (RESTConnectionException ex) {
-                MessageUtils.erroConexao();
-            }
+            setor = procedimentoSelecionado.getSetor();
+            jLabelSetorCodigo.setText("Código: " + setor.getCodigo());
+            nomeSetor = procedimentoSelecionado.getSetor().getNome();
+            jLabelNomeSetor.setText("Nome: " + nomeSetor);
+
         }
     }
-    
-    public void setCodigoSetor(BigInteger novoCodigo){
-        this.codSetor = novoCodigo;
+
+    public void setSetor(Setor setor) {
+        this.setor = setor;
     }
 
     public JLabel getjLabelNomeSetor() {
@@ -282,11 +277,11 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
         if (!jTextFieldCodSetor.getText().isEmpty()) {
             try {
                 response = RESTMethods.get(servicoSetor + "/" + this.jTextFieldCodSetor.getText() + "");
-                Setor at = response.getEntity(Setor.class);
-                nomeSetor = at.getNome();
+                Setor setor = response.getEntity(Setor.class);
+                nomeSetor = setor.getNome();
                 this.jLabelNomeSetor.setText("Nome: " + nomeSetor);
-                codSetor = at.getCodigo();
-                this.jLabelSetorCodigo.setText("Código: " + codSetor);
+                this.setor = setor;
+                this.jLabelSetorCodigo.setText("Código: " + setor);
                 JOptionPane.showMessageDialog(null, "Setor encontrado", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             } catch (RESTConnectionException ex) {
                 MessageUtils.erroConexao();
@@ -299,7 +294,7 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonPesqusarActionPerformed
 
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
-        if (codSetor == null) {
+        if (setor == null) {
             MessageUtils.validaCampoVazio("setor");
             return;
         }
@@ -338,7 +333,7 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
         procedimento.setValor(valor);
         procedimento.setCodigo(codigo);
         procedimento.setNome(nome);
-        procedimento.setCodSetor(codSetor);
+        procedimento.setSetor(setor);
         try {
             ClientResponse response;
             if (procedimentoSelecionado == null) {
@@ -390,10 +385,11 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
     private void jButtonExibirListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExibirListaActionPerformed
         try {
             ClientResponse response = RESTMethods.get("/api/setor");
-            List<Setor> lista = (List<Setor>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Setor>>(){});
-            if(lista.isEmpty()){
+            List<Setor> lista = (List<Setor>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Setor>>() {
+            });
+            if (lista.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Não existem setores cadastrados.", "Lista de setores", JOptionPane.INFORMATION_MESSAGE);
-            }else{
+            } else {
                 new SetorListaJDialog(this, lista).setVisible(true);
             }
         } catch (RESTConnectionException | IOException ex) {

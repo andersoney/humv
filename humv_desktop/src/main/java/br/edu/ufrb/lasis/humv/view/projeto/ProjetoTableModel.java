@@ -24,22 +24,19 @@ public class ProjetoTableModel extends AbstractTableModel {
 
     
     public ProjetoTableModel(List<Projeto> projetos) {
+        initArrayTitulos();
         this.projetos = projetos;
-        titulos = new String[2];
-        titulos[0] = "Nome do projeto";
-        titulos[1] = "Nome do orientador";
-    }
-
-
-    public void AdicionarProjetos(List<Projeto> projetos) {
-        this.projetos.addAll(projetos);
     }
 
     public ProjetoTableModel() {
+        initArrayTitulos();
+        projetos = new ArrayList<Projeto>();
+    }
+    
+    private void initArrayTitulos(){
         titulos = new String[2];
         titulos[0] = "Nome do projeto";
         titulos[1] = "Código do orientador";
-        projetos = new ArrayList<Projeto>();
     }
 
     public Projeto getProjetoSelecionado(int index) {

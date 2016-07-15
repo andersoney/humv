@@ -6,11 +6,11 @@
 package br.edu.ufrb.lasis.humv.view.dono;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
+import br.edu.ufrb.lasis.humv.entity.Dono;
 import br.edu.ufrb.lasis.humv.utils.MaskUtils;
 import br.edu.ufrb.lasis.humv.view.animal.CadastrarAnimalJPanel;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.math.BigInteger;
 import javax.swing.JDialog;
 
 /**
@@ -43,11 +43,11 @@ public class CadastrarDonoJDialog extends JDialog{
         setLocation(x, y);
     }
 
-    public void fecharDialog(String nome, BigInteger cpf) {
-        if (!(nome == null || cpf == null || nome.isEmpty())) {
-            cadastroAnimalPanel.getjLabelCpfDono().setText("CPF: " + MaskUtils.formatarStringCPF(cpf));
-            cadastroAnimalPanel.setIdDono(cpf);
-            cadastroAnimalPanel.getjLabelNomeDono().setText("Nome: " + nome);
+    public void fecharDialog(Dono dono) {
+        if (dono != null) {
+            cadastroAnimalPanel.setDono(dono);
+            cadastroAnimalPanel.getjLabelCpfDono().setText(dono.getTipoId() + ": " + MaskUtils.formatarStringCPF(dono.getId()));
+            cadastroAnimalPanel.getjLabelNomeDono().setText("Nome: " + dono.getNome());
             dispose();
         }
     }

@@ -22,7 +22,7 @@ public class Procedimento implements Serializable {
 
     private BigInteger codigo;
     private String nome;
-    private BigInteger codSetor;
+    private Setor setor;
     private double valor;
 
     public BigInteger getCodigo() {
@@ -49,12 +49,12 @@ public class Procedimento implements Serializable {
         this.valor = valor;
     }
 
-    public BigInteger getCodSetor() {
-        return this.codSetor;
+    public Setor getSetor() {
+        return setor;
     }
 
-    public void setCodSetor(BigInteger codSetor) {
-        this.codSetor = codSetor;
+    public void setSetor(Setor setor) {
+        this.setor = setor;
     }
 
 }

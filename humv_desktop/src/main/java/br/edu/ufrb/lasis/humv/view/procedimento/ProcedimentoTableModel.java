@@ -16,26 +16,21 @@ public class ProcedimentoTableModel extends AbstractTableModel {
     List<Procedimento> procedimentos;
 
     public ProcedimentoTableModel(List<Procedimento> procedimentos) {
+        initArrayTitulos();
         this.procedimentos = procedimentos;
-        titulos = new String[4];
-        titulos[0] = "Código";
-        titulos[1] = "Nome";
-        titulos[2] = "Setor";
-        titulos[3] = "Valor R$";
-    }
-
-
-    public void AdicionarProcedimentos(List<Procedimento> procedimentos) {
-        this.procedimentos.addAll(procedimentos);
     }
 
     public ProcedimentoTableModel() {
+        initArrayTitulos();
+        procedimentos = new ArrayList<Procedimento>();
+    }
+    
+    private void initArrayTitulos(){
         titulos = new String[4];
         titulos[0] = "Código";
         titulos[1] = "Nome";
         titulos[2] = "Setor";
         titulos[3] = "Valor R$";
-        procedimentos = new ArrayList<Procedimento>();
     }
 
     public Procedimento getProcedimentoSelecionado(int index) {
@@ -77,15 +72,16 @@ public class ProcedimentoTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
+        Procedimento procedimento = this.procedimentos.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return this.procedimentos.get(rowIndex).getCodigo();
+                return procedimento.getCodigo();
             case 1:
-                return this.procedimentos.get(rowIndex).getNome();
+                return procedimento.getNome();
             case 2:
-                return this.procedimentos.get(rowIndex).getCodSetor();
+                return procedimento.getSetor().getCodigo() + " - " + procedimento.getSetor().getNome();
             case 3:
-                return new DecimalFormat("#.00").format(procedimentos.get(rowIndex).getValor());
+                return new DecimalFormat("#.00").format(procedimento.getValor());
         }
         return null;
     }

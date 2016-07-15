@@ -87,7 +87,7 @@ public class SetorServiceImpl {
 		setorDAO.removeSetor(setor);
 		List<Procedimento> procedimentos = procedimentoDAO.findByCodigoSetor(codigo);
 		for(Procedimento proc : procedimentos){
-			proc.setCodSetor(null);
+			proc.setSetor(null);
 			procedimentoDAO.updateProcedimento(proc);
 		}
 		logger.info("[removerSetor - " + usuarioResponsavel + "] Setor " + setor.getCodigo() + " removido com sucesso.");

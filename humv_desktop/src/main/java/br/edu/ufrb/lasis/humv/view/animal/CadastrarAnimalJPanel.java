@@ -14,7 +14,6 @@ import br.edu.ufrb.lasis.humv.utils.MessageUtils;
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.KeyEvent;
-import java.math.BigInteger;
 import java.util.Calendar;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
@@ -27,7 +26,7 @@ import javax.swing.SpinnerDateModel;
 public class CadastrarAnimalJPanel extends javax.swing.JPanel {
 
     private boolean grande = false;
-    private BigInteger idDono;
+    private Dono dono = null;
     private String porte, nome;
     private final String servicoDono = "/api/dono";
     private final String servicoAnimal = "/api/animal";
@@ -71,32 +70,17 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
             jTextFieldEspecie.setText(animalSelecionado.getEspecie());
             jTextFieldIdade.setText("" + animalSelecionado.getIdade());
             jTextFieldRaca.setText(animalSelecionado.getRaca());
-            if (ValidationsUtils.isCPF(animalSelecionado.getIdDono().toString())) {
-                jLabelCpfDono.setText("CPF: " +  MaskUtils.formatarStringCPF(animalSelecionado.getIdDono()));
-                ClientResponse response;
-                try {
-                    this.setIdNull();
-                    response = RESTMethods.get(servicoDono + "/" + animalSelecionado.getIdDono() + "");
-                    Dono at = response.getEntity(Dono.class);
-                    this.idDono = at.getId();
-                    this.jLabelCpfDono.setText("CPF: " + idDono);
-                    this.jLabelNomeDono.setText("Nome: " + at.getNome());
-                } catch (RESTConnectionException ex) {
-                    MessageUtils.erroConexao();
-                }
-            } else{
-                jLabelCpfDono.setText("CNPJ: " + MaskUtils.formatarStringCNPJ(animalSelecionado.getIdDono()));
-                ClientResponse response;
-                try {
-                    this.setIdNull();
-                    response = RESTMethods.get(servicoDono + "/" + animalSelecionado.getIdDono() + "");
-                    Dono at = response.getEntity(Dono.class);
-                    this.idDono = at.getId();
-                    this.jLabelCpfDono.setText("CNPJ: " + this.idDono);
-                    this.jLabelNomeDono.setText("Nome: " + at.getNome());
-                } catch (RESTConnectionException ex) {
-                    MessageUtils.erroConexao();
-                }
+            if (animalSelecionado.getDono().getTipoId().equalsIgnoreCase("CPF")) {
+                jLabelCpfDono.setText("CPF: " + MaskUtils.formatarStringCPF(animalSelecionado.getDono().getId()));
+                this.dono = animalSelecionado.getDono();
+                this.jLabelCpfDono.setText("CPF: " + animalSelecionado.getDono().getId());
+                this.jLabelNomeDono.setText("Nome: " + animalSelecionado.getDono().getNome());
+            } else {
+                jLabelCpfDono.setText("CNPJ: " + MaskUtils.formatarStringCNPJ(animalSelecionado.getDono().getId()));
+                this.setIdNull();
+                this.dono = animalSelecionado.getDono();
+                this.jLabelCpfDono.setText("CNPJ: " + animalSelecionado.getDono().getId());
+                this.jLabelNomeDono.setText("Nome: " + animalSelecionado.getDono().getNome());
             }
             if (animalSelecionado.getPorte().equalsIgnoreCase("pequeno")) {
                 this.jRadioButtonPequenoPorte.setSelected(true);
@@ -125,7 +109,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
     }
 
     public void setIdNull() {
-        this.idDono = null;
+        this.dono = null;
         this.nome = null;
         this.jLabelNomeDono.setText("Nome: ");
         this.jLabelCpfDono.setText("CPF: ");
@@ -139,8 +123,8 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
         return jLabelNomeDono;
     }
 
-    public void setIdDono(BigInteger idDono) {
-        this.idDono = idDono;
+    public void setDono(Dono dono) {
+        this.dono = dono;
     }
 
     @SuppressWarnings("unchecked")
@@ -481,8 +465,8 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
 
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
 
-        if (idDono == null) {
-            JOptionPane.showMessageDialog(this, "Escolha ou cadastre um dono na lista.");
+        if (dono == null) {
+            JOptionPane.showMessageDialog(this, "Você deve escolher ou cadastrar um dono para prosseguir com a operação.");
             return;
         }
 
@@ -533,7 +517,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
 
         ClientResponse response;
         Animal animal = new Animal();
-        animal.setIdDono(idDono);
+        animal.setDono(dono);
         animal.setDataCadastro(data);
         animal.setEspecie(especie);
         animal.setIdade(idade);
@@ -594,10 +578,9 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
                 try {
                     this.setIdNull();
                     response = RESTMethods.get(servicoDono + "/" + MaskUtils.removeMascara(this.jTextFieldBuscaCpf.getText()) + "");
-                    Dono at = response.getEntity(Dono.class);
-                    this.idDono = at.getId();
-                    this.jLabelCpfDono.setText("CPF: " + idDono);
-                    this.jLabelNomeDono.setText("Nome: " + at.getNome());
+                    this.dono = response.getEntity(Dono.class);
+                    this.jLabelCpfDono.setText("CPF: " + dono.getId());
+                    this.jLabelNomeDono.setText("Nome: " + dono.getNome());
                 } catch (RESTConnectionException ex) {
                     MessageUtils.erroConexao();
                 } catch (ClientHandlerException ex) {
@@ -612,10 +595,9 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
             try {
                 this.setIdNull();
                 response = RESTMethods.get(servicoDono + "/" + MaskUtils.removeMascara(this.jTextFieldBuscaCpf.getText()) + "");
-                Dono at = response.getEntity(Dono.class);
-                this.idDono = at.getId();
-                this.jLabelCpfDono.setText("CNPJ: " + idDono);
-                this.jLabelNomeDono.setText("Nome: " + at.getNome());
+                this.dono = response.getEntity(Dono.class);
+                this.jLabelCpfDono.setText("CNPJ: " + dono.getId());
+                this.jLabelNomeDono.setText("Nome: " + dono.getNome());
             } catch (RESTConnectionException ex) {
                 MessageUtils.erroConexao();
             } catch (ClientHandlerException ex) {

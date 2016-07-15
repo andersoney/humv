@@ -6,6 +6,7 @@
 package br.edu.ufrb.lasis.humv.view.animal;
 
 import br.edu.ufrb.lasis.humv.entity.Animal;
+import br.edu.ufrb.lasis.humv.utils.MaskUtils;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -24,28 +25,22 @@ public class AnimalTableModel extends AbstractTableModel {
      * @param animais
      */
     public AnimalTableModel(List<Animal> animais) {
+        initArrayTitulos();
         this.animais = animais;
-        titulos = new String[3];
-        titulos[0] = "Nome do animal";
-        titulos[1] = "RGHUMV";
-        titulos[2] = "CPF/CNPJ do dono";
-    }
-
-
-    /**
-     *
-     * @param animais
-     */
-    public void AdicionarAnimais(List<Animal> animais) {
-        this.animais.addAll(animais);
     }
 
     public AnimalTableModel() {
-        titulos = new String[3];
+        initArrayTitulos();
+        animais = new ArrayList<Animal>();
+    }
+    
+    private void initArrayTitulos(){
+        titulos = new String[5];
         titulos[0] = "Nome do animal";
         titulos[1] = "RGHUMV";
-        titulos[2] = "CPF/CNPJ do dono";
-        animais = new ArrayList<Animal>();
+        titulos[2] = "Nome do dono";
+        titulos[3] = "Tipo documento";
+        titulos[4] = "Número documento";
     }
 
     public Animal getUsuarioSelecionado(int index) {
@@ -93,7 +88,15 @@ public class AnimalTableModel extends AbstractTableModel {
             case 1:
                 return this.animais.get(rowIndex).getRghumv();
             case 2:
-                return this.animais.get(rowIndex).getIdDono();
+                return this.animais.get(rowIndex).getDono().getNome();
+            case 3:
+                return this.animais.get(rowIndex).getDono().getTipoId();
+            case 4:
+                if (this.animais.get(rowIndex).getDono().getTipoId().equalsIgnoreCase("CPF")) {
+                    return MaskUtils.formatarStringCPF(this.animais.get(rowIndex).getDono().getId());
+                } else {
+                    return MaskUtils.formatarStringCNPJ(this.animais.get(rowIndex).getDono().getId());
+                }
         }
         return null;
     }

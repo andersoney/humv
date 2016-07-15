@@ -8,7 +8,6 @@ package br.edu.ufrb.lasis.humv.view.setor;
 import br.edu.ufrb.lasis.humv.entity.Setor;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -19,26 +18,22 @@ public class SetorTableModel extends AbstractTableModel {
 
     String[] titulos;
     List<Setor> setores;
-    private static final Logger LOG = Logger.getLogger(SetorTableModel.class.getName());
 
     
     public SetorTableModel(List<Setor> setores) {
+        initArrayTitulos();
         this.setores = setores;
-        titulos = new String[2];
-        titulos[0] = "Nome do setor";
-        titulos[1] = "Código do setor";
-    }
-
-
-    public void AdicionarSetores(List<Setor> setores) {
-        this.setores.addAll(setores);
     }
 
     public SetorTableModel() {
+        initArrayTitulos();
+        setores = new ArrayList<Setor>();
+    }
+    
+    private void initArrayTitulos(){
         titulos = new String[2];
         titulos[0] = "Nome do setor";
         titulos[1] = "Código do setor";
-        setores = new ArrayList<Setor>();
     }
 
     public Setor getSetorSelecionado(int index) {

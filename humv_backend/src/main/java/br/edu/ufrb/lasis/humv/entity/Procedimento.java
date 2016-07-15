@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 //import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 /**
  * Entidade que modela informações de procedimento.
@@ -33,16 +35,19 @@ public class Procedimento implements Serializable {
 	private BigInteger codigo;
 	private String nome;
 	private double valor;
-	private BigInteger codSetor;
+	
+	@OneToOne
+	@JoinColumn(name="id_procedimento")
+	private Setor setor;
 	
 	public Procedimento(){}
-	
-	public BigInteger getCodSetor() {
-		return codSetor;
+
+	public Setor getSetor() {
+		return setor;
 	}
 
-	public void setCodSetor(BigInteger codSetor) {
-		this.codSetor = codSetor;
+	public void setSetor(Setor setor) {
+		this.setor = setor;
 	}
 
 	public void setValor(double valor) {

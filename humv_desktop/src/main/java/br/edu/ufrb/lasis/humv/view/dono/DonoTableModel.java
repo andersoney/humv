@@ -15,24 +15,21 @@ public class DonoTableModel extends AbstractTableModel {
     String[] titulos;
     List<Dono> donos;
 
-    
     public DonoTableModel(List<Dono> donos) {
+        initArrayTitulos();
         this.donos = donos;
-        titulos = new String[2];
-        titulos[0] = "Nome";
-        titulos[1] = "CPF/CNPJ";
-    }
-
-
-    public void AdicionarDonos(List<Dono> donos) {
-        this.donos.addAll(donos);
     }
 
     public DonoTableModel() {
-        titulos = new String[2];
-        titulos[0] = "Nome";
-        titulos[1] = "CPF/CNPJ";
+        initArrayTitulos();
         donos = new ArrayList<Dono>();
+    }
+
+    private void initArrayTitulos() {
+        titulos = new String[3];
+        titulos[0] = "Nome";
+        titulos[1] = "Tipo do documento";
+        titulos[2] = "Número do documento";
     }
 
     public Dono getDonoSelecionado(int index) {
@@ -74,14 +71,16 @@ public class DonoTableModel extends AbstractTableModel {
             case 0:
                 return this.donos.get(rowIndex).getNome();
             case 1:
+                return this.donos.get(rowIndex).getTipoId();
+            case 2:
                 String idStr;
-                if(donos.get(rowIndex).getTipoId().equalsIgnoreCase("cpf")){
+                if (donos.get(rowIndex).getTipoId().equalsIgnoreCase("CPF")) {
                     idStr = MaskUtils.formatarStringCPF(this.donos.get(rowIndex).getId());
-                }else{
+                } else {
                     idStr = MaskUtils.formatarStringCNPJ(this.donos.get(rowIndex).getId());
-                }     
+                }
                 return idStr;
         }
         return null;
-    }    
+    }
 }

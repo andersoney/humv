@@ -7,6 +7,7 @@ import br.edu.ufrb.lasis.humv.utils.MaskUtils;
 import br.edu.ufrb.lasis.humv.entity.Dono;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
+import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
 import java.math.BigInteger;
 import javax.swing.JOptionPane;
@@ -402,32 +403,40 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
         ClientResponse response;
         try {
             if (donoSelecionado == null) {
-                response = RESTMethods.post(servicoDono, dono);
+                String donoURL = servicoDono;
+                if (cadastroDonoJDialog != null) {
+                    donoURL += "/retornaCadastrado";
+                }
+                response = RESTMethods.post(donoURL, dono);
             } else {
                 response = RESTMethods.put(servicoDono, dono);
             }
-
-            String resposta = response.getEntity(String.class);
-            if (!resposta.equalsIgnoreCase("ok")) {
-                MessageUtils.erroResposta(resposta);
-                return;
-            }
-
-            if (donoSelecionado == null) {
-                MessageUtils.sucessoCadastro("dono");
+            
+            if (cadastroDonoJDialog != null) {
+                Dono donoRetornado = response.getEntity(Dono.class);
+                MessageUtils.sucessoCadastro("setor");
+                cadastroDonoJDialog.fecharDialog(donoRetornado);
             } else {
-                MessageUtils.sucessoAtualizacao("dono");
+
+                String resposta = response.getEntity(String.class);
+                if (!resposta.equalsIgnoreCase("ok")) {
+                    MessageUtils.erroResposta(resposta);
+                    return;
+                }
+
+                if (donoSelecionado == null) {
+                    MessageUtils.sucessoCadastro("dono");
+                } else {
+                    MessageUtils.sucessoAtualizacao("dono");
+                }
+                HUMVApp.exibirMensagemCarregamento();
+                HUMVApp.setPainelCentralComLogo();
+                HUMVApp.esconderMensagemCarregamento();
             }
         } catch (RESTConnectionException ex) {
             MessageUtils.erroConexao();
-        }
-
-        if (cadastroDonoJDialog != null) {
-            cadastroDonoJDialog.fecharDialog(nome, id);
-        } else {
-            HUMVApp.exibirMensagemCarregamento();
-            HUMVApp.setPainelCentralComLogo();
-            HUMVApp.esconderMensagemCarregamento();
+        } catch (ClientHandlerException ex) {
+            JOptionPane.showMessageDialog(null, "Erro no cadastro do dono. Por favor, tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 

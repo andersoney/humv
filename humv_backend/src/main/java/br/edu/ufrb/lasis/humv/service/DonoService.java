@@ -50,6 +50,12 @@ public class DonoService {
 	public String cadastrarDono(@RequestBody Dono dono, @RequestParam(value="username") String  username){
 		return donoServiceImpl.cadastrarDono(dono, username);
 	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/retornaCadastrado", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    public Dono cadastrarSetorRetornandoCadatrado(@RequestBody Dono dono, @RequestParam(value="username") String  username){
+		donoServiceImpl.cadastrarDono(dono, username);
+    	return dono;
+    }
 
 	@RequestMapping(method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
 	public String atualizarDono(@RequestBody Dono dono, @RequestParam(value="username") String  username){

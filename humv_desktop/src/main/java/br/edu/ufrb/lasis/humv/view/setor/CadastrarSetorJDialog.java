@@ -6,6 +6,7 @@
 package br.edu.ufrb.lasis.humv.view.setor;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
+import br.edu.ufrb.lasis.humv.entity.Setor;
 import br.edu.ufrb.lasis.humv.view.procedimento.CadastrarProcedimentoJPanel;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -42,11 +43,11 @@ public class CadastrarSetorJDialog extends JDialog {
         setLocation(x, y);
     }
 
-    public void fecharDialog(BigInteger codigoSetor, String nomeSetor) {
-        if (!(codigoSetor == null || nomeSetor == null)) {
-            cadastroProcedimentoPanel.getjLabelSetorCodigo().setText("Código: " + codigoSetor);
-            cadastroProcedimentoPanel.setCodigoSetor(codigoSetor);
-            cadastroProcedimentoPanel.getjLabelNomeSetor().setText("Nome: " + nomeSetor);
+    public void fecharDialog(Setor setor) {
+        if (setor != null) {
+            cadastroProcedimentoPanel.setSetor(setor);
+            cadastroProcedimentoPanel.getjLabelSetorCodigo().setText("Código: " + setor.getCodigo());
+            cadastroProcedimentoPanel.getjLabelNomeSetor().setText("Nome: " + setor.getNome());
             dispose();
         }
     }

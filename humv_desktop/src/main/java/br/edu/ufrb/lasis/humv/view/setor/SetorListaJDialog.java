@@ -97,7 +97,7 @@ public class SetorListaJDialog extends JDialog implements ActionListener {
         for (int i = 0; i < radios.size(); i++) {
             if (radios.get(i).isSelected()) {
                 if (cadastroProcedimentoPanel != null) {
-                    cadastroProcedimentoPanel.setCodigoSetor(setores.get(i).getCodigo());
+                    cadastroProcedimentoPanel.setSetor(setores.get(i));
                     cadastroProcedimentoPanel.getjLabelSetorCodigo().setText("Código: " + setores.get(i).getCodigo());
                     cadastroProcedimentoPanel.getjLabelNomeSetor().setText("Nome: " + setores.get(i).getNome());
                     dispose();

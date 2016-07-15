@@ -7,6 +7,8 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -43,9 +45,12 @@ public class Animal implements Serializable{
 	private char sexo; // M = macho, F = femêa
 	private int idade;
 	private double peso;
-	private String idDono; // Relacionamento entre animal e proprietario.
 	private String pelagem; // não se aplica para animais de grande porte.
 	private String porte; // pequeno ou grande
+	
+	@OneToOne
+	@JoinColumn(name="id_dono")
+	private Dono dono; // Relacionamento entre animal e proprietario.
 	
 	public String getPorte() {
 		return porte;
@@ -113,15 +118,15 @@ public class Animal implements Serializable{
 	public void setPeso(double peso) {
 		this.peso = peso;
 	}
-    
-	public String getIdDono() {
-		return idDono;
+	
+	public Dono getDono() {
+		return dono;
 	}
 
-	public void setIdDono(String idDono) {
-		this.idDono = idDono;
+	public void setDono(Dono dono) {
+		this.dono = dono;
 	}
-	
+
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
