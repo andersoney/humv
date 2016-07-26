@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
-<!-- 2016-07-26T19:18:09 -->
+<!-- 2016-07-26T20:00:14 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tabela_animais" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0af905c7-4b1b-436d-a67c-46c11073e657">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="tabela_animais"/>
 	<queryString>
@@ -25,24 +25,57 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="87" splitType="Stretch">
+		<band height="105" splitType="Stretch">
 			<image>
-				<reportElement x="0" y="13" width="231" height="65" uuid="702c4062-74ff-488e-8e1d-63c056b00f5e"/>
+				<reportElement x="424" y="22" width="130" height="38" uuid="702c4062-74ff-488e-8e1d-63c056b00f5e"/>
 				<imageExpression><![CDATA["imagens/humv-report.png"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="250" y="30" width="309" height="20" uuid="2df763e8-5987-4d74-bb8a-66004e3d7d8a"/>
-				<textElement textAlignment="Right">
-					<font fontName="Serif" size="12"/>
+				<reportElement x="2" y="51" width="552" height="10" uuid="2df763e8-5987-4d74-bb8a-66004e3d7d8a">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="10"/>
+				</textElement>
+				<text><![CDATA[MINISTÉRIO DA EDUCAÇÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="63" width="552" height="10" uuid="02c30957-1925-4458-b83c-66b97b6ecb7b">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="10"/>
+				</textElement>
+				<text><![CDATA[UNIVERSIDADE FEDERAL DO RECÔNCAVO DA BAHIA]]></text>
+			</staticText>
+			<image>
+				<reportElement x="6" y="22" width="90" height="38" uuid="040cb19f-8c6b-4cbb-b56f-a79a9f5fbf9b"/>
+				<imageExpression><![CDATA["imagens/ufrb.png"]]></imageExpression>
+			</image>
+			<image hAlign="Center">
+				<reportElement x="180" y="0" width="200" height="50" uuid="bf5a1ad9-8164-41c3-921b-dacb3f2e3379"/>
+				<imageExpression><![CDATA["imagens/republica.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="2" y="75" width="552" height="8" uuid="7dfe3add-94ff-4743-b4af-f691b442ff85">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="8"/>
 				</textElement>
 				<text><![CDATA[Hospital Universitário de Medicina Veterinária]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="251" y="47" width="309" height="20" uuid="02c30957-1925-4458-b83c-66b97b6ecb7b"/>
-				<textElement textAlignment="Right">
-					<font fontName="Serif" size="12"/>
+				<reportElement x="2" y="85" width="552" height="8" uuid="3fd751cc-63c6-4b36-b613-c995a6f0c28f">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="8"/>
 				</textElement>
-				<text><![CDATA[Universidade Federal do Recôncavo da Bahia]]></text>
+				<text><![CDATA[CNPJ 07.777.800/0001-62]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -53,7 +86,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Serif" size="16" isBold="true" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[Lista de animais]]></text>
+				<text><![CDATA[Relatório de animais cadastrados]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -130,7 +163,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch">
+		<band height="127" splitType="Stretch">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="30" y="0" width="100" height="15" isRemoveLineWhenBlank="true" uuid="24e34cbe-c167-4a62-abe7-9e1d48a27b32">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
@@ -204,25 +237,27 @@
 	<pageFooter>
 		<band height="47" splitType="Stretch">
 			<staticText>
-				<reportElement x="-20" y="4" width="595" height="14" uuid="fa53fa65-fe80-40d6-bf4f-fabf9eef7b2e"/>
+				<reportElement x="-20" y="10" width="595" height="8" uuid="fa53fa65-fe80-40d6-bf4f-fabf9eef7b2e">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
 				<textElement textAlignment="Center">
-					<font fontName="Serif"/>
+					<font fontName="Serif" size="8"/>
 				</textElement>
-				<text><![CDATA[HUMV - UFRB]]></text>
+				<text><![CDATA[Hospital Universitário de Medicina Veterinária]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="-20" y="18" width="595" height="14" uuid="cf92838f-ff61-4f30-8fe7-f1f4544bf097"/>
+				<reportElement x="-20" y="20" width="595" height="8" uuid="cf92838f-ff61-4f30-8fe7-f1f4544bf097"/>
 				<textElement textAlignment="Center">
-					<font fontName="Serif"/>
+					<font fontName="Serif" size="8"/>
 				</textElement>
-				<text><![CDATA[Endereço]]></text>
+				<text><![CDATA[Rua Rui Barbosa, Nº 710 - Centro - Cruz das Almas/BA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="-20" y="32" width="595" height="14" uuid="7f0c7c36-e516-41f9-a617-03a9a4e7097e"/>
+				<reportElement x="-20" y="30" width="595" height="8" uuid="7f0c7c36-e516-41f9-a617-03a9a4e7097e"/>
 				<textElement textAlignment="Center">
-					<font fontName="Serif"/>
+					<font fontName="Serif" size="8"/>
 				</textElement>
-				<text><![CDATA[Telefone: (75) 3621 - 0972]]></text>
+				<text><![CDATA[CEP 44.380-000   Telefone: (75) 3621 - 0972]]></text>
 			</staticText>
 		</band>
 	</pageFooter>
