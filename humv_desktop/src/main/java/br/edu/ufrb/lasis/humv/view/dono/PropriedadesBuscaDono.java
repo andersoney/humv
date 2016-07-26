@@ -10,6 +10,7 @@ import br.edu.ufrb.lasis.humv.entity.Dono;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.MessageUtils;
+import br.edu.ufrb.lasis.humv.utils.PrintUtils;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
@@ -25,13 +26,13 @@ import org.codehaus.jackson.type.TypeReference;
  */
 public class PropriedadesBuscaDono extends PropriedadesBusca {
 
-    private final DonoTableModel donoTableModel;
-    DonoTableModel tableModel;
+    private DonoTableModel tableModel;
+    private List<Dono> listaDonos;
 
     public PropriedadesBuscaDono(String tipoOperacao) {
         super(tipoOperacao);
-        donoTableModel = new DonoTableModel();
-        super.setTabelaResultado(new JTable(donoTableModel));
+        tableModel = new DonoTableModel();
+        super.setTabelaResultado(new JTable(tableModel));
     }
 
 
@@ -41,9 +42,9 @@ public class PropriedadesBuscaDono extends PropriedadesBusca {
         try {
             ClientResponse response = RESTMethods.get("/api/dono/search?palavrachave=" + getCampoPalavraChave().getText());
 
-            List<Dono> lista = (List<Dono>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Dono>>() {
+            listaDonos = (List<Dono>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Dono>>() {
             });
-            tableModel = new DonoTableModel(lista);
+            tableModel = new DonoTableModel(listaDonos);
             super.getTabelaResultado().setModel(tableModel);
             super.getTabelaResultado().revalidate();
         } catch (RESTConnectionException | IOException ex) {
@@ -97,6 +98,8 @@ public class PropriedadesBuscaDono extends PropriedadesBusca {
                         break;
                 }
             }
+        } else if (ae.getSource().equals(super.getBotaoImprimirTabela())) {
+            PrintUtils.print(PrintUtils.TABELA_DONOS, listaDonos);
         }
     }
 

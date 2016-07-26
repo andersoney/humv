@@ -10,6 +10,7 @@ import br.edu.ufrb.lasis.humv.entity.Usuario;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.MessageUtils;
+import br.edu.ufrb.lasis.humv.utils.PrintUtils;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
@@ -25,6 +26,7 @@ import org.codehaus.jackson.type.TypeReference;
 public class PropriedadesBuscaUsuario extends PropriedadesBusca {
 
     private UsuarioTableModel tableModel;
+    private List<Usuario> listaUsuarios;
 
     public PropriedadesBuscaUsuario(String tipoOperacao) {
         super(tipoOperacao);
@@ -34,9 +36,9 @@ public class PropriedadesBuscaUsuario extends PropriedadesBusca {
     public void buscar() {
         try {
             ClientResponse response = RESTMethods.get("/api/usuario/search?palavrachave=" + getCampoPalavraChave().getText());
-            List<Usuario> lista = (List<Usuario>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Usuario>>() {
+            listaUsuarios = (List<Usuario>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Usuario>>() {
             });
-            tableModel = new UsuarioTableModel(lista);
+            tableModel = new UsuarioTableModel(listaUsuarios);
             super.getTabelaResultado().setModel(tableModel);
             super.getTabelaResultado().revalidate();
         } catch (RESTConnectionException | IOException ex) {
@@ -89,6 +91,8 @@ public class PropriedadesBuscaUsuario extends PropriedadesBusca {
                         break;
                 }
             }
+        } else if (e.getSource().equals(super.getBotaoImprimirTabela())) {
+            PrintUtils.print(PrintUtils.TABELA_USUARIOS, listaUsuarios);
         }
     }
 

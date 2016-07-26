@@ -38,19 +38,15 @@
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-<<<<<<< HEAD
-                      <EmptySpace min="-2" pref="193" max="-2" attributes="0"/>
-=======
                       <EmptySpace min="-2" pref="251" max="-2" attributes="0"/>
->>>>>>> Desenvolvimento
                       <Component id="cancelarJB" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="buttonImprimirTabela" min="-2" pref="105" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="buttonImprimirTabela" min="-2" pref="140" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonOperacao" min="-2" pref="105" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="63" max="32767" attributes="0"/>
+              <EmptySpace pref="20" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -67,7 +63,7 @@
               </Group>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Component id="scrollPaneTabela" min="-2" pref="398" max="-2" attributes="0"/>
-              <EmptySpace pref="26" max="32767" attributes="0"/>
+              <EmptySpace pref="13" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="buttonOperacao" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonImprimirTabela" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -136,11 +132,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="cancelarJB">
       <Properties>
-<<<<<<< HEAD
-        <Property name="text" type="java.lang.String" value="Calcelar"/>
-=======
         <Property name="text" type="java.lang.String" value="Cancelar"/>
->>>>>>> Desenvolvimento
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelarJBActionPerformed"/>

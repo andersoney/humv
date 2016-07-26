@@ -5,6 +5,7 @@ import br.edu.ufrb.lasis.humv.entity.Animal;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.MessageUtils;
+import br.edu.ufrb.lasis.humv.utils.PrintUtils;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
@@ -20,13 +21,13 @@ import org.codehaus.jackson.type.TypeReference;
  */
 public class PropriedadesBuscaAnimal extends PropriedadesBusca {
 
-    private final AnimalTableModel animalTableModel;
-    AnimalTableModel tableModel;
+    private AnimalTableModel tableModel;
+    private List<Animal> listaAnimais;
 
     public PropriedadesBuscaAnimal(String tipoOperacao) {
         super(tipoOperacao);
-        animalTableModel = new AnimalTableModel();
-        super.setTabelaResultado(new JTable(animalTableModel));
+        tableModel = new AnimalTableModel();
+        super.setTabelaResultado(new JTable(tableModel));
     }
 
     @Override
@@ -35,9 +36,9 @@ public class PropriedadesBuscaAnimal extends PropriedadesBusca {
         try {
             ClientResponse response = RESTMethods.get("/api/animal/search?palavrachave=" + getCampoPalavraChave().getText());
 
-            List<Animal> lista = (List<Animal>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Animal>>() {
+            listaAnimais = (List<Animal>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Animal>>() {
             });
-            tableModel = new AnimalTableModel(lista);
+            tableModel = new AnimalTableModel(listaAnimais);
             super.getTabelaResultado().setModel(tableModel);
             super.getTabelaResultado().revalidate();
         } catch (RESTConnectionException | IOException ex) {
@@ -63,7 +64,7 @@ public class PropriedadesBuscaAnimal extends PropriedadesBusca {
                 Animal animalSelecionado = tableModel.getUsuarioSelecionado(super.getIndexLinhaSelecionada());
                 switch (super.getTipoOperacao()) {
                     case PropriedadesBusca.OPCAO_VISUALIZAR:
-                        //Ainda falta implementar
+                        //Implementar visualização
                         break;
                     case PropriedadesBusca.OPCAO_ALTERAR:
                         CadastrarAnimalJPanel painelCadastroAnimal = new CadastrarAnimalJPanel(animalSelecionado);
@@ -84,11 +85,14 @@ public class PropriedadesBuscaAnimal extends PropriedadesBusca {
                                 JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
                                 ex.printStackTrace();
                             }
-                        }   break;
+                        }
+                        break;
                     default:
                         break;
                 }
             }
+        } else if (e.getSource().equals(super.getBotaoImprimirTabela())) {
+            PrintUtils.print(PrintUtils.TABELA_ANIMAIS, listaAnimais);
         }
     }
 }

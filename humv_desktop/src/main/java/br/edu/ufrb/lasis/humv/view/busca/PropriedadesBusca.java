@@ -24,7 +24,7 @@ public abstract class PropriedadesBusca implements ActionListener, KeyListener {
     public static final String OPCAO_CADASTRAR = "Cadastro";
 
     private String tipoOperacao;
-    private JButton botaoBusca, botaoOperacao;
+    private JButton botaoBusca, botaoOperacao, botaoImprimirTabela;
     private JTable tabelaResultado;
     private JTextField campoPalavraChave;
     
@@ -34,12 +34,14 @@ public abstract class PropriedadesBusca implements ActionListener, KeyListener {
 
     public abstract void buscar();
 
-    public void configurarBusca(JTextField campoBusca, JButton botaoBusca, JTable tabelaResultado) {
+    public void configurarBusca(JTextField campoBusca, JButton botaoBusca, JButton botaoImprimir, JTable tabelaResultado) {
         campoBusca.addKeyListener(this);
         this.setCampoPalavraChave(campoBusca);
         this.setBotaoBusca(botaoBusca);
         this.getBotaoBusca().addActionListener(this);
         this.getBotaoBusca().addKeyListener(this);
+        this.setBotaoImprimirTabela(botaoImprimir);
+        this.getBotaoImprimirTabela().addActionListener(this);
         this.setTabelaResultado(tabelaResultado);
     }
 
@@ -105,6 +107,14 @@ public abstract class PropriedadesBusca implements ActionListener, KeyListener {
  
     public void setCampoPalavraChave(JTextField campoPalavraChave) {
          this.campoPalavraChave = campoPalavraChave;
+    }
+
+    public JButton getBotaoImprimirTabela() {
+        return botaoImprimirTabela;
+    }
+
+    public void setBotaoImprimirTabela(JButton botaoImprimirTabela) {
+        this.botaoImprimirTabela = botaoImprimirTabela;
     }
     
 }

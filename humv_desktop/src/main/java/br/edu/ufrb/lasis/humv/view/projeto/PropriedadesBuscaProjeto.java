@@ -10,6 +10,7 @@ import br.edu.ufrb.lasis.humv.entity.Projeto;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.MessageUtils;
+import br.edu.ufrb.lasis.humv.utils.PrintUtils;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
@@ -25,13 +26,13 @@ import org.codehaus.jackson.type.TypeReference;
  */
 public class PropriedadesBuscaProjeto extends PropriedadesBusca {
 
-    private final ProjetoTableModel projetoTableModel;
-    ProjetoTableModel tableModel;
+    private ProjetoTableModel tableModel;
+    private List<Projeto> listaProjetos;
 
     public PropriedadesBuscaProjeto(String tipoOperacao) {
         super(tipoOperacao);
-        projetoTableModel = new ProjetoTableModel();
-        super.setTabelaResultado(new JTable(projetoTableModel));
+        tableModel = new ProjetoTableModel();
+        super.setTabelaResultado(new JTable(tableModel));
     }
 
 
@@ -41,9 +42,9 @@ public class PropriedadesBuscaProjeto extends PropriedadesBusca {
         try {
             ClientResponse response = RESTMethods.get("/api/projeto/search?palavrachave=" + getCampoPalavraChave().getText());
 
-            List<Projeto> lista = (List<Projeto>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Projeto>>() {
+            listaProjetos = (List<Projeto>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Projeto>>() {
             });
-            tableModel = new ProjetoTableModel(lista);
+            tableModel = new ProjetoTableModel(listaProjetos);
             super.getTabelaResultado().setModel(tableModel);
             super.getTabelaResultado().revalidate();
         } catch (RESTConnectionException | IOException ex) {
@@ -97,6 +98,8 @@ public class PropriedadesBuscaProjeto extends PropriedadesBusca {
                         break;
                 }
             }
+        } else if (ae.getSource().equals(super.getBotaoImprimirTabela())) {
+            PrintUtils.print(PrintUtils.TABELA_PROJETOS, listaProjetos);
         }
     }
 

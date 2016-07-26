@@ -10,6 +10,7 @@ import br.edu.ufrb.lasis.humv.entity.Setor;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.MessageUtils;
+import br.edu.ufrb.lasis.humv.utils.PrintUtils;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
@@ -25,13 +26,13 @@ import org.codehaus.jackson.type.TypeReference;
  */
 public class PropriedadesBuscaSetor extends PropriedadesBusca {
 
-    private final SetorTableModel setorTableModel;
-    SetorTableModel tableModel;
+    private SetorTableModel tableModel;
+    private List<Setor> listaSetores;
 
     public PropriedadesBuscaSetor(String tipoOperacao) {
         super(tipoOperacao);
-        setorTableModel = new SetorTableModel();
-        super.setTabelaResultado(new JTable(setorTableModel));
+        tableModel = new SetorTableModel();
+        super.setTabelaResultado(new JTable(tableModel));
     }
 
     @Override
@@ -40,9 +41,9 @@ public class PropriedadesBuscaSetor extends PropriedadesBusca {
         try {
             ClientResponse response = RESTMethods.get("/api/setor/search?palavrachave=" + getCampoPalavraChave().getText());
 
-            List<Setor> lista = (List<Setor>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Setor>>() {
+            listaSetores = (List<Setor>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Setor>>() {
             });
-            tableModel = new SetorTableModel(lista);
+            tableModel = new SetorTableModel(listaSetores);
             super.getTabelaResultado().setModel(tableModel);
             super.getTabelaResultado().revalidate();
         } catch (RESTConnectionException | IOException ex) {
@@ -96,6 +97,8 @@ public class PropriedadesBuscaSetor extends PropriedadesBusca {
                         break;
                 }
             }
+        } else if (ae.getSource().equals(super.getBotaoImprimirTabela())) {
+            PrintUtils.print(PrintUtils.TABELA_SETORES, listaSetores);
         }
     }
 

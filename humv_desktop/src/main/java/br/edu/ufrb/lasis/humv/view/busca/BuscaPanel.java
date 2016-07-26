@@ -35,7 +35,7 @@ public class BuscaPanel extends javax.swing.JPanel {
         DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) tabelaResultado.getTableHeader().getDefaultRenderer();
         renderer.setHorizontalAlignment(JLabel.CENTER);
 
-        propriedadesBusca.configurarBusca(textFieldPalavraChave, buttonBuscar, tabelaResultado);
+        propriedadesBusca.configurarBusca(textFieldPalavraChave, buttonBuscar, buttonImprimirTabela, tabelaResultado);
         propriedadesBusca.configurarBotaoOperacaoPosBusca(buttonOperacao);
     }
 
@@ -70,7 +70,7 @@ public class BuscaPanel extends javax.swing.JPanel {
 
         buttonBuscar.setText("Buscar");
 
-        labelTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        labelTitulo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         labelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelTitulo.setText("jLabel2");
 
@@ -89,7 +89,7 @@ public class BuscaPanel extends javax.swing.JPanel {
 
         buttonOperacao.setText("jButton1");
 
-        buttonImprimirTabela.setText("Imprimir");
+        buttonImprimirTabela.setText("Imprimir Tabela");
         buttonImprimirTabela.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonImprimirTabelaActionPerformed(evt);
@@ -97,7 +97,6 @@ public class BuscaPanel extends javax.swing.JPanel {
         });
 
         cancelarJB.setText("Cancelar");
-
         cancelarJB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelarJBActionPerformed(evt);
@@ -124,11 +123,11 @@ public class BuscaPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(251, 251, 251)
                         .addComponent(cancelarJB)
-                        .addGap(18, 18, 18)
-                        .addComponent(buttonImprimirTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonImprimirTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,7 +141,7 @@ public class BuscaPanel extends javax.swing.JPanel {
                     .addComponent(buttonBuscar))
                 .addGap(26, 26, 26)
                 .addComponent(scrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonOperacao)
                     .addComponent(buttonImprimirTabela)

@@ -14,6 +14,7 @@ import br.edu.ufrb.lasis.humv.entity.Procedimento;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.MessageUtils;
+import br.edu.ufrb.lasis.humv.utils.PrintUtils;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
@@ -25,13 +26,13 @@ import org.codehaus.jackson.type.TypeReference;
 
 public class PropriedadesBuscaProcedimento extends PropriedadesBusca {
 
-    private final ProcedimentoTableModel procedimentoTableModel;
-    ProcedimentoTableModel tableModel;
+    private ProcedimentoTableModel tableModel;
+    private List<Procedimento> listaProcedimentos;
 
     public PropriedadesBuscaProcedimento(String tipoOperacao) {
         super(tipoOperacao);
-        procedimentoTableModel = new ProcedimentoTableModel();
-        super.setTabelaResultado(new JTable(procedimentoTableModel));
+        tableModel = new ProcedimentoTableModel();
+        super.setTabelaResultado(new JTable(tableModel));
     }
 
     @Override
@@ -40,9 +41,9 @@ public class PropriedadesBuscaProcedimento extends PropriedadesBusca {
         try {
             ClientResponse response = RESTMethods.get("/api/procedimento/search?palavrachave=" + getCampoPalavraChave().getText());
 
-            List<Procedimento> lista = (List<Procedimento>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Procedimento>>() {
+            listaProcedimentos = (List<Procedimento>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Procedimento>>() {
             });
-            tableModel = new ProcedimentoTableModel(lista);
+            tableModel = new ProcedimentoTableModel(listaProcedimentos);
             super.getTabelaResultado().setModel(tableModel);
             super.getTabelaResultado().revalidate();
         } catch (RESTConnectionException | IOException ex) {
@@ -98,6 +99,8 @@ public class PropriedadesBuscaProcedimento extends PropriedadesBusca {
                         break;
                 }
             }
+        } else if (e.getSource().equals(super.getBotaoImprimirTabela())) {
+            PrintUtils.print(PrintUtils.TABELA_PROCEDIMENTOS, listaProcedimentos);
         }
     }
 }
