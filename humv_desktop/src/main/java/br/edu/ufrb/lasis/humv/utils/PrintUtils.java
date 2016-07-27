@@ -15,6 +15,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -43,9 +44,12 @@ public class PrintUtils {
         if (lista != null && !lista.isEmpty()) {
 
             try {
-                JRDataSource dataSource = new JRBeanCollectionDataSource(lista, true);
                 InputStream reportStream = new FileInputStream(reportFileName);
-                JasperPrint jasperPrint = JasperFillManager.fillReport(reportStream, new HashMap<String, Object>(), dataSource);
+                Map parameters = new HashMap();
+                parameters.put("INFO", "Relatório");
+                parameters.put("TABELA", lista);
+                JRDataSource dataSource = new JRBeanCollectionDataSource(lista, true);
+                JasperPrint jasperPrint = JasperFillManager.fillReport(reportStream, parameters, dataSource);
                 Object[] options = {"Imprimir", "Gerar PDF"};
                 int n = JOptionPane.showOptionDialog(HUMVApp.getMainWindow(),
                         "Qual operação você deseja fazer?",
@@ -57,7 +61,7 @@ public class PrintUtils {
                         options[0]);
                 if (n == JOptionPane.YES_OPTION) {
                     printReport(jasperPrint);
-                } else {
+                } else if (n == JOptionPane.NO_OPTION) {
                     final JFileChooser fileChooser = new JFileChooser();
                     Date horarioAtual = Calendar.getInstance().getTime();
                     String strData = new SimpleDateFormat("dd-MM-yyyy").format(horarioAtual);
@@ -76,7 +80,7 @@ public class PrintUtils {
             } catch (JRException | FileNotFoundException exception) {
                 MessageUtils.erroGeracaoRelatorio();
             }
-            
+
         } else {
             MessageUtils.semResultadosGeracaoRelatorio();
         }
