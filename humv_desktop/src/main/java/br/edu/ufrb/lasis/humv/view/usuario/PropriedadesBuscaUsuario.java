@@ -64,10 +64,7 @@ public class PropriedadesBuscaUsuario extends PropriedadesBusca {
             } else {
                 Usuario usuarioSelecionado = tableModel.getUsuarioSelecionado(super.getIndexLinhaSelecionada());
                 switch (super.getTipoOperacao()) {
-                    case PropriedadesBusca.OPCAO_VISUALIZAR:
-                        //Ainda falta implementar
-                        break;
-                    case PropriedadesBusca.OPCAO_ALTERAR:
+                    case PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR:
                         CadastrarUsuarioJPanel painelCadastrarUsuario = new CadastrarUsuarioJPanel(usuarioSelecionado);
                         HUMVApp.setNovoPainelCentral(painelCadastrarUsuario);
                         break;

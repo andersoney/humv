@@ -72,10 +72,7 @@ public class PropriedadesBuscaProcedimento extends PropriedadesBusca {
             } else {
                 Procedimento procedimentoSelecionado = tableModel.getProcedimentoSelecionado(super.getIndexLinhaSelecionada());
                 switch (super.getTipoOperacao()) {
-                    case PropriedadesBusca.OPCAO_VISUALIZAR:
-                        //Ainda falta implementar
-                        break;
-                    case PropriedadesBusca.OPCAO_ALTERAR:
+                    case PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR:
                         CadastrarProcedimentoJPanel painelAlteracao = new CadastrarProcedimentoJPanel(procedimentoSelecionado);
                         HUMVApp.setNovoPainelCentral(painelAlteracao);
                         break;

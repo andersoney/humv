@@ -57,7 +57,6 @@ public class HUMVApp {
         getMainPanelInstance().removeAll();
         ImageIcon img = new ImageIcon("imagens/humv-logo-name.png");
         JLabel labelLogo = new JLabel(img);
-        labelLogo.setBorder(new EmptyBorder(30, 0, 0, 0));
         labelLogo.setHorizontalAlignment(SwingConstants.CENTER);
         getMainPanelInstance().add(labelLogo, BorderLayout.CENTER);
         getMainPanelInstance().repaint();

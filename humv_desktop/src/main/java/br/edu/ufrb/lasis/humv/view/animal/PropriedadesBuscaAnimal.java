@@ -63,10 +63,7 @@ public class PropriedadesBuscaAnimal extends PropriedadesBusca {
             } else {
                 Animal animalSelecionado = tableModel.getUsuarioSelecionado(super.getIndexLinhaSelecionada());
                 switch (super.getTipoOperacao()) {
-                    case PropriedadesBusca.OPCAO_VISUALIZAR:
-                        //Implementar visualização
-                        break;
-                    case PropriedadesBusca.OPCAO_ALTERAR:
+                    case PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR:
                         CadastrarAnimalJPanel painelCadastroAnimal = new CadastrarAnimalJPanel(animalSelecionado);
                         HUMVApp.setNovoPainelCentral(painelCadastroAnimal);
                         break;

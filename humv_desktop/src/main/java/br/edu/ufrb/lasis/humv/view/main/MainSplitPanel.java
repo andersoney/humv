@@ -13,7 +13,6 @@ import br.edu.ufrb.lasis.humv.view.menufactory.FabricaMenuRecepcionista;
 import br.edu.ufrb.lasis.humv.view.menufactory.FabricaMenuVeterinario;
 import br.edu.ufrb.lasis.humv.view.menufactory.MenuBarFabricaAbstrata;
 import java.awt.FlowLayout;
-import javax.swing.JButton;
 
 /**
  *

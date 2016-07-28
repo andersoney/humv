@@ -70,10 +70,7 @@ public class PropriedadesBuscaDono extends PropriedadesBusca {
             } else {
                 Dono donoSelecionado = tableModel.getDonoSelecionado(super.getIndexLinhaSelecionada());
                 switch (super.getTipoOperacao()) {
-                    case PropriedadesBusca.OPCAO_VISUALIZAR:
-                        //Ainda falta implementar
-                        break;
-                    case PropriedadesBusca.OPCAO_ALTERAR:
+                    case PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR:
                         if (MessageUtils.dialogoRemoverAlterar("alterar", "dono", donoSelecionado.getNome())) {
                             CadastrarDonoJPanel painel = new CadastrarDonoJPanel(donoSelecionado);
                             HUMVApp.setNovoPainelCentral(painel);

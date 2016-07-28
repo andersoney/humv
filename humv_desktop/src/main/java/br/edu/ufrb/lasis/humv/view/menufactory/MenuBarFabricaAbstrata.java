@@ -27,6 +27,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -86,14 +87,19 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
     private JPanel panelButtons;
     private GridBagConstraints panelConstraints;
 
-    public MenuBarFabricaAbstrata(JPanel mainPanel, JPanel panelRight) {
-        this.panelButtons = new JPanel(new GridBagLayout());
-        this.panelConstraints = new GridBagConstraints();
-        this.panelConstraints.gridx = 0;
-        this.panelConstraints.gridy = 0;
-        this.panelConstraints.fill = GridBagConstraints.HORIZONTAL;
-        panelRight.setLayout(new BorderLayout());
-        panelRight.add(panelButtons, BorderLayout.NORTH);
+    public MenuBarFabricaAbstrata(JPanel mainPanel, JPanel panelLeft) {
+        panelButtons = new JPanel(new GridBagLayout());
+        panelConstraints = new GridBagConstraints();
+        panelConstraints.gridx = 0;
+        panelConstraints.gridy = 0;
+        panelConstraints.fill = GridBagConstraints.HORIZONTAL;
+        
+        panelLeft.setLayout(new BorderLayout());
+        panelLeft.add(panelButtons, BorderLayout.NORTH);
+        panelConstraints.insets.top = 15; panelConstraints.insets.bottom = 10;
+        panelButtons.add(new JLabel(new ImageIcon("imagens/humv-logo-top.png")), panelConstraints);
+        panelConstraints.insets.top = 0; panelConstraints.insets.bottom = 0;
+        panelConstraints.ipady = 1;
         
         this.menuBar = new JMenuBar();
         mainPanel.add(menuBar, BorderLayout.PAGE_START);
@@ -285,23 +291,17 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
             JOptionPane.showMessageDialog(null, "Desenvolvido por LaSiS - UFRB");
         } else if (source.equals(menuItemCadastroUsuario) || source.equals(buttonCadastrarUsuario)) {
             HUMVApp.setNovoPainelCentral(new CadastrarUsuarioJPanel());
-        } else if (source.equals(menuItemBuscaUsuario)) {
-            HUMVApp.setNovoPainelCentral(new BuscaPanel("BUSCAR USUÁRIO PARA VISUALIZAÇÃO", new PropriedadesBuscaUsuario(PropriedadesBuscaUsuario.OPCAO_VISUALIZAR)));
         } else if (source.equals(menuItemAlteracaoUsuario)) {
-            HUMVApp.setNovoPainelCentral(new BuscaPanel("BUSCAR USUÁRIO PARA ALTERAÇÃO", new PropriedadesBuscaUsuario(PropriedadesBuscaUsuario.OPCAO_ALTERAR)));
+            HUMVApp.setNovoPainelCentral(new BuscaPanel("BUSCAR USUÁRIO PARA VISUALIZAÇÃO/ALTERAÇÃO", new PropriedadesBuscaUsuario(PropriedadesBuscaUsuario.OPCAO_VISUALIZAR_ALTERAR)));
         } else if (source.equals(menuItemRemocaoUsuario)) {
             HUMVApp.setNovoPainelCentral(new BuscaPanel("BUSCAR USUÁRIO PARA REMOÇÃO", new PropriedadesBuscaUsuario(PropriedadesBuscaUsuario.OPCAO_REMOVER)));
         } else if (source.equals(menuItemSair)) {
             System.exit(0);
         } else if (source.equals(menuItemCadastroAnimal) || source.equals(buttonCadastrarAnimal)) {
             HUMVApp.setNovoPainelCentral(new CadastrarAnimalJPanel());
-        } else if (source.equals(menuItemBuscaAnimal)) {
-            PropriedadesBuscaAnimal propriedadesBusca = new PropriedadesBuscaAnimal(PropriedadesBusca.OPCAO_VISUALIZAR);
-            BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE ANIMAL PARA VISUALIZAÇÃO", propriedadesBusca);
-            HUMVApp.setNovoPainelCentral(buscaPanel);
-        } else if (source.equals(menuItemAlteracaoAnimal)) {
-            PropriedadesBuscaAnimal propriedadesBusca = new PropriedadesBuscaAnimal(PropriedadesBusca.OPCAO_ALTERAR);
-            BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE ANIMAL PARA ALTERAÇÃO", propriedadesBusca);
+        } else if (source.equals(menuItemBuscaAnimal) || source.equals(menuItemAlteracaoAnimal)) {
+            PropriedadesBuscaAnimal propriedadesBusca = new PropriedadesBuscaAnimal(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
+            BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE ANIMAL PARA VISUALIZAÇÃO/ALTERAÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
         } else if (source.equals(menuItemRemocaoAnimal)) {
             PropriedadesBuscaAnimal propriedadesBusca = new PropriedadesBuscaAnimal(PropriedadesBusca.OPCAO_REMOVER);
@@ -310,12 +310,8 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         } else if (source.equals(menuItemCadastroDono)) {
             CadastrarDonoJPanel dono = new CadastrarDonoJPanel();
             HUMVApp.setNovoPainelCentral(dono);
-        } else if (source.equals(menuItemBuscaDono)) {
-            PropriedadesBuscaDono propriedadesBusca = new PropriedadesBuscaDono(PropriedadesBusca.OPCAO_VISUALIZAR);
-            BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE DONO PARA VISUALIZAÇÃO", propriedadesBusca);
-            HUMVApp.setNovoPainelCentral(buscaPanel);
-        } else if (source.equals(menuItemAlteracaoDono)) {
-            PropriedadesBuscaDono propriedadesBusca = new PropriedadesBuscaDono(PropriedadesBusca.OPCAO_ALTERAR);
+        } else if (source.equals(menuItemBuscaDono) || source.equals(menuItemAlteracaoDono)) {
+            PropriedadesBuscaDono propriedadesBusca = new PropriedadesBuscaDono(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
             BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE DONO PARA ALTERAÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
         } else if (source.equals(menuItemRemocaoDono)) {
@@ -325,12 +321,8 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         } else if (source.equals(menuItemCadastroSetor)) {
             CadastrarSetorJPanel setor = new CadastrarSetorJPanel();
             HUMVApp.setNovoPainelCentral(setor);
-        } else if (source.equals(menuItemBuscaSetor)) {
-            PropriedadesBuscaSetor propriedadesBusca = new PropriedadesBuscaSetor(PropriedadesBusca.OPCAO_VISUALIZAR);
-            BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE SETOR PARA VISUALIZAÇÃO", propriedadesBusca);
-            HUMVApp.setNovoPainelCentral(buscaPanel);
-        } else if (source.equals(menuItemAlteracaoSetor)) {
-            PropriedadesBuscaSetor propriedadesBusca = new PropriedadesBuscaSetor(PropriedadesBusca.OPCAO_ALTERAR);
+        } else if (source.equals(menuItemBuscaSetor) || source.equals(menuItemAlteracaoSetor)) {
+            PropriedadesBuscaSetor propriedadesBusca = new PropriedadesBuscaSetor(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
             BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE SETOR PARA ALTERAÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
         } else if (source.equals(menuItemRemocaoSetor)) {
@@ -340,12 +332,8 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         } else if (source.equals(menuItemCadastroProcedimento) || source.equals(buttonCadastrarProcedimento)) {
             CadastrarProcedimentoJPanel procedimento = new CadastrarProcedimentoJPanel();
             HUMVApp.setNovoPainelCentral(procedimento);
-        } else if (source.equals(menuItemBuscaProcedimento)) {
-            PropriedadesBuscaProcedimento propriedadesBusca = new PropriedadesBuscaProcedimento(PropriedadesBusca.OPCAO_VISUALIZAR);
-            BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE PROCEDIMENTO PARA VISUALIZAÇÃO", propriedadesBusca);
-            HUMVApp.setNovoPainelCentral(buscaPanel);
-        } else if (source.equals(menuItemAlteracaoProcedimento)) {
-            PropriedadesBuscaProcedimento propriedadesBusca = new PropriedadesBuscaProcedimento(PropriedadesBusca.OPCAO_ALTERAR);
+        } else if (source.equals(menuItemBuscaProcedimento) || source.equals(menuItemAlteracaoProcedimento)) {
+            PropriedadesBuscaProcedimento propriedadesBusca = new PropriedadesBuscaProcedimento(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
             BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE PROCEDIMENTO PARA ALTERAÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
         } else if (source.equals(menuItemRemocaoProcedimento)) {
@@ -355,12 +343,8 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         } else if (source.equals(menuItemCadastroProjeto)) {
             CadastrarProjetoJPanel projeto = new CadastrarProjetoJPanel();
             HUMVApp.setNovoPainelCentral(projeto);
-        } else if (source.equals(menuItemBuscaProjeto)) {
-            PropriedadesBuscaProjeto propriedadesBusca = new PropriedadesBuscaProjeto(PropriedadesBusca.OPCAO_VISUALIZAR);
-            BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE PROJETO PARA VISUALIZAÇÃO", propriedadesBusca);
-            HUMVApp.setNovoPainelCentral(buscaPanel);
-        } else if (source.equals(menuItemAlteracaoProjeto)) {
-            PropriedadesBuscaProjeto propriedadesBusca = new PropriedadesBuscaProjeto(PropriedadesBusca.OPCAO_ALTERAR);
+        } else if (source.equals(menuItemBuscaProjeto) || source.equals(menuItemAlteracaoProjeto)) {
+            PropriedadesBuscaProjeto propriedadesBusca = new PropriedadesBuscaProjeto(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
             BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE PROCEDIMENTO PARA ALTERAÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
         } else if (source.equals(menuItemRemocaoProjeto)) {

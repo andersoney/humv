@@ -18,8 +18,7 @@ import javax.swing.JTextField;
  */
 public abstract class PropriedadesBusca implements ActionListener, KeyListener {
 
-    public static final String OPCAO_VISUALIZAR = "Visualizar";
-    public static final String OPCAO_ALTERAR = "Alterar";
+    public static final String OPCAO_VISUALIZAR_ALTERAR = "Visualizar/Alterar";
     public static final String OPCAO_REMOVER = "Remover";
     public static final String OPCAO_CADASTRAR = "Cadastro";
 

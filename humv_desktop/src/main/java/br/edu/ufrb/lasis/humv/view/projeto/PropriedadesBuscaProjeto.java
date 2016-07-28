@@ -70,10 +70,7 @@ public class PropriedadesBuscaProjeto extends PropriedadesBusca {
             } else {
                 Projeto projetoSelecionado = tableModel.getProjetoSelecionado(super.getIndexLinhaSelecionada());
                 switch (super.getTipoOperacao()) {
-                    case PropriedadesBusca.OPCAO_VISUALIZAR:
-                        //Ainda falta implementar
-                        break;
-                    case PropriedadesBusca.OPCAO_ALTERAR:
+                    case PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR:
                         if (MessageUtils.dialogoRemoverAlterar("alterar", "projeto", projetoSelecionado.getNome())) {
                             CadastrarProjetoJPanel painel = new CadastrarProjetoJPanel(projetoSelecionado);
                             HUMVApp.setNovoPainelCentral(painel);

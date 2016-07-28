@@ -16,6 +16,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.KeyEvent;
 import java.util.Calendar;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 
@@ -620,7 +621,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonCadastrarNovoDonoMouseClicked
 
     private void jButtonCadastrarNovoDonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarNovoDonoActionPerformed
-
+        
     }//GEN-LAST:event_jButtonCadastrarNovoDonoActionPerformed
 
     private void jButtonConfirmarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonConfirmarMouseClicked

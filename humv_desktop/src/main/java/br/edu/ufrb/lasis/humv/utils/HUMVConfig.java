@@ -23,6 +23,7 @@ public class HUMVConfig {
     public static final String PERFIL_VETERINARIO = "Médico";
     public static final String PERFIL_FARMACEUTICO = "Farmacêutico";
     public static final String PERFIL_ASSISTENTE_SOCIAL = "Assistente Social";
+    
     public static String getVetBackendURL() {
         if (vetBackendUrl == null) {
             vetBackendUrl = getConfigValue("vet.backend.url");
