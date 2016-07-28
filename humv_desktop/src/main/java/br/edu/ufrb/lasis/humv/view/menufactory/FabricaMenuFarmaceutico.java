@@ -5,8 +5,6 @@
  */
 package br.edu.ufrb.lasis.humv.view.menufactory;
 
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 
 /**
@@ -15,22 +13,13 @@ import javax.swing.JPanel;
  */
 public class FabricaMenuFarmaceutico extends MenuBarFabricaAbstrata {
 
-    public FabricaMenuFarmaceutico(JPanel mainPanel) {
-        super(mainPanel);
+    public FabricaMenuFarmaceutico(JPanel mainPanel, JPanel panelButtons) {
+        super(mainPanel, panelButtons);
     }
 
     @Override
     public void criaMenuBar() {
         super.criaMenuAjuda();
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(getMenuItemSair())) {
-
-        } else if (e.getSource().equals(getMenuItemSobre())) {
-
-        }
     }
 
 }

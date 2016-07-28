@@ -5,7 +5,6 @@
  */
 package br.edu.ufrb.lasis.humv.view.menufactory;
 
-import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 
 /**
@@ -14,22 +13,21 @@ import javax.swing.JPanel;
  */
 public class FabricaMenuRecepcionista extends MenuBarFabricaAbstrata {
 
-    public FabricaMenuRecepcionista(JPanel mainPanel) {
-        super(mainPanel);
+    public FabricaMenuRecepcionista(JPanel mainPanel, JPanel panelButtons) {
+        super(mainPanel, panelButtons);
     }
 
     @Override
     public void criaMenuBar() {
+        boolean comRemover = false;
+        super.criaMenuDono(comRemover);
+        super.criaMenuAnimal(comRemover);
+        super.criaMenuSetor(comRemover);
+        super.criaMenuProcedimento(comRemover);
+        super.criaMenuProjeto(comRemover);
         super.criaMenuAjuda();
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(getMenuItemSair())) {
-
-        } else if (e.getSource().equals(getMenuItemSobre())) {
-
-        }
+        
+        super.criaBotaoCadastrarAnimal();
     }
     
 }

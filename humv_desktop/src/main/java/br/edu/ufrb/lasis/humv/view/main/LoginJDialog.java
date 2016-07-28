@@ -10,7 +10,6 @@ import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.SecurityUtils;
 import com.sun.jersey.api.client.ClientResponse;
-import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -71,9 +70,8 @@ public class LoginJDialog extends javax.swing.JDialog implements ActionListener,
             if (resposta.contains("OK") /*|| textFieldUsername.getText().equals("1")*/) {
                 this.dispose();
                 String perfil = resposta.split("-")[1];
-                HUMVMainPanel panel = new HUMVMainPanel(perfil);
-                panel.add(HUMVApp.getMainPanelInstance(), BorderLayout.CENTER);
-                window.setContentPane(panel);
+                MainSplitPanel splitPanel = new MainSplitPanel(perfil);
+                window.setContentPane(splitPanel);
                 HUMVApp.setNomeUsuario(username);
                 HUMVApp.setPainelCentralComLogo();
             } else {
