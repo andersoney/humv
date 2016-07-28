@@ -23,6 +23,7 @@ public class FabricaMenuAdministrador extends MenuBarFabricaAbstrata {
         super.criaMenuProjeto(comRemover);
         super.criaMenuAjuda();
         
+        super.criaBotaoCadastrarProcedimento();
         super.criaBotaoCadastrarAnimal();
         super.criaBotaoCadastrarUsuario();
     }

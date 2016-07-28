@@ -69,6 +69,7 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
             menuItemBuscaProcedimento,
             menuItemAlteracaoProcedimento,
             menuItemRemocaoProcedimento;
+    private JButton buttonCadastrarProcedimento;
 
     private JMenu menuSetor;
     private JMenuItem menuItemCadastroSetor,
@@ -90,6 +91,7 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         this.panelConstraints = new GridBagConstraints();
         this.panelConstraints.gridx = 0;
         this.panelConstraints.gridy = 0;
+        this.panelConstraints.fill = GridBagConstraints.HORIZONTAL;
         panelRight.setLayout(new BorderLayout());
         panelRight.add(panelButtons, BorderLayout.NORTH);
         
@@ -259,6 +261,12 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         buttonCadastrarUsuario.addActionListener(this);
         this.addButtonToRightPanel(buttonCadastrarUsuario);
     }
+    
+    public void criaBotaoCadastrarProcedimento(){
+        buttonCadastrarProcedimento = new JButton("Cadastrar procedimento", new ImageIcon("imagens/icon_procedimento.png"));
+        buttonCadastrarProcedimento.addActionListener(this);
+        this.addButtonToRightPanel(buttonCadastrarProcedimento);
+    }
 
     public JMenuBar getMenuBar() {
         return menuBar;
@@ -329,7 +337,7 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
             PropriedadesBuscaSetor propriedadesBusca = new PropriedadesBuscaSetor(PropriedadesBusca.OPCAO_REMOVER);
             BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE SETOR PARA REMOÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
-        } else if (source.equals(menuItemCadastroProcedimento)) {
+        } else if (source.equals(menuItemCadastroProcedimento) || source.equals(buttonCadastrarProcedimento)) {
             CadastrarProcedimentoJPanel procedimento = new CadastrarProcedimentoJPanel();
             HUMVApp.setNovoPainelCentral(procedimento);
         } else if (source.equals(menuItemBuscaProcedimento)) {
