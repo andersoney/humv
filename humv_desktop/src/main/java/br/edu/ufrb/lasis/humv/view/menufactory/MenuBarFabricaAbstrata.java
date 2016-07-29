@@ -291,7 +291,7 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
             JOptionPane.showMessageDialog(null, "Desenvolvido por LaSiS - UFRB");
         } else if (source.equals(menuItemCadastroUsuario) || source.equals(buttonCadastrarUsuario)) {
             HUMVApp.setNovoPainelCentral(new CadastrarUsuarioJPanel());
-        } else if (source.equals(menuItemAlteracaoUsuario)) {
+        } else if (source.equals(menuItemBuscaUsuario) || source.equals(menuItemAlteracaoUsuario)) {
             HUMVApp.setNovoPainelCentral(new BuscaPanel("BUSCAR USUÁRIO PARA VISUALIZAÇÃO/ALTERAÇÃO", new PropriedadesBuscaUsuario(PropriedadesBuscaUsuario.OPCAO_VISUALIZAR_ALTERAR)));
         } else if (source.equals(menuItemRemocaoUsuario)) {
             HUMVApp.setNovoPainelCentral(new BuscaPanel("BUSCAR USUÁRIO PARA REMOÇÃO", new PropriedadesBuscaUsuario(PropriedadesBuscaUsuario.OPCAO_REMOVER)));
@@ -312,7 +312,7 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
             HUMVApp.setNovoPainelCentral(dono);
         } else if (source.equals(menuItemBuscaDono) || source.equals(menuItemAlteracaoDono)) {
             PropriedadesBuscaDono propriedadesBusca = new PropriedadesBuscaDono(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
-            BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE DONO PARA ALTERAÇÃO", propriedadesBusca);
+            BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE DONO PARA VISUALIZAÇÃO/ALTERAÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
         } else if (source.equals(menuItemRemocaoDono)) {
             PropriedadesBuscaDono propriedadesBusca = new PropriedadesBuscaDono(PropriedadesBusca.OPCAO_REMOVER);
@@ -323,7 +323,7 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
             HUMVApp.setNovoPainelCentral(setor);
         } else if (source.equals(menuItemBuscaSetor) || source.equals(menuItemAlteracaoSetor)) {
             PropriedadesBuscaSetor propriedadesBusca = new PropriedadesBuscaSetor(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
-            BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE SETOR PARA ALTERAÇÃO", propriedadesBusca);
+            BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE SETOR PARA VISUALIZAÇÃO/ALTERAÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
         } else if (source.equals(menuItemRemocaoSetor)) {
             PropriedadesBuscaSetor propriedadesBusca = new PropriedadesBuscaSetor(PropriedadesBusca.OPCAO_REMOVER);
@@ -334,7 +334,7 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
             HUMVApp.setNovoPainelCentral(procedimento);
         } else if (source.equals(menuItemBuscaProcedimento) || source.equals(menuItemAlteracaoProcedimento)) {
             PropriedadesBuscaProcedimento propriedadesBusca = new PropriedadesBuscaProcedimento(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
-            BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE PROCEDIMENTO PARA ALTERAÇÃO", propriedadesBusca);
+            BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE PROCEDIMENTO PARA VISUALIZAÇÃO/ALTERAÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
         } else if (source.equals(menuItemRemocaoProcedimento)) {
             PropriedadesBuscaProcedimento propriedadesBusca = new PropriedadesBuscaProcedimento(PropriedadesBusca.OPCAO_REMOVER);
@@ -345,7 +345,7 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
             HUMVApp.setNovoPainelCentral(projeto);
         } else if (source.equals(menuItemBuscaProjeto) || source.equals(menuItemAlteracaoProjeto)) {
             PropriedadesBuscaProjeto propriedadesBusca = new PropriedadesBuscaProjeto(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
-            BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE PROCEDIMENTO PARA ALTERAÇÃO", propriedadesBusca);
+            BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE PROCEDIMENTO PARA VISUALIZAÇÃO/ALTERAÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
         } else if (source.equals(menuItemRemocaoProjeto)) {
             PropriedadesBuscaProjeto propriedadesBusca = new PropriedadesBuscaProjeto(PropriedadesBusca.OPCAO_REMOVER);

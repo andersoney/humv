@@ -16,7 +16,6 @@ import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.KeyEvent;
 import java.util.Calendar;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 
@@ -28,7 +27,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
 
     private boolean grande = false;
     private Dono dono = null;
-    private String porte, nome;
+    private String porte;
     private final String servicoDono = "/api/dono";
     private final String servicoAnimal = "/api/animal";
     private Animal animalSelecionado;
@@ -72,15 +71,12 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
             jTextFieldIdade.setText("" + animalSelecionado.getIdade());
             jTextFieldRaca.setText(animalSelecionado.getRaca());
             if (animalSelecionado.getDono().getTipoId().equalsIgnoreCase("CPF")) {
-                jLabelCpfDono.setText("CPF: " + MaskUtils.formatarStringCPF(animalSelecionado.getDono().getId()));
                 this.dono = animalSelecionado.getDono();
-                this.jLabelCpfDono.setText("CPF: " + animalSelecionado.getDono().getId());
+                this.jLabelCpfDono.setText("CPF: " + MaskUtils.formatarStringCPF(animalSelecionado.getDono().getId()));
                 this.jLabelNomeDono.setText("Nome: " + animalSelecionado.getDono().getNome());
             } else {
-                jLabelCpfDono.setText("CNPJ: " + MaskUtils.formatarStringCNPJ(animalSelecionado.getDono().getId()));
-                this.setIdNull();
                 this.dono = animalSelecionado.getDono();
-                this.jLabelCpfDono.setText("CNPJ: " + animalSelecionado.getDono().getId());
+                this.jLabelCpfDono.setText("CNPJ: " + MaskUtils.formatarStringCNPJ(animalSelecionado.getDono().getId()));
                 this.jLabelNomeDono.setText("Nome: " + animalSelecionado.getDono().getNome());
             }
             if (animalSelecionado.getPorte().equalsIgnoreCase("pequeno")) {
@@ -111,7 +107,6 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
 
     public void setIdNull() {
         this.dono = null;
-        this.nome = null;
         this.jLabelNomeDono.setText("Nome: ");
         this.jLabelCpfDono.setText("CPF: ");
     }

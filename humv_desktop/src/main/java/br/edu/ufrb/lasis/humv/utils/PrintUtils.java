@@ -17,14 +17,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 /**
@@ -50,32 +48,20 @@ public class PrintUtils {
                 parameters.put("TABELA", lista);
                 JRDataSource dataSource = new JRBeanCollectionDataSource(lista, true);
                 JasperPrint jasperPrint = JasperFillManager.fillReport(reportStream, parameters, dataSource);
-                Object[] options = {"Imprimir", "Gerar PDF"};
-                int n = JOptionPane.showOptionDialog(HUMVApp.getMainWindow(),
-                        "Qual operação você deseja fazer?",
-                        "Selecionar operação",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE,
-                        null,
-                        options,
-                        options[0]);
-                if (n == JOptionPane.YES_OPTION) {
-                    printReport(jasperPrint);
-                } else if (n == JOptionPane.NO_OPTION) {
-                    final JFileChooser fileChooser = new JFileChooser();
-                    Date horarioAtual = Calendar.getInstance().getTime();
-                    String strData = new SimpleDateFormat("dd-MM-yyyy").format(horarioAtual);
-                    String strHora = new SimpleDateFormat("HH").format(horarioAtual);
-                    String strMinuto = new SimpleDateFormat("mm").format(horarioAtual);
-                    fileChooser.setSelectedFile(new File("relatorio_" + strData + "_" + strHora + "h" + strMinuto + "m.pdf"));
-                    fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Documentos PDF", "pdf"));
-                    fileChooser.setAcceptAllFileFilterUsed(false);
 
-                    int returnVal = fileChooser.showSaveDialog(HUMVApp.getMainWindow());
-                    if (returnVal == JFileChooser.APPROVE_OPTION) {
-                        String caminho = fileChooser.getSelectedFile().getAbsolutePath();
-                        exportReportToPDF(jasperPrint, caminho);
-                    }
+                final JFileChooser fileChooser = new JFileChooser();
+                Date horarioAtual = Calendar.getInstance().getTime();
+                String strData = new SimpleDateFormat("dd-MM-yyyy").format(horarioAtual);
+                String strHora = new SimpleDateFormat("HH").format(horarioAtual);
+                String strMinuto = new SimpleDateFormat("mm").format(horarioAtual);
+                fileChooser.setSelectedFile(new File("relatorio_" + strData + "_" + strHora + "h" + strMinuto + "m.pdf"));
+                fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Documentos PDF", "pdf"));
+                fileChooser.setAcceptAllFileFilterUsed(false);
+
+                int returnVal = fileChooser.showSaveDialog(HUMVApp.getMainWindow());
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    String caminho = fileChooser.getSelectedFile().getAbsolutePath();
+                    exportReportToPDF(jasperPrint, caminho);
                 }
             } catch (JRException | FileNotFoundException exception) {
                 MessageUtils.erroGeracaoRelatorio();
@@ -83,15 +69,6 @@ public class PrintUtils {
 
         } else {
             MessageUtils.semResultadosGeracaoRelatorio();
-        }
-    }
-
-    private static void printReport(JasperPrint print) {
-        try {
-            JasperPrintManager.printReport(print, true);
-            MessageUtils.sucessoGeracaoRelatorio();
-        } catch (JRException exception) {
-            MessageUtils.erroGeracaoRelatorio();
         }
     }
 
