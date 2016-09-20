@@ -1,4 +1,4 @@
-﻿package br.edu.ufrb.lasis.humv.entity;
+package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
 import java.math.BigInteger;
