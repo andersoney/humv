@@ -12,13 +12,19 @@ import javax.persistence.Table;
 public class Usuario implements Serializable{
 
 	private static final long serialVersionUID = -1487845401492394032L;
+	
+    public static final Integer PERFIL_ADMINISTRADOR = 0;
+    public static final Integer PERFIL_RECEPCIONISTA = 1;
+    public static final Integer PERFIL_VETERINARIO = 2;
+    public static final Integer PERFIL_FARMACEUTICO = 3;
+    public static final Integer PERFIL_ASSISTENTE_SOCIAL = 4;
 
 	@Id
 	private String email;
 	private BigInteger siape;
 	private String nome;
 	private String senha;
-	private String perfil;
+	private Integer perfil;
 	private boolean ativo;
 	
 	public BigInteger getSiape() {
@@ -61,11 +67,11 @@ public class Usuario implements Serializable{
 		this.email = email;
 	}
 
-	public String getPerfil() {
+	public Integer getPerfil() {
 		return perfil;
 	}
 
-	public void setPerfil(String perfil) {
+	public void setPerfil(Integer perfil) {
 		this.perfil = perfil;
 	}
 	

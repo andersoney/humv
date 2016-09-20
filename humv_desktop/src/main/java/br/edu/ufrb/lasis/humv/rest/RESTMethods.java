@@ -1,7 +1,7 @@
 package br.edu.ufrb.lasis.humv.rest;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
-import br.edu.ufrb.lasis.humv.utils.HUMVConfig;
+import br.edu.ufrb.lasis.humv.utils.HUMVConfigUtils;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -80,8 +80,7 @@ public class RESTMethods {
     }
 
     public static ClientResponse userLogin(String resource, String username, String senha) throws RESTConnectionException {
-        WebResource webResource = createClient(false).resource(
-                HUMVConfig.getVetBackendURL() + resource
+        WebResource webResource = createClient(false).resource(HUMVConfigUtils.getVetBackendURL() + resource
                 + "?username=" + username + "&senha=" + senha
         );
 
@@ -101,7 +100,7 @@ public class RESTMethods {
     }
     
     private static String getResourceURL(String resourceName, boolean temUsername){
-        String URL =  HUMVConfig.getVetBackendURL() + resourceName;
+        String URL =  HUMVConfigUtils.getVetBackendURL() + resourceName;
         if(temUsername){
             URL = URL + "?username=" + HUMVApp.getNomeUsuario();
         }

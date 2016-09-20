@@ -36,6 +36,11 @@ public class UsuarioService {
     	return usuarioServiceImpl.search(palavrachave);
     }
     
+    @RequestMapping(method = RequestMethod.GET, value = "/obterMedicosAtivos")
+    public List<Usuario> obterMedicosAtivos(){
+    	return usuarioServiceImpl.obterMedicosAtivos();
+    }
+    
     @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public String cadastrarUsuario(@RequestBody Usuario usuario, @RequestParam(value="username") String username){
     	return usuarioServiceImpl.cadastrarUsuario(usuario, username);

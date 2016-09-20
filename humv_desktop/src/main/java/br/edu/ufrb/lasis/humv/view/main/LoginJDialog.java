@@ -70,7 +70,7 @@ public class LoginJDialog extends javax.swing.JDialog implements ActionListener,
             if (resposta.contains("OK") /*|| textFieldUsername.getText().equals("1")*/) {
                 this.dispose();
                 String perfil = resposta.split("-")[1];
-                MainSplitPanel splitPanel = new MainSplitPanel(perfil);
+                MainSplitPanel splitPanel = new MainSplitPanel(Integer.parseInt(perfil));
                 window.setContentPane(splitPanel);
                 HUMVApp.setNomeUsuario(username);
                 HUMVApp.setPainelCentralComLogo();

@@ -6,6 +6,7 @@
     <ul>
     	<li>Obter todos: /api/usuario (GET)</li>
     	<li>Obter um usuário: /api/usuario/{email} (GET)</li>
+    	<li>Obter todos os médicos ativos: /api/usuario/obterMedicosAtivos (GET)</li>
     	<li>Inserir: /api/usuario (POST)</li>
     	<li>Alterar: /api/usuario (PUT)</li>
     	<li>Excluir: /api/usuario/{email} (DELETE)</li>

@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author tassi
  */
-public class BuscaPanel extends javax.swing.JPanel {
+public class BuscaJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form BuscaPanel
@@ -22,7 +22,7 @@ public class BuscaPanel extends javax.swing.JPanel {
      * @param tituloPanel
      * @param propriedadesBusca
      */
-    public BuscaPanel(String tituloPanel, PropriedadesBusca propriedadesBusca) {
+    public BuscaJPanel(String tituloPanel, PropriedadesBusca propriedadesBusca) {
         initComponents();
         customInitComponents(tituloPanel, propriedadesBusca);
     }

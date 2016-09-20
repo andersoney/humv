@@ -114,6 +114,21 @@ public class UsuarioDAO extends GenericDAO<Usuario> implements Serializable{
 		
 		return (List<Usuario>) criteria.list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<Usuario> obterMedicosAtivos(){
+		Criteria criteria = getCriteria();
+
+		criteria.add(
+				Restrictions.and(
+						Restrictions.eq("perfil", Usuario.PERFIL_VETERINARIO), 
+						Restrictions.eq("ativo", true)
+				)
+		);
+		
+		return (List<Usuario>) criteria.list();
+    }
 
 	@Transactional
 	public Usuario findBySiape(int siape) {

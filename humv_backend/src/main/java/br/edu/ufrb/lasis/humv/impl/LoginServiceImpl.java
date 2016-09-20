@@ -36,7 +36,7 @@ public class LoginServiceImpl {
 					Usuario usuario = new Usuario();
 					usuario.setEmail(ADMIN_USERNAME);
 					usuario.setSenha(ADMIN_PASSWORD);
-					return "OK-Administrador";
+					return "OK-" + Usuario.PERFIL_ADMINISTRADOR;
 				}else{
 					logger.error("[login] Erro durante login do usuario ADMIN do sistema.");
 					return "Senha incorreta, por favor, digite-a novamente.";

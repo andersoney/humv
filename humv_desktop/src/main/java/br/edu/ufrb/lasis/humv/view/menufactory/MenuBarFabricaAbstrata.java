@@ -6,9 +6,10 @@
 package br.edu.ufrb.lasis.humv.view.menufactory;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
+import br.edu.ufrb.lasis.humv.view.agendamento.RealizarAgendamentoJPanel;
 import br.edu.ufrb.lasis.humv.view.animal.CadastrarAnimalJPanel;
 import br.edu.ufrb.lasis.humv.view.animal.PropriedadesBuscaAnimal;
-import br.edu.ufrb.lasis.humv.view.busca.BuscaPanel;
+import br.edu.ufrb.lasis.humv.view.busca.BuscaJPanel;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import br.edu.ufrb.lasis.humv.view.dono.CadastrarDonoJPanel;
 import br.edu.ufrb.lasis.humv.view.dono.PropriedadesBuscaDono;
@@ -83,6 +84,10 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
             menuItemBuscaProjeto,
             menuItemAlteracaoProjeto,
             menuItemRemocaoProjeto;
+    
+    private JMenu menuAtendimento;
+    private JMenuItem menuItemAgendarAtendimento;
+    private JButton buttonAgendarAtendimento;
 
     private JPanel panelButtons;
     private GridBagConstraints panelConstraints;
@@ -256,6 +261,16 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         getMenuBar().add(menuProjeto);
     }
     
+    public void criaMenuAtendimento() {
+        menuAtendimento = new JMenu("Atendimento");
+
+        menuItemAgendarAtendimento = new JMenuItem("Agendar atendimento");
+        menuItemAgendarAtendimento.addActionListener(this);
+        menuAtendimento.add(menuItemAgendarAtendimento);
+
+        getMenuBar().add(menuAtendimento);
+    }
+    
     public void criaBotaoCadastrarAnimal(){
         buttonCadastrarAnimal = new JButton("Cadastrar animal", new ImageIcon("imagens/icon_pet.png"));
         buttonCadastrarAnimal.addActionListener(this);
@@ -272,6 +287,12 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         buttonCadastrarProcedimento = new JButton("Cadastrar procedimento", new ImageIcon("imagens/icon_procedimento.png"));
         buttonCadastrarProcedimento.addActionListener(this);
         this.addButtonToRightPanel(buttonCadastrarProcedimento);
+    }
+    
+    public void criaBotaoAgendarAtendimento(){
+        buttonAgendarAtendimento = new JButton("Agendar atendimento", new ImageIcon("imagens/icon_agenda.png"));
+        buttonAgendarAtendimento.addActionListener(this);
+        this.addButtonToRightPanel(buttonAgendarAtendimento);
     }
 
     public JMenuBar getMenuBar() {
@@ -292,65 +313,68 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         } else if (source.equals(menuItemCadastroUsuario) || source.equals(buttonCadastrarUsuario)) {
             HUMVApp.setNovoPainelCentral(new CadastrarUsuarioJPanel());
         } else if (source.equals(menuItemBuscaUsuario) || source.equals(menuItemAlteracaoUsuario)) {
-            HUMVApp.setNovoPainelCentral(new BuscaPanel("BUSCAR USUÁRIO PARA VISUALIZAÇÃO/ALTERAÇÃO", new PropriedadesBuscaUsuario(PropriedadesBuscaUsuario.OPCAO_VISUALIZAR_ALTERAR)));
+            HUMVApp.setNovoPainelCentral(new BuscaJPanel("BUSCAR USUÁRIO PARA VISUALIZAÇÃO/ALTERAÇÃO", new PropriedadesBuscaUsuario(PropriedadesBuscaUsuario.OPCAO_VISUALIZAR_ALTERAR)));
         } else if (source.equals(menuItemRemocaoUsuario)) {
-            HUMVApp.setNovoPainelCentral(new BuscaPanel("BUSCAR USUÁRIO PARA REMOÇÃO", new PropriedadesBuscaUsuario(PropriedadesBuscaUsuario.OPCAO_REMOVER)));
+            HUMVApp.setNovoPainelCentral(new BuscaJPanel("BUSCAR USUÁRIO PARA REMOÇÃO", new PropriedadesBuscaUsuario(PropriedadesBuscaUsuario.OPCAO_REMOVER)));
         } else if (source.equals(menuItemSair)) {
             System.exit(0);
         } else if (source.equals(menuItemCadastroAnimal) || source.equals(buttonCadastrarAnimal)) {
             HUMVApp.setNovoPainelCentral(new CadastrarAnimalJPanel());
         } else if (source.equals(menuItemBuscaAnimal) || source.equals(menuItemAlteracaoAnimal)) {
             PropriedadesBuscaAnimal propriedadesBusca = new PropriedadesBuscaAnimal(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
-            BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE ANIMAL PARA VISUALIZAÇÃO/ALTERAÇÃO", propriedadesBusca);
+            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE ANIMAL PARA VISUALIZAÇÃO/ALTERAÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
         } else if (source.equals(menuItemRemocaoAnimal)) {
             PropriedadesBuscaAnimal propriedadesBusca = new PropriedadesBuscaAnimal(PropriedadesBusca.OPCAO_REMOVER);
-            BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE ANIMAL PARA REMOÇÃO", propriedadesBusca);
+            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE ANIMAL PARA REMOÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
         } else if (source.equals(menuItemCadastroDono)) {
             CadastrarDonoJPanel dono = new CadastrarDonoJPanel();
             HUMVApp.setNovoPainelCentral(dono);
         } else if (source.equals(menuItemBuscaDono) || source.equals(menuItemAlteracaoDono)) {
             PropriedadesBuscaDono propriedadesBusca = new PropriedadesBuscaDono(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
-            BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE DONO PARA VISUALIZAÇÃO/ALTERAÇÃO", propriedadesBusca);
+            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE DONO PARA VISUALIZAÇÃO/ALTERAÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
         } else if (source.equals(menuItemRemocaoDono)) {
             PropriedadesBuscaDono propriedadesBusca = new PropriedadesBuscaDono(PropriedadesBusca.OPCAO_REMOVER);
-            BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE DONO PARA REMOÇÃO", propriedadesBusca);
+            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE DONO PARA REMOÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
         } else if (source.equals(menuItemCadastroSetor)) {
             CadastrarSetorJPanel setor = new CadastrarSetorJPanel();
             HUMVApp.setNovoPainelCentral(setor);
         } else if (source.equals(menuItemBuscaSetor) || source.equals(menuItemAlteracaoSetor)) {
             PropriedadesBuscaSetor propriedadesBusca = new PropriedadesBuscaSetor(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
-            BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE SETOR PARA VISUALIZAÇÃO/ALTERAÇÃO", propriedadesBusca);
+            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE SETOR PARA VISUALIZAÇÃO/ALTERAÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
         } else if (source.equals(menuItemRemocaoSetor)) {
             PropriedadesBuscaSetor propriedadesBusca = new PropriedadesBuscaSetor(PropriedadesBusca.OPCAO_REMOVER);
-            BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE SETOR PARA REMOÇÃO", propriedadesBusca);
+            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE SETOR PARA REMOÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
         } else if (source.equals(menuItemCadastroProcedimento) || source.equals(buttonCadastrarProcedimento)) {
             CadastrarProcedimentoJPanel procedimento = new CadastrarProcedimentoJPanel();
             HUMVApp.setNovoPainelCentral(procedimento);
         } else if (source.equals(menuItemBuscaProcedimento) || source.equals(menuItemAlteracaoProcedimento)) {
             PropriedadesBuscaProcedimento propriedadesBusca = new PropriedadesBuscaProcedimento(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
-            BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE PROCEDIMENTO PARA VISUALIZAÇÃO/ALTERAÇÃO", propriedadesBusca);
+            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE PROCEDIMENTO PARA VISUALIZAÇÃO/ALTERAÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
         } else if (source.equals(menuItemRemocaoProcedimento)) {
             PropriedadesBuscaProcedimento propriedadesBusca = new PropriedadesBuscaProcedimento(PropriedadesBusca.OPCAO_REMOVER);
-            BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE PROCEDIMENTO PARA REMOÇÃO", propriedadesBusca);
+            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE PROCEDIMENTO PARA REMOÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
         } else if (source.equals(menuItemCadastroProjeto)) {
             CadastrarProjetoJPanel projeto = new CadastrarProjetoJPanel();
             HUMVApp.setNovoPainelCentral(projeto);
         } else if (source.equals(menuItemBuscaProjeto) || source.equals(menuItemAlteracaoProjeto)) {
             PropriedadesBuscaProjeto propriedadesBusca = new PropriedadesBuscaProjeto(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
-            BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE PROCEDIMENTO PARA VISUALIZAÇÃO/ALTERAÇÃO", propriedadesBusca);
+            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE PROCEDIMENTO PARA VISUALIZAÇÃO/ALTERAÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
         } else if (source.equals(menuItemRemocaoProjeto)) {
             PropriedadesBuscaProjeto propriedadesBusca = new PropriedadesBuscaProjeto(PropriedadesBusca.OPCAO_REMOVER);
-            BuscaPanel buscaPanel = new BuscaPanel("BUSCA DE PROCEDIMENTO PARA REMOÇÃO", propriedadesBusca);
+            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE PROCEDIMENTO PARA REMOÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
+        } else if (source.equals(menuItemAgendarAtendimento) || source.equals(buttonAgendarAtendimento)) {
+            HUMVApp.setNovoPainelCentral(new RealizarAgendamentoJPanel());
         }
+        
     }
 }

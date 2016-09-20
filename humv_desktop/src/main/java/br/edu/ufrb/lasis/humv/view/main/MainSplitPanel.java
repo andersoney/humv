@@ -6,7 +6,7 @@
 package br.edu.ufrb.lasis.humv.view.main;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
-import br.edu.ufrb.lasis.humv.utils.HUMVConfig;
+import br.edu.ufrb.lasis.humv.entity.Usuario;
 import br.edu.ufrb.lasis.humv.view.menufactory.FabricaMenuAdministrador;
 import br.edu.ufrb.lasis.humv.view.menufactory.FabricaMenuFarmaceutico;
 import br.edu.ufrb.lasis.humv.view.menufactory.FabricaMenuRecepcionista;
@@ -25,29 +25,26 @@ public class MainSplitPanel extends javax.swing.JPanel {
      *
      * @param perfilUsuario
      */
-    public MainSplitPanel(String perfilUsuario) {
+    public MainSplitPanel(Integer perfilUsuario) {
         initComponents();
         customInitComponents(perfilUsuario);
     }
 
-    private void customInitComponents(String perfilUsuario) {
+    private void customInitComponents(Integer perfilUsuario) {
         scrollPane.setViewportView(HUMVApp.getMainPanelInstance());
         panelRightButtons.setLayout(new FlowLayout());
-        
-        MenuBarFabricaAbstrata fabricaMenu;
-        switch (perfilUsuario) {
-            case HUMVConfig.PERFIL_ADMINISTRADOR:
-                fabricaMenu = new FabricaMenuAdministrador(this, panelRightButtons);
-                break;
-            case HUMVConfig.PERFIL_RECEPCIONISTA:
-                fabricaMenu = new FabricaMenuRecepcionista(this, panelRightButtons);
-                break;
-            case HUMVConfig.PERFIL_VETERINARIO:
-                fabricaMenu = new FabricaMenuVeterinario(this, panelRightButtons);
-                break;
-            default:
-                fabricaMenu = new FabricaMenuFarmaceutico(this, panelRightButtons);
-                break;
+
+        MenuBarFabricaAbstrata fabricaMenu = null;
+        if (perfilUsuario.compareTo(Usuario.PERFIL_ADMINISTRADOR) == 0) {
+            fabricaMenu = new FabricaMenuAdministrador(this, panelRightButtons);
+        } else if (perfilUsuario.compareTo(Usuario.PERFIL_ASSISTENTE_SOCIAL) == 0) {
+            //fabricaMenu = new FabricaMenuAdministrador(this, panelRightButtons);
+        } else if (perfilUsuario.compareTo(Usuario.PERFIL_FARMACEUTICO) == 0) {
+            fabricaMenu = new FabricaMenuFarmaceutico(this, panelRightButtons);
+        } else if (perfilUsuario.compareTo(Usuario.PERFIL_RECEPCIONISTA) == 0) {
+            fabricaMenu = new FabricaMenuRecepcionista(this, panelRightButtons);
+        } else {
+            fabricaMenu = new FabricaMenuVeterinario(this, panelRightButtons);
         }
         fabricaMenu.criaMenuBar();
     }

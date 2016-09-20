@@ -34,6 +34,10 @@ public class UsuarioServiceImpl {
 	public List<Usuario> search(String palavrachave){
 		return usuarioDAO.search(palavrachave);
 	}
+	
+	public List<Usuario> obterMedicosAtivos(){
+    	return usuarioDAO.obterMedicosAtivos();
+    }
 
 	public String cadastrarUsuario(Usuario usuario, String usuarioResponsavel){
 		try{
