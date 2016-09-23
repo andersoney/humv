@@ -17,8 +17,8 @@
              classname="com.izforge.izpack.ant.IzPackTask" />
 		
     <target name="make.installer">
-        <izpack input="${absolute.dir}/install.xml"
-                output="${absolute.dir}/dist/${distro.name}-installer-${version}.jar"
+        <izpack input="install.xml"
+                output="dist/${distro.name}-installer-${version}.jar"
                 basedir="." izPackDir="${izpack.dir}/" />
     </target> 
 </project>
