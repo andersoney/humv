@@ -25,8 +25,8 @@
     </locale>
    
     <resources>
-        <res id="shortcutSpec.xml" src="humv_desktop/WinShortcutSpec.xml"/>
-        <res id="TargetPanel.dir" src="humv_desktop/Target.txt"/> 
+        <res id="shortcutSpec.xml" src="WinShortcutSpec.xml"/>
+        <res id="TargetPanel.dir" src="Target.txt"/> 
     </resources>
 
     <panels>
@@ -42,10 +42,10 @@
         <pack name="Base" required="yes">
             <description>São necessários arquivos para a execução do programa</description>
             <file src="humv_desktop/target/humv_desktop-1.0-SNAPSHOT.jar" targetdir="$INSTALL_PATH"/>
-            <fileset dir="humv_desktop/target/." includes="lib/" targetdir="$INSTALL_PATH"/>
-            <fileset dir="humv_desktop/." includes="arquivos/" targetdir="$INSTALL_PATH"/>
-            <fileset dir="humv_desktop/." includes="imagens/" targetdir="$INSTALL_PATH"/>
-            <fileset dir="humv_desktop/." includes="relatorios/" targetdir="$INSTALL_PATH"/>
+            <fileset dir="target/." includes="lib/" targetdir="$INSTALL_PATH"/>
+            <fileset dir="." includes="arquivos/" targetdir="$INSTALL_PATH"/>
+            <fileset dir="." includes="imagens/" targetdir="$INSTALL_PATH"/>
+            <fileset dir="." includes="relatorios/" targetdir="$INSTALL_PATH"/>
         </pack>
     </packs>	
 
