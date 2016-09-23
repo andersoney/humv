@@ -10,7 +10,7 @@
     <property name="images" value="images" />
     <!-- <property name="izpack.dir" value="C:\Arquivos de programas\IzPack" /> -->
     <!-- <property name="izpack.dir" value="D:\Arquivos de programas\IzPack" /> -->
-    <property name="izpack.dir" value="/Users/tassiovale/Documents/Izpack" />
+    <property name="izpack.dir" value="/usr/local/izpack" />
     <property name="absolute.dir" value="humv_desktop" />
 
     <taskdef name="izpack" classpath="${izpack.dir}/lib/compiler.jar"
