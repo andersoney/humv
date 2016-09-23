@@ -9,7 +9,7 @@ import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Usuario;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
-import br.edu.ufrb.lasis.humv.utils.MessageUtils;
+import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.utils.SecurityUtils;
 import com.sun.jersey.api.client.ClientResponse;
 import java.io.UnsupportedEncodingException;
@@ -281,7 +281,7 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
 
                 ClientResponse response;
                 if (usuarioSelecionado != null) {
-                    if (MessageUtils.dialogoRemoverAlterar("alterar", "usuário", usuarioSelecionado.getNome())) {
+                    if (InterfaceGraficaUtils.dialogoRemoverAlterar("alterar", "usuário", usuarioSelecionado.getNome())) {
                         response = RESTMethods.put("/api/usuario", usuario);
                     } else {
                         return;
@@ -294,14 +294,14 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
                 String resposta = response.getEntity(String.class
                 );
                 if (resposta.equalsIgnoreCase("ok")) {
-                    MessageUtils.sucessoCadastro("usuário");
+                    InterfaceGraficaUtils.sucessoCadastro("usuário");
                     HUMVApp.setPainelCentralComLogo();
                 } else {
-                    MessageUtils.erroResposta(resposta);
+                    InterfaceGraficaUtils.erroResposta(resposta);
                     textFieldNome.setFocusable(true);
                 }
             } catch (RESTConnectionException ex) {
-                MessageUtils.erroConexao();
+                InterfaceGraficaUtils.erroConexao();
                 ex.printStackTrace();
             } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
                 JOptionPane.showMessageDialog(this, "Erro ao criptografar senha. Tente novamente mais tarde.", "Erro", JOptionPane.ERROR_MESSAGE);

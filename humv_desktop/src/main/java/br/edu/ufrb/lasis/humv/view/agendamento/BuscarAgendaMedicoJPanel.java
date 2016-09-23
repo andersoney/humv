@@ -5,12 +5,15 @@
  */
 package br.edu.ufrb.lasis.humv.view.agendamento;
 
+import br.edu.ufrb.lasis.humv.HUMVApp;
+import br.edu.ufrb.lasis.humv.entity.Atendimento;
 import br.edu.ufrb.lasis.humv.entity.Usuario;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
-import br.edu.ufrb.lasis.humv.utils.MessageUtils;
+import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import com.sun.jersey.api.client.ClientResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import org.codehaus.jackson.type.TypeReference;
@@ -19,14 +22,14 @@ import org.codehaus.jackson.type.TypeReference;
  *
  * @author tassiovale
  */
-public class RealizarAgendamentoJPanel extends javax.swing.JPanel {
+public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
 
     private List<Usuario> medicos = null;
 
     /**
      * Creates new form RealizarAgendamentoJPanel
      */
-    public RealizarAgendamentoJPanel() {
+    public BuscarAgendaMedicoJPanel() {
         initComponents();
         customInitComponents();
     }
@@ -34,7 +37,7 @@ public class RealizarAgendamentoJPanel extends javax.swing.JPanel {
     private void customInitComponents() {
         List<Usuario> listMedicos = getMedicos();
         DefaultComboBoxModel model = new DefaultComboBoxModel();
-        for(Usuario usuario : listMedicos){
+        for (Usuario usuario : listMedicos) {
             MedicoComboBox medico = new MedicoComboBox(usuario);
             model.addElement(medico);
         }
@@ -45,9 +48,10 @@ public class RealizarAgendamentoJPanel extends javax.swing.JPanel {
         if (medicos == null) {
             try {
                 ClientResponse response = RESTMethods.get("/api/usuario/obterMedicosAtivos");
-                medicos = (List<Usuario>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Usuario>>() {});
+                medicos = (List<Usuario>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Usuario>>() {
+                });
             } catch (RESTConnectionException | IOException ex) {
-                MessageUtils.erroConexao();
+                InterfaceGraficaUtils.erroConexao();
             }
         }
         return medicos;
@@ -65,10 +69,11 @@ public class RealizarAgendamentoJPanel extends javax.swing.JPanel {
         jLabelTitulo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         comboBoxMedicos = new javax.swing.JComboBox<>();
-        jDateChooserInicio1 = new com.toedter.calendar.JDateChooser();
+        jDateChooserDiaAgenda = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
         jButtonCarregar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPaneTabela = new javax.swing.JScrollPane();
+        jButton1 = new javax.swing.JButton();
 
         jLabelTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -91,25 +96,37 @@ public class RealizarAgendamentoJPanel extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setText("Sair");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(comboBoxMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateChooserInicio1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonCarregar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPaneTabela)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboBoxMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jDateChooserDiaAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonCarregar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(294, 294, 294)
+                        .addComponent(jButton1)))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -123,39 +140,68 @@ public class RealizarAgendamentoJPanel extends javax.swing.JPanel {
                         .addComponent(jLabel1)
                         .addComponent(comboBoxMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jDateChooserInicio1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDateChooserDiaAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonCarregar))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCarregarActionPerformed
-        // TODO add your handling code here:
+        if (getMedicos() == null || getMedicos().isEmpty()) {
+            InterfaceGraficaUtils.erroResposta("Não existem médicos para consulta. Por favor, realize o cadastro do médico.");
+        } else if (jDateChooserDiaAgenda.getDate() == null) {
+            InterfaceGraficaUtils.erroResposta("Por favor, informe a data para carregar a agenda do médico " + (MedicoComboBox) comboBoxMedicos.getSelectedItem() + ".");
+            jDateChooserDiaAgenda.setFocusable(true);
+        } else {
+            try {
+                String dataStr = new SimpleDateFormat("dd-MM-yyyy").format(jDateChooserDiaAgenda.getDate());
+                String emailMedico = ((MedicoComboBox) comboBoxMedicos.getSelectedItem()).getUsuario().getEmail();
+                ClientResponse response = RESTMethods.get("/api/atendimento/searchByDateAndMedicoSemCancelados?data=" + dataStr + "&idEmailMedico=" + emailMedico);
+                List<Atendimento> atendimentos = (List<Atendimento>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Atendimento>>() {
+                });
+
+                AgendaJPanel agendaJPanel = new AgendaJPanel(atendimentos, jDateChooserDiaAgenda.getDate());
+                jScrollPaneTabela.setViewportView(agendaJPanel);
+                jScrollPaneTabela.revalidate();
+            } catch (RESTConnectionException | IOException ex) {
+                InterfaceGraficaUtils.erroConexao();
+            }
+        }
     }//GEN-LAST:event_jButtonCarregarActionPerformed
 
     private void comboBoxMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxMedicosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBoxMedicosActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        boolean sair = InterfaceGraficaUtils.dialogoSair();
+        if (sair) {
+            HUMVApp.setPainelCentralComLogo();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> comboBoxMedicos;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonCarregar;
-    private com.toedter.calendar.JDateChooser jDateChooserInicio1;
+    private com.toedter.calendar.JDateChooser jDateChooserDiaAgenda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelTitulo;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPaneTabela;
     // End of variables declaration//GEN-END:variables
 }
 
 class MedicoComboBox {
-    
+
     private Usuario usuario;
-    
-    public MedicoComboBox(Usuario usuario){
+
+    public MedicoComboBox(Usuario usuario) {
         this.usuario = usuario;
     }
 
@@ -167,5 +213,5 @@ class MedicoComboBox {
     public String toString() {
         return usuario.getNome();
     }
-    
+
 }

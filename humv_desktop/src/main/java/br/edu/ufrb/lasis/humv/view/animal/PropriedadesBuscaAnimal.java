@@ -4,13 +4,15 @@ import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Animal;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
-import br.edu.ufrb.lasis.humv.utils.MessageUtils;
+import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.utils.PrintUtils;
+import br.edu.ufrb.lasis.humv.utils.ResultadoBusca;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import org.codehaus.jackson.type.TypeReference;
@@ -23,9 +25,17 @@ public class PropriedadesBuscaAnimal extends PropriedadesBusca {
 
     private AnimalTableModel tableModel;
     private List<Animal> listaAnimais;
+    private ResultadoBusca resultadoBusca;
 
     public PropriedadesBuscaAnimal(String tipoOperacao) {
         super(tipoOperacao);
+        tableModel = new AnimalTableModel();
+        super.setTabelaResultado(new JTable(tableModel));
+    }
+    
+    public PropriedadesBuscaAnimal(String tipoOperacao, JFrame jFrame, ResultadoBusca resultadoBusca) {
+        super(tipoOperacao, jFrame);
+        this.resultadoBusca = resultadoBusca;
         tableModel = new AnimalTableModel();
         super.setTabelaResultado(new JTable(tableModel));
     }
@@ -68,7 +78,7 @@ public class PropriedadesBuscaAnimal extends PropriedadesBusca {
                         HUMVApp.setNovoPainelCentral(painelCadastroAnimal);
                         break;
                     case PropriedadesBusca.OPCAO_REMOVER:
-                        if (MessageUtils.dialogoRemoverAlterar("remover", "animal", animalSelecionado.getNome())) {
+                        if (InterfaceGraficaUtils.dialogoRemoverAlterar("remover", "animal", animalSelecionado.getNome())) {
                             try {
                                 ClientResponse response = RESTMethods.delete("/api/animal", animalSelecionado.getRghumv().toString());
                                 String resposta = response.getEntity(String.class);
@@ -84,6 +94,10 @@ public class PropriedadesBuscaAnimal extends PropriedadesBusca {
                             }
                         }
                         break;
+                     case PropriedadesBusca.OPCAO_SELECIONAR:
+                         resultadoBusca.setResultado(animalSelecionado);
+                         getjFrame().dispose();
+                         break;
                     default:
                         break;
                 }

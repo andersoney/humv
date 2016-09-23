@@ -9,7 +9,7 @@ import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Projeto;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
-import br.edu.ufrb.lasis.humv.utils.MessageUtils;
+import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.utils.PrintUtils;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.sun.jersey.api.client.ClientResponse;
@@ -48,7 +48,7 @@ public class PropriedadesBuscaProjeto extends PropriedadesBusca {
             super.getTabelaResultado().setModel(tableModel);
             super.getTabelaResultado().revalidate();
         } catch (RESTConnectionException | IOException ex) {
-            MessageUtils.erroConexao();
+            InterfaceGraficaUtils.erroConexao();
         }
         HUMVApp.esconderMensagemCarregamento();
 
@@ -71,12 +71,12 @@ public class PropriedadesBuscaProjeto extends PropriedadesBusca {
                 Projeto projetoSelecionado = tableModel.getProjetoSelecionado(super.getIndexLinhaSelecionada());
                 switch (super.getTipoOperacao()) {
                     case PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR:
-                        if (MessageUtils.dialogoRemoverAlterar("alterar", "projeto", projetoSelecionado.getNome())) {
+                        if (InterfaceGraficaUtils.dialogoRemoverAlterar("alterar", "projeto", projetoSelecionado.getNome())) {
                             CadastrarProjetoJPanel painel = new CadastrarProjetoJPanel(projetoSelecionado);
                             HUMVApp.setNovoPainelCentral(painel);
                         }   break;
                     case PropriedadesBusca.OPCAO_REMOVER:
-                        if (MessageUtils.dialogoRemoverAlterar("remover", "projeto", projetoSelecionado.getNome())) {
+                        if (InterfaceGraficaUtils.dialogoRemoverAlterar("remover", "projeto", projetoSelecionado.getNome())) {
                             try {
                                 ClientResponse response = RESTMethods.delete("/api/projeto", "" + projetoSelecionado.getId());
                                 String resposta = response.getEntity(String.class);

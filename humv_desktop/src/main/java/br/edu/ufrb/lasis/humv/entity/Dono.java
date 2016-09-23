@@ -25,6 +25,7 @@ public class Dono implements Serializable {
     private String estado;
     private String cep;
     private String telefone;
+    private String email;
     private String cidade; // Obs.: pode ser uma fazenda ou distrito em caso de zona rural.
 
     public BigInteger getId() {
@@ -81,6 +82,14 @@ public class Dono implements Serializable {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getCidade() {

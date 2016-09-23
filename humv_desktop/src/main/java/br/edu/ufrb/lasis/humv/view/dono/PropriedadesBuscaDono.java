@@ -9,7 +9,7 @@ import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Dono;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
-import br.edu.ufrb.lasis.humv.utils.MessageUtils;
+import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.utils.PrintUtils;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.sun.jersey.api.client.ClientResponse;
@@ -48,7 +48,7 @@ public class PropriedadesBuscaDono extends PropriedadesBusca {
             super.getTabelaResultado().setModel(tableModel);
             super.getTabelaResultado().revalidate();
         } catch (RESTConnectionException | IOException ex) {
-            MessageUtils.erroConexao();
+            InterfaceGraficaUtils.erroConexao();
         }
         HUMVApp.esconderMensagemCarregamento();
 
@@ -71,12 +71,12 @@ public class PropriedadesBuscaDono extends PropriedadesBusca {
                 Dono donoSelecionado = tableModel.getDonoSelecionado(super.getIndexLinhaSelecionada());
                 switch (super.getTipoOperacao()) {
                     case PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR:
-                        if (MessageUtils.dialogoRemoverAlterar("alterar", "dono", donoSelecionado.getNome())) {
+                        if (InterfaceGraficaUtils.dialogoRemoverAlterar("alterar", "dono", donoSelecionado.getNome())) {
                             CadastrarDonoJPanel painel = new CadastrarDonoJPanel(donoSelecionado);
                             HUMVApp.setNovoPainelCentral(painel);
                         }   break;
                     case PropriedadesBusca.OPCAO_REMOVER:
-                        if (MessageUtils.dialogoRemoverAlterar("remover", "dono", donoSelecionado.getNome())) {
+                        if (InterfaceGraficaUtils.dialogoRemoverAlterar("remover", "dono", donoSelecionado.getNome())) {
                             try {
                                 ClientResponse response = RESTMethods.delete("/api/dono", "" + donoSelecionado.getId());
                                 String resposta = response.getEntity(String.class);

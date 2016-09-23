@@ -51,6 +51,14 @@ public class Atendimento implements Serializable{
 	private boolean extra;
 	private Integer status;
 
+	public BigInteger getId() {
+		return id;
+	}
+
+	public void setId(BigInteger id) {
+		this.id = id;
+	}
+
 	public Animal getAnimal() {
 		return animal;
 	}

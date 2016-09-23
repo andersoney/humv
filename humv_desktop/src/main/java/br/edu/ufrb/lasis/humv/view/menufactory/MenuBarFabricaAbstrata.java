@@ -6,7 +6,7 @@
 package br.edu.ufrb.lasis.humv.view.menufactory;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
-import br.edu.ufrb.lasis.humv.view.agendamento.RealizarAgendamentoJPanel;
+import br.edu.ufrb.lasis.humv.view.agendamento.BuscarAgendaMedicoJPanel;
 import br.edu.ufrb.lasis.humv.view.animal.CadastrarAnimalJPanel;
 import br.edu.ufrb.lasis.humv.view.animal.PropriedadesBuscaAnimal;
 import br.edu.ufrb.lasis.humv.view.busca.BuscaJPanel;
@@ -373,7 +373,7 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
             BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE PROCEDIMENTO PARA REMOÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
         } else if (source.equals(menuItemAgendarAtendimento) || source.equals(buttonAgendarAtendimento)) {
-            HUMVApp.setNovoPainelCentral(new RealizarAgendamentoJPanel());
+            HUMVApp.setNovoPainelCentral(new BuscarAgendaMedicoJPanel());
         }
         
     }

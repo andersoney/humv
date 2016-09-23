@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
@@ -20,15 +21,22 @@ public abstract class PropriedadesBusca implements ActionListener, KeyListener {
 
     public static final String OPCAO_VISUALIZAR_ALTERAR = "Visualizar/Alterar";
     public static final String OPCAO_REMOVER = "Remover";
-    public static final String OPCAO_CADASTRAR = "Cadastro";
+    public static final String OPCAO_CADASTRAR = "Cadastrar";
+    public static final String OPCAO_SELECIONAR = "Selecionar";
 
     private String tipoOperacao;
     private JButton botaoBusca, botaoOperacao, botaoImprimirTabela;
     private JTable tabelaResultado;
     private JTextField campoPalavraChave;
+    private JFrame jFrame = null;
     
     public PropriedadesBusca(String tipoOperacao) {
         this.tipoOperacao = tipoOperacao;
+    }
+    
+    public PropriedadesBusca(String tipoOperacao, JFrame jFrame) {
+        this.tipoOperacao = tipoOperacao;
+        this.jFrame = jFrame;
     }
 
     public abstract void buscar();
@@ -114,6 +122,14 @@ public abstract class PropriedadesBusca implements ActionListener, KeyListener {
 
     public void setBotaoImprimirTabela(JButton botaoImprimirTabela) {
         this.botaoImprimirTabela = botaoImprimirTabela;
+    }
+
+    public JFrame getjFrame() {
+        return jFrame;
+    }
+
+    public void setjFrame(JFrame jFrame) {
+        this.jFrame = jFrame;
     }
     
 }

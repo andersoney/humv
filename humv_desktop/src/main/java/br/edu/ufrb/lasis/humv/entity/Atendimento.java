@@ -1,5 +1,6 @@
 package br.edu.ufrb.lasis.humv.entity;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -17,6 +18,8 @@ public class Atendimento {
     public static final Integer STATUS_CANCELADO = 1;
     public static final Integer STATUS_REALIZADO = 2;
 
+    private BigInteger id;
+    
     private Animal animal;
 
     private Procedimento procedimento;
@@ -31,6 +34,14 @@ public class Atendimento {
     private boolean retorno;
     private boolean extra;
     private Integer status;
+
+    public BigInteger getId() {
+        return id;
+    }
+
+    public void setId(BigInteger id) {
+        this.id = id;
+    }
 
     public Animal getAnimal() {
         return animal;

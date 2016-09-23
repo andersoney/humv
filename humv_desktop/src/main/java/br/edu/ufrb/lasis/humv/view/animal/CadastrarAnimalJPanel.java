@@ -10,7 +10,7 @@ import br.edu.ufrb.lasis.humv.entity.Animal;
 import br.edu.ufrb.lasis.humv.entity.Dono;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
-import br.edu.ufrb.lasis.humv.utils.MessageUtils;
+import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.KeyEvent;
@@ -223,36 +223,29 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
             .addGroup(jPanelDadosDonoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelDadosDonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanelDadosDonoLayout.createSequentialGroup()
-                        .addGroup(jPanelDadosDonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanelDadosDonoLayout.createSequentialGroup()
-                                .addComponent(jLabelDia)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanelDadosDonoLayout.createSequentialGroup()
-                                .addGroup(jPanelDadosDonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanelDadosDonoLayout.createSequentialGroup()
-                                        .addComponent(jRadioButtonBuscaCpf)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jRadioButtonBuscaCnpj))
-                                    .addComponent(jTextFieldBuscaCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                                .addComponent(jButtonPesquisarDono)))
+                    .addComponent(jLabelDia, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelDadosDonoLayout.createSequentialGroup()
+                        .addComponent(jRadioButtonBuscaCpf)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButtonBuscaCnpj))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelDadosDonoLayout.createSequentialGroup()
+                        .addComponent(jTextFieldBuscaCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonPesquisarDono)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonCadastrarNovoDono))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelDadosDonoLayout.createSequentialGroup()
-                        .addGroup(jPanelDadosDonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelDadosDonoLayout.createSequentialGroup()
-                                .addComponent(jDateChooserData, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanelDadosDonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanelDadosDonoLayout.createSequentialGroup()
-                                        .addComponent(jLabelHora)
-                                        .addGap(83, 83, 83))
-                                    .addComponent(jSpinnerHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabelNomeDono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
-                            .addComponent(jLabelCpfDono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelDadosDonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelDadosDonoLayout.createSequentialGroup()
+                            .addComponent(jDateChooserData, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanelDadosDonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanelDadosDonoLayout.createSequentialGroup()
+                                    .addComponent(jLabelHora)
+                                    .addGap(83, 83, 83))
+                                .addComponent(jSpinnerHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabelNomeDono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
+                        .addComponent(jLabelCpfDono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanelDadosDonoLayout.setVerticalGroup(
             jPanelDadosDonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -470,22 +463,22 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
         int idade = -1;
         Date data;
         if (this.jTextFieldNomeAnimal.getText().isEmpty()) {
-            MessageUtils.validaCampoVazio("nome do animal");
+            InterfaceGraficaUtils.validaCampoVazio("nome do animal");
             return;
         }
         String nomeAnimal = this.jTextFieldNomeAnimal.getText();
         if (this.jTextFieldEspecie.getText().isEmpty()) {
-            MessageUtils.validaCampoVazio("espécie");
+            InterfaceGraficaUtils.validaCampoVazio("espécie");
             return;
         }
         String especie = this.jTextFieldEspecie.getText();
         if (this.jTextFieldRaca.getText().isEmpty()) {
-            MessageUtils.validaCampoVazio("raça");
+            InterfaceGraficaUtils.validaCampoVazio("raça");
             return;
         }
         String raca = this.jTextFieldRaca.getText();
         if (this.jTextFieldIdade.getText().isEmpty()) {
-            MessageUtils.validaCampoVazio("idade");
+            InterfaceGraficaUtils.validaCampoVazio("idade");
         } else {
             idade = Integer.parseInt(this.jTextFieldIdade.getText());
         }
@@ -498,7 +491,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
         String pelagem;
         if (this.jRadioButtonPequenoPorte.isSelected()) {
             if (this.jTextFieldPelagem.getText().isEmpty()) {
-                MessageUtils.validaCampoVazio("pelagem");
+                InterfaceGraficaUtils.validaCampoVazio("pelagem");
                 return;
             } else {
                 pelagem = this.jTextFieldPelagem.getText();
@@ -527,7 +520,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
         try {
             if (animalSelecionado == null) {
                 response = RESTMethods.post(this.servicoAnimal, animal);
-            } else if (MessageUtils.dialogoRemoverAlterar("alterar", "animal", animalSelecionado.getNome())) {
+            } else if (InterfaceGraficaUtils.dialogoRemoverAlterar("alterar", "animal", animalSelecionado.getNome())) {
                 animal.setRghumv(animalSelecionado.getRghumv());
                 response = RESTMethods.put(this.servicoAnimal, animal);
             } else {
@@ -536,29 +529,29 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
             String resposta = response.getEntity(String.class);
             if (!resposta.equalsIgnoreCase("ok")) {
                 if (animalSelecionado == null) {
-                    MessageUtils.erroResposta(resposta);
+                    InterfaceGraficaUtils.erroResposta(resposta);
                 } else {
-                    MessageUtils.erroResposta(resposta);
+                    InterfaceGraficaUtils.erroResposta(resposta);
                 }
             } else {
                 if (animalSelecionado == null) {
-                    MessageUtils.sucessoCadastro("animal");
+                    InterfaceGraficaUtils.sucessoCadastro("animal");
                 } else {
-                    MessageUtils.sucessoAtualizacao("animal");
+                    InterfaceGraficaUtils.sucessoAtualizacao("animal");
                 }
                 HUMVApp.exibirMensagemCarregamento();
                 HUMVApp.setPainelCentralComLogo();
                 HUMVApp.esconderMensagemCarregamento();
             }
         } catch (RESTConnectionException ex) {
-            MessageUtils.erroConexao();
+            InterfaceGraficaUtils.erroConexao();
         }
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        int op = MessageUtils.dialogoCancelar("o cadastro", "animal");
-        if (op == JOptionPane.OK_OPTION) {
+        boolean sair = InterfaceGraficaUtils.dialogoCancelar("o cadastro", "animal");
+        if (sair) {
             this.setVisible(false);
             System.gc();
             HUMVApp.exibirMensagemCarregamento();
@@ -578,13 +571,13 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
                     this.jLabelCpfDono.setText("CPF: " + dono.getId());
                     this.jLabelNomeDono.setText("Nome: " + dono.getNome());
                 } catch (RESTConnectionException ex) {
-                    MessageUtils.erroConexao();
+                    InterfaceGraficaUtils.erroConexao();
                 } catch (ClientHandlerException ex) {
                     JOptionPane.showMessageDialog(null, "Dono não encontrado. Por favor, digite um CPF válido.", "Erro", JOptionPane.WARNING_MESSAGE);
                 }
             } else {
                 this.setIdNull();
-                MessageUtils.validaCampoInvalido("CPF");
+                InterfaceGraficaUtils.validaCampoInvalido("CPF");
             }
         } else if (ValidationsUtils.isCNPJ(this.jTextFieldBuscaCpf.getText())) {
             ClientResponse response;
@@ -595,13 +588,13 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel {
                 this.jLabelCpfDono.setText("CNPJ: " + dono.getId());
                 this.jLabelNomeDono.setText("Nome: " + dono.getNome());
             } catch (RESTConnectionException ex) {
-                MessageUtils.erroConexao();
+                InterfaceGraficaUtils.erroConexao();
             } catch (ClientHandlerException ex) {
                 JOptionPane.showMessageDialog(null, "Dono não encontrado. Por favor, digite um CNPJ válido.", "Erro", JOptionPane.WARNING_MESSAGE);
             }
         } else {
             this.setIdNull();
-            MessageUtils.validaCampoInvalido("CNPJ");
+            InterfaceGraficaUtils.validaCampoInvalido("CNPJ");
         }
     }//GEN-LAST:event_jButtonPesquisarDonoActionPerformed
 

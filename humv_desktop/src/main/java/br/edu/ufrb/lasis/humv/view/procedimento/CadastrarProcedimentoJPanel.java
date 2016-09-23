@@ -2,7 +2,7 @@ package br.edu.ufrb.lasis.humv.view.procedimento;
 
 import br.edu.ufrb.lasis.humv.view.setor.SetorListaJDialog;
 import br.edu.ufrb.lasis.humv.HUMVApp;
-import br.edu.ufrb.lasis.humv.utils.MessageUtils;
+import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.entity.Procedimento;
 import br.edu.ufrb.lasis.humv.entity.Setor;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
@@ -284,32 +284,32 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
                 this.jLabelSetorCodigo.setText("Código: " + setor);
                 JOptionPane.showMessageDialog(null, "Setor encontrado", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             } catch (RESTConnectionException ex) {
-                MessageUtils.erroConexao();
+                InterfaceGraficaUtils.erroConexao();
             } catch (ClientHandlerException ex) {
                 JOptionPane.showMessageDialog(null, "Setor não encontrado. Por favor, digite um código válido.", "Erro", JOptionPane.WARNING_MESSAGE);
             }
         } else {
-            MessageUtils.validaCampoVazio("de busca");
+            InterfaceGraficaUtils.validaCampoVazio("de busca");
         }
     }//GEN-LAST:event_jButtonPesqusarActionPerformed
 
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
         if (setor == null) {
-            MessageUtils.validaCampoVazio("setor");
+            InterfaceGraficaUtils.validaCampoVazio("setor");
             return;
         }
         if (this.jTextFieldNome.getText().isEmpty()) {
-            MessageUtils.validaCampoVazio("nome");
+            InterfaceGraficaUtils.validaCampoVazio("nome");
             return;
         }
         String nome = this.jTextFieldNome.getText();
         if (this.jTextFieldCodigo.getText().isEmpty()) {
-            MessageUtils.validaCampoVazio("código");
+            InterfaceGraficaUtils.validaCampoVazio("código");
             return;
         }
         BigInteger codigo = new BigInteger(jTextFieldCodigo.getText());
         if (jTextFieldPreco.getText().isEmpty()) {
-            MessageUtils.validaCampoVazio("preço");
+            InterfaceGraficaUtils.validaCampoVazio("preço");
             return;
         }
 
@@ -325,7 +325,7 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
             }
             valor = Double.parseDouble(precoString);
         } catch (NumberFormatException ex) {
-            MessageUtils.valorInvalido("preço");
+            InterfaceGraficaUtils.valorInvalido("preço");
             return;
         }
 
@@ -338,7 +338,7 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
             ClientResponse response;
             if (procedimentoSelecionado == null) {
                 response = RESTMethods.post(this.servicoProcedimento, procedimento);
-            } else if (MessageUtils.dialogoRemoverAlterar("alterar", "procedimento", procedimentoSelecionado.getNome())) {
+            } else if (InterfaceGraficaUtils.dialogoRemoverAlterar("alterar", "procedimento", procedimentoSelecionado.getNome())) {
                 response = RESTMethods.put(this.servicoProcedimento, procedimento);
             } else {
                 return;
@@ -347,29 +347,29 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
             System.out.println(resposta);
             if (!resposta.equalsIgnoreCase("ok")) {
                 if (procedimentoSelecionado == null) {
-                    MessageUtils.erroResposta(resposta);
+                    InterfaceGraficaUtils.erroResposta(resposta);
                 } else {
-                    MessageUtils.erroResposta(resposta);
+                    InterfaceGraficaUtils.erroResposta(resposta);
                 }
             } else {
                 if (procedimentoSelecionado == null) {
-                    MessageUtils.sucessoCadastro("procedimento");
+                    InterfaceGraficaUtils.sucessoCadastro("procedimento");
                 } else {
-                    MessageUtils.sucessoAtualizacao("procedimento");
+                    InterfaceGraficaUtils.sucessoAtualizacao("procedimento");
                 }
                 HUMVApp.exibirMensagemCarregamento();
                 HUMVApp.setPainelCentralComLogo();
                 HUMVApp.esconderMensagemCarregamento();
             }
         } catch (RESTConnectionException ex) {
-            MessageUtils.erroConexao();
+            InterfaceGraficaUtils.erroConexao();
             ex.printStackTrace();
         }
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        int op = MessageUtils.dialogoCancelar("o cadastro", "procedimento");
-        if (op == JOptionPane.OK_OPTION) {
+        boolean sair = InterfaceGraficaUtils.dialogoCancelar("o cadastro", "procedimento");
+        if (sair) {
             this.setVisible(false);
             System.gc();
             HUMVApp.exibirMensagemCarregamento();
@@ -393,7 +393,7 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
                 new SetorListaJDialog(this, lista).setVisible(true);
             }
         } catch (RESTConnectionException | IOException ex) {
-            MessageUtils.erroConexao();
+            InterfaceGraficaUtils.erroConexao();
         }
     }//GEN-LAST:event_jButtonExibirListaActionPerformed
 

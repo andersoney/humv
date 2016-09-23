@@ -64,20 +64,20 @@ public class PrintUtils {
                     exportReportToPDF(jasperPrint, caminho);
                 }
             } catch (JRException | FileNotFoundException exception) {
-                MessageUtils.erroGeracaoRelatorio();
+                InterfaceGraficaUtils.erroGeracaoRelatorio();
             }
 
         } else {
-            MessageUtils.semResultadosGeracaoRelatorio();
+            InterfaceGraficaUtils.semResultadosGeracaoRelatorio();
         }
     }
 
     private static void exportReportToPDF(JasperPrint print, String pathToPDF) {
         try {
             JasperExportManager.exportReportToPdfFile(print, pathToPDF);
-            MessageUtils.sucessoGeracaoRelatorio();
+            InterfaceGraficaUtils.sucessoGeracaoRelatorio();
         } catch (JRException exception) {
-            MessageUtils.erroGeracaoRelatorio();
+            InterfaceGraficaUtils.erroGeracaoRelatorio();
         }
     }
 

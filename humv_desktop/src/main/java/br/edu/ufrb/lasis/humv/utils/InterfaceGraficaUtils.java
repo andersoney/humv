@@ -1,6 +1,9 @@
 package br.edu.ufrb.lasis.humv.utils;
 
+import java.awt.Toolkit;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  * Utilitário: Menssagens de validações.
@@ -12,7 +15,7 @@ import javax.swing.JOptionPane;
  * @since 26 de junho de 2016
  *
  */
-public class MessageUtils {
+public class InterfaceGraficaUtils {
 
     public static void erroResposta(String resposta) {
         JOptionPane.showMessageDialog(null, resposta, "Erro", JOptionPane.ERROR_MESSAGE);
@@ -73,10 +76,24 @@ public class MessageUtils {
         JOptionPane.showMessageDialog(null, msg, "Erro", JOptionPane.WARNING_MESSAGE);
     }
 
-    public static int dialogoCancelar(String tarefa, String operacao) {
+    public static boolean dialogoCancelar(String tarefa, String operacao) {
         String msg = "Deseja cancelar " + tarefa + " de " + operacao + "?";
         int op = JOptionPane.showConfirmDialog(null, msg, "Cancelar?", JOptionPane.YES_NO_OPTION);
-        return op;
+        if (op == JOptionPane.YES_OPTION) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public static boolean dialogoSair() {
+        String msg = "Deseja realmente sair desta página?";
+        int op = JOptionPane.showConfirmDialog(null, msg, "Cancelar?", JOptionPane.YES_NO_OPTION);
+        if (op == JOptionPane.YES_OPTION) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public static boolean dialogoRemoverAlterar(String operacao, String tipo, String nome) {
@@ -99,6 +116,14 @@ public class MessageUtils {
     
     public static void sucessoGeracaoRelatorio() {
         JOptionPane.showMessageDialog(null, "Relatório gerado com sucesso!", "Relatório", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    public static void exibirJanela(JFrame jFrame){
+        jFrame.pack();
+        int height = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+        int width = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+        jFrame.setLocation((width - jFrame.getWidth()) / 2, (height - jFrame.getHeight()) / 2);
+        jFrame.setVisible(true);
     }
 
 }

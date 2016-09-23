@@ -11,7 +11,7 @@ import br.edu.ufrb.lasis.humv.entity.Setor;
 import java.util.Date;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
-import br.edu.ufrb.lasis.humv.utils.MessageUtils;
+import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.view.setor.SetorListaJDialog;
 import com.sun.jersey.api.client.ClientResponse;
 import java.io.IOException;
@@ -337,37 +337,37 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
                 new SetorListaJDialog(this, lista).setVisible(true);
             }
         } catch (RESTConnectionException | IOException ex) {
-            MessageUtils.erroConexao();
+            InterfaceGraficaUtils.erroConexao();
         }
     }//GEN-LAST:event_jButtonExibirListaActionPerformed
 
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
         Date dataInicio, dataFim;
         if (this.jTextFieldNomeOrientador.getText().isEmpty()) {
-            MessageUtils.validaCampoVazio("nome do orientador");
+            InterfaceGraficaUtils.validaCampoVazio("nome do orientador");
             return;
         }
         String nomeOrientador = this.jTextFieldNomeOrientador.getText();
         if (this.jTextFieldSiape.getText().isEmpty()) {
-            MessageUtils.validaCampoVazio("SIAPE");
+            InterfaceGraficaUtils.validaCampoVazio("SIAPE");
             return;
         }
         String siape = this.jTextFieldSiape.getText();
 
         if (this.jTextFieldNomeProjeto.getText().isEmpty()) {
-            MessageUtils.validaCampoVazio("nome do projeto");
+            InterfaceGraficaUtils.validaCampoVazio("nome do projeto");
             return;
         }
         String nomeProjeto = this.jTextFieldNomeProjeto.getText();
 
         if (this.jTextFieldFinalidade.getText().isEmpty()) {
-            MessageUtils.validaCampoVazio("finalidade");
+            InterfaceGraficaUtils.validaCampoVazio("finalidade");
             return;
         }
         String finalidade = this.jTextFieldFinalidade.getText();
 
         if (this.jTextAreaPublicoAlvo.getText().isEmpty()) {
-            MessageUtils.validaCampoVazio("público alvo");
+            InterfaceGraficaUtils.validaCampoVazio("público alvo");
             return;
         }
         String publicoAlvo = this.jTextAreaPublicoAlvo.getText();
@@ -394,34 +394,34 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
         try {
             if (projetoSelecionado == null) {
                 response = RESTMethods.post(this.servicoProjeto, projeto);
-            } else if (MessageUtils.dialogoRemoverAlterar("alterar", "animal", projetoSelecionado.getNome())) {
+            } else if (InterfaceGraficaUtils.dialogoRemoverAlterar("alterar", "animal", projetoSelecionado.getNome())) {
                 response = RESTMethods.put(this.servicoProjeto, projeto);
             } else {
                 return;
             }
             String resposta = response.getEntity(String.class);
             if (!resposta.equalsIgnoreCase("ok")) {
-                MessageUtils.erroResposta(resposta);
+                InterfaceGraficaUtils.erroResposta(resposta);
             } else {
                 if (projetoSelecionado == null) {
-                    MessageUtils.sucessoCadastro("projeto");
+                    InterfaceGraficaUtils.sucessoCadastro("projeto");
                 } else {
-                    MessageUtils.sucessoAtualizacao("projeto");
+                    InterfaceGraficaUtils.sucessoAtualizacao("projeto");
                 }
                 HUMVApp.exibirMensagemCarregamento();
                 HUMVApp.setPainelCentralComLogo();
                 HUMVApp.esconderMensagemCarregamento();
             }
         } catch (RESTConnectionException ex) {
-            MessageUtils.erroConexao();
+            InterfaceGraficaUtils.erroConexao();
         }
 
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         // TODO add your handling code here:
-        int i = MessageUtils.dialogoCancelar("o cadastro", "projeto");
-        if (i == JOptionPane.OK_OPTION) {
+        boolean sair = InterfaceGraficaUtils.dialogoCancelar("o cadastro", "projeto");
+        if (sair) {
             HUMVApp.exibirMensagemCarregamento();
             HUMVApp.setPainelCentralComLogo();
             HUMVApp.esconderMensagemCarregamento();

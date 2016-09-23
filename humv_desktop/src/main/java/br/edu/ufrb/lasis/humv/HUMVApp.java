@@ -39,7 +39,7 @@ public class HUMVApp {
 
     private static CarregandoJDialog getCarregandoDialogInstance() {
         if (carregandoDialog == null) {
-            carregandoDialog = new CarregandoJDialog(mainWindow);
+            carregandoDialog = new CarregandoJDialog(null);
             carregandoDialog.pack();
         }
         return carregandoDialog;

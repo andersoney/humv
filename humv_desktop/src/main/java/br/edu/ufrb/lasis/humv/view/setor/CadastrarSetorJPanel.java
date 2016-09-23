@@ -2,7 +2,7 @@ package br.edu.ufrb.lasis.humv.view.setor;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Setor;
-import br.edu.ufrb.lasis.humv.utils.MessageUtils;
+import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import com.sun.jersey.api.client.ClientHandlerException;
@@ -152,8 +152,8 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        int i = MessageUtils.dialogoCancelar("o cadastro", "setor");
-        if (i == JOptionPane.OK_OPTION) {
+        boolean sair = InterfaceGraficaUtils.dialogoCancelar("o cadastro", "setor");
+        if (sair) {
             if (cadastroSetorJDialog != null) {
                 cadastroSetorJDialog.dispose();
             } else {
@@ -167,7 +167,7 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel {
 
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
         if (jTextFieldNome.getText().isEmpty()) {
-            MessageUtils.validaCampoVazio("nome");
+            InterfaceGraficaUtils.validaCampoVazio("nome");
             return;
         }
         String nome = jTextFieldNome.getText();
@@ -189,21 +189,21 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel {
             }
             if (cadastroSetorJDialog != null) {
                 Setor setorRetornado = response.getEntity(Setor.class);
-                MessageUtils.sucessoCadastro("setor");
+                InterfaceGraficaUtils.sucessoCadastro("setor");
                 cadastroSetorJDialog.fecharDialog(setorRetornado);
             } else {
                 String resposta = response.getEntity(String.class);
                 if (!resposta.equalsIgnoreCase("ok")) {
                     if (setorSelecionado == null) {
-                        MessageUtils.erroResposta(resposta);
+                        InterfaceGraficaUtils.erroResposta(resposta);
                     } else {
-                        MessageUtils.erroResposta(resposta);
+                        InterfaceGraficaUtils.erroResposta(resposta);
                     }
                 } else {
                     if (setorSelecionado == null) {
-                        MessageUtils.sucessoCadastro("setor");
+                        InterfaceGraficaUtils.sucessoCadastro("setor");
                     } else {
-                        MessageUtils.sucessoAtualizacao("setor");
+                        InterfaceGraficaUtils.sucessoAtualizacao("setor");
                     }
                     HUMVApp.exibirMensagemCarregamento();
                     HUMVApp.setPainelCentralComLogo();
@@ -211,7 +211,7 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel {
                 }
             }
         } catch (RESTConnectionException ex) {
-            MessageUtils.erroConexao();
+            InterfaceGraficaUtils.erroConexao();
         } catch (ClientHandlerException ex) {
             JOptionPane.showMessageDialog(null, "Erro no cadastro do setor. Por favor, tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
         }

@@ -9,7 +9,7 @@ import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Usuario;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
-import br.edu.ufrb.lasis.humv.utils.MessageUtils;
+import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.utils.PrintUtils;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.sun.jersey.api.client.ClientResponse;
@@ -42,7 +42,7 @@ public class PropriedadesBuscaUsuario extends PropriedadesBusca {
             super.getTabelaResultado().setModel(tableModel);
             super.getTabelaResultado().revalidate();
         } catch (RESTConnectionException | IOException ex) {
-            MessageUtils.erroConexao();
+            InterfaceGraficaUtils.erroConexao();
             ex.printStackTrace();
         }
         HUMVApp.esconderMensagemCarregamento();
@@ -69,7 +69,7 @@ public class PropriedadesBuscaUsuario extends PropriedadesBusca {
                         HUMVApp.setNovoPainelCentral(painelCadastrarUsuario);
                         break;
                     case PropriedadesBusca.OPCAO_REMOVER:
-                        if (MessageUtils.dialogoRemoverAlterar("remover", "usuário", usuarioSelecionado.getNome())) {
+                        if (InterfaceGraficaUtils.dialogoRemoverAlterar("remover", "usuário", usuarioSelecionado.getNome())) {
                             try {
                                 ClientResponse response = RESTMethods.delete("/api/usuario", usuarioSelecionado.getEmail());
                                 String resposta = response.getEntity(String.class);
@@ -80,7 +80,7 @@ public class PropriedadesBuscaUsuario extends PropriedadesBusca {
                                     JOptionPane.showMessageDialog(super.getTabelaResultado(), resposta, "Erro", JOptionPane.ERROR_MESSAGE);
                                 }
                             } catch (RESTConnectionException ex) {
-                                MessageUtils.erroConexao();
+                                InterfaceGraficaUtils.erroConexao();
                                 ex.printStackTrace();
                             }
                         }   break;
