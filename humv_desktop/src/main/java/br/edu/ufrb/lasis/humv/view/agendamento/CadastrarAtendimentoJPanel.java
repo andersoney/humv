@@ -52,6 +52,8 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
         buttonGroupCobranca.add(jRadioAula);
         buttonGroupCobranca.add(jRadioIsencao);
         buttonGroupCobranca.add(jRadioDesconto);
+        jRadioNormal.setSelected(true);
+        jTextFieldDesconto.setEnabled(false);
         jRadioNormal.addActionListener(this);
         jRadioAula.addActionListener(this);
         jRadioIsencao.addActionListener(this);
