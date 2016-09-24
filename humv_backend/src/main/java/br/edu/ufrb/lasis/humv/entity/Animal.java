@@ -28,8 +28,6 @@ import javax.persistence.TemporalType;
  * @since 26 de junho de 2016
  *
  */
-
-
 @Entity
 @Table(name="ANIMAIS")
 public class Animal implements Serializable{

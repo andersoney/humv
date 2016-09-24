@@ -7,6 +7,7 @@ import br.edu.ufrb.lasis.humv.entity.Procedimento;
 import br.edu.ufrb.lasis.humv.entity.Setor;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
+import br.edu.ufrb.lasis.humv.utils.ValidationsUtils;
 import br.edu.ufrb.lasis.humv.view.setor.CadastrarSetorJDialog;
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
@@ -313,21 +314,7 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
             return;
         }
 
-        double valor = 0;
-
-        try {
-            String precoString = this.jTextFieldPreco.getText();
-            if (precoString.contains(",")) {
-                String[] valores_precos = precoString.split(",");
-                if (valores_precos.length > 1) {
-                    precoString = valores_precos[0] + "." + valores_precos[1];
-                }
-            }
-            valor = Double.parseDouble(precoString);
-        } catch (NumberFormatException ex) {
-            InterfaceGraficaUtils.valorInvalido("preço");
-            return;
-        }
+        double valor = ValidationsUtils.converteStringParaPreco(jTextFieldPreco.getText());
 
         Procedimento procedimento = new Procedimento();
         procedimento.setValor(valor);
@@ -344,13 +331,8 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
                 return;
             }
             String resposta = response.getEntity(String.class);
-            System.out.println(resposta);
             if (!resposta.equalsIgnoreCase("ok")) {
-                if (procedimentoSelecionado == null) {
                     InterfaceGraficaUtils.erroResposta(resposta);
-                } else {
-                    InterfaceGraficaUtils.erroResposta(resposta);
-                }
             } else {
                 if (procedimentoSelecionado == null) {
                     InterfaceGraficaUtils.sucessoCadastro("procedimento");

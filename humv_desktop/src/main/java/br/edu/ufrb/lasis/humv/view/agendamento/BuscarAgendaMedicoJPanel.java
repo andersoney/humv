@@ -11,6 +11,7 @@ import br.edu.ufrb.lasis.humv.entity.Usuario;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
+import br.edu.ufrb.lasis.humv.utils.ValidationsUtils;
 import com.sun.jersey.api.client.ClientResponse;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -158,7 +159,7 @@ public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
             jDateChooserDiaAgenda.setFocusable(true);
         } else {
             try {
-                String dataStr = new SimpleDateFormat("dd-MM-yyyy").format(jDateChooserDiaAgenda.getDate());
+                String dataStr = ValidationsUtils.obterDataString(jDateChooserDiaAgenda.getDate());
                 String emailMedico = ((MedicoComboBox) comboBoxMedicos.getSelectedItem()).getUsuario().getEmail();
                 ClientResponse response = RESTMethods.get("/api/atendimento/searchByDateAndMedicoSemCancelados?data=" + dataStr + "&idEmailMedico=" + emailMedico);
                 List<Atendimento> atendimentos = (List<Atendimento>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Atendimento>>() {

@@ -1,17 +1,23 @@
 package br.edu.ufrb.lasis.humv.view.agendamento;
 
+import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Animal;
 import br.edu.ufrb.lasis.humv.entity.Atendimento;
 import br.edu.ufrb.lasis.humv.entity.Dono;
 import br.edu.ufrb.lasis.humv.entity.Procedimento;
+import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
+import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.utils.ResultadoBusca;
+import br.edu.ufrb.lasis.humv.utils.ValidationsUtils;
 import br.edu.ufrb.lasis.humv.view.animal.PropriedadesBuscaAnimal;
 import br.edu.ufrb.lasis.humv.view.busca.BuscaJPanel;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import br.edu.ufrb.lasis.humv.view.procedimento.PropriedadesBuscaProcedimento;
+import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JRadioButton;
@@ -29,22 +35,45 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
     private Animal animalResultadoBusca = null;
     private Procedimento procedimentoResultadoBusca = null;
 
-    /**
-     * Creates new form CadastrarAtendimentoJPanel
-     */
     public CadastrarAtendimentoJPanel(AgendaJPanel agendaJPanel, String horario, Date data) {
         this.agendaJPanel = agendaJPanel;
         this.horario = horario;
         this.data = data;
         initComponents();
-        customInitComponents();
+        customInitComponents(horario, data);
     }
 
     public CadastrarAtendimentoJPanel(AgendaJPanel agendaJPanel, Atendimento atendimento) {
         this.agendaJPanel = agendaJPanel;
         this.atendimento = atendimento;
         initComponents();
+        customInitComponents(atendimento);
+    }
+
+    public CadastrarAtendimentoJPanel(AgendaJPanel agendaJPanel, Date data) {
+        this.agendaJPanel = agendaJPanel;
+        this.data = data;
+        initComponents();
+        customInitComponents(data);
+    }
+
+    private void customInitComponents(String horario, Date data) {
         customInitComponents();
+        jLabelHorário.setText(horario);
+        jLabelData.setText(ValidationsUtils.obterDataString(data));
+        jButtonRemover.setEnabled(false);
+    }
+
+    private void customInitComponents(Atendimento atendimento) {
+        customInitComponents();
+        jLabelHorário.setText(ValidationsUtils.obterHoraString(atendimento.getHorarioMarcado()));
+        jLabelData.setText(ValidationsUtils.obterDataString(atendimento.getHorarioMarcado()));
+    }
+
+    private void customInitComponents(Date data) {
+        customInitComponents("Não informado", data);
+        jLabelHorário.setText(horario);
+        jLabelData.setText(ValidationsUtils.obterDataString(data));
     }
 
     private void customInitComponents() {
@@ -58,6 +87,52 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
         jRadioAula.addActionListener(this);
         jRadioIsencao.addActionListener(this);
         jRadioDesconto.addActionListener(this);
+
+        buttonGroupExtra.add(jRadioButtonSim);
+        buttonGroupExtra.add(jRadioButtonNao);
+        jRadioButtonNao.setSelected(true);
+        jRadioButtonSim.addActionListener(this);
+        jRadioButtonNao.addActionListener(this);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource().equals(jRadioButtonSim) || e.getSource().equals(jRadioButtonNao)) {
+            if (jRadioButtonSim.isSelected()) {
+                jLabelHorário.setText("Não informado");
+            } else if (horario != null) {
+                jLabelHorário.setText(horario);
+            } else {
+                jLabelHorário.setText(ValidationsUtils.obterHoraString(atendimento.getHorarioMarcado()));
+            }
+        } else if (e.getSource() instanceof JRadioButton) {
+            if (jRadioDesconto.isSelected()) {
+                jTextFieldDesconto.setEnabled(true);
+            } else {
+                jTextFieldDesconto.setEnabled(false);
+            }
+        }
+    }
+
+    @Override
+    public void setResultado(Object resultado) {
+        if (resultado instanceof Animal) {
+            animalResultadoBusca = (Animal) resultado;
+            jLabelNomeAnimal.setText(animalResultadoBusca.getNome());
+            jLabelRGHUMV.setText(animalResultadoBusca.getRghumv().toString());
+            jLabelEspecie.setText(animalResultadoBusca.getEspecie());
+            jLabelRaca.setText(animalResultadoBusca.getRaca());
+
+            Dono dono = animalResultadoBusca.getDono();
+            jLabelNomeDono.setText(dono.getNome());
+            jLabelIdDono.setText(dono.getId().toString());
+            jLabelTipoDocDono.setText(dono.getTipoId());
+            jLabelTelefone.setText(dono.getTelefone());
+            jLabelEmail.setText(dono.getEmail());
+        } else if (resultado instanceof Procedimento) {
+            procedimentoResultadoBusca = (Procedimento) resultado;
+            jLabelProcedimento.setText(procedimentoResultadoBusca.getCodigo() + " - " + procedimentoResultadoBusca.getNome());
+        }
     }
 
     /**
@@ -70,6 +145,7 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
     private void initComponents() {
 
         buttonGroupCobranca = new javax.swing.ButtonGroup();
+        buttonGroupExtra = new javax.swing.ButtonGroup();
         jLabelTitulo = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -91,7 +167,7 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
         jLabelEmail = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jTextAreaObservacoes = new javax.swing.JTextArea();
         jLabel10 = new javax.swing.JLabel();
         jLabelData = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -107,10 +183,17 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jTextFieldValorCobrado = new javax.swing.JTextField();
-        jButtonAgendar = new javax.swing.JButton();
+        jButtonSalvar = new javax.swing.JButton();
         jButtonVoltar = new javax.swing.JButton();
         jButtonBuscarAnimal = new javax.swing.JButton();
         jLabelProcedimento = new javax.swing.JLabel();
+        jButtonRemover = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jRadioButtonSim = new javax.swing.JRadioButton();
+        jRadioButtonNao = new javax.swing.JRadioButton();
+        jLabel16 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextAreaMotivo = new javax.swing.JTextArea();
 
         jLabelTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -118,16 +201,12 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel1.setText("Nome:");
 
-        jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel4.setText("Espécie:");
 
-        jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel3.setText("RGHUMV:");
 
-        jLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel5.setText("Raça:");
 
         jLabelNomeAnimal.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
@@ -187,16 +266,12 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Dono"));
 
-        jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel2.setText("Nome:");
 
-        jLabelTipoDocDono.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabelTipoDocDono.setText("CPF/CNPJ:");
 
-        jLabel7.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel7.setText("Telefone:");
 
-        jLabel8.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel8.setText("E-mail:");
 
         jLabelNomeDono.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
@@ -255,15 +330,18 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
 
         jLabel9.setText("Observações:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jTextAreaObservacoes.setColumns(20);
+        jTextAreaObservacoes.setRows(5);
+        jScrollPane1.setViewportView(jTextAreaObservacoes);
 
         jLabel10.setText("Data:");
 
+        jLabelData.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+
         jLabel11.setText("Horário:");
 
-        jLabel12.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabelHorário.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+
         jLabel12.setText("Procedimento:");
 
         jButtonBuscarProcedimento.setText("Pesquisar procedimento");
@@ -287,7 +365,12 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
 
         jLabel15.setText("Valor cobrado (R$):");
 
-        jButtonAgendar.setText("Agendar");
+        jButtonSalvar.setText("Salvar");
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalvarActionPerformed(evt);
+            }
+        });
 
         jButtonVoltar.setText("<< Voltar");
 
@@ -300,6 +383,30 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
 
         jLabelProcedimento.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabelProcedimento.setText("Não informado");
+
+        jButtonRemover.setText("Remover");
+        jButtonRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRemoverActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Atendimento extra:");
+
+        jRadioButtonSim.setText("Sim");
+
+        jRadioButtonNao.setText("Não");
+        jRadioButtonNao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonNaoActionPerformed(evt);
+            }
+        });
+
+        jLabel16.setText("Motivo:");
+
+        jTextAreaMotivo.setColumns(20);
+        jTextAreaMotivo.setRows(5);
+        jScrollPane2.setViewportView(jTextAreaMotivo);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -329,41 +436,56 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel9)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel15)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jTextFieldValorCobrado, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel13)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jRadioNormal)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jRadioAula)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jRadioIsencao)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jRadioDesconto)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jTextFieldDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel14))
-                                            .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabel10)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(jLabelData, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(18, 18, 18)
                                                 .addComponent(jLabel11)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jLabelHorário, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jButtonVoltar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButtonAgendar)
-                                        .addGap(23, 23, 23)))))))
+                                                .addComponent(jLabelHorário, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel15)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jTextFieldValorCobrado, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                    .addComponent(jButtonVoltar)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(jButtonRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                            .addComponent(jLabel6)
+                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                            .addComponent(jRadioButtonSim)
+                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                            .addComponent(jRadioButtonNao))
+                                                        .addGroup(layout.createSequentialGroup()
+                                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                .addComponent(jLabel9)
+                                                                .addComponent(jLabel16))
+                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+                                                                .addComponent(jScrollPane2)))
+                                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                            .addComponent(jLabel13)
+                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                                                            .addComponent(jRadioNormal)
+                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                            .addComponent(jRadioAula)
+                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                            .addComponent(jRadioIsencao)
+                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                            .addComponent(jRadioDesconto)
+                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                            .addComponent(jTextFieldDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                            .addComponent(jLabel14)))
+                                                    .addGap(9, 9, 9))))
+                                        .addGap(0, 23, Short.MAX_VALUE)))))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -378,6 +500,11 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonBuscarProcedimento)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabelProcedimento))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabelData, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -386,11 +513,6 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
                         .addComponent(jLabel11)
                         .addComponent(jLabelHorário, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonBuscarProcedimento)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabelProcedimento))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(jRadioNormal)
@@ -402,16 +524,25 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(jTextFieldValorCobrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldValorCobrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(jRadioButtonSim)
+                    .addComponent(jRadioButtonNao))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel16)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonVoltar)
-                    .addComponent(jButtonAgendar))
-                .addContainerGap(48, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonSalvar)
+                        .addComponent(jButtonRemover)))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         jPanel1.getAccessibleContext().setAccessibleDescription("");
@@ -434,43 +565,92 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
         InterfaceGraficaUtils.exibirJanela(jFrame);
     }//GEN-LAST:event_jButtonBuscarAnimalActionPerformed
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() instanceof JRadioButton) {
-            if (jRadioDesconto.isSelected()) {
-                jTextFieldDesconto.setEnabled(true);
-            } else {
-                jTextFieldDesconto.setEnabled(false);
-            }
-        }
-    }
-    
-    @Override
-    public void setResultado(Object resultado) {
-        if (resultado instanceof Animal) {
-            animalResultadoBusca = (Animal) resultado;
-            jLabelNomeAnimal.setText(animalResultadoBusca.getNome());
-            jLabelRGHUMV.setText(animalResultadoBusca.getRghumv().toString());
-            jLabelEspecie.setText(animalResultadoBusca.getEspecie());
-            jLabelRaca.setText(animalResultadoBusca.getRaca());
+    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
 
-            Dono dono = animalResultadoBusca.getDono();
-            jLabelNomeDono.setText(dono.getNome());
-            jLabelIdDono.setText(dono.getId().toString());
-            jLabelTipoDocDono.setText(dono.getTipoId());
-            jLabelTelefone.setText(dono.getTelefone());
-            jLabelEmail.setText(dono.getEmail());
-        } else if (resultado instanceof Procedimento) {
-            procedimentoResultadoBusca = (Procedimento) resultado;
-            jLabelProcedimento.setText(procedimentoResultadoBusca.getCodigo() + " - " + procedimentoResultadoBusca.getNome());
+        boolean cadastrar = false;
+
+        if (atendimento == null) {
+            atendimento = new Atendimento();
+            cadastrar = true;
         }
-    }
+
+        atendimento.setAnimal(animalResultadoBusca);
+        atendimento.setProcedimento(procedimentoResultadoBusca);
+
+        try {
+            Date horarioMarcado = null;
+            if (horario != null) {
+                String dataString = ValidationsUtils.obterDataString(data);
+                horarioMarcado = ValidationsUtils.obterHoraData(dataString + " " + horario);
+            } else if (data != null) {
+                String dataString = ValidationsUtils.obterDataString(data);
+                horarioMarcado = ValidationsUtils.obterHoraData(dataString + " 00:00");
+            }
+            atendimento.setHorarioMarcado(horarioMarcado);
+        } catch (ParseException ex) {
+            InterfaceGraficaUtils.valorInvalido("horário marcado");
+        }
+
+        int tipoCobranca = Atendimento.COBRANCA_VALOR_NORMAL;
+        if (jRadioAula.isSelected()) {
+            tipoCobranca = Atendimento.COBRANCA_VALOR_AULA;
+        } else if (jRadioIsencao.isSelected()) {
+            tipoCobranca = Atendimento.COBRANCA_ISENTA;
+        } else if (jRadioDesconto.isSelected()) {
+            tipoCobranca = Atendimento.COBRANCA_DESCONTO;
+            int desconto = Integer.parseInt(jTextFieldDesconto.getText());
+            atendimento.setPorcentagemDesconto(desconto);
+        }
+        atendimento.setTipoCobranca(tipoCobranca);
+
+        double valorCobrado = ValidationsUtils.converteStringParaPreco(jTextFieldValorCobrado.getText());
+        atendimento.setValorCobrado(valorCobrado);
+
+        atendimento.setMotivo(jTextAreaMotivo.getText());
+        atendimento.setObservacoes(jTextAreaObservacoes.getText());
+
+        try {
+            ClientResponse response;
+            if (cadastrar) {
+                response = RESTMethods.post("/api/atendimento", atendimento);
+            } else {
+                response = RESTMethods.put("/api/atendimento", atendimento);
+            }
+            
+            String resposta = response.getEntity(String.class);
+            if (!resposta.equalsIgnoreCase("ok")) {
+                    InterfaceGraficaUtils.erroResposta(resposta);
+            } else {
+                if (cadastrar) {
+                    InterfaceGraficaUtils.sucessoCadastro("agendamento");
+                } else {
+                    InterfaceGraficaUtils.sucessoAtualizacao("agendamento");
+                }
+                HUMVApp.setPainelCentralComLogo();
+            }
+        } catch (RESTConnectionException ex) {
+            InterfaceGraficaUtils.erroConexao();
+            ex.printStackTrace();
+        }
+
+    }//GEN-LAST:event_jButtonSalvarActionPerformed
+
+    private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonRemoverActionPerformed
+
+    private void jRadioButtonNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonNaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButtonNaoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupCobranca;
-    private javax.swing.JButton jButtonAgendar;
+    private javax.swing.ButtonGroup buttonGroupExtra;
     private javax.swing.JButton jButtonBuscarAnimal;
     private javax.swing.JButton jButtonBuscarProcedimento;
+    private javax.swing.JButton jButtonRemover;
+    private javax.swing.JButton jButtonSalvar;
     private javax.swing.JButton jButtonVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -479,10 +659,12 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -502,14 +684,17 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JRadioButton jRadioAula;
+    private javax.swing.JRadioButton jRadioButtonNao;
+    private javax.swing.JRadioButton jRadioButtonSim;
     private javax.swing.JRadioButton jRadioDesconto;
     private javax.swing.JRadioButton jRadioIsencao;
     private javax.swing.JRadioButton jRadioNormal;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextAreaMotivo;
+    private javax.swing.JTextArea jTextAreaObservacoes;
     private javax.swing.JTextField jTextFieldDesconto;
     private javax.swing.JTextField jTextFieldValorCobrado;
     // End of variables declaration//GEN-END:variables
-
 
 }

@@ -28,6 +28,7 @@ public class Atendimento {
 
     private Date horarioMarcado;
     private Integer tipoCobranca;
+    private String motivo;
     private Double valorCobrado;
     private Integer porcentagemDesconto;
     private String observacoes;
@@ -81,6 +82,14 @@ public class Atendimento {
 
     public void setTipoCobranca(Integer tipoCobranca) {
         this.tipoCobranca = tipoCobranca;
+    }
+
+    public String getMotivo() {
+        return motivo;
+    }
+
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
     }
 
     public Double getValorCobrado() {

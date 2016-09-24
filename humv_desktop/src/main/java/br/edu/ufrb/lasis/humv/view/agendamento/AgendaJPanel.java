@@ -2,12 +2,11 @@ package br.edu.ufrb.lasis.humv.view.agendamento;
 
 import br.edu.ufrb.lasis.humv.entity.Atendimento;
 import br.edu.ufrb.lasis.humv.utils.HUMVConfigUtils;
+import br.edu.ufrb.lasis.humv.utils.ValidationsUtils;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JLabel;
@@ -116,9 +115,8 @@ public class AgendaJPanel extends JPanel {
 
     private Atendimento buscarAtendimento(String horario) {
         for (Atendimento atendimento : atendimentos) {
-            Date horarioMarcado = atendimento.getHorarioMarcado();
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-            if (sdf.format(horarioMarcado).equalsIgnoreCase(horario)) {
+            String horaString = ValidationsUtils.obterHoraString(atendimento.getHorarioMarcado());
+            if (horaString.equalsIgnoreCase(horario)) {
                 return atendimento;
             }
         }

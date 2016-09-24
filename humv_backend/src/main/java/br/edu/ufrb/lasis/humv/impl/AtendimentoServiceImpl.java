@@ -38,7 +38,7 @@ public class AtendimentoServiceImpl {
 	}
 	
 	public List<Atendimento> searchByDateAndMedico(String date, String id, boolean incluiCancelados){
-		DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		Date data = null;
 		try {
 			data = formatter.parse(date);

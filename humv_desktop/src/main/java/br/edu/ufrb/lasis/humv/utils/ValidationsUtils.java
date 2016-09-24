@@ -1,5 +1,8 @@
 package br.edu.ufrb.lasis.humv.utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -166,5 +169,34 @@ public class ValidationsUtils {
         } catch (InputMismatchException erro) {
             return (false);
         }
+    }
+    
+    public static String obterHoraString(Date data){
+        return new SimpleDateFormat("HH:mm").format(data);
+    }
+    
+    public static String obterDataString(Date data){
+        return new SimpleDateFormat("dd/MM/yyyy").format(data);
+    }
+    
+    public static Date obterHoraData(String data) throws ParseException{
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        return sdf.parse(data);
+    }
+    
+    public static double converteStringParaPreco(String precoString){
+        double valor = 0;
+        try {
+            if (precoString.contains(",")) {
+                String[] valores_precos = precoString.split(",");
+                if (valores_precos.length > 1) {
+                    precoString = valores_precos[0] + "." + valores_precos[1];
+                }
+            }
+            valor = Double.parseDouble(precoString);
+        } catch (NumberFormatException ex) {
+            InterfaceGraficaUtils.valorInvalido("preço");
+        }
+        return valor;
     }
 }
