@@ -81,6 +81,8 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
 
         if (horario == null) {
             jLabelHorario.setText("EXTRA");
+        } else {
+            jLabelHorario.setText(horario);
         }
 
         jCheckBoxRetorno.addActionListener(this);
@@ -563,16 +565,15 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
                 .addGap(18, 18, 18)
                 .addComponent(jButtonBuscarAnimal)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabelData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel10)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabelData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel10))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel11)
                         .addComponent(jLabelHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
@@ -651,15 +652,15 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
             atendimento.setProcedimento(procedimentoResultadoBusca);
 
             try {
-                Date horarioMarcado = null;
                 if (horario != null) {
                     String dataString = ValidationsUtils.obterDataString(data);
-                    horarioMarcado = ValidationsUtils.obterHoraData(dataString + " " + horario);
+                    Date horarioMarcado = ValidationsUtils.obterHoraData(dataString + " " + horario);
+                    atendimento.setHorarioMarcado(horarioMarcado);
                 } else if (data != null) {
                     String dataString = ValidationsUtils.obterDataString(data);
-                    horarioMarcado = ValidationsUtils.obterHoraData(dataString + " 00:00");
+                    Date horarioMarcado = ValidationsUtils.obterHoraData(dataString + " 00:00");
+                    atendimento.setHorarioMarcado(horarioMarcado);
                 }
-                atendimento.setHorarioMarcado(horarioMarcado);
             } catch (ParseException ex) {
                 InterfaceGraficaUtils.valorInvalido("horário marcado");
             }
@@ -681,10 +682,10 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
 
             atendimento.setRetorno(jCheckBoxRetorno.isSelected());
 
-            if (horario == null) {
+            if (jLabelHorario.getText().equalsIgnoreCase("EXTRA")) {
                 atendimento.setExtra(true);
             } else {
-               atendimento.setExtra(false); 
+                atendimento.setExtra(false);
             }
 
             atendimento.setMotivo(jTextAreaMotivo.getText());

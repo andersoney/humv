@@ -48,8 +48,13 @@ public class AtendimentoButton extends JButton implements ActionListener {
             setIcon(new ImageIcon("imagens/icon_novo.png"));
             setText("Clique para adicionar - atendimento " + horario);
         } else {
+            String retornoStr = "";
+            if(atendimento.isRetorno()){
+                retornoStr = "&nbsp;&nbsp;&nbsp; (retorno)";
+            }
+            
             setText("<html>"
-                    + atendimento.getAnimal().getNome().toUpperCase() + 
+                    + atendimento.getAnimal().getNome().toUpperCase() + retornoStr +
                     "<br/>Dono: " + atendimento.getAnimal().getDono().getNome().split(" ")[0]
                     + "&nbsp;&nbsp;&nbsp;&nbsp;Telefone: " + atendimento.getAnimal().getDono().getTelefone()
                     + "<br/>Procedimento: " + atendimento.getProcedimento().getCodigo().toString() + " - " + atendimento.getProcedimento().getNome() + 
