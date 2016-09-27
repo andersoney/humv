@@ -10,7 +10,6 @@ import br.edu.ufrb.lasis.humv.entity.Setor;
 import br.edu.ufrb.lasis.humv.view.procedimento.CadastrarProcedimentoJPanel;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.math.BigInteger;
 import javax.swing.JDialog;
 
 /**
@@ -46,8 +45,7 @@ public class CadastrarSetorJDialog extends JDialog {
     public void fecharDialog(Setor setor) {
         if (setor != null) {
             cadastroProcedimentoPanel.setSetor(setor);
-            cadastroProcedimentoPanel.getjLabelSetorCodigo().setText("Código: " + setor.getCodigo());
-            cadastroProcedimentoPanel.getjLabelNomeSetor().setText("Nome: " + setor.getNome());
+            cadastroProcedimentoPanel.getjLabelNomeSetor().setText("Nome: " + setor.getCodigo() + " - " + setor.getNome());
             dispose();
         }
     }

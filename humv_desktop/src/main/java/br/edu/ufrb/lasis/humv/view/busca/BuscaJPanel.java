@@ -61,6 +61,7 @@ public class BuscaJPanel extends javax.swing.JPanel {
 
         jLabel1.setText("Palavra-chave:");
 
+        buttonBuscar.setIcon(new javax.swing.ImageIcon("imagens/small_buscar.png"));
         buttonBuscar.setText("Buscar");
 
         labelTitulo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -82,8 +83,10 @@ public class BuscaJPanel extends javax.swing.JPanel {
 
         buttonOperacao.setText("jButton1");
 
+        buttonImprimirTabela.setIcon(new javax.swing.ImageIcon("imagens/small_pdf.png"));
         buttonImprimirTabela.setText("Gerar PDF");
 
+        buttonCancelar.setIcon(new javax.swing.ImageIcon("imagens/small_cancelar.png"));
         buttonCancelar.setText("Cancelar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -100,16 +103,16 @@ public class BuscaJPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(textFieldPalavraChave)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(buttonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(20, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(buttonCancelar)
+                .addComponent(buttonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonImprimirTabela)
+                .addComponent(buttonImprimirTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(207, 207, 207))
+                .addComponent(buttonOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(187, 187, 187))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

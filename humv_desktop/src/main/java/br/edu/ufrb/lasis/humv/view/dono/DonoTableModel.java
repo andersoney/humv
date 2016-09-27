@@ -2,6 +2,7 @@ package br.edu.ufrb.lasis.humv.view.dono;
 
 import br.edu.ufrb.lasis.humv.entity.Dono;
 import br.edu.ufrb.lasis.humv.utils.MaskUtils;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -73,13 +74,9 @@ public class DonoTableModel extends AbstractTableModel {
             case 1:
                 return this.donos.get(rowIndex).getTipoId();
             case 2:
-                String idStr;
-                if (donos.get(rowIndex).getTipoId().equalsIgnoreCase("CPF")) {
-                    idStr = MaskUtils.formatarStringCPF(this.donos.get(rowIndex).getId());
-                } else {
-                    idStr = MaskUtils.formatarStringCNPJ(this.donos.get(rowIndex).getId());
-                }
-                return idStr;
+                BigInteger id = donos.get(rowIndex).getId();
+                String tipoId = donos.get(rowIndex).getTipoId();
+                return MaskUtils.formatarCPF_CNPJ(id, tipoId);
         }
         return null;
     }

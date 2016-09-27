@@ -16,23 +16,21 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabelTitulo" alignment="1" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
+                      <Component id="jPanelDadosDono" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="jButtonCancelar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButtonConfirmar" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jPanelDadosAnimal" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jPanelDadosDono" alignment="0" max="32767" attributes="0"/>
-                      </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButtonCancelar" min="-2" pref="110" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jButtonConfirmar" min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="jPanelDadosAnimal" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -52,7 +50,7 @@
                   <Component id="jButtonCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonConfirmar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="15" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -72,57 +70,43 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
                       <Component id="jLabelDia" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jRadioButtonBuscaCpf" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jRadioButtonBuscaCnpj" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jTextFieldBuscaCpf" min="-2" pref="230" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButtonPesquisarDono" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButtonCadastrarNovoDono" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jDateChooserData" min="-2" pref="200" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jLabelHora" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="83" pref="83" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="jSpinnerHoras" alignment="1" min="-2" pref="117" max="-2" attributes="0"/>
+                          <Component id="jDateChooserData" min="-2" pref="200" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="jLabelHora" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="83" pref="83" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="jSpinnerHoras" alignment="1" min="-2" pref="117" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jLabelNomeDono" alignment="0" pref="442" max="32767" attributes="0"/>
-                          <Component id="jLabelCpfDono" alignment="0" max="32767" attributes="0"/>
                       </Group>
+                      <Component id="jLabelNomeDono" alignment="0" pref="442" max="32767" attributes="0"/>
+                      <Component id="jLabelCpfDono" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="16" max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="jButtonPesquisarDono" min="-2" pref="110" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jButtonCadastrarNovoDono" min="-2" pref="100" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jRadioButtonBuscaCpf" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jRadioButtonBuscaCnpj" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jButtonPesquisarDono" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldBuscaCpf" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButtonCadastrarNovoDono" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jLabelNomeDono" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jLabelCpfDono" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -134,7 +118,7 @@
                       <Component id="jDateChooserData" min="-2" max="-2" attributes="0"/>
                       <Component id="jSpinnerHoras" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="0" pref="12" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -142,15 +126,13 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="jButtonPesquisarDono">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Pesquisar"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new javax.swing.ImageIcon(&quot;imagens/small_buscar.png&quot;)" type="code"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Buscar"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonPesquisarDonoActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldBuscaCpf">
-          <Events>
-            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldBuscaCpfKeyPressed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelNomeDono">
@@ -171,10 +153,12 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonCadastrarNovoDono">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Novo..."/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new javax.swing.ImageIcon(&quot;imagens/small_cadastrar.png&quot;)" type="code"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Novo"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonCadastrarNovoDonoMouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCadastrarNovoDonoActionPerformed"/>
           </Events>
         </Component>
@@ -199,22 +183,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Hora:"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JRadioButton" name="jRadioButtonBuscaCpf">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="CPF"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonBuscaCpfActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JRadioButton" name="jRadioButtonBuscaCnpj">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="CNPJ"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonBuscaCnpjActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -401,6 +369,9 @@
     </Container>
     <Component class="javax.swing.JButton" name="jButtonCancelar">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new javax.swing.ImageIcon(&quot;imagens/small_cancelar.png&quot;)" type="code"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
       </Properties>
       <Events>
@@ -418,10 +389,12 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonConfirmar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Confirmar"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new javax.swing.ImageIcon(&quot;imagens/small_salvar.png&quot;)" type="code"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Salvar"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonConfirmarMouseClicked"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonConfirmarActionPerformed"/>
       </Events>
     </Component>

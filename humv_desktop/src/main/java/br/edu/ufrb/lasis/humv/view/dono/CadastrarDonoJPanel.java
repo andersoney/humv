@@ -264,6 +264,7 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
                 .addContainerGap(42, Short.MAX_VALUE))
         );
 
+        jButtonCancelar.setIcon(new javax.swing.ImageIcon("imagens/small_cancelar.png"));
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -271,7 +272,8 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
             }
         });
 
-        jButtonConfirmar.setText("Confirmar");
+        jButtonConfirmar.setIcon(new javax.swing.ImageIcon("imagens/small_salvar.png"));
+        jButtonConfirmar.setText("Salvar");
         jButtonConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonConfirmarActionPerformed(evt);
@@ -291,9 +293,9 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
                 .addGroup(jPanelDadosDonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelDadosDonoLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButtonCancelar)
+                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButtonConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanelInformacoesEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanelDadosPessoais, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))

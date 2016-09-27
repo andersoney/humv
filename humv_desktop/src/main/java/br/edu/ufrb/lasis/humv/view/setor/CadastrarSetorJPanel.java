@@ -72,13 +72,15 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel {
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitulo.setText("CADASTRO DE SETOR");
 
-        jButtonConfirmar.setText("Confirmar");
+        jButtonConfirmar.setIcon(new javax.swing.ImageIcon("imagens/small_salvar.png"));
+        jButtonConfirmar.setText("Salvar");
         jButtonConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonConfirmarActionPerformed(evt);
             }
         });
 
+        jButtonCancelar.setIcon(new javax.swing.ImageIcon("imagens/small_cancelar.png"));
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,9 +133,9 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel {
                     .addComponent(jPanelInformacoesSetor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButtonCancelar)
+                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonConfirmar)))
+                        .addComponent(jButtonConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

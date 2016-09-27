@@ -2,6 +2,7 @@ package br.edu.ufrb.lasis.humv.view.agendamento;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Atendimento;
+import br.edu.ufrb.lasis.humv.utils.ValidationsUtils;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -48,9 +49,11 @@ public class AtendimentoButton extends JButton implements ActionListener {
             setText("Clique para adicionar - atendimento " + horario);
         } else {
             setText("<html>"
-                    + atendimento.getAnimal().getNome().toUpperCase()
-                    + "<br/>" + "Dono: " + atendimento.getAnimal().getDono().getNome() + "&nbsp;&nbsp;&nbsp;Telefone: " + atendimento.getAnimal().getDono().getTelefone()
-                    + "<br/>" + "Procedimento: " + atendimento.getProcedimento().getCodigo().toString() + " - " + atendimento.getProcedimento().getNome()
+                    + atendimento.getAnimal().getNome().toUpperCase() + 
+                    "<br/>Dono: " + atendimento.getAnimal().getDono().getNome().split(" ")[0]
+                    + "&nbsp;&nbsp;&nbsp;&nbsp;Telefone: " + atendimento.getAnimal().getDono().getTelefone()
+                    + "<br/>Procedimento: " + atendimento.getProcedimento().getCodigo().toString() + " - " + atendimento.getProcedimento().getNome() + 
+                    "&nbsp;&nbsp;&nbsp;&nbsp;Valor: R$" + ValidationsUtils.convertePrecoParaString(atendimento.getProcedimento().getValor())
                     + "</html>");
             if (atendimento.getStatus() == Atendimento.STATUS_AGENDADO) {
                 setBackground(new Color(174, 226, 245));
@@ -71,7 +74,7 @@ public class AtendimentoButton extends JButton implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (atendimento == null) {
-            HUMVApp.setNovoPainelCentral(new CadastrarAtendimentoJPanel(agendaJPanel, horario, data));
+            HUMVApp.setNovoPainelCentral(new CadastrarAtendimentoJPanel(agendaJPanel, data, horario));
         } else {
             HUMVApp.setNovoPainelCentral(new CadastrarAtendimentoJPanel(agendaJPanel, atendimento));
         }

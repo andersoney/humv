@@ -221,15 +221,18 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
 
     public void criaMenuProcedimento(boolean soBusca) {
         menuProcedimento = new JMenu("Procedimento");
-        menuItemBuscaProcedimento = new JMenuItem("Busca");
-        menuItemBuscaProcedimento.addActionListener(this);
-        menuProcedimento.add(menuItemBuscaProcedimento);
 
         if (!soBusca) {
             menuItemCadastroProcedimento = new JMenuItem("Cadastro");
             menuItemCadastroProcedimento.addActionListener(this);
             menuProcedimento.add(menuItemCadastroProcedimento);
-
+        }
+        
+        menuItemBuscaProcedimento = new JMenuItem("Busca");
+        menuItemBuscaProcedimento.addActionListener(this);
+        menuProcedimento.add(menuItemBuscaProcedimento);
+        
+        if (!soBusca) {
             menuItemAlteracaoProcedimento = new JMenuItem("Alteração");
             menuItemAlteracaoProcedimento.addActionListener(this);
             menuProcedimento.add(menuItemAlteracaoProcedimento);

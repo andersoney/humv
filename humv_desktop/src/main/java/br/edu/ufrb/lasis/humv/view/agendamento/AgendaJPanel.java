@@ -27,7 +27,6 @@ public class AgendaJPanel extends JPanel {
 
     private List<Atendimento> atendimentos;
     private Usuario medico;
-    private AtendimentoButton[] atendimentoButtons;
     private String[] horarios;
     private int qtdeHorarios;
     private int duracaoAtendimento, minutosInicioMatutino, minutosTerminoMatutino, minutosInicioVespertino, minutosTerminoVespertino;
@@ -91,29 +90,48 @@ public class AgendaJPanel extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridy = 0;
-        constraints.fill = GridBagConstraints.HORIZONTAL;
 
         for (int i = 0; i < qtdeHorarios; i++) {
             JLabel labelHorario = new JLabel(horarios[i]);
             labelHorario.setFont(new Font(null, Font.PLAIN, 14));
 
-            constraints.gridx = 0;
-            constraints.insets.right = 10;
-            constraints.insets.left = 10;
+            setConstraintsNaPrimeiraColuna(constraints);
             add(labelHorario, constraints);
 
             Atendimento atendimento = buscarAtendimento(horarios[i]);
             constraints.gridx = 1;
             constraints.insets.left = 0;
+            constraints.insets.right = 0;
             if (atendimento == null || atendimento.getStatus() == Atendimento.STATUS_CANCELADO) {
                 AtendimentoButton atendimentoButton = new AtendimentoButton(horarios[i], data, this);
+                constraints.gridwidth = 3;
                 add(atendimentoButton, constraints);
             } else {
-                AtendimentoJPanel atendimentoJPanel = new AtendimentoJPanel(atendimento, this);
-                add(atendimentoJPanel, constraints);
+                AtendimentoJPanel atendimentoJPanel = new AtendimentoJPanel(atendimento, this, constraints);
+                atendimentoJPanel.addJPanelBotoes();
             }
 
             constraints.gridy++;
+        }
+
+        for (Atendimento atendimento : atendimentos) {
+            if (atendimento.isExtra()) {
+                JLabel labelHorario = new JLabel("EXTRA");
+                labelHorario.setFont(new Font(null, Font.PLAIN, 14));
+
+                setConstraintsNaPrimeiraColuna(constraints);
+                add(labelHorario, constraints);
+
+                constraints.gridx = 1;
+                constraints.insets.left = 0;
+                constraints.insets.right = 0;
+                if (atendimento.getStatus() != Atendimento.STATUS_CANCELADO) {
+                    AtendimentoJPanel atendimentoJPanel = new AtendimentoJPanel(atendimento, this, constraints);
+                    atendimentoJPanel.addJPanelBotoes();
+                }
+
+                constraints.gridy++;
+            }
         }
 
         revalidate();
@@ -132,6 +150,14 @@ public class AgendaJPanel extends JPanel {
             InterfaceGraficaUtils.erroConexao();
             ex.printStackTrace();
         }
+    }
+
+    private void setConstraintsNaPrimeiraColuna(GridBagConstraints constraints) {
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.gridx = 0;
+        constraints.gridwidth = 1;
+        constraints.insets.right = 10;
+        constraints.insets.left = 10;
     }
 
     public void addAtendimento(Atendimento atendimento) {

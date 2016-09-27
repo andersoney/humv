@@ -11,11 +11,13 @@ import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.utils.PrintUtils;
+import br.edu.ufrb.lasis.humv.utils.ResultadoBusca;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import org.codehaus.jackson.type.TypeReference;
@@ -28,9 +30,17 @@ public class PropriedadesBuscaSetor extends PropriedadesBusca {
 
     private SetorTableModel tableModel;
     private List<Setor> listaSetores;
+    private ResultadoBusca resultadoBusca = null;
 
     public PropriedadesBuscaSetor(String tipoOperacao) {
         super(tipoOperacao);
+        tableModel = new SetorTableModel();
+        super.setTabelaResultado(new JTable(tableModel));
+    }
+
+    public PropriedadesBuscaSetor(String tipoOperacao, JFrame jFrame, ResultadoBusca resultadoBusca) {
+        super(tipoOperacao, jFrame);
+        this.resultadoBusca = resultadoBusca;
         tableModel = new SetorTableModel();
         super.setTabelaResultado(new JTable(tableModel));
     }
@@ -89,7 +99,12 @@ public class PropriedadesBuscaSetor extends PropriedadesBusca {
                                 JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
                                 ex.printStackTrace();
                             }
-                        }   break;
+                        }   
+                        break;
+                    case PropriedadesBusca.OPCAO_SELECIONAR:
+                        resultadoBusca.setResultado(setorSelecionado);
+                        getjFrame().dispose();
+                        break;
                     default:
                         break;
                 }
@@ -97,9 +112,13 @@ public class PropriedadesBuscaSetor extends PropriedadesBusca {
         } else if (ae.getSource().equals(super.getBotaoImprimirTabela())) {
             PrintUtils.print(PrintUtils.TABELA_SETORES, listaSetores);
         } else if (ae.getSource().equals(super.getBotaoCancelar())) {
-            boolean sair = InterfaceGraficaUtils.dialogoSair();
-            if (sair) {
-                HUMVApp.setPainelCentralComLogo();
+            if (getjFrame() != null) {
+                getjFrame().dispose();
+            } else {
+                boolean sair = InterfaceGraficaUtils.dialogoSair();
+                if (sair) {
+                    HUMVApp.setPainelCentralComLogo();
+                }
             }
         }
     }
