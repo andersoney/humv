@@ -97,6 +97,11 @@ public class PropriedadesBuscaDono extends PropriedadesBusca {
             }
         } else if (ae.getSource().equals(super.getBotaoImprimirTabela())) {
             PrintUtils.print(PrintUtils.TABELA_DONOS, listaDonos);
+        } else if (ae.getSource().equals(super.getBotaoCancelar())) {
+            boolean sair = InterfaceGraficaUtils.dialogoSair();
+            if (sair) {
+                HUMVApp.setPainelCentralComLogo();
+            }
         }
     }
 

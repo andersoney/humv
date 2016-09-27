@@ -1,16 +1,23 @@
 package br.edu.ufrb.lasis.humv.view.agendamento;
 
 import br.edu.ufrb.lasis.humv.entity.Atendimento;
+import br.edu.ufrb.lasis.humv.entity.Usuario;
+import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
+import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.HUMVConfigUtils;
+import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.utils.ValidationsUtils;
+import com.sun.jersey.api.client.ClientResponse;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import org.codehaus.jackson.type.TypeReference;
 
 /**
  *
@@ -19,20 +26,22 @@ import javax.swing.JPanel;
 public class AgendaJPanel extends JPanel {
 
     private List<Atendimento> atendimentos;
+    private Usuario medico;
     private AtendimentoButton[] atendimentoButtons;
     private String[] horarios;
     private int qtdeHorarios;
     private int duracaoAtendimento, minutosInicioMatutino, minutosTerminoMatutino, minutosInicioVespertino, minutosTerminoVespertino;
     private Date data;
-    private GridBagConstraints constraints;
+    private JPanel buscarAgendaMedicoJPanel;
 
-    public AgendaJPanel(List<Atendimento> atendimentos, Date data) {
+    public AgendaJPanel(BuscarAgendaMedicoJPanel buscarAgendaMedicoJPanel, Usuario medico, Date data) {
         super();
-        this.atendimentos = atendimentos;
+        this.buscarAgendaMedicoJPanel = buscarAgendaMedicoJPanel;
+        this.medico = medico;
         this.data = data;
         calculateRows();
         initHorarios();
-        initComponents();
+        construirHorarios();
     }
 
     private void calculateRows() {
@@ -75,33 +84,53 @@ public class AgendaJPanel extends JPanel {
         }
     }
 
-    public void initComponents() {
+    public void construirHorarios() {
+        carregarAtendimentos();
+
         removeAll();
         setLayout(new GridBagLayout());
-        constraints = new GridBagConstraints();
+        GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridy = 0;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
 
         for (int i = 0; i < qtdeHorarios; i++) {
             JLabel labelHorario = new JLabel(horarios[i]);
             labelHorario.setFont(new Font(null, Font.PLAIN, 14));
-            
+
             constraints.gridx = 0;
             constraints.insets.right = 10;
             constraints.insets.left = 10;
             add(labelHorario, constraints);
 
             Atendimento atendimento = buscarAtendimento(horarios[i]);
-            AtendimentoButton atendimentoButton = null;
-            if (atendimento == null) {
-                atendimentoButton = new AtendimentoButton(horarios[i], data, this);
-            } else {
-                atendimentoButton = new AtendimentoButton(atendimento, this);
-            }
             constraints.gridx = 1;
             constraints.insets.left = 0;
-            add(atendimentoButton, constraints);
-            
+            if (atendimento == null || atendimento.getStatus() == Atendimento.STATUS_CANCELADO) {
+                AtendimentoButton atendimentoButton = new AtendimentoButton(horarios[i], data, this);
+                add(atendimentoButton, constraints);
+            } else {
+                AtendimentoJPanel atendimentoJPanel = new AtendimentoJPanel(atendimento, this);
+                add(atendimentoJPanel, constraints);
+            }
+
             constraints.gridy++;
+        }
+
+        revalidate();
+        repaint();
+
+    }
+
+    private void carregarAtendimentos() {
+        try {
+            String dataStr = ValidationsUtils.obterDataString(data);
+            String emailMedico = medico.getEmail();
+            ClientResponse response = RESTMethods.get("/api/atendimento/searchByDateAndMedicoSemCancelados?data=" + dataStr + "&idEmailMedico=" + emailMedico);
+            atendimentos = (List<Atendimento>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Atendimento>>() {
+            });
+        } catch (RESTConnectionException | IOException ex) {
+            InterfaceGraficaUtils.erroConexao();
+            ex.printStackTrace();
         }
     }
 
@@ -121,6 +150,14 @@ public class AgendaJPanel extends JPanel {
             }
         }
         return null;
+    }
+
+    public Usuario getMedico() {
+        return medico;
+    }
+
+    public JPanel getBuscarAgendaMedicoJPanel() {
+        return buscarAgendaMedicoJPanel;
     }
 
 }

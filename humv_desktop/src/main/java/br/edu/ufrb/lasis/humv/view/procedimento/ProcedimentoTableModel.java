@@ -1,7 +1,7 @@
 package br.edu.ufrb.lasis.humv.view.procedimento;
 
 import br.edu.ufrb.lasis.humv.entity.Procedimento;
-import java.text.DecimalFormat;
+import br.edu.ufrb.lasis.humv.utils.ValidationsUtils;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -81,7 +81,7 @@ public class ProcedimentoTableModel extends AbstractTableModel {
             case 2:
                 return procedimento.getSetor().getCodigo() + " - " + procedimento.getSetor().getNome();
             case 3:
-                return new DecimalFormat("#.00").format(procedimento.getValor());
+                return ValidationsUtils.convertePrecoParaString(procedimento.getValor());
         }
         return null;
     }

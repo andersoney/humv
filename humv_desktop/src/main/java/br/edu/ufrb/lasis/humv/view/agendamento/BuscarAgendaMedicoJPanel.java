@@ -14,7 +14,6 @@ import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.utils.ValidationsUtils;
 import com.sun.jersey.api.client.ClientResponse;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import org.codehaus.jackson.type.TypeReference;
@@ -81,12 +80,6 @@ public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
         jLabelTitulo.setText("AGENDAMENTO");
 
         jLabel1.setText("Médico:");
-
-        comboBoxMedicos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxMedicosActionPerformed(evt);
-            }
-        });
 
         jLabel2.setText("Data:");
 
@@ -158,25 +151,12 @@ public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
             InterfaceGraficaUtils.erroResposta("Por favor, informe a data para carregar a agenda do médico " + (MedicoComboBox) comboBoxMedicos.getSelectedItem() + ".");
             jDateChooserDiaAgenda.setFocusable(true);
         } else {
-            try {
-                String dataStr = ValidationsUtils.obterDataString(jDateChooserDiaAgenda.getDate());
-                String emailMedico = ((MedicoComboBox) comboBoxMedicos.getSelectedItem()).getUsuario().getEmail();
-                ClientResponse response = RESTMethods.get("/api/atendimento/searchByDateAndMedicoSemCancelados?data=" + dataStr + "&idEmailMedico=" + emailMedico);
-                List<Atendimento> atendimentos = (List<Atendimento>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Atendimento>>() {
-                });
-
-                AgendaJPanel agendaJPanel = new AgendaJPanel(atendimentos, jDateChooserDiaAgenda.getDate());
-                jScrollPaneTabela.setViewportView(agendaJPanel);
-                jScrollPaneTabela.revalidate();
-            } catch (RESTConnectionException | IOException ex) {
-                InterfaceGraficaUtils.erroConexao();
-            }
+            Usuario medico = ((MedicoComboBox) comboBoxMedicos.getSelectedItem()).getUsuario();
+            AgendaJPanel agendaJPanel = new AgendaJPanel(this, medico, jDateChooserDiaAgenda.getDate());
+            jScrollPaneTabela.setViewportView(agendaJPanel);
+            jScrollPaneTabela.revalidate();
         }
     }//GEN-LAST:event_jButtonCarregarActionPerformed
-
-    private void comboBoxMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxMedicosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboBoxMedicosActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         boolean sair = InterfaceGraficaUtils.dialogoSair();

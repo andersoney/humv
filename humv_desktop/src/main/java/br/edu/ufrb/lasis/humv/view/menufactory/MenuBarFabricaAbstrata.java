@@ -47,9 +47,9 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
     private JMenuItem menuItemSair, menuItemSobre;
 
     private JMenu menuUsuario;
-    private JMenuItem menuItemCadastroUsuario, 
-            menuItemBuscaUsuario, 
-            menuItemAlteracaoUsuario, 
+    private JMenuItem menuItemCadastroUsuario,
+            menuItemBuscaUsuario,
+            menuItemAlteracaoUsuario,
             menuItemRemocaoUsuario;
     private JButton buttonCadastrarUsuario;
 
@@ -84,7 +84,7 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
             menuItemBuscaProjeto,
             menuItemAlteracaoProjeto,
             menuItemRemocaoProjeto;
-    
+
     private JMenu menuAtendimento;
     private JMenuItem menuItemAgendarAtendimento;
     private JButton buttonAgendarAtendimento;
@@ -98,14 +98,16 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         panelConstraints.gridx = 0;
         panelConstraints.gridy = 0;
         panelConstraints.fill = GridBagConstraints.HORIZONTAL;
-        
+
         panelLeft.setLayout(new BorderLayout());
         panelLeft.add(panelButtons, BorderLayout.NORTH);
-        panelConstraints.insets.top = 15; panelConstraints.insets.bottom = 10;
+        panelConstraints.insets.top = 15;
+        panelConstraints.insets.bottom = 10;
         panelButtons.add(new JLabel(new ImageIcon("imagens/humv-logo-top.png")), panelConstraints);
-        panelConstraints.insets.top = 0; panelConstraints.insets.bottom = 0;
+        panelConstraints.insets.top = 0;
+        panelConstraints.insets.bottom = 0;
         panelConstraints.ipady = 1;
-        
+
         this.menuBar = new JMenuBar();
         mainPanel.add(menuBar, BorderLayout.PAGE_START);
     }
@@ -114,10 +116,10 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
 
     public void criaMenuAjuda() {
         menuAjuda = new JMenu("Ajuda");
-        
+
         menuItemSobre = new JMenuItem("Sobre");
         menuAjuda.add(menuItemSobre);
-        
+
         getMenuBar().add(menuAjuda);
     }
 
@@ -217,20 +219,21 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         getMenuBar().add(menuSetor);
     }
 
-    public void criaMenuProcedimento(boolean comRemover) {
+    public void criaMenuProcedimento(boolean soBusca) {
         menuProcedimento = new JMenu("Procedimento");
-
-        menuItemCadastroProcedimento = new JMenuItem("Cadastro");
-        menuItemCadastroProcedimento.addActionListener(this);
-        menuProcedimento.add(menuItemCadastroProcedimento);
         menuItemBuscaProcedimento = new JMenuItem("Busca");
         menuItemBuscaProcedimento.addActionListener(this);
         menuProcedimento.add(menuItemBuscaProcedimento);
-        menuItemAlteracaoProcedimento = new JMenuItem("Alteração");
-        menuItemAlteracaoProcedimento.addActionListener(this);
-        menuProcedimento.add(menuItemAlteracaoProcedimento);
 
-        if (comRemover) {
+        if (!soBusca) {
+            menuItemCadastroProcedimento = new JMenuItem("Cadastro");
+            menuItemCadastroProcedimento.addActionListener(this);
+            menuProcedimento.add(menuItemCadastroProcedimento);
+
+            menuItemAlteracaoProcedimento = new JMenuItem("Alteração");
+            menuItemAlteracaoProcedimento.addActionListener(this);
+            menuProcedimento.add(menuItemAlteracaoProcedimento);
+
             menuItemRemocaoProcedimento = new JMenuItem("Remoção");
             menuItemRemocaoProcedimento.addActionListener(this);
             menuProcedimento.add(menuItemRemocaoProcedimento);
@@ -260,37 +263,37 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
 
         getMenuBar().add(menuProjeto);
     }
-    
+
     public void criaMenuAtendimento() {
         menuAtendimento = new JMenu("Atendimento");
 
-        menuItemAgendarAtendimento = new JMenuItem("Agendar atendimento");
+        menuItemAgendarAtendimento = new JMenuItem("Ver agenda");
         menuItemAgendarAtendimento.addActionListener(this);
         menuAtendimento.add(menuItemAgendarAtendimento);
 
         getMenuBar().add(menuAtendimento);
     }
-    
-    public void criaBotaoCadastrarAnimal(){
+
+    public void criaBotaoCadastrarAnimal() {
         buttonCadastrarAnimal = new JButton("Cadastrar animal", new ImageIcon("imagens/icon_pet.png"));
         buttonCadastrarAnimal.addActionListener(this);
         this.addButtonToRightPanel(buttonCadastrarAnimal);
     }
-    
-    public void criaBotaoCadastrarUsuario(){
+
+    public void criaBotaoCadastrarUsuario() {
         buttonCadastrarUsuario = new JButton("Cadastrar usuário", new ImageIcon("imagens/icon_usuario.png"));
         buttonCadastrarUsuario.addActionListener(this);
         this.addButtonToRightPanel(buttonCadastrarUsuario);
     }
-    
-    public void criaBotaoCadastrarProcedimento(){
+
+    public void criaBotaoCadastrarProcedimento() {
         buttonCadastrarProcedimento = new JButton("Cadastrar procedimento", new ImageIcon("imagens/icon_procedimento.png"));
         buttonCadastrarProcedimento.addActionListener(this);
         this.addButtonToRightPanel(buttonCadastrarProcedimento);
     }
-    
-    public void criaBotaoAgendarAtendimento(){
-        buttonAgendarAtendimento = new JButton("Agendar atendimento", new ImageIcon("imagens/icon_agenda.png"));
+
+    public void criaBotaoVisualizarAgenda() {
+        buttonAgendarAtendimento = new JButton("Visualizar agenda", new ImageIcon("imagens/icon_agenda.png"));
         buttonAgendarAtendimento.addActionListener(this);
         this.addButtonToRightPanel(buttonAgendarAtendimento);
     }
@@ -298,8 +301,8 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
     public JMenuBar getMenuBar() {
         return menuBar;
     }
-    
-    private void addButtonToRightPanel(JButton button){
+
+    private void addButtonToRightPanel(JButton button) {
         panelConstraints.gridy++;
         panelButtons.add(button, panelConstraints);
     }
@@ -307,7 +310,7 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
-        
+
         if (source.equals(menuItemSobre)) {
             JOptionPane.showMessageDialog(null, "Desenvolvido por LaSiS - UFRB");
         } else if (source.equals(menuItemCadastroUsuario) || source.equals(buttonCadastrarUsuario)) {
@@ -375,6 +378,6 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         } else if (source.equals(menuItemAgendarAtendimento) || source.equals(buttonAgendarAtendimento)) {
             HUMVApp.setNovoPainelCentral(new BuscarAgendaMedicoJPanel());
         }
-        
+
     }
 }

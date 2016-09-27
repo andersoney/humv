@@ -32,7 +32,7 @@ public class PropriedadesBuscaAnimal extends PropriedadesBusca {
         tableModel = new AnimalTableModel();
         super.setTabelaResultado(new JTable(tableModel));
     }
-    
+
     public PropriedadesBuscaAnimal(String tipoOperacao, JFrame jFrame, ResultadoBusca resultadoBusca) {
         super(tipoOperacao, jFrame);
         this.resultadoBusca = resultadoBusca;
@@ -94,16 +94,25 @@ public class PropriedadesBuscaAnimal extends PropriedadesBusca {
                             }
                         }
                         break;
-                     case PropriedadesBusca.OPCAO_SELECIONAR:
-                         resultadoBusca.setResultado(animalSelecionado);
-                         getjFrame().dispose();
-                         break;
+                    case PropriedadesBusca.OPCAO_SELECIONAR:
+                        resultadoBusca.setResultado(animalSelecionado);
+                        getjFrame().dispose();
+                        break;
                     default:
                         break;
                 }
             }
         } else if (e.getSource().equals(super.getBotaoImprimirTabela())) {
             PrintUtils.print(PrintUtils.TABELA_ANIMAIS, listaAnimais);
+        } else if (e.getSource().equals(super.getBotaoCancelar())) {
+            if (getjFrame() != null) {
+                getjFrame().dispose();
+            } else {
+                boolean sair = InterfaceGraficaUtils.dialogoSair();
+                if (sair) {
+                    HUMVApp.setPainelCentralComLogo();
+                }
+            }
         }
     }
 }

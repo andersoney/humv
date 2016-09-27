@@ -96,6 +96,11 @@ public class PropriedadesBuscaSetor extends PropriedadesBusca {
             }
         } else if (ae.getSource().equals(super.getBotaoImprimirTabela())) {
             PrintUtils.print(PrintUtils.TABELA_SETORES, listaSetores);
+        } else if (ae.getSource().equals(super.getBotaoCancelar())) {
+            boolean sair = InterfaceGraficaUtils.dialogoSair();
+            if (sair) {
+                HUMVApp.setPainelCentralComLogo();
+            }
         }
     }
 

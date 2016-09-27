@@ -9,9 +9,6 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Conjunction;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.ProjectionList;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -70,10 +67,6 @@ public class AtendimentoDAO extends GenericDAO<Atendimento> implements Serializa
 		calendar.setTime(date); 
 		calendar.add(Calendar.DATE, 1);
 		Date dataDepois = calendar.getTime();
-				
-		ProjectionList projectionList = Projections.projectionList();
-        projectionList.add(Projections.property("medico.email"),"medico.email");
-        criteria.setProjection(projectionList); 
 		
         Conjunction conjunction = Restrictions.and(
 				Restrictions.eq("medico.email", id), 
@@ -88,9 +81,7 @@ public class AtendimentoDAO extends GenericDAO<Atendimento> implements Serializa
         
 		criteria.add(conjunction);
 		
-		criteria.addOrder(Order.asc("horarioMarcado"));
-		
-		return (List<Atendimento>) criteria.list();
+		return criteria.list();
 	}
 	
 }

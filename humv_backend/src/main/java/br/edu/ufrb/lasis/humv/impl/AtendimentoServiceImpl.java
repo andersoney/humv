@@ -51,16 +51,15 @@ public class AtendimentoServiceImpl {
 	public String cadastrarAtendimento(Atendimento atendimento, String usuarioResponsavel){
 		try{
 			atendimentoDAO.saveAtendimento(atendimento);
-			//ogger.info("[signup - " + usuarioResponsavel + "] Usuario salvo com sucesso: " + usuario.getNome() + ".");
+			logger.info("[cadastrarAtendimento - " + usuarioResponsavel + "] Atendimento salvo com sucesso: " + atendimento.getId() + ".");
 			return "OK";
 		}catch(DataIntegrityViolationException ex){
-			/*if(ex.getMessage().toLowerCase().contains("constraint")){
-				logger.error("[signup] E-mail ja cadastrado: " + usuario.getEmail() + ".");
-				return "Usuario com e-mail " + usuario.getEmail() + " ja cadastrado no sistema. Por favor, informe um e-mail diferente.";
+			if(ex.getMessage().toLowerCase().contains("constraint")){
+				logger.error("[cadastrarAtendimento] Atendimento ja cadastrado: " + atendimento.getId() + ".");
+				return "Atendimento ja cadastrado no sistema. Por favor, informe um atendimento diferente.";
 			}else{
 				return "Erro ao conectar-se com o banco de dados.";
-			}*/
-			return "";
+			}
 		}
 	}
 

@@ -25,7 +25,7 @@ public abstract class PropriedadesBusca implements ActionListener, KeyListener {
     public static final String OPCAO_SELECIONAR = "Selecionar";
 
     private String tipoOperacao;
-    private JButton botaoBusca, botaoOperacao, botaoImprimirTabela;
+    private JButton botaoBusca, botaoOperacao, botaoImprimirTabela, botaoCancelar;
     private JTable tabelaResultado;
     private JTextField campoPalavraChave;
     private JFrame jFrame = null;
@@ -41,14 +41,20 @@ public abstract class PropriedadesBusca implements ActionListener, KeyListener {
 
     public abstract void buscar();
 
-    public void configurarBusca(JTextField campoBusca, JButton botaoBusca, JButton botaoImprimir, JTable tabelaResultado) {
+    public void configurarBusca(JTextField campoBusca, JButton botaoBusca, JButton botaoImprimir, JButton botaoCancelar, JTable tabelaResultado) {
         campoBusca.addKeyListener(this);
         this.setCampoPalavraChave(campoBusca);
+        
         this.setBotaoBusca(botaoBusca);
         this.getBotaoBusca().addActionListener(this);
         this.getBotaoBusca().addKeyListener(this);
+        
         this.setBotaoImprimirTabela(botaoImprimir);
         this.getBotaoImprimirTabela().addActionListener(this);
+        
+        this.setBotaoCancelar(botaoCancelar);
+        this.getBotaoCancelar().addActionListener(this);
+        
         this.setTabelaResultado(tabelaResultado);
     }
 
@@ -95,6 +101,14 @@ public abstract class PropriedadesBusca implements ActionListener, KeyListener {
 
     public void setBotaoOperacao(JButton botaoOperacao) {
         this.botaoOperacao = botaoOperacao;
+    }
+
+    public JButton getBotaoCancelar() {
+        return botaoCancelar;
+    }
+
+    public void setBotaoCancelar(JButton botaoCancelar) {
+        this.botaoCancelar = botaoCancelar;
     }
 
     public JTable getTabelaResultado() {

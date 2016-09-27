@@ -20,14 +20,14 @@ public class FabricaMenuAdministrador extends MenuBarFabricaAbstrata {
         super.criaMenuAnimal(comRemover);
         super.criaMenuSetor(comRemover);
         super.criaMenuProcedimento(comRemover);
-        super.criaMenuProjeto(comRemover);
+        super.criaMenuProjeto(false);
         super.criaMenuAtendimento();
         super.criaMenuAjuda();
         
         super.criaBotaoCadastrarProcedimento();
         super.criaBotaoCadastrarAnimal();
         super.criaBotaoCadastrarUsuario();
-        super.criaBotaoAgendarAtendimento();
+        super.criaBotaoVisualizarAgenda();
     }
 
 }

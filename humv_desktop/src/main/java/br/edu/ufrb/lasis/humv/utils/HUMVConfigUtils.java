@@ -59,5 +59,9 @@ public class HUMVConfigUtils {
     public static String getAtendimentoDuracao() {
         return getConfigValue("humv.atendimento.duracao");
     }
+    
+    public static String getPorcentagemDescontoValorAula() {
+        return getConfigValue("humv.procedimento.desconto.valoraula");
+    }
 
 }

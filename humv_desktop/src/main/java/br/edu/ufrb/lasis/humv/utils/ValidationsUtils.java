@@ -1,5 +1,7 @@
 package br.edu.ufrb.lasis.humv.utils;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -198,5 +200,10 @@ public class ValidationsUtils {
             InterfaceGraficaUtils.valorInvalido("preço");
         }
         return valor;
+    }
+    
+    public static String convertePrecoParaString(Double preco){
+        NumberFormat nf = new DecimalFormat("##.00");
+        return nf.format(preco).replace('.', ',');
     }
 }

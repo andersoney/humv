@@ -3,7 +3,6 @@ package br.edu.ufrb.lasis.humv.utils;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 /**
  * Utilitário: Menssagens de validações.
@@ -17,6 +16,10 @@ import javax.swing.JPanel;
  */
 public class InterfaceGraficaUtils {
 
+    public static void sucessoResposta(String resposta) {
+        JOptionPane.showMessageDialog(null, resposta, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
     public static void erroResposta(String resposta) {
         JOptionPane.showMessageDialog(null, resposta, "Erro", JOptionPane.ERROR_MESSAGE);
     }
@@ -99,6 +102,15 @@ public class InterfaceGraficaUtils {
     public static boolean dialogoRemoverAlterar(String operacao, String tipo, String nome) {
         String msg = "Deseja " + operacao + " o " + tipo + " " + nome + "?";
         int op = JOptionPane.showConfirmDialog(null, msg, "Cancelar?", JOptionPane.YES_NO_OPTION);
+        if (op == JOptionPane.YES_OPTION) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public static boolean dialogoMensagem(String titulo, String msg) {
+        int op = JOptionPane.showConfirmDialog(null, msg, titulo, JOptionPane.YES_NO_OPTION);
         if (op == JOptionPane.YES_OPTION) {
             return true;
         } else {
