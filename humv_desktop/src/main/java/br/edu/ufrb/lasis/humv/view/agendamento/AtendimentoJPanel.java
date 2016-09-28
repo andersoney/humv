@@ -77,28 +77,29 @@ public class AtendimentoJPanel implements ActionListener {
         boolean confirmado = InterfaceGraficaUtils.dialogoMensagem("Confirmar alteração", "Deseja realmente realizar esta alteração?");
 
         if (confirmado) {
-            String msg = "Atualização efetuada com sucesso!";
             if (e.getSource().equals(cancelarJButton)) {
-                atendimento.setStatus(Atendimento.STATUS_CANCELADO);
-                msg = "Atendimento cancelado com sucesso!";
-            } else if (e.getSource().equals(realizadoJButton)) {
-                atendimento.setStatus(Atendimento.STATUS_REALIZADO);
-            } else if (e.getSource().equals(reativarJButton)) {
-                atendimento.setStatus(Atendimento.STATUS_AGENDADO);
-            }
-
-            try {
-                ClientResponse response = RESTMethods.put("/api/atendimento", atendimento);
-                String resposta = response.getEntity(String.class);
-                if (!resposta.equalsIgnoreCase("ok")) {
-                    InterfaceGraficaUtils.erroResposta(resposta);
-                } else {
-                    InterfaceGraficaUtils.sucessoResposta(msg);
-                    agendaJPanel.construirHorarios();
+                new CancelarAtendimentoJDialog(atendimento, agendaJPanel).setVisible(true);
+            } else {
+                String msg = "Atualização efetuada com sucesso!";
+                if (e.getSource().equals(realizadoJButton)) {
+                    atendimento.setStatus(Atendimento.STATUS_REALIZADO);
+                } else if (e.getSource().equals(reativarJButton)) {
+                    atendimento.setStatus(Atendimento.STATUS_AGENDADO);
                 }
-            } catch (RESTConnectionException ex) {
-                InterfaceGraficaUtils.erroConexao();
-                ex.printStackTrace();
+
+                try {
+                    ClientResponse response = RESTMethods.put("/api/atendimento", atendimento);
+                    String resposta = response.getEntity(String.class);
+                    if (!resposta.equalsIgnoreCase("ok")) {
+                        InterfaceGraficaUtils.erroResposta(resposta);
+                    } else {
+                        InterfaceGraficaUtils.sucessoResposta(msg);
+                        agendaJPanel.construirHorarios();
+                    }
+                } catch (RESTConnectionException ex) {
+                    InterfaceGraficaUtils.erroConexao();
+                    ex.printStackTrace();
+                }
             }
         }
     }

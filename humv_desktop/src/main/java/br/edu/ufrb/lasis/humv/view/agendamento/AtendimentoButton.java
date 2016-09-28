@@ -58,7 +58,7 @@ public class AtendimentoButton extends JButton implements ActionListener {
                     "<br/>Dono: " + atendimento.getAnimal().getDono().getNome().split(" ")[0]
                     + "&nbsp;&nbsp;&nbsp;&nbsp;Telefone: " + atendimento.getAnimal().getDono().getTelefone()
                     + "<br/>Procedimento: " + atendimento.getProcedimento().getCodigo().toString() + " - " + atendimento.getProcedimento().getNome() + 
-                    "&nbsp;&nbsp;&nbsp;&nbsp;Valor: R$" + ValidationsUtils.convertePrecoParaString(atendimento.getProcedimento().getValor())
+                    "&nbsp;&nbsp;&nbsp;&nbsp;Valor: R$" + ValidationsUtils.convertePrecoParaString(atendimento.getValorCobrado())
                     + "</html>");
             if (atendimento.getStatus() == Atendimento.STATUS_AGENDADO) {
                 setBackground(new Color(174, 226, 245));

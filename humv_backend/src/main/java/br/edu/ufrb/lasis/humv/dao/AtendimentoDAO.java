@@ -57,31 +57,55 @@ public class AtendimentoDAO extends GenericDAO<Atendimento> implements Serializa
 
 		return (Atendimento) criteria.uniqueResult();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Transactional
 	public List<Atendimento> searchByDateAndMedico(Date date, String id, boolean incluiCancelados) {
 		Criteria criteria = getCriteria();
-		
+
 		Calendar calendar = Calendar.getInstance(); 
 		calendar.setTime(date); 
 		calendar.add(Calendar.DATE, 1);
 		Date dataDepois = calendar.getTime();
-		
-        Conjunction conjunction = Restrictions.and(
+
+		Conjunction conjunction = Restrictions.and(
 				Restrictions.eq("medico.email", id), 
 				Restrictions.ge("horarioMarcado", date),
 				Restrictions.lt("horarioMarcado", dataDepois)
-				
-		);
-        
-        if(!incluiCancelados){
-        	conjunction.add(Restrictions.ne("status", Atendimento.STATUS_CANCELADO));
-        }
-        
+
+				);
+
+		if(!incluiCancelados){
+			conjunction.add(Restrictions.ne("status", Atendimento.STATUS_CANCELADO));
+		}
+
 		criteria.add(conjunction);
-		
+
 		return criteria.list();
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public void cancelarAtendimentos(String id, Date dataInicio, Date dataFim, String motivo) {
+		Criteria criteria = getCriteria();
+
+		Conjunction conjunction = Restrictions.and(
+				Restrictions.eq("medico.email", id), 
+				Restrictions.ge("horarioMarcado", dataInicio),
+				Restrictions.le("horarioMarcado", dataFim)
+
+				);
+
+		criteria.add(conjunction);
+		List<Atendimento> atendimentos = criteria.list();
+
+		for(Atendimento atendimento : atendimentos){
+			atendimento.setStatus(Atendimento.STATUS_CANCELADO);
+			atendimento.setObservacoes(
+					atendimento.getObservacoes() + " [Cancelado] " + motivo
+					);
+			updateAtendimento(atendimento);
+		}
+	}
+
 }

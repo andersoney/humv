@@ -61,9 +61,9 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
     }
 
     private void customInitComponents(Atendimento atendimento) {
-        customInitComponents();
         jLabelHorario.setText(ValidationsUtils.obterHoraString(atendimento.getHorarioMarcado()));
         jLabelData.setText(ValidationsUtils.obterDataString(atendimento.getHorarioMarcado()));
+        customInitComponents();
     }
 
     private void customInitComponents() {
@@ -110,7 +110,7 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
             jLabelRaca.setText(animalResultadoBusca.getRaca());
             Dono dono = animalResultadoBusca.getDono();
             jLabelNomeDono.setText(dono.getNome());
-            jLabelTipoDocDono.setText(dono.getTipoId());
+            jLabelTipoDocDono.setText(dono.getTipoId() + ":");
             jLabelIdDono.setText(MaskUtils.formatarCPF_CNPJ(dono.getId(), dono.getTipoId()));
             jLabelTelefone.setText(dono.getTelefone());
             jLabelEmail.setText(dono.getEmail());
@@ -140,6 +140,7 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
                 setEnabledComponentesDeValorProcedimento(false);
                 jTextFieldValorCobrado.setText("0,00");
             }
+            
             if (atendimento.isExtra()) {
                 jLabelHorario.setText("EXTRA");
             }
@@ -704,9 +705,9 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
                     InterfaceGraficaUtils.erroResposta(resposta);
                 } else {
                     if (cadastrar) {
-                        InterfaceGraficaUtils.sucessoCadastro("agendamento");
+                        InterfaceGraficaUtils.sucessoCadastro("atendimento");
                     } else {
-                        InterfaceGraficaUtils.sucessoAtualizacao("agendamento");
+                        InterfaceGraficaUtils.sucessoAtualizacao("atendimento");
                     }
                     agendaJPanel.construirHorarios();
                     HUMVApp.setNovoPainelCentral(agendaJPanel.getBuscarAgendaMedicoJPanel());

@@ -6,13 +6,16 @@
 package br.edu.ufrb.lasis.humv.view.menufactory;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
+import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.view.agendamento.BuscarAgendaMedicoJPanel;
 import br.edu.ufrb.lasis.humv.view.animal.CadastrarAnimalJPanel;
 import br.edu.ufrb.lasis.humv.view.animal.PropriedadesBuscaAnimal;
 import br.edu.ufrb.lasis.humv.view.busca.BuscaJPanel;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
+import br.edu.ufrb.lasis.humv.view.config.ConfiguracoesJPanel;
 import br.edu.ufrb.lasis.humv.view.dono.CadastrarDonoJPanel;
 import br.edu.ufrb.lasis.humv.view.dono.PropriedadesBuscaDono;
+import br.edu.ufrb.lasis.humv.view.main.LoginJDialog;
 import br.edu.ufrb.lasis.humv.view.procedimento.CadastrarProcedimentoJPanel;
 import br.edu.ufrb.lasis.humv.view.procedimento.PropriedadesBuscaProcedimento;
 import br.edu.ufrb.lasis.humv.view.projeto.CadastrarProjetoJPanel;
@@ -44,7 +47,7 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
     private JMenuBar menuBar;
 
     private JMenu menuAjuda;
-    private JMenuItem menuItemSair, menuItemSobre;
+    private JMenuItem menuItemSair, menuItemSobre, menuItemConfiguracoes;
 
     private JMenu menuUsuario;
     private JMenuItem menuItemCadastroUsuario,
@@ -117,8 +120,13 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
     public void criaMenuAjuda() {
         menuAjuda = new JMenu("Ajuda");
 
+        menuItemConfiguracoes = new JMenuItem("Configurações");
+        menuAjuda.add(menuItemConfiguracoes);
+        menuItemConfiguracoes.addActionListener(this);
+
         menuItemSobre = new JMenuItem("Sobre");
         menuAjuda.add(menuItemSobre);
+        menuItemSobre.addActionListener(this);
 
         getMenuBar().add(menuAjuda);
     }
@@ -227,11 +235,11 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
             menuItemCadastroProcedimento.addActionListener(this);
             menuProcedimento.add(menuItemCadastroProcedimento);
         }
-        
+
         menuItemBuscaProcedimento = new JMenuItem("Busca");
         menuItemBuscaProcedimento.addActionListener(this);
         menuProcedimento.add(menuItemBuscaProcedimento);
-        
+
         if (!soBusca) {
             menuItemAlteracaoProcedimento = new JMenuItem("Alteração");
             menuItemAlteracaoProcedimento.addActionListener(this);
@@ -316,6 +324,8 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
 
         if (source.equals(menuItemSobre)) {
             JOptionPane.showMessageDialog(null, "Desenvolvido por LaSiS - UFRB");
+        } else if (source.equals(menuItemConfiguracoes)) {
+            HUMVApp.setNovoPainelCentral(new ConfiguracoesJPanel());
         } else if (source.equals(menuItemCadastroUsuario) || source.equals(buttonCadastrarUsuario)) {
             HUMVApp.setNovoPainelCentral(new CadastrarUsuarioJPanel());
         } else if (source.equals(menuItemBuscaUsuario) || source.equals(menuItemAlteracaoUsuario)) {
@@ -323,7 +333,11 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         } else if (source.equals(menuItemRemocaoUsuario)) {
             HUMVApp.setNovoPainelCentral(new BuscaJPanel("BUSCAR USUÁRIO PARA REMOÇÃO", new PropriedadesBuscaUsuario(PropriedadesBuscaUsuario.OPCAO_REMOVER)));
         } else if (source.equals(menuItemSair)) {
-            System.exit(0);
+            if (InterfaceGraficaUtils.dialogoSair()) {
+                HUMVApp.getMainWindow().setContentPane(new JPanel());
+                HUMVApp.getMainWindow().repaint();
+                new LoginJDialog(HUMVApp.getMainWindow()).setVisible(true);
+            }
         } else if (source.equals(menuItemCadastroAnimal) || source.equals(buttonCadastrarAnimal)) {
             HUMVApp.setNovoPainelCentral(new CadastrarAnimalJPanel());
         } else if (source.equals(menuItemBuscaAnimal) || source.equals(menuItemAlteracaoAnimal)) {

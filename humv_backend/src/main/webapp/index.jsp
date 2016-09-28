@@ -61,6 +61,7 @@
     	<li>Obter um atendimento: /api/atendimento/{id} (GET)</li>
     	<li>Inserir: /api/atendimento (POST)</li>
     	<li>Alterar: /api/atendimento (PUT)</li>
+    	<li>Cancelar grupos de atendimentos: /api/atendimento/cancelarAtendimentos (PUT)</li>
     	<li>Excluir: /api/atendimento/{id} (DELETE)</li>
     </ul>
 </body>

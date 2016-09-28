@@ -12,6 +12,7 @@ import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import com.sun.jersey.api.client.ClientResponse;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import org.codehaus.jackson.type.TypeReference;
@@ -42,6 +43,7 @@ public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
         }
         comboBoxMedicos.setModel(model);
         jButtonNovoAtendimentoExtra.setEnabled(false);
+        jButtonCancelarAgenda.setEnabled(false);
     }
 
     private List<Usuario> getMedicos() {
@@ -75,6 +77,7 @@ public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
         jScrollPaneTabela = new javax.swing.JScrollPane();
         jButton1 = new javax.swing.JButton();
         jButtonNovoAtendimentoExtra = new javax.swing.JButton();
+        jButtonCancelarAgenda = new javax.swing.JButton();
 
         jLabelTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -92,7 +95,8 @@ public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setText("<< Voltar");
+        jButton1.setIcon(new javax.swing.ImageIcon("imagens/small_voltar.png"));
+        jButton1.setText("Voltar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -104,6 +108,14 @@ public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
         jButtonNovoAtendimentoExtra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonNovoAtendimentoExtraActionPerformed(evt);
+            }
+        });
+
+        jButtonCancelarAgenda.setIcon(new javax.swing.ImageIcon("imagens/small_cancelar.png"));
+        jButtonCancelarAgenda.setText("Cancelar agenda");
+        jButtonCancelarAgenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarAgendaActionPerformed(evt);
             }
         });
 
@@ -125,16 +137,17 @@ public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
                 .addComponent(jButtonCarregar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(80, 80, 80))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 816, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(260, 260, 260)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonNovoAtendimentoExtra)))
+                .addContainerGap()
+                .addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 816, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonCancelarAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonNovoAtendimentoExtra, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(168, 168, 168))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,11 +164,12 @@ public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
                     .addComponent(jButtonCarregar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButtonNovoAtendimentoExtra))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonNovoAtendimentoExtra)
+                    .addComponent(jButtonCancelarAgenda))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -171,6 +185,7 @@ public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
             jScrollPaneTabela.setViewportView(agendaJPanel);
             jScrollPaneTabela.revalidate();
             jButtonNovoAtendimentoExtra.setEnabled(true);
+            jButtonCancelarAgenda.setEnabled(true);
         }
     }//GEN-LAST:event_jButtonCarregarActionPerformed
 
@@ -187,10 +202,17 @@ public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButtonNovoAtendimentoExtraActionPerformed
 
+    private void jButtonCancelarAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarAgendaActionPerformed
+        Usuario medico = ((MedicoComboBox) comboBoxMedicos.getSelectedItem()).getUsuario();
+        Date data = jDateChooserDiaAgenda.getDate();
+        new CancelarAtendimentoJDialog(medico, data, agendaJPanel).setVisible(true);
+    }//GEN-LAST:event_jButtonCancelarAgendaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> comboBoxMedicos;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonCancelarAgenda;
     private javax.swing.JButton jButtonCarregar;
     private javax.swing.JButton jButtonNovoAtendimentoExtra;
     private com.toedter.calendar.JDateChooser jDateChooserDiaAgenda;
