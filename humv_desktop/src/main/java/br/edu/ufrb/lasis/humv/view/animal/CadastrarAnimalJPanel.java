@@ -70,13 +70,13 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
             jTextFieldEspecie.setText(animalSelecionado.getEspecie());
             jTextFieldIdade.setText("" + animalSelecionado.getIdade());
             jTextFieldRaca.setText(animalSelecionado.getRaca());
-            if (animalSelecionado.getDono().getTipoId().equalsIgnoreCase("CPF")) {
+            if (animalSelecionado.getDono().getTipoDocumento().equalsIgnoreCase("CPF")) {
                 this.dono = animalSelecionado.getDono();
-                this.jLabelCpfDono.setText("CPF: " + MaskUtils.formatarStringCPF(animalSelecionado.getDono().getId()));
+                this.jLabelCpfDono.setText("CPF: " + MaskUtils.formatarStringCPF(animalSelecionado.getDono().getCpfCnpj()));
                 this.jLabelNomeDono.setText("Nome: " + animalSelecionado.getDono().getNome());
             } else {
                 this.dono = animalSelecionado.getDono();
-                this.jLabelCpfDono.setText("CNPJ: " + MaskUtils.formatarStringCNPJ(animalSelecionado.getDono().getId()));
+                this.jLabelCpfDono.setText("CNPJ: " + MaskUtils.formatarStringCNPJ(animalSelecionado.getDono().getCpfCnpj()));
                 this.jLabelNomeDono.setText("Nome: " + animalSelecionado.getDono().getNome());
             }
             if (animalSelecionado.getPorte().equalsIgnoreCase("pequeno")) {
@@ -125,7 +125,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
     @Override
     public void setResultado(Object resultado) {
         this.dono = (Dono) resultado;
-        this.jLabelCpfDono.setText("CPF: " + MaskUtils.formatarCPF_CNPJ(dono.getId(), dono.getTipoId()));
+        this.jLabelCpfDono.setText("CPF: " + MaskUtils.formatarCPF_CNPJ(dono.getCpfCnpj(), dono.getTipoDocumento()));
         this.jLabelNomeDono.setText("Nome: " + dono.getNome());
     }
 

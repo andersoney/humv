@@ -9,7 +9,6 @@ import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
-import java.math.BigInteger;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,8 +18,8 @@ import javax.swing.JOptionPane;
 public class CadastrarDonoJPanel extends javax.swing.JPanel {
 
     private final String servicoDono = "/api/dono";
-    private BigInteger id;
-    private String tipoId;
+    private String cpfCnpj;
+    private String tipoDocumento;
     private CadastrarDonoJDialog cadastroDonoJDialog = null;
     private Dono donoSelecionado;
 
@@ -36,7 +35,7 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
         this.jTextFieldCpf.setFocusable(true);
         this.jTextFieldCnpj.setText("");
         this.jTextFieldCnpj.setEnabled(false);
-        this.tipoId = "CPF";
+        this.tipoDocumento = "CPF";
         buttonGroupLocal.add(jRadioButtonCidade);
         buttonGroupLocal.add(jRadioButtonFazenda);
     }
@@ -61,18 +60,18 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
             jTextFieldCep.setText(donoSelecionado.getCep());
             jTextFieldEndereco.setText(donoSelecionado.getEndereco());
             jTextFieldCidadeFazenda.setText(donoSelecionado.getCidade());
-            if (donoSelecionado.getTipoId().equalsIgnoreCase("CPF")) {
-                jTextFieldCpf.setText(MaskUtils.formatarStringCPF(donoSelecionado.getId()));
+            if (donoSelecionado.getTipoDocumento().equalsIgnoreCase("CPF")) {
+                jTextFieldCpf.setText(MaskUtils.formatarStringCPF(donoSelecionado.getCpfCnpj()));
                 jRadioButtonCpf.setSelected(true);
                 jRadioButtonCnpj.setSelected(false);
                 jTextFieldCnpj.setEnabled(false);
-                this.tipoId = "CPF";
+                this.tipoDocumento = "CPF";
             } else {
-                jTextFieldCnpj.setText(MaskUtils.formatarStringCNPJ(donoSelecionado.getId()));
+                jTextFieldCnpj.setText(MaskUtils.formatarStringCNPJ(donoSelecionado.getCpfCnpj()));
                 jRadioButtonCnpj.setSelected(true);
                 jRadioButtonCpf.setSelected(false);
                 jTextFieldCpf.setEnabled(false);
-                this.tipoId = "CNPJ";
+                this.tipoDocumento = "CNPJ";
             }
         }
     }
@@ -358,20 +357,20 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
         }
 
         if (jRadioButtonCpf.isSelected()) {
-            if (!ValidationsUtils.isCPF(MaskUtils.removeMascara(this.jTextFieldCpf.getText()))) {
+            if (!ValidationsUtils.isCPF(MaskUtils.removeMascara(jTextFieldCpf.getText()))) {
                 InterfaceGraficaUtils.validaCampoInvalido("CPF");
                 return;
             } else {
-                id = new BigInteger(MaskUtils.removeMascara(this.jTextFieldCpf.getText()));
+                cpfCnpj = MaskUtils.removeMascara(jTextFieldCpf.getText());
             }
         }
 
         if (jRadioButtonCnpj.isSelected()) {
-            if (!ValidationsUtils.isCNPJ(MaskUtils.removeMascara(this.jTextFieldCnpj.getText()))) {
+            if (!ValidationsUtils.isCNPJ(MaskUtils.removeMascara(jTextFieldCnpj.getText()))) {
                 InterfaceGraficaUtils.validaCampoInvalido("CNPJ");
                 return;
             } else {
-                id = new BigInteger(MaskUtils.removeMascara(this.jTextFieldCnpj.getText()));
+                cpfCnpj = MaskUtils.removeMascara(jTextFieldCnpj.getText());
             }
         }
 
@@ -411,13 +410,13 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
         Dono dono = new Dono();
         dono.setCep(cep);
         dono.setCidade(localT);
-        dono.setId(id);
+        dono.setCpfCnpj(cpfCnpj);
         dono.setEndereco(endereco);
         dono.setEstado(estado);
         dono.setNome(nome);
         dono.setTelefone(telefone);
         dono.setEmail(jTextFieldEmail.getText());
-        dono.setTipoId(tipoId);
+        dono.setTipoDocumento(tipoDocumento);
 
         ClientResponse response;
         try {
@@ -464,7 +463,7 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
         this.jTextFieldCpf.setEnabled(true);
         this.jTextFieldCpf.setFocusable(true);
         this.jTextFieldCnpj.setEnabled(false);
-        this.tipoId = "CPF";
+        this.tipoDocumento = "CPF";
     }//GEN-LAST:event_jRadioButtonCpfActionPerformed
 
     private void jRadioButtonCnpjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCnpjActionPerformed
@@ -472,7 +471,7 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
         this.jTextFieldCnpj.setEnabled(true);
         this.jTextFieldCnpj.setFocusable(true);
         this.jTextFieldCpf.setEnabled(false);
-        this.tipoId = "CNPJ";
+        this.tipoDocumento = "CNPJ";
     }//GEN-LAST:event_jRadioButtonCnpjActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

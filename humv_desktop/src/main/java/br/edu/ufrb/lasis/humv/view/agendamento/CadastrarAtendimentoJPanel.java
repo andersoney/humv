@@ -110,8 +110,8 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
             jLabelRaca.setText(animalResultadoBusca.getRaca());
             Dono dono = animalResultadoBusca.getDono();
             jLabelNomeDono.setText(dono.getNome());
-            jLabelTipoDocDono.setText(dono.getTipoId() + ":");
-            jLabelIdDono.setText(MaskUtils.formatarCPF_CNPJ(dono.getId(), dono.getTipoId()));
+            jLabelTipoDocDono.setText(dono.getTipoDocumento() + ":");
+            jLabelIdDono.setText(MaskUtils.formatarCPF_CNPJ(dono.getCpfCnpj(), dono.getTipoDocumento()));
             jLabelTelefone.setText(dono.getTelefone());
             jLabelEmail.setText(dono.getEmail());
 
@@ -207,8 +207,8 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
 
             Dono dono = animalResultadoBusca.getDono();
             jLabelNomeDono.setText(dono.getNome());
-            jLabelIdDono.setText(MaskUtils.formatarCPF_CNPJ(dono.getId(), dono.getTipoId()));
-            jLabelTipoDocDono.setText(dono.getTipoId());
+            jLabelIdDono.setText(MaskUtils.formatarCPF_CNPJ(dono.getCpfCnpj(), dono.getTipoDocumento()));
+            jLabelTipoDocDono.setText(dono.getTipoDocumento());
             jLabelTelefone.setText(dono.getTelefone());
             jLabelEmail.setText(dono.getEmail());
         } else if (resultado instanceof Procedimento) {

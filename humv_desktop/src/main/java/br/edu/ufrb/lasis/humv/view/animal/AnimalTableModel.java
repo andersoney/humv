@@ -90,12 +90,12 @@ public class AnimalTableModel extends AbstractTableModel {
             case 2:
                 return this.animais.get(rowIndex).getDono().getNome();
             case 3:
-                return this.animais.get(rowIndex).getDono().getTipoId();
+                return this.animais.get(rowIndex).getDono().getTipoDocumento();
             case 4:
-                if (this.animais.get(rowIndex).getDono().getTipoId().equalsIgnoreCase("CPF")) {
-                    return MaskUtils.formatarStringCPF(this.animais.get(rowIndex).getDono().getId());
+                if (this.animais.get(rowIndex).getDono().getTipoDocumento().equalsIgnoreCase("CPF")) {
+                    return MaskUtils.formatarStringCPF(this.animais.get(rowIndex).getDono().getCpfCnpj());
                 } else {
-                    return MaskUtils.formatarStringCNPJ(this.animais.get(rowIndex).getDono().getId());
+                    return MaskUtils.formatarStringCNPJ(this.animais.get(rowIndex).getDono().getCpfCnpj());
                 }
         }
         return null;
