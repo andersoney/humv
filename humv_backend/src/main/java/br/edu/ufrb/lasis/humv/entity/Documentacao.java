@@ -1,5 +1,6 @@
 package br.edu.ufrb.lasis.humv.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -8,7 +9,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Documentacao {
+public class Documentacao implements Serializable {
+	
+	private static final long serialVersionUID = -6125748157292589614L;
 	@Column
 	@Temporal(TemporalType.DATE)
 	private Date dataEntrega;
