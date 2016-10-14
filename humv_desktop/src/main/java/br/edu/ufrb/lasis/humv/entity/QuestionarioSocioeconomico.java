@@ -25,7 +25,7 @@ public class QuestionarioSocioeconomico implements Serializable {
     private String tipoConstrucao;
 
     private ArrayList<Parente> parentes;
-    private ArrayList<Animal> animais;
+    private ArrayList<AnimaisQuestionario> animais;
     private ArrayList<Documentacao> documentosEntregues;
     private double rendaPerCapta;
     private double rendaTotal;
@@ -277,11 +277,11 @@ public class QuestionarioSocioeconomico implements Serializable {
         this.parentes = parentes;
     }
 
-    public ArrayList<Animal> getAnimais() {
+    public ArrayList<AnimaisQuestionario> getAnimais() {
         return animais;
     }
 
-    public void setAnimais(ArrayList<Animal> animais) {
+    public void setAnimais(ArrayList<AnimaisQuestionario> animais) {
         this.animais = animais;
     }
 
