@@ -1,8 +1,14 @@
 package br.edu.ufrb.lasis.humv.view.questionario;
 
+import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.AnimaisQuestionario;
+import br.edu.ufrb.lasis.humv.entity.Documentacao;
 import br.edu.ufrb.lasis.humv.entity.Parente;
+import br.edu.ufrb.lasis.humv.entity.QuestionarioSocioeconomico;
+import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
+import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
+import com.sun.jersey.api.client.ClientResponse;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,17 +19,30 @@ import javax.swing.table.DefaultTableModel;
  * @author Luiz Toni
  */
 public class CadastrarQuestionarioJPanel extends javax.swing.JPanel {
+    private QuestionarioSocioeconomico questionario;
     private ArrayList<Parente> parentes = new ArrayList<Parente>();
     private ArrayList<AnimaisQuestionario> animais = new ArrayList<AnimaisQuestionario>();
+    private ArrayList<Documentacao> documentos = new ArrayList<Documentacao>();
+    private double rendaTotal = 0.0, rendaPerCapta = 0.0;
     
     public CadastrarQuestionarioJPanel() {
         initComponents();
     }
+    
+    public void customInitComponents(){
+        rbtnDsblInfoEstudanteActionPerformed(null);
+        rbtnConsultaValNormalActionPerformed(null);
+        rbtnExameValNormalActionPerformed(null);
+        rbtnCirurgiaValNormalActionPerformed(null);
+    }
 
+    public void addDocumento(Documentacao doc){
+        this.documentos.add(doc);
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        Date date = new Date();
+
         tpnlQuestionario = new javax.swing.JTabbedPane();
         pnlInfoPessoais = new javax.swing.JPanel();
         lblNome = new javax.swing.JLabel();
@@ -72,6 +91,8 @@ public class CadastrarQuestionarioJPanel extends javax.swing.JPanel {
         lblObservacoes = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtObservacoes = new javax.swing.JTextArea();
+        rbtnDsblInfoEstudante = new javax.swing.JRadioButton();
+        rbtnEnblInfoEstudante = new javax.swing.JRadioButton();
         lblProgramaRenda = new javax.swing.JLabel();
         txtProgramaRenda = new javax.swing.JTextField();
         pnlInfoFamiliares = new javax.swing.JPanel();
@@ -157,20 +178,27 @@ public class CadastrarQuestionarioJPanel extends javax.swing.JPanel {
         txtConclusoes = new javax.swing.JTextArea();
         jPanel13 = new javax.swing.JPanel();
         jLabel48 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        Date date = new Date();
+        dteComprovanteEndereco = new com.toedter.calendar.JDateChooser();
         jLabel49 = new javax.swing.JLabel();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        dteCopiaRg = new com.toedter.calendar.JDateChooser();
         jLabel50 = new javax.swing.JLabel();
-        jDateChooser3 = new com.toedter.calendar.JDateChooser();
+        dteCopiaBolsaFamilia = new com.toedter.calendar.JDateChooser();
         jLabel51 = new javax.swing.JLabel();
-        jDateChooser4 = new com.toedter.calendar.JDateChooser();
-        jButton6 = new javax.swing.JButton();
+        dteCopiaRgFamiliares = new com.toedter.calendar.JDateChooser();
+        btnAddDoc = new javax.swing.JButton();
         btnCadastrar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         lblTitulo = new javax.swing.JLabel();
         btnImprimir = new javax.swing.JButton();
 
         lblNome.setText("Nome:");
+
+        txtNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNomeActionPerformed(evt);
+            }
+        });
 
         lblNis.setText("NIS:");
 
@@ -212,6 +240,12 @@ public class CadastrarQuestionarioJPanel extends javax.swing.JPanel {
 
         pnlEstudantes.setBorder(javax.swing.BorderFactory.createTitledBorder("Aplicável somente à estudantes: "));
 
+        txtCondicoesMoradiaEstudante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCondicoesMoradiaEstudanteActionPerformed(evt);
+            }
+        });
+
         lblCondicoesMoradiaEstudante.setText("Condições de moradia na cidade:");
 
         lblValorGastos.setText("Valor dos gastos mensais R$:");
@@ -226,39 +260,62 @@ public class CadastrarQuestionarioJPanel extends javax.swing.JPanel {
         txtObservacoes.setRows(5);
         jScrollPane1.setViewportView(txtObservacoes);
 
+        rbtnDsblInfoEstudante.setText("Desabilitado");
+        rbtnDsblInfoEstudante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnDsblInfoEstudanteActionPerformed(evt);
+            }
+        });
+
+        rbtnEnblInfoEstudante.setText("Abilitado");
+        rbtnEnblInfoEstudante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnEnblInfoEstudanteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlEstudantesLayout = new javax.swing.GroupLayout(pnlEstudantes);
         pnlEstudantes.setLayout(pnlEstudantesLayout);
         pnlEstudantesLayout.setHorizontalGroup(
             pnlEstudantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlEstudantesLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEstudantesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlEstudantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlEstudantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlEstudantesLayout.createSequentialGroup()
-                        .addComponent(lblCondicoesMoradiaEstudante)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(rbtnEnblInfoEstudante)
                         .addGap(18, 18, 18)
-                        .addComponent(txtCondicoesMoradiaEstudante))
-                    .addGroup(pnlEstudantesLayout.createSequentialGroup()
-                        .addComponent(lblValorGastos)
+                        .addComponent(rbtnDsblInfoEstudante))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlEstudantesLayout.createSequentialGroup()
+                        .addGroup(pnlEstudantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblBolsa)
+                            .addComponent(lblObservacoes))
                         .addGap(18, 18, 18)
-                        .addComponent(txtValorGastos, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblFonteCusteio)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtFonteCusteio))
-                    .addGroup(pnlEstudantesLayout.createSequentialGroup()
-                        .addComponent(lblBolsa)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtBolsa))
-                    .addGroup(pnlEstudantesLayout.createSequentialGroup()
-                        .addComponent(lblObservacoes)
-                        .addGap(29, 29, 29)
-                        .addComponent(jScrollPane1)))
+                        .addGroup(pnlEstudantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtBolsa, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlEstudantesLayout.createSequentialGroup()
+                        .addGroup(pnlEstudantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblValorGastos)
+                            .addComponent(lblCondicoesMoradiaEstudante))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlEstudantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCondicoesMoradiaEstudante, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pnlEstudantesLayout.createSequentialGroup()
+                                .addComponent(txtValorGastos, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblFonteCusteio)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtFonteCusteio, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         pnlEstudantesLayout.setVerticalGroup(
             pnlEstudantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlEstudantesLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGroup(pnlEstudantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbtnDsblInfoEstudante)
+                    .addComponent(rbtnEnblInfoEstudante))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(pnlEstudantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCondicoesMoradiaEstudante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCondicoesMoradiaEstudante))
@@ -268,15 +325,15 @@ public class CadastrarQuestionarioJPanel extends javax.swing.JPanel {
                     .addComponent(txtValorGastos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFonteCusteio)
                     .addComponent(txtFonteCusteio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                .addGap(18, 18, 18)
                 .addGroup(pnlEstudantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblBolsa)
-                    .addComponent(txtBolsa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtBolsa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblBolsa))
                 .addGap(18, 18, 18)
                 .addGroup(pnlEstudantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblObservacoes)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblObservacoes))
+                .addContainerGap())
         );
 
         lblProgramaRenda.setText("Programa de transferência de renda:");
@@ -428,14 +485,20 @@ public class CadastrarQuestionarioJPanel extends javax.swing.JPanel {
                 .addGroup(pnlInfoPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblProgramaRenda)
                     .addComponent(txtProgramaRenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addComponent(pnlEstudantes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(pnlEstudantes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         tpnlQuestionario.addTab("Informações pessoais", pnlInfoPessoais);
 
         lblNomeFamiliar.setText("Nome:");
+
+        txtNomeFamiliar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNomeFamiliarActionPerformed(evt);
+            }
+        });
 
         lblParentesco.setText("Parentesco:");
 
@@ -449,10 +512,7 @@ public class CadastrarQuestionarioJPanel extends javax.swing.JPanel {
 
         tblFamiliares.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Nome", "Parentesco", "Renda R$"
@@ -652,6 +712,12 @@ public class CadastrarQuestionarioJPanel extends javax.swing.JPanel {
 
         lblNomeAnimal.setText("Nome:");
 
+        txtNomeAnimal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNomeAnimalActionPerformed(evt);
+            }
+        });
+
         lblEspecie.setText("Espécie:");
 
         lblSexo.setText("Sexo:");
@@ -744,10 +810,7 @@ public class CadastrarQuestionarioJPanel extends javax.swing.JPanel {
 
         tblAnimais.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Nome", "Espécie", "Sexo"
@@ -764,6 +827,11 @@ public class CadastrarQuestionarioJPanel extends javax.swing.JPanel {
         jScrollPane7.setViewportView(tblAnimais);
 
         btnDelAnimal.setText("Remover");
+        btnDelAnimal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelAnimalActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -806,7 +874,7 @@ public class CadastrarQuestionarioJPanel extends javax.swing.JPanel {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(235, Short.MAX_VALUE))
+                .addContainerGap(264, Short.MAX_VALUE))
         );
 
         tpnlQuestionario.addTab("Informações de animais", pnlInfoAnimais);
@@ -1018,7 +1086,7 @@ public class CadastrarQuestionarioJPanel extends javax.swing.JPanel {
                 .addComponent(pnlExames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlCirurgias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(152, Short.MAX_VALUE))
+                .addContainerGap(181, Short.MAX_VALUE))
         );
 
         tpnlQuestionario.addTab("Informações de cobrança", pnlInfoCobranca);
@@ -1045,21 +1113,26 @@ public class CadastrarQuestionarioJPanel extends javax.swing.JPanel {
 
         jLabel48.setText("Comprovante de endereço: ");
 
-        jDateChooser1.setDate(date);
+        dteComprovanteEndereco.setDate(date);
 
         jLabel49.setText("Copia do documento de identidade:");
 
-        jDateChooser2.setDate(date);
+        dteCopiaRg.setDate(date);
 
         jLabel50.setText("Copia do cartão Bolsa Família:");
 
-        jDateChooser3.setDate(date);
+        dteCopiaBolsaFamilia.setDate(date);
 
         jLabel51.setText("Copia dos documentos de identidade dos familiares: ");
 
-        jDateChooser4.setDate(date);
+        dteCopiaRgFamiliares.setDate(date);
 
-        jButton6.setText("Adicionar outro");
+        btnAddDoc.setText("Adicionar outro");
+        btnAddDoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddDocActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -1071,20 +1144,20 @@ public class CadastrarQuestionarioJPanel extends javax.swing.JPanel {
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addComponent(jLabel48)
                         .addGap(18, 18, 18)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(dteComprovanteEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addComponent(jLabel49)
                         .addGap(18, 18, 18)
-                        .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(dteCopiaRg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addComponent(jLabel50)
                         .addGap(18, 18, 18)
-                        .addComponent(jDateChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(dteCopiaBolsaFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addComponent(jLabel51)
                         .addGap(18, 18, 18)
-                        .addComponent(jDateChooser4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton6))
+                        .addComponent(dteCopiaRgFamiliares, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAddDoc))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
@@ -1092,22 +1165,22 @@ public class CadastrarQuestionarioJPanel extends javax.swing.JPanel {
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dteComprovanteEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel48))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel49)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dteCopiaRg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel50)
-                    .addComponent(jDateChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dteCopiaBolsaFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel51)
-                    .addComponent(jDateChooser4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dteCopiaRgFamiliares, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton6)
+                .addComponent(btnAddDoc)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1147,7 +1220,7 @@ public class CadastrarQuestionarioJPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         tpnlQuestionario.addTab("Adicionais", pnlAdicionais);
@@ -1160,6 +1233,11 @@ public class CadastrarQuestionarioJPanel extends javax.swing.JPanel {
         });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         lblTitulo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblTitulo.setText("Questionário Socioeconômico");
@@ -1190,8 +1268,8 @@ public class CadastrarQuestionarioJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(lblTitulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tpnlQuestionario, javax.swing.GroupLayout.PREFERRED_SIZE, 648, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tpnlQuestionario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar)
                     .addComponent(btnImprimir)
@@ -1207,145 +1285,231 @@ public class CadastrarQuestionarioJPanel extends javax.swing.JPanel {
             return;
         }
         String nome = this.txtNome.getText();
+        questionario.setNomeDono(nome);
         
         if (this.txtNome.getText().isEmpty()) {
             InterfaceGraficaUtils.validaCampoVazio("idade do cliente");
             return;
         }
         int idade = Integer.parseInt(this.txtIdade.getText());
+        questionario.setIdade(idade);
         
         if (this.txtCpf.getText().isEmpty()) {
             InterfaceGraficaUtils.validaCampoVazio("CPF do cliente");
             return;
         }
         BigInteger cpf = BigInteger.valueOf(Integer.parseInt(this.txtCpf.getText()));
+        questionario.setCpf(cpf);
         
         if (this.txtNis.getText().isEmpty()) {
             InterfaceGraficaUtils.validaCampoVazio("NIS do cliente");
             return;
         }
         BigInteger nis = BigInteger.valueOf(Integer.parseInt(this.txtNis.getText()));
+        questionario.setNis(nis);
         
         if (this.txtEndereco.getText().isEmpty()) {
             InterfaceGraficaUtils.validaCampoVazio("Endereço do cliente");
             return;
         }
         String endereco = this.txtIdade.getText();
+        questionario.setEndereco(endereco);
         
         if (this.txtTelefone.getText().isEmpty()) {
             InterfaceGraficaUtils.validaCampoVazio("Telefone do cliente");
             return;
         }
         String telefone = this.txtTelefone.getText();
+        questionario.setTelefone(telefone);
         
         String estadoCivil = cmbEstadoCivil.getName();
+        questionario.setEstadoCivil(estadoCivil);
         
         if (this.txtEscolaridade.getText().isEmpty()) {
             InterfaceGraficaUtils.validaCampoVazio("Escolaridade do cliente");
             return;
         }
         String escolaridade = this.txtEscolaridade.getText();
+        questionario.setEscolaridade(escolaridade);
         
         if (this.txtProfissao.getText().isEmpty()) {
             InterfaceGraficaUtils.validaCampoVazio("Profissão do cliente");
             return;
         }
         String profissao = this.txtProfissao.getText();
+        questionario.setProfissao(profissao);
         
         if (this.txtOcupacao.getText().isEmpty()) {
             InterfaceGraficaUtils.validaCampoVazio("Ocupação do cliente");
             return;
         }
         String ocupacao = this.txtOcupacao.getText();
+        questionario.setOcupacaoAtual(ocupacao);
         
         if (this.txtRendaFormal.getText().isEmpty()) {
             InterfaceGraficaUtils.validaCampoVazio("Renda formal do cliente");
             return;
         }
         double rendaFormal = Double.parseDouble(this.txtRendaFormal.getText());
+        questionario.setRendaFormal(rendaFormal);
         
         if (this.txtRendaInformal.getText().isEmpty()) {
             InterfaceGraficaUtils.validaCampoVazio("Renda informal do cliente");
             return;
         }
         double rendaInformal = Double.parseDouble(this.txtRendaInformal.getText());
+        questionario.setRendaInformal(rendaInformal);
         
         if (this.txtCondicaoMoradia.getText().isEmpty()) {
             InterfaceGraficaUtils.validaCampoVazio("Condição de moradia do cliente");
             return;
         }
         String condicaoMoradia = this.txtCondicaoMoradia.getText();
+        questionario.setCondicaoMoradia(condicaoMoradia);
         
         if (this.txtValorAluguel.getText().isEmpty()) {
             InterfaceGraficaUtils.validaCampoVazio("Valor do aluguel ou financiamento do cliente");
             return;
         }
         Double valorAluguel = Double.parseDouble(this.txtValorAluguel.getText());
+        questionario.setValorAluguel(valorAluguel);
         
         String saneamento = this.cmbSaneamento.getName();
+        if(saneamento.equalsIgnoreCase("sim"))
+            questionario.setTemSaneamento(true);
+        else
+            questionario.setTemSaneamento(false);
         
         String energia = this.cmbEnergia.getName();
+        if(energia.equalsIgnoreCase("sim"))
+            questionario.setTemEnergia(true);
+        else
+            questionario.setTemEnergia(false);
         
+        String programaRenda;
         if (this.txtProgramaRenda.getText().isEmpty()) {
-            String programaRenda = "não possui";
+            programaRenda = "não possui";
         }else{
-            String programaRenda = this.txtProgramaRenda.getText();
+            programaRenda = this.txtProgramaRenda.getText();
         }  
+        questionario.setProgramaRenda(programaRenda);
         
+        String condicoesMoradiaEstudante;
         if (this.txtCondicoesMoradiaEstudante.getText().isEmpty()) {
-            String condicoesMoradiaEstudante = "não se aplica";
+            condicoesMoradiaEstudante = "não se aplica";
         }else{
-            String condicoesMoradiaEstudante = this.txtCondicoesMoradiaEstudante.getText();
+            condicoesMoradiaEstudante = this.txtCondicoesMoradiaEstudante.getText();
         }
+        questionario.setCondicoesMoradiaEstudante(condicoesMoradiaEstudante);
         
+        double valorGastos;
         if(this.txtCondicoesMoradiaEstudante.getText().isEmpty()){
-            double valorGastos = 0;
+            valorGastos = 0;
         }else{
-            double valorGastos = Double.parseDouble(this.txtValorGastos.getText());
+            valorGastos = Double.parseDouble(this.txtValorGastos.getText());
         }
+        questionario.setValorGastos(valorGastos);
         
+        String fonteCusteio;
         if (this.txtFonteCusteio.getText().isEmpty()) {
-            String fonteCusteio = "não se aplica";
+            fonteCusteio = "não se aplica";
         }else{
-            String fonteCusteio = this.txtFonteCusteio.getText();
+            fonteCusteio = this.txtFonteCusteio.getText();
         }
+        questionario.setFonteCusteio(fonteCusteio);
         
+        String bolsa;
         if (this.txtBolsa.getText().isEmpty()) {
-            String bolsa = "não se aplica";
+            bolsa = "não se aplica";
         }else{
-            String bolsa = this.txtBolsa.getText();
+            bolsa = this.txtBolsa.getText();
         }
+        questionario.setBolsa(bolsa);
         
+        String observacoes;
         if (this.txtObservacoes.getText().isEmpty()) {
-            String observacoes = "não se aplica";
+            observacoes = "não se aplica";
         }else{
-            String observacoes = this.txtObservacoes.getText();
+            observacoes = this.txtObservacoes.getText();
         }
+        questionario.setObservacoes(observacoes);
     }
     
+    private void txtNomeAnimalActionPerformed(java.awt.event.ActionEvent evt){ }
+    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt){}
+    private void txtNomeFamiliarActionPerformed(java.awt.event.ActionEvent evt){}
+    
     private void validaInfoAdicionais(){
+        String historicoFamilia;
         if (this.txtHistoricoFamilia.getText().isEmpty()) {
-            String historicoFamilia = "";
+            historicoFamilia = "";
         }else{
-            String historicoFamilia = this.txtHistoricoFamilia.getText();
+            historicoFamilia = this.txtHistoricoFamilia.getText();
         }
+        questionario.setHistoricoFamiliar(historicoFamilia);
         
+        String orientacoes;
         if (this.txtOrientacoes.getText().isEmpty()) {
-            String orientacoes = "";
+            orientacoes = "";
         }else{
-            String orientacoes = this.txtOrientacoes.getText();
+            orientacoes = this.txtOrientacoes.getText();
         }
+        questionario.setOrientacoes(orientacoes);
         
+        String conclusoes;
         if (this.txtConclusoes.getText().isEmpty()) {
-            String conclusoes = "";
+            conclusoes = "";
         }else{
-            String conclusoes = this.txtConclusoes.getText();
+            conclusoes = this.txtConclusoes.getText();
         }
+        questionario.setConclusoes(conclusoes);
     } 
     
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         validaInfoPessoais();
         validaInfoFamiliares();
+        validaInfoAdicionais();
+        
+        Documentacao d1 = new Documentacao();
+        Documentacao d2 = new Documentacao();
+        Documentacao d3 = new Documentacao();
+        Documentacao d4 = new Documentacao();
+        
+        d1.setNomeDocumento("Comprovante de endereço");
+        d1.setDataEntrega(dteComprovanteEndereco.getDate());
+        
+        d2.setNomeDocumento("Copia da identidade");
+        d2.setDataEntrega(dteCopiaRg.getDate());
+        
+        d3.setNomeDocumento("Copia do cartão Bolsa Família");
+        d3.setDataEntrega(dteCopiaBolsaFamilia.getDate());
+        
+        d4.setNomeDocumento("Copia dos documentos de identidade dos familiares ");
+        d4.setDataEntrega(dteCopiaRgFamiliares.getDate());
+        
+        documentos.add(d1);
+        documentos.add(d2);
+        documentos.add(d3);
+        documentos.add(d4);
+        
+        questionario.setDocumentosEntregues(documentos);
+        questionario.setAnimais(animais);
+        questionario.setParentes(parentes);
+        
+        try {
+            ClientResponse response;
+            response = RESTMethods.post("/api/questionario", questionario);
+            String resposta = response.getEntity(String.class);
+            if (!resposta.equalsIgnoreCase("ok")) {
+                InterfaceGraficaUtils.erroResposta(resposta);
+            } else {
+                InterfaceGraficaUtils.sucessoCadastro("questionário socioeconômico");
+
+            }
+        } catch (RESTConnectionException ex) {
+            InterfaceGraficaUtils.erroConexao();
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnAddFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFamiliarActionPerformed
@@ -1533,6 +1697,47 @@ public class CadastrarQuestionarioJPanel extends javax.swing.JPanel {
         rbtnCirurgiaIsencao.setSelected(false);
         txtCirurgiaDesconto.setVisible(true);
     }//GEN-LAST:event_rbtnCirurgiaDescontoActionPerformed
+
+    private void rbtnEnblInfoEstudanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnEnblInfoEstudanteActionPerformed
+        rbtnDsblInfoEstudante.setSelected(false);
+        txtCondicoesMoradiaEstudante.setEnabled(true);
+        txtValorGastos.setEnabled(true);
+        txtFonteCusteio.setEnabled(true);
+        txtBolsa.setEnabled(true);
+        txtObservacoes.setEnabled(true);
+    }//GEN-LAST:event_rbtnEnblInfoEstudanteActionPerformed
+
+    private void txtCondicoesMoradiaEstudanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCondicoesMoradiaEstudanteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCondicoesMoradiaEstudanteActionPerformed
+
+    private void rbtnDsblInfoEstudanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnDsblInfoEstudanteActionPerformed
+        rbtnEnblInfoEstudante.setSelected(false);
+        txtCondicoesMoradiaEstudante.setEnabled(false);
+        txtValorGastos.setEnabled(false);
+        txtFonteCusteio.setEnabled(false);
+        txtBolsa.setEnabled(false);
+        txtObservacoes.setEnabled(false);
+    }//GEN-LAST:event_rbtnDsblInfoEstudanteActionPerformed
+
+    private void btnDelAnimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelAnimalActionPerformed
+        animais.remove(tblAnimais.getSelectedRow());
+        ((DefaultTableModel) tblAnimais.getModel()).removeRow(tblAnimais.getSelectedRow());
+    }//GEN-LAST:event_btnDelAnimalActionPerformed
+
+    private void btnAddDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddDocActionPerformed
+       new AdicionarDocumentoJPanel(this).setVisible(true);
+    }//GEN-LAST:event_btnAddDocActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        boolean sair = InterfaceGraficaUtils.dialogoCancelar("o cadastro", "questionário socioeconômico");
+        if (sair) {
+            HUMVApp.exibirMensagemCarregamento();
+            HUMVApp.setPainelCentralComLogo();
+            HUMVApp.esconderMensagemCarregamento();
+        }
+
+    }//GEN-LAST:event_btnCancelarActionPerformed
     
     private void atualizaTabelaAnimais(){
         String colunas[] ={"Nome","Espécie","Sexo"}; 
@@ -1572,8 +1777,7 @@ public class CadastrarQuestionarioJPanel extends javax.swing.JPanel {
         tblFamiliares.setModel(model);
     }
     
-    private void atualizaCalculoRenda(){
-        double rendaTotal = 0.0, rendaPerCapta = 0.0;
+    private void atualizaCalculoRenda(){      
         int qtdParentes=0;
         for(Parente parente:parentes){
             rendaTotal += parente.getRenda();
@@ -1585,36 +1789,42 @@ public class CadastrarQuestionarioJPanel extends javax.swing.JPanel {
     }
     
     private void validaInfoFamiliares(){
+        String fatoresRiscos;
         if (this.txtFatoresRiscos.getText().isEmpty()) {
-            String fatoresRiscos = "inexistentes";
+            fatoresRiscos = "inexistentes";
         }else{
-            String fatoresRiscos = this.txtFatoresRiscos.getText();
+            fatoresRiscos = this.txtFatoresRiscos.getText();
         }
+        questionario.setRiscosSociais(fatoresRiscos);
         
+        String bens;
         if (this.txtBens.getText().isEmpty()) {
-            String bens = "inexistentes";
-            
+            bens = "inexistentes";
         }else{
-            String bens = this.txtBens.getText();
+            bens = this.txtBens.getText();
         }
+        questionario.setBensFamiliares(bens);
         
         if (this.txtSituacoesRiscoRenda.getText().isEmpty()) {
             InterfaceGraficaUtils.validaCampoVazio("Situações que comprometam a renda familiar ");
             return;    
-        }else{
-            String situacoesRiscoRenda = this.txtSituacoesRiscoRenda.getText();
         }
+        String situacoesRiscoRenda = this.txtSituacoesRiscoRenda.getText();
+        questionario.setSituacoesRiscoRenda(situacoesRiscoRenda);
         
         if (this.txtMotivosNaoCusteio.getText().isEmpty()) {
             InterfaceGraficaUtils.validaCampoVazio("Motivos que impossibilitam o custeio do tartamento do animal");
             return;    
-        }else{
-            String motivosNaoCusteio = this.txtMotivosNaoCusteio.getText();
         }
+        String motivosNaoCusteio = this.txtMotivosNaoCusteio.getText();
+        questionario.setImpossibilidadesCusteio(motivosNaoCusteio);
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddAnimal;
+    private javax.swing.JButton btnAddDoc;
     private javax.swing.JButton btnAddFamiliar;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCancelar;
@@ -1624,11 +1834,10 @@ public class CadastrarQuestionarioJPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cmbEstadoCivil;
     private javax.swing.JComboBox<String> cmbSaneamento;
     private javax.swing.JComboBox<String> cmbSexo;
-    private javax.swing.JButton jButton6;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
-    private com.toedter.calendar.JDateChooser jDateChooser3;
-    private com.toedter.calendar.JDateChooser jDateChooser4;
+    private com.toedter.calendar.JDateChooser dteComprovanteEndereco;
+    private com.toedter.calendar.JDateChooser dteCopiaBolsaFamilia;
+    private com.toedter.calendar.JDateChooser dteCopiaRg;
+    private com.toedter.calendar.JDateChooser dteCopiaRgFamiliares;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
@@ -1711,6 +1920,8 @@ public class CadastrarQuestionarioJPanel extends javax.swing.JPanel {
     private javax.swing.JRadioButton rbtnConsultaIsencao;
     private javax.swing.JRadioButton rbtnConsultaValAula;
     private javax.swing.JRadioButton rbtnConsultaValNormal;
+    private javax.swing.JRadioButton rbtnDsblInfoEstudante;
+    private javax.swing.JRadioButton rbtnEnblInfoEstudante;
     private javax.swing.JRadioButton rbtnExameDesconto;
     private javax.swing.JRadioButton rbtnExameIsencao;
     private javax.swing.JRadioButton rbtnExameValAula;

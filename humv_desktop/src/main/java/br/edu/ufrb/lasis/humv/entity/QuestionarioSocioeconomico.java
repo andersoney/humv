@@ -1,6 +1,7 @@
 package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class QuestionarioSocioeconomico implements Serializable {
@@ -8,12 +9,14 @@ public class QuestionarioSocioeconomico implements Serializable {
     private static final long serialVersionUID = -4309147069247595796L;
 
     private int idQuestionario;
-
-    private Dono dono;
     private String nomeDono;
     private String estadoCivil;
+    private String endereco;
+    private String telefone;
     private int idade;
-    private int nis;
+    private BigInteger nis;
+    private BigInteger cpf;
+    private String escolaridade;
     private String profissao;
     private String ocupacaoAtual;
     private double rendaFormal;
@@ -23,17 +26,30 @@ public class QuestionarioSocioeconomico implements Serializable {
     private String condicaoMoradia;
     private double valorAluguel;
     private String tipoConstrucao;
-
+    private String programaRenda; // Ex.: Bolsa Familia
+    private String situacoesRiscoRenda;
+    private String historicoFamiliar;
+    
+    //_______________________________ Somente para estudantes________________________________
+    private String condicoesMoradiaEstudante;
+    private double valorGastos;
+    private String fonteCusteio;
+    private String bolsa; 
+    //_______________________________________________________________________________________
+    
     private ArrayList<Parente> parentes;
     private ArrayList<AnimaisQuestionario> animais;
+    
     private ArrayList<Documentacao> documentosEntregues;
+    
     private double rendaPerCapta;
     private double rendaTotal;
     private String impossibilidadesCusteio;
     private String bensFamiliares;
     private String riscosSociais;
     private String emprestimos;
-
+    
+    private String orientacoes;
     private String breveResumo;
     private String conclusoes;
     private String observacoes;
@@ -44,7 +60,53 @@ public class QuestionarioSocioeconomico implements Serializable {
     private double valorDescontoExames;
     private double valorDescontoCirurgias;
     private double valorDescontoConsultas;
-
+    
+    public void setOrientacoes(String orientacoes){
+        this.orientacoes = orientacoes;
+    }
+    
+    public void setHistoricoFamiliar(String historicoFamiliar){
+        this.historicoFamiliar = historicoFamiliar;
+    }
+    
+    public void setSituacoesRiscoRenda(String situacoesRiscoRenda){
+        this.situacoesRiscoRenda = situacoesRiscoRenda;
+    }
+    
+    public void setBolsa(String bolsa){
+        this.bolsa = bolsa;
+    }
+    
+    public void setValorGastos(double valorGastos){
+        this.valorGastos = valorGastos;
+    }
+    
+    public void setFonteCusteio(String fonteCusteio){
+        this.fonteCusteio = fonteCusteio;
+    }
+    
+    public void setCondicoesMoradiaEstudante(String condicoesMoradiaEstudante){
+        this.condicoesMoradiaEstudante = condicoesMoradiaEstudante;
+    }
+    
+    public void setProgramaRenda(String programaRenda){
+        this.programaRenda = programaRenda;
+    }
+    
+    public void setTelefone(String telefone){
+        this.telefone = telefone;
+    }
+    public void setEscolaridade(String escolaridade){
+        this.escolaridade = escolaridade;
+    }
+    public void setEndereco(String endereco){
+        this.endereco = endereco;
+    }
+    
+    public void setCpf(BigInteger cpf){
+        this.cpf = cpf;
+    }
+    
     public String getNomeDono() {
         return nomeDono;
     }
@@ -165,14 +227,6 @@ public class QuestionarioSocioeconomico implements Serializable {
         this.emprestimos = emprestimos;
     }
 
-    public Dono getDono() {
-        return dono;
-    }
-
-    public void setDono(Dono dono) {
-        this.dono = dono;
-    }
-
     public String getEstadoCivil() {
         return estadoCivil;
     }
@@ -189,11 +243,11 @@ public class QuestionarioSocioeconomico implements Serializable {
         this.idade = idade;
     }
 
-    public int getNis() {
+    public BigInteger getNis() {
         return nis;
     }
 
-    public void setNis(int nis) {
+    public void setNis(BigInteger nis) {
         this.nis = nis;
     }
 
