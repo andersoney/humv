@@ -32,7 +32,7 @@ import javax.persistence.TemporalType;
 @Table(name="ANIMAIS")
 public class Animal implements Serializable{
 	
-	private static final long serialVersionUID = -4309147069247595796L;
+	private static final long serialVersionUID = -4309147069247595790L;
 	
 	@Id
 	@GeneratedValue
