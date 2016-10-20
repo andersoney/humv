@@ -1,7 +1,8 @@
 package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+//import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -38,12 +39,12 @@ public class QuestionarioSocioeconomico implements Serializable {
 	private String tipoConstrucao;
 	
 	
-	@OneToMany(cascade=CascadeType.ALL)
-	private ArrayList<Parente> parentes;
-	@OneToMany(cascade=CascadeType.ALL)
-	private ArrayList<Animal> animais;
-	@OneToMany(cascade=CascadeType.ALL)
-	private ArrayList<Documentacao> documentosEntregues;
+	@OneToMany( mappedBy = "id", cascade=CascadeType.ALL)
+	private List<Parente> parentes;
+	@OneToMany( mappedBy = "rghumv", cascade=CascadeType.ALL)
+	private List<Animal> animais;
+	@OneToMany( mappedBy = "id", cascade=CascadeType.ALL)
+	private List<Documentacao> documentosEntregues;
 	private double rendaPerCapta;
 	private double rendaTotal;
 	private String impossibilidadesCusteio;
@@ -232,16 +233,16 @@ public class QuestionarioSocioeconomico implements Serializable {
 	public void setTipoConstrucao(String tipoConstrucao) {
 		this.tipoConstrucao = tipoConstrucao;
 	}
-	public ArrayList<Parente> getParentes() {
+	public List<Parente> getParentes() {
 		return parentes;
 	}
-	public void setParentes(ArrayList<Parente> parentes) {
+	public void setParentes(List<Parente> parentes) {
 		this.parentes = parentes;
 	}
-	public ArrayList<Animal> getAnimais() {
+	public List<Animal> getAnimais() {
 		return animais;
 	}
-	public void setAnimais(ArrayList<Animal> animais) {
+	public void setAnimais(List<Animal> animais) {
 		this.animais = animais;
 	}
 	public double getRendaPerCapta() {
@@ -256,10 +257,10 @@ public class QuestionarioSocioeconomico implements Serializable {
 	public void setRendaTotal(double rendaTotal) {
 		this.rendaTotal = rendaTotal;
 	}
-	public ArrayList<Documentacao> getDocumentosEntregues() {
+	public List<Documentacao> getDocumentosEntregues() {
 		return documentosEntregues;
 	}
-	public void setDocumentosEntregues(ArrayList<Documentacao> documentosEntregues) {
+	public void setDocumentosEntregues(List<Documentacao> documentosEntregues) {
 		this.documentosEntregues = documentosEntregues;
 	} 
 }
