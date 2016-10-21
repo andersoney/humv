@@ -1,11 +1,19 @@
 package br.edu.ufrb.lasis.humv.view.questionario;
 
+import br.edu.ufrb.lasis.humv.entity.QuestionarioSocioeconomico;
+import br.edu.ufrb.lasis.humv.entity.Parente;
+import br.edu.ufrb.lasis.humv.entity.Animal;
+import br.edu.ufrb.lasis.humv.entity.Documentacao;
+import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author tassiovale
  */
 public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
-
+    private double rendaPerCapta = 0, rendaTotal = 0; 
+    private List<Parente> parentes;
     /**
      * Creates new form QuestionarioSocioEconomicoJPanel
      */
@@ -81,38 +89,6 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jTextFieldBeneficio = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaObservacoes = new javax.swing.JTextArea();
-        jPanelComposicaoFamiliar = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        jFormattedIdadeFamilia = new javax.swing.JFormattedTextField();
-        jFormattedRendaMembroFamilia = new javax.swing.JFormattedTextField();
-        jTextFieldFamiliaNome = new javax.swing.JTextField();
-        jTextFieldParentesco = new javax.swing.JTextField();
-        jTextFieldFamiliaOcupacao = new javax.swing.JTextField();
-        jButtonSalvar = new javax.swing.JButton();
-        jButtonRemover = new javax.swing.JButton();
-        jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
-        jLabelFamiliaRendaTotal = new javax.swing.JLabel();
-        jLabelFamiliaRendaPerCapita = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
-        jTextFieldFatoresDeclarados = new javax.swing.JTextField();
-        jLabel28 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTextAreaBemMaterial = new javax.swing.JTextArea();
-        jLabel29 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTextAreaDividas = new javax.swing.JTextArea();
-        jLabel30 = new javax.swing.JLabel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jTextAreaMotivos = new javax.swing.JTextArea();
         jPanelDocumentos = new javax.swing.JPanel();
         jLabel31 = new javax.swing.JLabel();
         jTextFieldDocumento = new javax.swing.JTextField();
@@ -164,6 +140,38 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jRadioButtonCirurgiaDesconto = new javax.swing.JRadioButton();
         jFormattedTextFieldCirurgia = new javax.swing.JFormattedTextField();
         jLabel44 = new javax.swing.JLabel();
+        jPanelComposicaoFamiliar = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableFamiliares = new javax.swing.JTable();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jComboBoxEscolaridadeFamliar = new javax.swing.JComboBox<>();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jFormattedIdadeFamilia = new javax.swing.JFormattedTextField();
+        jFormattedRendaMembroFamilia = new javax.swing.JFormattedTextField();
+        jTextFieldFamiliaNome = new javax.swing.JTextField();
+        jTextFieldParentesco = new javax.swing.JTextField();
+        jTextFieldFamiliaOcupacao = new javax.swing.JTextField();
+        jButtonSalvar = new javax.swing.JButton();
+        jButtonRemover = new javax.swing.JButton();
+        jLabelRendaTotal = new javax.swing.JLabel();
+        jLabelRendaPerCapta = new javax.swing.JLabel();
+        jLabelFamiliaRendaTotal = new javax.swing.JLabel();
+        jLabelFamiliaRendaPerCapita = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jTextFieldFatoresDeclarados = new javax.swing.JTextField();
+        jLabel28 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextAreaBemMaterial = new javax.swing.JTextArea();
+        jLabel29 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextAreaDividas = new javax.swing.JTextArea();
+        jLabel30 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTextAreaMotivos = new javax.swing.JTextArea();
         jButtonQuestionarioCancelar = new javax.swing.JButton();
         jButtonQuestionarioSalvar = new javax.swing.JButton();
 
@@ -294,12 +302,13 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel4)
                     .addComponent(jTextFieldProfissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelAdicionaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
+                .addGroup(jPanelAdicionaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelAdicionaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextFieldOcupacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelAdicionaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(jTextFieldOcupacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -404,12 +413,13 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel10)
                     .addComponent(jTextFieldTipoConstrucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelMateriaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jFormattedTextFieldRendaInformal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelMateriaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelMateriaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel8)
-                        .addComponent(jTextFieldCondicaoMoradia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextFieldCondicaoMoradia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelMateriaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel7)
+                        .addComponent(jFormattedTextFieldRendaInformal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelMateriaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
@@ -536,209 +546,6 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         );
 
         jTabbedPane1.addTab("Dados do dono", jPanelDadosDono);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable1);
-
-        jLabel14.setText("Nome:");
-
-        jLabel15.setText("Idade:");
-
-        jLabel16.setText("Parentesco:");
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fundamental incompleto", "Fundamental completo", "Médio incompleto", "Médio completo", "Superior incompleto", "Superior completo", "Pós-graduação incompleta", "Pós-graduação completa" }));
-
-        jLabel17.setText("Escolaridade:");
-
-        jLabel23.setText("Ocupação:");
-
-        jLabel24.setText("Renda (R$):");
-
-        jFormattedIdadeFamilia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
-
-        jFormattedRendaMembroFamilia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
-
-        jButtonSalvar.setIcon(new javax.swing.ImageIcon("imagens/small_salvar.png"));
-        jButtonSalvar.setText("Salvar");
-        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSalvarActionPerformed(evt);
-            }
-        });
-
-        jButtonRemover.setIcon(new javax.swing.ImageIcon("imagens/small_cancelar.png"));
-        jButtonRemover.setText("Remover");
-        jButtonRemover.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRemoverActionPerformed(evt);
-            }
-        });
-
-        jLabel25.setText("Renda total (R$):");
-
-        jLabel26.setText("Renda per capita (R$):");
-
-        jLabelFamiliaRendaTotal.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-
-        jLabelFamiliaRendaPerCapita.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-
-        jLabel27.setText("Fatores de risco social declarados:");
-
-        jLabel28.setText("A família possui algum bem material (casa, carro, etc.)? Qual?");
-
-        jTextAreaBemMaterial.setColumns(20);
-        jTextAreaBemMaterial.setRows(5);
-        jScrollPane3.setViewportView(jTextAreaBemMaterial);
-
-        jLabel29.setText("A família possui dívidas com banco/empréstimos ou outra situação que comprometa a renda familiar?");
-
-        jTextAreaDividas.setColumns(20);
-        jTextAreaDividas.setRows(5);
-        jScrollPane4.setViewportView(jTextAreaDividas);
-
-        jLabel30.setText("Quais os principais motivos que impossibilitam custear o tratamento do animal?");
-
-        jTextAreaMotivos.setColumns(20);
-        jTextAreaMotivos.setRows(5);
-        jScrollPane5.setViewportView(jTextAreaMotivos);
-
-        javax.swing.GroupLayout jPanelComposicaoFamiliarLayout = new javax.swing.GroupLayout(jPanelComposicaoFamiliar);
-        jPanelComposicaoFamiliar.setLayout(jPanelComposicaoFamiliarLayout);
-        jPanelComposicaoFamiliarLayout.setHorizontalGroup(
-            jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
-                        .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2)
-                            .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldFamiliaNome)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel16)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldParentesco, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())
-                    .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
-                        .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
-                                .addComponent(jLabel23)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldFamiliaOcupacao))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelComposicaoFamiliarLayout.createSequentialGroup()
-                                .addComponent(jLabel17)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel15)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jFormattedIdadeFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel24)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jFormattedRendaMembroFamilia)
-                                .addGap(6, 6, 6))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelComposicaoFamiliarLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButtonRemover)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())))
-                    .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
-                        .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
-                                .addComponent(jLabel25)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabelFamiliaRendaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel26)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabelFamiliaRendaPerCapita, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
-                                .addComponent(jLabel27)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldFatoresDeclarados)))
-                        .addGap(6, 6, 6))
-                    .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
-                        .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel28)
-                            .addComponent(jLabel29)
-                            .addComponent(jLabel30))
-                        .addGap(0, 70, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelComposicaoFamiliarLayout.createSequentialGroup()
-                        .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3))
-                        .addContainerGap())))
-        );
-        jPanelComposicaoFamiliarLayout.setVerticalGroup(
-            jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelComposicaoFamiliarLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(jTextFieldFamiliaNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16)
-                    .addComponent(jTextFieldParentesco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15)
-                    .addComponent(jFormattedIdadeFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel24)
-                    .addComponent(jFormattedRendaMembroFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel23)
-                    .addComponent(jTextFieldFamiliaOcupacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonRemover)
-                    .addComponent(jButtonSalvar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel25)
-                        .addComponent(jLabel26)
-                        .addComponent(jLabelFamiliaRendaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabelFamiliaRendaPerCapita, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel27)
-                    .addComponent(jTextFieldFatoresDeclarados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel28)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel29)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel30)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Composição familiar", jPanelComposicaoFamiliar);
 
         jLabel31.setText("Documento:");
 
@@ -1105,6 +912,209 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Cobrança", Cobranca);
 
+        jTableFamiliares.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTableFamiliares);
+
+        jLabel14.setText("Nome:");
+
+        jLabel15.setText("Idade:");
+
+        jLabel16.setText("Parentesco:");
+
+        jComboBoxEscolaridadeFamliar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fundamental incompleto", "Fundamental completo", "Médio incompleto", "Médio completo", "Superior incompleto", "Superior completo", "Pós-graduação incompleta", "Pós-graduação completa" }));
+
+        jLabel17.setText("Escolaridade:");
+
+        jLabel23.setText("Ocupação:");
+
+        jLabel24.setText("Renda (R$):");
+
+        jFormattedIdadeFamilia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+
+        jFormattedRendaMembroFamilia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
+
+        jButtonSalvar.setIcon(new javax.swing.ImageIcon("imagens/small_salvar.png"));
+        jButtonSalvar.setText("Salvar");
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalvarActionPerformed(evt);
+            }
+        });
+
+        jButtonRemover.setIcon(new javax.swing.ImageIcon("imagens/small_cancelar.png"));
+        jButtonRemover.setText("Remover");
+        jButtonRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRemoverActionPerformed(evt);
+            }
+        });
+
+        jLabelRendaTotal.setText("Renda total (R$):");
+
+        jLabelRendaPerCapta.setText("Renda per capita (R$):");
+
+        jLabelFamiliaRendaTotal.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+
+        jLabelFamiliaRendaPerCapita.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+
+        jLabel27.setText("Fatores de risco social declarados:");
+
+        jLabel28.setText("A família possui algum bem material (casa, carro, etc.)? Qual?");
+
+        jTextAreaBemMaterial.setColumns(20);
+        jTextAreaBemMaterial.setRows(5);
+        jScrollPane3.setViewportView(jTextAreaBemMaterial);
+
+        jLabel29.setText("A família possui dívidas com banco/empréstimos ou outra situação que comprometa a renda familiar?");
+
+        jTextAreaDividas.setColumns(20);
+        jTextAreaDividas.setRows(5);
+        jScrollPane4.setViewportView(jTextAreaDividas);
+
+        jLabel30.setText("Quais os principais motivos que impossibilitam custear o tratamento do animal?");
+
+        jTextAreaMotivos.setColumns(20);
+        jTextAreaMotivos.setRows(5);
+        jScrollPane5.setViewportView(jTextAreaMotivos);
+
+        javax.swing.GroupLayout jPanelComposicaoFamiliarLayout = new javax.swing.GroupLayout(jPanelComposicaoFamiliar);
+        jPanelComposicaoFamiliar.setLayout(jPanelComposicaoFamiliarLayout);
+        jPanelComposicaoFamiliarLayout.setHorizontalGroup(
+            jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
+                        .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2)
+                            .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldFamiliaNome)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldParentesco, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())
+                    .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
+                        .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
+                                .addComponent(jLabel23)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldFamiliaOcupacao))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelComposicaoFamiliarLayout.createSequentialGroup()
+                                .addComponent(jLabel17)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBoxEscolaridadeFamliar, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jFormattedIdadeFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel24)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jFormattedRendaMembroFamilia)
+                                .addGap(6, 6, 6))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelComposicaoFamiliarLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonRemover)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())))
+                    .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
+                        .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
+                                .addComponent(jLabelRendaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabelFamiliaRendaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabelRendaPerCapta, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabelFamiliaRendaPerCapita, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 125, Short.MAX_VALUE))
+                            .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
+                                .addComponent(jLabel27)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldFatoresDeclarados)))
+                        .addGap(6, 6, 6))
+                    .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
+                        .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel28)
+                            .addComponent(jLabel29)
+                            .addComponent(jLabel30))
+                        .addGap(0, 70, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelComposicaoFamiliarLayout.createSequentialGroup()
+                        .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3))
+                        .addContainerGap())))
+        );
+        jPanelComposicaoFamiliarLayout.setVerticalGroup(
+            jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelComposicaoFamiliarLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(jTextFieldFamiliaNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16)
+                    .addComponent(jTextFieldParentesco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(jComboBoxEscolaridadeFamliar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15)
+                    .addComponent(jFormattedIdadeFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel24)
+                    .addComponent(jFormattedRendaMembroFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel23)
+                    .addComponent(jTextFieldFamiliaOcupacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonRemover)
+                    .addComponent(jButtonSalvar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabelRendaTotal)
+                        .addComponent(jLabelRendaPerCapta)
+                        .addComponent(jLabelFamiliaRendaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelFamiliaRendaPerCapita, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel27)
+                    .addComponent(jTextFieldFatoresDeclarados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Composição familiar", jPanelComposicaoFamiliar);
+
         jButtonQuestionarioCancelar.setIcon(new javax.swing.ImageIcon("imagens/small_cancelar.png"));
         jButtonQuestionarioCancelar.setText("Cancelar");
         jButtonQuestionarioCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -1165,14 +1175,6 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButtonEnergiaNaoActionPerformed
 
-    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        
-    }//GEN-LAST:event_jButtonSalvarActionPerformed
-
-    private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
-        
-    }//GEN-LAST:event_jButtonRemoverActionPerformed
-
     private void jButtonDocumentoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDocumentoSalvarActionPerformed
         
     }//GEN-LAST:event_jButtonDocumentoSalvarActionPerformed
@@ -1217,6 +1219,57 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jButtonQuestionarioSalvarActionPerformed
 
+    private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
+
+    }//GEN-LAST:event_jButtonRemoverActionPerformed
+
+    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+        Parente parente = new Parente();
+
+        if (this.jTextFieldFamiliaNome.getText().isEmpty()) {
+            InterfaceGraficaUtils.validaCampoVazio("Nome do familiar");
+            return;
+        }
+        String nome = this.jTextFieldFamiliaNome.getText();
+        parente.setNome(nome);
+
+        if (this.jFormattedIdadeFamilia.getText().isEmpty()) {
+            InterfaceGraficaUtils.validaCampoVazio("Idade do familiar");
+            return;
+        }
+        int idade = Integer.parseInt(this.jFormattedIdadeFamilia.getText());
+        parente.setIdade(idade);
+
+        if (this.jTextFieldParentesco.getText().isEmpty()) {
+            InterfaceGraficaUtils.validaCampoVazio("Parentesco do familiar");
+            return;
+        }
+        String parentesco = this.jTextFieldParentesco.getText();
+        parente.setParentesco(parentesco);
+
+        int escolaridade = this.jComboBoxEscolaridadeFamliar.getSelectedIndex();
+        parente.setEscolaridade(escolaridade);
+
+        if (this.jTextFieldFamiliaOcupacao.getText().isEmpty()) {
+            InterfaceGraficaUtils.validaCampoVazio("Ocupação do familiar");
+            return;
+        }
+        String ocupacao = this.jTextFieldFamiliaOcupacao.getText();
+        parente.setOcupacao(ocupacao);
+
+        if (this.jFormattedRendaMembroFamilia.getText().isEmpty()) {
+            InterfaceGraficaUtils.validaCampoVazio("Renda do familiar");
+            return;
+        }
+        double renda = Double.parseDouble(this.jFormattedRendaMembroFamilia.getText());
+        parente.setRenda(renda);
+
+        parentes.add(parente);
+        limparTextfieldsInfoFamiliar();
+        atualizaTabelaFamiliares();
+        atualizaCalculoRenda();
+    }//GEN-LAST:event_jButtonSalvarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Cobranca;
@@ -1239,7 +1292,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     private javax.swing.JCheckBox jCheckBoxNA;
     private javax.swing.JCheckBox jCheckBoxVistoASocial;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBoxEscolaridadeFamliar;
     private javax.swing.JComboBox<String> jComboBoxEstadoCivil;
     private javax.swing.JFormattedTextField jFormattedIdadeFamilia;
     private javax.swing.JFormattedTextField jFormattedRendaMembroFamilia;
@@ -1268,8 +1321,6 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
@@ -1300,6 +1351,8 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabelFamiliaRendaPerCapita;
     private javax.swing.JLabel jLabelFamiliaRendaTotal;
     private javax.swing.JLabel jLabelNomeDono;
+    private javax.swing.JLabel jLabelRendaPerCapta;
+    private javax.swing.JLabel jLabelRendaTotal;
     private javax.swing.JLabel jLabelTelefone;
     private javax.swing.JPanel jPanelAdicionais;
     private javax.swing.JPanel jPanelAnalise;
@@ -1342,8 +1395,8 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTableFamiliares;
     private javax.swing.JTextArea jTextAreaBemMaterial;
     private javax.swing.JTextArea jTextAreaConclusoes;
     private javax.swing.JTextArea jTextAreaDividas;
@@ -1364,4 +1417,33 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField jTextFieldProgramaRenda;
     private javax.swing.JTextField jTextFieldTipoConstrucao;
     // End of variables declaration//GEN-END:variables
+
+    private void limparTextfieldsInfoFamiliar() {
+        this.jTextFieldFamiliaNome.setText(null);
+        this.jFormattedIdadeFamilia.setText(null);
+        this.jTextFieldParentesco.setText(null);
+        this.jTextFieldFamiliaOcupacao.setText(null);
+        this.jFormattedRendaMembroFamilia.setText(null); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void atualizaTabelaFamiliares() {
+        String colunas[] ={"Nome","Parentesco","Renda R$"}; 
+        DefaultTableModel model = new DefaultTableModel(colunas, 0);
+        
+        parentes.forEach((p) -> {
+            model.addRow(new String[]{p.getNome(),p.getParentesco(),""+p.getRenda()});
+        });
+        jTableFamiliares.setModel(model); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void atualizaCalculoRenda() {
+        int qtdParentes=0;
+        for(Parente parente:parentes){
+            rendaTotal += parente.getRenda();
+            ++qtdParentes;
+        }
+        rendaPerCapta = rendaTotal/qtdParentes;
+        jLabelRendaTotal.setText("Renda total (R$): "+rendaTotal);
+        jLabelRendaPerCapta.setText("Renda per capta (R$): "+rendaTotal); //To change body of generated methods, choose Tools | Templates.
+    }
 }
