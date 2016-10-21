@@ -18,13 +18,11 @@ public class AdicionarDocumentoJPanel extends javax.swing.JPanel {
      * Creates new form AdicionarDocumentoJPanel
      */
     private Documentacao d;
-    CadastrarQuestionarioJPanel q;
     public Documentacao getDocumentacao(){
         return d;
     } 
     
-    public AdicionarDocumentoJPanel(CadastrarQuestionarioJPanel q) {
-        this.q = q;
+    public AdicionarDocumentoJPanel() {
         initComponents();
     }
 
@@ -122,7 +120,6 @@ public class AdicionarDocumentoJPanel extends javax.swing.JPanel {
         d.setDataEntrega(dteDataEntrega.getDate());
         if(!txtNomeDoc.getText().isEmpty()){
             d.setNomeDocumento(txtNomeDoc.getText());
-            q.addDocumento(d);
             this.setVisible(false);
             System.gc();
         }else{

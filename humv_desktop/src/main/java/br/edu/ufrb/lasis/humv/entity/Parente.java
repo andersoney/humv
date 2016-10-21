@@ -14,7 +14,7 @@ public class Parente implements Serializable {
     private int idade;
     private String parentesco;
     private double renda;
-    private String escolaridade;
+    private Integer escolaridade;
     private String ocupacao;
 
     public String getNome() {
@@ -49,11 +49,11 @@ public class Parente implements Serializable {
         this.renda = renda;
     }
 
-    public String getEscolaridade() {
+    public Integer getEscolaridade() {
         return escolaridade;
     }
 
-    public void setEscolaridade(String escolaridade) {
+    public void setEscolaridade(Integer escolaridade) {
         this.escolaridade = escolaridade;
     }
 

@@ -1,5 +1,6 @@
 package br.edu.ufrb.lasis.humv.impl;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -27,7 +28,7 @@ public class QuestionarioSocioeconomicoServiceImpl {
 		}
 	}
 
-	public QuestionarioSocioeconomico findById(Integer id){
+	public QuestionarioSocioeconomico findById(BigInteger id){
 		return questionarioSocioeconomicoDAO.findByKey(id);
 	}
 
@@ -35,7 +36,7 @@ public class QuestionarioSocioeconomicoServiceImpl {
 	public String cadastrarQuestionarioSocioeconomico(QuestionarioSocioeconomico questionarioSocioeconomico, String usuarioResponsavel){
 		try{
 			questionarioSocioeconomicoDAO.saveQuestionario(questionarioSocioeconomico);
-			logger.info("[cadastrarQuestionarioSocioeconomico - " + usuarioResponsavel + "] Questionario salvo com sucesso: " + questionarioSocioeconomico.getIdQuestionario() + ".");
+			logger.info("[cadastrarQuestionarioSocioeconomico - " + usuarioResponsavel + "] Questionario salvo com sucesso: " + questionarioSocioeconomico.getId() + ".");
 			return "OK";
 		}catch(DataIntegrityViolationException ex){
 			if(ex.getMessage().toLowerCase().contains("constraint")){
@@ -50,23 +51,23 @@ public class QuestionarioSocioeconomicoServiceImpl {
 		return questionarioSocioeconomicoDAO.search(palavrachave);
 	}
 	public String atualizarQuestionarioSocioeconomico(QuestionarioSocioeconomico questionarioSocioeconomico, String usuarioResponsavel){
-		if(questionarioSocioeconomicoDAO.findByKey(questionarioSocioeconomico.getIdQuestionario()) == null){
+		if(questionarioSocioeconomicoDAO.findByKey(questionarioSocioeconomico.getId()) == null){
 			return "Questionario socioeconomico não encontrado no sistema. Por favor, informe um id diferente.";
 
 		}
 		questionarioSocioeconomicoDAO.updateQuestionario(questionarioSocioeconomico);
-		logger.info("[atualizarQuestionarioSocioeconomico - " + usuarioResponsavel + "] Questionario Socioeconomico " + questionarioSocioeconomico.getIdQuestionario() + " atualizado com sucesso.");
+		logger.info("[atualizarQuestionarioSocioeconomico - " + usuarioResponsavel + "] Questionario Socioeconomico " + questionarioSocioeconomico.getId() + " atualizado com sucesso.");
 		return "OK";
 	}
 	
-	public String removerQuestionarioSocioeconomico(Integer id, String usuarioResponsavel){
+	public String removerQuestionarioSocioeconomico(BigInteger id, String usuarioResponsavel){
 		if(questionarioSocioeconomicoDAO.findByKey(id) == null){
 			return "Nenhum animal com esse identificador encontrado no sistema.";
 
 		}
 		QuestionarioSocioeconomico questionarioSocioeconomico = questionarioSocioeconomicoDAO.findByKey(id);
 		questionarioSocioeconomicoDAO.removeQuestionario(questionarioSocioeconomico);
-		logger.info("[removerQuestionarioSocioeconomico - " + usuarioResponsavel + "] Questionario Socioeconomico " + questionarioSocioeconomico.getIdQuestionario() + " removido com sucesso.");
+		logger.info("[removerQuestionarioSocioeconomico - " + usuarioResponsavel + "] Questionario Socioeconomico " + questionarioSocioeconomico.getId() + " removido com sucesso.");
     	return "OK";
     }
 

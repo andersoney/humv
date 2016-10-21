@@ -8,191 +8,219 @@ public class QuestionarioSocioeconomico implements Serializable {
 
     private static final long serialVersionUID = -4309147069247595796L;
 
-    private int idQuestionario;
-    private String nomeDono;
-    private String estadoCivil;
-    private String endereco;
-    private String telefone;
-    private int idade;
-    private BigInteger nis;
-    private BigInteger cpf;
-    private String escolaridade;
+    public static final Integer ESCOLARIDADE_FUNDAMENTAL_INCOMPLETO = 1;
+    public static final Integer ESCOLARIDADE_FUNDAMENTAL_COMPLETO = 2;
+    public static final Integer ESCOLARIDADE_MEDIO_INCOMPLETO = 3;
+    public static final Integer ESCOLARIDADE_MEDIO_COMPLETO = 4;
+    public static final Integer ESCOLARIDADE_SUPERIOR_INCOMPLETO = 5;
+    public static final Integer ESCOLARIDADE_SUPERIOR_COMPLETO = 6;
+    public static final Integer ESCOLARIDADE_POS_INCOMPLETO = 7;
+    public static final Integer ESCOLARIDADE_POS_COMPLETO = 8;
+
+    public static final Integer ESTADO_CIVIL_SOLTEIRO = 1;
+    public static final Integer ESTADO_CIVIL_CASADO = 2;
+    public static final Integer ESTADO_CIVIL_SEPARADO = 3;
+    public static final Integer ESTADO_CIVIL_DIVORCIADO = 4;
+    public static final Integer ESTADO_CIVIL_VIUVO = 5;
+
+    private BigInteger id;
+
+    private Dono dono;
+
+    private Integer estadoCivil;
+    private Integer idade;
+    private Integer nis;
     private String profissao;
     private String ocupacaoAtual;
-    private double rendaFormal;
-    private double rendaInformal;
+    private Double rendaFormal;
+    private Double rendaInformal;
     private boolean temSaneamento;
     private boolean temEnergia;
     private String condicaoMoradia;
-    private double valorAluguel;
+    private Double valorAluguel;
     private String tipoConstrucao;
-    private String programaRenda; // Ex.: Bolsa Familia
-    private String situacoesRiscoRenda;
-    private String historicoFamiliar;
-    
-    //_______________________________ Somente para estudantes________________________________
-    private String condicoesMoradiaEstudante;
-    private double valorGastos;
-    private String fonteCusteio;
-    private String bolsa; 
-    //_______________________________________________________________________________________
-    
+
     private ArrayList<Parente> parentes;
-    private ArrayList<AnimaisQuestionario> animais;
-    
+
+    private ArrayList<Animal> animais;
+
     private ArrayList<Documentacao> documentosEntregues;
-    
-    private double rendaPerCapta;
-    private double rendaTotal;
+
+    private Double rendaPerCapita;
+    private Double rendaTotal;
     private String impossibilidadesCusteio;
     private String bensFamiliares;
     private String riscosSociais;
     private String emprestimos;
-    
-    private String orientacoes;
+
     private String breveResumo;
     private String conclusoes;
     private String observacoes;
 
-    private String tipoCobrancaConsultas; //valor normal, valor aula, desconto ou isenção
-    private String tipoCobrancaExames; //valor normal, valor aula, desconto ou isenção
-    private String tipoCobrancaCirurgias; //valor normal, valor aula, desconto ou isenção
-    private double valorDescontoExames;
-    private double valorDescontoCirurgias;
-    private double valorDescontoConsultas;
-    
-    public void setOrientacoes(String orientacoes){
-        this.orientacoes = orientacoes;
-    }
-    
-    public void setHistoricoFamiliar(String historicoFamiliar){
-        this.historicoFamiliar = historicoFamiliar;
-    }
-    
-    public void setSituacoesRiscoRenda(String situacoesRiscoRenda){
-        this.situacoesRiscoRenda = situacoesRiscoRenda;
-    }
-    
-    public void setBolsa(String bolsa){
-        this.bolsa = bolsa;
-    }
-    
-    public void setValorGastos(double valorGastos){
-        this.valorGastos = valorGastos;
-    }
-    
-    public void setFonteCusteio(String fonteCusteio){
-        this.fonteCusteio = fonteCusteio;
-    }
-    
-    public void setCondicoesMoradiaEstudante(String condicoesMoradiaEstudante){
-        this.condicoesMoradiaEstudante = condicoesMoradiaEstudante;
-    }
-    
-    public void setProgramaRenda(String programaRenda){
-        this.programaRenda = programaRenda;
-    }
-    
-    public void setTelefone(String telefone){
-        this.telefone = telefone;
-    }
-    public void setEscolaridade(String escolaridade){
-        this.escolaridade = escolaridade;
-    }
-    public void setEndereco(String endereco){
-        this.endereco = endereco;
-    }
-    
-    public void setCpf(BigInteger cpf){
-        this.cpf = cpf;
-    }
-    
-    public String getNomeDono() {
-        return nomeDono;
+    //Relacionado com atributos da classe Atendimento: valor normal, valor aula, desconto ou isenção
+    private Integer tipoCobrancaConsultas;
+
+    //Relacionado com atributos da classe Atendimento: valor normal, valor aula, desconto ou isenção
+    private Integer tipoCobrancaExames;
+
+    //valor normal, valor aula, desconto ou isenção
+    private Integer tipoCobrancaCirurgias;
+
+    private Double valorDescontoExames;
+    private Double valorDescontoCirurgias;
+
+    private Double valorDescontoConsultas;
+
+    public BigInteger getId() {
+        return id;
     }
 
-    public void setNomeDono(String nomeDono) {
-        this.nomeDono = nomeDono;
+    public void setId(BigInteger id) {
+        this.id = id;
     }
 
-    public String getBreveResumo() {
-        return breveResumo;
+    public Dono getDono() {
+        return dono;
     }
 
-    public void setBreveResumo(String breveResumo) {
-        this.breveResumo = breveResumo;
+    public void setDono(Dono dono) {
+        this.dono = dono;
     }
 
-    public String getConclusoes() {
-        return conclusoes;
+    public Integer getEstadoCivil() {
+        return estadoCivil;
     }
 
-    public void setConclusoes(String conclusoes) {
-        this.conclusoes = conclusoes;
+    public void setEstadoCivil(Integer estadoCivil) {
+        this.estadoCivil = estadoCivil;
     }
 
-    public String getObservacoes() {
-        return observacoes;
+    public Integer getIdade() {
+        return idade;
     }
 
-    public void setObservacoes(String observacoes) {
-        this.observacoes = observacoes;
+    public void setIdade(Integer idade) {
+        this.idade = idade;
     }
 
-    public int getIdQuestionario() {
-        return idQuestionario;
+    public Integer getNis() {
+        return nis;
     }
 
-    public void setIdQuestionario(int idQuestionario) {
-        this.idQuestionario = idQuestionario;
+    public void setNis(Integer nis) {
+        this.nis = nis;
     }
 
-    public String getTipoCobrancaConsultas() {
-        return tipoCobrancaConsultas;
+    public String getProfissao() {
+        return profissao;
     }
 
-    public void setTipoCobrancaConsultas(String tipoCobrancaConsultas) {
-        this.tipoCobrancaConsultas = tipoCobrancaConsultas;
+    public void setProfissao(String profissao) {
+        this.profissao = profissao;
     }
 
-    public String getTipoCobrancaExames() {
-        return tipoCobrancaExames;
+    public String getOcupacaoAtual() {
+        return ocupacaoAtual;
     }
 
-    public void setTipoCobrancaExames(String tipoCobrancaExames) {
-        this.tipoCobrancaExames = tipoCobrancaExames;
+    public void setOcupacaoAtual(String ocupacaoAtual) {
+        this.ocupacaoAtual = ocupacaoAtual;
     }
 
-    public String getTipoCobrancaCirurgias() {
-        return tipoCobrancaCirurgias;
+    public Double getRendaFormal() {
+        return rendaFormal;
     }
 
-    public void setTipoCobrancaCirurgias(String tipoCobrancaCirurgias) {
-        this.tipoCobrancaCirurgias = tipoCobrancaCirurgias;
+    public void setRendaFormal(Double rendaFormal) {
+        this.rendaFormal = rendaFormal;
     }
 
-    public double getValorDescontoExames() {
-        return valorDescontoExames;
+    public Double getRendaInformal() {
+        return rendaInformal;
     }
 
-    public void setValorDescontoExames(double valorDescontoExames) {
-        this.valorDescontoExames = valorDescontoExames;
+    public void setRendaInformal(Double rendaInformal) {
+        this.rendaInformal = rendaInformal;
     }
 
-    public double getValorDescontoCirurgias() {
-        return valorDescontoCirurgias;
+    public boolean isTemSaneamento() {
+        return temSaneamento;
     }
 
-    public void setValorDescontoCirurgias(double valorDescontoCirurgias) {
-        this.valorDescontoCirurgias = valorDescontoCirurgias;
+    public void setTemSaneamento(boolean temSaneamento) {
+        this.temSaneamento = temSaneamento;
     }
 
-    public double getValorDescontoConsultas() {
-        return valorDescontoConsultas;
+    public boolean isTemEnergia() {
+        return temEnergia;
     }
 
-    public void setValorDescontoConsultas(double valorDescontoConsultas) {
-        this.valorDescontoConsultas = valorDescontoConsultas;
+    public void setTemEnergia(boolean temEnergia) {
+        this.temEnergia = temEnergia;
+    }
+
+    public String getCondicaoMoradia() {
+        return condicaoMoradia;
+    }
+
+    public void setCondicaoMoradia(String condicaoMoradia) {
+        this.condicaoMoradia = condicaoMoradia;
+    }
+
+    public Double getValorAluguel() {
+        return valorAluguel;
+    }
+
+    public void setValorAluguel(Double valorAluguel) {
+        this.valorAluguel = valorAluguel;
+    }
+
+    public String getTipoConstrucao() {
+        return tipoConstrucao;
+    }
+
+    public void setTipoConstrucao(String tipoConstrucao) {
+        this.tipoConstrucao = tipoConstrucao;
+    }
+
+    public ArrayList<Parente> getParentes() {
+        return parentes;
+    }
+
+    public void setParentes(ArrayList<Parente> parentes) {
+        this.parentes = parentes;
+    }
+
+    public ArrayList<Animal> getAnimais() {
+        return animais;
+    }
+
+    public void setAnimais(ArrayList<Animal> animais) {
+        this.animais = animais;
+    }
+
+    public ArrayList<Documentacao> getDocumentosEntregues() {
+        return documentosEntregues;
+    }
+
+    public void setDocumentosEntregues(ArrayList<Documentacao> documentosEntregues) {
+        this.documentosEntregues = documentosEntregues;
+    }
+
+    public Double getRendaPerCapta() {
+        return rendaPerCapita;
+    }
+
+    public void setRendaPerCapta(Double rendaPerCapta) {
+        this.rendaPerCapita = rendaPerCapta;
+    }
+
+    public Double getRendaTotal() {
+        return rendaTotal;
+    }
+
+    public void setRendaTotal(Double rendaTotal) {
+        this.rendaTotal = rendaTotal;
     }
 
     public String getImpossibilidadesCusteio() {
@@ -227,139 +255,75 @@ public class QuestionarioSocioeconomico implements Serializable {
         this.emprestimos = emprestimos;
     }
 
-    public String getEstadoCivil() {
-        return estadoCivil;
+    public String getBreveResumo() {
+        return breveResumo;
     }
 
-    public void setEstadoCivil(String estadoCivil) {
-        this.estadoCivil = estadoCivil;
+    public void setBreveResumo(String breveResumo) {
+        this.breveResumo = breveResumo;
     }
 
-    public int getIdade() {
-        return idade;
+    public String getConclusoes() {
+        return conclusoes;
     }
 
-    public void setIdade(int idade) {
-        this.idade = idade;
+    public void setConclusoes(String conclusoes) {
+        this.conclusoes = conclusoes;
     }
 
-    public BigInteger getNis() {
-        return nis;
+    public String getObservacoes() {
+        return observacoes;
     }
 
-    public void setNis(BigInteger nis) {
-        this.nis = nis;
+    public void setObservacoes(String observacoes) {
+        this.observacoes = observacoes;
     }
 
-    public String getProfissao() {
-        return profissao;
+    public Integer getTipoCobrancaConsultas() {
+        return tipoCobrancaConsultas;
     }
 
-    public void setProfissao(String profissao) {
-        this.profissao = profissao;
+    public void setTipoCobrancaConsultas(Integer tipoCobrancaConsultas) {
+        this.tipoCobrancaConsultas = tipoCobrancaConsultas;
     }
 
-    public String getOcupacaoAtual() {
-        return ocupacaoAtual;
+    public Integer getTipoCobrancaExames() {
+        return tipoCobrancaExames;
     }
 
-    public void setOcupacaoAtual(String ocupacaoAtual) {
-        this.ocupacaoAtual = ocupacaoAtual;
+    public void setTipoCobrancaExames(Integer tipoCobrancaExames) {
+        this.tipoCobrancaExames = tipoCobrancaExames;
     }
 
-    public double getRendaFormal() {
-        return rendaFormal;
+    public Integer getTipoCobrancaCirurgias() {
+        return tipoCobrancaCirurgias;
     }
 
-    public void setRendaFormal(double rendaFormal) {
-        this.rendaFormal = rendaFormal;
+    public void setTipoCobrancaCirurgias(Integer tipoCobrancaCirurgias) {
+        this.tipoCobrancaCirurgias = tipoCobrancaCirurgias;
     }
 
-    public double getRendaInformal() {
-        return rendaInformal;
+    public Double getValorDescontoExames() {
+        return valorDescontoExames;
     }
 
-    public void setRendaInformal(double rendaInformal) {
-        this.rendaInformal = rendaInformal;
+    public void setValorDescontoExames(Double valorDescontoExames) {
+        this.valorDescontoExames = valorDescontoExames;
     }
 
-    public boolean isTemSaneamento() {
-        return temSaneamento;
+    public Double getValorDescontoCirurgias() {
+        return valorDescontoCirurgias;
     }
 
-    public void setTemSaneamento(boolean temSaneamento) {
-        this.temSaneamento = temSaneamento;
+    public void setValorDescontoCirurgias(Double valorDescontoCirurgias) {
+        this.valorDescontoCirurgias = valorDescontoCirurgias;
     }
 
-    public boolean isTemEnergia() {
-        return temEnergia;
+    public Double getValorDescontoConsultas() {
+        return valorDescontoConsultas;
     }
 
-    public void setTemEnergia(boolean temEnergia) {
-        this.temEnergia = temEnergia;
-    }
-
-    public String getCondicaoMoradia() {
-        return condicaoMoradia;
-    }
-
-    public void setCondicaoMoradia(String condicaoMoradia) {
-        this.condicaoMoradia = condicaoMoradia;
-    }
-
-    public double getValorAluguel() {
-        return valorAluguel;
-    }
-
-    public void setValorAluguel(double valorAluguel) {
-        this.valorAluguel = valorAluguel;
-    }
-
-    public String getTipoConstrucao() {
-        return tipoConstrucao;
-    }
-
-    public void setTipoConstrucao(String tipoConstrucao) {
-        this.tipoConstrucao = tipoConstrucao;
-    }
-
-    public ArrayList<Parente> getParentes() {
-        return parentes;
-    }
-
-    public void setParentes(ArrayList<Parente> parentes) {
-        this.parentes = parentes;
-    }
-
-    public ArrayList<AnimaisQuestionario> getAnimais() {
-        return animais;
-    }
-
-    public void setAnimais(ArrayList<AnimaisQuestionario> animais) {
-        this.animais = animais;
-    }
-
-    public double getRendaPerCapta() {
-        return rendaPerCapta;
-    }
-
-    public void setRendaPerCapta(double rendaPerCapta) {
-        this.rendaPerCapta = rendaPerCapta;
-    }
-
-    public double getRendaTotal() {
-        return rendaTotal;
-    }
-
-    public void setRendaTotal(double rendaTotal) {
-        this.rendaTotal = rendaTotal;
-    }
-
-    public ArrayList<Documentacao> getDocumentosEntregues() {
-        return documentosEntregues;
-    }
-
-    public void setDocumentosEntregues(ArrayList<Documentacao> documentosEntregues) {
-        this.documentosEntregues = documentosEntregues;
+    public void setValorDescontoConsultas(Double valorDescontoConsultas) {
+        this.valorDescontoConsultas = valorDescontoConsultas;
     }
 }

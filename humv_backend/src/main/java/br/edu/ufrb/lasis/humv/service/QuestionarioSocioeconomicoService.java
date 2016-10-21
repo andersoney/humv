@@ -1,5 +1,6 @@
 package br.edu.ufrb.lasis.humv.service;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class QuestionarioSocioeconomicoService {
     }
     
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    public QuestionarioSocioeconomico findById(@PathVariable Integer id){
+    public QuestionarioSocioeconomico findById(@PathVariable BigInteger id){
     	return questionarioSocioeconomicoServiceImpl.findById(id);
     }
 	
@@ -50,7 +51,7 @@ public class QuestionarioSocioeconomicoService {
     }
     
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-    public String removerQuestionarioSocioeconomico(@PathVariable Integer id, @RequestParam(value="username") String  username){
+    public String removerQuestionarioSocioeconomico(@PathVariable BigInteger id, @RequestParam(value="username") String  username){
     	return questionarioSocioeconomicoServiceImpl.removerQuestionarioSocioeconomico(id, username);
     }
     

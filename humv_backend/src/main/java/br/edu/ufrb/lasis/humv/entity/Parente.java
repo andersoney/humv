@@ -17,56 +17,71 @@ public class Parente implements Serializable {
 	@GeneratedValue
 	private BigInteger id;
 	
-	private String nomeClienteCadastrado;//TODO verificar se isso é viável
+	//private String nomeClienteCadastrado;//TODO verificar se isso é viável
 	
-	 
 	private String nome;
-	private int idade;
+	private Integer idade;
 	private String parentesco;
-	private double renda;
-	private String escolaridade;
+	private Integer renda;
+	
+	//De acordo com os atributos de QuestionarioSocioeconomico pra escolaridade
+	private Integer escolaridade;
 	private String ocupacao;
+
+	public BigInteger getId() {
+		return id;
+	}
+
+	public void setId(BigInteger id) {
+		this.id = id;
+	}
+
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public int getIdade() {
+
+	public Integer getIdade() {
 		return idade;
 	}
-	public void setIdade(int idade) {
+
+	public void setIdade(Integer idade) {
 		this.idade = idade;
 	}
+
 	public String getParentesco() {
 		return parentesco;
 	}
+
 	public void setParentesco(String parentesco) {
 		this.parentesco = parentesco;
 	}
-	public double getRenda() {
+
+	public Integer getRenda() {
 		return renda;
 	}
-	public void setRenda(double renda) {
+
+	public void setRenda(Integer renda) {
 		this.renda = renda;
 	}
-	public String getEscolaridade() {
+
+	public Integer getEscolaridade() {
 		return escolaridade;
 	}
-	public void setEscolaridade(String escolaridade) {
+
+	public void setEscolaridade(Integer escolaridade) {
 		this.escolaridade = escolaridade;
 	}
+
 	public String getOcupacao() {
 		return ocupacao;
 	}
+
 	public void setOcupacao(String ocupacao) {
 		this.ocupacao = ocupacao;
-	}
-	public String getNomeClienteCadastrado() {
-		return nomeClienteCadastrado;
-	}
-	public void setNomeClienteCadastrado(String nomeClienteCadastrado) {
-		this.nomeClienteCadastrado = nomeClienteCadastrado;
 	}
 	
 }

@@ -16,26 +16,43 @@ import javax.persistence.Table;
 @Entity
 @Table(name="QUESTIONARIOS_SOCIOECONOMICOS")
 public class QuestionarioSocioeconomico implements Serializable {
+	
 	private static final long serialVersionUID = -4309147069247595796L;
+
+	public static final Integer ESCOLARIDADE_FUNDAMENTAL_INCOMPLETO = 1;
+	public static final Integer ESCOLARIDADE_FUNDAMENTAL_COMPLETO = 2;
+	public static final Integer ESCOLARIDADE_MEDIO_INCOMPLETO = 3;
+	public static final Integer ESCOLARIDADE_MEDIO_COMPLETO = 4;
+	public static final Integer ESCOLARIDADE_SUPERIOR_INCOMPLETO = 5;
+	public static final Integer ESCOLARIDADE_SUPERIOR_COMPLETO = 6;
+	public static final Integer ESCOLARIDADE_POS_INCOMPLETO = 7;
+	public static final Integer ESCOLARIDADE_POS_COMPLETO = 8;
+    
+    public static final Integer ESTADO_CIVIL_SOLTEIRO = 1;
+    public static final Integer ESTADO_CIVIL_CASADO = 2;
+    public static final Integer ESTADO_CIVIL_SEPARADO = 3;
+    public static final Integer ESTADO_CIVIL_DIVORCIADO = 4;
+    public static final Integer ESTADO_CIVIL_VIUVO = 5;
 	
 	@Id
 	@GeneratedValue
-	private int idQuestionario;
+	private BigInteger id;
+	
 	@OneToOne
-	@JoinColumn(name="id")
+	@JoinColumn(name="id_dono")
 	private Dono dono;
-	private String nomeDono;
-	private String estadoCivil;
-	private int idade;
-	private int nis;
+	
+	private Integer estadoCivil;
+	private Integer idade;
+	private Integer nis;
 	private String profissao;
 	private String ocupacaoAtual;
-	private double rendaFormal;
-	private double rendaInformal;
+	private Double rendaFormal;
+	private Double rendaInformal;
 	private boolean temSaneamento;
 	private boolean temEnergia;
 	private String condicaoMoradia;
-	private double valorAluguel;
+	private Double valorAluguel;
 	private String tipoConstrucao;
 	
 	
@@ -56,180 +73,128 @@ public class QuestionarioSocioeconomico implements Serializable {
 	private String conclusoes;
 	private String observacoes;
 	
-	private String tipoCobrancaConsultas; //valor normal, valor aula, desconto ou isenção
-    private String tipoCobrancaExames; //valor normal, valor aula, desconto ou isenção
-    private String tipoCobrancaCirurgias; //valor normal, valor aula, desconto ou isenção
-    private double valorDescontoExames;
-    private double valorDescontoCirurgias;
-    private double valorDescontoConsultas;
+	//Relacionado com atributos da classe Atendimento: valor normal, valor aula, desconto ou isenção
+	private Integer tipoCobrancaConsultas;
+
+	//Relacionado com atributos da classe Atendimento: valor normal, valor aula, desconto ou isenção
+    private Integer tipoCobrancaExames;
     
-    public String getNomeDono() {
-		return nomeDono;
+    //valor normal, valor aula, desconto ou isenção
+    private Integer tipoCobrancaCirurgias;
+    
+    private Double valorDescontoExames;
+    private Double valorDescontoCirurgias;
+    
+    private Double valorDescontoConsultas;
+
+	public BigInteger getId() {
+		return id;
 	}
-	public void setNomeDono(String nomeDono) {
-		this.nomeDono = nomeDono;
+
+	public void setId(BigInteger id) {
+		this.id = id;
 	}
-	
-	public String getBreveResumo() {
-		return breveResumo;
-	}
-	public void setBreveResumo(String breveResumo) {
-		this.breveResumo = breveResumo;
-	}
-	public String getConclusoes() {
-		return conclusoes;
-	}
-	public void setConclusoes(String conclusoes) {
-		this.conclusoes = conclusoes;
-	}
-	public String getObservacoes() {
-		return observacoes;
-	}
-	public void setObservacoes(String observacoes) {
-		this.observacoes = observacoes;
-	}
-	
-	public int getIdQuestionario() {
-		return idQuestionario;
-	}
-	public void setIdQuestionario(int idQuestionario) {
-		this.idQuestionario = idQuestionario;
-	}
-	public String getTipoCobrancaConsultas() {
-		return tipoCobrancaConsultas;
-	}
-	public void setTipoCobrancaConsultas(String tipoCobrancaConsultas) {
-		this.tipoCobrancaConsultas = tipoCobrancaConsultas;
-	}
-	public String getTipoCobrancaExames() {
-		return tipoCobrancaExames;
-	}
-	public void setTipoCobrancaExames(String tipoCobrancaExames) {
-		this.tipoCobrancaExames = tipoCobrancaExames;
-	}
-	public String getTipoCobrancaCirurgias() {
-		return tipoCobrancaCirurgias;
-	}
-	public void setTipoCobrancaCirurgias(String tipoCobrancaCirurgias) {
-		this.tipoCobrancaCirurgias = tipoCobrancaCirurgias;
-	}
-	public double getValorDescontoExames() {
-		return valorDescontoExames;
-	}
-	public void setValorDescontoExames(double valorDescontoExames) {
-		this.valorDescontoExames = valorDescontoExames;
-	}
-	public double getValorDescontoCirurgias() {
-		return valorDescontoCirurgias;
-	}
-	public void setValorDescontoCirurgias(double valorDescontoCirurgias) {
-		this.valorDescontoCirurgias = valorDescontoCirurgias;
-	}
-	public double getValorDescontoConsultas() {
-		return valorDescontoConsultas;
-	}
-	public void setValorDescontoConsultas(double valorDescontoConsultas) {
-		this.valorDescontoConsultas = valorDescontoConsultas;
-	}
-	public String getImpossibilidadesCusteio() {
-		return impossibilidadesCusteio;
-	}
-	public void setImpossibilidadesCusteio(String impossibilidadesCusteio) {
-		this.impossibilidadesCusteio = impossibilidadesCusteio;
-	}
-	public String getBensFamiliares() {
-		return bensFamiliares;
-	}
-	public void setBensFamiliares(String bensFamiliares) {
-		this.bensFamiliares = bensFamiliares;
-	}
-	public String getRiscosSociais() {
-		return riscosSociais;
-	}
-	public void setRiscosSociais(String riscosSociais) {
-		this.riscosSociais = riscosSociais;
-	}
-	public String getEmprestimos() {
-		return emprestimos;
-	}
-	public void setEmprestimos(String emprestimos) {
-		this.emprestimos = emprestimos;
-	}
+
 	public Dono getDono() {
 		return dono;
 	}
+
 	public void setDono(Dono dono) {
 		this.dono = dono;
 	}
-	public String getEstadoCivil() {
+
+	public Integer getEstadoCivil() {
 		return estadoCivil;
 	}
-	public void setEstadoCivil(String estadoCivil) {
+
+	public void setEstadoCivil(Integer estadoCivil) {
 		this.estadoCivil = estadoCivil;
 	}
-	public int getIdade() {
+
+	public Integer getIdade() {
 		return idade;
 	}
-	public void setIdade(int idade) {
+
+	public void setIdade(Integer idade) {
 		this.idade = idade;
 	}
-	public int getNis() {
+
+	public Integer getNis() {
 		return nis;
 	}
-	public void setNis(int nis) {
+
+	public void setNis(Integer nis) {
 		this.nis = nis;
 	}
+
 	public String getProfissao() {
 		return profissao;
 	}
+
 	public void setProfissao(String profissao) {
 		this.profissao = profissao;
 	}
+
 	public String getOcupacaoAtual() {
 		return ocupacaoAtual;
 	}
+
 	public void setOcupacaoAtual(String ocupacaoAtual) {
 		this.ocupacaoAtual = ocupacaoAtual;
 	}
-	public double getRendaFormal() {
+
+	public Double getRendaFormal() {
 		return rendaFormal;
 	}
-	public void setRendaFormal(double rendaFormal) {
+
+	public void setRendaFormal(Double rendaFormal) {
 		this.rendaFormal = rendaFormal;
 	}
-	public double getRendaInformal() {
+
+	public Double getRendaInformal() {
 		return rendaInformal;
 	}
-	public void setRendaInformal(double rendaInformal) {
+
+	public void setRendaInformal(Double rendaInformal) {
 		this.rendaInformal = rendaInformal;
 	}
+
 	public boolean isTemSaneamento() {
 		return temSaneamento;
 	}
+
 	public void setTemSaneamento(boolean temSaneamento) {
 		this.temSaneamento = temSaneamento;
 	}
+
 	public boolean isTemEnergia() {
 		return temEnergia;
 	}
+
 	public void setTemEnergia(boolean temEnergia) {
 		this.temEnergia = temEnergia;
 	}
+
 	public String getCondicaoMoradia() {
 		return condicaoMoradia;
 	}
+
 	public void setCondicaoMoradia(String condicaoMoradia) {
 		this.condicaoMoradia = condicaoMoradia;
 	}
-	public double getValorAluguel() {
+
+	public Double getValorAluguel() {
 		return valorAluguel;
 	}
-	public void setValorAluguel(double valorAluguel) {
+
+	public void setValorAluguel(Double valorAluguel) {
 		this.valorAluguel = valorAluguel;
 	}
+
 	public String getTipoConstrucao() {
 		return tipoConstrucao;
 	}
+
 	public void setTipoConstrucao(String tipoConstrucao) {
 		this.tipoConstrucao = tipoConstrucao;
 	}
@@ -245,16 +210,28 @@ public class QuestionarioSocioeconomico implements Serializable {
 	public void setAnimais(List<Animal> animais) {
 		this.animais = animais;
 	}
-	public double getRendaPerCapta() {
-		return rendaPerCapta;
+
+	public ArrayList<Documentacao> getDocumentosEntregues() {
+		return documentosEntregues;
 	}
-	public void setRendaPerCapta(double rendaPerCapta) {
-		this.rendaPerCapta = rendaPerCapta;
+
+	public void setDocumentosEntregues(ArrayList<Documentacao> documentosEntregues) {
+		this.documentosEntregues = documentosEntregues;
 	}
-	public double getRendaTotal() {
+
+	public Double getRendaPerCapta() {
+		return rendaPerCapita;
+	}
+
+	public void setRendaPerCapta(Double rendaPerCapta) {
+		this.rendaPerCapita = rendaPerCapta;
+	}
+
+	public Double getRendaTotal() {
 		return rendaTotal;
 	}
-	public void setRendaTotal(double rendaTotal) {
+
+	public void setRendaTotal(Double rendaTotal) {
 		this.rendaTotal = rendaTotal;
 	}
 	public List<Documentacao> getDocumentosEntregues() {
