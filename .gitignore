@@ -4,4 +4,6 @@ humv_backend/target/**/*
 humv_backend/target/classes/**/*
 
 humv_desktop/target/**/*
+humv_backend/src/main/webapp/META-INF/context.xml
+
 humv_desktop/arquivos/*

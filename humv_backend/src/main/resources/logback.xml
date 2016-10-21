@@ -16,7 +16,7 @@
 				
 				<driverClass>org.postgresql.Driver</driverClass>
 				 
-				<jdbcUrl>jdbc:postgresql://localhost:5432/humv_log</jdbcUrl>
+				<jdbcUrl>jdbc:postgresql://localhost:15432/humv_log</jdbcUrl>
 				<user>humv</user>
 				<password>lAs1s_UFRB</password>
 				

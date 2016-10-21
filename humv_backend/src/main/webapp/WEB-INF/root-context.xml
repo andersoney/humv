@@ -23,7 +23,7 @@
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
         destroy-method="close">
         <property name="driverClassName" value="org.postgresql.Driver" />
-        <property name="url" value="jdbc:postgresql://localhost:5432/humv_db" />
+        <property name="url" value="jdbc:postgresql://localhost:15432/humv_db" />
         <property name="username" value="humv" />
         <property name="password" value="lAs1s_UFRB" />
     </bean>

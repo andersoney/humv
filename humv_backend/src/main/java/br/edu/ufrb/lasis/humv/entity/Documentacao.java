@@ -8,12 +8,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
+@Table(name="DOCUMENTACAO")
 public class Documentacao implements Serializable {
 	
+
 	private static final long serialVersionUID = -6125748157292589614L;
 	
 	@Id

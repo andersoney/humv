@@ -1,8 +1,8 @@
 package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
-import java.math.BigInteger;
-import java.util.ArrayList;
+//import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -55,17 +55,15 @@ public class QuestionarioSocioeconomico implements Serializable {
 	private Double valorAluguel;
 	private String tipoConstrucao;
 	
-	@OneToMany(cascade=CascadeType.ALL)
-	private ArrayList<Parente> parentes;
 	
-	@OneToMany(cascade=CascadeType.ALL)
-	private ArrayList<Animal> animais;
-	
-	@OneToMany(cascade=CascadeType.ALL)
-	private ArrayList<Documentacao> documentosEntregues;
-	
-	private Double rendaPerCapita;
-	private Double rendaTotal;
+	@OneToMany( mappedBy = "id", cascade=CascadeType.ALL)
+	private List<Parente> parentes;
+	@OneToMany( mappedBy = "rghumv", cascade=CascadeType.ALL)
+	private List<Animal> animais;
+	@OneToMany( mappedBy = "id", cascade=CascadeType.ALL)
+	private List<Documentacao> documentosEntregues;
+	private double rendaPerCapta;
+	private double rendaTotal;
 	private String impossibilidadesCusteio;
 	private String bensFamiliares;
 	private String riscosSociais;
@@ -200,20 +198,16 @@ public class QuestionarioSocioeconomico implements Serializable {
 	public void setTipoConstrucao(String tipoConstrucao) {
 		this.tipoConstrucao = tipoConstrucao;
 	}
-
-	public ArrayList<Parente> getParentes() {
+	public List<Parente> getParentes() {
 		return parentes;
 	}
-
-	public void setParentes(ArrayList<Parente> parentes) {
+	public void setParentes(List<Parente> parentes) {
 		this.parentes = parentes;
 	}
-
-	public ArrayList<Animal> getAnimais() {
+	public List<Animal> getAnimais() {
 		return animais;
 	}
-
-	public void setAnimais(ArrayList<Animal> animais) {
+	public void setAnimais(List<Animal> animais) {
 		this.animais = animais;
 	}
 
@@ -240,109 +234,10 @@ public class QuestionarioSocioeconomico implements Serializable {
 	public void setRendaTotal(Double rendaTotal) {
 		this.rendaTotal = rendaTotal;
 	}
-
-	public String getImpossibilidadesCusteio() {
-		return impossibilidadesCusteio;
+	public List<Documentacao> getDocumentosEntregues() {
+		return documentosEntregues;
 	}
-
-	public void setImpossibilidadesCusteio(String impossibilidadesCusteio) {
-		this.impossibilidadesCusteio = impossibilidadesCusteio;
-	}
-
-	public String getBensFamiliares() {
-		return bensFamiliares;
-	}
-
-	public void setBensFamiliares(String bensFamiliares) {
-		this.bensFamiliares = bensFamiliares;
-	}
-
-	public String getRiscosSociais() {
-		return riscosSociais;
-	}
-
-	public void setRiscosSociais(String riscosSociais) {
-		this.riscosSociais = riscosSociais;
-	}
-
-	public String getEmprestimos() {
-		return emprestimos;
-	}
-
-	public void setEmprestimos(String emprestimos) {
-		this.emprestimos = emprestimos;
-	}
-
-	public String getBreveResumo() {
-		return breveResumo;
-	}
-
-	public void setBreveResumo(String breveResumo) {
-		this.breveResumo = breveResumo;
-	}
-
-	public String getConclusoes() {
-		return conclusoes;
-	}
-
-	public void setConclusoes(String conclusoes) {
-		this.conclusoes = conclusoes;
-	}
-
-	public String getObservacoes() {
-		return observacoes;
-	}
-
-	public void setObservacoes(String observacoes) {
-		this.observacoes = observacoes;
-	}
-
-	public Integer getTipoCobrancaConsultas() {
-		return tipoCobrancaConsultas;
-	}
-
-	public void setTipoCobrancaConsultas(Integer tipoCobrancaConsultas) {
-		this.tipoCobrancaConsultas = tipoCobrancaConsultas;
-	}
-
-	public Integer getTipoCobrancaExames() {
-		return tipoCobrancaExames;
-	}
-
-	public void setTipoCobrancaExames(Integer tipoCobrancaExames) {
-		this.tipoCobrancaExames = tipoCobrancaExames;
-	}
-
-	public Integer getTipoCobrancaCirurgias() {
-		return tipoCobrancaCirurgias;
-	}
-
-	public void setTipoCobrancaCirurgias(Integer tipoCobrancaCirurgias) {
-		this.tipoCobrancaCirurgias = tipoCobrancaCirurgias;
-	}
-
-	public Double getValorDescontoExames() {
-		return valorDescontoExames;
-	}
-
-	public void setValorDescontoExames(Double valorDescontoExames) {
-		this.valorDescontoExames = valorDescontoExames;
-	}
-
-	public Double getValorDescontoCirurgias() {
-		return valorDescontoCirurgias;
-	}
-
-	public void setValorDescontoCirurgias(Double valorDescontoCirurgias) {
-		this.valorDescontoCirurgias = valorDescontoCirurgias;
-	}
-
-	public Double getValorDescontoConsultas() {
-		return valorDescontoConsultas;
-	}
-
-	public void setValorDescontoConsultas(Double valorDescontoConsultas) {
-		this.valorDescontoConsultas = valorDescontoConsultas;
-	}    
-    
+	public void setDocumentosEntregues(List<Documentacao> documentosEntregues) {
+		this.documentosEntregues = documentosEntregues;
+	} 
 }
