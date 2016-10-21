@@ -20,6 +20,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     public QuestionarioSocioEconomicoJPanel() {
         initComponents();
         this.jRadioButtonSaneamentoSim.setSelected(true);
+        this.jRadioButtonEnergiaNao.setSelected(true);
     }
 
     /**
@@ -346,6 +347,11 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         });
 
         jRadioButtonEnergiaSim.setText("Sim");
+        jRadioButtonEnergiaSim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonEnergiaSimActionPerformed(evt);
+            }
+        });
 
         jRadioButtonEnergiaNao.setText("Não");
         jRadioButtonEnergiaNao.addActionListener(new java.awt.event.ActionListener() {
@@ -1281,6 +1287,11 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         this.jRadioButtonSaneamentoNao.setSelected(false);
     }//GEN-LAST:event_jRadioButtonSaneamentoSimActionPerformed
+
+    private void jRadioButtonEnergiaSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEnergiaSimActionPerformed
+        // TODO add your handling code here:
+        this.jRadioButtonEnergiaNao.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonEnergiaSimActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
