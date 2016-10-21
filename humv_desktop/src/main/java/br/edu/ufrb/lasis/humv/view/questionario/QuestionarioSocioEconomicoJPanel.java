@@ -1219,6 +1219,11 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jButtonQuestionarioSalvarActionPerformed
 
+    private void validarCampos() {
+        
+    }
+
+
     private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
 
     }//GEN-LAST:event_jButtonRemoverActionPerformed

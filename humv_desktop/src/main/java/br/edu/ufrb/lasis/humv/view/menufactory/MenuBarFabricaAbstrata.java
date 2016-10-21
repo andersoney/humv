@@ -20,6 +20,7 @@ import br.edu.ufrb.lasis.humv.view.procedimento.CadastrarProcedimentoJPanel;
 import br.edu.ufrb.lasis.humv.view.procedimento.PropriedadesBuscaProcedimento;
 import br.edu.ufrb.lasis.humv.view.projeto.CadastrarProjetoJPanel;
 import br.edu.ufrb.lasis.humv.view.projeto.PropriedadesBuscaProjeto;
+import br.edu.ufrb.lasis.humv.view.questionario.QuestionarioSocioEconomicoJPanel;
 import br.edu.ufrb.lasis.humv.view.setor.CadastrarSetorJPanel;
 import br.edu.ufrb.lasis.humv.view.setor.PropriedadesBuscaSetor;
 import br.edu.ufrb.lasis.humv.view.usuario.CadastrarUsuarioJPanel;
@@ -91,6 +92,9 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
     private JMenu menuAtendimento;
     private JMenuItem menuItemAgendarAtendimento;
     private JButton buttonAgendarAtendimento;
+    
+    private JMenu menuQuestionarioSocial;
+    private JMenuItem menuItemCadastrarQuestionarioSocial;
 
     private JPanel panelButtons;
     private GridBagConstraints panelConstraints;
@@ -284,6 +288,14 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
 
         getMenuBar().add(menuAtendimento);
     }
+    public void criaMenuQuestionarioSocial(){
+        this.menuQuestionarioSocial=new JMenu("Questionario");
+        menuItemCadastrarQuestionarioSocial=new JMenuItem("Cadastrar");
+        menuItemCadastrarQuestionarioSocial.addActionListener(this);
+        menuQuestionarioSocial.add(menuItemCadastrarQuestionarioSocial);
+        
+        getMenuBar().add(menuQuestionarioSocial);
+    }
 
     public void criaBotaoCadastrarAnimal() {
         buttonCadastrarAnimal = new JButton("Cadastrar animal", new ImageIcon("imagens/icon_pet.png"));
@@ -308,6 +320,8 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         buttonAgendarAtendimento.addActionListener(this);
         this.addButtonToRightPanel(buttonAgendarAtendimento);
     }
+    
+    
 
     public JMenuBar getMenuBar() {
         return menuBar;
@@ -394,7 +408,10 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
             HUMVApp.setNovoPainelCentral(buscaPanel);
         } else if (source.equals(menuItemAgendarAtendimento) || source.equals(buttonAgendarAtendimento)) {
             HUMVApp.setNovoPainelCentral(new BuscarAgendaMedicoJPanel());
+        }else if(source.equals(menuItemCadastrarQuestionarioSocial)){
+            HUMVApp.setNovoPainelCentral(new QuestionarioSocioEconomicoJPanel());
         }
 
     }
+    
 }
