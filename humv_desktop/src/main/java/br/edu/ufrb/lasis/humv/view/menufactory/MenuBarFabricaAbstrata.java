@@ -6,13 +6,16 @@
 package br.edu.ufrb.lasis.humv.view.menufactory;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
+import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.view.agendamento.BuscarAgendaMedicoJPanel;
 import br.edu.ufrb.lasis.humv.view.animal.CadastrarAnimalJPanel;
 import br.edu.ufrb.lasis.humv.view.animal.PropriedadesBuscaAnimal;
 import br.edu.ufrb.lasis.humv.view.busca.BuscaJPanel;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
+import br.edu.ufrb.lasis.humv.view.config.ConfiguracoesJPanel;
 import br.edu.ufrb.lasis.humv.view.dono.CadastrarDonoJPanel;
 import br.edu.ufrb.lasis.humv.view.dono.PropriedadesBuscaDono;
+import br.edu.ufrb.lasis.humv.view.main.LoginJDialog;
 import br.edu.ufrb.lasis.humv.view.procedimento.CadastrarProcedimentoJPanel;
 import br.edu.ufrb.lasis.humv.view.procedimento.PropriedadesBuscaProcedimento;
 import br.edu.ufrb.lasis.humv.view.projeto.CadastrarProjetoJPanel;
@@ -44,12 +47,12 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
     private JMenuBar menuBar;
 
     private JMenu menuAjuda;
-    private JMenuItem menuItemSair, menuItemSobre;
+    private JMenuItem menuItemSair, menuItemSobre, menuItemConfiguracoes;
 
     private JMenu menuUsuario;
-    private JMenuItem menuItemCadastroUsuario, 
-            menuItemBuscaUsuario, 
-            menuItemAlteracaoUsuario, 
+    private JMenuItem menuItemCadastroUsuario,
+            menuItemBuscaUsuario,
+            menuItemAlteracaoUsuario,
             menuItemRemocaoUsuario;
     private JButton buttonCadastrarUsuario;
 
@@ -84,7 +87,7 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
             menuItemBuscaProjeto,
             menuItemAlteracaoProjeto,
             menuItemRemocaoProjeto;
-    
+
     private JMenu menuAtendimento;
     private JMenuItem menuItemAgendarAtendimento;
     private JButton buttonAgendarAtendimento;
@@ -98,14 +101,16 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         panelConstraints.gridx = 0;
         panelConstraints.gridy = 0;
         panelConstraints.fill = GridBagConstraints.HORIZONTAL;
-        
+
         panelLeft.setLayout(new BorderLayout());
         panelLeft.add(panelButtons, BorderLayout.NORTH);
-        panelConstraints.insets.top = 15; panelConstraints.insets.bottom = 10;
+        panelConstraints.insets.top = 15;
+        panelConstraints.insets.bottom = 10;
         panelButtons.add(new JLabel(new ImageIcon("imagens/humv-logo-top.png")), panelConstraints);
-        panelConstraints.insets.top = 0; panelConstraints.insets.bottom = 0;
+        panelConstraints.insets.top = 0;
+        panelConstraints.insets.bottom = 0;
         panelConstraints.ipady = 1;
-        
+
         this.menuBar = new JMenuBar();
         mainPanel.add(menuBar, BorderLayout.PAGE_START);
     }
@@ -114,10 +119,15 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
 
     public void criaMenuAjuda() {
         menuAjuda = new JMenu("Ajuda");
-        
+
+        menuItemConfiguracoes = new JMenuItem("Configurações");
+        menuAjuda.add(menuItemConfiguracoes);
+        menuItemConfiguracoes.addActionListener(this);
+
         menuItemSobre = new JMenuItem("Sobre");
         menuAjuda.add(menuItemSobre);
-        
+        menuItemSobre.addActionListener(this);
+
         getMenuBar().add(menuAjuda);
     }
 
@@ -217,20 +227,24 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         getMenuBar().add(menuSetor);
     }
 
-    public void criaMenuProcedimento(boolean comRemover) {
+    public void criaMenuProcedimento(boolean soBusca) {
         menuProcedimento = new JMenu("Procedimento");
 
-        menuItemCadastroProcedimento = new JMenuItem("Cadastro");
-        menuItemCadastroProcedimento.addActionListener(this);
-        menuProcedimento.add(menuItemCadastroProcedimento);
+        if (!soBusca) {
+            menuItemCadastroProcedimento = new JMenuItem("Cadastro");
+            menuItemCadastroProcedimento.addActionListener(this);
+            menuProcedimento.add(menuItemCadastroProcedimento);
+        }
+
         menuItemBuscaProcedimento = new JMenuItem("Busca");
         menuItemBuscaProcedimento.addActionListener(this);
         menuProcedimento.add(menuItemBuscaProcedimento);
-        menuItemAlteracaoProcedimento = new JMenuItem("Alteração");
-        menuItemAlteracaoProcedimento.addActionListener(this);
-        menuProcedimento.add(menuItemAlteracaoProcedimento);
 
-        if (comRemover) {
+        if (!soBusca) {
+            menuItemAlteracaoProcedimento = new JMenuItem("Alteração");
+            menuItemAlteracaoProcedimento.addActionListener(this);
+            menuProcedimento.add(menuItemAlteracaoProcedimento);
+
             menuItemRemocaoProcedimento = new JMenuItem("Remoção");
             menuItemRemocaoProcedimento.addActionListener(this);
             menuProcedimento.add(menuItemRemocaoProcedimento);
@@ -260,37 +274,37 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
 
         getMenuBar().add(menuProjeto);
     }
-    
+
     public void criaMenuAtendimento() {
         menuAtendimento = new JMenu("Atendimento");
 
-        menuItemAgendarAtendimento = new JMenuItem("Agendar atendimento");
+        menuItemAgendarAtendimento = new JMenuItem("Ver agenda");
         menuItemAgendarAtendimento.addActionListener(this);
         menuAtendimento.add(menuItemAgendarAtendimento);
 
         getMenuBar().add(menuAtendimento);
     }
-    
-    public void criaBotaoCadastrarAnimal(){
+
+    public void criaBotaoCadastrarAnimal() {
         buttonCadastrarAnimal = new JButton("Cadastrar animal", new ImageIcon("imagens/icon_pet.png"));
         buttonCadastrarAnimal.addActionListener(this);
         this.addButtonToRightPanel(buttonCadastrarAnimal);
     }
-    
-    public void criaBotaoCadastrarUsuario(){
+
+    public void criaBotaoCadastrarUsuario() {
         buttonCadastrarUsuario = new JButton("Cadastrar usuário", new ImageIcon("imagens/icon_usuario.png"));
         buttonCadastrarUsuario.addActionListener(this);
         this.addButtonToRightPanel(buttonCadastrarUsuario);
     }
-    
-    public void criaBotaoCadastrarProcedimento(){
+
+    public void criaBotaoCadastrarProcedimento() {
         buttonCadastrarProcedimento = new JButton("Cadastrar procedimento", new ImageIcon("imagens/icon_procedimento.png"));
         buttonCadastrarProcedimento.addActionListener(this);
         this.addButtonToRightPanel(buttonCadastrarProcedimento);
     }
-    
-    public void criaBotaoAgendarAtendimento(){
-        buttonAgendarAtendimento = new JButton("Agendar atendimento", new ImageIcon("imagens/icon_agenda.png"));
+
+    public void criaBotaoVisualizarAgenda() {
+        buttonAgendarAtendimento = new JButton("Visualizar agenda", new ImageIcon("imagens/icon_agenda.png"));
         buttonAgendarAtendimento.addActionListener(this);
         this.addButtonToRightPanel(buttonAgendarAtendimento);
     }
@@ -298,8 +312,8 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
     public JMenuBar getMenuBar() {
         return menuBar;
     }
-    
-    private void addButtonToRightPanel(JButton button){
+
+    private void addButtonToRightPanel(JButton button) {
         panelConstraints.gridy++;
         panelButtons.add(button, panelConstraints);
     }
@@ -307,9 +321,11 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
-        
+
         if (source.equals(menuItemSobre)) {
             JOptionPane.showMessageDialog(null, "Desenvolvido por LaSiS - UFRB");
+        } else if (source.equals(menuItemConfiguracoes)) {
+            HUMVApp.setNovoPainelCentral(new ConfiguracoesJPanel());
         } else if (source.equals(menuItemCadastroUsuario) || source.equals(buttonCadastrarUsuario)) {
             HUMVApp.setNovoPainelCentral(new CadastrarUsuarioJPanel());
         } else if (source.equals(menuItemBuscaUsuario) || source.equals(menuItemAlteracaoUsuario)) {
@@ -317,7 +333,11 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         } else if (source.equals(menuItemRemocaoUsuario)) {
             HUMVApp.setNovoPainelCentral(new BuscaJPanel("BUSCAR USUÁRIO PARA REMOÇÃO", new PropriedadesBuscaUsuario(PropriedadesBuscaUsuario.OPCAO_REMOVER)));
         } else if (source.equals(menuItemSair)) {
-            System.exit(0);
+            if (InterfaceGraficaUtils.dialogoSair()) {
+                HUMVApp.getMainWindow().setContentPane(new JPanel());
+                HUMVApp.getMainWindow().repaint();
+                new LoginJDialog(HUMVApp.getMainWindow()).setVisible(true);
+            }
         } else if (source.equals(menuItemCadastroAnimal) || source.equals(buttonCadastrarAnimal)) {
             HUMVApp.setNovoPainelCentral(new CadastrarAnimalJPanel());
         } else if (source.equals(menuItemBuscaAnimal) || source.equals(menuItemAlteracaoAnimal)) {
@@ -375,6 +395,6 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         } else if (source.equals(menuItemAgendarAtendimento) || source.equals(buttonAgendarAtendimento)) {
             HUMVApp.setNovoPainelCentral(new BuscarAgendaMedicoJPanel());
         }
-        
+
     }
 }

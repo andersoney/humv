@@ -1,5 +1,6 @@
 package br.edu.ufrb.lasis.humv.entity;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
 
@@ -7,7 +8,9 @@ import java.util.Date;
  *
  * @author tassiovale
  */
-public class Atendimento {
+public class Atendimento implements Serializable{
+
+    private static final long serialVersionUID = -2865522164162006684L;
 
     public static final Integer COBRANCA_VALOR_NORMAL = 0;
     public static final Integer COBRANCA_VALOR_AULA = 1;
@@ -19,7 +22,7 @@ public class Atendimento {
     public static final Integer STATUS_REALIZADO = 2;
 
     private BigInteger id;
-    
+
     private Animal animal;
 
     private Procedimento procedimento;
@@ -28,6 +31,7 @@ public class Atendimento {
 
     private Date horarioMarcado;
     private Integer tipoCobranca;
+    private String motivo;
     private Double valorCobrado;
     private Integer porcentagemDesconto;
     private String observacoes;
@@ -81,6 +85,14 @@ public class Atendimento {
 
     public void setTipoCobranca(Integer tipoCobranca) {
         this.tipoCobranca = tipoCobranca;
+    }
+
+    public String getMotivo() {
+        return motivo;
+    }
+
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
     }
 
     public Double getValorCobrado() {

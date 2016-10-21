@@ -86,7 +86,7 @@ public class AnimalDAO  extends GenericDAO<Animal> implements Serializable {
 	public List<Animal> search(String palavrachave) {
 		Criteria criteria = getCriteria();
 
-		Integer conversionResult = NumberUtils.convertStringToInteger(palavrachave);
+		BigInteger conversionResult = NumberUtils.convertStringToInteger(palavrachave);
 		if (conversionResult != null) {
 			criteria.add(
 					Restrictions.or(

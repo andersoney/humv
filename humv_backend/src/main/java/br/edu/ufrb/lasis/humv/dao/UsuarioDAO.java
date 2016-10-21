@@ -4,6 +4,7 @@
 package br.edu.ufrb.lasis.humv.dao;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -78,7 +79,7 @@ public class UsuarioDAO extends GenericDAO<Usuario> implements Serializable{
 	public Usuario findBySiapeOrEmail(String siapeEmail) {
 		Criteria criteria = getCriteria();
 
-		Integer conversionResult = NumberUtils.convertStringToInteger(siapeEmail);
+		BigInteger conversionResult = NumberUtils.convertStringToInteger(siapeEmail);
 		if (conversionResult != null) {
 			criteria.add(
 					Restrictions.or(Restrictions.eq("siape", conversionResult), Restrictions.eq("email", siapeEmail)));
@@ -94,7 +95,7 @@ public class UsuarioDAO extends GenericDAO<Usuario> implements Serializable{
 	public List<Usuario> search(String palavrachave) {
 		Criteria criteria = getCriteria();
 
-		Integer conversionResult = NumberUtils.convertStringToInteger(palavrachave);
+		BigInteger conversionResult = NumberUtils.convertStringToInteger(palavrachave);
 		if (conversionResult != null) {
 			criteria.add(
 					Restrictions.or(

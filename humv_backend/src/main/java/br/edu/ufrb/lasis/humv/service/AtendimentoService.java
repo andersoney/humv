@@ -55,12 +55,17 @@ public class AtendimentoService {
     }
     
     @RequestMapping(method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public String atualizarUsuario(@RequestBody Atendimento atendimento, @RequestParam(value="username") String  username){
+    public String atualizarAtendimento(@RequestBody Atendimento atendimento, @RequestParam(value="username") String username){
     	return atendimentoServiceImpl.atualizarAtendimento(atendimento, username);
     }
     
+    @RequestMapping(method = RequestMethod.PUT, value = "/{idMedico:.*}")
+    public String cancelarAtendimentos(@RequestBody String motivo, @PathVariable final String idMedico, @RequestParam(value="dataInicio") String dataInicio, @RequestParam(value="dataFim") String dataFim, @RequestParam(value="username") String username){
+    	return atendimentoServiceImpl.cancelarAtendimentos(idMedico, dataInicio, dataFim, motivo, username);
+    }
+    
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-    public String removerUsuario(@PathVariable final BigInteger id, @RequestParam(value="username") String  username){
+    public String removerAtendimento(@PathVariable final BigInteger id, @RequestParam(value="username") String  username){
     	return atendimentoServiceImpl.removerAtendimento(id, username);
     }
     

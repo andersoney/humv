@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigInteger;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -28,14 +29,16 @@ public class Dono implements Serializable {
 	private static final long serialVersionUID = -6125748157292589614L;
 	
 	@Id
+	@GeneratedValue
 	private BigInteger id; // recebe o numero do CPF ou CNPJ do novo dono.
-	private String tipoId; // Pode ser CPF ou CNPJ
+	private String cpfCnpj;
+	private String tipoDocumento; // Pode ser CPF ou CNPJ
 	private String nome;
 	private String endereco;
 	private String estado;
 	private String cep;
 	private String telefone;
-	private String email;
+	private String email;	
 	private String cidade; // Obs.: pode ser uma fazenda ou distrito em caso de zona rural.
 
 	public BigInteger getId() {
@@ -45,13 +48,21 @@ public class Dono implements Serializable {
 	public void setId(BigInteger id) {
 		this.id = id;
 	}
-	
-	public String getTipoId() {
-		return tipoId;
+
+	public String getCpfCnpj() {
+		return cpfCnpj;
 	}
 
-	public void setTipoId(String tipoId) {
-		this.tipoId = tipoId;
+	public void setCpfCnpj(String cpfCnpj) {
+		this.cpfCnpj = cpfCnpj;
+	}
+
+	public String getTipoDocumento() {
+		return tipoDocumento;
+	}
+
+	public void setTipoDocumento(String tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
 	}
 
 	public String getNome() {

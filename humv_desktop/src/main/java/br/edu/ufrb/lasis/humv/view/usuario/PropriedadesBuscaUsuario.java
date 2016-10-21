@@ -90,6 +90,11 @@ public class PropriedadesBuscaUsuario extends PropriedadesBusca {
             }
         } else if (e.getSource().equals(super.getBotaoImprimirTabela())) {
             PrintUtils.print(PrintUtils.TABELA_USUARIOS, listaUsuarios);
+        } else if (e.getSource().equals(super.getBotaoCancelar())) {
+            boolean sair = InterfaceGraficaUtils.dialogoSair();
+            if (sair) {
+                HUMVApp.setPainelCentralComLogo();
+            }
         }
     }
 

@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -78,6 +79,7 @@ public class SetorListaJDialog extends JDialog implements ActionListener {
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.add(painelLinhas, BorderLayout.CENTER);
         buttonOK = new JButton("Selecionar");
+        buttonOK.setIcon(new ImageIcon("imagens/small_salvar.png"));
         buttonOK.addActionListener(this);
         mainPanel.add(buttonOK, BorderLayout.PAGE_END);
         setContentPane(new JScrollPane(mainPanel));
@@ -98,8 +100,7 @@ public class SetorListaJDialog extends JDialog implements ActionListener {
             if (radios.get(i).isSelected()) {
                 if (cadastroProcedimentoPanel != null) {
                     cadastroProcedimentoPanel.setSetor(setores.get(i));
-                    cadastroProcedimentoPanel.getjLabelSetorCodigo().setText("Código: " + setores.get(i).getCodigo());
-                    cadastroProcedimentoPanel.getjLabelNomeSetor().setText("Nome: " + setores.get(i).getNome());
+                    cadastroProcedimentoPanel.getjLabelNomeSetor().setText("Nome: " + setores.get(i).getCodigo() +  " - " + setores.get(i).getNome());
                     dispose();
                 } else {
                     cadastroProjetoPanel.setSetor(setores.get(i));

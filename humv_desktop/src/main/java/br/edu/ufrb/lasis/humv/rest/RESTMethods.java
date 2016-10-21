@@ -101,9 +101,18 @@ public class RESTMethods {
     
     private static String getResourceURL(String resourceName, boolean temUsername){
         String URL =  HUMVConfigUtils.getVetBackendURL() + resourceName;
-        if(temUsername){
-            URL = URL + "?username=" + HUMVApp.getNomeUsuario();
+        
+        String usernameURL;
+        if(resourceName.contains("?")){
+            usernameURL = "&username=";
+        } else{
+            usernameURL = "?username=";
         }
+        
+        if(temUsername){
+            URL = URL + usernameURL + HUMVApp.getNomeUsuario();
+        }
+        
         return URL;
     }
 

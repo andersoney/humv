@@ -8,6 +8,7 @@ package br.edu.ufrb.lasis.humv.view.busca;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTable;
@@ -25,15 +26,15 @@ public abstract class PropriedadesBusca implements ActionListener, KeyListener {
     public static final String OPCAO_SELECIONAR = "Selecionar";
 
     private String tipoOperacao;
-    private JButton botaoBusca, botaoOperacao, botaoImprimirTabela;
+    private JButton botaoBusca, botaoOperacao, botaoImprimirTabela, botaoCancelar;
     private JTable tabelaResultado;
     private JTextField campoPalavraChave;
     private JFrame jFrame = null;
-    
+
     public PropriedadesBusca(String tipoOperacao) {
         this.tipoOperacao = tipoOperacao;
     }
-    
+
     public PropriedadesBusca(String tipoOperacao, JFrame jFrame) {
         this.tipoOperacao = tipoOperacao;
         this.jFrame = jFrame;
@@ -41,14 +42,20 @@ public abstract class PropriedadesBusca implements ActionListener, KeyListener {
 
     public abstract void buscar();
 
-    public void configurarBusca(JTextField campoBusca, JButton botaoBusca, JButton botaoImprimir, JTable tabelaResultado) {
+    public void configurarBusca(JTextField campoBusca, JButton botaoBusca, JButton botaoImprimir, JButton botaoCancelar, JTable tabelaResultado) {
         campoBusca.addKeyListener(this);
         this.setCampoPalavraChave(campoBusca);
+
         this.setBotaoBusca(botaoBusca);
         this.getBotaoBusca().addActionListener(this);
         this.getBotaoBusca().addKeyListener(this);
+
         this.setBotaoImprimirTabela(botaoImprimir);
         this.getBotaoImprimirTabela().addActionListener(this);
+
+        this.setBotaoCancelar(botaoCancelar);
+        this.getBotaoCancelar().addActionListener(this);
+
         this.setTabelaResultado(tabelaResultado);
     }
 
@@ -56,6 +63,14 @@ public abstract class PropriedadesBusca implements ActionListener, KeyListener {
         this.setBotaoOperacao(botaoOperacao);
         this.getBotaoOperacao().setText(this.getTipoOperacao());
         this.getBotaoOperacao().addActionListener(this);
+
+        if (this.getTipoOperacao().equalsIgnoreCase(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR)) {
+            this.getBotaoOperacao().setIcon(new ImageIcon("imagens/small_visualizar.png"));
+        } else if (this.getTipoOperacao().equalsIgnoreCase(PropriedadesBusca.OPCAO_REMOVER)) {
+            this.getBotaoOperacao().setIcon(new ImageIcon("imagens/small_cancelar.png"));
+        } else if (this.getTipoOperacao().equalsIgnoreCase(PropriedadesBusca.OPCAO_SELECIONAR)) {
+            this.getBotaoOperacao().setIcon(new ImageIcon("imagens/small_salvar.png"));
+        }
     }
 
     @Override
@@ -97,6 +112,14 @@ public abstract class PropriedadesBusca implements ActionListener, KeyListener {
         this.botaoOperacao = botaoOperacao;
     }
 
+    public JButton getBotaoCancelar() {
+        return botaoCancelar;
+    }
+
+    public void setBotaoCancelar(JButton botaoCancelar) {
+        this.botaoCancelar = botaoCancelar;
+    }
+
     public JTable getTabelaResultado() {
         return tabelaResultado;
     }
@@ -108,12 +131,13 @@ public abstract class PropriedadesBusca implements ActionListener, KeyListener {
     public int getIndexLinhaSelecionada() {
         return this.getTabelaResultado().getSelectedRow();
     }
+
     public JTextField getCampoPalavraChave() {
-         return campoPalavraChave;
+        return campoPalavraChave;
     }
- 
+
     public void setCampoPalavraChave(JTextField campoPalavraChave) {
-         this.campoPalavraChave = campoPalavraChave;
+        this.campoPalavraChave = campoPalavraChave;
     }
 
     public JButton getBotaoImprimirTabela() {
@@ -131,5 +155,5 @@ public abstract class PropriedadesBusca implements ActionListener, KeyListener {
     public void setjFrame(JFrame jFrame) {
         this.jFrame = jFrame;
     }
-    
+
 }

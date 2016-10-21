@@ -64,7 +64,7 @@ public class ProcedimentoDAO extends GenericDAO<Procedimento> implements Seriali
 	public List<Procedimento> search(String palavrachave) {
 		Criteria criteria = getCriteria();
 
-		Integer conversionResult = NumberUtils.convertStringToInteger(palavrachave);
+		BigInteger conversionResult = NumberUtils.convertStringToInteger(palavrachave);
 		if (conversionResult != null) {
 			criteria.add(
 					Restrictions.or(
