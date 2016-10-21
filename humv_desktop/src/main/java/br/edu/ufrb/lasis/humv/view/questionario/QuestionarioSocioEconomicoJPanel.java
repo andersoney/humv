@@ -19,6 +19,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
      */
     public QuestionarioSocioEconomicoJPanel() {
         initComponents();
+        this.jRadioButtonSaneamentoSim.setSelected(true);
     }
 
     /**
@@ -53,8 +54,8 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jFormattedTextFieldIdade = new javax.swing.JFormattedTextField();
-        jComboBoxEstadoCivil = new javax.swing.JComboBox<>();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBoxEstadoCivil = new javax.swing.JComboBox<String>();
+        jComboBox1 = new javax.swing.JComboBox<String>();
         jTextFieldProfissao = new javax.swing.JTextField();
         jTextFieldOcupacao = new javax.swing.JTextField();
         jPanelMateriais = new javax.swing.JPanel();
@@ -146,7 +147,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jComboBoxEscolaridadeFamliar = new javax.swing.JComboBox<>();
+        jComboBoxEscolaridadeFamliar = new javax.swing.JComboBox<String>();
         jLabel17 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
@@ -257,9 +258,9 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
 
         jFormattedTextFieldIdade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
 
-        jComboBoxEstadoCivil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Solteiro", "Casado", "Separado", "Divorciado", "Viúvo" }));
+        jComboBoxEstadoCivil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Solteiro", "Casado", "Separado", "Divorciado", "Viúvo" }));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fundamental incompleto", "Fundamental completo", "Médio incompleto", "Médio completo", "Superior incompleto", "Superior completo", "Pós-graduação incompleta", "Pós-graduação completa" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Fundamental incompleto", "Fundamental completo", "Médio incompleto", "Médio completo", "Superior incompleto", "Superior completo", "Pós-graduação incompleta", "Pós-graduação completa" }));
 
         javax.swing.GroupLayout jPanelAdicionaisLayout = new javax.swing.GroupLayout(jPanelAdicionais);
         jPanelAdicionais.setLayout(jPanelAdicionaisLayout);
@@ -331,6 +332,11 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jLabel12.setText("Energia elétrica:");
 
         jRadioButtonSaneamentoSim.setText("Sim");
+        jRadioButtonSaneamentoSim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonSaneamentoSimActionPerformed(evt);
+            }
+        });
 
         jRadioButtonSaneamentoNao.setText("Não");
         jRadioButtonSaneamentoNao.addActionListener(new java.awt.event.ActionListener() {
@@ -931,7 +937,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
 
         jLabel16.setText("Parentesco:");
 
-        jComboBoxEscolaridadeFamliar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fundamental incompleto", "Fundamental completo", "Médio incompleto", "Médio completo", "Superior incompleto", "Superior completo", "Pós-graduação incompleta", "Pós-graduação completa" }));
+        jComboBoxEscolaridadeFamliar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Fundamental incompleto", "Fundamental completo", "Médio incompleto", "Médio completo", "Superior incompleto", "Superior completo", "Pós-graduação incompleta", "Pós-graduação completa" }));
 
         jLabel17.setText("Escolaridade:");
 
@@ -1169,6 +1175,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
 
     private void jRadioButtonSaneamentoNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonSaneamentoNaoActionPerformed
         // TODO add your handling code here:
+        this.jRadioButtonSaneamentoSim.setSelected(false);
     }//GEN-LAST:event_jRadioButtonSaneamentoNaoActionPerformed
 
     private void jRadioButtonEnergiaNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEnergiaNaoActionPerformed
@@ -1269,6 +1276,11 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         atualizaTabelaFamiliares();
         atualizaCalculoRenda();
     }//GEN-LAST:event_jButtonSalvarActionPerformed
+
+    private void jRadioButtonSaneamentoSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonSaneamentoSimActionPerformed
+        // TODO add your handling code here:
+        this.jRadioButtonSaneamentoNao.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonSaneamentoSimActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
