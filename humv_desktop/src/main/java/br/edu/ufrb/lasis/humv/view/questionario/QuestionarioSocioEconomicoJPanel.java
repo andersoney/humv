@@ -5,6 +5,7 @@ import br.edu.ufrb.lasis.humv.entity.Parente;
 import br.edu.ufrb.lasis.humv.entity.Animal;
 import br.edu.ufrb.lasis.humv.entity.Documentacao;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
+import java.util.Calendar;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -23,6 +24,12 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
      */
     public QuestionarioSocioEconomicoJPanel() {
         initComponents();
+        initComponentsCustom();
+    }
+
+    private void initComponentsCustom() {
+        this.jTextFieldDocumentoOutro.setEnabled(false);
+        this.dteDataEntrega.setDate(Calendar.getInstance().getTime());
     }
 
     /**
@@ -95,16 +102,16 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jTextAreaObservacoes = new javax.swing.JTextArea();
         jPanelDocumentos = new javax.swing.JPanel();
         jLabel31 = new javax.swing.JLabel();
-        jTextFieldDocumento = new javax.swing.JTextField();
+        jTextFieldDocumentoOutro = new javax.swing.JTextField();
         jLabel32 = new javax.swing.JLabel();
         dteDataEntrega = new com.toedter.calendar.JDateChooser();
         jButtonDocumentoSalvar = new javax.swing.JButton();
         jButtonDocumentoRemover = new javax.swing.JButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButtonDocumentoDono = new javax.swing.JRadioButton();
-        jRadioButtonDocumentoFamilia = new javax.swing.JRadioButton();
-        jRadioButtonBolsaFamilia = new javax.swing.JRadioButton();
-        jRadioButtonDocumentoOutro = new javax.swing.JRadioButton();
+        jRadioButtonDocumentosComprovanteEndereco = new javax.swing.JRadioButton();
+        jRadioButtonDocumentosRGDono = new javax.swing.JRadioButton();
+        jRadioButtonDocumentosMembroFamilia = new javax.swing.JRadioButton();
+        jRadioButtonDocumentosBolsaFamilia = new javax.swing.JRadioButton();
+        jRadioButtonDocumentosOutro = new javax.swing.JRadioButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jCheckBoxNA = new javax.swing.JCheckBox();
@@ -570,25 +577,40 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             }
         });
 
-        jRadioButton1.setText("Comprovante de endereço");
-
-        jRadioButtonDocumentoDono.setText("Cópia do documento de identidade do dono");
-        jRadioButtonDocumentoDono.addActionListener(new java.awt.event.ActionListener() {
+        jRadioButtonDocumentosComprovanteEndereco.setText("Comprovante de endereço");
+        jRadioButtonDocumentosComprovanteEndereco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonDocumentoDonoActionPerformed(evt);
+                jRadioButtonDocumentosComprovanteEnderecoActionPerformed(evt);
             }
         });
 
-        jRadioButtonDocumentoFamilia.setText("Cópia do documento de identidade de membro da família");
-        jRadioButtonDocumentoFamilia.addActionListener(new java.awt.event.ActionListener() {
+        jRadioButtonDocumentosRGDono.setText("Cópia do documento de identidade do dono");
+        jRadioButtonDocumentosRGDono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonDocumentoFamiliaActionPerformed(evt);
+                jRadioButtonDocumentosRGDonoActionPerformed(evt);
             }
         });
 
-        jRadioButtonBolsaFamilia.setText("Cópia do cartão Bolsa Família");
+        jRadioButtonDocumentosMembroFamilia.setText("Cópia do documento de identidade de membro da família");
+        jRadioButtonDocumentosMembroFamilia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonDocumentosMembroFamiliaActionPerformed(evt);
+            }
+        });
 
-        jRadioButtonDocumentoOutro.setText("Outro");
+        jRadioButtonDocumentosBolsaFamilia.setText("Cópia do cartão Bolsa Família");
+        jRadioButtonDocumentosBolsaFamilia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonDocumentosBolsaFamiliaActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonDocumentosOutro.setText("Outro");
+        jRadioButtonDocumentosOutro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonDocumentosOutroActionPerformed(evt);
+            }
+        });
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -630,24 +652,19 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                         .addGap(6, 6, 6)
                         .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jRadioButtonDocumentoDono)
-                                .addComponent(jRadioButton1)
-                                .addComponent(jRadioButtonDocumentoFamilia)
-                                .addComponent(jRadioButtonBolsaFamilia)
-                                .addComponent(jRadioButtonDocumentoOutro))
-                            .addComponent(jTextFieldDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jRadioButtonDocumentosRGDono)
+                                .addComponent(jRadioButtonDocumentosComprovanteEndereco)
+                                .addComponent(jRadioButtonDocumentosMembroFamilia)
+                                .addComponent(jRadioButtonDocumentosBolsaFamilia)
+                                .addComponent(jRadioButtonDocumentosOutro))
+                            .addComponent(jTextFieldDocumentoOutro, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDocumentosLayout.createSequentialGroup()
-                        .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dteDataEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel32))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanelDocumentosLayout.createSequentialGroup()
-                        .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBoxNA)
-                            .addComponent(jCheckBoxVistoASocial))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(dteDataEntrega, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jCheckBoxNA, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBoxVistoASocial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanelDocumentosLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -656,33 +673,35 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jPanelDocumentosLayout.setVerticalGroup(
             jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDocumentosLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelDocumentosLayout.createSequentialGroup()
-                        .addComponent(jLabel31)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButton1))
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanelDocumentosLayout.createSequentialGroup()
+                                .addComponent(jLabel31)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jRadioButtonDocumentosComprovanteEndereco))
+                            .addComponent(dteDataEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanelDocumentosLayout.createSequentialGroup()
-                        .addComponent(jLabel32)
-                        .addGap(35, 35, 35))
-                    .addComponent(dteDataEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel32)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelDocumentosLayout.createSequentialGroup()
-                        .addComponent(jRadioButtonDocumentoDono)
+                        .addComponent(jRadioButtonDocumentosRGDono)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButtonDocumentoFamilia)
+                        .addComponent(jRadioButtonDocumentosMembroFamilia)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDocumentosLayout.createSequentialGroup()
                         .addComponent(jCheckBoxNA)
                         .addGap(15, 15, 15)))
                 .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButtonBolsaFamilia)
+                    .addComponent(jRadioButtonDocumentosBolsaFamilia)
                     .addComponent(jCheckBoxVistoASocial))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButtonDocumentoOutro)
+                .addComponent(jRadioButtonDocumentosOutro)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldDocumentoOutro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonDocumentoRemover)
@@ -1185,16 +1204,28 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonDocumentoSalvarActionPerformed
 
     private void jButtonDocumentoRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDocumentoRemoverActionPerformed
-        this.setVisible(false);
+
     }//GEN-LAST:event_jButtonDocumentoRemoverActionPerformed
 
-    private void jRadioButtonDocumentoDonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDocumentoDonoActionPerformed
+    private void jRadioButtonDocumentosRGDonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDocumentosRGDonoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButtonDocumentoDonoActionPerformed
+        this.jRadioButtonDocumentosComprovanteEndereco.setSelected(false);
+        this.jRadioButtonDocumentosRGDono.setSelected(true);
+        this.jRadioButtonDocumentosMembroFamilia.setSelected(false);
+        this.jRadioButtonDocumentosBolsaFamilia.setSelected(false);
+        this.jRadioButtonDocumentosOutro.setSelected(false);
+        this.jTextFieldDocumentoOutro.setEnabled(false);
+    }//GEN-LAST:event_jRadioButtonDocumentosRGDonoActionPerformed
 
-    private void jRadioButtonDocumentoFamiliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDocumentoFamiliaActionPerformed
+    private void jRadioButtonDocumentosMembroFamiliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDocumentosMembroFamiliaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButtonDocumentoFamiliaActionPerformed
+        this.jRadioButtonDocumentosComprovanteEndereco.setSelected(false);
+        this.jRadioButtonDocumentosRGDono.setSelected(false);
+        this.jRadioButtonDocumentosMembroFamilia.setSelected(true);
+        this.jRadioButtonDocumentosBolsaFamilia.setSelected(false);
+        this.jRadioButtonDocumentosOutro.setSelected(false);
+        this.jTextFieldDocumentoOutro.setEnabled(false);
+    }//GEN-LAST:event_jRadioButtonDocumentosMembroFamiliaActionPerformed
 
     private void jCheckBoxNAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxNAActionPerformed
         // TODO add your handling code here:
@@ -1226,6 +1257,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
 
     private void validarCampos() {
         boolean okDono = validarDadosDoDono();
+        boolean okDocumento;
     }
 
     private boolean validarDadosDoDono() {
@@ -1379,6 +1411,36 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         atualizaCalculoRenda();
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
+    private void jRadioButtonDocumentosComprovanteEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDocumentosComprovanteEnderecoActionPerformed
+        // TODO add your handling code here:
+        this.jRadioButtonDocumentosComprovanteEndereco.setSelected(true);
+        this.jRadioButtonDocumentosRGDono.setSelected(false);
+        this.jRadioButtonDocumentosMembroFamilia.setSelected(false);
+        this.jRadioButtonDocumentosBolsaFamilia.setSelected(false);
+        this.jRadioButtonDocumentosOutro.setSelected(false);
+        this.jTextFieldDocumentoOutro.setEnabled(false);
+    }//GEN-LAST:event_jRadioButtonDocumentosComprovanteEnderecoActionPerformed
+
+    private void jRadioButtonDocumentosBolsaFamiliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDocumentosBolsaFamiliaActionPerformed
+        // TODO add your handling code here:
+        this.jRadioButtonDocumentosComprovanteEndereco.setSelected(false);
+        this.jRadioButtonDocumentosRGDono.setSelected(false);
+        this.jRadioButtonDocumentosMembroFamilia.setSelected(false);
+        this.jRadioButtonDocumentosBolsaFamilia.setSelected(true);
+        this.jRadioButtonDocumentosOutro.setSelected(false);
+        this.jTextFieldDocumentoOutro.setEnabled(false);
+    }//GEN-LAST:event_jRadioButtonDocumentosBolsaFamiliaActionPerformed
+
+    private void jRadioButtonDocumentosOutroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDocumentosOutroActionPerformed
+        // TODO add your handling code here:
+        this.jRadioButtonDocumentosComprovanteEndereco.setSelected(false);
+        this.jRadioButtonDocumentosRGDono.setSelected(false);
+        this.jRadioButtonDocumentosMembroFamilia.setSelected(false);
+        this.jRadioButtonDocumentosBolsaFamilia.setSelected(false);
+        this.jRadioButtonDocumentosOutro.setSelected(true);
+        this.jTextFieldDocumentoOutro.setEnabled(true);
+    }//GEN-LAST:event_jRadioButtonDocumentosOutroActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Cobranca;
@@ -1471,8 +1533,6 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanelDocumentos;
     private javax.swing.JPanel jPanelEstudante;
     private javax.swing.JPanel jPanelMateriais;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButtonBolsaFamilia;
     private javax.swing.JRadioButton jRadioButtonCirurgiaAula;
     private javax.swing.JRadioButton jRadioButtonCirurgiaDesconto;
     private javax.swing.JRadioButton jRadioButtonCirurgiaIsencao;
@@ -1481,9 +1541,11 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     private javax.swing.JRadioButton jRadioButtonConsultaDesconto;
     private javax.swing.JRadioButton jRadioButtonConsultaIsencao;
     private javax.swing.JRadioButton jRadioButtonConsultaNormal;
-    private javax.swing.JRadioButton jRadioButtonDocumentoDono;
-    private javax.swing.JRadioButton jRadioButtonDocumentoFamilia;
-    private javax.swing.JRadioButton jRadioButtonDocumentoOutro;
+    private javax.swing.JRadioButton jRadioButtonDocumentosBolsaFamilia;
+    private javax.swing.JRadioButton jRadioButtonDocumentosComprovanteEndereco;
+    private javax.swing.JRadioButton jRadioButtonDocumentosMembroFamilia;
+    private javax.swing.JRadioButton jRadioButtonDocumentosOutro;
+    private javax.swing.JRadioButton jRadioButtonDocumentosRGDono;
     private javax.swing.JRadioButton jRadioButtonEnergiaNao;
     private javax.swing.JRadioButton jRadioButtonEnergiaSim;
     private javax.swing.JRadioButton jRadioButtonEstudanteNao;
@@ -1515,7 +1577,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     private javax.swing.JTextArea jTextAreaVulnerabilidades;
     private javax.swing.JTextField jTextFieldBeneficio;
     private javax.swing.JTextField jTextFieldCondicaoMoradia;
-    private javax.swing.JTextField jTextFieldDocumento;
+    private javax.swing.JTextField jTextFieldDocumentoOutro;
     private javax.swing.JTextField jTextFieldFamiliaNome;
     private javax.swing.JTextField jTextFieldFamiliaOcupacao;
     private javax.swing.JTextField jTextFieldFatoresDeclarados;
