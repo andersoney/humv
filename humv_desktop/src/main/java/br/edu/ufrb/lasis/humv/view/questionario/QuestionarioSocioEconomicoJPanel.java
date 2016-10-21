@@ -6,14 +6,18 @@ import br.edu.ufrb.lasis.humv.entity.Animal;
 import br.edu.ufrb.lasis.humv.entity.Documentacao;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author tassiovale
  */
 public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
-    private double rendaPerCapta = 0, rendaTotal = 0; 
+
+    private double rendaPerCapta = 0, rendaTotal = 0;
     private List<Parente> parentes;
+
     /**
      * Creates new form QuestionarioSocioEconomicoJPanel
      */
@@ -53,8 +57,8 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jFormattedTextFieldIdade = new javax.swing.JFormattedTextField();
-        jComboBoxEstadoCivil = new javax.swing.JComboBox<>();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBoxEstadoCivil = new javax.swing.JComboBox<String>();
+        jComboBox1 = new javax.swing.JComboBox<String>();
         jTextFieldProfissao = new javax.swing.JTextField();
         jTextFieldOcupacao = new javax.swing.JTextField();
         jPanelMateriais = new javax.swing.JPanel();
@@ -146,7 +150,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jComboBoxEscolaridadeFamliar = new javax.swing.JComboBox<>();
+        jComboBoxEscolaridadeFamliar = new javax.swing.JComboBox<String>();
         jLabel17 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
@@ -257,9 +261,9 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
 
         jFormattedTextFieldIdade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
 
-        jComboBoxEstadoCivil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Solteiro", "Casado", "Separado", "Divorciado", "Viúvo" }));
+        jComboBoxEstadoCivil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Solteiro", "Casado", "Separado", "Divorciado", "Viúvo" }));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fundamental incompleto", "Fundamental completo", "Médio incompleto", "Médio completo", "Superior incompleto", "Superior completo", "Pós-graduação incompleta", "Pós-graduação completa" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Fundamental incompleto", "Fundamental completo", "Médio incompleto", "Médio completo", "Superior incompleto", "Superior completo", "Pós-graduação incompleta", "Pós-graduação completa" }));
 
         javax.swing.GroupLayout jPanelAdicionaisLayout = new javax.swing.GroupLayout(jPanelAdicionais);
         jPanelAdicionais.setLayout(jPanelAdicionaisLayout);
@@ -541,8 +545,9 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel18)
                     .addComponent(jRadioButtonEstudanteSim)
                     .addComponent(jRadioButtonEstudanteNao))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanelEstudante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelEstudante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(121, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Dados do dono", jPanelDadosDono);
@@ -684,7 +689,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                     .addComponent(jButtonDocumentoSalvar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(259, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Documentos", jPanelDocumentos);
@@ -907,7 +912,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                     .addComponent(jRadioButtonCirurgiaDesconto)
                     .addComponent(jFormattedTextFieldCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel44))
-                .addContainerGap(392, Short.MAX_VALUE))
+                .addContainerGap(501, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Cobrança", Cobranca);
@@ -931,7 +936,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
 
         jLabel16.setText("Parentesco:");
 
-        jComboBoxEscolaridadeFamliar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fundamental incompleto", "Fundamental completo", "Médio incompleto", "Médio completo", "Superior incompleto", "Superior completo", "Pós-graduação incompleta", "Pós-graduação completa" }));
+        jComboBoxEscolaridadeFamliar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Fundamental incompleto", "Fundamental completo", "Médio incompleto", "Médio completo", "Superior incompleto", "Superior completo", "Pós-graduação incompleta", "Pós-graduação completa" }));
 
         jLabel17.setText("Escolaridade:");
 
@@ -1146,7 +1151,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 710, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 779, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonQuestionarioSalvar)
@@ -1157,10 +1162,10 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
 
     private void jButtonPesquisarDonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarDonoActionPerformed
         /*JFrame jFrame = new JFrame("Busca");
-        PropriedadesBuscaDono propriedadesBusca = new PropriedadesBuscaDono(PropriedadesBusca.OPCAO_SELECIONAR, jFrame, this);
-        BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE DONO", propriedadesBusca);
-        jFrame.setContentPane(buscaPanel);
-        InterfaceGraficaUtils.exibirJanela(jFrame);*/
+         PropriedadesBuscaDono propriedadesBusca = new PropriedadesBuscaDono(PropriedadesBusca.OPCAO_SELECIONAR, jFrame, this);
+         BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE DONO", propriedadesBusca);
+         jFrame.setContentPane(buscaPanel);
+         InterfaceGraficaUtils.exibirJanela(jFrame);*/
     }//GEN-LAST:event_jButtonPesquisarDonoActionPerformed
 
     private void jButtonCadastrarNovoDonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarNovoDonoActionPerformed
@@ -1176,7 +1181,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jRadioButtonEnergiaNaoActionPerformed
 
     private void jButtonDocumentoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDocumentoSalvarActionPerformed
-        
+
     }//GEN-LAST:event_jButtonDocumentoSalvarActionPerformed
 
     private void jButtonDocumentoRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDocumentoRemoverActionPerformed
@@ -1212,15 +1217,100 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jRadioButtonExameDescontoActionPerformed
 
     private void jButtonQuestionarioCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQuestionarioCancelarActionPerformed
-        
+
     }//GEN-LAST:event_jButtonQuestionarioCancelarActionPerformed
 
     private void jButtonQuestionarioSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQuestionarioSalvarActionPerformed
-        
+
     }//GEN-LAST:event_jButtonQuestionarioSalvarActionPerformed
 
     private void validarCampos() {
-        
+        boolean okDono = validarDadosDoDono();
+    }
+
+    private boolean validarDadosDoDono() {
+        String idadeST = this.jFormattedTextFieldIdade.getText();
+        Integer idade;
+        try {
+            idade = validarInteger(idadeST,"Idade");
+            Integer estadoCivil;
+            estadoCivil = this.jComboBoxEstadoCivil.getSelectedIndex();
+            String profissao = this.jTextFieldProfissao.getText();
+            profissao = validarString(profissao,"Profissão");
+            Integer escolaridade = this.jComboBoxEscolaridadeFamliar.getSelectedIndex();
+            String ocupacao = this.jTextFieldOcupacao.getText();
+            ocupacao = validarString(ocupacao,"Ocupação");
+            String rendaFormalST = this.jFormattedTextFieldRendaFormal.getText();
+            Double rendaFormal = validarDouble(rendaFormalST,"Renda Formal");
+            String rendaInformalST = this.jFormattedTextFieldRendaInformal.getText();
+            Double rendaInformal = validarDouble(rendaFormalST,"Renda Informal");
+            String aluguelST = this.jTextFieldOcupacao.getText();
+            Double aluguel = validarDouble(aluguelST,"Aluguel");
+            boolean saneamento;
+            boolean saneamentoS = this.jRadioButtonSaneamentoSim.isSelected();
+            boolean saneamentoN = this.jRadioButtonSaneamentoNao.isSelected();
+            saneamento = validarRadioButton(saneamentoS, saneamentoN, "Saneamento");
+            boolean energiaS=this.jRadioButtonEnergiaSim.isSelected();
+            boolean energiaN=this.jRadioButtonEnergiaNao.isSelected();
+            boolean energia;
+            energia=validarRadioButton(energiaS, energiaN, "Energia");
+            String tipoConst = this.jTextFieldTipoConstrucao.getText();
+            tipoConst=validarString(tipoConst, "Tipo de Construção");
+            String condMoradia = this.jTextFieldCondicaoMoradia.getText();
+            condMoradia=validarString(condMoradia, "Condição de Modaria");
+            String progTransferRenda = this.jTextFieldProgramaRenda;
+            boolean estudante = this.jRadioButtonEstudanteSim;
+            Double gastosMensais = this.jFormattedTextFieldGastosMensais;
+            String fonteCusteio = this.jTextFieldFonteCusteio;
+            String bolsaOuBeneficio = this.jTextFieldBeneficio;
+            String observacao = this.jTextAreaObservacoes;
+            return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+            return false;
+        }
+
+    }
+
+    private boolean validarRadioButton(boolean saneamentoS, boolean saneamentoN, String tipo) throws Exception {
+        if (!saneamentoS && !saneamentoN) {
+            throw new Exception("Escolha Entre as opções " + tipo + ".");
+        } else {
+            if (saneamentoS) {
+                return saneamentoS;
+            } else {
+
+                return saneamentoN;
+            }
+        }
+    }
+
+    private Double validarDouble(String rendaFormalST,String campo) {
+        Double rendaFormal;
+        try {
+            rendaFormal = Double.parseDouble(rendaFormalST);
+            return rendaFormal;
+        } catch (Exception e) {
+            throw new Exception("O campo "+campo+" é real.");
+        }
+    }
+
+    private String validarString(String test, String campo) throws Exception {
+        String returnMe = test;
+        if (returnMe.trim().length() == 0) {
+            throw new Exception("Preencha o campo " + campo + "");
+        } else {
+            return returnMe;
+        }
+    }
+
+    private Integer validarInteger(String idadeST,String campo) throws Exception {
+        try {
+            Integer returnMe = Integer.parseInt(idadeST);
+            return returnMe;
+        } catch (Exception e) {
+            throw new Exception("Coloque um inteiro no campo "+campo+".");
+        }
     }
 
 
@@ -1432,23 +1522,23 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     }
 
     private void atualizaTabelaFamiliares() {
-        String colunas[] ={"Nome","Parentesco","Renda R$"}; 
+        String colunas[] = {"Nome", "Parentesco", "Renda R$"};
         DefaultTableModel model = new DefaultTableModel(colunas, 0);
-        
+
         parentes.forEach((p) -> {
-            model.addRow(new String[]{p.getNome(),p.getParentesco(),""+p.getRenda()});
+            model.addRow(new String[]{p.getNome(), p.getParentesco(), "" + p.getRenda()});
         });
         jTableFamiliares.setModel(model); //To change body of generated methods, choose Tools | Templates.
     }
 
     private void atualizaCalculoRenda() {
-        int qtdParentes=0;
-        for(Parente parente:parentes){
+        int qtdParentes = 0;
+        for (Parente parente : parentes) {
             rendaTotal += parente.getRenda();
             ++qtdParentes;
         }
-        rendaPerCapta = rendaTotal/qtdParentes;
-        jLabelRendaTotal.setText("Renda total (R$): "+rendaTotal);
-        jLabelRendaPerCapta.setText("Renda per capta (R$): "+rendaTotal); //To change body of generated methods, choose Tools | Templates.
+        rendaPerCapta = rendaTotal / qtdParentes;
+        jLabelRendaTotal.setText("Renda total (R$): " + rendaTotal);
+        jLabelRendaPerCapta.setText("Renda per capta (R$): " + rendaTotal); //To change body of generated methods, choose Tools | Templates.
     }
 }
