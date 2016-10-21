@@ -30,6 +30,9 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     private void initComponentsCustom() {
         this.jTextFieldDocumentoOutro.setEnabled(false);
         this.dteDataEntrega.setDate(Calendar.getInstance().getTime());
+        this.jRadioButtonEnergiaSim.setSelected(true);
+        this.jRadioButtonSaneamentoSim.setSelected(true);
+        this.jRadioButtonEstudanteSim.setSelected(true);
     }
 
     /**
@@ -461,8 +464,18 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jLabel18.setText("Estudante:");
 
         jRadioButtonEstudanteSim.setText("Sim");
+        jRadioButtonEstudanteSim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonEstudanteSimActionPerformed(evt);
+            }
+        });
 
         jRadioButtonEstudanteNao.setText("Não");
+        jRadioButtonEstudanteNao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonEstudanteNaoActionPerformed(evt);
+            }
+        });
 
         jPanelEstudante.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -1462,6 +1475,16 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         this.jRadioButtonEnergiaNao.setSelected(false);
     }//GEN-LAST:event_jRadioButtonEnergiaSimActionPerformed
+
+    private void jRadioButtonEstudanteSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEstudanteSimActionPerformed
+        // TODO add your handling code here:
+        this.jRadioButtonEstudanteNao.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonEstudanteSimActionPerformed
+
+    private void jRadioButtonEstudanteNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEstudanteNaoActionPerformed
+        // TODO add your handling code here:
+        this.jRadioButtonEstudanteSim.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonEstudanteNaoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
