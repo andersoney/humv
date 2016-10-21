@@ -1221,7 +1221,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonQuestionarioCancelarActionPerformed
 
     private void jButtonQuestionarioSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQuestionarioSalvarActionPerformed
-
+        validarCampos();
     }//GEN-LAST:event_jButtonQuestionarioSalvarActionPerformed
 
     private void validarCampos() {
@@ -1232,38 +1232,52 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         String idadeST = this.jFormattedTextFieldIdade.getText();
         Integer idade;
         try {
-            idade = validarInteger(idadeST,"Idade");
+            idade = validarInteger(idadeST, "Idade");
             Integer estadoCivil;
             estadoCivil = this.jComboBoxEstadoCivil.getSelectedIndex();
             String profissao = this.jTextFieldProfissao.getText();
-            profissao = validarString(profissao,"Profissão");
+            profissao = validarString(profissao, "Profissão");
             Integer escolaridade = this.jComboBoxEscolaridadeFamliar.getSelectedIndex();
             String ocupacao = this.jTextFieldOcupacao.getText();
-            ocupacao = validarString(ocupacao,"Ocupação");
+            ocupacao = validarString(ocupacao, "Ocupação");
             String rendaFormalST = this.jFormattedTextFieldRendaFormal.getText();
-            Double rendaFormal = validarDouble(rendaFormalST,"Renda Formal");
+            Double rendaFormal = validarDouble(rendaFormalST, "Renda Formal");
             String rendaInformalST = this.jFormattedTextFieldRendaInformal.getText();
-            Double rendaInformal = validarDouble(rendaFormalST,"Renda Informal");
+            Double rendaInformal = validarDouble(rendaFormalST, "Renda Informal");
             String aluguelST = this.jTextFieldOcupacao.getText();
-            Double aluguel = validarDouble(aluguelST,"Aluguel");
+            Double aluguel = validarDouble(aluguelST, "Aluguel");
             boolean saneamento;
             boolean saneamentoS = this.jRadioButtonSaneamentoSim.isSelected();
             boolean saneamentoN = this.jRadioButtonSaneamentoNao.isSelected();
             saneamento = validarRadioButton(saneamentoS, saneamentoN, "Saneamento");
-            boolean energiaS=this.jRadioButtonEnergiaSim.isSelected();
-            boolean energiaN=this.jRadioButtonEnergiaNao.isSelected();
+            boolean energiaS = this.jRadioButtonEnergiaSim.isSelected();
+            boolean energiaN = this.jRadioButtonEnergiaNao.isSelected();
             boolean energia;
-            energia=validarRadioButton(energiaS, energiaN, "Energia");
+            energia = validarRadioButton(energiaS, energiaN, "Energia");
             String tipoConst = this.jTextFieldTipoConstrucao.getText();
-            tipoConst=validarString(tipoConst, "Tipo de Construção");
+            tipoConst = validarString(tipoConst, "Tipo de Construção");
             String condMoradia = this.jTextFieldCondicaoMoradia.getText();
-            condMoradia=validarString(condMoradia, "Condição de Modaria");
-            String progTransferRenda = this.jTextFieldProgramaRenda;
-            boolean estudante = this.jRadioButtonEstudanteSim;
-            Double gastosMensais = this.jFormattedTextFieldGastosMensais;
-            String fonteCusteio = this.jTextFieldFonteCusteio;
-            String bolsaOuBeneficio = this.jTextFieldBeneficio;
-            String observacao = this.jTextAreaObservacoes;
+            condMoradia = validarString(condMoradia, "Condição de Modaria");
+            String progTransferRenda = this.jTextFieldProgramaRenda.getText();
+            progTransferRenda = validarString(progTransferRenda, "Programa de Transferencia de Renda");
+
+            boolean estudante;
+            boolean estudanteS = this.jRadioButtonEstudanteSim.isSelected();
+            boolean estudanteN = this.jRadioButtonEstudanteNao.isSelected();
+            estudante = validarRadioButton(estudanteS, estudanteN, "Estudante");
+
+            String gastosMenssaisST = this.jFormattedTextFieldGastosMensais.getText();
+            Double gastosMensais = validarDouble(gastosMenssaisST, "Gastos Mensais");
+
+            String fonteCusteio = this.jTextFieldFonteCusteio.getText();
+            fonteCusteio = validarString(fonteCusteio, "Fonte de Custeio");
+
+            String bolsaOuBeneficio = this.jTextFieldBeneficio.getText();
+            validarString(bolsaOuBeneficio, "Bolsa ou Beneficio");
+
+            String observacao = this.jTextAreaObservacoes.getText();
+            validarString(observacao, "Observações");
+
             return true;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
@@ -1272,44 +1286,44 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
 
     }
 
-    private boolean validarRadioButton(boolean saneamentoS, boolean saneamentoN, String tipo) throws Exception {
-        if (!saneamentoS && !saneamentoN) {
-            throw new Exception("Escolha Entre as opções " + tipo + ".");
+    private boolean validarRadioButton(boolean radioButtonSim, boolean radioButtonNao, String Campo) throws Exception {
+        if (!radioButtonSim && !radioButtonNao) {
+            throw new Exception("Escolha Entre as opções " + Campo + ".");
         } else {
-            if (saneamentoS) {
-                return saneamentoS;
+            if (radioButtonSim) {
+                return radioButtonSim;
             } else {
 
-                return saneamentoN;
+                return radioButtonNao;
             }
         }
     }
 
-    private Double validarDouble(String rendaFormalST,String campo) {
+    private Double validarDouble(String rendaFormalST, String campo) throws Exception {
         Double rendaFormal;
         try {
             rendaFormal = Double.parseDouble(rendaFormalST);
             return rendaFormal;
         } catch (Exception e) {
-            throw new Exception("O campo "+campo+" é real.");
+            throw new Exception("O campo " + campo + " é real.");
         }
     }
 
     private String validarString(String test, String campo) throws Exception {
         String returnMe = test;
         if (returnMe.trim().length() == 0) {
-            throw new Exception("Preencha o campo " + campo + "");
+            throw new Exception("Preencha o campo " + campo + ".");
         } else {
             return returnMe;
         }
     }
 
-    private Integer validarInteger(String idadeST,String campo) throws Exception {
+    private Integer validarInteger(String idadeST, String campo) throws Exception {
         try {
             Integer returnMe = Integer.parseInt(idadeST);
             return returnMe;
         } catch (Exception e) {
-            throw new Exception("Coloque um inteiro no campo "+campo+".");
+            throw new Exception("Coloque um inteiro no campo " + campo + ".");
         }
     }
 
