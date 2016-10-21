@@ -5,7 +5,6 @@
  */
 package br.edu.ufrb.lasis.humv.view.busca;
 
-import br.edu.ufrb.lasis.humv.HUMVApp;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -35,7 +34,7 @@ public class BuscaJPanel extends javax.swing.JPanel {
         DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) tabelaResultado.getTableHeader().getDefaultRenderer();
         renderer.setHorizontalAlignment(JLabel.CENTER);
 
-        propriedadesBusca.configurarBusca(textFieldPalavraChave, buttonBuscar, buttonImprimirTabela, tabelaResultado);
+        propriedadesBusca.configurarBusca(textFieldPalavraChave, buttonBuscar, buttonImprimirTabela, buttonCancelar, tabelaResultado);
         propriedadesBusca.configurarBotaoOperacaoPosBusca(buttonOperacao);
     }
    
@@ -56,18 +55,13 @@ public class BuscaJPanel extends javax.swing.JPanel {
         tabelaResultado = new javax.swing.JTable();
         buttonOperacao = new javax.swing.JButton();
         buttonImprimirTabela = new javax.swing.JButton();
-        cancelarJB = new javax.swing.JButton();
+        buttonCancelar = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(800, 600));
 
-        textFieldPalavraChave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldPalavraChaveActionPerformed(evt);
-            }
-        });
-
         jLabel1.setText("Palavra-chave:");
 
+        buttonBuscar.setIcon(new javax.swing.ImageIcon("imagens/small_buscar.png"));
         buttonBuscar.setText("Buscar");
 
         labelTitulo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -89,19 +83,11 @@ public class BuscaJPanel extends javax.swing.JPanel {
 
         buttonOperacao.setText("jButton1");
 
+        buttonImprimirTabela.setIcon(new javax.swing.ImageIcon("imagens/small_pdf.png"));
         buttonImprimirTabela.setText("Gerar PDF");
-        buttonImprimirTabela.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonImprimirTabelaActionPerformed(evt);
-            }
-        });
 
-        cancelarJB.setText("Cancelar");
-        cancelarJB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelarJBActionPerformed(evt);
-            }
-        });
+        buttonCancelar.setIcon(new javax.swing.ImageIcon("imagens/small_cancelar.png"));
+        buttonCancelar.setText("Cancelar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -117,16 +103,16 @@ public class BuscaJPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(textFieldPalavraChave)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(buttonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(20, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cancelarJB)
+                .addComponent(buttonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonImprimirTabela)
+                .addComponent(buttonImprimirTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(207, 207, 207))
+                .addComponent(buttonOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(187, 187, 187))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,32 +130,17 @@ public class BuscaJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonOperacao)
                     .addComponent(buttonImprimirTabela)
-                    .addComponent(cancelarJB))
+                    .addComponent(buttonCancelar))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void textFieldPalavraChaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldPalavraChaveActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldPalavraChaveActionPerformed
-
-    private void buttonImprimirTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonImprimirTabelaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buttonImprimirTabelaActionPerformed
-
-    private void cancelarJBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarJBActionPerformed
-        // TODO add your handling code here:
-        HUMVApp.exibirMensagemCarregamento();
-        HUMVApp.setPainelCentralComLogo();
-        HUMVApp.esconderMensagemCarregamento();
-    }//GEN-LAST:event_cancelarJBActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonBuscar;
+    private javax.swing.JButton buttonCancelar;
     private javax.swing.JButton buttonImprimirTabela;
     private javax.swing.JButton buttonOperacao;
-    private javax.swing.JButton cancelarJB;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel labelTitulo;
     private javax.swing.JScrollPane scrollPaneTabela;

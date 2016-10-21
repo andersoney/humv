@@ -71,15 +71,11 @@ public class DonoTableModel extends AbstractTableModel {
             case 0:
                 return this.donos.get(rowIndex).getNome();
             case 1:
-                return this.donos.get(rowIndex).getTipoId();
+                return this.donos.get(rowIndex).getTipoDocumento();
             case 2:
-                String idStr;
-                if (donos.get(rowIndex).getTipoId().equalsIgnoreCase("CPF")) {
-                    idStr = MaskUtils.formatarStringCPF(this.donos.get(rowIndex).getId());
-                } else {
-                    idStr = MaskUtils.formatarStringCNPJ(this.donos.get(rowIndex).getId());
-                }
-                return idStr;
+                String id = donos.get(rowIndex).getCpfCnpj();
+                String tipoId = donos.get(rowIndex).getTipoDocumento();
+                return MaskUtils.formatarCPF_CNPJ(id, tipoId);
         }
         return null;
     }

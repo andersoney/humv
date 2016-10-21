@@ -69,21 +69,31 @@ public class MaskUtils {
     public static String removeMascara(String string) {
         return string.replaceAll("\\D", "");
     }
+    
+    public static String formatarCPF_CNPJ(String id, String tipoId) {
+        if(tipoId.equalsIgnoreCase("CPF")){
+            return formatarStringCPF(id);
+        } else {
+            return formatarStringCPF(id);
+        }
+    }
 
-    public static String formatarStringCPF(BigInteger cpf) {
+    public static String formatarStringCPF(String cpf) {
+        BigInteger idInt = new BigInteger(cpf);
         NumberFormat numberFormat = NumberFormat.getInstance();
         numberFormat.setMinimumIntegerDigits(11);
         numberFormat.setMaximumIntegerDigits(11);
         numberFormat.setGroupingUsed(false);
-        return numberFormat.format(cpf);
+        return numberFormat.format(idInt);
     }
 
-    public static String formatarStringCNPJ(BigInteger cnpj) {
+    public static String formatarStringCNPJ(String cnpj) {
+        BigInteger idInt = new BigInteger(cnpj);
         NumberFormat numberFormat = NumberFormat.getInstance();
         numberFormat.setMinimumIntegerDigits(14);
         numberFormat.setMaximumIntegerDigits(14);
         numberFormat.setGroupingUsed(false);
-        return numberFormat.format(cnpj);
+        return numberFormat.format(idInt);
     }
     
 }

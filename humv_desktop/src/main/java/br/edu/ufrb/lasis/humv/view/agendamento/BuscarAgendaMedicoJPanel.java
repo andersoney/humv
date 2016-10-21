@@ -6,14 +6,13 @@
 package br.edu.ufrb.lasis.humv.view.agendamento;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
-import br.edu.ufrb.lasis.humv.entity.Atendimento;
 import br.edu.ufrb.lasis.humv.entity.Usuario;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import com.sun.jersey.api.client.ClientResponse;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import org.codehaus.jackson.type.TypeReference;
@@ -25,6 +24,7 @@ import org.codehaus.jackson.type.TypeReference;
 public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
 
     private List<Usuario> medicos = null;
+    private AgendaJPanel agendaJPanel = null;
 
     /**
      * Creates new form RealizarAgendamentoJPanel
@@ -42,6 +42,8 @@ public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
             model.addElement(medico);
         }
         comboBoxMedicos.setModel(model);
+        jButtonNovoAtendimentoExtra.setEnabled(false);
+        jButtonCancelarAgenda.setEnabled(false);
     }
 
     private List<Usuario> getMedicos() {
@@ -74,6 +76,8 @@ public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
         jButtonCarregar = new javax.swing.JButton();
         jScrollPaneTabela = new javax.swing.JScrollPane();
         jButton1 = new javax.swing.JButton();
+        jButtonNovoAtendimentoExtra = new javax.swing.JButton();
+        jButtonCancelarAgenda = new javax.swing.JButton();
 
         jLabelTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -81,14 +85,9 @@ public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
 
         jLabel1.setText("Médico:");
 
-        comboBoxMedicos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxMedicosActionPerformed(evt);
-            }
-        });
-
         jLabel2.setText("Data:");
 
+        jButtonCarregar.setIcon(new javax.swing.ImageIcon("imagens/small_buscar.png"));
         jButtonCarregar.setText("Carregar");
         jButtonCarregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,10 +95,27 @@ public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setText("Sair");
+        jButton1.setIcon(new javax.swing.ImageIcon("imagens/small_voltar.png"));
+        jButton1.setText("Voltar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButtonNovoAtendimentoExtra.setIcon(new javax.swing.ImageIcon("imagens/small_novo.png"));
+        jButtonNovoAtendimentoExtra.setText("Atendimento extra");
+        jButtonNovoAtendimentoExtra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNovoAtendimentoExtraActionPerformed(evt);
+            }
+        });
+
+        jButtonCancelarAgenda.setIcon(new javax.swing.ImageIcon("imagens/small_cancelar.png"));
+        jButtonCancelarAgenda.setText("Cancelar agenda");
+        jButtonCancelarAgenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarAgendaActionPerformed(evt);
             }
         });
 
@@ -108,33 +124,37 @@ public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(comboBoxMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jDateChooserDiaAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonCarregar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(80, 80, 80))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPaneTabela)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboBoxMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jDateChooserDiaAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButtonCarregar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(294, 294, 294)
-                        .addComponent(jButton1)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 816, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonCancelarAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonNovoAtendimentoExtra, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(168, 168, 168))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(15, 15, 15)
                 .addComponent(jLabelTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
@@ -144,9 +164,12 @@ public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
                     .addComponent(jButtonCarregar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButtonNovoAtendimentoExtra)
+                    .addComponent(jButtonCancelarAgenda))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -157,25 +180,14 @@ public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
             InterfaceGraficaUtils.erroResposta("Por favor, informe a data para carregar a agenda do médico " + (MedicoComboBox) comboBoxMedicos.getSelectedItem() + ".");
             jDateChooserDiaAgenda.setFocusable(true);
         } else {
-            try {
-                String dataStr = new SimpleDateFormat("dd-MM-yyyy").format(jDateChooserDiaAgenda.getDate());
-                String emailMedico = ((MedicoComboBox) comboBoxMedicos.getSelectedItem()).getUsuario().getEmail();
-                ClientResponse response = RESTMethods.get("/api/atendimento/searchByDateAndMedicoSemCancelados?data=" + dataStr + "&idEmailMedico=" + emailMedico);
-                List<Atendimento> atendimentos = (List<Atendimento>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Atendimento>>() {
-                });
-
-                AgendaJPanel agendaJPanel = new AgendaJPanel(atendimentos, jDateChooserDiaAgenda.getDate());
-                jScrollPaneTabela.setViewportView(agendaJPanel);
-                jScrollPaneTabela.revalidate();
-            } catch (RESTConnectionException | IOException ex) {
-                InterfaceGraficaUtils.erroConexao();
-            }
+            Usuario medico = ((MedicoComboBox) comboBoxMedicos.getSelectedItem()).getUsuario();
+            agendaJPanel = new AgendaJPanel(this, medico, jDateChooserDiaAgenda.getDate());
+            jScrollPaneTabela.setViewportView(agendaJPanel);
+            jScrollPaneTabela.revalidate();
+            jButtonNovoAtendimentoExtra.setEnabled(true);
+            jButtonCancelarAgenda.setEnabled(true);
         }
     }//GEN-LAST:event_jButtonCarregarActionPerformed
-
-    private void comboBoxMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxMedicosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboBoxMedicosActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         boolean sair = InterfaceGraficaUtils.dialogoSair();
@@ -184,11 +196,25 @@ public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButtonNovoAtendimentoExtraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoAtendimentoExtraActionPerformed
+        if (agendaJPanel != null) {
+            HUMVApp.setNovoPainelCentral(new CadastrarAtendimentoJPanel(agendaJPanel, jDateChooserDiaAgenda.getDate(), null));
+        }
+    }//GEN-LAST:event_jButtonNovoAtendimentoExtraActionPerformed
+
+    private void jButtonCancelarAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarAgendaActionPerformed
+        Usuario medico = ((MedicoComboBox) comboBoxMedicos.getSelectedItem()).getUsuario();
+        Date data = jDateChooserDiaAgenda.getDate();
+        new CancelarAtendimentoJDialog(medico, data, agendaJPanel).setVisible(true);
+    }//GEN-LAST:event_jButtonCancelarAgendaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> comboBoxMedicos;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonCancelarAgenda;
     private javax.swing.JButton jButtonCarregar;
+    private javax.swing.JButton jButtonNovoAtendimentoExtra;
     private com.toedter.calendar.JDateChooser jDateChooserDiaAgenda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

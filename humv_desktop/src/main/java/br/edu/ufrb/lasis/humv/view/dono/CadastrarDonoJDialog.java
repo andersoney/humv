@@ -46,7 +46,7 @@ public class CadastrarDonoJDialog extends JDialog{
     public void fecharDialog(Dono dono) {
         if (dono != null) {
             cadastroAnimalPanel.setDono(dono);
-            cadastroAnimalPanel.getjLabelCpfDono().setText(dono.getTipoId() + ": " + MaskUtils.formatarStringCPF(dono.getId()));
+            cadastroAnimalPanel.getjLabelCpfDono().setText(dono.getTipoDocumento() + ": " + MaskUtils.formatarStringCPF(dono.getCpfCnpj()));
             cadastroAnimalPanel.getjLabelNomeDono().setText("Nome: " + dono.getNome());
             dispose();
         }

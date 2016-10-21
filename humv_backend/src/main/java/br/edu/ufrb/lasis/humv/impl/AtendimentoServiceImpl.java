@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-
 import br.edu.ufrb.lasis.humv.dao.AtendimentoDAO;
 import br.edu.ufrb.lasis.humv.entity.Atendimento;
 
@@ -36,13 +35,14 @@ public class AtendimentoServiceImpl {
 	public Atendimento findById(BigInteger id){
 		return atendimentoDAO.findById(id);
 	}
-	
+
 	public List<Atendimento> searchByDateAndMedico(String date, String id, boolean incluiCancelados){
-		DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		Date data = null;
 		try {
 			data = formatter.parse(date);
 		} catch (ParseException e) {
+			logger.error("[searchByDateAndMedico] Erro ao converter data.");
 			e.printStackTrace();
 		}
 		return atendimentoDAO.searchByDateAndMedico(data, id, incluiCancelados);
@@ -51,16 +51,28 @@ public class AtendimentoServiceImpl {
 	public String cadastrarAtendimento(Atendimento atendimento, String usuarioResponsavel){
 		try{
 			atendimentoDAO.saveAtendimento(atendimento);
-			//ogger.info("[signup - " + usuarioResponsavel + "] Usuario salvo com sucesso: " + usuario.getNome() + ".");
+			logger.info("[cadastrarAtendimento - " + usuarioResponsavel + "] Atendimento salvo com sucesso: " + atendimento.getId() + ".");
 			return "OK";
 		}catch(DataIntegrityViolationException ex){
-			/*if(ex.getMessage().toLowerCase().contains("constraint")){
-				logger.error("[signup] E-mail ja cadastrado: " + usuario.getEmail() + ".");
-				return "Usuario com e-mail " + usuario.getEmail() + " ja cadastrado no sistema. Por favor, informe um e-mail diferente.";
+			if(ex.getMessage().toLowerCase().contains("constraint")){
+				logger.error("[cadastrarAtendimento] Atendimento ja cadastrado: " + atendimento.getId() + ".");
+				return "Atendimento ja cadastrado no sistema. Por favor, informe um atendimento diferente.";
 			}else{
 				return "Erro ao conectar-se com o banco de dados.";
-			}*/
-			return "";
+			}
+		}
+	}
+
+	public String cancelarAtendimentos(String idMedico, String dataInicio, String dataFim, String motivo, String usuarioResponsavel){
+		try{
+			DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy-HH-mm");
+			atendimentoDAO.cancelarAtendimentos(idMedico, formatter.parse(dataInicio), formatter.parse(dataFim), motivo);
+			logger.info("[cancelarAtendimentos - " + usuarioResponsavel + "] Atendimentos entre " + dataInicio + " e " + dataFim + " para o médico " + idMedico + " cancelados com sucesso.");
+			return "OK";
+		} catch (ParseException e) {
+			logger.error("[cancelarAtendimentos] Erro ao converter data.");
+			e.printStackTrace();
+			return "Erro ao converter data.";
 		}
 	}
 
@@ -69,13 +81,13 @@ public class AtendimentoServiceImpl {
 		logger.info("[atualizarAtendimento - " + usuarioResponsavel + "] Atendimento " + atendimento.getId() + " atualizado com sucesso.");
 		return "OK";
 	}
-	
+
 	public String removerAtendimento(BigInteger id, String usuarioResponsavel){
 		Atendimento atendimento = atendimentoDAO.findById(id);
 		atendimentoDAO.removeAtendimento(atendimento);
 		logger.info("[removerAtendimento - " + usuarioResponsavel + "] Atendimento " + atendimento.getId() + " removido com sucesso.");
-    	return "OK";
-    }
+		return "OK";
+	}
 
 	public AtendimentoDAO getAtendimentoDAO() {
 		return atendimentoDAO;

@@ -19,7 +19,7 @@ public class FabricaMenuAdministrador extends MenuBarFabricaAbstrata {
         super.criaMenuDono(comRemover);
         super.criaMenuAnimal(comRemover);
         super.criaMenuSetor(comRemover);
-        super.criaMenuProcedimento(comRemover);
+        super.criaMenuProcedimento(false);
         super.criaMenuProjeto(comRemover);
         super.criaMenuAtendimento();
         super.criaMenuAjuda();
@@ -27,7 +27,7 @@ public class FabricaMenuAdministrador extends MenuBarFabricaAbstrata {
         super.criaBotaoCadastrarProcedimento();
         super.criaBotaoCadastrarAnimal();
         super.criaBotaoCadastrarUsuario();
-        super.criaBotaoAgendarAtendimento();
+        super.criaBotaoVisualizarAgenda();
     }
 
 }

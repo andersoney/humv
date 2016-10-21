@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ufrb.lasis.humv.view.usuario;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
@@ -121,8 +116,9 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
             }
         });
 
-        comboBoxPerfilUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { br.edu.ufrb.lasis.humv.entity.Usuario.ADMINISTRADOR, br.edu.ufrb.lasis.humv.entity.Usuario.RECEPCIONISTA, br.edu.ufrb.lasis.humv.entity.Usuario.VETERINARIO, br.edu.ufrb.lasis.humv.entity.Usuario.FARMACEUTICO,br.edu.ufrb.lasis.humv.entity.Usuario.ASSISTENTE_SOCIAL}));
+        comboBoxPerfilUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { br.edu.ufrb.lasis.humv.entity.Usuario.ADMINISTRADOR, br.edu.ufrb.lasis.humv.entity.Usuario.RECEPCIONISTA, br.edu.ufrb.lasis.humv.entity.Usuario.VETERINARIO, br.edu.ufrb.lasis.humv.entity.Usuario.FARMACEUTICO, br.edu.ufrb.lasis.humv.entity.Usuario.ASSISTENTE_SOCIAL}));
 
+        buttonCancelar.setIcon(new javax.swing.ImageIcon("imagens/small_cancelar.png"));
         buttonCancelar.setText("Cancelar");
         buttonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -130,7 +126,8 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
             }
         });
 
-        buttonOK.setText("OK");
+        buttonOK.setIcon(new javax.swing.ImageIcon("imagens/small_salvar.png"));
+        buttonOK.setText("Salvar");
         buttonOK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOKActionPerformed(evt);
@@ -146,7 +143,7 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(buttonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buttonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonOK, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()

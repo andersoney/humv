@@ -7,8 +7,12 @@ import br.edu.ufrb.lasis.humv.entity.Procedimento;
 import br.edu.ufrb.lasis.humv.entity.Setor;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
+import br.edu.ufrb.lasis.humv.utils.ResultadoBusca;
+import br.edu.ufrb.lasis.humv.utils.ValidationsUtils;
+import br.edu.ufrb.lasis.humv.view.busca.BuscaJPanel;
+import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import br.edu.ufrb.lasis.humv.view.setor.CadastrarSetorJDialog;
-import com.sun.jersey.api.client.ClientHandlerException;
+import br.edu.ufrb.lasis.humv.view.setor.PropriedadesBuscaSetor;
 import com.sun.jersey.api.client.ClientResponse;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -22,12 +26,10 @@ import org.codehaus.jackson.type.TypeReference;
  *
  * @author Luiz
  */
-public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
+public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements ResultadoBusca{
 
-    private JFrame parent;
     private Setor setor = null;
     private String nomeSetor;
-    private final String servicoSetor = "/api/setor";
     private final String servicoProcedimento = "/api/procedimento";
     private Procedimento procedimentoSelecionado;
 
@@ -54,10 +56,8 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
             jTextFieldCodigo.setText(procedimentoSelecionado.getCodigo().toString());
             jTextFieldPreco.setText("" + procedimentoSelecionado.getValor());
             setor = procedimentoSelecionado.getSetor();
-            jLabelSetorCodigo.setText("Código: " + setor.getCodigo());
             nomeSetor = procedimentoSelecionado.getSetor().getNome();
-            jLabelNomeSetor.setText("Nome: " + nomeSetor);
-
+            jLabelNomeSetor.setText("Nome: " + setor +  " - " + nomeSetor);
         }
     }
 
@@ -68,10 +68,13 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
     public JLabel getjLabelNomeSetor() {
         return jLabelNomeSetor;
     }
-
-    public JLabel getjLabelSetorCodigo() {
-        return jLabelSetorCodigo;
+    
+    @Override
+    public void setResultado(Object resultado) {
+        this.setor = (Setor) resultado;
+        this.jLabelNomeSetor.setText("Nome: " + setor.getCodigo().toString() +  " - " + setor.getNome());
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -85,10 +88,7 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
         jPanelInformacoesSetor = new javax.swing.JPanel();
         jButtonCadastrarSetor = new javax.swing.JButton();
         jButtonPesqusar = new javax.swing.JButton();
-        jTextFieldCodSetor = new javax.swing.JTextField();
-        jLabelCodSetorBusca = new javax.swing.JLabel();
         jLabelNomeSetor = new javax.swing.JLabel();
-        jLabelSetorCodigo = new javax.swing.JLabel();
         jButtonExibirLista = new javax.swing.JButton();
         jPanelInformacoesProcedimento = new javax.swing.JPanel();
         jTextFieldNome = new javax.swing.JTextField();
@@ -103,28 +103,26 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
 
         jPanelInformacoesSetor.setBorder(javax.swing.BorderFactory.createTitledBorder("Informações do setor"));
 
-        jButtonCadastrarSetor.setText("Novo...");
+        jButtonCadastrarSetor.setIcon(new javax.swing.ImageIcon("imagens/small_cadastrar.png"));
+        jButtonCadastrarSetor.setText("Novo");
         jButtonCadastrarSetor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCadastrarSetorActionPerformed(evt);
             }
         });
 
-        jButtonPesqusar.setText("Selecionar");
+        jButtonPesqusar.setIcon(new javax.swing.ImageIcon("imagens/small_buscar.png"));
+        jButtonPesqusar.setText("Buscar");
         jButtonPesqusar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPesqusarActionPerformed(evt);
             }
         });
 
-        jLabelCodSetorBusca.setText("Informe o código do setor:");
-
         jLabelNomeSetor.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabelNomeSetor.setText("Nome: ");
 
-        jLabelSetorCodigo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabelSetorCodigo.setText("Código: ");
-
+        jButtonExibirLista.setIcon(new javax.swing.ImageIcon("imagens/small_lista.png"));
         jButtonExibirLista.setText("Exibir lista");
         jButtonExibirLista.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,41 +135,30 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
         jPanelInformacoesSetorLayout.setHorizontalGroup(
             jPanelInformacoesSetorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelInformacoesSetorLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanelInformacoesSetorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelInformacoesSetorLayout.createSequentialGroup()
-                        .addComponent(jTextFieldCodSetor)
-                        .addGap(10, 10, 10))
-                    .addGroup(jPanelInformacoesSetorLayout.createSequentialGroup()
-                        .addGroup(jPanelInformacoesSetorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelCodSetorBusca)
-                            .addComponent(jLabelNomeSetor))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(jPanelInformacoesSetorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelSetorCodigo)
-                    .addComponent(jButtonPesqusar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonExibirLista)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonCadastrarSetor)
-                .addGap(5, 5, 5))
+                        .addComponent(jButtonPesqusar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonExibirLista, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonCadastrarSetor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 1, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelInformacoesSetorLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabelNomeSetor, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanelInformacoesSetorLayout.setVerticalGroup(
             jPanelInformacoesSetorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelInformacoesSetorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelCodSetorBusca)
-                .addGap(7, 7, 7)
                 .addGroup(jPanelInformacoesSetorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonPesqusar)
-                    .addComponent(jTextFieldCodSetor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonExibirLista)
                     .addComponent(jButtonCadastrarSetor))
                 .addGap(18, 18, 18)
-                .addGroup(jPanelInformacoesSetorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelNomeSetor)
-                    .addComponent(jLabelSetorCodigo))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addComponent(jLabelNomeSetor)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanelInformacoesProcedimento.setBorder(javax.swing.BorderFactory.createTitledBorder("Informações do procedimento"));
@@ -224,13 +211,15 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitulo.setText("CADASTRO DE PROCEDIMENTO");
 
-        jButtonConfirmar.setText("Confirmar");
+        jButtonConfirmar.setIcon(new javax.swing.ImageIcon("imagens/small_salvar.png"));
+        jButtonConfirmar.setText("Salvar");
         jButtonConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonConfirmarActionPerformed(evt);
             }
         });
 
+        jButtonCancelar.setIcon(new javax.swing.ImageIcon("imagens/small_cancelar.png"));
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -245,14 +234,16 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelInformacoesProcedimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelInformacoesSetor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButtonCancelar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonConfirmar))
-                    .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButtonCancelar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonConfirmar))
+                            .addComponent(jPanelInformacoesProcedimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanelInformacoesSetor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -262,36 +253,14 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
                 .addComponent(jLabelTitulo)
                 .addGap(18, 18, 18)
                 .addComponent(jPanelInformacoesSetor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(jPanelInformacoesProcedimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelar)
-                    .addComponent(jButtonConfirmar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonConfirmar)))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButtonPesqusarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesqusarActionPerformed
-        ClientResponse response;
-        if (!jTextFieldCodSetor.getText().isEmpty()) {
-            try {
-                response = RESTMethods.get(servicoSetor + "/" + this.jTextFieldCodSetor.getText() + "");
-                Setor setor = response.getEntity(Setor.class);
-                nomeSetor = setor.getNome();
-                this.jLabelNomeSetor.setText("Nome: " + nomeSetor);
-                this.setor = setor;
-                this.jLabelSetorCodigo.setText("Código: " + setor);
-                JOptionPane.showMessageDialog(null, "Setor encontrado", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-            } catch (RESTConnectionException ex) {
-                InterfaceGraficaUtils.erroConexao();
-            } catch (ClientHandlerException ex) {
-                JOptionPane.showMessageDialog(null, "Setor não encontrado. Por favor, digite um código válido.", "Erro", JOptionPane.WARNING_MESSAGE);
-            }
-        } else {
-            InterfaceGraficaUtils.validaCampoVazio("de busca");
-        }
-    }//GEN-LAST:event_jButtonPesqusarActionPerformed
 
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
         if (setor == null) {
@@ -313,21 +282,7 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
             return;
         }
 
-        double valor = 0;
-
-        try {
-            String precoString = this.jTextFieldPreco.getText();
-            if (precoString.contains(",")) {
-                String[] valores_precos = precoString.split(",");
-                if (valores_precos.length > 1) {
-                    precoString = valores_precos[0] + "." + valores_precos[1];
-                }
-            }
-            valor = Double.parseDouble(precoString);
-        } catch (NumberFormatException ex) {
-            InterfaceGraficaUtils.valorInvalido("preço");
-            return;
-        }
+        double valor = ValidationsUtils.converteStringParaPreco(jTextFieldPreco.getText());
 
         Procedimento procedimento = new Procedimento();
         procedimento.setValor(valor);
@@ -344,13 +299,8 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
                 return;
             }
             String resposta = response.getEntity(String.class);
-            System.out.println(resposta);
             if (!resposta.equalsIgnoreCase("ok")) {
-                if (procedimentoSelecionado == null) {
                     InterfaceGraficaUtils.erroResposta(resposta);
-                } else {
-                    InterfaceGraficaUtils.erroResposta(resposta);
-                }
             } else {
                 if (procedimentoSelecionado == null) {
                     InterfaceGraficaUtils.sucessoCadastro("procedimento");
@@ -397,6 +347,14 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButtonExibirListaActionPerformed
 
+    private void jButtonPesqusarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesqusarActionPerformed
+        JFrame jFrame = new JFrame("Busca");
+        PropriedadesBuscaSetor propriedadesBusca = new PropriedadesBuscaSetor(PropriedadesBusca.OPCAO_SELECIONAR, jFrame, this);
+        BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE SETOR", propriedadesBusca);
+        jFrame.setContentPane(buscaPanel);
+        InterfaceGraficaUtils.exibirJanela(jFrame);
+    }//GEN-LAST:event_jButtonPesqusarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCadastrarSetor;
@@ -404,16 +362,13 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButtonConfirmar;
     private javax.swing.JButton jButtonExibirLista;
     private javax.swing.JButton jButtonPesqusar;
-    private javax.swing.JLabel jLabelCodSetorBusca;
     private javax.swing.JLabel jLabelCodigo;
     private javax.swing.JLabel jLabelNome;
     private javax.swing.JLabel jLabelNomeSetor;
     private javax.swing.JLabel jLabelPreco;
-    private javax.swing.JLabel jLabelSetorCodigo;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanelInformacoesProcedimento;
     private javax.swing.JPanel jPanelInformacoesSetor;
-    private javax.swing.JTextField jTextFieldCodSetor;
     private javax.swing.JTextField jTextFieldCodigo;
     private javax.swing.JTextField jTextFieldNome;
     private javax.swing.JTextField jTextFieldPreco;

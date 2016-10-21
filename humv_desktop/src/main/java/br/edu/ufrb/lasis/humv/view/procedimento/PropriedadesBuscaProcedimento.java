@@ -30,7 +30,7 @@ public class PropriedadesBuscaProcedimento extends PropriedadesBusca {
 
     private ProcedimentoTableModel tableModel;
     private List<Procedimento> listaProcedimentos;
-    private ResultadoBusca resultadoBusca;
+    private ResultadoBusca resultadoBusca = null;
 
     public PropriedadesBuscaProcedimento(String tipoOperacao) {
         super(tipoOperacao);
@@ -113,6 +113,15 @@ public class PropriedadesBuscaProcedimento extends PropriedadesBusca {
             }
         } else if (e.getSource().equals(super.getBotaoImprimirTabela())) {
             PrintUtils.print(PrintUtils.TABELA_PROCEDIMENTOS, listaProcedimentos);
+        } else if (e.getSource().equals(super.getBotaoCancelar())) {
+            if (getjFrame() != null) {
+                getjFrame().dispose();
+            } else {
+                boolean sair = InterfaceGraficaUtils.dialogoSair();
+                if (sair) {
+                    HUMVApp.setPainelCentralComLogo();
+                }
+            }
         }
     }
 }

@@ -28,13 +28,11 @@ import javax.persistence.TemporalType;
  * @since 26 de junho de 2016
  *
  */
-
-
 @Entity
 @Table(name="ANIMAIS")
 public class Animal implements Serializable{
 	
-	private static final long serialVersionUID = -4309147069247595796L;
+	private static final long serialVersionUID = -4309147069247595790L;
 	
 	@Id
 	@GeneratedValue
