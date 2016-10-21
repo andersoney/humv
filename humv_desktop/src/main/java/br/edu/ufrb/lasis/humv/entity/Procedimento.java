@@ -19,42 +19,57 @@ import java.math.BigInteger;
 public class Procedimento implements Serializable {
 
     private static final long serialVersionUID = 1274972987399L;
+	
+	public static final Integer TIPO_CONSULTA = 1;
+	public static final Integer TIPO_AMBULATORIO_EXAME = 2;
+	public static final Integer TIPO_CIRURGIA_REPRODUCAO = 3;
+	public static final Integer TIPO_OUTROS = 4;
 
-    private BigInteger codigo;
-    private String nome;
-    private Setor setor;
-    private double valor;
+	private BigInteger codigo;
+	private String nome;
+	private double valor;
+	private Integer tipo;
+	
+	private Setor setor;
+	
+	public Setor getSetor() {
+		return setor;
+	}
 
-    public BigInteger getCodigo() {
-        return this.codigo;
-    }
+	public void setSetor(Setor setor) {
+		this.setor = setor;
+	}
 
-    public String getNome() {
-        return this.nome;
-    }
+	public void setValor(double valor) {
+		this.valor = valor;
+	}
+	
+	public double getValor(){
+		return this.valor;
+	}
 
-    public double getValor() {
-        return this.valor;
-    }
+	public BigInteger getCodigo(){
+		return this.codigo;
+	}
+	
+	public void setCodigo(BigInteger codigo){
+		this.codigo = codigo;
+	}
+	
+	public String getNome(){
+		return this.nome;
+	}
+	
+	public void setNome(String nome){
+		this.nome=nome;
+	}
 
-    public void setCodigo(BigInteger codigo) {
-        this.codigo = codigo;
-    }
+	public Integer getTipo() {
+		return tipo;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setValor(double valor) {
-        this.valor = valor;
-    }
-
-    public Setor getSetor() {
-        return setor;
-    }
-
-    public void setSetor(Setor setor) {
-        this.setor = setor;
-    }
+	public void setTipo(Integer tipo) {
+		this.tipo = tipo;
+	}
 
 }

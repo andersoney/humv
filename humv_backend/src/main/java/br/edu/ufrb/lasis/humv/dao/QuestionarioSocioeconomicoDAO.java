@@ -45,7 +45,7 @@ public class QuestionarioSocioeconomicoDAO extends GenericDAO<QuestionarioSocioe
 	}
 
 	@Transactional
-	public QuestionarioSocioeconomico findByKey(Integer id) {
+	public QuestionarioSocioeconomico findByKey(BigInteger id) {
 		return (QuestionarioSocioeconomico) getCriteria().add(Restrictions.eq("id", id)).uniqueResult();
 	}
 
