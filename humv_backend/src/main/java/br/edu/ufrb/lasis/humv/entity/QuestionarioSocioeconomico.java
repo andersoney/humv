@@ -1,6 +1,7 @@
 package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 //import java.util.ArrayList;
 import java.util.List;
 
@@ -211,22 +212,15 @@ public class QuestionarioSocioeconomico implements Serializable {
 		this.animais = animais;
 	}
 
-	public ArrayList<Documentacao> getDocumentosEntregues() {
+	public List<Documentacao> getDocumentosEntregues() {
 		return documentosEntregues;
 	}
 
-	public void setDocumentosEntregues(ArrayList<Documentacao> documentosEntregues) {
+	public void setDocumentosEntregues(List<Documentacao> documentosEntregues) {
 		this.documentosEntregues = documentosEntregues;
 	}
 
-	public Double getRendaPerCapta() {
-		return rendaPerCapita;
-	}
-
-	public void setRendaPerCapta(Double rendaPerCapta) {
-		this.rendaPerCapita = rendaPerCapta;
-	}
-
+	
 	public Double getRendaTotal() {
 		return rendaTotal;
 	}
@@ -234,10 +228,4 @@ public class QuestionarioSocioeconomico implements Serializable {
 	public void setRendaTotal(Double rendaTotal) {
 		this.rendaTotal = rendaTotal;
 	}
-	public List<Documentacao> getDocumentosEntregues() {
-		return documentosEntregues;
-	}
-	public void setDocumentosEntregues(List<Documentacao> documentosEntregues) {
-		this.documentosEntregues = documentosEntregues;
-	} 
 }

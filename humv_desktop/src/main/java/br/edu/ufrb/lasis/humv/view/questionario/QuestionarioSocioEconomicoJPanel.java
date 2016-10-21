@@ -342,6 +342,11 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jLabel12.setText("Energia elétrica:");
 
         jRadioButtonSaneamentoSim.setText("Sim");
+        jRadioButtonSaneamentoSim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonSaneamentoSimActionPerformed(evt);
+            }
+        });
 
         jRadioButtonSaneamentoNao.setText("Não");
         jRadioButtonSaneamentoNao.addActionListener(new java.awt.event.ActionListener() {
@@ -351,6 +356,11 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         });
 
         jRadioButtonEnergiaSim.setText("Sim");
+        jRadioButtonEnergiaSim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonEnergiaSimActionPerformed(evt);
+            }
+        });
 
         jRadioButtonEnergiaNao.setText("Não");
         jRadioButtonEnergiaNao.addActionListener(new java.awt.event.ActionListener() {
@@ -1193,10 +1203,12 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
 
     private void jRadioButtonSaneamentoNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonSaneamentoNaoActionPerformed
         // TODO add your handling code here:
+        this.jRadioButtonSaneamentoSim.setSelected(false);
     }//GEN-LAST:event_jRadioButtonSaneamentoNaoActionPerformed
 
     private void jRadioButtonEnergiaNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEnergiaNaoActionPerformed
         // TODO add your handling code here:
+        this.jRadioButtonEnergiaSim.setSelected(false);
     }//GEN-LAST:event_jRadioButtonEnergiaNaoActionPerformed
 
     private void jButtonDocumentoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDocumentoSalvarActionPerformed
@@ -1440,6 +1452,16 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         this.jRadioButtonDocumentosOutro.setSelected(true);
         this.jTextFieldDocumentoOutro.setEnabled(true);
     }//GEN-LAST:event_jRadioButtonDocumentosOutroActionPerformed
+
+    private void jRadioButtonSaneamentoSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonSaneamentoSimActionPerformed
+        // TODO add your handling code here:
+        this.jRadioButtonSaneamentoNao.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonSaneamentoSimActionPerformed
+
+    private void jRadioButtonEnergiaSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEnergiaSimActionPerformed
+        // TODO add your handling code here:
+        this.jRadioButtonEnergiaNao.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonEnergiaSimActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
