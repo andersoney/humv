@@ -4,10 +4,14 @@ import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Parente;
 import br.edu.ufrb.lasis.humv.entity.Documentacao;
 import br.edu.ufrb.lasis.humv.entity.Dono;
+import br.edu.ufrb.lasis.humv.entity.QuestionarioSocioeconomico;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.view.dono.CadastrarDonoJPanel;
+import java.awt.HeadlessException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,9 +25,11 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     AbstractTableModelDocumentacao modelDocumentacao;
     AbstractTableModelParente modelParente;
     Dono dono;
-
+    QuestionarioSocioeconomico quest;
     /**
-     * Aqui é configurado o dono repassado pela classe CadastroDonoJPane e de QuestionarioBuscarDono.
+     * Aqui é configurado o dono repassado pela classe CadastroDonoJPane e de
+     * QuestionarioBuscarDono.
+     *
      * @param dono
      */
     public void setDono(Dono dono) {
@@ -64,7 +70,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         this.jFormattedTextFieldCirurgia.setEnabled(false);
         this.jFormattedTextFieldConsulta.setEnabled(false);
         this.jFormattedTextFieldExame.setEnabled(false);
-
+        quest=new QuestionarioSocioeconomico();
     }
 
     /**
@@ -1400,9 +1406,84 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         validarCampos();
     }//GEN-LAST:event_jButtonQuestionarioSalvarActionPerformed
 
+    private void setValorTipoConsulta() throws HeadlessException {
+        Integer consulta;
+        if (this.jRadioButtonConsultaAula.isSelected()) {
+            consulta = QuestionarioSocioeconomico.COBRANCA_AULA;
+        } else if (this.jRadioButtonConsultaNormal.isSelected()) {
+            consulta = QuestionarioSocioeconomico.COBRANCA_NORMAL;
+        } else if (this.jRadioButtonConsultaIsencao.isSelected()) {
+            consulta = QuestionarioSocioeconomico.COBRANCA_INSENCAO;
+        } else {
+            consulta = QuestionarioSocioeconomico.COBRANCA_DESCONTO;
+            String descontoConsultaST = this.jFormattedTextFieldConsulta.getText();
+            setValorConsultaDesconto(descontoConsultaST);
+        }
+    }
+
+    private void setValorTipoExame() throws HeadlessException {
+        Integer exame;
+        if (this.jRadioButtonExameAula.isSelected()) {
+            exame = QuestionarioSocioeconomico.COBRANCA_AULA;
+        } else if (this.jRadioButtonExameNormal.isSelected()) {
+            exame = QuestionarioSocioeconomico.COBRANCA_NORMAL;
+        } else if (this.jRadioButtonExameIsencao.isSelected()) {
+            exame = QuestionarioSocioeconomico.COBRANCA_INSENCAO;
+        } else {
+            exame = QuestionarioSocioeconomico.COBRANCA_DESCONTO;
+            String descontoExameST = this.jFormattedTextFieldConsulta.getText();
+            setValorExameDesconto(descontoExameST);
+        }
+    }
+
+    private void setValorTipoCirugia() throws HeadlessException {
+        Integer cirugia;
+        if (this.jRadioButtonExameAula.isSelected()) {
+            cirugia = QuestionarioSocioeconomico.COBRANCA_AULA;
+        } else if (this.jRadioButtonExameNormal.isSelected()) {
+            cirugia = QuestionarioSocioeconomico.COBRANCA_NORMAL;
+        } else if (this.jRadioButtonExameIsencao.isSelected()) {
+            cirugia = QuestionarioSocioeconomico.COBRANCA_INSENCAO;
+        } else {
+            cirugia = QuestionarioSocioeconomico.COBRANCA_DESCONTO;
+            String descontoCirugiaST = this.jFormattedTextFieldConsulta.getText();
+            setValorCirugiaDesconto(descontoCirugiaST);
+        }
+    }
+
+    private void setValorCirugiaDesconto(String descontoCirugiaST) throws HeadlessException {
+        Double descontoCirugia;
+        try {
+            descontoCirugia = validarDouble(descontoCirugiaST, "Desconto Consulta");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }
+
+    private void setValorExameDesconto(String descontoExameST) throws HeadlessException {
+        Double descontoExame;
+        try {
+            descontoExame = validarDouble(descontoExameST, "Desconto Consulta");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }
+
+    private void setValorConsultaDesconto(String descontoConsultaST) throws HeadlessException {
+        Double descontoConsulta;
+        try {
+            descontoConsulta = validarDouble(descontoConsultaST, "Desconto Consulta");
+            quest.setValorDescontoConsultas(descontoConsulta);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }
+
     private void validarCampos() {
         boolean okDono = validarDadosDoDono();
-        boolean okDocumento;
+        setValorTipoConsulta();
+        setValorTipoExame();
+        setValorTipoCirugia();
     }
 
     private boolean validarDadosDoDono() {
@@ -1454,7 +1535,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
 
             String observacao = this.jTextAreaObservacoes.getText();
             validarString(observacao, "Observações");
-
+            
             return true;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
