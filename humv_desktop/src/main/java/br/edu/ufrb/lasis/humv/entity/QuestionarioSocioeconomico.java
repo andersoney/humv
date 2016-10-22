@@ -30,6 +30,8 @@ public class QuestionarioSocioeconomico implements Serializable {
     public static final Integer COBRANCA_DESCONTO = 3;
 
     private BigInteger id;
+    
+    
     private Dono dono;
 
     private Integer estadoCivil;
