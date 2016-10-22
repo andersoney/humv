@@ -1531,10 +1531,28 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             fonteCusteio = validarString(fonteCusteio, "Fonte de Custeio");
 
             String bolsaOuBeneficio = this.jTextFieldBeneficio.getText();
-            validarString(bolsaOuBeneficio, "Bolsa ou Beneficio");
+            bolsaOuBeneficio=validarString(bolsaOuBeneficio, "Bolsa ou Beneficio");
 
             String observacao = this.jTextAreaObservacoes.getText();
             validarString(observacao, "Observações");
+            quest.setIdade(idade);
+            quest.setEstadoCivil(estadoCivil);
+            quest.setProfissao(profissao);
+            quest.setEscolaridade(escolaridade);
+            quest.setOcupacaoAtual(ocupacao);
+            quest.setRendaFormal(rendaFormal);
+            quest.setRendaInformal(rendaInformal);
+            quest.setValorAluguel(aluguel);
+            quest.setTemSaneamento(saneamento);
+            quest.setTemEnergia(energia);
+            quest.setTipoConstrucao(tipoConst);
+            quest.setCondicaoMoradia(condMoradia);
+            quest.setProgramaTransferenciaRenda(progTransferRenda);
+            quest.setEstudante(estudante);
+            quest.setGastosMensais(gastosMensais);
+            quest.setFontCusteio(fonteCusteio);
+            quest.setBolsaOuBeneficio(bolsaOuBeneficio);
+            quest.setObservacoes(observacao);
             
             return true;
         } catch (Exception e) {
