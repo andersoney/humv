@@ -74,15 +74,15 @@ public class AbstractTableModelParente extends AbstractTableModel {
         }
     }
 
-    public ArrayList<Parente> getDocumentos() {
+    public ArrayList<Parente> getParentes() {
         return parentes;
     }
 
-    public void setDocumentos(ArrayList<Parente> documentos) {
+    public void setParentes(ArrayList<Parente> documentos) {
         this.parentes = documentos;
     }
 
-    public Parente getDocumento(Integer rowIndex) {
+    public Parente getParente(Integer rowIndex) {
         return this.parentes.get(rowIndex);
     }
 
@@ -99,7 +99,7 @@ public class AbstractTableModelParente extends AbstractTableModel {
         fireTableDataChanged();
     }
 
-    public void removerDocumento(Integer rowIndex) {
+    public void removerParentes(Integer rowIndex) {
         this.parentes.remove(parentes.get(rowIndex));
         fireTableDataChanged();
     }
