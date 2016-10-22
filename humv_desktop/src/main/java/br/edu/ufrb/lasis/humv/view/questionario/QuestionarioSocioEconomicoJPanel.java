@@ -1410,7 +1410,9 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         setValorTipoCirugia();
         setValorTipoConsulta();
         setValorTipoExame();
-
+        
+        
+        
         try {
             RESTMethods.put("/api/questionarioSocioeconomico", quest);
             JOptionPane.showMessageDialog(HUMVApp.getMainWindow(), "Salvo Com Sucesso.");
