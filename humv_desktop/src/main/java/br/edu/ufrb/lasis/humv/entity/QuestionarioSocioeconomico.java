@@ -36,6 +36,7 @@ public class QuestionarioSocioeconomico implements Serializable {
     private Integer idade;
     private Integer nis;
     private String profissao;
+    private Integer escolaridade;
     private String ocupacaoAtual;
     private Double rendaFormal;
     private Double rendaInformal;
@@ -44,6 +45,11 @@ public class QuestionarioSocioeconomico implements Serializable {
     private String condicaoMoradia;
     private Double valorAluguel;
     private String tipoConstrucao;
+    private String programaTransferenciaRenda;
+    private boolean estudante;
+    private Double gastosMensais;
+    private String fontCusteio;
+    private String bolsaOuBeneficio;
 
     private List<Parente> parentes;
     private List<Animal> animais;
@@ -332,5 +338,53 @@ public class QuestionarioSocioeconomico implements Serializable {
     public void setValorDescontoConsultas(Double valorDescontoConsultas) {
         this.valorDescontoConsultas = valorDescontoConsultas;
     }
-    
+
+    public Integer getEscolaridade() {
+        return escolaridade;
+    }
+
+    public void setEscolaridade(Integer escolaridade) {
+        this.escolaridade = escolaridade;
+    }
+
+    public String getProgramaTransferenciaRenda() {
+        return programaTransferenciaRenda;
+    }
+
+    public void setProgramaTransferenciaRenda(String programaTransferenciaRenda) {
+        this.programaTransferenciaRenda = programaTransferenciaRenda;
+    }
+
+    public boolean isEstudante() {
+        return estudante;
+    }
+
+    public void setEstudante(boolean estudante) {
+        this.estudante = estudante;
+    }
+
+    public Double getGastosMensais() {
+        return gastosMensais;
+    }
+
+    public void setGastosMensais(Double gastosMensais) {
+        this.gastosMensais = gastosMensais;
+    }
+
+    public String getFontCusteio() {
+        return fontCusteio;
+    }
+
+    public void setFontCusteio(String fontCusteio) {
+        this.fontCusteio = fontCusteio;
+    }
+
+    public String getBolsaOuBeneficio() {
+        return bolsaOuBeneficio;
+    }
+
+    public void setBolsaOuBeneficio(String bolsaOuBeneficio) {
+        this.bolsaOuBeneficio = bolsaOuBeneficio;
+    }
+
 }
