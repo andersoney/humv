@@ -1429,10 +1429,6 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButtonQuestionarioSalvarActionPerformed
 
-    private void erroMensage(String mensage, String title) {
-        JOptionPane.showMessageDialog(HUMVApp.getMainWindow(), mensage, title, JOptionPane.WARNING_MESSAGE);
-    }
-
     private void setAnalisetoQuest() {
         try {
             String breveResumo = this.jTextAreaVulnerabilidades.getText();
@@ -1540,7 +1536,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             descontoConsulta = validarDouble(descontoConsultaST, "Desconto Consulta");
             quest.setValorDescontoConsultas(descontoConsulta);
         } catch (Exception ex) {
-            this.erroMensage(ex.getMessage(),"Falha no valor do desconto da Consulta.");
+            this.erroMensage(ex.getMessage(), "Falha no valor do desconto da Consulta.");
         }
     }
 
@@ -1614,10 +1610,14 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
 
             return true;
         } catch (Exception e) {
-            this.erroMensage(e.getMessage(),"Erro ao Validar dados do dono.");
+            this.erroMensage(e.getMessage(), "Erro ao Validar dados do dono.");
             return false;
         }
 
+    }
+
+    private void erroMensage(String mensage, String title) {
+        JOptionPane.showMessageDialog(HUMVApp.getMainWindow(), mensage, title, JOptionPane.WARNING_MESSAGE);
     }
 
     private boolean validarRadioButton(boolean radioButtonSim, boolean radioButtonNao, String Campo) throws Exception {
@@ -1712,7 +1712,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             limparTextfieldsInfoFamiliar();
             atualizaCalculoRenda();
         } catch (Exception ex) {
-            this.erroMensage(ex.getMessage(),"Falha ao Salvar Novo Parente.");
+            this.erroMensage(ex.getMessage(), "Falha ao Salvar Novo Parente.");
         }
 
     }//GEN-LAST:event_jButtonSalvarActionPerformed
