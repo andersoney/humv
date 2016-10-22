@@ -1,12 +1,16 @@
 package br.edu.ufrb.lasis.humv.view.questionario;
 
+import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Parente;
 import br.edu.ufrb.lasis.humv.entity.Documentacao;
+import br.edu.ufrb.lasis.humv.entity.Dono;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
+import br.edu.ufrb.lasis.humv.view.dono.CadastrarDonoJPanel;
 import java.util.Calendar;
-import java.util.List;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,8 +18,21 @@ import javax.swing.table.DefaultTableModel;
  */
 public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
 
-    private double rendaPerCapta = 0, rendaTotal = 0;
-    private List<Parente> parentes;
+    AbstractTableModelDocumentacao modelDocumentacao;
+    AbstractTableModelParente modelParente;
+    Dono dono;
+
+    public void setDono(Dono dono) {
+        this.dono = dono;
+        configDono(dono);
+    }
+
+    private void configDono(Dono dono1) {
+        this.jLabelNomeDono.setText("Nome : " + dono1.getNome());
+        jLabelCpfDono.setText("CPF : " + dono1.getCpfCnpj());
+        jLabelTelefone.setText("Telefone: " + dono1.getTelefone());
+        jLabelEndereco.setText("Endereço: " + dono1.getEndereco());
+    }
 
     /**
      * Creates new form QuestionarioSocioEconomicoJPanel
@@ -35,7 +52,11 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         this.jRadioButtonConsultaNormal.setSelected(true);
         this.jRadioButtonExameNormal.setSelected(true);
         this.jRadioButtonCirurgiaNormal.setSelected(true);
-        
+        this.modelDocumentacao = new AbstractTableModelDocumentacao();
+        this.jTableDocumentos.setModel(this.modelDocumentacao);
+        this.modelParente = new AbstractTableModelParente();
+        this.jTableFamiliares.setModel(modelParente);
+
     }
 
     /**
@@ -119,7 +140,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jRadioButtonDocumentosBolsaFamilia = new javax.swing.JRadioButton();
         jRadioButtonDocumentosOutro = new javax.swing.JRadioButton();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTableDocumentos = new javax.swing.JTable();
         jCheckBoxNA = new javax.swing.JCheckBox();
         jCheckBoxVistoASocial = new javax.swing.JCheckBox();
         jPanelAnalise = new javax.swing.JPanel();
@@ -168,7 +189,6 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jFormattedIdadeFamilia = new javax.swing.JFormattedTextField();
-        jFormattedRendaMembroFamilia = new javax.swing.JFormattedTextField();
         jTextFieldFamiliaNome = new javax.swing.JTextField();
         jTextFieldParentesco = new javax.swing.JTextField();
         jTextFieldFamiliaOcupacao = new javax.swing.JTextField();
@@ -189,6 +209,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jLabel30 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTextAreaMotivos = new javax.swing.JTextArea();
+        jTextFieldFamiliaRenda = new javax.swing.JTextField();
         jButtonQuestionarioCancelar = new javax.swing.JButton();
         jButtonQuestionarioSalvar = new javax.swing.JButton();
 
@@ -638,7 +659,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             }
         });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTableDocumentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -649,7 +670,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane6.setViewportView(jTable2);
+        jScrollPane6.setViewportView(jTableDocumentos);
 
         jCheckBoxNA.setText("NA");
         jCheckBoxNA.addActionListener(new java.awt.event.ActionListener() {
@@ -1031,8 +1052,6 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
 
         jFormattedIdadeFamilia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
 
-        jFormattedRendaMembroFamilia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
-
         jButtonSalvar.setIcon(new javax.swing.ImageIcon("imagens/small_salvar.png"));
         jButtonSalvar.setText("Salvar");
         jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -1106,23 +1125,22 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                                 .addComponent(jLabel17)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jComboBoxEscolaridadeFamliar, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
                                 .addComponent(jLabel15)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jFormattedIdadeFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel24)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jFormattedRendaMembroFamilia, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
-                                .addGap(6, 6, 6))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextFieldFamiliaRenda))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelComposicaoFamiliarLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(0, 191, Short.MAX_VALUE)
                                 .addComponent(jButtonRemover)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())))
+                                .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())
                     .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
                         .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
@@ -1168,7 +1186,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel15)
                     .addComponent(jFormattedIdadeFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel24)
-                    .addComponent(jFormattedRendaMembroFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldFamiliaRenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel23)
@@ -1200,7 +1218,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                 .addComponent(jLabel30)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Composição familiar", jPanelComposicaoFamiliar);
@@ -1246,15 +1264,16 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonPesquisarDonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarDonoActionPerformed
-        /*JFrame jFrame = new JFrame("Busca");
-         PropriedadesBuscaDono propriedadesBusca = new PropriedadesBuscaDono(PropriedadesBusca.OPCAO_SELECIONAR, jFrame, this);
-         BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE DONO", propriedadesBusca);
-         jFrame.setContentPane(buscaPanel);
-         InterfaceGraficaUtils.exibirJanela(jFrame);*/
+        dono = new Dono();
+        dono.setNome("HUMV DONO");
+        QuestionarioBuscarDono bDono = new QuestionarioBuscarDono(this);
+        HUMVApp.setNovoPainelCentral(bDono);
     }//GEN-LAST:event_jButtonPesquisarDonoActionPerformed
 
     private void jButtonCadastrarNovoDonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarNovoDonoActionPerformed
         //new CadastrarDonoJDialog(this).setVisible(true);
+        CadastrarDonoJPanel donoJP = new CadastrarDonoJPanel(this);
+        HUMVApp.setNovoPainelCentral(donoJP);
     }//GEN-LAST:event_jButtonCadastrarNovoDonoActionPerformed
 
     private void jRadioButtonSaneamentoNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonSaneamentoNaoActionPerformed
@@ -1269,7 +1288,8 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
 
     private void jButtonDocumentoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDocumentoSalvarActionPerformed
         String nomeDocumento = "";
-
+        String nomeUser;
+        Date data;
         try {
             if (this.jRadioButtonDocumentosOutro.isSelected()) {
                 nomeDocumento = this.jTextFieldDocumentoOutro.getText();
@@ -1285,14 +1305,22 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                     nomeDocumento = Documentacao.RGDONO;
                 }
             }
-            System.out.println("" + nomeDocumento);
+
+            nomeUser = HUMVApp.getNomeUsuario();
+            data = this.dteDataEntrega.getDate();
+            Documentacao doc = new Documentacao();
+            doc.setDataEntrega(data);
+            doc.setNomeDocumento(nomeDocumento);
+            doc.setNomeRecebinte(nomeUser);
+            modelDocumentacao.addDocumento(doc);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }//GEN-LAST:event_jButtonDocumentoSalvarActionPerformed
 
     private void jButtonDocumentoRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDocumentoRemoverActionPerformed
-
+        Integer indexRemuver = this.jTableDocumentos.getSelectedRow();
+        this.modelDocumentacao.removerDocumento(indexRemuver);
     }//GEN-LAST:event_jButtonDocumentoRemoverActionPerformed
 
     private void jRadioButtonDocumentosRGDonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDocumentosRGDonoActionPerformed
@@ -1469,50 +1497,54 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonRemoverActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        Parente parente = new Parente();
 
-        if (this.jTextFieldFamiliaNome.getText().isEmpty()) {
-            InterfaceGraficaUtils.validaCampoVazio("Nome do familiar");
-            return;
+        try {
+            Parente parente = new Parente();
+
+            String nome = this.jTextFieldFamiliaNome.getText();
+            nome = validarString(nome, "Nome do Familiar");
+            parente.setNome(nome);
+
+            if (this.jFormattedIdadeFamilia.getText().isEmpty()) {
+                InterfaceGraficaUtils.validaCampoVazio("Idade do familiar");
+                return;
+            }
+            int idade = Integer.parseInt(this.jFormattedIdadeFamilia.getText());
+            parente.setIdade(idade);
+
+            if (this.jTextFieldParentesco.getText().isEmpty()) {
+                InterfaceGraficaUtils.validaCampoVazio("Parentesco do familiar");
+                return;
+            }
+            String parentesco = this.jTextFieldParentesco.getText();
+            parente.setParentesco(parentesco);
+
+            int escolaridade = this.jComboBoxEscolaridadeFamliar.getSelectedIndex();
+            parente.setEscolaridade(escolaridade);
+
+            if (this.jTextFieldFamiliaOcupacao.getText().isEmpty()) {
+                InterfaceGraficaUtils.validaCampoVazio("Ocupação do familiar");
+                return;
+            }
+            String ocupacao = this.jTextFieldFamiliaOcupacao.getText();
+            parente.setOcupacao(ocupacao);
+            System.out.println("" + this.jTextFieldFamiliaRenda.getText());
+            if (this.jTextFieldFamiliaRenda.getText().isEmpty()) {
+                InterfaceGraficaUtils.validaCampoVazio("Renda do familiar");
+                return;
+            }
+            Double renda;
+            String rendaFamilliarST = jTextFieldFamiliaRenda.getText();
+            renda = validarDouble(rendaFamilliarST, "Renda familiar");
+            parente.setRenda(renda);
+            parente.setNomeClienteCadastrado(dono.getNome());
+            modelParente.addParente(parente);
+            limparTextfieldsInfoFamiliar();
+            atualizaCalculoRenda();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
-        String nome = this.jTextFieldFamiliaNome.getText();
-        parente.setNome(nome);
 
-        if (this.jFormattedIdadeFamilia.getText().isEmpty()) {
-            InterfaceGraficaUtils.validaCampoVazio("Idade do familiar");
-            return;
-        }
-        int idade = Integer.parseInt(this.jFormattedIdadeFamilia.getText());
-        parente.setIdade(idade);
-
-        if (this.jTextFieldParentesco.getText().isEmpty()) {
-            InterfaceGraficaUtils.validaCampoVazio("Parentesco do familiar");
-            return;
-        }
-        String parentesco = this.jTextFieldParentesco.getText();
-        parente.setParentesco(parentesco);
-
-        int escolaridade = this.jComboBoxEscolaridadeFamliar.getSelectedIndex();
-        parente.setEscolaridade(escolaridade);
-
-        if (this.jTextFieldFamiliaOcupacao.getText().isEmpty()) {
-            InterfaceGraficaUtils.validaCampoVazio("Ocupação do familiar");
-            return;
-        }
-        String ocupacao = this.jTextFieldFamiliaOcupacao.getText();
-        parente.setOcupacao(ocupacao);
-
-        if (this.jFormattedRendaMembroFamilia.getText().isEmpty()) {
-            InterfaceGraficaUtils.validaCampoVazio("Renda do familiar");
-            return;
-        }
-        double renda = Double.parseDouble(this.jFormattedRendaMembroFamilia.getText());
-        parente.setRenda(renda);
-
-        parentes.add(parente);
-        limparTextfieldsInfoFamiliar();
-        atualizaTabelaFamiliares();
-        atualizaCalculoRenda();
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jRadioButtonDocumentosComprovanteEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDocumentosComprovanteEnderecoActionPerformed
@@ -1654,7 +1686,6 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> jComboBoxEscolaridadeFamliar;
     private javax.swing.JComboBox<String> jComboBoxEstadoCivil;
     private javax.swing.JFormattedTextField jFormattedIdadeFamilia;
-    private javax.swing.JFormattedTextField jFormattedRendaMembroFamilia;
     private javax.swing.JFormattedTextField jFormattedTextFieldAluguel;
     private javax.swing.JFormattedTextField jFormattedTextFieldCirurgia;
     private javax.swing.JFormattedTextField jFormattedTextFieldConsulta;
@@ -1754,7 +1785,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTableDocumentos;
     private javax.swing.JTable jTableFamiliares;
     private javax.swing.JTextArea jTextAreaBemMaterial;
     private javax.swing.JTextArea jTextAreaConclusoes;
@@ -1768,6 +1799,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField jTextFieldDocumentoOutro;
     private javax.swing.JTextField jTextFieldFamiliaNome;
     private javax.swing.JTextField jTextFieldFamiliaOcupacao;
+    private javax.swing.JTextField jTextFieldFamiliaRenda;
     private javax.swing.JTextField jTextFieldFatoresDeclarados;
     private javax.swing.JTextField jTextFieldFonteCusteio;
     private javax.swing.JTextField jTextFieldOcupacao;
@@ -1782,27 +1814,11 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         this.jFormattedIdadeFamilia.setText(null);
         this.jTextFieldParentesco.setText(null);
         this.jTextFieldFamiliaOcupacao.setText(null);
-        this.jFormattedRendaMembroFamilia.setText(null); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void atualizaTabelaFamiliares() {
-        String colunas[] = {"Nome", "Parentesco", "Renda R$"};
-        DefaultTableModel model = new DefaultTableModel(colunas, 0);
-
-        parentes.forEach((p) -> {
-            model.addRow(new String[]{p.getNome(), p.getParentesco(), "" + p.getRenda()});
-        });
-        jTableFamiliares.setModel(model); //To change body of generated methods, choose Tools | Templates.
+        this.jTextFieldFamiliaRenda.setText(null); //To change body of generated methods, choose Tools | Templates.
     }
 
     private void atualizaCalculoRenda() {
-        int qtdParentes = 0;
-        for (Parente parente : parentes) {
-            rendaTotal += parente.getRenda();
-            ++qtdParentes;
-        }
-        rendaPerCapta = rendaTotal / qtdParentes;
-        jLabelRendaTotal.setText("Renda total (R$): " + rendaTotal);
-        jLabelRendaPerCapta.setText("Renda per capta (R$): " + rendaTotal); //To change body of generated methods, choose Tools | Templates.
+        jLabelFamiliaRendaTotal.setText("" + modelParente.getRendaTotal());
+        jLabelFamiliaRendaPerCapita.setText("" + modelParente.getRendaPerCapita()); //To change body of generated methods, choose Tools | Templates.
     }
 }

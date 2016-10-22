@@ -1,5 +1,6 @@
-package br.edu.ufrb.lasis.humv.view.dono;
+package br.edu.ufrb.lasis.humv.view.questionario;
 
+import br.edu.ufrb.lasis.humv.view.dono.*;
 import br.edu.ufrb.lasis.humv.entity.Dono;
 import br.edu.ufrb.lasis.humv.utils.MaskUtils;
 import java.util.ArrayList;
@@ -10,17 +11,17 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Luiz
  */
-public class DonoTableModel extends AbstractTableModel {
+public class QuestionarioDonoTableModel extends AbstractTableModel {
 
     String[] titulos;
     List<Dono> donos;
 
-    public DonoTableModel(List<Dono> donos) {
+    public QuestionarioDonoTableModel(List<Dono> donos) {
         initArrayTitulos();
         this.donos = donos;
     }
 
-    public DonoTableModel() {
+    public QuestionarioDonoTableModel() {
         initArrayTitulos();
         donos = new ArrayList<Dono>();
     }
@@ -78,5 +79,8 @@ public class DonoTableModel extends AbstractTableModel {
                 return MaskUtils.formatarCPF_CNPJ(id, tipoId);
         }
         return null;
+    }
+    public Dono getDono(Integer index){
+        return this.donos.get(index);
     }
 }
