@@ -6,6 +6,10 @@ import java.util.Date;
 public class Documentacao implements Serializable {
 
     private static final long serialVersionUID = -6125748157292589614L;
+    public static final String BOLSAFAMILIA="bolsa familia";
+    public static final String COMPROVANTEENDEREÇO="comprovante endereço";
+    public static final String MEMBROFAMILIA="membro da familia";
+    public static final String RGDONO="rg dono";
     private Date dataEntrega;
     private String nomeRecebinte;
     private String nomeDocumento;
