@@ -10,8 +10,6 @@ import br.edu.ufrb.lasis.humv.view.dono.CadastrarDonoJPanel;
 import java.awt.HeadlessException;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -26,6 +24,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     AbstractTableModelParente modelParente;
     Dono dono;
     QuestionarioSocioeconomico quest;
+
     /**
      * Aqui é configurado o dono repassado pela classe CadastroDonoJPane e de
      * QuestionarioBuscarDono.
@@ -70,7 +69,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         this.jFormattedTextFieldCirurgia.setEnabled(false);
         this.jFormattedTextFieldConsulta.setEnabled(false);
         this.jFormattedTextFieldExame.setEnabled(false);
-        quest=new QuestionarioSocioeconomico();
+        quest = new QuestionarioSocioeconomico();
     }
 
     /**
@@ -1531,7 +1530,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             fonteCusteio = validarString(fonteCusteio, "Fonte de Custeio");
 
             String bolsaOuBeneficio = this.jTextFieldBeneficio.getText();
-            bolsaOuBeneficio=validarString(bolsaOuBeneficio, "Bolsa ou Beneficio");
+            bolsaOuBeneficio = validarString(bolsaOuBeneficio, "Bolsa ou Beneficio");
 
             String observacao = this.jTextAreaObservacoes.getText();
             validarString(observacao, "Observações");
@@ -1553,7 +1552,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             quest.setFontCusteio(fonteCusteio);
             quest.setBolsaOuBeneficio(bolsaOuBeneficio);
             quest.setObservacoes(observacao);
-            
+
             return true;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
