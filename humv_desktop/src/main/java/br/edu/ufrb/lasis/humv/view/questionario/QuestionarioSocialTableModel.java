@@ -8,6 +8,7 @@ package br.edu.ufrb.lasis.humv.view.questionario;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 import br.edu.ufrb.lasis.humv.entity.QuestionarioSocioeconomico;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -17,7 +18,7 @@ import java.util.logging.Logger;
 public class QuestionarioSocialTableModel extends AbstractTableModel {
 
     String[] coluna = new String[]{"Nome do Dono", "CPF"};
-    ArrayList<QuestionarioSocioeconomico> questionarios;
+    List<QuestionarioSocioeconomico> questionarios;
     private static final Logger LOG = Logger.getLogger(QuestionarioSocialTableModel.class.getName());
 
     public QuestionarioSocialTableModel() {
@@ -72,11 +73,11 @@ public class QuestionarioSocialTableModel extends AbstractTableModel {
         fireTableDataChanged();
     }
 
-    public ArrayList<QuestionarioSocioeconomico> getQuestionarios() {
+    public List<QuestionarioSocioeconomico> getQuestionarios() {
         return questionarios;
     }
 
-    public void setQuestionarios(ArrayList<QuestionarioSocioeconomico> questionarios) {
+    public void setQuestionarios(List<QuestionarioSocioeconomico> questionarios) {
         this.questionarios = questionarios;
     }
 
