@@ -18,6 +18,7 @@ public class QuestionarioSocialTableModel extends AbstractTableModel {
 
     String[] coluna = new String[]{"Nome do Dono", "CPF"};
     ArrayList<QuestionarioSocioeconomico> questionarios;
+    private static final Logger LOG = Logger.getLogger(QuestionarioSocialTableModel.class.getName());
 
     public QuestionarioSocialTableModel() {
         this.questionarios = new ArrayList<QuestionarioSocioeconomico>();
@@ -26,6 +27,11 @@ public class QuestionarioSocialTableModel extends AbstractTableModel {
     @Override
     public int getRowCount() {
         return questionarios.size();
+    }
+
+    @Override
+    public String getColumnName(int column) {
+        return coluna[column];
     }
 
     @Override
@@ -50,6 +56,28 @@ public class QuestionarioSocialTableModel extends AbstractTableModel {
                         + "";
         }
     }
-    private static final Logger LOG = Logger.getLogger(QuestionarioSocialTableModel.class.getName());
+
+    public QuestionarioSocioeconomico getQuestionario(Integer index) {
+        return questionarios.get(index);
+    }
+
+    public void remove(Integer index) {
+        QuestionarioSocioeconomico quest = questionarios.get(index);
+        questionarios.remove(quest);
+        fireTableDataChanged();
+    }
+
+    public void add(QuestionarioSocioeconomico addQuest) {
+        questionarios.add(addQuest);
+        fireTableDataChanged();
+    }
+
+    public ArrayList<QuestionarioSocioeconomico> getQuestionarios() {
+        return questionarios;
+    }
+
+    public void setQuestionarios(ArrayList<QuestionarioSocioeconomico> questionarios) {
+        this.questionarios = questionarios;
+    }
 
 }
