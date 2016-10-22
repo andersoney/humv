@@ -12,6 +12,7 @@ import br.edu.ufrb.lasis.humv.view.dono.CadastrarDonoJPanel;
 import java.awt.HeadlessException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -23,7 +24,7 @@ import javax.swing.JOptionPane;
  * @author Orion && Chacal
  */
 public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
-
+    
     AbstractTableModelDocumentacao modelDocumentacao;
     AbstractTableModelParente modelParente;
     Dono dono;
@@ -39,7 +40,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         this.dono = dono;
         configDono(dono);
     }
-
+    
     private void configDono(Dono dono1) {
         this.jLabelNomeDono.setText("Nome : " + dono1.getNome());
         jLabelCpfDono.setText("CPF : " + dono1.getCpfCnpj());
@@ -55,7 +56,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         initComponentsCustom();
         HUMVApp.esconderMensagemCarregamento();
     }
-
+    
     private void initComponentsCustom() {
         //this.jTextFieldDocumentoOutro.setEnabled(false);
         this.dteDataEntrega.setDate(Calendar.getInstance().getTime());
@@ -1165,8 +1166,8 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabelFamiliaRendaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabelRendaPerCapta, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabelRendaPerCapta, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabelFamiliaRendaPerCapita, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
@@ -1324,7 +1325,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                     nomeDocumento = Documentacao.RGDONO;
                 }
             }
-
+            
             nomeUser = HUMVApp.getNomeUsuario();
             data = this.dteDataEntrega.getDate();
             Documentacao doc = new Documentacao();
@@ -1406,12 +1407,15 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonQuestionarioCancelarActionPerformed
 
     private void jButtonQuestionarioSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQuestionarioSalvarActionPerformed
-        validarCampos();
+        boolean okDono = validarDadosDoDono();
+        
+        setArrayDocumentacao();
+        
         setValorTipoCirugia();
         setValorTipoConsulta();
         setValorTipoExame();
         
-        
+        setArrayParentes();
         
         try {
             RESTMethods.put("/api/questionarioSocioeconomico", quest);
@@ -1422,6 +1426,14 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButtonQuestionarioSalvarActionPerformed
 
+    private void setArrayParentes() {
+        quest.setParentes((List<Parente>) modelParente.getParentes());
+    }
+    
+    private void setArrayDocumentacao() {
+        quest.setDocumentosEntregues((List<Documentacao>) modelDocumentacao.getDocumentos());
+    }
+    
     private void setValorTipoConsulta() throws HeadlessException {
         Integer consulta;
         if (this.jRadioButtonConsultaAula.isSelected()) {
@@ -1436,7 +1448,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             setValorConsultaDesconto(descontoConsultaST);
         }
     }
-
+    
     private void setValorTipoExame() throws HeadlessException {
         Integer exame;
         if (this.jRadioButtonExameAula.isSelected()) {
@@ -1451,7 +1463,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             setValorExameDesconto(descontoExameST);
         }
     }
-
+    
     private void setValorTipoCirugia() throws HeadlessException {
         Integer cirugia;
         if (this.jRadioButtonExameAula.isSelected()) {
@@ -1466,7 +1478,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             setValorCirugiaDesconto(descontoCirugiaST);
         }
     }
-
+    
     private void setValorCirugiaDesconto(String descontoCirugiaST) throws HeadlessException {
         Double descontoCirugia;
         try {
@@ -1475,7 +1487,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }
-
+    
     private void setValorExameDesconto(String descontoExameST) throws HeadlessException {
         Double descontoExame;
         try {
@@ -1484,7 +1496,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }
-
+    
     private void setValorConsultaDesconto(String descontoConsultaST) throws HeadlessException {
         Double descontoConsulta;
         try {
@@ -1494,14 +1506,9 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }
-
-    private void validarCampos() {
-        boolean okDono = validarDadosDoDono();
-        setValorTipoConsulta();
-        setValorTipoExame();
-        setValorTipoCirugia();
-    }
-
+    
+    
+    
     private boolean validarDadosDoDono() {
         String idadeST = this.jFormattedTextFieldIdade.getText();
         Integer idade;
@@ -1534,21 +1541,21 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             condMoradia = validarString(condMoradia, "Condição de Modaria");
             String progTransferRenda = this.jTextFieldProgramaRenda.getText();
             progTransferRenda = validarString(progTransferRenda, "Programa de Transferencia de Renda");
-
+            
             boolean estudante;
             boolean estudanteS = this.jRadioButtonEstudanteSim.isSelected();
             boolean estudanteN = this.jRadioButtonEstudanteNao.isSelected();
             estudante = validarRadioButton(estudanteS, estudanteN, "Estudante");
-
+            
             String gastosMenssaisST = this.jFormattedTextFieldGastosMensais.getText();
             Double gastosMensais = validarDouble(gastosMenssaisST, "Gastos Mensais");
-
+            
             String fonteCusteio = this.jTextFieldFonteCusteio.getText();
             fonteCusteio = validarString(fonteCusteio, "Fonte de Custeio");
-
+            
             String bolsaOuBeneficio = this.jTextFieldBeneficio.getText();
             bolsaOuBeneficio = validarString(bolsaOuBeneficio, "Bolsa ou Beneficio");
-
+            
             String observacao = this.jTextAreaObservacoes.getText();
             validarString(observacao, "Observações");
             quest.setIdade(idade);
@@ -1569,15 +1576,15 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             quest.setFontCusteio(fonteCusteio);
             quest.setBolsaOuBeneficio(bolsaOuBeneficio);
             quest.setObservacoes(observacao);
-
+            
             return true;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
             return false;
         }
-
+        
     }
-
+    
     private boolean validarRadioButton(boolean radioButtonSim, boolean radioButtonNao, String Campo) throws Exception {
         if (!radioButtonSim && !radioButtonNao) {
             throw new Exception("Escolha Entre as opções " + Campo + ".");
@@ -1585,12 +1592,12 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             if (radioButtonSim) {
                 return radioButtonSim;
             } else {
-
+                
                 return radioButtonNao;
             }
         }
     }
-
+    
     private Double validarDouble(String rendaFormalST, String campo) throws Exception {
         Double rendaFormal;
         try {
@@ -1600,7 +1607,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             throw new Exception("O campo " + campo + " é real.");
         }
     }
-
+    
     private String validarString(String test, String campo) throws Exception {
         String returnMe = test;
         if (returnMe.trim().length() == 0) {
@@ -1609,7 +1616,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             return returnMe;
         }
     }
-
+    
     private Integer validarInteger(String idadeST, String campo) throws Exception {
         try {
             Integer returnMe = Integer.parseInt(idadeST);
@@ -1618,38 +1625,38 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             throw new Exception("Coloque um inteiro no campo " + campo + ".");
         }
     }
-
+    
 
     private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
 
     }//GEN-LAST:event_jButtonRemoverActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-
+        
         try {
             Parente parente = new Parente();
-
+            
             String nome = this.jTextFieldFamiliaNome.getText();
             nome = validarString(nome, "Nome do Familiar");
             parente.setNome(nome);
-
+            
             if (this.jFormattedIdadeFamilia.getText().isEmpty()) {
                 InterfaceGraficaUtils.validaCampoVazio("Idade do familiar");
                 return;
             }
             int idade = Integer.parseInt(this.jFormattedIdadeFamilia.getText());
             parente.setIdade(idade);
-
+            
             if (this.jTextFieldParentesco.getText().isEmpty()) {
                 InterfaceGraficaUtils.validaCampoVazio("Parentesco do familiar");
                 return;
             }
             String parentesco = this.jTextFieldParentesco.getText();
             parente.setParentesco(parentesco);
-
+            
             int escolaridade = this.jComboBoxEscolaridadeFamliar.getSelectedIndex();
             parente.setEscolaridade(escolaridade);
-
+            
             if (this.jTextFieldFamiliaOcupacao.getText().isEmpty()) {
                 InterfaceGraficaUtils.validaCampoVazio("Ocupação do familiar");
                 return;
@@ -1953,7 +1960,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         this.jTextFieldFamiliaOcupacao.setText(null);
         this.jTextFieldFamiliaRenda.setText(null); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     private void atualizaCalculoRenda() {
         jLabelFamiliaRendaTotal.setText("" + modelParente.getRendaTotal());
         jLabelFamiliaRendaPerCapita.setText("" + modelParente.getRendaPerCapita()); //To change body of generated methods, choose Tools | Templates.
