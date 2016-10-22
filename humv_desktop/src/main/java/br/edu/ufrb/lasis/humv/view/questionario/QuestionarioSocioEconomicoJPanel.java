@@ -40,6 +40,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     public QuestionarioSocioEconomicoJPanel() {
         initComponents();
         initComponentsCustom();
+        HUMVApp.esconderMensagemCarregamento();
     }
 
     private void initComponentsCustom() {
@@ -1264,6 +1265,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonPesquisarDonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarDonoActionPerformed
+        HUMVApp.exibirMensagemCarregamento();
         dono = new Dono();
         dono.setNome("HUMV DONO");
         QuestionarioBuscarDono bDono = new QuestionarioBuscarDono(this);
@@ -1272,6 +1274,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
 
     private void jButtonCadastrarNovoDonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarNovoDonoActionPerformed
         //new CadastrarDonoJDialog(this).setVisible(true);
+        HUMVApp.exibirMensagemCarregamento();
         CadastrarDonoJPanel donoJP = new CadastrarDonoJPanel(this);
         HUMVApp.setNovoPainelCentral(donoJP);
     }//GEN-LAST:event_jButtonCadastrarNovoDonoActionPerformed

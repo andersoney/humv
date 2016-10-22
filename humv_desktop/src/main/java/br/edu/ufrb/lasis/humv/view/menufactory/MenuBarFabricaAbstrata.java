@@ -409,6 +409,7 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         } else if (source.equals(menuItemAgendarAtendimento) || source.equals(buttonAgendarAtendimento)) {
             HUMVApp.setNovoPainelCentral(new BuscarAgendaMedicoJPanel());
         }else if(source.equals(menuItemCadastrarQuestionarioSocial)){
+            HUMVApp.exibirMensagemCarregamento();
             HUMVApp.setNovoPainelCentral(new QuestionarioSocioEconomicoJPanel());
         }
 

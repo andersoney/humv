@@ -56,6 +56,7 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
         this.tipoDocumento = "CPF";
         buttonGroupLocal.add(jRadioButtonCidade);
         buttonGroupLocal.add(jRadioButtonFazenda);
+        HUMVApp.esconderMensagemCarregamento();
     }
 
     public CadastrarDonoJPanel(CadastrarDonoJDialog cadastroDonoJDialog) {
