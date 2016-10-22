@@ -1524,7 +1524,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     private void setValorExameDesconto(String descontoExameST) throws HeadlessException {
         Double descontoExame;
         try {
-            descontoExame = validarDouble(descontoExameST, "Desconto Consulta");
+            descontoExame = validarDouble(descontoExameST, "Dmesconto Consulta");
         } catch (Exception ex) {
             this.erroMensage(ex.getMessage(), "Falha no valor do desconto da Exame.");
         }
