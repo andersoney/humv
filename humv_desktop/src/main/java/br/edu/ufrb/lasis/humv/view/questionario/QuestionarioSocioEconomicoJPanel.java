@@ -1416,6 +1416,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         setValorTipoExame();
         
         setArrayParentes();
+        setFatoresRiscos();
         
         try {
             RESTMethods.put("/api/questionarioSocioeconomico", quest);
@@ -1425,7 +1426,18 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_jButtonQuestionarioSalvarActionPerformed
-
+    
+    private void setFatoresRiscos() {
+        String fatoresReclarados = this.jTextFieldFatoresDeclarados.getText();
+        String bensMateriais = this.jTextAreaBemMaterial.getText();
+        String dividasMateriais = this.jTextAreaDividas.getText();
+        String motivos = this.jTextAreaMotivos.getText();
+        quest.setRiscosSociais(fatoresReclarados);
+        quest.setBensFamiliares(bensMateriais);
+        quest.setEmprestimos(dividasMateriais);
+        quest.setImpossibilidadesCusteio(motivos);
+    }
+    
     private void setArrayParentes() {
         quest.setParentes((List<Parente>) modelParente.getParentes());
     }
@@ -1506,8 +1518,6 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }
-    
-    
     
     private boolean validarDadosDoDono() {
         String idadeST = this.jFormattedTextFieldIdade.getText();
