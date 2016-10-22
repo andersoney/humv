@@ -5,11 +5,15 @@ import br.edu.ufrb.lasis.humv.entity.Parente;
 import br.edu.ufrb.lasis.humv.entity.Documentacao;
 import br.edu.ufrb.lasis.humv.entity.Dono;
 import br.edu.ufrb.lasis.humv.entity.QuestionarioSocioeconomico;
+import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
+import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.view.dono.CadastrarDonoJPanel;
 import java.awt.HeadlessException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -1403,6 +1407,15 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
 
     private void jButtonQuestionarioSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQuestionarioSalvarActionPerformed
         validarCampos();
+        
+        
+        try {
+            RESTMethods.put("/api/questionarioSocioeconomico", quest);
+            JOptionPane.showMessageDialog(HUMVApp.getMainWindow(), "Salvo Com Sucesso");
+        } catch (RESTConnectionException ex) {
+            JOptionPane.showMessageDialog(HUMVApp.getMainWindow(), "Erro de Connexão ao Salvar");
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_jButtonQuestionarioSalvarActionPerformed
 
     private void setValorTipoConsulta() throws HeadlessException {
