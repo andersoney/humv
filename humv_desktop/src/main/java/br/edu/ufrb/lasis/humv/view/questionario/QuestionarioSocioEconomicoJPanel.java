@@ -1407,11 +1407,13 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
 
     private void jButtonQuestionarioSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQuestionarioSalvarActionPerformed
         validarCampos();
-        
-        
+        setValorTipoCirugia();
+        setValorTipoConsulta();
+        setValorTipoExame();
+
         try {
             RESTMethods.put("/api/questionarioSocioeconomico", quest);
-            JOptionPane.showMessageDialog(HUMVApp.getMainWindow(), "Salvo Com Sucesso");
+            JOptionPane.showMessageDialog(HUMVApp.getMainWindow(), "Salvo Com Sucesso.");
         } catch (RESTConnectionException ex) {
             JOptionPane.showMessageDialog(HUMVApp.getMainWindow(), "Erro de Connexão ao Salvar");
             ex.printStackTrace();
