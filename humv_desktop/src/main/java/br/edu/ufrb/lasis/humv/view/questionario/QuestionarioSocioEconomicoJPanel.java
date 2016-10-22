@@ -1,8 +1,6 @@
 package br.edu.ufrb.lasis.humv.view.questionario;
 
-import br.edu.ufrb.lasis.humv.entity.QuestionarioSocioeconomico;
 import br.edu.ufrb.lasis.humv.entity.Parente;
-import br.edu.ufrb.lasis.humv.entity.Animal;
 import br.edu.ufrb.lasis.humv.entity.Documentacao;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import java.util.Calendar;
@@ -28,11 +26,16 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     }
 
     private void initComponentsCustom() {
-        this.jTextFieldDocumentoOutro.setEnabled(false);
+        //this.jTextFieldDocumentoOutro.setEnabled(false);
         this.dteDataEntrega.setDate(Calendar.getInstance().getTime());
         this.jRadioButtonEnergiaSim.setSelected(true);
         this.jRadioButtonSaneamentoSim.setSelected(true);
         this.jRadioButtonEstudanteSim.setSelected(true);
+        this.jRadioButtonDocumentosOutro.setSelected(true);
+        this.jRadioButtonConsultaNormal.setSelected(true);
+        this.jRadioButtonExameNormal.setSelected(true);
+        this.jRadioButtonCirurgiaNormal.setSelected(true);
+        
     }
 
     /**
@@ -815,8 +818,18 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jLabel41.setText("Cirurgia/reprodução:");
 
         jRadioButtonConsultaNormal.setText("Valor normal");
+        jRadioButtonConsultaNormal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonConsultaNormalActionPerformed(evt);
+            }
+        });
 
         jRadioButtonConsultaAula.setText("Valor aula");
+        jRadioButtonConsultaAula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonConsultaAulaActionPerformed(evt);
+            }
+        });
 
         jRadioButtonConsultaIsencao.setText("Isenção");
         jRadioButtonConsultaIsencao.addActionListener(new java.awt.event.ActionListener() {
@@ -826,14 +839,29 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         });
 
         jRadioButtonConsultaDesconto.setText("Desconto");
+        jRadioButtonConsultaDesconto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonConsultaDescontoActionPerformed(evt);
+            }
+        });
 
         jFormattedTextFieldConsulta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
 
         jLabel42.setText("%");
 
         jRadioButtonExameNormal.setText("Valor normal");
+        jRadioButtonExameNormal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonExameNormalActionPerformed(evt);
+            }
+        });
 
         jRadioButtonExameAula.setText("Valor aula");
+        jRadioButtonExameAula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonExameAulaActionPerformed(evt);
+            }
+        });
 
         jRadioButtonExameIsencao.setText("Isenção");
         jRadioButtonExameIsencao.addActionListener(new java.awt.event.ActionListener() {
@@ -854,8 +882,18 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jLabel43.setText("%");
 
         jRadioButtonCirurgiaNormal.setText("Valor normal");
+        jRadioButtonCirurgiaNormal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonCirurgiaNormalActionPerformed(evt);
+            }
+        });
 
         jRadioButtonCirurgiaAula.setText("Valor aula");
+        jRadioButtonCirurgiaAula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonCirurgiaAulaActionPerformed(evt);
+            }
+        });
 
         jRadioButtonCirurgiaIsencao.setText("Isenção");
         jRadioButtonCirurgiaIsencao.addActionListener(new java.awt.event.ActionListener() {
@@ -865,6 +903,11 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         });
 
         jRadioButtonCirurgiaDesconto.setText("Desconto");
+        jRadioButtonCirurgiaDesconto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonCirurgiaDescontoActionPerformed(evt);
+            }
+        });
 
         jFormattedTextFieldCirurgia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
 
@@ -1072,7 +1115,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel24)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jFormattedRendaMembroFamilia)
+                                .addComponent(jFormattedRendaMembroFamilia, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
                                 .addGap(6, 6, 6))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelComposicaoFamiliarLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1083,14 +1126,14 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                     .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
                         .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
-                                .addComponent(jLabelRendaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabelRendaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabelFamiliaRendaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabelFamiliaRendaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabelRendaPerCapta, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabelRendaPerCapta, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabelFamiliaRendaPerCapita, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 125, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
                                 .addComponent(jLabel27)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1225,7 +1268,27 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jRadioButtonEnergiaNaoActionPerformed
 
     private void jButtonDocumentoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDocumentoSalvarActionPerformed
+        String nomeDocumento = "";
 
+        try {
+            if (this.jRadioButtonDocumentosOutro.isSelected()) {
+                nomeDocumento = this.jTextFieldDocumentoOutro.getText();
+                nomeDocumento = validarString(nomeDocumento, "Nome do Documento");
+            } else {
+                if (this.jRadioButtonDocumentosBolsaFamilia.isSelected()) {
+                    nomeDocumento = Documentacao.BOLSAFAMILIA;
+                } else if (jRadioButtonDocumentosComprovanteEndereco.isSelected()) {
+                    nomeDocumento = Documentacao.COMPROVANTEENDEREÇO;
+                } else if (jRadioButtonDocumentosMembroFamilia.isSelected()) {
+                    nomeDocumento = Documentacao.MEMBROFAMILIA;
+                } else if (jRadioButtonDocumentosRGDono.isSelected()) {
+                    nomeDocumento = Documentacao.RGDONO;
+                }
+            }
+            System.out.println("" + nomeDocumento);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
     }//GEN-LAST:event_jButtonDocumentoSalvarActionPerformed
 
     private void jButtonDocumentoRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDocumentoRemoverActionPerformed
@@ -1258,18 +1321,34 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
 
     private void jRadioButtonConsultaIsencaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonConsultaIsencaoActionPerformed
         // TODO add your handling code here:
+        this.jRadioButtonConsultaNormal.setSelected(false);
+        this.jRadioButtonConsultaIsencao.setSelected(true);
+        this.jRadioButtonConsultaDesconto.setSelected(false);
+        this.jRadioButtonConsultaAula.setSelected(false);
     }//GEN-LAST:event_jRadioButtonConsultaIsencaoActionPerformed
 
     private void jRadioButtonExameIsencaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonExameIsencaoActionPerformed
         // TODO add your handling code here:
+        this.jRadioButtonExameNormal.setSelected(false);
+        this.jRadioButtonExameAula.setSelected(false);
+        this.jRadioButtonExameDesconto.setSelected(false);
+        this.jRadioButtonExameIsencao.setSelected(true);
     }//GEN-LAST:event_jRadioButtonExameIsencaoActionPerformed
 
     private void jRadioButtonCirurgiaIsencaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCirurgiaIsencaoActionPerformed
         // TODO add your handling code here:
+        this.jRadioButtonCirurgiaNormal.setSelected(false);
+        this.jRadioButtonCirurgiaIsencao.setSelected(true);
+        this.jRadioButtonCirurgiaDesconto.setSelected(false);
+        this.jRadioButtonCirurgiaAula.setSelected(false);
     }//GEN-LAST:event_jRadioButtonCirurgiaIsencaoActionPerformed
 
     private void jRadioButtonExameDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonExameDescontoActionPerformed
         // TODO add your handling code here:
+        this.jRadioButtonExameNormal.setSelected(false);
+        this.jRadioButtonExameAula.setSelected(false);
+        this.jRadioButtonExameDesconto.setSelected(true);
+        this.jRadioButtonExameIsencao.setSelected(false);
     }//GEN-LAST:event_jRadioButtonExameDescontoActionPerformed
 
     private void jButtonQuestionarioCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQuestionarioCancelarActionPerformed
@@ -1485,6 +1564,70 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         this.jRadioButtonEstudanteSim.setSelected(false);
     }//GEN-LAST:event_jRadioButtonEstudanteNaoActionPerformed
+
+    private void jRadioButtonConsultaNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonConsultaNormalActionPerformed
+        // TODO add your handling code here:
+        this.jRadioButtonConsultaNormal.setSelected(true);
+        this.jRadioButtonConsultaIsencao.setSelected(false);
+        this.jRadioButtonConsultaDesconto.setSelected(false);
+        this.jRadioButtonConsultaAula.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonConsultaNormalActionPerformed
+
+    private void jRadioButtonConsultaAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonConsultaAulaActionPerformed
+        // TODO add your handling code here:
+        this.jRadioButtonConsultaNormal.setSelected(false);
+        this.jRadioButtonConsultaIsencao.setSelected(false);
+        this.jRadioButtonConsultaDesconto.setSelected(false);
+        this.jRadioButtonConsultaAula.setSelected(true);
+    }//GEN-LAST:event_jRadioButtonConsultaAulaActionPerformed
+
+    private void jRadioButtonConsultaDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonConsultaDescontoActionPerformed
+        // TODO add your handling code here:
+        this.jRadioButtonConsultaNormal.setSelected(false);
+        this.jRadioButtonConsultaIsencao.setSelected(false);
+        this.jRadioButtonConsultaDesconto.setSelected(true);
+        this.jRadioButtonConsultaAula.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonConsultaDescontoActionPerformed
+
+    private void jRadioButtonExameNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonExameNormalActionPerformed
+        // TODO add your handling code here:
+        this.jRadioButtonExameNormal.setSelected(true);
+        this.jRadioButtonExameAula.setSelected(false);
+        this.jRadioButtonExameDesconto.setSelected(false);
+        this.jRadioButtonExameIsencao.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonExameNormalActionPerformed
+
+    private void jRadioButtonExameAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonExameAulaActionPerformed
+        // TODO add your handling code here:
+        this.jRadioButtonExameNormal.setSelected(false);
+        this.jRadioButtonExameAula.setSelected(true);
+        this.jRadioButtonExameDesconto.setSelected(false);
+        this.jRadioButtonExameIsencao.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonExameAulaActionPerformed
+
+    private void jRadioButtonCirurgiaNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCirurgiaNormalActionPerformed
+        // TODO add your handling code here:
+        this.jRadioButtonCirurgiaNormal.setSelected(true);
+        this.jRadioButtonCirurgiaIsencao.setSelected(false);
+        this.jRadioButtonCirurgiaDesconto.setSelected(false);
+        this.jRadioButtonCirurgiaAula.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonCirurgiaNormalActionPerformed
+
+    private void jRadioButtonCirurgiaAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCirurgiaAulaActionPerformed
+        // TODO add your handling code here:
+        this.jRadioButtonCirurgiaNormal.setSelected(false);
+        this.jRadioButtonCirurgiaIsencao.setSelected(false);
+        this.jRadioButtonCirurgiaDesconto.setSelected(false);
+        this.jRadioButtonCirurgiaAula.setSelected(true);
+    }//GEN-LAST:event_jRadioButtonCirurgiaAulaActionPerformed
+
+    private void jRadioButtonCirurgiaDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCirurgiaDescontoActionPerformed
+        // TODO add your handling code here:
+        this.jRadioButtonCirurgiaNormal.setSelected(false);
+        this.jRadioButtonCirurgiaIsencao.setSelected(false);
+        this.jRadioButtonCirurgiaDesconto.setSelected(true);
+        this.jRadioButtonCirurgiaAula.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonCirurgiaDescontoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
