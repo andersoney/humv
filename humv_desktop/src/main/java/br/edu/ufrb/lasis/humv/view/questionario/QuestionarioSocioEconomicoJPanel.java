@@ -61,6 +61,9 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         this.jTableDocumentos.setModel(this.modelDocumentacao);
         this.modelParente = new AbstractTableModelParente();
         this.jTableFamiliares.setModel(modelParente);
+        this.jFormattedTextFieldCirurgia.setEnabled(false);
+        this.jFormattedTextFieldConsulta.setEnabled(false);
+        this.jFormattedTextFieldExame.setEnabled(false);
 
     }
 
@@ -1360,6 +1363,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         this.jRadioButtonConsultaIsencao.setSelected(true);
         this.jRadioButtonConsultaDesconto.setSelected(false);
         this.jRadioButtonConsultaAula.setSelected(false);
+        this.jFormattedTextFieldConsulta.setEnabled(false);
     }//GEN-LAST:event_jRadioButtonConsultaIsencaoActionPerformed
 
     private void jRadioButtonExameIsencaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonExameIsencaoActionPerformed
@@ -1376,6 +1380,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         this.jRadioButtonCirurgiaIsencao.setSelected(true);
         this.jRadioButtonCirurgiaDesconto.setSelected(false);
         this.jRadioButtonCirurgiaAula.setSelected(false);
+        this.jFormattedTextFieldCirurgia.setEnabled(false);
     }//GEN-LAST:event_jRadioButtonCirurgiaIsencaoActionPerformed
 
     private void jRadioButtonExameDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonExameDescontoActionPerformed
@@ -1384,6 +1389,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         this.jRadioButtonExameAula.setSelected(false);
         this.jRadioButtonExameDesconto.setSelected(true);
         this.jRadioButtonExameIsencao.setSelected(false);
+        this.jFormattedTextFieldExame.setEnabled(true);
     }//GEN-LAST:event_jRadioButtonExameDescontoActionPerformed
 
     private void jButtonQuestionarioCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQuestionarioCancelarActionPerformed
@@ -1610,6 +1616,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         this.jRadioButtonConsultaIsencao.setSelected(false);
         this.jRadioButtonConsultaDesconto.setSelected(false);
         this.jRadioButtonConsultaAula.setSelected(false);
+        this.jFormattedTextFieldConsulta.setEnabled(false);
     }//GEN-LAST:event_jRadioButtonConsultaNormalActionPerformed
 
     private void jRadioButtonConsultaAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonConsultaAulaActionPerformed
@@ -1618,6 +1625,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         this.jRadioButtonConsultaIsencao.setSelected(false);
         this.jRadioButtonConsultaDesconto.setSelected(false);
         this.jRadioButtonConsultaAula.setSelected(true);
+        this.jFormattedTextFieldConsulta.setEnabled(false);
     }//GEN-LAST:event_jRadioButtonConsultaAulaActionPerformed
 
     private void jRadioButtonConsultaDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonConsultaDescontoActionPerformed
@@ -1626,6 +1634,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         this.jRadioButtonConsultaIsencao.setSelected(false);
         this.jRadioButtonConsultaDesconto.setSelected(true);
         this.jRadioButtonConsultaAula.setSelected(false);
+        this.jFormattedTextFieldConsulta.setEnabled(true);
     }//GEN-LAST:event_jRadioButtonConsultaDescontoActionPerformed
 
     private void jRadioButtonExameNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonExameNormalActionPerformed
@@ -1634,6 +1643,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         this.jRadioButtonExameAula.setSelected(false);
         this.jRadioButtonExameDesconto.setSelected(false);
         this.jRadioButtonExameIsencao.setSelected(false);
+        this.jFormattedTextFieldExame.setEnabled(false);
     }//GEN-LAST:event_jRadioButtonExameNormalActionPerformed
 
     private void jRadioButtonExameAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonExameAulaActionPerformed
@@ -1642,6 +1652,8 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         this.jRadioButtonExameAula.setSelected(true);
         this.jRadioButtonExameDesconto.setSelected(false);
         this.jRadioButtonExameIsencao.setSelected(false);
+        this.jFormattedTextFieldExame.setEnabled(false);
+        this.jFormattedTextFieldExame.setEnabled(false);
     }//GEN-LAST:event_jRadioButtonExameAulaActionPerformed
 
     private void jRadioButtonCirurgiaNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCirurgiaNormalActionPerformed
@@ -1650,6 +1662,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         this.jRadioButtonCirurgiaIsencao.setSelected(false);
         this.jRadioButtonCirurgiaDesconto.setSelected(false);
         this.jRadioButtonCirurgiaAula.setSelected(false);
+        this.jFormattedTextFieldCirurgia.setEnabled(false);
     }//GEN-LAST:event_jRadioButtonCirurgiaNormalActionPerformed
 
     private void jRadioButtonCirurgiaAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCirurgiaAulaActionPerformed
@@ -1658,6 +1671,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         this.jRadioButtonCirurgiaIsencao.setSelected(false);
         this.jRadioButtonCirurgiaDesconto.setSelected(false);
         this.jRadioButtonCirurgiaAula.setSelected(true);
+        this.jFormattedTextFieldCirurgia.setEnabled(false);
     }//GEN-LAST:event_jRadioButtonCirurgiaAulaActionPerformed
 
     private void jRadioButtonCirurgiaDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCirurgiaDescontoActionPerformed
@@ -1666,6 +1680,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         this.jRadioButtonCirurgiaIsencao.setSelected(false);
         this.jRadioButtonCirurgiaDesconto.setSelected(true);
         this.jRadioButtonCirurgiaAula.setSelected(false);
+        this.jFormattedTextFieldCirurgia.setEnabled(true);
     }//GEN-LAST:event_jRadioButtonCirurgiaDescontoActionPerformed
 
 
