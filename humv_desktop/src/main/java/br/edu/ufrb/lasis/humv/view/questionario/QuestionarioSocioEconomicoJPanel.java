@@ -8,13 +8,11 @@ import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.view.dono.CadastrarDonoJPanel;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
- *Classe que cria o Painel Questionario SOcial.
- * 
+ * Classe que cria o Painel Questionario SOcial.
+ *
  * @author tassiovale
  * @author Orion && Chacal
  */
@@ -24,6 +22,10 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     AbstractTableModelParente modelParente;
     Dono dono;
 
+    /**
+     * Aqui é configurado o dono repassado pela classe CadastroDonoJPane e de QuestionarioBuscarDono.
+     * @param dono
+     */
     public void setDono(Dono dono) {
         this.dono = dono;
         configDono(dono);
