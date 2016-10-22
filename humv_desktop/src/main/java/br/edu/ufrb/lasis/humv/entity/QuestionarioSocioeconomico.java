@@ -216,4 +216,121 @@ public class QuestionarioSocioeconomico implements Serializable {
     public void setRendaTotal(Double rendaTotal) {
         this.rendaTotal = rendaTotal;
     }
+
+    public double getRendaPerCapta() {
+        return rendaPerCapta;
+    }
+
+    public void setRendaPerCapta(double rendaPerCapta) {
+        this.rendaPerCapta = rendaPerCapta;
+    }
+
+    public void setRendaTotal(double rendaTotal) {
+        this.rendaTotal = rendaTotal;
+    }
+
+    public String getImpossibilidadesCusteio() {
+        return impossibilidadesCusteio;
+    }
+
+    public void setImpossibilidadesCusteio(String impossibilidadesCusteio) {
+        this.impossibilidadesCusteio = impossibilidadesCusteio;
+    }
+
+    public String getBensFamiliares() {
+        return bensFamiliares;
+    }
+
+    public void setBensFamiliares(String bensFamiliares) {
+        this.bensFamiliares = bensFamiliares;
+    }
+
+    public String getRiscosSociais() {
+        return riscosSociais;
+    }
+
+    public void setRiscosSociais(String riscosSociais) {
+        this.riscosSociais = riscosSociais;
+    }
+
+    public String getEmprestimos() {
+        return emprestimos;
+    }
+
+    public void setEmprestimos(String emprestimos) {
+        this.emprestimos = emprestimos;
+    }
+
+    public String getBreveResumo() {
+        return breveResumo;
+    }
+
+    public void setBreveResumo(String breveResumo) {
+        this.breveResumo = breveResumo;
+    }
+
+    public String getConclusoes() {
+        return conclusoes;
+    }
+
+    public void setConclusoes(String conclusoes) {
+        this.conclusoes = conclusoes;
+    }
+
+    public String getObservacoes() {
+        return observacoes;
+    }
+
+    public void setObservacoes(String observacoes) {
+        this.observacoes = observacoes;
+    }
+
+    public Integer getTipoCobrancaConsultas() {
+        return tipoCobrancaConsultas;
+    }
+
+    public void setTipoCobrancaConsultas(Integer tipoCobrancaConsultas) {
+        this.tipoCobrancaConsultas = tipoCobrancaConsultas;
+    }
+
+    public Integer getTipoCobrancaExames() {
+        return tipoCobrancaExames;
+    }
+
+    public void setTipoCobrancaExames(Integer tipoCobrancaExames) {
+        this.tipoCobrancaExames = tipoCobrancaExames;
+    }
+
+    public Integer getTipoCobrancaCirurgias() {
+        return tipoCobrancaCirurgias;
+    }
+
+    public void setTipoCobrancaCirurgias(Integer tipoCobrancaCirurgias) {
+        this.tipoCobrancaCirurgias = tipoCobrancaCirurgias;
+    }
+
+    public Double getValorDescontoExames() {
+        return valorDescontoExames;
+    }
+
+    public void setValorDescontoExames(Double valorDescontoExames) {
+        this.valorDescontoExames = valorDescontoExames;
+    }
+
+    public Double getValorDescontoCirurgias() {
+        return valorDescontoCirurgias;
+    }
+
+    public void setValorDescontoCirurgias(Double valorDescontoCirurgias) {
+        this.valorDescontoCirurgias = valorDescontoCirurgias;
+    }
+
+    public Double getValorDescontoConsultas() {
+        return valorDescontoConsultas;
+    }
+
+    public void setValorDescontoConsultas(Double valorDescontoConsultas) {
+        this.valorDescontoConsultas = valorDescontoConsultas;
+    }
+    
 }
