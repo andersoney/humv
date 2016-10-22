@@ -66,6 +66,7 @@ public class QuestionarioSocioeconomico implements Serializable {
     private Double gastosMensais;
     private String fontCusteio;
     private String bolsaOuBeneficio;
+    private String observacoesDadosDono;
 
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
     private List<Parente> parentes;
@@ -80,9 +81,9 @@ public class QuestionarioSocioeconomico implements Serializable {
     private String riscosSociais;
     private String emprestimos;
 
-    private String breveResumo;
-    private String conclusoes;
-    private String observacoes;
+    private String analiseBreveResumo;
+    private String analiseObservacoes;
+    private String analiseConclusoes;
 
     //Relacionado com atributos da classe Atendimento: valor normal, valor aula, desconto ou isenção
     private Integer tipoCobrancaConsultas;
@@ -286,28 +287,36 @@ public class QuestionarioSocioeconomico implements Serializable {
         this.emprestimos = emprestimos;
     }
 
-    public String getBreveResumo() {
-        return breveResumo;
+    public String getAnaliseBreveResumo() {
+        return analiseBreveResumo;
     }
 
-    public void setBreveResumo(String breveResumo) {
-        this.breveResumo = breveResumo;
+    public void setAnaliseBreveResumo(String analiseBreveResumo) {
+        this.analiseBreveResumo = analiseBreveResumo;
     }
 
-    public String getConclusoes() {
-        return conclusoes;
+    public String getAnaliseConclusoes() {
+        return analiseConclusoes;
     }
 
-    public void setConclusoes(String conclusoes) {
-        this.conclusoes = conclusoes;
+    public void setAnaliseConclusoes(String analiseConclusoes) {
+        this.analiseConclusoes = analiseConclusoes;
     }
 
-    public String getObservacoes() {
-        return observacoes;
+    public String getObservacoesDadosDono() {
+        return observacoesDadosDono;
     }
 
-    public void setObservacoes(String observacoes) {
-        this.observacoes = observacoes;
+    public void setObservacoesDadosDono(String observacoesDadosDono) {
+        this.observacoesDadosDono = observacoesDadosDono;
+    }
+
+    public String getAnaliseObservacoes() {
+        return analiseObservacoes;
+    }
+
+    public void setAnaliseObservacoes(String analiseObservacoes) {
+        this.analiseObservacoes = analiseObservacoes;
     }
 
     public Integer getTipoCobrancaConsultas() {
