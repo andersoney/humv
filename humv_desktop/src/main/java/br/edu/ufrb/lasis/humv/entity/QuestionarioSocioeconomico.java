@@ -24,10 +24,10 @@ public class QuestionarioSocioeconomico implements Serializable {
     public static final Integer ESTADO_CIVIL_DIVORCIADO = 4;
     public static final Integer ESTADO_CIVIL_VIUVO = 5;
 
-    public static final Integer COBRANCA_NORMAL = 0;
-    public static final Integer COBRANCA_AULA = 1;
-    public static final Integer COBRANCA_INSENCAO = 2;
-    public static final Integer COBRANCA_DESCONTO = 3;
+    public static final int COBRANCA_NORMAL = 0;
+    public static final int COBRANCA_AULA = 1;
+    public static final int COBRANCA_INSENCAO = 2;
+    public static final int COBRANCA_DESCONTO = 3;
 
     private BigInteger id;
 
