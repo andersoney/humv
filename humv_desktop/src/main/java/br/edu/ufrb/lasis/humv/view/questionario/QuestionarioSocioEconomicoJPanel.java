@@ -592,12 +592,6 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             }
         });
 
-        jFormattedTextFieldRendaFormal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
-
-        jFormattedTextFieldRendaInformal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
-
-        jFormattedTextFieldAluguel.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
-
         javax.swing.GroupLayout jPanelMateriaisLayout = new javax.swing.GroupLayout(jPanelMateriais);
         jPanelMateriais.setLayout(jPanelMateriaisLayout);
         jPanelMateriaisLayout.setHorizontalGroup(
@@ -706,8 +700,6 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jLabel21.setText("Bolsa ou benefício:");
 
         jLabel22.setText("Observações:");
-
-        jFormattedTextFieldGastosMensais.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
 
         jTextAreaObservacoes.setColumns(20);
         jTextAreaObservacoes.setRows(5);

@@ -562,29 +562,14 @@
                   </Events>
                 </Component>
                 <Component class="javax.swing.JFormattedTextField" name="jFormattedTextFieldRendaFormal">
-                  <Properties>
-                    <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-                      <Format subtype="0" type="4"/>
-                    </Property>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JFormattedTextField" name="jFormattedTextFieldRendaInformal">
-                  <Properties>
-                    <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-                      <Format subtype="0" type="4"/>
-                    </Property>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextFieldTipoConstrucao">
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextFieldProgramaRenda">
                 </Component>
                 <Component class="javax.swing.JFormattedTextField" name="jFormattedTextFieldAluguel">
-                  <Properties>
-                    <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-                      <Format subtype="0" type="4"/>
-                    </Property>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextFieldCondicaoMoradia">
                 </Component>
@@ -702,11 +687,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JFormattedTextField" name="jFormattedTextFieldGastosMensais">
-                  <Properties>
-                    <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-                      <Format subtype="0" type="4"/>
-                    </Property>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextFieldFonteCusteio">
                 </Component>
