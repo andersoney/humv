@@ -6,10 +6,10 @@
 package br.edu.ufrb.lasis.humv.view.questionario;
 
 import br.edu.ufrb.lasis.humv.entity.Documentacao;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
 
@@ -19,7 +19,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class AbstractTableModelDocumentacao extends AbstractTableModel {
 
-    ArrayList<Documentacao> documentos;
+    List<Documentacao> documentos;
 
     private String[] colunas = new String[]{
         "Data de Entrega", "Nome do Recebinte", "Nome do documento"};
@@ -61,17 +61,18 @@ public class AbstractTableModelDocumentacao extends AbstractTableModel {
             case 2:
                 return obj.getNomeDocumento();
             default:
-                LOG.warning(AbstractTableModelDocumentacao.class.getName()+"Tentando acessar coluna a mais.");
+                LOG.warning(AbstractTableModelDocumentacao.class.getName() + "Tentando acessar coluna a mais.");
                 return null;
         }
     }
 
-    public ArrayList<Documentacao> getDocumentos() {
+    public List<Documentacao> getDocumentos() {
         return documentos;
     }
 
-    public void setDocumentos(ArrayList<Documentacao> documentos) {
+    public void setDocumentos(List<Documentacao> documentos) {
         this.documentos = documentos;
+        fireTableDataChanged();
     }
 
     public Documentacao getDocumento(Integer rowIndex) {
@@ -81,8 +82,8 @@ public class AbstractTableModelDocumentacao extends AbstractTableModel {
     public void addDocumento(Documentacao obj) {
         if (obj.getNomeDocumento().equals(Documentacao.RGDONO)) {
             for (int i = 0; i < documentos.size(); i++) {
-                Documentacao as=documentos.get(i);
-                if(as.getNomeDocumento().equals(obj.getNomeDocumento())){
+                Documentacao as = documentos.get(i);
+                if (as.getNomeDocumento().equals(obj.getNomeDocumento())) {
                     return;
                 }
             }
@@ -92,7 +93,7 @@ public class AbstractTableModelDocumentacao extends AbstractTableModel {
     }
 
     public void removerDocumento(Integer rowIndex) {
-        System.out.println(""+documentos.size());
+        System.out.println("" + documentos.size());
         this.documentos.remove(documentos.get(rowIndex));
         fireTableDataChanged();
     }
