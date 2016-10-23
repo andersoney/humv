@@ -310,8 +310,8 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jFormattedTextFieldRendaInformal = new javax.swing.JFormattedTextField();
         jTextFieldTipoConstrucao = new javax.swing.JTextField();
         jTextFieldProgramaRenda = new javax.swing.JTextField();
-        jFormattedTextFieldAluguel = new javax.swing.JFormattedTextField();
         jTextFieldCondicaoMoradia = new javax.swing.JTextField();
+        jFormattedTextFieldAluguel = new javax.swing.JFormattedTextField();
         jLabel18 = new javax.swing.JLabel();
         jRadioButtonEstudanteSim = new javax.swing.JRadioButton();
         jRadioButtonEstudanteNao = new javax.swing.JRadioButton();
@@ -620,9 +620,9 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                                 .addComponent(jFormattedTextFieldRendaInformal, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanelMateriaisLayout.createSequentialGroup()
                                 .addComponent(jLabel9)
-                                .addGap(9, 9, 9)
-                                .addComponent(jFormattedTextFieldAluguel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jFormattedTextFieldAluguel, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addGroup(jPanelMateriaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanelMateriaisLayout.createSequentialGroup()
                         .addGap(47, 47, 47)
@@ -1742,7 +1742,8 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             Double rendaFormal = validarDouble(rendaFormalST, "Renda Formal");
             String rendaInformalST = this.jFormattedTextFieldRendaInformal.getText();
             Double rendaInformal = validarDouble(rendaFormalST, "Renda Informal");
-            String aluguelST = this.jTextFieldOcupacao.getText();
+            String aluguelST = this.jFormattedTextFieldAluguel.getText();
+            System.out.println("" + aluguelST);
             Double aluguel = validarDouble(aluguelST, "Aluguel");
             boolean saneamento;
             boolean saneamentoS = this.jRadioButtonSaneamentoSim.isSelected();
