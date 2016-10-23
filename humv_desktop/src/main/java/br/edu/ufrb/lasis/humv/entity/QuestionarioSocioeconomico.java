@@ -217,10 +217,6 @@ public class QuestionarioSocioeconomico implements Serializable {
         this.documentosEntregues = documentosEntregues;
     }
 
-    public Double getRendaTotal() {
-        return rendaTotal;
-    }
-
     public void setRendaTotal(Double rendaTotal) {
         this.rendaTotal = rendaTotal;
     }
@@ -395,6 +391,10 @@ public class QuestionarioSocioeconomico implements Serializable {
 
     public void setBolsaOuBeneficio(String bolsaOuBeneficio) {
         this.bolsaOuBeneficio = bolsaOuBeneficio;
+    }
+
+    public double getRendaTotal() {
+        return rendaTotal;
     }
 
 }
