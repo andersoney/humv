@@ -6,15 +6,12 @@
 package br.edu.ufrb.lasis.humv.view.questionario;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
-import br.edu.ufrb.lasis.humv.entity.Projeto;
 import br.edu.ufrb.lasis.humv.entity.QuestionarioSocioeconomico;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.utils.PrintUtils;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
-import br.edu.ufrb.lasis.humv.view.projeto.CadastrarProjetoJPanel;
-import br.edu.ufrb.lasis.humv.view.projeto.ProjetoTableModel;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -42,10 +39,11 @@ public class PropriedadesBuscaQuestionarioSocial extends PropriedadesBusca {
     public void buscar() {
         HUMVApp.exibirMensagemCarregamento();
         try {
-            ClientResponse response = RESTMethods.get("/api/projeto/search?palavrachave=" + getCampoPalavraChave().getText());
-
-            listaQuest = (List<QuestionarioSocioeconomico>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<QuestionarioSocioeconomico>>() {
+            System.out.println("asdasdasd");
+            ClientResponse response = RESTMethods.get("/api/questionarioSocioeconomico/search?palavrachave=" + getCampoPalavraChave().getText());
+            listaQuest = (List<QuestionarioSocioeconomico>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<QuestionarioSocioeconomico>>() { 
             });
+            System.out.println(""+listaQuest.size());
             tableModel.setQuestionarios(listaQuest);
             super.getTabelaResultado().setModel(tableModel);
             super.getTabelaResultado().revalidate();
@@ -81,7 +79,7 @@ public class PropriedadesBuscaQuestionarioSocial extends PropriedadesBusca {
                     case PropriedadesBusca.OPCAO_REMOVER:
                         if (InterfaceGraficaUtils.dialogoRemoverAlterar("remover", "projeto", questionario.getDono().getNome())) {
                             try {
-                                ClientResponse response = RESTMethods.delete("/api/projeto", "" + questionario.getId());
+                                ClientResponse response = RESTMethods.delete("/api/questionarioSocioeconomico", "" + questionario.getId());
                                 String resposta = response.getEntity(String.class);
                                 if (resposta.equals("OK")) {
                                     JOptionPane.showMessageDialog(super.getTabelaResultado(), "Projeto removido com sucesso", "Remoção de projeto", JOptionPane.PLAIN_MESSAGE);
