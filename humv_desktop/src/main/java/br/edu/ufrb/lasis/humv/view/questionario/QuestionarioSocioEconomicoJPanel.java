@@ -81,6 +81,107 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         this.quest = questT;
         reintroduzirDadosQuestionarioDadosDono();
         reintroduzirDocumentacoes();
+
+        switch (quest.getTipoCobrancaCirurgias()) {
+            case QuestionarioSocioeconomico.COBRANCA_NORMAL:
+                this.jRadioButtonCirurgiaNormal.setSelected(true);
+                this.jRadioButtonCirurgiaAula.setSelected(false);
+                this.jRadioButtonCirurgiaIsencao.setSelected(false);
+                this.jRadioButtonCirurgiaDesconto.setSelected(false);
+                this.jFormattedTextFieldCirurgia.setEnabled(false);
+                break;
+            case QuestionarioSocioeconomico.COBRANCA_AULA:
+                this.jRadioButtonCirurgiaNormal.setSelected(false);
+                this.jRadioButtonCirurgiaAula.setSelected(true);
+                this.jRadioButtonCirurgiaIsencao.setSelected(false);
+                this.jRadioButtonCirurgiaDesconto.setSelected(false);
+                this.jFormattedTextFieldCirurgia.setEnabled(false);
+                break;
+            case QuestionarioSocioeconomico.COBRANCA_INSENCAO:
+                this.jRadioButtonCirurgiaNormal.setSelected(false);
+                this.jRadioButtonCirurgiaAula.setSelected(false);
+                this.jRadioButtonCirurgiaIsencao.setSelected(true);
+                this.jRadioButtonCirurgiaDesconto.setSelected(false);
+                this.jFormattedTextFieldCirurgia.setEnabled(false);
+                break;
+            case QuestionarioSocioeconomico.COBRANCA_DESCONTO:
+                this.jRadioButtonCirurgiaNormal.setSelected(true);
+                this.jRadioButtonCirurgiaAula.setSelected(false);
+                this.jRadioButtonCirurgiaIsencao.setSelected(false);
+                this.jRadioButtonCirurgiaDesconto.setSelected(false);
+                this.jFormattedTextFieldCirurgia.setEnabled(true);
+                this.jFormattedTextFieldCirurgia.setText("" + quest.getValorDescontoCirurgias());
+                break;
+            default:
+                erroMensage("Erro ao reinserir a forma de cobrança", "Erro em Cobrança");
+        }
+
+        switch (quest.getTipoCobrancaConsultas()) {
+            case QuestionarioSocioeconomico.COBRANCA_NORMAL:
+                this.jRadioButtonConsultaNormal.setSelected(true);
+                this.jRadioButtonConsultaAula.setSelected(false);
+                this.jRadioButtonConsultaIsencao.setSelected(false);
+                this.jRadioButtonConsultaDesconto.setSelected(false);
+                this.jFormattedTextFieldConsulta.setEnabled(false);
+                break;
+            case QuestionarioSocioeconomico.COBRANCA_AULA:
+                this.jRadioButtonConsultaNormal.setSelected(false);
+                this.jRadioButtonConsultaAula.setSelected(true);
+                this.jRadioButtonConsultaIsencao.setSelected(false);
+                this.jRadioButtonConsultaDesconto.setSelected(false);
+                this.jFormattedTextFieldConsulta.setEnabled(false);
+                break;
+            case QuestionarioSocioeconomico.COBRANCA_INSENCAO:
+                this.jRadioButtonConsultaNormal.setSelected(false);
+                this.jRadioButtonConsultaAula.setSelected(false);
+                this.jRadioButtonConsultaIsencao.setSelected(true);
+                this.jRadioButtonConsultaDesconto.setSelected(false);
+                this.jFormattedTextFieldConsulta.setEnabled(false);
+                break;
+            case QuestionarioSocioeconomico.COBRANCA_DESCONTO:
+                this.jRadioButtonConsultaNormal.setSelected(false);
+                this.jRadioButtonConsultaAula.setSelected(false);
+                this.jRadioButtonConsultaIsencao.setSelected(false);
+                this.jRadioButtonConsultaDesconto.setSelected(true);
+                this.jFormattedTextFieldConsulta.setEnabled(false);
+                this.jFormattedTextFieldConsulta.setText("" + quest.getValorDescontoConsultas());
+                break;
+            default:
+                erroMensage("Erro ao reinserir a forma de cobrança", "Erro em Cobrança");
+        }
+        switch (quest.getTipoCobrancaConsultas()) {
+            case QuestionarioSocioeconomico.COBRANCA_NORMAL:
+                this.jRadioButtonExameNormal.setSelected(true);
+                this.jRadioButtonExameAula.setSelected(false);
+                this.jRadioButtonExameIsencao.setSelected(false);
+                this.jRadioButtonExameDesconto.setSelected(false);
+                this.jFormattedTextFieldExame.setEnabled(false);
+                break;
+            case QuestionarioSocioeconomico.COBRANCA_AULA:
+                this.jRadioButtonExameNormal.setSelected(false);
+                this.jRadioButtonExameAula.setSelected(true);
+                this.jRadioButtonExameIsencao.setSelected(false);
+                this.jRadioButtonExameDesconto.setSelected(false);
+                this.jFormattedTextFieldExame.setEnabled(false);
+                break;
+            case QuestionarioSocioeconomico.COBRANCA_INSENCAO:
+                this.jRadioButtonExameNormal.setSelected(false);
+                this.jRadioButtonExameAula.setSelected(false);
+                this.jRadioButtonExameIsencao.setSelected(true);
+                this.jRadioButtonExameDesconto.setSelected(false);
+                this.jFormattedTextFieldExame.setEnabled(false);
+                break;
+            case QuestionarioSocioeconomico.COBRANCA_DESCONTO:
+                this.jRadioButtonExameNormal.setSelected(false);
+                this.jRadioButtonExameAula.setSelected(false);
+                this.jRadioButtonExameIsencao.setSelected(false);
+                this.jRadioButtonExameDesconto.setSelected(true);
+                this.jFormattedTextFieldExame.setEnabled(true);
+                this.jFormattedTextFieldConsulta.setText("" + quest.getValorDescontoConsultas());
+                break;
+            default:
+                erroMensage("Erro ao reinserir a forma de cobrança", "Erro em Cobrança");
+        }
         reintroduzirParentes();
         reintroduzirAnalise();
     }
