@@ -71,7 +71,7 @@ public class RESTMethods {
     public static ClientResponse delete(String resource, String path) throws RESTConnectionException {
         WebResource webResource = createClient(true).resource(getResourceURL(resource, true));
 
-        ClientResponse response = webResource.path("/"+path).delete(ClientResponse.class);
+        ClientResponse response = webResource.path("/" + path).delete(ClientResponse.class);
 
         if (response.getStatus() != 200) {
             throw new RESTConnectionException(response, "Erro: código HTTP - " + response.getStatus());
@@ -98,21 +98,21 @@ public class RESTMethods {
         Object obj = mapper.readValue(response.getEntity(JsonNode.class), typeReference);
         return obj;
     }
-    
-    private static String getResourceURL(String resourceName, boolean temUsername){
-        String URL =  HUMVConfigUtils.getVetBackendURL() + resourceName;
-        
+
+    private static String getResourceURL(String resourceName, boolean temUsername) {
+        String URL = HUMVConfigUtils.getVetBackendURL() + resourceName;
+
         String usernameURL;
-        if(resourceName.contains("?")){
+        if (resourceName.contains("?")) {
             usernameURL = "&username=";
-        } else{
+        } else {
             usernameURL = "?username=";
         }
-        
-        if(temUsername){
+
+        if (temUsername) {
             URL = URL + usernameURL + HUMVApp.getNomeUsuario();
         }
-        
+
         return URL;
     }
 

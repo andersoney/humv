@@ -16,6 +16,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import org.codehaus.jackson.type.TypeReference;
@@ -25,6 +26,8 @@ import org.codehaus.jackson.type.TypeReference;
  * @author Orion
  */
 public class PropriedadesBuscaQuestionarioSocial extends PropriedadesBusca {
+
+    private static final Logger LOG = Logger.getLogger(PropriedadesBuscaQuestionarioSocial.class.getName());
 
     private QuestionarioSocialTableModel tableModel;
     private List<QuestionarioSocioeconomico> listaQuest;
@@ -39,11 +42,11 @@ public class PropriedadesBuscaQuestionarioSocial extends PropriedadesBusca {
     public void buscar() {
         HUMVApp.exibirMensagemCarregamento();
         try {
-            System.out.println("asdasdasd");
             ClientResponse response = RESTMethods.get("/api/questionarioSocioeconomico/search?palavrachave=" + getCampoPalavraChave().getText());
-            listaQuest = (List<QuestionarioSocioeconomico>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<QuestionarioSocioeconomico>>() { 
+            listaQuest = (List<QuestionarioSocioeconomico>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<QuestionarioSocioeconomico>>() {
             });
-            System.out.println(""+listaQuest.size());
+            LOG.info("\nTamanho da lista pega no Cliete" + listaQuest.size() + ""
+                    + "\n");
             tableModel.setQuestionarios(listaQuest);
             super.getTabelaResultado().setModel(tableModel);
             super.getTabelaResultado().revalidate();

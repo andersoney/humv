@@ -1611,8 +1611,9 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         
         if (OkDonoDados && okAnalise && okFatoresRisco) {
             try {
-                RESTMethods.put("/api/questionarioSocioeconomico", quest);
+                RESTMethods.post("/api/questionarioSocioeconomico", quest);
                 JOptionPane.showMessageDialog(HUMVApp.getMainWindow(), "Salvo Com Sucesso.");
+                this.setVisible(false);
             } catch (RESTConnectionException ex) {
                 erroMensage("Erro ao connectar ao Servidor.\n" + ex.getMessage(), "Falha de Connexão.");
                 ex.printStackTrace();

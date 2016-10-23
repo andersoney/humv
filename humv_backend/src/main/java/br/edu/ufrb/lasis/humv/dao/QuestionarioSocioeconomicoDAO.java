@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.edu.ufrb.lasis.humv.entity.QuestionarioSocioeconomico;
 import br.edu.ufrb.lasis.humv.utils.NumberUtils;
+import java.util.logging.Logger;
 
 @Repository
 public class QuestionarioSocioeconomicoDAO extends GenericDAO<QuestionarioSocioeconomico> implements Serializable {
@@ -53,19 +54,16 @@ public class QuestionarioSocioeconomicoDAO extends GenericDAO<QuestionarioSocioe
     @Transactional
     public List<QuestionarioSocioeconomico> search(String palavrachave) {
         Criteria criteria = getCriteria();
+        if (palavrachave == null || palavrachave.trim().length() == 0) {
 
-        BigInteger conversionResult = NumberUtils.convertStringToInteger(palavrachave);
-        if (conversionResult != null) {
-            criteria.add(Restrictions.eq("id", conversionResult));
         } else {
-            criteria.add(
-                    Restrictions.or(
-                            Restrictions.ilike("dono.nome", "%" + palavrachave + "%")
-                    )
-            );
+            criteria.createAlias("dono", "d").add(Restrictions.ilike("d.nome", "%" + palavrachave + "%"));
         }
-
-        return (List<QuestionarioSocioeconomico>) criteria.list();
+        List<QuestionarioSocioeconomico> lista = (List<QuestionarioSocioeconomico>) criteria.list();
+        LOG.info("\nTamano da lista de Questionario retornada: " + lista.size()
+                + "\nTamanho dos dads contidos no servidor: " + getCriteria().list().size()+""
+                + "\n");
+        return lista;
     }
 
     @SuppressWarnings("unchecked")
@@ -74,4 +72,5 @@ public class QuestionarioSocioeconomicoDAO extends GenericDAO<QuestionarioSocioe
         criteria.addOrder(Order.asc("data"));
         return (List<QuestionarioSocioeconomico>) criteria.list();
     }
+    private static final Logger LOG = Logger.getLogger(QuestionarioSocioeconomicoDAO.class.getName());
 }
