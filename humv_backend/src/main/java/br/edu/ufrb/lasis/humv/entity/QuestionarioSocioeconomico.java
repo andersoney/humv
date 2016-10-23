@@ -75,7 +75,7 @@ public class QuestionarioSocioeconomico implements Serializable {
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
     private List<Documentacao> documentosEntregues;
     private double rendaPerCapta;
-    private double rendaTotal;
+    private Double rendaTotal;
     private String impossibilidadesCusteio;
     private String bensFamiliares;
     private String riscosSociais;

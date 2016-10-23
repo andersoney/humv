@@ -57,7 +57,7 @@ public class QuestionarioSocioeconomico implements Serializable {
     private List<Animal> animais;
     private List<Documentacao> documentosEntregues;
     private double rendaPerCapta;
-    private double rendaTotal;
+    private Double rendaTotal;
     private String impossibilidadesCusteio;
     private String bensFamiliares;
     private String riscosSociais;
