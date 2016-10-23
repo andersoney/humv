@@ -5,12 +5,9 @@
  */
 package br.edu.ufrb.lasis.humv.view.questionario;
 
-import br.edu.ufrb.lasis.humv.entity.Documentacao;
 import br.edu.ufrb.lasis.humv.entity.Parente;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
 
@@ -20,7 +17,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class AbstractTableModelParente extends AbstractTableModel {
 
-    ArrayList<Parente> parentes;
+    List<Parente> parentes;
 
     private String[] colunas = new String[]{
         "Nome do Cliente", "Nome", "Renda", "Ocupação"};
@@ -74,11 +71,11 @@ public class AbstractTableModelParente extends AbstractTableModel {
         }
     }
 
-    public ArrayList<Parente> getParentes() {
+    public List<Parente> getParentes() {
         return parentes;
     }
 
-    public void setParentes(ArrayList<Parente> documentos) {
+    public void setParentes(List<Parente> documentos) {
         this.parentes = documentos;
     }
 
