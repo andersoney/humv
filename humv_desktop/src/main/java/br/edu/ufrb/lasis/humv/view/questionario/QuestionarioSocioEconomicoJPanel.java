@@ -1579,12 +1579,25 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonQuestionarioCancelarActionPerformed
 
     private void jButtonQuestionarioSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQuestionarioSalvarActionPerformed
+        if(dono==null){
+            erroMensage("Escolha um dono de Animal para continuar.", "Dados do dono.");
+            return;
+        }
+        
+        
         boolean OkDonoDados, okAnalise, okFatoresRisco;
         OkDonoDados = validarDadosDoDono();
-
+        if(!OkDonoDados){
+            return;
+        }
+        
+        
         setArrayDocumentacao();
 
         okAnalise = setAnalisetoQuest();
+        if(!okAnalise){
+            return;
+        }
 
         setValorTipoCirugia();
         setValorTipoConsulta();
@@ -1592,6 +1605,10 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
 
         setArrayParentes();
         okFatoresRisco = setFatoresRiscos();
+        if(!okFatoresRisco){
+            return;
+        }
+        
         if (OkDonoDados && okAnalise && okFatoresRisco) {
             try {
                 RESTMethods.put("/api/questionarioSocioeconomico", quest);
@@ -1743,7 +1760,6 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             String rendaInformalST = this.jFormattedTextFieldRendaInformal.getText();
             Double rendaInformal = validarDouble(rendaFormalST, "Renda Informal");
             String aluguelST = this.jFormattedTextFieldAluguel.getText();
-            System.out.println("" + aluguelST);
             Double aluguel = validarDouble(aluguelST, "Aluguel");
             boolean saneamento;
             boolean saneamentoS = this.jRadioButtonSaneamentoSim.isSelected();
