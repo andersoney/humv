@@ -415,7 +415,7 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         } else if (source.equals(menuItemCadastrarQuestionarioSocial)) {
             HUMVApp.exibirMensagemCarregamento();
             HUMVApp.setNovoPainelCentral(new QuestionarioSocioEconomicoJPanel());
-        } else if (source.equals(menuItemBuscaAnimal)) {
+        } else if (source.equals(menuItemBuscarQuestionarioSocial)) {
             PropriedadesBuscaQuestionarioSocial propriedadesBusca = new PropriedadesBuscaQuestionarioSocial(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
             BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE ANIMAL PARA VISUALIZAÇÃO/ALTERAÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
