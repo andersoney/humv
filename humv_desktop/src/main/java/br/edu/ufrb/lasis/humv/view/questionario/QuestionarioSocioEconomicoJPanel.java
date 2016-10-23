@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
  * @author Orion && Chacal
  */
 public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
-    
+
     AbstractTableModelDocumentacao modelDocumentacao;
     AbstractTableModelParente modelParente;
     Dono dono;
@@ -40,7 +40,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         this.dono = dono;
         configDono(dono);
     }
-    
+
     private void configDono(Dono dono1) {
         this.jLabelNomeDono.setText("Nome : " + dono1.getNome());
         jLabelCpfDono.setText("CPF : " + dono1.getCpfCnpj());
@@ -56,7 +56,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         initComponentsCustom();
         HUMVApp.esconderMensagemCarregamento();
     }
-    
+
     private void initComponentsCustom() {
         //this.jTextFieldDocumentoOutro.setEnabled(false);
         this.dteDataEntrega.setDate(Calendar.getInstance().getTime());
@@ -76,7 +76,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         this.jFormattedTextFieldExame.setEnabled(false);
         quest = new QuestionarioSocioeconomico();
     }
-    
+
     public QuestionarioSocioEconomicoJPanel(QuestionarioSocioeconomico questT) {
         this.quest = questT;
         reintroduzirDadosQuestionarioDadosDono();
@@ -90,15 +90,15 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         this.jTextAreaEncaminhamentos.setText(quest.getAnaliseObservacoes());
         this.jTextAreaConclusoes.setText(quest.getAnaliseConclusoes());
     }
-    
+
     private void reintroduzirParentes() {
         this.modelParente.setParentes(quest.getParentes());
     }
-    
+
     private void reintroduzirDocumentacoes() {
         this.modelDocumentacao.setDocumentos(quest.getDocumentosEntregues());
     }
-    
+
     private void reintroduzirDadosQuestionarioDadosDono() {
         this.configDono(quest.getDono());
         this.jFormattedTextFieldIdade.setText("" + quest.getIdade());
@@ -1387,7 +1387,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                     nomeDocumento = Documentacao.RGDONO;
                 }
             }
-            
+
             nomeUser = HUMVApp.getNomeUsuario();
             data = this.dteDataEntrega.getDate();
             Documentacao doc = new Documentacao();
@@ -1470,18 +1470,18 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
 
     private void jButtonQuestionarioSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQuestionarioSalvarActionPerformed
         boolean okDono = validarDadosDoDono();
-        
+
         setArrayDocumentacao();
-        
+
         setAnalisetoQuest();
-        
+
         setValorTipoCirugia();
         setValorTipoConsulta();
         setValorTipoExame();
-        
+
         setArrayParentes();
         setFatoresRiscos();
-        
+
         try {
             RESTMethods.put("/api/questionarioSocioeconomico", quest);
             JOptionPane.showMessageDialog(HUMVApp.getMainWindow(), "Salvo Com Sucesso.");
@@ -1490,18 +1490,18 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_jButtonQuestionarioSalvarActionPerformed
-    
+
     private void setAnalisetoQuest() {
         try {
             String breveResumo = this.jTextAreaVulnerabilidades.getText();
             breveResumo = validarString(breveResumo, "Breve resumo em Analise");
-            
+
             String orientacaoIncaminhamento = this.jTextAreaEncaminhamentos.getText();
             orientacaoIncaminhamento = validarString(breveResumo, "Orientação e encaminhamento em Analise");
-            
+
             String conclusao = this.jTextAreaConclusoes.getText();
             conclusao = validarString(conclusao, "Conclusão em Analise");
-            
+
             this.quest.setAnaliseBreveResumo(breveResumo);
             this.quest.setAnaliseObservacoes(orientacaoIncaminhamento);
             this.quest.setAnaliseConclusoes(conclusao);
@@ -1509,7 +1509,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             this.erroMensage(ex.getMessage(), "Falta de item em Analise do Asistente social.");
         }
     }
-    
+
     private void setFatoresRiscos() {
         String fatoresReclarados = this.jTextFieldFatoresDeclarados.getText();
         String bensMateriais = this.jTextAreaBemMaterial.getText();
@@ -1520,15 +1520,15 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         quest.setEmprestimos(dividasMateriais);
         quest.setImpossibilidadesCusteio(motivos);
     }
-    
+
     private void setArrayParentes() {
         quest.setParentes((List<Parente>) modelParente.getParentes());
     }
-    
+
     private void setArrayDocumentacao() {
         quest.setDocumentosEntregues((List<Documentacao>) modelDocumentacao.getDocumentos());
     }
-    
+
     private void setValorTipoConsulta() throws HeadlessException {
         Integer consulta;
         if (this.jRadioButtonConsultaAula.isSelected()) {
@@ -1543,7 +1543,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             setValorConsultaDesconto(descontoConsultaST);
         }
     }
-    
+
     private void setValorTipoExame() throws HeadlessException {
         Integer exame;
         if (this.jRadioButtonExameAula.isSelected()) {
@@ -1558,7 +1558,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             setValorExameDesconto(descontoExameST);
         }
     }
-    
+
     private void setValorTipoCirugia() throws HeadlessException {
         Integer cirugia;
         if (this.jRadioButtonExameAula.isSelected()) {
@@ -1573,7 +1573,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             setValorCirugiaDesconto(descontoCirugiaST);
         }
     }
-    
+
     private void setValorCirugiaDesconto(String descontoCirugiaST) throws HeadlessException {
         Double descontoCirugia;
         try {
@@ -1582,7 +1582,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             this.erroMensage(ex.getMessage(), "Falha no valor do desconto da Cirugia.");
         }
     }
-    
+
     private void setValorExameDesconto(String descontoExameST) throws HeadlessException {
         Double descontoExame;
         try {
@@ -1591,7 +1591,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             this.erroMensage(ex.getMessage(), "Falha no valor do desconto da Exame.");
         }
     }
-    
+
     private void setValorConsultaDesconto(String descontoConsultaST) throws HeadlessException {
         Double descontoConsulta;
         try {
@@ -1601,7 +1601,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             this.erroMensage(ex.getMessage(), "Falha no valor do desconto da Consulta.");
         }
     }
-    
+
     private boolean validarDadosDoDono() {
         String idadeST = this.jFormattedTextFieldIdade.getText();
         Integer idade;
@@ -1634,21 +1634,21 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             condMoradia = validarString(condMoradia, "Condição de Modaria");
             String progTransferRenda = this.jTextFieldProgramaRenda.getText();
             progTransferRenda = validarString(progTransferRenda, "Programa de Transferencia de Renda");
-            
+
             boolean estudante;
             boolean estudanteS = this.jRadioButtonEstudanteSim.isSelected();
             boolean estudanteN = this.jRadioButtonEstudanteNao.isSelected();
             estudante = validarRadioButton(estudanteS, estudanteN, "Estudante");
-            
+
             String gastosMenssaisST = this.jFormattedTextFieldGastosMensais.getText();
             Double gastosMensais = validarDouble(gastosMenssaisST, "Gastos Mensais");
-            
+
             String fonteCusteio = this.jTextFieldFonteCusteio.getText();
             fonteCusteio = validarString(fonteCusteio, "Fonte de Custeio");
-            
+
             String bolsaOuBeneficio = this.jTextFieldBeneficio.getText();
             bolsaOuBeneficio = validarString(bolsaOuBeneficio, "Bolsa ou Beneficio");
-            
+
             String observacao = this.jTextAreaObservacoes.getText();
             validarString(observacao, "Observações");
             quest.setIdade(idade);
@@ -1669,19 +1669,19 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             quest.setFontCusteio(fonteCusteio);
             quest.setBolsaOuBeneficio(bolsaOuBeneficio);
             quest.setObservacoesDadosDono(observacao);
-            
+
             return true;
         } catch (Exception e) {
             this.erroMensage(e.getMessage(), "Erro ao Validar dados do dono.");
             return false;
         }
-        
+
     }
-    
+
     private void erroMensage(String mensage, String title) {
         JOptionPane.showMessageDialog(HUMVApp.getMainWindow(), mensage, title, JOptionPane.WARNING_MESSAGE);
     }
-    
+
     private boolean validarRadioButton(boolean radioButtonSim, boolean radioButtonNao, String Campo) throws Exception {
         if (!radioButtonSim && !radioButtonNao) {
             throw new Exception("Escolha Entre as opções " + Campo + ".");
@@ -1689,12 +1689,12 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             if (radioButtonSim) {
                 return radioButtonSim;
             } else {
-                
+
                 return radioButtonNao;
             }
         }
     }
-    
+
     private Double validarDouble(String rendaFormalST, String campo) throws Exception {
         Double rendaFormal;
         try {
@@ -1704,7 +1704,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             throw new Exception("O campo " + campo + " é real.");
         }
     }
-    
+
     private String validarString(String test, String campo) throws Exception {
         String returnMe = test;
         if (returnMe.trim().length() == 0) {
@@ -1713,7 +1713,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             return returnMe;
         }
     }
-    
+
     private Integer validarInteger(String idadeST, String campo) throws Exception {
         try {
             Integer returnMe = Integer.parseInt(idadeST);
@@ -1722,38 +1722,38 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             throw new Exception("Coloque um inteiro no campo " + campo + ".");
         }
     }
-    
+
 
     private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
 
     }//GEN-LAST:event_jButtonRemoverActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        
+
         try {
             Parente parente = new Parente();
-            
+
             String nome = this.jTextFieldFamiliaNome.getText();
             nome = validarString(nome, "Nome do Familiar");
             parente.setNome(nome);
-            
+
             if (this.jFormattedIdadeFamilia.getText().isEmpty()) {
                 InterfaceGraficaUtils.validaCampoVazio("Idade do familiar");
                 return;
             }
             int idade = Integer.parseInt(this.jFormattedIdadeFamilia.getText());
             parente.setIdade(idade);
-            
+
             if (this.jTextFieldParentesco.getText().isEmpty()) {
                 InterfaceGraficaUtils.validaCampoVazio("Parentesco do familiar");
                 return;
             }
             String parentesco = this.jTextFieldParentesco.getText();
             parente.setParentesco(parentesco);
-            
+
             int escolaridade = this.jComboBoxEscolaridadeFamliar.getSelectedIndex();
             parente.setEscolaridade(escolaridade);
-            
+
             if (this.jTextFieldFamiliaOcupacao.getText().isEmpty()) {
                 InterfaceGraficaUtils.validaCampoVazio("Ocupação do familiar");
                 return;
@@ -2057,7 +2057,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         this.jTextFieldFamiliaOcupacao.setText(null);
         this.jTextFieldFamiliaRenda.setText(null); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     private void atualizaCalculoRenda() {
         jLabelFamiliaRendaTotal.setText("" + modelParente.getRendaTotal());
         jLabelFamiliaRendaPerCapita.setText("" + modelParente.getRendaPerCapita()); //To change body of generated methods, choose Tools | Templates.
