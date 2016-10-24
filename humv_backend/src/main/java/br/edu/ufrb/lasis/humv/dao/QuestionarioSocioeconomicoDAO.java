@@ -60,9 +60,16 @@ public class QuestionarioSocioeconomicoDAO extends GenericDAO<QuestionarioSocioe
             criteria.createAlias("dono", "d").add(Restrictions.ilike("d.nome", "%" + palavrachave + "%"));
         }
         List<QuestionarioSocioeconomico> lista = (List<QuestionarioSocioeconomico>) criteria.list();
-        LOG.info("\nTamano da lista de Questionario retornada: " + lista.size()
-                + "\nTamanho dos dads contidos no servidor: " + getCriteria().list().size()+""
-                + "\n");
+        String mensageTeste = "\nTamano da lista de Questionario retornada: " + lista.size()
+                + "\nTamanho dos dads contidos no servidor: " + getCriteria().list().size() + ""
+                + "\n Nome do dono";
+        if (lista.size() != 0) {
+            for(int i=0 ; i<lista.size() ; i++){
+                mensageTeste+="Nome do "+i+" dono: "+lista.get(i).getDono().getNome()+".\n";
+            }
+        }
+        mensageTeste+="\n";
+        LOG.info(mensageTeste);
         return lista;
     }
 
