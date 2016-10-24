@@ -63,9 +63,11 @@ public class QuestionarioSocioeconomicoDAO extends GenericDAO<QuestionarioSocioe
         String mensageTeste = "\nTamano da lista de Questionario retornada: " + lista.size()
                 + "\nTamanho dos dads contidos no servidor: " + getCriteria().list().size() + ""
                 + "\n Nome do dono";
+        LOG.info(mensageTeste);
         if (lista.size() != 0) {
             for(int i=0 ; i<lista.size() ; i++){
-                mensageTeste+="Nome do "+i+" dono: "+lista.get(i).getDono().getNome()+".\n";
+                mensageTeste+="\nid"+lista.get(i).getAnaliseBreveResumo()+"\n";
+                //mensageTeste+="Nome do "+i+" dono: "+lista.get(i).getDono().getNome()+".\n";
             }
         }
         mensageTeste+="\n";

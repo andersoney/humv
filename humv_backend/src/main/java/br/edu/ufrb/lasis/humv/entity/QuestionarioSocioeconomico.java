@@ -44,8 +44,7 @@ public class QuestionarioSocioeconomico implements Serializable {
     @GeneratedValue
     private BigInteger id;
 
-    @OneToOne
-    @JoinColumn(name = "id_dono")
+    @OneToOne(mappedBy = "id")
     private Dono dono;
 
     private Integer estadoCivil;
