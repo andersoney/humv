@@ -17,7 +17,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Orion
  */
-public class AbstractTableModelDocumentacao extends AbstractTableModel {
+public class DocumentacaoTableModel extends AbstractTableModel {
 
     List<Documentacao> documentos;
 
@@ -29,11 +29,11 @@ public class AbstractTableModelDocumentacao extends AbstractTableModel {
         return colunas[column];
     }
 
-    public AbstractTableModelDocumentacao() {
+    public DocumentacaoTableModel() {
         this.documentos = new ArrayList<Documentacao>();
     }
 
-    public AbstractTableModelDocumentacao(ArrayList<Documentacao> documentos) {
+    public DocumentacaoTableModel(ArrayList<Documentacao> documentos) {
         this.documentos = documentos;
     }
 
@@ -61,7 +61,7 @@ public class AbstractTableModelDocumentacao extends AbstractTableModel {
             case 2:
                 return obj.getNomeDocumento();
             default:
-                LOG.warning(AbstractTableModelDocumentacao.class.getName() + "Tentando acessar coluna a mais.");
+                LOG.warning(DocumentacaoTableModel.class.getName() + "Tentando acessar coluna a mais.");
                 return null;
         }
     }
@@ -98,6 +98,6 @@ public class AbstractTableModelDocumentacao extends AbstractTableModel {
         fireTableDataChanged();
     }
 
-    private static final Logger LOG = Logger.getLogger(AbstractTableModelDocumentacao.class.getName());
+    private static final Logger LOG = Logger.getLogger(DocumentacaoTableModel.class.getName());
 
 }

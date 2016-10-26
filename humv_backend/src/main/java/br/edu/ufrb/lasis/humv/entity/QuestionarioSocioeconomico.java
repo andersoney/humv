@@ -2,16 +2,15 @@ package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.Date;
 //import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -43,10 +42,12 @@ public class QuestionarioSocioeconomico implements Serializable {
     @Id
     @GeneratedValue
     private BigInteger id;
-
-    @OneToOne(mappedBy = "id")
+    
+    @ManyToOne
+	@JoinColumn
     private Dono dono;
 
+    private Date dataResposta;
     private Integer estadoCivil;
     private Integer idade;
     private Integer nis;
@@ -67,12 +68,15 @@ public class QuestionarioSocioeconomico implements Serializable {
     private String bolsaOuBeneficio;
     private String observacoesDadosDono;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "id")//, orphanRemoval = true)
     private List<Parente> parentes;
-    @OneToMany(mappedBy = "rghumv", cascade = CascadeType.ALL)
+    
+    @OneToMany(mappedBy = "rghumv")
     private List<Animal> animais;
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    
+    @OneToMany(mappedBy = "id")
     private List<Documentacao> documentosEntregues;
+    
     private double rendaPerCapta;
     private Double rendaTotal;
     private String impossibilidadesCusteio;
@@ -98,11 +102,19 @@ public class QuestionarioSocioeconomico implements Serializable {
 
     private Double valorDescontoConsultas;
 
-    public BigInteger getId() {
+    public Date getDataResposta() {
+		return dataResposta;
+	}
+
+	public void setDataResposta(Date dataResposta) {
+		this.dataResposta = dataResposta;
+	}
+	
+	public BigInteger getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+	public void setId(BigInteger id) {
         this.id = id;
     }
 

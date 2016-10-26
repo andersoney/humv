@@ -76,7 +76,7 @@ public class InterfaceGraficaUtils {
 
     public static void valorInvalido(String campo) {
         String msg = "O campo " + campo + " possui valor inválido. Por favor, forneça outro valor.";
-        JOptionPane.showMessageDialog(null, msg, "Erro", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, msg, "Valor inválido", JOptionPane.WARNING_MESSAGE);
     }
 
     public static boolean dialogoCancelar(String tarefa, String operacao) {

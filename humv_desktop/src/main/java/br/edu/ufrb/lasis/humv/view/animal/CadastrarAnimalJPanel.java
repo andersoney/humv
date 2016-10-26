@@ -1,7 +1,6 @@
 package br.edu.ufrb.lasis.humv.view.animal;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
-import br.edu.ufrb.lasis.humv.view.dono.CadastrarDonoJDialog;
 import br.edu.ufrb.lasis.humv.utils.MaskUtils;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -13,11 +12,11 @@ import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.utils.ResultadoBusca;
 import br.edu.ufrb.lasis.humv.view.busca.BuscaJPanel;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
+import br.edu.ufrb.lasis.humv.view.dono.CadastrarDonoJPanel;
 import br.edu.ufrb.lasis.humv.view.dono.PropriedadesBuscaDono;
 import com.sun.jersey.api.client.ClientResponse;
 import java.util.Calendar;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 
@@ -108,14 +107,6 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
         this.dono = null;
         this.jLabelNomeDono.setText("Nome: ");
         this.jLabelCpfDono.setText("CPF: ");
-    }
-
-    public JLabel getjLabelCpfDono() {
-        return jLabelCpfDono;
-    }
-
-    public JLabel getjLabelNomeDono() {
-        return jLabelNomeDono;
     }
 
     public void setDono(Dono dono) {
@@ -534,7 +525,10 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
     }//GEN-LAST:event_jButtonPesquisarDonoActionPerformed
 
     private void jButtonCadastrarNovoDonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarNovoDonoActionPerformed
-        new CadastrarDonoJDialog(this).setVisible(true);
+        JFrame jFrame = new JFrame("Cadastro de dono");
+        CadastrarDonoJPanel cadastrarDonoJPanel = new CadastrarDonoJPanel(jFrame, this);
+        jFrame.setContentPane(cadastrarDonoJPanel);
+        InterfaceGraficaUtils.exibirJanela(jFrame);
     }//GEN-LAST:event_jButtonCadastrarNovoDonoActionPerformed
 
     private void jRadioButtonPequenoPorteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPequenoPorteActionPerformed

@@ -14,6 +14,7 @@ import br.edu.ufrb.lasis.humv.entity.QuestionarioSocioeconomico;
 
 @Service
 public class QuestionarioSocioeconomicoServiceImpl {
+	
 	private final static Logger logger = LoggerFactory.getLogger(QuestionarioSocioeconomicoServiceImpl.class);
 
 	@Autowired
@@ -31,7 +32,10 @@ public class QuestionarioSocioeconomicoServiceImpl {
 	public QuestionarioSocioeconomico findById(BigInteger id){
 		return questionarioSocioeconomicoDAO.findByKey(id);
 	}
-
+	
+	public List<QuestionarioSocioeconomico> search(String palavrachave){
+		return questionarioSocioeconomicoDAO.search(palavrachave);
+	}
 
 	public String cadastrarQuestionarioSocioeconomico(QuestionarioSocioeconomico questionarioSocioeconomico, String usuarioResponsavel){
 		try{
@@ -47,13 +51,9 @@ public class QuestionarioSocioeconomicoServiceImpl {
 		}
 	}
 	
-	public List<QuestionarioSocioeconomico> search(String palavrachave){
-		return questionarioSocioeconomicoDAO.search(palavrachave);
-	}
 	public String atualizarQuestionarioSocioeconomico(QuestionarioSocioeconomico questionarioSocioeconomico, String usuarioResponsavel){
 		if(questionarioSocioeconomicoDAO.findByKey(questionarioSocioeconomico.getId()) == null){
 			return "Questionario socioeconomico não encontrado no sistema. Por favor, informe um id diferente.";
-
 		}
 		questionarioSocioeconomicoDAO.updateQuestionario(questionarioSocioeconomico);
 		logger.info("[atualizarQuestionarioSocioeconomico - " + usuarioResponsavel + "] Questionario Socioeconomico " + questionarioSocioeconomico.getId() + " atualizado com sucesso.");
@@ -63,7 +63,6 @@ public class QuestionarioSocioeconomicoServiceImpl {
 	public String removerQuestionarioSocioeconomico(BigInteger id, String usuarioResponsavel){
 		if(questionarioSocioeconomicoDAO.findByKey(id) == null){
 			return "Nenhum animal com esse identificador encontrado no sistema.";
-
 		}
 		QuestionarioSocioeconomico questionarioSocioeconomico = questionarioSocioeconomicoDAO.findByKey(id);
 		questionarioSocioeconomicoDAO.removeQuestionario(questionarioSocioeconomico);

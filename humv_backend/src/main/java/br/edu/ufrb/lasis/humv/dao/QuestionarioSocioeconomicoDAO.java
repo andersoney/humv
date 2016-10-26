@@ -3,19 +3,14 @@ package br.edu.ufrb.lasis.humv.dao;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.List;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import br.edu.ufrb.lasis.humv.entity.QuestionarioSocioeconomico;
-import br.edu.ufrb.lasis.humv.utils.NumberUtils;
-import java.util.logging.Logger;
 
 @Repository
 public class QuestionarioSocioeconomicoDAO extends GenericDAO<QuestionarioSocioeconomico> implements Serializable {
@@ -53,33 +48,8 @@ public class QuestionarioSocioeconomicoDAO extends GenericDAO<QuestionarioSocioe
     @SuppressWarnings("unchecked")
     @Transactional
     public List<QuestionarioSocioeconomico> search(String palavrachave) {
-        Criteria criteria = getCriteria();
-        if (palavrachave == null || palavrachave.trim().length() == 0) {
-
-        } else {
-            criteria.createAlias("dono", "d").add(Restrictions.ilike("d.nome", "%" + palavrachave + "%"));
-        }
-        List<QuestionarioSocioeconomico> lista = (List<QuestionarioSocioeconomico>) criteria.list();
-        String mensageTeste = "\nTamano da lista de Questionario retornada: " + lista.size()
-                + "\nTamanho dos dads contidos no servidor: " + getCriteria().list().size() + ""
-                + "\n Nome do dono";
-        LOG.info(mensageTeste);
-        if (lista.size() != 0) {
-            for(int i=0 ; i<lista.size() ; i++){
-                mensageTeste+="\nid"+lista.get(i).getAnaliseBreveResumo()+"\n";
-                //mensageTeste+="Nome do "+i+" dono: "+lista.get(i).getDono().getNome()+".\n";
-            }
-        }
-        mensageTeste+="\n";
-        LOG.info(mensageTeste);
-        return lista;
+    	Criteria criteria = getCriteria().createAlias("dono", "d").add(Restrictions.ilike("d.nome", "%" + palavrachave + "%"));
+        return criteria.list();
     }
 
-    @SuppressWarnings("unchecked")
-    public List<QuestionarioSocioeconomico> findByDono(Integer idDono) {
-        Criteria criteria = getCriteria().add(Restrictions.ilike("id", "%" + idDono + "%"));
-        criteria.addOrder(Order.asc("data"));
-        return (List<QuestionarioSocioeconomico>) criteria.list();
-    }
-    private static final Logger LOG = Logger.getLogger(QuestionarioSocioeconomicoDAO.class.getName());
 }

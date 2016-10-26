@@ -292,7 +292,7 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
     }
     
     public void criaMenuQuestionarioSocial() {
-        this.menuQuestionarioSocial = new JMenu("Questionario");
+        this.menuQuestionarioSocial = new JMenu("Questionário socioeconômico");
         menuItemCadastrarQuestionarioSocial = new JMenuItem("Cadastrar");
         menuItemCadastrarQuestionarioSocial.addActionListener(this);
         menuItemBuscarQuestionarioSocial = new JMenuItem("Buscar");
@@ -413,11 +413,10 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         } else if (source.equals(menuItemAgendarAtendimento) || source.equals(buttonAgendarAtendimento)) {
             HUMVApp.setNovoPainelCentral(new BuscarAgendaMedicoJPanel());
         } else if (source.equals(menuItemCadastrarQuestionarioSocial)) {
-            HUMVApp.exibirMensagemCarregamento();
             HUMVApp.setNovoPainelCentral(new QuestionarioSocioEconomicoJPanel());
         } else if (source.equals(menuItemBuscarQuestionarioSocial)) {
             PropriedadesBuscaQuestionarioSocial propriedadesBusca = new PropriedadesBuscaQuestionarioSocial(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
-            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCAR QUESTIONARIO SOCIAL PARA VISUALIZAÇÃO/ALTERAÇÃO", propriedadesBusca);
+            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCAR QUESTIONÁRIO SOCIAL PARA VISUALIZAÇÃO/ALTERAÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
         }
         

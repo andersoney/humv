@@ -45,13 +45,12 @@ public class PropriedadesBuscaQuestionarioSocial extends PropriedadesBusca {
             ClientResponse response = RESTMethods.get("/api/questionarioSocioeconomico/search?palavrachave=" + getCampoPalavraChave().getText());
             listaQuest = (List<QuestionarioSocioeconomico>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<QuestionarioSocioeconomico>>() {
             });
-            LOG.info("\nTamanho da lista pega no Cliete" + listaQuest.size() + ""
-                    + "\n");
             tableModel.setQuestionarios(listaQuest);
             super.getTabelaResultado().setModel(tableModel);
             super.getTabelaResultado().revalidate();
         } catch (RESTConnectionException | IOException ex) {
             InterfaceGraficaUtils.erroConexao();
+            ex.printStackTrace();
         }
         HUMVApp.esconderMensagemCarregamento();
 

@@ -6,16 +6,16 @@
 package br.edu.ufrb.lasis.humv.view.questionario;
 
 import br.edu.ufrb.lasis.humv.entity.Parente;
+import br.edu.ufrb.lasis.humv.utils.ValidationsUtils;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
 
 /**
  *
  * @author Orion
  */
-public class AbstractTableModelParente extends AbstractTableModel {
+public class ParenteTableModel extends AbstractTableModel {
 
     List<Parente> parentes;
 
@@ -27,11 +27,11 @@ public class AbstractTableModelParente extends AbstractTableModel {
         return colunas[column];
     }
 
-    public AbstractTableModelParente() {
+    public ParenteTableModel() {
         this.parentes = new ArrayList<Parente>();
     }
 
-    public AbstractTableModelParente(ArrayList<Parente> documentos) {
+    public ParenteTableModel(ArrayList<Parente> documentos) {
         this.parentes = documentos;
     }
 
@@ -62,12 +62,11 @@ public class AbstractTableModelParente extends AbstractTableModel {
             case 1:
                 return obj.getNome();
             case 2:
-                return obj.getRenda();
+                return "R$ " + ValidationsUtils.convertePrecoParaString(obj.getRenda());
             case 3:
                 return obj.getOcupacao();
             default:
-                LOG.warning(AbstractTableModelParente.class.getName() + "Tentando acessar coluna a mais.");
-                return null;
+                return "";
         }
     }
 
@@ -117,7 +116,5 @@ public class AbstractTableModelParente extends AbstractTableModel {
         }
         return rendaTotal;
     }
-
-    private static final Logger LOG = Logger.getLogger(AbstractTableModelDocumentacao.class.getName());
 
 }

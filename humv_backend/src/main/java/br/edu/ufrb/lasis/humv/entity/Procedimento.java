@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 /**
  * Entidade que modela informações de procedimento.
@@ -42,8 +42,8 @@ public class Procedimento implements Serializable {
 	private double valor;
 	private Integer tipo;
 	
-	@OneToOne
-	@JoinColumn(name="id_procedimento")
+	@ManyToOne
+	@JoinColumn
 	private Setor setor;
 	
 	public Setor getSetor() {

@@ -320,11 +320,8 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements R
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         boolean sair = InterfaceGraficaUtils.dialogoCancelar("o cadastro", "procedimento");
         if (sair) {
-            this.setVisible(false);
             System.gc();
-            HUMVApp.exibirMensagemCarregamento();
             HUMVApp.setPainelCentralComLogo();
-            HUMVApp.esconderMensagemCarregamento();
         }
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
