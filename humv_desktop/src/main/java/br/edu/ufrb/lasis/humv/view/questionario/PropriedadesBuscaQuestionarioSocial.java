@@ -7,6 +7,7 @@ package br.edu.ufrb.lasis.humv.view.questionario;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.QuestionarioSocioeconomico;
+import br.edu.ufrb.lasis.humv.log.FabricaDeLog;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
@@ -17,25 +18,25 @@ import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Orion
  */
 public class PropriedadesBuscaQuestionarioSocial extends PropriedadesBusca {
-    
+
     private QuestionarioSocialTableModel tableModel;
     private List<QuestionarioSocioeconomico> listaQuest;
-    
+
     public PropriedadesBuscaQuestionarioSocial(String tipoOperacao) {
         super(tipoOperacao);
         tableModel = new QuestionarioSocialTableModel();
         super.setTabelaResultado(new JTable(tableModel));
     }
-    
+
     @Override
     public void buscar() {
         HUMVApp.exibirMensagemCarregamento();
@@ -51,9 +52,9 @@ public class PropriedadesBuscaQuestionarioSocial extends PropriedadesBusca {
             ex.printStackTrace();
         }
         HUMVApp.esconderMensagemCarregamento();
-        
+
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(super.getBotaoBusca())) {
@@ -72,10 +73,10 @@ public class PropriedadesBuscaQuestionarioSocial extends PropriedadesBusca {
                 LOG.info("Dono: " + questionario.getDono().getNome());
                 switch (super.getTipoOperacao()) {
                     case PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR:
-                        //if (InterfaceGraficaUtils.dialogoRemoverAlterar("alterar", "projeto", questionario.getDono().getNome())) {
-                        QuestionarioSocioEconomicoJPanel painel = new QuestionarioSocioEconomicoJPanel(questionario);
-                        HUMVApp.setNovoPainelCentral(painel);
-                        //}
+                        if (InterfaceGraficaUtils.dialogoRemoverAlterar("alterar", "projeto", questionario.getDono().getNome())) {
+                            QuestionarioSocioEconomicoJPanel painel = new QuestionarioSocioEconomicoJPanel(questionario);
+                            HUMVApp.setNovoPainelCentral(painel);
+                        }
                         break;
                     case PropriedadesBusca.OPCAO_REMOVER:
                         if (InterfaceGraficaUtils.dialogoRemoverAlterar("remover", "projeto", questionario.getDono().getNome())) {
@@ -107,6 +108,6 @@ public class PropriedadesBuscaQuestionarioSocial extends PropriedadesBusca {
             }
         }
     }
-    private static final Logger LOG = Logger.getLogger(PropriedadesBuscaQuestionarioSocial.class.getName());
-    
+    private static final Logger LOG = FabricaDeLog.getLog(PropriedadesBusca.class);
+
 }
