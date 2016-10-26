@@ -3,8 +3,9 @@ package br.edu.ufrb.lasis.humv.entity;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
-//import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,8 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name = "QUESTIONARIOS_SOCIOECONOMICOS")
@@ -70,12 +69,10 @@ public class QuestionarioSocioeconomico implements Serializable {
     private String bolsaOuBeneficio;
     private String observacoesDadosDono;
 
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "id")
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Parente> parentes;
     
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "id")
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Documentacao> documentosEntregues;
     
     private double rendaPerCapta;

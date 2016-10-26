@@ -30,7 +30,7 @@ public class QuestionarioSocioeconomico implements Serializable {
     public static final Integer COBRANCA_DESCONTO = 3;
 
     private BigInteger id;
-
+    
     private Dono dono;
 
     private Date dataResposta;
@@ -55,9 +55,9 @@ public class QuestionarioSocioeconomico implements Serializable {
     private String observacoesDadosDono;
 
     private List<Parente> parentes;
-
+    
     private List<Documentacao> documentosEntregues;
-
+    
     private double rendaPerCapta;
     private Double rendaTotal;
     private String impossibilidadesCusteio;
@@ -84,18 +84,18 @@ public class QuestionarioSocioeconomico implements Serializable {
     private Double valorDescontoConsultas;
 
     public Date getDataResposta() {
-        return dataResposta;
-    }
+		return dataResposta;
+	}
 
-    public void setDataResposta(Date dataResposta) {
-        this.dataResposta = dataResposta;
-    }
-
-    public BigInteger getId() {
+	public void setDataResposta(Date dataResposta) {
+		this.dataResposta = dataResposta;
+	}
+	
+	public BigInteger getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+	public void setId(BigInteger id) {
         this.id = id;
     }
 

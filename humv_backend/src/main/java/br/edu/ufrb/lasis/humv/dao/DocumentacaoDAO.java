@@ -10,11 +10,12 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.edu.ufrb.lasis.humv.entity.Documentacao;
 
-
+@Repository
 public class DocumentacaoDAO extends GenericDAO<Documentacao> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -43,20 +44,6 @@ public class DocumentacaoDAO extends GenericDAO<Documentacao> implements Seriali
 	@Transactional
 	public void removeDocumentacao(Documentacao documentacao) {
 		super.delete(documentacao);
-	}
-
-	
-	@SuppressWarnings("unchecked")
-	@Transactional
-	public List<Documentacao> search(String palavrachave) {
-		Criteria criteria = getCriteria();
-		criteria.add(
-				Restrictions.or(
-						Restrictions.ilike("nome", "%" + palavrachave + "%"), 
-						Restrictions.ilike("nomeResponsavel", "%" + palavrachave + "%")
-						)
-				);
-		return (List<Documentacao>) criteria.list();
 	}
 
 	@SuppressWarnings("unchecked")
