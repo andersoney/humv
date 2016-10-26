@@ -67,24 +67,24 @@ public class PropriedadesBuscaQuestionarioSocial extends PropriedadesBusca {
             }).start();
         } else if (e.getSource().equals(super.getBotaoOperacao())) {
             if (super.getIndexLinhaSelecionada() < 0) {
-                JOptionPane.showMessageDialog(super.getTabelaResultado(), "Por favor, selecione algum projeto da tabela para realizar a operação.", "Projeto não selecionado", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(super.getTabelaResultado(), "Por favor, selecione algum Questionario social da tabela para realizar a operação.", "Questionario social não selecionado", JOptionPane.ERROR_MESSAGE);
             } else {
                 QuestionarioSocioeconomico questionario = tableModel.getQuestionario(super.getIndexLinhaSelecionada());
                 LOG.info("Dono: " + questionario.getDono().getNome());
                 switch (super.getTipoOperacao()) {
                     case PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR:
-                        if (InterfaceGraficaUtils.dialogoRemoverAlterar("alterar", "projeto", questionario.getDono().getNome())) {
+                        if (InterfaceGraficaUtils.dialogoRemoverAlterar("alterar", "Questionario social", questionario.getDono().getNome())) {
                             QuestionarioSocioEconomicoJPanel painel = new QuestionarioSocioEconomicoJPanel(questionario);
                             HUMVApp.setNovoPainelCentral(painel);
                         }
                         break;
                     case PropriedadesBusca.OPCAO_REMOVER:
-                        if (InterfaceGraficaUtils.dialogoRemoverAlterar("remover", "projeto", questionario.getDono().getNome())) {
+                        if (InterfaceGraficaUtils.dialogoRemoverAlterar("remover", "Questionario social", questionario.getDono().getNome())) {
                             try {
                                 ClientResponse response = RESTMethods.delete("/api/questionarioSocioeconomico", "" + questionario.getId());
                                 String resposta = response.getEntity(String.class);
                                 if (resposta.equals("OK")) {
-                                    JOptionPane.showMessageDialog(super.getTabelaResultado(), "Projeto removido com sucesso", "Remoção de projeto", JOptionPane.PLAIN_MESSAGE);
+                                    JOptionPane.showMessageDialog(super.getTabelaResultado(), "Questionario social removido com sucesso", "Remoção de Questionario social", JOptionPane.PLAIN_MESSAGE);
                                     HUMVApp.setPainelCentralComLogo();
                                 } else {
                                     JOptionPane.showMessageDialog(super.getTabelaResultado(), resposta, "Erro", JOptionPane.ERROR_MESSAGE);
