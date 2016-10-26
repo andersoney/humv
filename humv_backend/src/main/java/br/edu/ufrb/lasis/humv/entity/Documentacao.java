@@ -3,65 +3,93 @@ package br.edu.ufrb.lasis.humv.entity;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="DOCUMENTACAO")
 public class Documentacao implements Serializable {
 	
-
 	private static final long serialVersionUID = -6125748157292589614L;
+	
+    public static final String BOLSA_FAMILIA = "Bolsa família";
+    public static final String COMPROVANTE_ENDERECO = "Comprovante de endereço";
+    public static final String RG_MEMBRO_FAMILIA = "RG de membro da família";
+    public static final String RG_DONO = "RG do dono";
 	
 	@Id
 	@GeneratedValue
-	private BigInteger id;
+	private BigInteger idDocumento;
 	
-	@Column
-	@Temporal(TemporalType.DATE)
+	@ManyToOne
+	@JoinColumn
+	private QuestionarioSocioeconomico questionario;
+	
 	private Date dataEntrega;
 	
-	@Column
-	private String nomeRecebinte;
-	
-	@Column
+	private String nomeUsuarioRecebinte;
 	private String nomeDocumento;
-	
-	public BigInteger getId() {
-		return id;
+	private boolean na;
+	private boolean vistoAssistenteSocial;
+
+	public BigInteger getIdDocumento() {
+		return idDocumento;
 	}
 
-	public void setId(BigInteger id) {
-		this.id = id;
+	public void setIdDocumento(BigInteger idDocumento) {
+		this.idDocumento = idDocumento;
+	}
+
+	public QuestionarioSocioeconomico getQuestionario() {
+		return questionario;
+	}
+
+	public void setQuestionario(QuestionarioSocioeconomico questionario) {
+		this.questionario = questionario;
 	}
 
 	public Date getDataEntrega() {
 		return dataEntrega;
 	}
-	
+
 	public void setDataEntrega(Date dataEntrega) {
 		this.dataEntrega = dataEntrega;
 	}
-	
-	public String getNomeRecebinte() {
-		return nomeRecebinte;
+
+	public String getNomeUsuarioRecebinte() {
+		return nomeUsuarioRecebinte;
 	}
-	
-	public void setNomeRecebinte(String nomeRecebinte) {
-		this.nomeRecebinte = nomeRecebinte;
+
+	public void setNomeUsuarioRecebinte(String nomeUsuarioRecebinte) {
+		this.nomeUsuarioRecebinte = nomeUsuarioRecebinte;
 	}
-	
+
 	public String getNomeDocumento() {
 		return nomeDocumento;
 	}
-	
+
 	public void setNomeDocumento(String nomeDocumento) {
 		this.nomeDocumento = nomeDocumento;
 	}
+
+	public boolean isNa() {
+		return na;
+	}
+
+	public void setNa(boolean na) {
+		this.na = na;
+	}
+
+	public boolean isVistoAssistenteSocial() {
+		return vistoAssistenteSocial;
+	}
+
+	public void setVistoAssistenteSocial(boolean vistoAssistenteSocial) {
+		this.vistoAssistenteSocial = vistoAssistenteSocial;
+	}
+	
 }

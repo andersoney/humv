@@ -390,7 +390,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         jTextFieldParentesco = new javax.swing.JTextField();
         jTextFieldFamiliaOcupacao = new javax.swing.JTextField();
         jButtonSalvar = new javax.swing.JButton();
-        jButtonRemover = new javax.swing.JButton();
+        jButtonFamiliaRemover = new javax.swing.JButton();
         jLabelRendaTotal = new javax.swing.JLabel();
         jLabelRendaPerCapta = new javax.swing.JLabel();
         jLabelFamiliaRendaTotal = new javax.swing.JLabel();
@@ -772,7 +772,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         jButtonDocumentoSalvar.setText("Salvar");
         jButtonDocumentoSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDocumentoSalvarActionPerformed(evt);
+                jButtonTabelaDocumentosSalvarActionPerformed(evt);
             }
         });
 
@@ -1125,15 +1125,15 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         jButtonSalvar.setText("Salvar");
         jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSalvarActionPerformed(evt);
+                jButtonTabelaFamiliaSalvarActionPerformed(evt);
             }
         });
 
-        jButtonRemover.setIcon(new javax.swing.ImageIcon("imagens/small_cancelar.png"));
-        jButtonRemover.setText("Remover");
-        jButtonRemover.addActionListener(new java.awt.event.ActionListener() {
+        jButtonFamiliaRemover.setIcon(new javax.swing.ImageIcon("imagens/small_cancelar.png"));
+        jButtonFamiliaRemover.setText("Remover");
+        jButtonFamiliaRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRemoverActionPerformed(evt);
+                jButtonFamiliaRemoverActionPerformed(evt);
             }
         });
 
@@ -1206,7 +1206,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
                                 .addComponent(jTextFieldFamiliaRenda))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelComposicaoFamiliarLayout.createSequentialGroup()
                                 .addGap(0, 191, Short.MAX_VALUE)
-                                .addComponent(jButtonRemover)
+                                .addComponent(jButtonFamiliaRemover)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())
@@ -1260,7 +1260,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
                 .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel23)
                     .addComponent(jTextFieldFamiliaOcupacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonRemover)
+                    .addComponent(jButtonFamiliaRemover)
                     .addComponent(jButtonSalvar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1347,39 +1347,40 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         InterfaceGraficaUtils.exibirJanela(jFrame);
     }//GEN-LAST:event_jButtonCadastrarNovoDonoActionPerformed
 
-    private void jButtonDocumentoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDocumentoSalvarActionPerformed
+    private void jButtonTabelaDocumentosSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTabelaDocumentosSalvarActionPerformed
         String nomeDocumento = "";
-        String nomeUser;
         Date data;
         try {
             if (this.jRadioButtonDocumentosOutro.isSelected()) {
                 validarCampoVazio(jTextFieldDocumentoOutro, "nome do documento");
                 nomeDocumento = jTextFieldDocumentoOutro.getText();
             } else if (this.jRadioButtonDocumentosBolsaFamilia.isSelected()) {
-                nomeDocumento = Documentacao.BOLSAFAMILIA;
+                nomeDocumento = Documentacao.BOLSA_FAMILIA;
             } else if (jRadioButtonDocumentosComprovanteEndereco.isSelected()) {
-                nomeDocumento = Documentacao.COMPROVANTEENDEREÇO;
+                nomeDocumento = Documentacao.COMPROVANTE_ENDERECO;
             } else if (jRadioButtonDocumentosMembroFamilia.isSelected()) {
-                nomeDocumento = Documentacao.MEMBROFAMILIA;
+                nomeDocumento = Documentacao.RG_MEMBRO_FAMILIA;
             } else if (jRadioButtonDocumentosRGDono.isSelected()) {
-                nomeDocumento = Documentacao.RGDONO;
+                nomeDocumento = Documentacao.RG_DONO;
             }
 
-            nomeUser = HUMVApp.getNomeUsuario();
             data = this.dteDataEntrega.getDate();
             Documentacao doc = new Documentacao();
             doc.setDataEntrega(data);
             doc.setNomeDocumento(nomeDocumento);
-            doc.setNomeRecebinte(nomeUser);
+            doc.setNomeUsuarioRecebinte(HUMVApp.getNomeUsuario());
+            doc.setNa(jCheckBoxNA.isSelected());
+            doc.setVistoAssistenteSocial(jCheckBoxVistoASocial.isSelected());
+            //doc.setQuestionario(questionario);
             modelDocumentacao.addDocumento(doc);
         } catch (Exception ex) {
             InterfaceGraficaUtils.validaCampoVazio(ex.getMessage());
         }
-    }//GEN-LAST:event_jButtonDocumentoSalvarActionPerformed
+    }//GEN-LAST:event_jButtonTabelaDocumentosSalvarActionPerformed
 
     private void jButtonDocumentoRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDocumentoRemoverActionPerformed
-        Integer indexRemuver = this.jTableDocumentos.getSelectedRow();
-        this.modelDocumentacao.removerDocumento(indexRemuver);
+        Integer indexRemover = this.jTableDocumentos.getSelectedRow();
+        this.modelDocumentacao.removerDocumento(indexRemover);
     }//GEN-LAST:event_jButtonDocumentoRemoverActionPerformed
 
     private void jButtonQuestionarioCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQuestionarioCancelarActionPerformed
@@ -1418,7 +1419,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         if (!okFatoresRisco) {
             return;
         }
-
+        
         try {
             RESTMethods.post("/api/questionarioSocioeconomico", questionario);
             InterfaceGraficaUtils.sucessoCadastro("questionário socioeconômico");
@@ -1583,11 +1584,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
     }
 
 
-    private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
-
-    }//GEN-LAST:event_jButtonRemoverActionPerformed
-
-    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+    private void jButtonTabelaFamiliaSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTabelaFamiliaSalvarActionPerformed
 
         try {
             Parente parente = new Parente();
@@ -1603,7 +1600,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
             parente.setIdade(idade);
 
             if (this.jTextFieldParentesco.getText().isEmpty()) {
-                InterfaceGraficaUtils.validaCampoVazio("Parentesco do familiar");
+                InterfaceGraficaUtils.validaCampoVazio("parentesco do familiar");
                 return;
             }
             String parentesco = this.jTextFieldParentesco.getText();
@@ -1613,21 +1610,20 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
             parente.setEscolaridade(escolaridade);
 
             if (this.jTextFieldFamiliaOcupacao.getText().isEmpty()) {
-                InterfaceGraficaUtils.validaCampoVazio("Ocupação do familiar");
+                InterfaceGraficaUtils.validaCampoVazio("ocupação do familiar");
                 return;
             }
             String ocupacao = this.jTextFieldFamiliaOcupacao.getText();
             parente.setOcupacao(ocupacao);
-            System.out.println("" + this.jTextFieldFamiliaRenda.getText());
             if (this.jTextFieldFamiliaRenda.getText().isEmpty()) {
-                InterfaceGraficaUtils.validaCampoVazio("Renda do familiar");
+                InterfaceGraficaUtils.validaCampoVazio("renda do familiar");
                 return;
             }
             Double renda;
             String rendaFamilliarST = jTextFieldFamiliaRenda.getText();
             renda = ValidationsUtils.converteStringParaPreco(rendaFamilliarST);
             parente.setRenda(renda);
-            parente.setNomeClienteCadastrado(dono.getNome());
+            //parente.setQuestionario(questionario);
             modelParente.addParente(parente);
             limparTextfieldsInfoFamiliar();
             atualizaCalculoRenda();
@@ -1635,7 +1631,12 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
             InterfaceGraficaUtils.validaCampoVazio(ex.getMessage());
         }
 
-    }//GEN-LAST:event_jButtonSalvarActionPerformed
+    }//GEN-LAST:event_jButtonTabelaFamiliaSalvarActionPerformed
+
+    private void jButtonFamiliaRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFamiliaRemoverActionPerformed
+        Integer indexRemover = this.jTableFamiliares.getSelectedRow();
+        this.modelParente.removerParentes(indexRemover);
+    }//GEN-LAST:event_jButtonFamiliaRemoverActionPerformed
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -1707,10 +1708,10 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
     private javax.swing.JButton jButtonCadastrarNovoDono;
     private javax.swing.JButton jButtonDocumentoRemover;
     private javax.swing.JButton jButtonDocumentoSalvar;
+    private javax.swing.JButton jButtonFamiliaRemover;
     private javax.swing.JButton jButtonPesquisarDono;
     private javax.swing.JButton jButtonQuestionarioCancelar;
     private javax.swing.JButton jButtonQuestionarioSalvar;
-    private javax.swing.JButton jButtonRemover;
     private javax.swing.JButton jButtonSalvar;
     private javax.swing.JCheckBox jCheckBoxNA;
     private javax.swing.JCheckBox jCheckBoxVistoASocial;

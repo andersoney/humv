@@ -20,7 +20,7 @@ public class ParenteTableModel extends AbstractTableModel {
     List<Parente> parentes;
 
     private String[] colunas = new String[]{
-        "Nome do Cliente", "Nome", "Renda", "Ocupação"};
+        "Nome do parente", "Renda", "Ocupação"};
 
     @Override
     public String getColumnName(int column) {
@@ -44,6 +44,7 @@ public class ParenteTableModel extends AbstractTableModel {
     public int getColumnCount() {
         return this.colunas.length; //To change body of generated methods, choose Tools | Templates.
     }
+
     /*private String nomeClienteCadastrado;
     
      private String nome;
@@ -58,12 +59,10 @@ public class ParenteTableModel extends AbstractTableModel {
         Parente obj = parentes.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return obj.getNomeClienteCadastrado();
-            case 1:
                 return obj.getNome();
-            case 2:
+            case 1:
                 return "R$ " + ValidationsUtils.convertePrecoParaString(obj.getRenda());
-            case 3:
+            case 2:
                 return obj.getOcupacao();
             default:
                 return "";

@@ -819,7 +819,7 @@
                 <Property name="text" type="java.lang.String" value="Salvar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonDocumentoSalvarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonTabelaDocumentosSalvarActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonDocumentoRemover">
@@ -1309,7 +1309,7 @@
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace min="0" pref="191" max="32767" attributes="0"/>
-                                      <Component id="jButtonRemover" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jButtonFamiliaRemover" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jButtonSalvar" min="-2" pref="97" max="-2" attributes="0"/>
                                   </Group>
@@ -1379,7 +1379,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel23" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextFieldFamiliaOcupacao" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButtonRemover" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonFamiliaRemover" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jButtonSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -1507,10 +1507,10 @@
                 <Property name="text" type="java.lang.String" value="Salvar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSalvarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonTabelaFamiliaSalvarActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButtonRemover">
+            <Component class="javax.swing.JButton" name="jButtonFamiliaRemover">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="new javax.swing.ImageIcon(&quot;imagens/small_cancelar.png&quot;)" type="code"/>
@@ -1518,7 +1518,7 @@
                 <Property name="text" type="java.lang.String" value="Remover"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonRemoverActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonFamiliaRemoverActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelRendaTotal">
