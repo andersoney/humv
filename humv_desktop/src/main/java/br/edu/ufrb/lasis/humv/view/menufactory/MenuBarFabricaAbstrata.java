@@ -97,6 +97,7 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
     private JMenu menuQuestionarioSocial;
     private JMenuItem menuItemCadastrarQuestionarioSocial,
             menuItemBuscarQuestionarioSocial;
+    private JButton buttonQuestionario;
     
     private JPanel panelButtons;
     private GridBagConstraints panelConstraints;
@@ -327,6 +328,12 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         this.addButtonToRightPanel(buttonAgendarAtendimento);
     }
     
+    public void criaBotaoResponderQuestionario() {
+        buttonQuestionario = new JButton("Responder questionário", new ImageIcon("imagens/icon_questionario.png"));
+        buttonQuestionario.addActionListener(this);
+        this.addButtonToRightPanel(buttonQuestionario);
+    }
+    
     public JMenuBar getMenuBar() {
         return menuBar;
     }
@@ -412,7 +419,7 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
             HUMVApp.setNovoPainelCentral(buscaPanel);
         } else if (source.equals(menuItemAgendarAtendimento) || source.equals(buttonAgendarAtendimento)) {
             HUMVApp.setNovoPainelCentral(new BuscarAgendaMedicoJPanel());
-        } else if (source.equals(menuItemCadastrarQuestionarioSocial)) {
+        } else if (source.equals(menuItemCadastrarQuestionarioSocial) || source.equals(buttonQuestionario)) {
             HUMVApp.setNovoPainelCentral(new QuestionarioSocioEconomicoJPanel());
         } else if (source.equals(menuItemBuscarQuestionarioSocial)) {
             PropriedadesBuscaQuestionarioSocial propriedadesBusca = new PropriedadesBuscaQuestionarioSocial(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);

@@ -13,6 +13,7 @@ import br.edu.ufrb.lasis.humv.view.busca.BuscaJPanel;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import br.edu.ufrb.lasis.humv.view.setor.CadastrarSetorJDialog;
 import br.edu.ufrb.lasis.humv.view.setor.PropriedadesBuscaSetor;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.sun.jersey.api.client.ClientResponse;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -20,7 +21,6 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import org.codehaus.jackson.type.TypeReference;
 
 /**
  *
@@ -341,6 +341,7 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements R
             }
         } catch (RESTConnectionException | IOException ex) {
             InterfaceGraficaUtils.erroConexao();
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_jButtonExibirListaActionPerformed
 

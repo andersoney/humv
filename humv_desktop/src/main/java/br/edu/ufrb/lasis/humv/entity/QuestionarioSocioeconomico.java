@@ -56,8 +56,6 @@ public class QuestionarioSocioeconomico implements Serializable {
 
     private List<Parente> parentes;
 
-    private List<Animal> animais;
-
     private List<Documentacao> documentosEntregues;
 
     private double rendaPerCapta;
@@ -211,14 +209,6 @@ public class QuestionarioSocioeconomico implements Serializable {
 
     public void setParentes(List<Parente> parentes) {
         this.parentes = parentes;
-    }
-
-    public List<Animal> getAnimais() {
-        return animais;
-    }
-
-    public void setAnimais(List<Animal> animais) {
-        this.animais = animais;
     }
 
     public List<Documentacao> getDocumentosEntregues() {

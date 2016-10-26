@@ -12,22 +12,19 @@ import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.utils.PrintUtils;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import org.codehaus.jackson.type.TypeReference;
 
 /**
  *
  * @author Orion
  */
 public class PropriedadesBuscaQuestionarioSocial extends PropriedadesBusca {
-
-    private static final Logger LOG = Logger.getLogger(PropriedadesBuscaQuestionarioSocial.class.getName());
 
     private QuestionarioSocialTableModel tableModel;
     private List<QuestionarioSocioeconomico> listaQuest;

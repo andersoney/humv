@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class QuestionarioSocialTableModel extends AbstractTableModel {
 
-    String[] coluna = new String[]{"Nome do Dono", "CPF", "Data da resposta"};
+    String[] coluna = new String[]{"Nome do Dono", "CPF", "Data do preenchimento"};
     List<QuestionarioSocioeconomico> questionarios;
 
     public QuestionarioSocialTableModel() {

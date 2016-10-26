@@ -1553,6 +1553,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         }
 
         questionario.setDono(dono);
+        questionario.setDataResposta(Calendar.getInstance().getTime());
         questionario.setIdade(Integer.parseInt(jFormattedTextFieldIdade.getText()));
         questionario.setEstadoCivil(jComboBoxEstadoCivil.getSelectedIndex());
         questionario.setProfissao(jTextFieldProfissao.getText());

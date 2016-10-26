@@ -440,8 +440,10 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
             }
         } catch (RESTConnectionException ex) {
             InterfaceGraficaUtils.erroConexao();
+            ex.printStackTrace();
         } catch (ClientHandlerException ex) {
             JOptionPane.showMessageDialog(null, "Erro no cadastro do dono. Por favor, tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 

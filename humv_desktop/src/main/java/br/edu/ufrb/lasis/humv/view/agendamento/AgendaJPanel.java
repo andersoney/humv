@@ -7,6 +7,7 @@ import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.HUMVConfigUtils;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.utils.ValidationsUtils;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -17,7 +18,6 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import org.codehaus.jackson.type.TypeReference;
 
 /**
  *

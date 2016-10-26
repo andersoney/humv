@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name = "QUESTIONARIOS_SOCIOECONOMICOS")
@@ -68,12 +70,11 @@ public class QuestionarioSocioeconomico implements Serializable {
     private String bolsaOuBeneficio;
     private String observacoesDadosDono;
 
-    @OneToMany(mappedBy = "id")//, orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "id")
     private List<Parente> parentes;
     
-    @OneToMany(mappedBy = "rghumv")
-    private List<Animal> animais;
-    
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "id")
     private List<Documentacao> documentosEntregues;
     
@@ -228,14 +229,6 @@ public class QuestionarioSocioeconomico implements Serializable {
 
     public void setParentes(List<Parente> parentes) {
         this.parentes = parentes;
-    }
-
-    public List<Animal> getAnimais() {
-        return animais;
-    }
-
-    public void setAnimais(List<Animal> animais) {
-        this.animais = animais;
     }
 
     public List<Documentacao> getDocumentosEntregues() {
