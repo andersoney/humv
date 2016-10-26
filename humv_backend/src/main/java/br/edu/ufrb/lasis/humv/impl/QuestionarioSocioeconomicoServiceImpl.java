@@ -8,12 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-
-import br.edu.ufrb.lasis.humv.dao.DocumentacaoDAO;
-import br.edu.ufrb.lasis.humv.dao.ParenteDAO;
 import br.edu.ufrb.lasis.humv.dao.QuestionarioSocioeconomicoDAO;
-import br.edu.ufrb.lasis.humv.entity.Documentacao;
-import br.edu.ufrb.lasis.humv.entity.Parente;
 import br.edu.ufrb.lasis.humv.entity.QuestionarioSocioeconomico;
 
 @Service
@@ -23,12 +18,6 @@ public class QuestionarioSocioeconomicoServiceImpl {
 
 	@Autowired
 	private QuestionarioSocioeconomicoDAO questionarioSocioeconomicoDAO;
-
-	@Autowired
-	private DocumentacaoDAO documentacaoDAO;
-
-	@Autowired
-	private ParenteDAO parenteDAO;
 
 	public List<QuestionarioSocioeconomico> getAll(){
 		try {
@@ -49,30 +38,8 @@ public class QuestionarioSocioeconomicoServiceImpl {
 
 	public String cadastrarQuestionarioSocioeconomico(QuestionarioSocioeconomico questionarioSocioeconomico, String usuarioResponsavel){
 		try{
-//			List<Documentacao> documentos = questionarioSocioeconomico.getDocumentosEntregues();
-//			questionarioSocioeconomico.setDocumentosEntregues(null);
-//			
-//			List<Parente> parentes = questionarioSocioeconomico.getParentes();
-//			questionarioSocioeconomico.setParentes(null);
-			
 			questionarioSocioeconomicoDAO.saveQuestionario(questionarioSocioeconomico);
-			logger.info("[cadastrarQuestionarioSocioeconomico - " + usuarioResponsavel + "] Questionario salvo com sucesso: " + questionarioSocioeconomico.getId() + ".");
-			
-//			for(Documentacao documento : documentos){
-//				//documento.setQuestionario(questionarioSocioeconomico);
-//				documentacaoDAO.saveDocumentacao(documento);
-//				logger.info("[saveDocumentacao - " + usuarioResponsavel + "] Documentação salva com sucesso: " + documento.getIdDocumento() + ".");
-//			}
-//			for(Parente parente : parentes){
-//				//parente.setQuestionario(questionarioSocioeconomico);
-//				parenteDAO.saveParente(parente);
-//				logger.info("[saveParente - " + usuarioResponsavel + "] Parente salvo com sucesso: " + parente.getIdParente() + ".");
-//			}
-//			
-//			questionarioSocioeconomico.setDocumentosEntregues(documentos);
-//			questionarioSocioeconomico.setParentes(parentes);
-//			questionarioSocioeconomicoDAO.updateQuestionario(questionarioSocioeconomico);
-			
+			logger.info("[cadastrarQuestionarioSocioeconomico - " + usuarioResponsavel + "] Questionario salvo com sucesso: " + questionarioSocioeconomico.getId() + ".");	
 			return "OK";
 		}catch(DataIntegrityViolationException ex){
 			logger.error("[cadastrarQuestionarioSocioeconomico - " + usuarioResponsavel + "] " + ex.getMessage() + " / root cause: " + ex.getRootCause().getMessage());
