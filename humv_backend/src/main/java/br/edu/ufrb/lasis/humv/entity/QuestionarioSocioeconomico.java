@@ -43,9 +43,9 @@ public class QuestionarioSocioeconomico implements Serializable {
     @Id
     @GeneratedValue
     private BigInteger id;
-    
+
     @ManyToOne
-	@JoinColumn
+    @JoinColumn
     private Dono dono;
 
     private Date dataResposta;
@@ -74,7 +74,7 @@ public class QuestionarioSocioeconomico implements Serializable {
     
     @OneToMany(cascade = CascadeType.ALL)
     private List<Documentacao> documentosEntregues;
-    
+
     private double rendaPerCapta;
     private Double rendaTotal;
     private String impossibilidadesCusteio;
@@ -101,18 +101,18 @@ public class QuestionarioSocioeconomico implements Serializable {
     private Double valorDescontoConsultas;
 
     public Date getDataResposta() {
-		return dataResposta;
-	}
+        return dataResposta;
+    }
 
-	public void setDataResposta(Date dataResposta) {
-		this.dataResposta = dataResposta;
-	}
-	
-	public BigInteger getId() {
+    public void setDataResposta(Date dataResposta) {
+        this.dataResposta = dataResposta;
+    }
+
+    public BigInteger getId() {
         return id;
     }
 
-	public void setId(BigInteger id) {
+    public void setId(BigInteger id) {
         this.id = id;
     }
 
