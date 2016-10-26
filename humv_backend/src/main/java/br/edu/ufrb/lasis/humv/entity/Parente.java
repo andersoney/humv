@@ -2,10 +2,11 @@ package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -13,27 +14,36 @@ import javax.persistence.Table;
 public class Parente implements Serializable {
 	
 	private static final long serialVersionUID = -6125748157292589614L;
+	
 	@Id
 	@GeneratedValue
-	private BigInteger id;
+	private BigInteger idParente;
 	
-	//private String nomeClienteCadastrado;//TODO verificar se isso é viável
-	
+	@ManyToOne
+	@JoinColumn
+	private QuestionarioSocioeconomico questionario;
+		
 	private String nome;
 	private Integer idade;
 	private String parentesco;
-	private Integer renda;
-	
-	//De acordo com os atributos de QuestionarioSocioeconomico pra escolaridade
-	private Integer escolaridade;
+	private Double renda;
+	private Integer escolaridade; //De acordo com os atributos de QuestionarioSocioeconomico pra escolaridade
 	private String ocupacao;
 
-	public BigInteger getId() {
-		return id;
+	public BigInteger getIdParente() {
+		return idParente;
 	}
 
-	public void setId(BigInteger id) {
-		this.id = id;
+	public void setIdParente(BigInteger idParente) {
+		this.idParente = idParente;
+	}
+
+	public QuestionarioSocioeconomico getQuestionario() {
+		return questionario;
+	}
+
+	public void setQuestionario(QuestionarioSocioeconomico questionario) {
+		this.questionario = questionario;
 	}
 
 	public String getNome() {
@@ -60,11 +70,11 @@ public class Parente implements Serializable {
 		this.parentesco = parentesco;
 	}
 
-	public Integer getRenda() {
+	public Double getRenda() {
 		return renda;
 	}
 
-	public void setRenda(Integer renda) {
+	public void setRenda(Double renda) {
 		this.renda = renda;
 	}
 

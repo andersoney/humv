@@ -1,18 +1,44 @@
 package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Date;
 
 public class Documentacao implements Serializable {
 
     private static final long serialVersionUID = -6125748157292589614L;
-    public static final String BOLSAFAMILIA="bolsa familia";
-    public static final String COMPROVANTEENDEREÇO="comprovante endereço";
-    public static final String MEMBROFAMILIA="membro da familia";
-    public static final String RGDONO="rg dono";
+
+    public static final String BOLSA_FAMILIA = "Bolsa família";
+    public static final String COMPROVANTE_ENDERECO = "Comprovante de endereço";
+    public static final String RG_MEMBRO_FAMILIA = "RG de membro da família";
+    public static final String RG_DONO = "RG do dono";
+
+    private BigInteger idDocumento;
+
+    private QuestionarioSocioeconomico questionario;
+
     private Date dataEntrega;
-    private String nomeRecebinte;
+
+    private String nomeUsuarioRecebinte;
     private String nomeDocumento;
+    private boolean na;
+    private boolean vistoAssistenteSocial;
+
+    public BigInteger getIdDocumento() {
+        return idDocumento;
+    }
+
+    public void setIdDocumento(BigInteger idDocumento) {
+        this.idDocumento = idDocumento;
+    }
+
+    public QuestionarioSocioeconomico getQuestionario() {
+        return questionario;
+    }
+
+    public void setQuestionario(QuestionarioSocioeconomico questionario) {
+        this.questionario = questionario;
+    }
 
     public Date getDataEntrega() {
         return dataEntrega;
@@ -22,12 +48,12 @@ public class Documentacao implements Serializable {
         this.dataEntrega = dataEntrega;
     }
 
-    public String getNomeRecebinte() {
-        return nomeRecebinte;
+    public String getNomeUsuarioRecebinte() {
+        return nomeUsuarioRecebinte;
     }
 
-    public void setNomeRecebinte(String nomeRecebinte) {
-        this.nomeRecebinte = nomeRecebinte;
+    public void setNomeUsuarioRecebinte(String nomeUsuarioRecebinte) {
+        this.nomeUsuarioRecebinte = nomeUsuarioRecebinte;
     }
 
     public String getNomeDocumento() {
@@ -37,4 +63,21 @@ public class Documentacao implements Serializable {
     public void setNomeDocumento(String nomeDocumento) {
         this.nomeDocumento = nomeDocumento;
     }
+
+    public boolean isNa() {
+        return na;
+    }
+
+    public void setNa(boolean na) {
+        this.na = na;
+    }
+
+    public boolean isVistoAssistenteSocial() {
+        return vistoAssistenteSocial;
+    }
+
+    public void setVistoAssistenteSocial(boolean vistoAssistenteSocial) {
+        this.vistoAssistenteSocial = vistoAssistenteSocial;
+    }
+
 }
