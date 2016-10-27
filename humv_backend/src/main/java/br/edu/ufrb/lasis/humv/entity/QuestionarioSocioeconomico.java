@@ -2,7 +2,7 @@ package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-//import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,8 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -44,10 +44,11 @@ public class QuestionarioSocioeconomico implements Serializable {
     @GeneratedValue
     private BigInteger id;
 
-    @OneToOne
-    @JoinColumn(name = "id_dono")
+    @ManyToOne
+    @JoinColumn
     private Dono dono;
 
+    private Date dataResposta;
     private Integer estadoCivil;
     private Integer idade;
     private Integer nis;
@@ -68,12 +69,12 @@ public class QuestionarioSocioeconomico implements Serializable {
     private String bolsaOuBeneficio;
     private String observacoesDadosDono;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Parente> parentes;
-    @OneToMany(mappedBy = "rghumv", cascade = CascadeType.ALL)
-    private List<Animal> animais;
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Documentacao> documentosEntregues;
+
     private double rendaPerCapta;
     private Double rendaTotal;
     private String impossibilidadesCusteio;
@@ -98,6 +99,14 @@ public class QuestionarioSocioeconomico implements Serializable {
     private Double valorDescontoCirurgias;
 
     private Double valorDescontoConsultas;
+
+    public Date getDataResposta() {
+        return dataResposta;
+    }
+
+    public void setDataResposta(Date dataResposta) {
+        this.dataResposta = dataResposta;
+    }
 
     public BigInteger getId() {
         return id;
@@ -217,14 +226,6 @@ public class QuestionarioSocioeconomico implements Serializable {
 
     public void setParentes(List<Parente> parentes) {
         this.parentes = parentes;
-    }
-
-    public List<Animal> getAnimais() {
-        return animais;
-    }
-
-    public void setAnimais(List<Animal> animais) {
-        this.animais = animais;
     }
 
     public List<Documentacao> getDocumentosEntregues() {
@@ -411,4 +412,8 @@ public class QuestionarioSocioeconomico implements Serializable {
         this.rendaTotal = rendaTotal;
     }
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> master

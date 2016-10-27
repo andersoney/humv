@@ -10,30 +10,29 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
 
 /**
  *
  * @author Orion
  */
-public class AbstractTableModelDocumentacao extends AbstractTableModel {
+public class DocumentacaoTableModel extends AbstractTableModel {
 
     List<Documentacao> documentos;
 
     private String[] colunas = new String[]{
-        "Data de Entrega", "Nome do Recebinte", "Nome do documento"};
+        "Data de entrega", "Identificador do recebinte", "Nome do documento"};
 
     @Override
     public String getColumnName(int column) {
         return colunas[column];
     }
 
-    public AbstractTableModelDocumentacao() {
+    public DocumentacaoTableModel() {
         this.documentos = new ArrayList<Documentacao>();
     }
 
-    public AbstractTableModelDocumentacao(ArrayList<Documentacao> documentos) {
+    public DocumentacaoTableModel(ArrayList<Documentacao> documentos) {
         this.documentos = documentos;
     }
 
@@ -57,12 +56,11 @@ public class AbstractTableModelDocumentacao extends AbstractTableModel {
                 String data = formataData.format(dataHoje);
                 return data;
             case 1:
-                return obj.getNomeRecebinte();
+                return obj.getNomeUsuarioRecebinte();
             case 2:
                 return obj.getNomeDocumento();
             default:
-                LOG.warning(AbstractTableModelDocumentacao.class.getName() + "Tentando acessar coluna a mais.");
-                return null;
+                return "";
         }
     }
 
@@ -80,7 +78,7 @@ public class AbstractTableModelDocumentacao extends AbstractTableModel {
     }
 
     public void addDocumento(Documentacao obj) {
-        if (obj.getNomeDocumento().equals(Documentacao.RGDONO)) {
+        if (obj.getNomeDocumento().equals(Documentacao.RG_DONO)) {
             for (int i = 0; i < documentos.size(); i++) {
                 Documentacao as = documentos.get(i);
                 if (as.getNomeDocumento().equals(obj.getNomeDocumento())) {
@@ -97,7 +95,5 @@ public class AbstractTableModelDocumentacao extends AbstractTableModel {
         this.documentos.remove(documentos.get(rowIndex));
         fireTableDataChanged();
     }
-
-    private static final Logger LOG = Logger.getLogger(AbstractTableModelDocumentacao.class.getName());
 
 }

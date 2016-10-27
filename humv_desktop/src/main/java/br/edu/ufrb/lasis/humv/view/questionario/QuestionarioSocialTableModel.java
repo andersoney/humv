@@ -8,8 +8,9 @@ package br.edu.ufrb.lasis.humv.view.questionario;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 import br.edu.ufrb.lasis.humv.entity.QuestionarioSocioeconomico;
+import br.edu.ufrb.lasis.humv.utils.MaskUtils;
+import br.edu.ufrb.lasis.humv.utils.ValidationsUtils;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  *
@@ -17,9 +18,8 @@ import java.util.logging.Logger;
  */
 public class QuestionarioSocialTableModel extends AbstractTableModel {
 
-    String[] coluna = new String[]{"Nome do Dono", "CPF"};
+    String[] coluna = new String[]{"Nome do Dono", "CPF", "Última modificação"};
     List<QuestionarioSocioeconomico> questionarios;
-    private static final Logger LOG = Logger.getLogger(QuestionarioSocialTableModel.class.getName());
 
     public QuestionarioSocialTableModel() {
         this.questionarios = new ArrayList<QuestionarioSocioeconomico>();
@@ -47,14 +47,11 @@ public class QuestionarioSocialTableModel extends AbstractTableModel {
             case 0:
                 return obj.getDono().getNome();
             case 1:
-                return obj.getDono().getCep();
+                return MaskUtils.formatarCPF_CNPJ(obj.getDono().getCpfCnpj(), obj.getDono().getTipoDocumento());
+            case 2:
+                return ValidationsUtils.obterDataString(obj.getDataResposta());
             default:
-                LOG.warning("Valor da coluna Invalido.\n"
-                        + "Provavelmente há colunas alem das necessarias para Exibição\n"
-                        + "");
-                return "Valor da coluna Invalido.\n"
-                        + "Provavelmente há colunas alem das necessarias para Exibição\n"
-                        + "";
+                return "";
         }
     }
 

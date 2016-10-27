@@ -2,7 +2,7 @@ package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-//import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class QuestionarioSocioeconomico implements Serializable {
@@ -24,15 +24,16 @@ public class QuestionarioSocioeconomico implements Serializable {
     public static final Integer ESTADO_CIVIL_DIVORCIADO = 4;
     public static final Integer ESTADO_CIVIL_VIUVO = 5;
 
-    public static final int COBRANCA_NORMAL = 0;
-    public static final int COBRANCA_AULA = 1;
-    public static final int COBRANCA_INSENCAO = 2;
-    public static final int COBRANCA_DESCONTO = 3;
+    public static final Integer COBRANCA_NORMAL = 0;
+    public static final Integer COBRANCA_AULA = 1;
+    public static final Integer COBRANCA_INSENCAO = 2;
+    public static final Integer COBRANCA_DESCONTO = 3;
 
     private BigInteger id;
-
+    
     private Dono dono;
 
+    private Date dataResposta;
     private Integer estadoCivil;
     private Integer idade;
     private Integer nis;
@@ -54,10 +55,11 @@ public class QuestionarioSocioeconomico implements Serializable {
     private String observacoesDadosDono;
 
     private List<Parente> parentes;
-    private List<Animal> animais;
+    
     private List<Documentacao> documentosEntregues;
+    
     private double rendaPerCapta;
-    private double rendaTotal;
+    private Double rendaTotal;
     private String impossibilidadesCusteio;
     private String bensFamiliares;
     private String riscosSociais;
@@ -81,11 +83,19 @@ public class QuestionarioSocioeconomico implements Serializable {
 
     private Double valorDescontoConsultas;
 
-    public BigInteger getId() {
+    public Date getDataResposta() {
+		return dataResposta;
+	}
+
+	public void setDataResposta(Date dataResposta) {
+		this.dataResposta = dataResposta;
+	}
+	
+	public BigInteger getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+	public void setId(BigInteger id) {
         this.id = id;
     }
 
@@ -201,14 +211,6 @@ public class QuestionarioSocioeconomico implements Serializable {
         this.parentes = parentes;
     }
 
-    public List<Animal> getAnimais() {
-        return animais;
-    }
-
-    public void setAnimais(List<Animal> animais) {
-        this.animais = animais;
-    }
-
     public List<Documentacao> getDocumentosEntregues() {
         return documentosEntregues;
     }
@@ -217,24 +219,12 @@ public class QuestionarioSocioeconomico implements Serializable {
         this.documentosEntregues = documentosEntregues;
     }
 
-    public Double getRendaTotal() {
-        return rendaTotal;
-    }
-
-    public void setRendaTotal(Double rendaTotal) {
-        this.rendaTotal = rendaTotal;
-    }
-
     public double getRendaPerCapta() {
         return rendaPerCapta;
     }
 
     public void setRendaPerCapta(double rendaPerCapta) {
         this.rendaPerCapta = rendaPerCapta;
-    }
-
-    public void setRendaTotal(double rendaTotal) {
-        this.rendaTotal = rendaTotal;
     }
 
     public String getImpossibilidadesCusteio() {
@@ -395,6 +385,14 @@ public class QuestionarioSocioeconomico implements Serializable {
 
     public void setBolsaOuBeneficio(String bolsaOuBeneficio) {
         this.bolsaOuBeneficio = bolsaOuBeneficio;
+    }
+
+    public Double getRendaTotal() {
+        return rendaTotal;
+    }
+
+    public void setRendaTotal(Double rendaTotal) {
+        this.rendaTotal = rendaTotal;
     }
 
 }

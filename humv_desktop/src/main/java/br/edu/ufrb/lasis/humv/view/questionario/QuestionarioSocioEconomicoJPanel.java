@@ -5,17 +5,25 @@ import br.edu.ufrb.lasis.humv.entity.Parente;
 import br.edu.ufrb.lasis.humv.entity.Documentacao;
 import br.edu.ufrb.lasis.humv.entity.Dono;
 import br.edu.ufrb.lasis.humv.entity.QuestionarioSocioeconomico;
+import br.edu.ufrb.lasis.humv.log.FabricaDeLog;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
+import br.edu.ufrb.lasis.humv.utils.MaskUtils;
+import br.edu.ufrb.lasis.humv.utils.ResultadoBusca;
+import br.edu.ufrb.lasis.humv.utils.ValidationsUtils;
+import br.edu.ufrb.lasis.humv.view.busca.BuscaJPanel;
+import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import br.edu.ufrb.lasis.humv.view.dono.CadastrarDonoJPanel;
+import br.edu.ufrb.lasis.humv.view.dono.PropriedadesBuscaDono;
 import java.awt.HeadlessException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+import javax.swing.JFrame;
+import javax.swing.text.JTextComponent;
+import org.apache.log4j.Logger;
 
 /**
  * Classe que cria o Painel Questionario SOcial.
@@ -23,70 +31,106 @@ import javax.swing.JOptionPane;
  * @author tassiovale
  * @author Orion && Chacal
  */
-public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
+public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel implements ResultadoBusca, ActionListener {
 
-    AbstractTableModelDocumentacao modelDocumentacao;
-    AbstractTableModelParente modelParente;
-    Dono dono;
-    QuestionarioSocioeconomico quest;
-
-    /**
-     * Aqui é configurado o dono repassado pela classe CadastroDonoJPane e de
-     * QuestionarioBuscarDono.
-     *
-     * @param dono
-     */
-    public void setDono(Dono dono) {
-        this.dono = dono;
-        configDono(dono);
-    }
-
-    private void configDono(Dono dono1) {
-        this.jLabelNomeDono.setText("Nome : " + dono1.getNome());
-        jLabelCpfDono.setText("CPF : " + dono1.getCpfCnpj());
-        jLabelTelefone.setText("Telefone: " + dono1.getTelefone());
-        jLabelEndereco.setText("Endereço: " + dono1.getEndereco());
-    }
+    private DocumentacaoTableModel modelDocumentacao;
+    private ParenteTableModel modelParente;
+    private Dono dono;
+    private QuestionarioSocioeconomico questionario;
+    private static final Logger LOG = FabricaDeLog.getLog(QuestionarioSocioEconomicoJPanel.class);
 
     /**
      * Creates new form QuestionarioSocioEconomicoJPanel
      */
     public QuestionarioSocioEconomicoJPanel() {
         initComponents();
-        initComponentsCustom();
+        customInitComponents();
         HUMVApp.esconderMensagemCarregamento();
     }
 
-    private void initComponentsCustom() {
-        //this.jTextFieldDocumentoOutro.setEnabled(false);
+    private void customInitComponents() {
         this.dteDataEntrega.setDate(Calendar.getInstance().getTime());
+        this.modelDocumentacao = new DocumentacaoTableModel();
+        this.jTableDocumentos.setModel(this.modelDocumentacao);
+        this.modelParente = new ParenteTableModel();
+        this.jTableFamiliares.setModel(modelParente);
+
+        buttonGroupEnergia.add(jRadioButtonEnergiaSim);
+        buttonGroupEnergia.add(jRadioButtonEnergiaNao);
+
+        buttonGroupSaneamento.add(jRadioButtonSaneamentoSim);
+        buttonGroupSaneamento.add(jRadioButtonSaneamentoNao);
+
+        buttonGroupEstudante.add(jRadioButtonEstudanteSim);
+        buttonGroupEstudante.add(jRadioButtonEstudanteNao);
+
+        buttonGroupDocumento.add(jRadioButtonDocumentosBolsaFamilia);
+        buttonGroupDocumento.add(jRadioButtonDocumentosComprovanteEndereco);
+        buttonGroupDocumento.add(jRadioButtonDocumentosMembroFamilia);
+        buttonGroupDocumento.add(jRadioButtonDocumentosRGDono);
+        buttonGroupDocumento.add(jRadioButtonDocumentosOutro);
+        jRadioButtonDocumentosBolsaFamilia.addActionListener(this);
+        jRadioButtonDocumentosComprovanteEndereco.addActionListener(this);
+        jRadioButtonDocumentosMembroFamilia.addActionListener(this);
+        jRadioButtonDocumentosRGDono.addActionListener(this);
+        jRadioButtonDocumentosOutro.addActionListener(this);
+
+        buttonGroupConsulta.add(jRadioButtonConsultaAula);
+        buttonGroupConsulta.add(jRadioButtonConsultaDesconto);
+        buttonGroupConsulta.add(jRadioButtonConsultaIsencao);
+        buttonGroupConsulta.add(jRadioButtonConsultaNormal);
+        jRadioButtonConsultaAula.addActionListener(this);
+        jRadioButtonConsultaDesconto.addActionListener(this);
+        jRadioButtonConsultaIsencao.addActionListener(this);
+        jRadioButtonConsultaNormal.addActionListener(this);
+
+        buttonGroupExame.add(jRadioButtonExameAula);
+        buttonGroupExame.add(jRadioButtonExameDesconto);
+        buttonGroupExame.add(jRadioButtonExameIsencao);
+        buttonGroupExame.add(jRadioButtonExameNormal);
+        jRadioButtonExameAula.addActionListener(this);
+        jRadioButtonExameDesconto.addActionListener(this);
+        jRadioButtonExameIsencao.addActionListener(this);
+        jRadioButtonExameNormal.addActionListener(this);
+
+        buttonGroupCirurgia.add(jRadioButtonCirurgiaAula);
+        buttonGroupCirurgia.add(jRadioButtonCirurgiaDesconto);
+        buttonGroupCirurgia.add(jRadioButtonCirurgiaIsencao);
+        buttonGroupCirurgia.add(jRadioButtonCirurgiaNormal);
+        jRadioButtonCirurgiaAula.addActionListener(this);
+        jRadioButtonCirurgiaDesconto.addActionListener(this);
+        jRadioButtonCirurgiaIsencao.addActionListener(this);
+        jRadioButtonCirurgiaNormal.addActionListener(this);
+
+        this.jRadioButtonEstudanteNao.setSelected(true);
+        habilitarPainelEstudante(false);
+        jRadioButtonEstudanteNao.addActionListener(this);
+        jRadioButtonEstudanteSim.addActionListener(this);
+
         this.jRadioButtonEnergiaSim.setSelected(true);
         this.jRadioButtonSaneamentoSim.setSelected(true);
-        this.jRadioButtonEstudanteSim.setSelected(true);
-        this.jRadioButtonDocumentosOutro.setSelected(true);
         this.jRadioButtonConsultaNormal.setSelected(true);
         this.jRadioButtonExameNormal.setSelected(true);
         this.jRadioButtonCirurgiaNormal.setSelected(true);
-        this.modelDocumentacao = new AbstractTableModelDocumentacao();
-        this.jTableDocumentos.setModel(this.modelDocumentacao);
-        this.modelParente = new AbstractTableModelParente();
-        this.jTableFamiliares.setModel(modelParente);
+        this.jRadioButtonDocumentosComprovanteEndereco.setSelected(true);
+
         this.jFormattedTextFieldCirurgia.setEnabled(false);
         this.jFormattedTextFieldConsulta.setEnabled(false);
         this.jFormattedTextFieldExame.setEnabled(false);
-        quest = new QuestionarioSocioeconomico();
+        jTextFieldDocumentoOutro.setEnabled(false);
+
+        questionario = new QuestionarioSocioeconomico();
     }
 
     public QuestionarioSocioEconomicoJPanel(QuestionarioSocioeconomico questT) {
-        this.quest = questT;
+        initComponents();
+        customInitComponents();
+        HUMVApp.esconderMensagemCarregamento();
+        this.questionario = questT;
         reintroduzirDadosQuestionarioDadosDono();
-
         reintroduzirDocumentacoes();
-
         reintroduzirCobranca();
-
         reintroduzirAnalise();
-
         reintroduzirComposicaoFamiliar();
     }
 
@@ -94,167 +138,122 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         reintroduzirParentes();
         this.jLabelRendaTotal.setText("" + modelParente.getRendaTotal());
         this.jLabelRendaPerCapta.setText("" + modelParente.getRendaPerCapita());
-        this.jTextFieldFatoresDeclarados.setText(quest.getRiscosSociais());
-        this.jTextAreaBemMaterial.setText(quest.getBensFamiliares());
-        this.jTextAreaDividas.setText(quest.getEmprestimos());
-        this.jTextAreaMotivos.setText(quest.getImpossibilidadesCusteio());
+        this.jTextFieldFatoresDeclarados.setText(questionario.getRiscosSociais());
+        this.jTextAreaBemMaterial.setText(questionario.getBensFamiliares());
+        this.jTextAreaDividas.setText(questionario.getEmprestimos());
+        this.jTextAreaMotivos.setText(questionario.getImpossibilidadesCusteio());
     }
 
     private void reintroduzirCobranca() {
-        switch (quest.getTipoCobrancaCirurgias()) {
-            case QuestionarioSocioeconomico.COBRANCA_NORMAL:
-                this.jRadioButtonCirurgiaNormal.setSelected(true);
-                this.jRadioButtonCirurgiaAula.setSelected(false);
-                this.jRadioButtonCirurgiaIsencao.setSelected(false);
-                this.jRadioButtonCirurgiaDesconto.setSelected(false);
-                this.jFormattedTextFieldCirurgia.setEnabled(false);
-                break;
-            case QuestionarioSocioeconomico.COBRANCA_AULA:
-                this.jRadioButtonCirurgiaNormal.setSelected(false);
-                this.jRadioButtonCirurgiaAula.setSelected(true);
-                this.jRadioButtonCirurgiaIsencao.setSelected(false);
-                this.jRadioButtonCirurgiaDesconto.setSelected(false);
-                this.jFormattedTextFieldCirurgia.setEnabled(false);
-                break;
-            case QuestionarioSocioeconomico.COBRANCA_INSENCAO:
-                this.jRadioButtonCirurgiaNormal.setSelected(false);
-                this.jRadioButtonCirurgiaAula.setSelected(false);
-                this.jRadioButtonCirurgiaIsencao.setSelected(true);
-                this.jRadioButtonCirurgiaDesconto.setSelected(false);
-                this.jFormattedTextFieldCirurgia.setEnabled(false);
-                break;
-            case QuestionarioSocioeconomico.COBRANCA_DESCONTO:
-                this.jRadioButtonCirurgiaNormal.setSelected(true);
-                this.jRadioButtonCirurgiaAula.setSelected(false);
-                this.jRadioButtonCirurgiaIsencao.setSelected(false);
-                this.jRadioButtonCirurgiaDesconto.setSelected(false);
-                this.jFormattedTextFieldCirurgia.setEnabled(true);
-                this.jFormattedTextFieldCirurgia.setText("" + quest.getValorDescontoCirurgias());
-                break;
-            default:
-                erroMensage("Erro ao reinserir a forma de cobrança", "Erro em Cobrança");
+        if (questionario.getTipoCobrancaCirurgias().equals(QuestionarioSocioeconomico.COBRANCA_NORMAL)) {
+            this.jRadioButtonCirurgiaNormal.setSelected(true);
+        } else if (questionario.getTipoCobrancaCirurgias().equals(QuestionarioSocioeconomico.COBRANCA_AULA)) {
+            this.jRadioButtonCirurgiaAula.setSelected(true);
+        } else if (questionario.getTipoCobrancaCirurgias().equals(QuestionarioSocioeconomico.COBRANCA_INSENCAO)) {
+            this.jRadioButtonCirurgiaIsencao.setSelected(true);
+        } else if (questionario.getTipoCobrancaCirurgias().equals(QuestionarioSocioeconomico.COBRANCA_DESCONTO)) {
+            this.jRadioButtonCirurgiaDesconto.setSelected(true);
+            this.jFormattedTextFieldCirurgia.setEnabled(true);
+            this.jFormattedTextFieldCirurgia.setText("" + questionario.getValorDescontoCirurgias());
+        } else {
+            InterfaceGraficaUtils.erroResposta("Erro ao reinserir a forma de cobrança");
         }
 
-        switch (quest.getTipoCobrancaConsultas()) {
-            case QuestionarioSocioeconomico.COBRANCA_NORMAL:
-                this.jRadioButtonConsultaNormal.setSelected(true);
-                this.jRadioButtonConsultaAula.setSelected(false);
-                this.jRadioButtonConsultaIsencao.setSelected(false);
-                this.jRadioButtonConsultaDesconto.setSelected(false);
-                this.jFormattedTextFieldConsulta.setEnabled(false);
-                break;
-            case QuestionarioSocioeconomico.COBRANCA_AULA:
-                this.jRadioButtonConsultaNormal.setSelected(false);
-                this.jRadioButtonConsultaAula.setSelected(true);
-                this.jRadioButtonConsultaIsencao.setSelected(false);
-                this.jRadioButtonConsultaDesconto.setSelected(false);
-                this.jFormattedTextFieldConsulta.setEnabled(false);
-                break;
-            case QuestionarioSocioeconomico.COBRANCA_INSENCAO:
-                this.jRadioButtonConsultaNormal.setSelected(false);
-                this.jRadioButtonConsultaAula.setSelected(false);
-                this.jRadioButtonConsultaIsencao.setSelected(true);
-                this.jRadioButtonConsultaDesconto.setSelected(false);
-                this.jFormattedTextFieldConsulta.setEnabled(false);
-                break;
-            case QuestionarioSocioeconomico.COBRANCA_DESCONTO:
-                this.jRadioButtonConsultaNormal.setSelected(false);
-                this.jRadioButtonConsultaAula.setSelected(false);
-                this.jRadioButtonConsultaIsencao.setSelected(false);
-                this.jRadioButtonConsultaDesconto.setSelected(true);
-                this.jFormattedTextFieldConsulta.setEnabled(false);
-                this.jFormattedTextFieldConsulta.setText("" + quest.getValorDescontoConsultas());
-                break;
-            default:
-                erroMensage("Erro ao reinserir a forma de cobrança", "Erro em Cobrança");
+        if (questionario.getTipoCobrancaConsultas().equals(QuestionarioSocioeconomico.COBRANCA_NORMAL)) {
+            this.jRadioButtonConsultaNormal.setSelected(true);
+        } else if (questionario.getTipoCobrancaConsultas().equals(QuestionarioSocioeconomico.COBRANCA_AULA)) {
+            this.jRadioButtonConsultaAula.setSelected(true);
+        } else if (questionario.getTipoCobrancaConsultas().equals(QuestionarioSocioeconomico.COBRANCA_INSENCAO)) {
+            this.jRadioButtonConsultaIsencao.setSelected(true);
+        } else if (questionario.getTipoCobrancaConsultas().equals(QuestionarioSocioeconomico.COBRANCA_DESCONTO)) {
+            this.jRadioButtonConsultaDesconto.setSelected(true);
+            this.jFormattedTextFieldConsulta.setEnabled(false);
+            this.jFormattedTextFieldConsulta.setText("" + questionario.getValorDescontoConsultas());
+        } else {
+            InterfaceGraficaUtils.erroResposta("Erro ao reinserir a forma de cobrança");
         }
-        switch (quest.getTipoCobrancaConsultas()) {
-            case QuestionarioSocioeconomico.COBRANCA_NORMAL:
-                this.jRadioButtonExameNormal.setSelected(true);
-                this.jRadioButtonExameAula.setSelected(false);
-                this.jRadioButtonExameIsencao.setSelected(false);
-                this.jRadioButtonExameDesconto.setSelected(false);
-                this.jFormattedTextFieldExame.setEnabled(false);
-                break;
-            case QuestionarioSocioeconomico.COBRANCA_AULA:
-                this.jRadioButtonExameNormal.setSelected(false);
-                this.jRadioButtonExameAula.setSelected(true);
-                this.jRadioButtonExameIsencao.setSelected(false);
-                this.jRadioButtonExameDesconto.setSelected(false);
-                this.jFormattedTextFieldExame.setEnabled(false);
-                break;
-            case QuestionarioSocioeconomico.COBRANCA_INSENCAO:
-                this.jRadioButtonExameNormal.setSelected(false);
-                this.jRadioButtonExameAula.setSelected(false);
-                this.jRadioButtonExameIsencao.setSelected(true);
-                this.jRadioButtonExameDesconto.setSelected(false);
-                this.jFormattedTextFieldExame.setEnabled(false);
-                break;
-            case QuestionarioSocioeconomico.COBRANCA_DESCONTO:
-                this.jRadioButtonExameNormal.setSelected(false);
-                this.jRadioButtonExameAula.setSelected(false);
-                this.jRadioButtonExameIsencao.setSelected(false);
-                this.jRadioButtonExameDesconto.setSelected(true);
-                this.jFormattedTextFieldExame.setEnabled(true);
-                this.jFormattedTextFieldConsulta.setText("" + quest.getValorDescontoConsultas());
-                break;
-            default:
-                erroMensage("Erro ao reinserir a forma de cobrança", "Erro em Cobrança");
+
+        if (questionario.getTipoCobrancaConsultas().equals(QuestionarioSocioeconomico.COBRANCA_NORMAL)) {
+            this.jRadioButtonExameNormal.setSelected(true);
+        } else if (questionario.getTipoCobrancaConsultas().equals(QuestionarioSocioeconomico.COBRANCA_AULA)) {
+            this.jRadioButtonExameAula.setSelected(true);
+        } else if (questionario.getTipoCobrancaConsultas().equals(QuestionarioSocioeconomico.COBRANCA_INSENCAO)) {
+            this.jRadioButtonExameIsencao.setSelected(true);
+        } else if (questionario.getTipoCobrancaConsultas().equals(QuestionarioSocioeconomico.COBRANCA_DESCONTO)) {
+            this.jRadioButtonExameDesconto.setSelected(true);
+            this.jFormattedTextFieldExame.setEnabled(true);
+            this.jFormattedTextFieldConsulta.setText("" + questionario.getValorDescontoConsultas());
+        } else {
+            InterfaceGraficaUtils.erroResposta("Erro ao reinserir a forma de cobrança");
         }
     }
 
     private void reintroduzirAnalise() {
-        this.jTextAreaVulnerabilidades.setText(quest.getAnaliseBreveResumo());
-        this.jTextAreaEncaminhamentos.setText(quest.getAnaliseObservacoes());
-        this.jTextAreaConclusoes.setText(quest.getAnaliseConclusoes());
+        this.jTextAreaVulnerabilidades.setText(questionario.getAnaliseBreveResumo());
+        this.jTextAreaEncaminhamentos.setText(questionario.getAnaliseObservacoes());
+        this.jTextAreaConclusoes.setText(questionario.getAnaliseConclusoes());
     }
 
     private void reintroduzirParentes() {
-        this.modelParente.setParentes(quest.getParentes());
+        this.modelParente.setParentes(questionario.getParentes());
     }
 
     private void reintroduzirDocumentacoes() {
-        this.modelDocumentacao.setDocumentos(quest.getDocumentosEntregues());
+        this.modelDocumentacao.setDocumentos(questionario.getDocumentosEntregues());
     }
 
     private void reintroduzirDadosQuestionarioDadosDono() {
-        this.configDono(quest.getDono());
-        this.jFormattedTextFieldIdade.setText("" + quest.getIdade());
-        this.jComboBoxEstadoCivil.setSelectedIndex(quest.getEstadoCivil());
-        this.jTextFieldProfissao.setText(quest.getProfissao());
-        this.jComboBoxEscolaridadeDono.setSelectedIndex(quest.getEscolaridade());
-        this.jTextFieldOcupacao.setText(quest.getOcupacaoAtual());
-        this.jFormattedTextFieldRendaFormal.setText("" + quest.getRendaFormal());
-        this.jFormattedTextFieldRendaInformal.setText("" + quest.getRendaInformal());
-        this.jFormattedTextFieldAluguel.setText("" + quest.getValorAluguel());
-        this.jTextFieldTipoConstrucao.setText(quest.getTipoConstrucao());
-        this.jTextFieldCondicaoMoradia.setText(quest.getCondicaoMoradia());
-        this.jTextFieldProgramaRenda.setText(quest.getProgramaTransferenciaRenda());
-        if (quest.isEstudante()) {
+        this.jLabelNomeDono.setText("Nome : " + questionario.getDono().getNome());
+        jLabelCpfDono.setText("CPF : " + questionario.getDono().getCpfCnpj());
+        jLabelTelefone.setText("Telefone: " + questionario.getDono().getTelefone());
+        jLabelEndereco.setText("Endereço: " + questionario.getDono().getEndereco());
+
+        this.jFormattedTextFieldIdade.setText("" + questionario.getIdade());
+        this.jComboBoxEstadoCivil.setSelectedIndex(questionario.getEstadoCivil());
+        this.jTextFieldProfissao.setText(questionario.getProfissao());
+        this.jComboBoxEscolaridadeDono.setSelectedIndex(questionario.getEscolaridade());
+        this.jTextFieldOcupacao.setText(questionario.getOcupacaoAtual());
+        this.jFormattedTextFieldRendaFormal.setText("" + questionario.getRendaFormal());
+        this.jFormattedTextFieldRendaInformal.setText("" + questionario.getRendaInformal());
+        this.jFormattedTextFieldAluguel.setText("" + questionario.getValorAluguel());
+        this.jTextFieldTipoConstrucao.setText(questionario.getTipoConstrucao());
+        this.jTextFieldCondicaoMoradia.setText(questionario.getCondicaoMoradia());
+        this.jTextFieldProgramaRenda.setText(questionario.getProgramaTransferenciaRenda());
+        if (questionario.isEstudante()) {
             this.jRadioButtonEstudanteSim.setSelected(true);
-            this.jRadioButtonEstudanteNao.setSelected(true);
+            this.jFormattedTextFieldGastosMensais.setText("" + questionario.getGastosMensais());
+            this.jTextFieldFonteCusteio.setText(questionario.getFontCusteio());
+            this.jTextFieldBeneficio.setText(questionario.getBolsaOuBeneficio());
+            this.jTextAreaObservacoes.setText(questionario.getObservacoesDadosDono());
         } else {
-            this.jRadioButtonEstudanteSim.setSelected(false);
             this.jRadioButtonEstudanteNao.setSelected(true);
         }
-        if (quest.isTemEnergia()) {
+        if (questionario.isTemEnergia()) {
             this.jRadioButtonEnergiaSim.setSelected(true);
-            this.jRadioButtonEnergiaNao.setSelected(false);
         } else {
-            this.jRadioButtonEnergiaSim.setSelected(false);
             this.jRadioButtonEnergiaNao.setSelected(true);
         }
-        if (quest.isTemSaneamento()) {
+        if (questionario.isTemSaneamento()) {
             this.jRadioButtonSaneamentoSim.setSelected(true);
-            this.jRadioButtonSaneamentoNao.setSelected(false);
         } else {
-            this.jRadioButtonSaneamentoSim.setSelected(false);
             this.jRadioButtonSaneamentoNao.setSelected(true);
         }
-        this.jFormattedTextFieldGastosMensais.setText("" + quest.getGastosMensais());
-        this.jTextFieldFonteCusteio.setText(quest.getFontCusteio());
-        this.jTextFieldBeneficio.setText(quest.getBolsaOuBeneficio());
-        this.jTextAreaObservacoes.setText(quest.getObservacoesDadosDono());
+
+    }
+
+    @Override
+    public void setResultado(Object resultado) {
+        if (resultado instanceof Dono) {
+            dono = (Dono) resultado;
+            jLabelNomeDono.setText("Nome: " + dono.getNome());
+            if (dono.getTipoDocumento().equalsIgnoreCase("cpf")) {
+                jLabelCpfDono.setText("CPF: " + MaskUtils.formatarStringCPF(dono.getCpfCnpj()));
+            } else {
+                jLabelCpfDono.setText("CNPJ: " + MaskUtils.formatarStringCNPJ(dono.getCpfCnpj()));
+            }
+            jLabelEndereco.setText("Edereço: " + dono.getEndereco());
+            jLabelTelefone.setText("Telefone: " + dono.getTelefone());
+        }
     }
 
     /**
@@ -289,8 +288,8 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jFormattedTextFieldIdade = new javax.swing.JFormattedTextField();
-        jComboBoxEstadoCivil = new javax.swing.JComboBox<String>();
-        jComboBoxEscolaridadeDono = new javax.swing.JComboBox<String>();
+        jComboBoxEstadoCivil = new javax.swing.JComboBox<>();
+        jComboBoxEscolaridadeDono = new javax.swing.JComboBox<>();
         jTextFieldProfissao = new javax.swing.JTextField();
         jTextFieldOcupacao = new javax.swing.JTextField();
         jPanelMateriais = new javax.swing.JPanel();
@@ -382,7 +381,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jComboBoxEscolaridadeFamliar = new javax.swing.JComboBox<String>();
+        jComboBoxEscolaridadeFamliar = new javax.swing.JComboBox<>();
         jLabel17 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
@@ -391,7 +390,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jTextFieldParentesco = new javax.swing.JTextField();
         jTextFieldFamiliaOcupacao = new javax.swing.JTextField();
         jButtonSalvar = new javax.swing.JButton();
-        jButtonRemover = new javax.swing.JButton();
+        jButtonFamiliaRemover = new javax.swing.JButton();
         jLabelRendaTotal = new javax.swing.JLabel();
         jLabelRendaPerCapta = new javax.swing.JLabel();
         jLabelFamiliaRendaTotal = new javax.swing.JLabel();
@@ -493,9 +492,9 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
 
         jFormattedTextFieldIdade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
 
-        jComboBoxEstadoCivil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Solteiro", "Casado", "Separado", "Divorciado", "Viúvo" }));
+        jComboBoxEstadoCivil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Solteiro", "Casado", "Separado", "Divorciado", "Viúvo" }));
 
-        jComboBoxEscolaridadeDono.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Fundamental incompleto", "Fundamental completo", "Médio incompleto", "Médio completo", "Superior incompleto", "Superior completo", "Pós-graduação incompleta", "Pós-graduação completa" }));
+        jComboBoxEscolaridadeDono.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fundamental incompleto", "Fundamental completo", "Médio incompleto", "Médio completo", "Superior incompleto", "Superior completo", "Pós-graduação incompleta", "Pós-graduação completa" }));
 
         javax.swing.GroupLayout jPanelAdicionaisLayout = new javax.swing.GroupLayout(jPanelAdicionais);
         jPanelAdicionais.setLayout(jPanelAdicionaisLayout);
@@ -567,32 +566,12 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jLabel12.setText("Energia elétrica:");
 
         jRadioButtonSaneamentoSim.setText("Sim");
-        jRadioButtonSaneamentoSim.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonSaneamentoSimActionPerformed(evt);
-            }
-        });
 
         jRadioButtonSaneamentoNao.setText("Não");
-        jRadioButtonSaneamentoNao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonSaneamentoNaoActionPerformed(evt);
-            }
-        });
 
         jRadioButtonEnergiaSim.setText("Sim");
-        jRadioButtonEnergiaSim.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonEnergiaSimActionPerformed(evt);
-            }
-        });
 
         jRadioButtonEnergiaNao.setText("Não");
-        jRadioButtonEnergiaNao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonEnergiaNaoActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanelMateriaisLayout = new javax.swing.GroupLayout(jPanelMateriais);
         jPanelMateriais.setLayout(jPanelMateriaisLayout);
@@ -680,18 +659,8 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jLabel18.setText("Estudante:");
 
         jRadioButtonEstudanteSim.setText("Sim");
-        jRadioButtonEstudanteSim.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonEstudanteSimActionPerformed(evt);
-            }
-        });
 
         jRadioButtonEstudanteNao.setText("Não");
-        jRadioButtonEstudanteNao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonEstudanteNaoActionPerformed(evt);
-            }
-        });
 
         jPanelEstudante.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -803,7 +772,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jButtonDocumentoSalvar.setText("Salvar");
         jButtonDocumentoSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDocumentoSalvarActionPerformed(evt);
+                jButtonTabelaDocumentosSalvarActionPerformed(evt);
             }
         });
 
@@ -815,39 +784,14 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         });
 
         jRadioButtonDocumentosComprovanteEndereco.setText("Comprovante de endereço");
-        jRadioButtonDocumentosComprovanteEndereco.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonDocumentosComprovanteEnderecoActionPerformed(evt);
-            }
-        });
 
         jRadioButtonDocumentosRGDono.setText("Cópia do documento de identidade do dono");
-        jRadioButtonDocumentosRGDono.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonDocumentosRGDonoActionPerformed(evt);
-            }
-        });
 
         jRadioButtonDocumentosMembroFamilia.setText("Cópia do documento de identidade de membro da família");
-        jRadioButtonDocumentosMembroFamilia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonDocumentosMembroFamiliaActionPerformed(evt);
-            }
-        });
 
         jRadioButtonDocumentosBolsaFamilia.setText("Cópia do cartão Bolsa Família");
-        jRadioButtonDocumentosBolsaFamilia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonDocumentosBolsaFamiliaActionPerformed(evt);
-            }
-        });
 
         jRadioButtonDocumentosOutro.setText("Outro");
-        jRadioButtonDocumentosOutro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonDocumentosOutroActionPerformed(evt);
-            }
-        });
 
         jTableDocumentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -863,11 +807,6 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jScrollPane6.setViewportView(jTableDocumentos);
 
         jCheckBoxNA.setText("NA");
-        jCheckBoxNA.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxNAActionPerformed(evt);
-            }
-        });
 
         jCheckBoxVistoASocial.setText("Visto Assistente Social");
 
@@ -904,8 +843,8 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanelDocumentosLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 668, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanelDocumentosLayout.setVerticalGroup(
             jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1029,96 +968,36 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jLabel41.setText("Cirurgia/reprodução:");
 
         jRadioButtonConsultaNormal.setText("Valor normal");
-        jRadioButtonConsultaNormal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonConsultaNormalActionPerformed(evt);
-            }
-        });
 
         jRadioButtonConsultaAula.setText("Valor aula");
-        jRadioButtonConsultaAula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonConsultaAulaActionPerformed(evt);
-            }
-        });
 
         jRadioButtonConsultaIsencao.setText("Isenção");
-        jRadioButtonConsultaIsencao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonConsultaIsencaoActionPerformed(evt);
-            }
-        });
 
         jRadioButtonConsultaDesconto.setText("Desconto");
-        jRadioButtonConsultaDesconto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonConsultaDescontoActionPerformed(evt);
-            }
-        });
 
         jFormattedTextFieldConsulta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
 
         jLabel42.setText("%");
 
         jRadioButtonExameNormal.setText("Valor normal");
-        jRadioButtonExameNormal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonExameNormalActionPerformed(evt);
-            }
-        });
 
         jRadioButtonExameAula.setText("Valor aula");
-        jRadioButtonExameAula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonExameAulaActionPerformed(evt);
-            }
-        });
 
         jRadioButtonExameIsencao.setText("Isenção");
-        jRadioButtonExameIsencao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonExameIsencaoActionPerformed(evt);
-            }
-        });
 
         jRadioButtonExameDesconto.setText("Desconto");
-        jRadioButtonExameDesconto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonExameDescontoActionPerformed(evt);
-            }
-        });
 
         jFormattedTextFieldExame.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
 
         jLabel43.setText("%");
 
         jRadioButtonCirurgiaNormal.setText("Valor normal");
-        jRadioButtonCirurgiaNormal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonCirurgiaNormalActionPerformed(evt);
-            }
-        });
 
         jRadioButtonCirurgiaAula.setText("Valor aula");
-        jRadioButtonCirurgiaAula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonCirurgiaAulaActionPerformed(evt);
-            }
-        });
 
         jRadioButtonCirurgiaIsencao.setText("Isenção");
-        jRadioButtonCirurgiaIsencao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonCirurgiaIsencaoActionPerformed(evt);
-            }
-        });
 
         jRadioButtonCirurgiaDesconto.setText("Desconto");
-        jRadioButtonCirurgiaDesconto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonCirurgiaDescontoActionPerformed(evt);
-            }
-        });
 
         jFormattedTextFieldCirurgia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
 
@@ -1232,7 +1111,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
 
         jLabel16.setText("Parentesco:");
 
-        jComboBoxEscolaridadeFamliar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Fundamental incompleto", "Fundamental completo", "Médio incompleto", "Médio completo", "Superior incompleto", "Superior completo", "Pós-graduação incompleta", "Pós-graduação completa" }));
+        jComboBoxEscolaridadeFamliar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fundamental incompleto", "Fundamental completo", "Médio incompleto", "Médio completo", "Superior incompleto", "Superior completo", "Pós-graduação incompleta", "Pós-graduação completa" }));
 
         jLabel17.setText("Escolaridade:");
 
@@ -1246,15 +1125,15 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jButtonSalvar.setText("Salvar");
         jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSalvarActionPerformed(evt);
+                jButtonTabelaFamiliaSalvarActionPerformed(evt);
             }
         });
 
-        jButtonRemover.setIcon(new javax.swing.ImageIcon("imagens/small_cancelar.png"));
-        jButtonRemover.setText("Remover");
-        jButtonRemover.addActionListener(new java.awt.event.ActionListener() {
+        jButtonFamiliaRemover.setIcon(new javax.swing.ImageIcon("imagens/small_cancelar.png"));
+        jButtonFamiliaRemover.setText("Remover");
+        jButtonFamiliaRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRemoverActionPerformed(evt);
+                jButtonFamiliaRemoverActionPerformed(evt);
             }
         });
 
@@ -1327,7 +1206,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                                 .addComponent(jTextFieldFamiliaRenda))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelComposicaoFamiliarLayout.createSequentialGroup()
                                 .addGap(0, 191, Short.MAX_VALUE)
-                                .addComponent(jButtonRemover)
+                                .addComponent(jButtonFamiliaRemover)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())
@@ -1352,7 +1231,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                             .addComponent(jLabel28)
                             .addComponent(jLabel29)
                             .addComponent(jLabel30))
-                        .addGap(0, 70, Short.MAX_VALUE))
+                        .addGap(0, 106, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelComposicaoFamiliarLayout.createSequentialGroup()
                         .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING)
@@ -1381,7 +1260,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                 .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel23)
                     .addComponent(jTextFieldFamiliaOcupacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonRemover)
+                    .addComponent(jButtonFamiliaRemover)
                     .addComponent(jButtonSalvar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1454,148 +1333,80 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonPesquisarDonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarDonoActionPerformed
-        HUMVApp.exibirMensagemCarregamento();
-        dono = new Dono();
-        dono.setNome("HUMV DONO");
-        QuestionarioBuscarDono bDono = new QuestionarioBuscarDono(this);
-        HUMVApp.setNovoPainelCentral(bDono);
+        JFrame jFrame = new JFrame("Busca");
+        PropriedadesBuscaDono propriedadesBusca = new PropriedadesBuscaDono(PropriedadesBusca.OPCAO_SELECIONAR, jFrame, this);
+        BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE DONO", propriedadesBusca);
+        jFrame.setContentPane(buscaPanel);
+        InterfaceGraficaUtils.exibirJanela(jFrame);
     }//GEN-LAST:event_jButtonPesquisarDonoActionPerformed
 
     private void jButtonCadastrarNovoDonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarNovoDonoActionPerformed
-        //new CadastrarDonoJDialog(this).setVisible(true);
-        HUMVApp.exibirMensagemCarregamento();
-        CadastrarDonoJPanel donoJP = new CadastrarDonoJPanel(this);
-        HUMVApp.setNovoPainelCentral(donoJP);
+        JFrame jFrame = new JFrame("Cadastro de dono");
+        CadastrarDonoJPanel cadastrarDonoJPanel = new CadastrarDonoJPanel(jFrame, this);
+        jFrame.setContentPane(cadastrarDonoJPanel);
+        InterfaceGraficaUtils.exibirJanela(jFrame);
     }//GEN-LAST:event_jButtonCadastrarNovoDonoActionPerformed
 
-    private void jRadioButtonSaneamentoNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonSaneamentoNaoActionPerformed
-        // TODO add your handling code here:
-        this.jRadioButtonSaneamentoSim.setSelected(false);
-    }//GEN-LAST:event_jRadioButtonSaneamentoNaoActionPerformed
-
-    private void jRadioButtonEnergiaNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEnergiaNaoActionPerformed
-        // TODO add your handling code here:
-        this.jRadioButtonEnergiaSim.setSelected(false);
-    }//GEN-LAST:event_jRadioButtonEnergiaNaoActionPerformed
-
-    private void jButtonDocumentoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDocumentoSalvarActionPerformed
+    private void jButtonTabelaDocumentosSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTabelaDocumentosSalvarActionPerformed
         String nomeDocumento = "";
-        String nomeUser;
         Date data;
         try {
             if (this.jRadioButtonDocumentosOutro.isSelected()) {
-                nomeDocumento = this.jTextFieldDocumentoOutro.getText();
-                nomeDocumento = validarString(nomeDocumento, "Nome do Documento");
-            } else {
-                if (this.jRadioButtonDocumentosBolsaFamilia.isSelected()) {
-                    nomeDocumento = Documentacao.BOLSAFAMILIA;
-                } else if (jRadioButtonDocumentosComprovanteEndereco.isSelected()) {
-                    nomeDocumento = Documentacao.COMPROVANTEENDEREÇO;
-                } else if (jRadioButtonDocumentosMembroFamilia.isSelected()) {
-                    nomeDocumento = Documentacao.MEMBROFAMILIA;
-                } else if (jRadioButtonDocumentosRGDono.isSelected()) {
-                    nomeDocumento = Documentacao.RGDONO;
-                }
+                validarCampoVazio(jTextFieldDocumentoOutro, "nome do documento");
+                nomeDocumento = jTextFieldDocumentoOutro.getText();
+            } else if (this.jRadioButtonDocumentosBolsaFamilia.isSelected()) {
+                nomeDocumento = Documentacao.BOLSA_FAMILIA;
+            } else if (jRadioButtonDocumentosComprovanteEndereco.isSelected()) {
+                nomeDocumento = Documentacao.COMPROVANTE_ENDERECO;
+            } else if (jRadioButtonDocumentosMembroFamilia.isSelected()) {
+                nomeDocumento = Documentacao.RG_MEMBRO_FAMILIA;
+            } else if (jRadioButtonDocumentosRGDono.isSelected()) {
+                nomeDocumento = Documentacao.RG_DONO;
             }
 
-            nomeUser = HUMVApp.getNomeUsuario();
             data = this.dteDataEntrega.getDate();
             Documentacao doc = new Documentacao();
             doc.setDataEntrega(data);
             doc.setNomeDocumento(nomeDocumento);
-            doc.setNomeRecebinte(nomeUser);
+            doc.setNomeUsuarioRecebinte(HUMVApp.getNomeUsuario());
+            doc.setNa(jCheckBoxNA.isSelected());
+            doc.setVistoAssistenteSocial(jCheckBoxVistoASocial.isSelected());
+            //doc.setQuestionario(questionario);
             modelDocumentacao.addDocumento(doc);
         } catch (Exception ex) {
-            this.erroMensage(ex.getMessage(), "Falha de Validação de item no recebimento de Documentos.");
+            InterfaceGraficaUtils.validaCampoVazio(ex.getMessage());
         }
-    }//GEN-LAST:event_jButtonDocumentoSalvarActionPerformed
+    }//GEN-LAST:event_jButtonTabelaDocumentosSalvarActionPerformed
 
     private void jButtonDocumentoRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDocumentoRemoverActionPerformed
-        Integer indexRemuver = this.jTableDocumentos.getSelectedRow();
-        this.modelDocumentacao.removerDocumento(indexRemuver);
+        Integer indexRemover = this.jTableDocumentos.getSelectedRow();
+        this.modelDocumentacao.removerDocumento(indexRemover);
     }//GEN-LAST:event_jButtonDocumentoRemoverActionPerformed
 
-    private void jRadioButtonDocumentosRGDonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDocumentosRGDonoActionPerformed
-        // TODO add your handling code here:
-        this.jRadioButtonDocumentosComprovanteEndereco.setSelected(false);
-        this.jRadioButtonDocumentosRGDono.setSelected(true);
-        this.jRadioButtonDocumentosMembroFamilia.setSelected(false);
-        this.jRadioButtonDocumentosBolsaFamilia.setSelected(false);
-        this.jRadioButtonDocumentosOutro.setSelected(false);
-        this.jTextFieldDocumentoOutro.setEnabled(false);
-    }//GEN-LAST:event_jRadioButtonDocumentosRGDonoActionPerformed
-
-    private void jRadioButtonDocumentosMembroFamiliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDocumentosMembroFamiliaActionPerformed
-        // TODO add your handling code here:
-        this.jRadioButtonDocumentosComprovanteEndereco.setSelected(false);
-        this.jRadioButtonDocumentosRGDono.setSelected(false);
-        this.jRadioButtonDocumentosMembroFamilia.setSelected(true);
-        this.jRadioButtonDocumentosBolsaFamilia.setSelected(false);
-        this.jRadioButtonDocumentosOutro.setSelected(false);
-        this.jTextFieldDocumentoOutro.setEnabled(false);
-    }//GEN-LAST:event_jRadioButtonDocumentosMembroFamiliaActionPerformed
-
-    private void jCheckBoxNAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxNAActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBoxNAActionPerformed
-
-    private void jRadioButtonConsultaIsencaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonConsultaIsencaoActionPerformed
-        // TODO add your handling code here:
-        this.jRadioButtonConsultaNormal.setSelected(false);
-        this.jRadioButtonConsultaIsencao.setSelected(true);
-        this.jRadioButtonConsultaDesconto.setSelected(false);
-        this.jRadioButtonConsultaAula.setSelected(false);
-        this.jFormattedTextFieldConsulta.setEnabled(false);
-    }//GEN-LAST:event_jRadioButtonConsultaIsencaoActionPerformed
-
-    private void jRadioButtonExameIsencaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonExameIsencaoActionPerformed
-        // TODO add your handling code here:
-        this.jRadioButtonExameNormal.setSelected(false);
-        this.jRadioButtonExameAula.setSelected(false);
-        this.jRadioButtonExameDesconto.setSelected(false);
-        this.jRadioButtonExameIsencao.setSelected(true);
-    }//GEN-LAST:event_jRadioButtonExameIsencaoActionPerformed
-
-    private void jRadioButtonCirurgiaIsencaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCirurgiaIsencaoActionPerformed
-        // TODO add your handling code here:
-        this.jRadioButtonCirurgiaNormal.setSelected(false);
-        this.jRadioButtonCirurgiaIsencao.setSelected(true);
-        this.jRadioButtonCirurgiaDesconto.setSelected(false);
-        this.jRadioButtonCirurgiaAula.setSelected(false);
-        this.jFormattedTextFieldCirurgia.setEnabled(false);
-    }//GEN-LAST:event_jRadioButtonCirurgiaIsencaoActionPerformed
-
-    private void jRadioButtonExameDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonExameDescontoActionPerformed
-        // TODO add your handling code here:
-        this.jRadioButtonExameNormal.setSelected(false);
-        this.jRadioButtonExameAula.setSelected(false);
-        this.jRadioButtonExameDesconto.setSelected(true);
-        this.jRadioButtonExameIsencao.setSelected(false);
-        this.jFormattedTextFieldExame.setEnabled(true);
-    }//GEN-LAST:event_jRadioButtonExameDescontoActionPerformed
-
     private void jButtonQuestionarioCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQuestionarioCancelarActionPerformed
-
+        boolean sair = InterfaceGraficaUtils.dialogoCancelar("o cadastro", "questionário socioeconômico");
+        if (sair) {
+            System.gc();
+            HUMVApp.setPainelCentralComLogo();
+        }
     }//GEN-LAST:event_jButtonQuestionarioCancelarActionPerformed
 
     private void jButtonQuestionarioSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQuestionarioSalvarActionPerformed
-        if(dono==null){
-            erroMensage("Escolha um dono de Animal para continuar.", "Dados do dono.");
+        if (dono == null) {
+            InterfaceGraficaUtils.erroCadastro("Escolha ou cadastre um dono de animal para continuar.");
             return;
         }
-        
-        
-        boolean OkDonoDados, okAnalise, okFatoresRisco;
-        OkDonoDados = validarDadosDoDono();
-        if(!OkDonoDados){
+
+        boolean okDonoDados, okAnalise, okFatoresRisco;
+        okDonoDados = validarDadosDoDono();
+        if (!okDonoDados) {
             return;
         }
-        
-        
+
         setArrayDocumentacao();
 
-        okAnalise = setAnalisetoQuest();
-        if(!okAnalise){
+        okAnalise = setAnaliseQuestionario();
+        if (!okAnalise) {
             return;
         }
 
@@ -1605,72 +1416,64 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
 
         setArrayParentes();
         okFatoresRisco = setFatoresRiscos();
-        if(!okFatoresRisco){
+        if (!okFatoresRisco) {
             return;
         }
         
-        if (OkDonoDados && okAnalise && okFatoresRisco) {
-            try {
-                RESTMethods.put("/api/questionarioSocioeconomico", quest);
-                JOptionPane.showMessageDialog(HUMVApp.getMainWindow(), "Salvo Com Sucesso.");
-            } catch (RESTConnectionException ex) {
-                erroMensage("Erro ao connectar ao Servidor.\n" + ex.getMessage(), "Falha de Connexão.");
-                ex.printStackTrace();
-            }
+        try {
+            RESTMethods.post("/api/questionarioSocioeconomico", questionario);
+            InterfaceGraficaUtils.sucessoCadastro("questionário socioeconômico");
+            HUMVApp.setPainelCentralComLogo();
+        } catch (RESTConnectionException ex) {
+            InterfaceGraficaUtils.erroConexao();
+            ex.printStackTrace();
         }
+
     }//GEN-LAST:event_jButtonQuestionarioSalvarActionPerformed
 
-    private boolean setAnalisetoQuest() {
+    private boolean setAnaliseQuestionario() {
         try {
-            String breveResumo = this.jTextAreaVulnerabilidades.getText();
-            breveResumo = validarString(breveResumo, "Breve resumo em Analise");
+            validarCampoVazio(jTextAreaVulnerabilidades, "breve resumo em análise");
+            validarCampoVazio(jTextAreaEncaminhamentos, "orientação e encaminhamento");
+            validarCampoVazio(jTextAreaConclusoes, "conclusão");
 
-            String orientacaoIncaminhamento = this.jTextAreaEncaminhamentos.getText();
-            orientacaoIncaminhamento = validarString(breveResumo, "Orientação e encaminhamento em Analise");
-
-            String conclusao = this.jTextAreaConclusoes.getText();
-            conclusao = validarString(conclusao, "Conclusão em Analise");
-
-            this.quest.setAnaliseBreveResumo(breveResumo);
-            this.quest.setAnaliseObservacoes(orientacaoIncaminhamento);
-            this.quest.setAnaliseConclusoes(conclusao);
+            questionario.setAnaliseBreveResumo(jTextAreaVulnerabilidades.getText());
+            questionario.setAnaliseObservacoes(jTextAreaEncaminhamentos.getText());
+            questionario.setAnaliseConclusoes(jTextAreaConclusoes.getText());
             return true;
         } catch (Exception ex) {
-            this.erroMensage(ex.getMessage(), "Falta de item em Analise do Asistente social.");
+            InterfaceGraficaUtils.validaCampoVazio(ex.getMessage());
             return false;
         }
     }
 
     private boolean setFatoresRiscos() {
         try {
-            String fatoresDeclarados = this.jTextFieldFatoresDeclarados.getText();
-            fatoresDeclarados = validarString(fatoresDeclarados, "Fatores Declarados");
-            String bensMateriais = this.jTextAreaBemMaterial.getText();
-            bensMateriais = validarString(bensMateriais, "Bens Materiais");
-            String dividasMateriais = this.jTextAreaDividas.getText();
-            dividasMateriais = validarString(dividasMateriais, "Dividas Materiais");
-            String motivos = this.jTextAreaMotivos.getText();
-            motivos = validarString(motivos, "Motivo de não poder Pagar");
-            quest.setRiscosSociais(fatoresDeclarados);
-            quest.setBensFamiliares(bensMateriais);
-            quest.setEmprestimos(dividasMateriais);
-            quest.setImpossibilidadesCusteio(motivos);
+            validarCampoVazio(jTextFieldFatoresDeclarados, "fatores declarados");
+            validarCampoVazio(jTextAreaBemMaterial, "bens materiais");
+            validarCampoVazio(jTextAreaDividas, "dívidas");
+            validarCampoVazio(jTextAreaMotivos, "motivo de impossibilidade de pagamento");
+
+            questionario.setRiscosSociais(jTextFieldFatoresDeclarados.getText());
+            questionario.setBensFamiliares(jTextAreaBemMaterial.getText());
+            questionario.setEmprestimos(jTextAreaDividas.getText());
+            questionario.setImpossibilidadesCusteio(jTextAreaMotivos.getText());
             return true;
         } catch (Exception ex) {
-            erroMensage(ex.getMessage(), "Erro na aba Fatores de Risco.");
+            InterfaceGraficaUtils.validaCampoVazio(ex.getMessage());
             return false;
         }
     }
 
     private void setArrayParentes() {
-        quest.setParentes((List<Parente>) modelParente.getParentes());
+        questionario.setParentes(modelParente.getParentes());
     }
 
     private void setArrayDocumentacao() {
-        quest.setDocumentosEntregues((List<Documentacao>) modelDocumentacao.getDocumentos());
+        questionario.setDocumentosEntregues(modelDocumentacao.getDocumentos());
     }
 
-    private void setValorTipoConsulta() throws HeadlessException {
+    private void setValorTipoConsulta() {
         Integer consulta;
         if (this.jRadioButtonConsultaAula.isSelected()) {
             consulta = QuestionarioSocioeconomico.COBRANCA_AULA;
@@ -1681,8 +1484,9 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         } else {
             consulta = QuestionarioSocioeconomico.COBRANCA_DESCONTO;
             String descontoConsultaST = this.jFormattedTextFieldConsulta.getText();
-            setValorConsultaDesconto(descontoConsultaST);
+            questionario.setValorDescontoConsultas(ValidationsUtils.converteStringParaPreco(descontoConsultaST));
         }
+        questionario.setTipoCobrancaConsultas(consulta);
     }
 
     private void setValorTipoExame() throws HeadlessException {
@@ -1696,8 +1500,9 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         } else {
             exame = QuestionarioSocioeconomico.COBRANCA_DESCONTO;
             String descontoExameST = this.jFormattedTextFieldConsulta.getText();
-            setValorExameDesconto(descontoExameST);
+            questionario.setValorDescontoExames(ValidationsUtils.converteStringParaPreco(descontoExameST));
         }
+        questionario.setTipoCobrancaExames(exame);
     }
 
     private void setValorTipoCirugia() throws HeadlessException {
@@ -1711,172 +1516,81 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         } else {
             cirugia = QuestionarioSocioeconomico.COBRANCA_DESCONTO;
             String descontoCirugiaST = this.jFormattedTextFieldConsulta.getText();
-            setValorCirugiaDesconto(descontoCirugiaST);
+            questionario.setValorDescontoCirurgias(ValidationsUtils.converteStringParaPreco(descontoCirugiaST));
         }
-    }
-
-    private void setValorCirugiaDesconto(String descontoCirugiaST) throws HeadlessException {
-        Double descontoCirugia;
-        try {
-            descontoCirugia = validarDouble(descontoCirugiaST, "Desconto Consulta");
-        } catch (Exception ex) {
-            this.erroMensage(ex.getMessage(), "Falha no valor do desconto da Cirugia.");
-        }
-    }
-
-    private void setValorExameDesconto(String descontoExameST) throws HeadlessException {
-        Double descontoExame;
-        try {
-            descontoExame = validarDouble(descontoExameST, "Desconto Consulta");
-        } catch (Exception ex) {
-            this.erroMensage(ex.getMessage(), "Falha no valor do desconto da Exame.");
-        }
-    }
-
-    private void setValorConsultaDesconto(String descontoConsultaST) throws HeadlessException {
-        Double descontoConsulta;
-        try {
-            descontoConsulta = validarDouble(descontoConsultaST, "Desconto Consulta");
-            quest.setValorDescontoConsultas(descontoConsulta);
-        } catch (Exception ex) {
-            this.erroMensage(ex.getMessage(), "Falha no valor do desconto da Consulta.");
-        }
+        questionario.setTipoCobrancaCirurgias(cirugia);
     }
 
     private boolean validarDadosDoDono() {
-        String idadeST = this.jFormattedTextFieldIdade.getText();
-        Integer idade;
+
         try {
-            idade = validarInteger(idadeST, "Idade");
-            Integer estadoCivil;
-            estadoCivil = this.jComboBoxEstadoCivil.getSelectedIndex();
-            String profissao = this.jTextFieldProfissao.getText();
-            profissao = validarString(profissao, "Profissão");
-            Integer escolaridade = this.jComboBoxEscolaridadeFamliar.getSelectedIndex();
-            String ocupacao = this.jTextFieldOcupacao.getText();
-            ocupacao = validarString(ocupacao, "Ocupação");
-            String rendaFormalST = this.jFormattedTextFieldRendaFormal.getText();
-            Double rendaFormal = validarDouble(rendaFormalST, "Renda Formal");
-            String rendaInformalST = this.jFormattedTextFieldRendaInformal.getText();
-            Double rendaInformal = validarDouble(rendaFormalST, "Renda Informal");
-            String aluguelST = this.jFormattedTextFieldAluguel.getText();
-            Double aluguel = validarDouble(aluguelST, "Aluguel");
-            boolean saneamento;
-            boolean saneamentoS = this.jRadioButtonSaneamentoSim.isSelected();
-            boolean saneamentoN = this.jRadioButtonSaneamentoNao.isSelected();
-            saneamento = validarRadioButton(saneamentoS, saneamentoN, "Saneamento");
-            boolean energiaS = this.jRadioButtonEnergiaSim.isSelected();
-            boolean energiaN = this.jRadioButtonEnergiaNao.isSelected();
-            boolean energia;
-            energia = validarRadioButton(energiaS, energiaN, "Energia");
-            String tipoConst = this.jTextFieldTipoConstrucao.getText();
-            tipoConst = validarString(tipoConst, "Tipo de Construção");
-            String condMoradia = this.jTextFieldCondicaoMoradia.getText();
-            condMoradia = validarString(condMoradia, "Condição de Modaria");
-            String progTransferRenda = this.jTextFieldProgramaRenda.getText();
-            progTransferRenda = validarString(progTransferRenda, "Programa de Transferencia de Renda");
+            validarCampoVazio(jFormattedTextFieldIdade, "idade");
+            validarCampoVazio(jTextFieldProfissao, "profissão");
+            validarCampoVazio(jTextFieldOcupacao, "ocupação");
+            validarCampoVazio(jTextFieldTipoConstrucao, "tipo de construção");
+            validarCampoVazio(jTextFieldCondicaoMoradia, "condição de moradia");
+            validarCampoVazio(jTextFieldProgramaRenda, "programa de transferencia de renda");
+            validarCampoVazio(jFormattedTextFieldRendaFormal, "renda formal");
+            validarCampoVazio(jFormattedTextFieldRendaInformal, "renda informal");
+            validarCampoVazio(jFormattedTextFieldAluguel, "aluguel/financ.");
 
-            boolean estudante;
-            boolean estudanteS = this.jRadioButtonEstudanteSim.isSelected();
-            boolean estudanteN = this.jRadioButtonEstudanteNao.isSelected();
-            estudante = validarRadioButton(estudanteS, estudanteN, "Estudante");
-
-            String gastosMenssaisST = this.jFormattedTextFieldGastosMensais.getText();
-            Double gastosMensais = validarDouble(gastosMenssaisST, "Gastos Mensais");
-
-            String fonteCusteio = this.jTextFieldFonteCusteio.getText();
-            fonteCusteio = validarString(fonteCusteio, "Fonte de Custeio");
-
-            String bolsaOuBeneficio = this.jTextFieldBeneficio.getText();
-            bolsaOuBeneficio = validarString(bolsaOuBeneficio, "Bolsa ou Beneficio");
-
-            String observacao = this.jTextAreaObservacoes.getText();
-            validarString(observacao, "Observações");
-            quest.setIdade(idade);
-            quest.setEstadoCivil(estadoCivil);
-            quest.setProfissao(profissao);
-            quest.setEscolaridade(escolaridade);
-            quest.setOcupacaoAtual(ocupacao);
-            quest.setRendaFormal(rendaFormal);
-            quest.setRendaInformal(rendaInformal);
-            quest.setValorAluguel(aluguel);
-            quest.setTemSaneamento(saneamento);
-            quest.setTemEnergia(energia);
-            quest.setTipoConstrucao(tipoConst);
-            quest.setCondicaoMoradia(condMoradia);
-            quest.setProgramaTransferenciaRenda(progTransferRenda);
-            quest.setEstudante(estudante);
-            quest.setGastosMensais(gastosMensais);
-            quest.setFontCusteio(fonteCusteio);
-            quest.setBolsaOuBeneficio(bolsaOuBeneficio);
-            quest.setObservacoesDadosDono(observacao);
-
-            return true;
+            if (jRadioButtonEstudanteSim.isSelected()) {
+                validarCampoVazio(jFormattedTextFieldGastosMensais, "gastos mensais");
+                validarCampoVazio(jTextFieldFonteCusteio, "fonte de custeio");
+                validarCampoVazio(jTextFieldBeneficio, "bolsa/benefício");
+                validarCampoVazio(jTextAreaObservacoes, "observações");
+            }
         } catch (Exception e) {
-            this.erroMensage(e.getMessage(), "Erro ao Validar dados do dono.");
+            InterfaceGraficaUtils.validaCampoVazio(e.getMessage());
             return false;
         }
 
-    }
+        String rendaFormalST = this.jFormattedTextFieldRendaFormal.getText();
+        Double rendaFormal = ValidationsUtils.converteStringParaPreco(rendaFormalST);
 
-    private void erroMensage(String mensage, String title) {
-        JOptionPane.showMessageDialog(HUMVApp.getMainWindow(), mensage, title, JOptionPane.WARNING_MESSAGE);
-    }
+        String rendaInformalST = this.jFormattedTextFieldRendaInformal.getText();
+        Double rendaInformal = ValidationsUtils.converteStringParaPreco(rendaInformalST);
 
-    private boolean validarRadioButton(boolean radioButtonSim, boolean radioButtonNao, String Campo) throws Exception {
-        if (!radioButtonSim && !radioButtonNao) {
-            throw new Exception("Escolha Entre as opções " + Campo + ".");
-        } else {
-            if (radioButtonSim) {
-                return radioButtonSim;
-            } else {
+        String aluguelST = this.jFormattedTextFieldAluguel.getText();
+        Double aluguel = ValidationsUtils.converteStringParaPreco(aluguelST);
 
-                return radioButtonNao;
-            }
+        if (jRadioButtonEstudanteSim.isSelected()) {
+            String gastosMenssaisST = this.jFormattedTextFieldGastosMensais.getText();
+            Double gastosMensais = ValidationsUtils.converteStringParaPreco(gastosMenssaisST);
+            questionario.setGastosMensais(gastosMensais);
         }
-    }
 
-    private Double validarDouble(String rendaFormalST, String campo) throws Exception {
-        Double rendaFormal;
-        try {
-            rendaFormal = Double.parseDouble(rendaFormalST);
-            return rendaFormal;
-        } catch (Exception e) {
-            throw new Exception("O campo " + campo + " é real.");
-        }
-    }
+        questionario.setDono(dono);
+        questionario.setDataResposta(Calendar.getInstance().getTime());
+        questionario.setIdade(Integer.parseInt(jFormattedTextFieldIdade.getText()));
+        questionario.setEstadoCivil(jComboBoxEstadoCivil.getSelectedIndex());
+        questionario.setProfissao(jTextFieldProfissao.getText());
+        questionario.setEscolaridade(jComboBoxEscolaridadeFamliar.getSelectedIndex());
+        questionario.setOcupacaoAtual(jTextFieldOcupacao.getText());
+        questionario.setRendaFormal(rendaFormal);
+        questionario.setRendaInformal(rendaInformal);
+        questionario.setValorAluguel(aluguel);
+        questionario.setTemSaneamento(jRadioButtonSaneamentoSim.isSelected());
+        questionario.setTemEnergia(jRadioButtonEnergiaSim.isSelected());
+        questionario.setTipoConstrucao(jTextFieldTipoConstrucao.getText());
+        questionario.setCondicaoMoradia(jTextFieldCondicaoMoradia.getText());
+        questionario.setProgramaTransferenciaRenda(jTextFieldProgramaRenda.getText());
+        questionario.setEstudante(jRadioButtonEstudanteSim.isSelected());
+        questionario.setFontCusteio(jTextFieldFonteCusteio.getText());
+        questionario.setBolsaOuBeneficio(jTextFieldBeneficio.getText());
+        questionario.setObservacoesDadosDono(jTextAreaObservacoes.getText());
 
-    private String validarString(String test, String campo) throws Exception {
-        String returnMe = test;
-        if (returnMe.trim().length() == 0) {
-            throw new Exception("Preencha o campo " + campo + ".");
-        } else {
-            return returnMe;
-        }
-    }
-
-    private Integer validarInteger(String idadeST, String campo) throws Exception {
-        try {
-            Integer returnMe = Integer.parseInt(idadeST);
-            return returnMe;
-        } catch (Exception e) {
-            throw new Exception("Coloque um inteiro no campo " + campo + ".");
-        }
+        return true;
     }
 
 
-    private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
-
-    }//GEN-LAST:event_jButtonRemoverActionPerformed
-
-    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+    private void jButtonTabelaFamiliaSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTabelaFamiliaSalvarActionPerformed
 
         try {
             Parente parente = new Parente();
 
-            String nome = this.jTextFieldFamiliaNome.getText();
-            nome = validarString(nome, "Nome do Familiar");
-            parente.setNome(nome);
+            validarCampoVazio(jTextFieldFamiliaNome, "nome do familiar");
+            parente.setNome(jTextFieldFamiliaNome.getText());
 
             if (this.jFormattedIdadeFamilia.getText().isEmpty()) {
                 InterfaceGraficaUtils.validaCampoVazio("Idade do familiar");
@@ -1886,7 +1600,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             parente.setIdade(idade);
 
             if (this.jTextFieldParentesco.getText().isEmpty()) {
-                InterfaceGraficaUtils.validaCampoVazio("Parentesco do familiar");
+                InterfaceGraficaUtils.validaCampoVazio("parentesco do familiar");
                 return;
             }
             String parentesco = this.jTextFieldParentesco.getText();
@@ -1896,153 +1610,90 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             parente.setEscolaridade(escolaridade);
 
             if (this.jTextFieldFamiliaOcupacao.getText().isEmpty()) {
-                InterfaceGraficaUtils.validaCampoVazio("Ocupação do familiar");
+                InterfaceGraficaUtils.validaCampoVazio("ocupação do familiar");
                 return;
             }
             String ocupacao = this.jTextFieldFamiliaOcupacao.getText();
             parente.setOcupacao(ocupacao);
-            System.out.println("" + this.jTextFieldFamiliaRenda.getText());
             if (this.jTextFieldFamiliaRenda.getText().isEmpty()) {
-                InterfaceGraficaUtils.validaCampoVazio("Renda do familiar");
+                InterfaceGraficaUtils.validaCampoVazio("renda do familiar");
                 return;
             }
             Double renda;
             String rendaFamilliarST = jTextFieldFamiliaRenda.getText();
-            renda = validarDouble(rendaFamilliarST, "Renda familiar");
+            renda = ValidationsUtils.converteStringParaPreco(rendaFamilliarST);
             parente.setRenda(renda);
-            parente.setNomeClienteCadastrado(dono.getNome());
+            //parente.setQuestionario(questionario);
             modelParente.addParente(parente);
             limparTextfieldsInfoFamiliar();
             atualizaCalculoRenda();
         } catch (Exception ex) {
-            this.erroMensage(ex.getMessage(), "Falha ao Salvar Novo Parente.");
+            InterfaceGraficaUtils.validaCampoVazio(ex.getMessage());
         }
 
-    }//GEN-LAST:event_jButtonSalvarActionPerformed
+    }//GEN-LAST:event_jButtonTabelaFamiliaSalvarActionPerformed
 
-    private void jRadioButtonDocumentosComprovanteEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDocumentosComprovanteEnderecoActionPerformed
-        // TODO add your handling code here:
-        this.jRadioButtonDocumentosComprovanteEndereco.setSelected(true);
-        this.jRadioButtonDocumentosRGDono.setSelected(false);
-        this.jRadioButtonDocumentosMembroFamilia.setSelected(false);
-        this.jRadioButtonDocumentosBolsaFamilia.setSelected(false);
-        this.jRadioButtonDocumentosOutro.setSelected(false);
-        this.jTextFieldDocumentoOutro.setEnabled(false);
-    }//GEN-LAST:event_jRadioButtonDocumentosComprovanteEnderecoActionPerformed
+    private void jButtonFamiliaRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFamiliaRemoverActionPerformed
+        Integer indexRemover = this.jTableFamiliares.getSelectedRow();
+        this.modelParente.removerParentes(indexRemover);
+    }//GEN-LAST:event_jButtonFamiliaRemoverActionPerformed
 
-    private void jRadioButtonDocumentosBolsaFamiliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDocumentosBolsaFamiliaActionPerformed
-        // TODO add your handling code here:
-        this.jRadioButtonDocumentosComprovanteEndereco.setSelected(false);
-        this.jRadioButtonDocumentosRGDono.setSelected(false);
-        this.jRadioButtonDocumentosMembroFamilia.setSelected(false);
-        this.jRadioButtonDocumentosBolsaFamilia.setSelected(true);
-        this.jRadioButtonDocumentosOutro.setSelected(false);
-        this.jTextFieldDocumentoOutro.setEnabled(false);
-    }//GEN-LAST:event_jRadioButtonDocumentosBolsaFamiliaActionPerformed
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource().equals(jRadioButtonEstudanteSim) || e.getSource().equals(jRadioButtonEstudanteNao)) {
+            if (jRadioButtonEstudanteSim.isSelected()) {
+                habilitarPainelEstudante(true);
+            } else {
+                habilitarPainelEstudante(false);
+            }
+        } else if (e.getSource().equals(jRadioButtonConsultaAula) || e.getSource().equals(jRadioButtonConsultaDesconto)
+                || e.getSource().equals(jRadioButtonConsultaIsencao) || e.getSource().equals(jRadioButtonConsultaNormal)
+                || e.getSource().equals(jRadioButtonExameAula) || e.getSource().equals(jRadioButtonExameDesconto)
+                || e.getSource().equals(jRadioButtonExameIsencao) || e.getSource().equals(jRadioButtonExameNormal)
+                || e.getSource().equals(jRadioButtonCirurgiaAula) || e.getSource().equals(jRadioButtonCirurgiaDesconto)
+                || e.getSource().equals(jRadioButtonCirurgiaIsencao) || e.getSource().equals(jRadioButtonCirurgiaNormal)) {
 
-    private void jRadioButtonDocumentosOutroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDocumentosOutroActionPerformed
-        // TODO add your handling code here:
-        this.jRadioButtonDocumentosComprovanteEndereco.setSelected(false);
-        this.jRadioButtonDocumentosRGDono.setSelected(false);
-        this.jRadioButtonDocumentosMembroFamilia.setSelected(false);
-        this.jRadioButtonDocumentosBolsaFamilia.setSelected(false);
-        this.jRadioButtonDocumentosOutro.setSelected(true);
-        this.jTextFieldDocumentoOutro.setEnabled(true);
-    }//GEN-LAST:event_jRadioButtonDocumentosOutroActionPerformed
+            jFormattedTextFieldConsulta.setEnabled(jRadioButtonConsultaDesconto.isSelected());
+            jFormattedTextFieldExame.setEnabled(jRadioButtonExameDesconto.isSelected());
+            jFormattedTextFieldCirurgia.setEnabled(jRadioButtonCirurgiaDesconto.isSelected());
 
-    private void jRadioButtonSaneamentoSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonSaneamentoSimActionPerformed
-        // TODO add your handling code here:
-        this.jRadioButtonSaneamentoNao.setSelected(false);
-    }//GEN-LAST:event_jRadioButtonSaneamentoSimActionPerformed
+        } else if (e.getSource().equals(jRadioButtonDocumentosBolsaFamilia)
+                || e.getSource().equals(jRadioButtonDocumentosComprovanteEndereco)
+                || e.getSource().equals(jRadioButtonDocumentosMembroFamilia)
+                || e.getSource().equals(jRadioButtonDocumentosRGDono)
+                || e.getSource().equals(jRadioButtonDocumentosOutro)) {
 
-    private void jRadioButtonEnergiaSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEnergiaSimActionPerformed
-        // TODO add your handling code here:
-        this.jRadioButtonEnergiaNao.setSelected(false);
-    }//GEN-LAST:event_jRadioButtonEnergiaSimActionPerformed
+            jTextFieldDocumentoOutro.setEnabled(jRadioButtonDocumentosOutro.isSelected());
 
-    private void jRadioButtonEstudanteSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEstudanteSimActionPerformed
-        // TODO add your handling code here:
-        this.jRadioButtonEstudanteNao.setSelected(false);
-    }//GEN-LAST:event_jRadioButtonEstudanteSimActionPerformed
+        }
+    }
 
-    private void jRadioButtonEstudanteNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEstudanteNaoActionPerformed
-        // TODO add your handling code here:
-        this.jRadioButtonEstudanteSim.setSelected(false);
-    }//GEN-LAST:event_jRadioButtonEstudanteNaoActionPerformed
+    private void habilitarPainelEstudante(boolean habilitar) {
+        jFormattedTextFieldGastosMensais.setEnabled(habilitar);
+        jTextFieldFonteCusteio.setEnabled(habilitar);
+        jTextFieldBeneficio.setEnabled(habilitar);
+        jTextAreaObservacoes.setEnabled(habilitar);
+    }
 
-    private void jRadioButtonConsultaNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonConsultaNormalActionPerformed
-        // TODO add your handling code here:
-        this.jRadioButtonConsultaNormal.setSelected(true);
-        this.jRadioButtonConsultaIsencao.setSelected(false);
-        this.jRadioButtonConsultaDesconto.setSelected(false);
-        this.jRadioButtonConsultaAula.setSelected(false);
-        this.jFormattedTextFieldConsulta.setEnabled(false);
-    }//GEN-LAST:event_jRadioButtonConsultaNormalActionPerformed
+    private void validarCampoVazio(JTextComponent campoTexto, String nomeCampo) throws Exception {
+        if (campoTexto.getText().isEmpty()) {
+            campoTexto.setFocusable(true);
+            throw new Exception(nomeCampo);
+        }
+    }
 
-    private void jRadioButtonConsultaAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonConsultaAulaActionPerformed
-        // TODO add your handling code here:
-        this.jRadioButtonConsultaNormal.setSelected(false);
-        this.jRadioButtonConsultaIsencao.setSelected(false);
-        this.jRadioButtonConsultaDesconto.setSelected(false);
-        this.jRadioButtonConsultaAula.setSelected(true);
-        this.jFormattedTextFieldConsulta.setEnabled(false);
-    }//GEN-LAST:event_jRadioButtonConsultaAulaActionPerformed
+    private void limparTextfieldsInfoFamiliar() {
+        this.jTextFieldFamiliaNome.setText(null);
+        this.jFormattedIdadeFamilia.setText(null);
+        this.jTextFieldParentesco.setText(null);
+        this.jTextFieldFamiliaOcupacao.setText(null);
+        this.jTextFieldFamiliaRenda.setText(null);
+    }
 
-    private void jRadioButtonConsultaDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonConsultaDescontoActionPerformed
-        // TODO add your handling code here:
-        this.jRadioButtonConsultaNormal.setSelected(false);
-        this.jRadioButtonConsultaIsencao.setSelected(false);
-        this.jRadioButtonConsultaDesconto.setSelected(true);
-        this.jRadioButtonConsultaAula.setSelected(false);
-        this.jFormattedTextFieldConsulta.setEnabled(true);
-    }//GEN-LAST:event_jRadioButtonConsultaDescontoActionPerformed
-
-    private void jRadioButtonExameNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonExameNormalActionPerformed
-        // TODO add your handling code here:
-        this.jRadioButtonExameNormal.setSelected(true);
-        this.jRadioButtonExameAula.setSelected(false);
-        this.jRadioButtonExameDesconto.setSelected(false);
-        this.jRadioButtonExameIsencao.setSelected(false);
-        this.jFormattedTextFieldExame.setEnabled(false);
-    }//GEN-LAST:event_jRadioButtonExameNormalActionPerformed
-
-    private void jRadioButtonExameAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonExameAulaActionPerformed
-        // TODO add your handling code here:
-        this.jRadioButtonExameNormal.setSelected(false);
-        this.jRadioButtonExameAula.setSelected(true);
-        this.jRadioButtonExameDesconto.setSelected(false);
-        this.jRadioButtonExameIsencao.setSelected(false);
-        this.jFormattedTextFieldExame.setEnabled(false);
-        this.jFormattedTextFieldExame.setEnabled(false);
-    }//GEN-LAST:event_jRadioButtonExameAulaActionPerformed
-
-    private void jRadioButtonCirurgiaNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCirurgiaNormalActionPerformed
-        // TODO add your handling code here:
-        this.jRadioButtonCirurgiaNormal.setSelected(true);
-        this.jRadioButtonCirurgiaIsencao.setSelected(false);
-        this.jRadioButtonCirurgiaDesconto.setSelected(false);
-        this.jRadioButtonCirurgiaAula.setSelected(false);
-        this.jFormattedTextFieldCirurgia.setEnabled(false);
-    }//GEN-LAST:event_jRadioButtonCirurgiaNormalActionPerformed
-
-    private void jRadioButtonCirurgiaAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCirurgiaAulaActionPerformed
-        // TODO add your handling code here:
-        this.jRadioButtonCirurgiaNormal.setSelected(false);
-        this.jRadioButtonCirurgiaIsencao.setSelected(false);
-        this.jRadioButtonCirurgiaDesconto.setSelected(false);
-        this.jRadioButtonCirurgiaAula.setSelected(true);
-        this.jFormattedTextFieldCirurgia.setEnabled(false);
-    }//GEN-LAST:event_jRadioButtonCirurgiaAulaActionPerformed
-
-    private void jRadioButtonCirurgiaDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCirurgiaDescontoActionPerformed
-        // TODO add your handling code here:
-        this.jRadioButtonCirurgiaNormal.setSelected(false);
-        this.jRadioButtonCirurgiaIsencao.setSelected(false);
-        this.jRadioButtonCirurgiaDesconto.setSelected(true);
-        this.jRadioButtonCirurgiaAula.setSelected(false);
-        this.jFormattedTextFieldCirurgia.setEnabled(true);
-    }//GEN-LAST:event_jRadioButtonCirurgiaDescontoActionPerformed
-
+    private void atualizaCalculoRenda() {
+        jLabelFamiliaRendaTotal.setText(ValidationsUtils.convertePrecoParaString(modelParente.getRendaTotal()));
+        jLabelFamiliaRendaPerCapita.setText(ValidationsUtils.convertePrecoParaString(modelParente.getRendaPerCapita()));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Cobranca;
@@ -2057,10 +1708,10 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButtonCadastrarNovoDono;
     private javax.swing.JButton jButtonDocumentoRemover;
     private javax.swing.JButton jButtonDocumentoSalvar;
+    private javax.swing.JButton jButtonFamiliaRemover;
     private javax.swing.JButton jButtonPesquisarDono;
     private javax.swing.JButton jButtonQuestionarioCancelar;
     private javax.swing.JButton jButtonQuestionarioSalvar;
-    private javax.swing.JButton jButtonRemover;
     private javax.swing.JButton jButtonSalvar;
     private javax.swing.JCheckBox jCheckBoxNA;
     private javax.swing.JCheckBox jCheckBoxVistoASocial;
@@ -2191,16 +1842,4 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField jTextFieldTipoConstrucao;
     // End of variables declaration//GEN-END:variables
 
-    private void limparTextfieldsInfoFamiliar() {
-        this.jTextFieldFamiliaNome.setText(null);
-        this.jFormattedIdadeFamilia.setText(null);
-        this.jTextFieldParentesco.setText(null);
-        this.jTextFieldFamiliaOcupacao.setText(null);
-        this.jTextFieldFamiliaRenda.setText(null); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void atualizaCalculoRenda() {
-        jLabelFamiliaRendaTotal.setText("" + modelParente.getRendaTotal());
-        jLabelFamiliaRendaPerCapita.setText("" + modelParente.getRendaPerCapita()); //To change body of generated methods, choose Tools | Templates.
-    }
 }

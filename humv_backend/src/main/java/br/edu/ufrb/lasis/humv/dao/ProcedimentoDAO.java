@@ -49,7 +49,7 @@ public class ProcedimentoDAO extends GenericDAO<Procedimento> implements Seriali
 
 	@SuppressWarnings("unchecked")
 	public List<Procedimento> findByName(String nome){
-		Criteria criteria = getCriteria().add(Restrictions.ilike("nome", "%"+nome+"%"));
+		Criteria criteria = getCriteria().add(Restrictions.ilike("nome", "%" + nome + "%"));
 		criteria.addOrder(Order.asc("nome"));
 		return (List<Procedimento>) criteria.list();
 	}

@@ -10,12 +10,12 @@ import br.edu.ufrb.lasis.humv.entity.Usuario;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.sun.jersey.api.client.ClientResponse;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
-import org.codehaus.jackson.type.TypeReference;
 
 /**
  *
@@ -54,6 +54,7 @@ public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
                 });
             } catch (RESTConnectionException | IOException ex) {
                 InterfaceGraficaUtils.erroConexao();
+                ex.printStackTrace();
             }
         }
         return medicos;

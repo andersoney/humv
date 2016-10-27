@@ -6,32 +6,32 @@
 package br.edu.ufrb.lasis.humv.view.questionario;
 
 import br.edu.ufrb.lasis.humv.entity.Parente;
+import br.edu.ufrb.lasis.humv.utils.ValidationsUtils;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
 
 /**
  *
  * @author Orion
  */
-public class AbstractTableModelParente extends AbstractTableModel {
+public class ParenteTableModel extends AbstractTableModel {
 
     List<Parente> parentes;
 
     private String[] colunas = new String[]{
-        "Nome do Cliente", "Nome", "Renda", "Ocupação"};
+        "Nome do parente", "Renda", "Ocupação"};
 
     @Override
     public String getColumnName(int column) {
         return colunas[column];
     }
 
-    public AbstractTableModelParente() {
+    public ParenteTableModel() {
         this.parentes = new ArrayList<Parente>();
     }
 
-    public AbstractTableModelParente(ArrayList<Parente> documentos) {
+    public ParenteTableModel(ArrayList<Parente> documentos) {
         this.parentes = documentos;
     }
 
@@ -44,6 +44,7 @@ public class AbstractTableModelParente extends AbstractTableModel {
     public int getColumnCount() {
         return this.colunas.length; //To change body of generated methods, choose Tools | Templates.
     }
+
     /*private String nomeClienteCadastrado;
     
      private String nome;
@@ -58,16 +59,13 @@ public class AbstractTableModelParente extends AbstractTableModel {
         Parente obj = parentes.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return obj.getNomeClienteCadastrado();
-            case 1:
                 return obj.getNome();
+            case 1:
+                return "R$ " + ValidationsUtils.convertePrecoParaString(obj.getRenda());
             case 2:
-                return obj.getRenda();
-            case 3:
                 return obj.getOcupacao();
             default:
-                LOG.warning(AbstractTableModelParente.class.getName() + "Tentando acessar coluna a mais.");
-                return null;
+                return "";
         }
     }
 
@@ -117,7 +115,5 @@ public class AbstractTableModelParente extends AbstractTableModel {
         }
         return rendaTotal;
     }
-
-    private static final Logger LOG = Logger.getLogger(AbstractTableModelDocumentacao.class.getName());
 
 }

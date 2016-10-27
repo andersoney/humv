@@ -19,8 +19,8 @@ import br.edu.ufrb.lasis.humv.entity.QuestionarioSocioeconomico;
 @RestController
 @RequestMapping(value = "/api/questionarioSocioeconomico")
 @Secured("ROLE_ADMIN")
-
 public class QuestionarioSocioeconomicoService {
+	
 	@Autowired
 	private QuestionarioSocioeconomicoServiceImpl questionarioSocioeconomicoServiceImpl;
     
