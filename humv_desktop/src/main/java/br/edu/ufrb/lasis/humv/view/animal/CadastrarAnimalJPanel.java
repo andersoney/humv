@@ -1,6 +1,5 @@
 package br.edu.ufrb.lasis.humv.view.animal;
 
-import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.utils.MaskUtils;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -19,12 +18,18 @@ import java.util.Calendar;
 import javax.swing.JFrame;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import br.edu.ufrb.lasis.humv.HUMVApp;
+import br.edu.ufrb.lasis.humv.view.main.LoginJDialog;
 
 /**
  *
  * @author Andersoney
  */
 public class CadastrarAnimalJPanel extends javax.swing.JPanel implements ResultadoBusca {
+
+    private final static Logger log = LoggerFactory.getLogger(LoginJDialog.class);
 
     private boolean grande = false;
     private Dono dono = null;
@@ -501,6 +506,8 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
             }
         } catch (RESTConnectionException ex) {
             InterfaceGraficaUtils.erroConexao();
+            String mensagem = InterfaceGraficaUtils.getMensagemErroConexao();
+            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
         }
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 

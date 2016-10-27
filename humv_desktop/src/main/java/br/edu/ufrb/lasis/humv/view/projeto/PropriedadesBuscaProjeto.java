@@ -5,7 +5,6 @@
  */
 package br.edu.ufrb.lasis.humv.view.projeto;
 
-import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Projeto;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
@@ -19,6 +18,9 @@ import java.io.IOException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import br.edu.ufrb.lasis.humv.HUMVApp;
 
 /**
  *
@@ -26,6 +28,7 @@ import javax.swing.JTable;
  */
 public class PropriedadesBuscaProjeto extends PropriedadesBusca {
 
+    private final static Logger log = LoggerFactory.getLogger(PropriedadesBuscaProjeto.class);
     private ProjetoTableModel tableModel;
     private List<Projeto> listaProjetos;
 
@@ -34,7 +37,6 @@ public class PropriedadesBuscaProjeto extends PropriedadesBusca {
         tableModel = new ProjetoTableModel();
         super.setTabelaResultado(new JTable(tableModel));
     }
-
 
     @Override
     public void buscar() {
@@ -49,7 +51,8 @@ public class PropriedadesBuscaProjeto extends PropriedadesBusca {
             super.getTabelaResultado().revalidate();
         } catch (RESTConnectionException | IOException ex) {
             InterfaceGraficaUtils.erroConexao();
-            ex.printStackTrace();
+            String mensagem = InterfaceGraficaUtils.getMensagemErroConexao();
+            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
         }
         HUMVApp.esconderMensagemCarregamento();
 
@@ -75,7 +78,8 @@ public class PropriedadesBuscaProjeto extends PropriedadesBusca {
                         if (InterfaceGraficaUtils.dialogoRemoverAlterar("alterar", "projeto", projetoSelecionado.getNome())) {
                             CadastrarProjetoJPanel painel = new CadastrarProjetoJPanel(projetoSelecionado);
                             HUMVApp.setNovoPainelCentral(painel);
-                        }   break;
+                        }
+                        break;
                     case PropriedadesBusca.OPCAO_REMOVER:
                         if (InterfaceGraficaUtils.dialogoRemoverAlterar("remover", "projeto", projetoSelecionado.getNome())) {
                             try {
@@ -89,9 +93,11 @@ public class PropriedadesBuscaProjeto extends PropriedadesBusca {
                                 }
                             } catch (RESTConnectionException ex) {
                                 JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
-                                ex.printStackTrace();
+                                String mensagem = "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.";
+                                this.log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
                             }
-                        }   break;
+                        }
+                        break;
                     default:
                         break;
                 }
@@ -106,5 +112,4 @@ public class PropriedadesBuscaProjeto extends PropriedadesBusca {
         }
     }
 
-    
 }

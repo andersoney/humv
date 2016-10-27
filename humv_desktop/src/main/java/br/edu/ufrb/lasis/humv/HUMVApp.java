@@ -19,8 +19,8 @@ import javax.swing.border.EmptyBorder;
  * @author tassiovale
  */
 public class HUMVApp {
-    
-    static { 
+
+    static {
         System.setProperty("logback.configurationFile", "logback.xml");
     }
 
@@ -28,8 +28,8 @@ public class HUMVApp {
     private static JPanel mainPanel = null;
     private static CarregandoJDialog carregandoDialog = null;
     private static String nomeUsuario;
-    
-    public static HUMVMainWindow getMainWindow(){
+
+    public static HUMVMainWindow getMainWindow() {
         return mainWindow;
     }
 
@@ -93,48 +93,45 @@ public class HUMVApp {
     public static void main(String args[]) {
 
         /*try {
-            ClientResponse response = RESTMethods.get("/api/hello");
+         ClientResponse response = RESTMethods.get("/api/hello");
             
-            //Opção 1: para recuperar uma lista de objetos
-            List<Hello> list = (List<Hello>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Hello>>(){});
-            for(int i=0; i < list.size(); i++){
-            Hello hello = (Hello) list.get(i);
-            System.out.println("Text: " + hello.getContent());
-            }
+         //Opção 1: para recuperar uma lista de objetos
+         List<Hello> list = (List<Hello>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Hello>>(){});
+         for(int i=0; i < list.size(); i++){
+         Hello hello = (Hello) list.get(i);
+         System.out.println("Text: " + hello.getContent());
+         }
             
-            //Opção 2: para retornar um objeto único
-            //String output = response.getEntity(String.class);
+         //Opção 2: para retornar um objeto único
+         //String output = response.getEntity(String.class);
             
-            } catch (IOException ex) {
-            ex.printStackTrace();
-            }
+         } catch (IOException ex) {
+         ex.printStackTrace();
+         }
             
-            Usuario usuario = new Usuario();
-            usuario.setNome("Tassio");
-            usuario.setSiape(2126496);
-            ClientResponse response;
-            try {
-            response = RESTMethods.post("/api/usuario", usuario);
-            String resposta = response.getEntity(String.class);
-            } catch (RESTConnectionException ex) {
-            Logger.getLogger(HUMVApp.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+         Usuario usuario = new Usuario();
+         usuario.setNome("Tassio");
+         usuario.setSiape(2126496);
+         ClientResponse response;
+         try {
+         response = RESTMethods.post("/api/usuario", usuario);
+         String resposta = response.getEntity(String.class);
+         } catch (RESTConnectionException ex) {
+         Logger.getLogger(HUMVApp.class.getName()).log(Level.SEVERE, null, ex);
+         }*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
                     UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-                 
+
                 } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
                     java.util.logging.Logger.getLogger(HUMVMainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                 }
-
                 mainWindow = new HUMVMainWindow();
                 mainWindow.setVisible(true);
                 mainWindow.setExtendedState(mainWindow.getExtendedState() | JFrame.MAXIMIZED_BOTH);
                 mainWindow.setResizable(false);
-
                 new LoginJDialog(mainWindow).setVisible(true);
-
                 //Instanciar de início o dialog de carregando
                 HUMVApp.getCarregandoDialogInstance();
             }

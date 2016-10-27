@@ -8,8 +8,9 @@ package br.edu.ufrb.lasis.humv.utils;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import br.edu.ufrb.lasis.humv.HUMVApp;
 
 /**
  *
@@ -17,6 +18,7 @@ import java.util.logging.Logger;
  */
 public class HUMVConfigUtils {
 
+    private final static Logger log = LoggerFactory.getLogger(HUMVConfigUtils.class);
     private static Properties properties = null;
 
     private static Properties getProperties() {
@@ -29,7 +31,7 @@ public class HUMVConfigUtils {
     private static String getConfigValue(String configParam) {
         return getProperties().getProperty(configParam);
     }
-    
+
     private static void setConfigValue(String configParam, String value) {
         getProperties().setProperty(configParam, value);
     }
@@ -39,7 +41,8 @@ public class HUMVConfigUtils {
             properties = new Properties();
             properties.load(new FileInputStream("arquivos/config.properties"));
         } catch (IOException ex) {
-            Logger.getLogger(HUMVConfigUtils.class.getName()).log(Level.SEVERE, null, ex);
+            String mensagem = "Erro ao recarregar configurações";
+            log.error(/*"[" + HUMVApp.getNomeUsuario() + "] "+*/"mensagem: " + mensagem, ex);
         }
     }
 
@@ -70,7 +73,7 @@ public class HUMVConfigUtils {
     public static String getPorcentagemDescontoValorAula() {
         return getConfigValue("humv.procedimento.desconto.valoraula");
     }
-    
+
     public static void setAtendimentoInicioMatutino(String valor) {
         setConfigValue("humv.atendimento.matutino.inicio", valor);
     }
