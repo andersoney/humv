@@ -17,12 +17,16 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author tassiovale
  */
 public class LoginJDialog extends javax.swing.JDialog implements ActionListener, KeyListener {
+    
+    private final static Logger logger = LoggerFactory.getLogger(LoginJDialog.class);
 
     private JFrame window;
 
@@ -74,6 +78,7 @@ public class LoginJDialog extends javax.swing.JDialog implements ActionListener,
                 window.setContentPane(splitPanel);
                 HUMVApp.setNomeUsuario(username);
                 HUMVApp.setPainelCentralComLogo();
+                logger.info("[login - " + HUMVApp.getNomeUsuario() + "] Login realizado com sucesso.");
             } else {
                 JOptionPane.showMessageDialog(this, resposta, "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
                 if (resposta.toLowerCase().contains("senha")) {
