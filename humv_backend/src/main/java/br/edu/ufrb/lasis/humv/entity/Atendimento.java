@@ -3,12 +3,11 @@ package br.edu.ufrb.lasis.humv.entity;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -30,16 +29,16 @@ public class Atendimento implements Serializable{
 	@GeneratedValue
 	private BigInteger id;
 
-	@OneToOne
-	@JoinColumn(name="id_animal")
+	@ManyToOne
+	@JoinColumn
 	private Animal animal;
 	
-	@OneToOne
-	@JoinColumn(name="id_procedimento")
+	@ManyToOne
+	@JoinColumn
 	private Procedimento procedimento;
 	
-	@OneToOne
-	@JoinColumn(name="id_medico")
+	@ManyToOne
+	@JoinColumn
 	private Usuario medico;
 	
 	private Date horarioMarcado;

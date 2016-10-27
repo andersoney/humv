@@ -20,6 +20,8 @@ import br.edu.ufrb.lasis.humv.view.procedimento.CadastrarProcedimentoJPanel;
 import br.edu.ufrb.lasis.humv.view.procedimento.PropriedadesBuscaProcedimento;
 import br.edu.ufrb.lasis.humv.view.projeto.CadastrarProjetoJPanel;
 import br.edu.ufrb.lasis.humv.view.projeto.PropriedadesBuscaProjeto;
+import br.edu.ufrb.lasis.humv.view.questionario.PropriedadesBuscaQuestionarioSocial;
+import br.edu.ufrb.lasis.humv.view.questionario.QuestionarioSocioEconomicoJPanel;
 import br.edu.ufrb.lasis.humv.view.setor.CadastrarSetorJPanel;
 import br.edu.ufrb.lasis.humv.view.setor.PropriedadesBuscaSetor;
 import br.edu.ufrb.lasis.humv.view.usuario.CadastrarUsuarioJPanel;
@@ -91,6 +93,13 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
     private JMenu menuAtendimento;
     private JMenuItem menuItemAgendarAtendimento;
     private JButton buttonAgendarAtendimento;
+
+    private JMenu menuQuestionarioSocial;
+    private JMenuItem menuItemCadastrarQuestionarioSocial,
+            menuItemBuscarQuestionarioSocial,
+            menuItemAlterarQuestionarioSocial,
+            menuItemRemocaoQuestionarioSocial;
+    private JButton buttonQuestionario;
 
     private JPanel panelButtons;
     private GridBagConstraints panelConstraints;
@@ -285,6 +294,28 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         getMenuBar().add(menuAtendimento);
     }
 
+    public void criaMenuQuestionarioSocial() {
+        this.menuQuestionarioSocial = new JMenu("Questionário socioeconômico");
+        menuItemCadastrarQuestionarioSocial = new JMenuItem("Cadastrar");
+        menuItemCadastrarQuestionarioSocial.addActionListener(this);
+
+        menuItemBuscarQuestionarioSocial = new JMenuItem("Buscar");
+        menuItemBuscarQuestionarioSocial.addActionListener(this);
+
+        menuItemAlterarQuestionarioSocial = new JMenuItem("Alterar");
+        menuItemAlterarQuestionarioSocial.addActionListener(this);
+
+        menuItemRemocaoQuestionarioSocial = new JMenuItem("Remoção");
+        menuItemRemocaoQuestionarioSocial.addActionListener(this);
+
+        menuQuestionarioSocial.add(menuItemCadastrarQuestionarioSocial);
+        menuQuestionarioSocial.add(menuItemBuscarQuestionarioSocial);
+        menuQuestionarioSocial.add(menuItemAlterarQuestionarioSocial);
+        menuQuestionarioSocial.add(menuItemRemocaoQuestionarioSocial);
+
+        getMenuBar().add(menuQuestionarioSocial);
+    }
+
     public void criaBotaoCadastrarAnimal() {
         buttonCadastrarAnimal = new JButton("Cadastrar animal", new ImageIcon("imagens/icon_pet.png"));
         buttonCadastrarAnimal.addActionListener(this);
@@ -307,6 +338,12 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         buttonAgendarAtendimento = new JButton("Visualizar agenda", new ImageIcon("imagens/icon_agenda.png"));
         buttonAgendarAtendimento.addActionListener(this);
         this.addButtonToRightPanel(buttonAgendarAtendimento);
+    }
+
+    public void criaBotaoResponderQuestionario() {
+        buttonQuestionario = new JButton("Responder questionário", new ImageIcon("imagens/icon_questionario.png"));
+        buttonQuestionario.addActionListener(this);
+        this.addButtonToRightPanel(buttonQuestionario);
     }
 
     public JMenuBar getMenuBar() {
@@ -394,7 +431,22 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
             HUMVApp.setNovoPainelCentral(buscaPanel);
         } else if (source.equals(menuItemAgendarAtendimento) || source.equals(buttonAgendarAtendimento)) {
             HUMVApp.setNovoPainelCentral(new BuscarAgendaMedicoJPanel());
+        } else if (source.equals(menuItemCadastrarQuestionarioSocial) || source.equals(buttonQuestionario)) {
+            HUMVApp.setNovoPainelCentral(new QuestionarioSocioEconomicoJPanel());
+        } else if (source.equals(menuItemBuscarQuestionarioSocial)) {
+            PropriedadesBuscaQuestionarioSocial propriedadesBusca = new PropriedadesBuscaQuestionarioSocial(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
+            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCAR QUESTIONÁRIO SOCIAL PARA VISUALIZAÇÃO/ALTERAÇÃO", propriedadesBusca);
+            HUMVApp.setNovoPainelCentral(buscaPanel);
+        } else if (source.equals(menuItemAlterarQuestionarioSocial)) {
+            PropriedadesBuscaQuestionarioSocial propriedadesBusca = new PropriedadesBuscaQuestionarioSocial(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
+            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCAR QUESTIONÁRIO SOCIAL PARA ALTERAÇÃO", propriedadesBusca);
+            HUMVApp.setNovoPainelCentral(buscaPanel);
+        } else if (source.equals(menuItemRemocaoQuestionarioSocial)) {
+            PropriedadesBuscaQuestionarioSocial propriedadesBusca = new PropriedadesBuscaQuestionarioSocial(PropriedadesBusca.OPCAO_REMOVER);
+            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCAR QUESTIONÁRIO SOCIAL PARA REMOÇÂO", propriedadesBusca);
+            HUMVApp.setNovoPainelCentral(buscaPanel);
         }
 
     }
+
 }

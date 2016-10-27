@@ -1,24 +1,259 @@
 package br.edu.ufrb.lasis.humv.view.questionario;
 
-import br.edu.ufrb.lasis.humv.entity.QuestionarioSocioeconomico;
+import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Parente;
-import br.edu.ufrb.lasis.humv.entity.Animal;
 import br.edu.ufrb.lasis.humv.entity.Documentacao;
+import br.edu.ufrb.lasis.humv.entity.Dono;
+import br.edu.ufrb.lasis.humv.entity.QuestionarioSocioeconomico;
+import br.edu.ufrb.lasis.humv.log.FabricaDeLog;
+import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
+import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
-import java.util.List;
-import javax.swing.table.DefaultTableModel;
+import br.edu.ufrb.lasis.humv.utils.MaskUtils;
+import br.edu.ufrb.lasis.humv.utils.ResultadoBusca;
+import br.edu.ufrb.lasis.humv.utils.ValidationsUtils;
+import br.edu.ufrb.lasis.humv.view.busca.BuscaJPanel;
+import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
+import br.edu.ufrb.lasis.humv.view.dono.CadastrarDonoJPanel;
+import br.edu.ufrb.lasis.humv.view.dono.PropriedadesBuscaDono;
+import java.awt.HeadlessException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.util.Date;
+import javax.swing.JFrame;
+import javax.swing.text.JTextComponent;
+import org.apache.log4j.Logger;
+
 /**
+ * Classe que cria o Painel Questionario SOcial.
  *
  * @author tassiovale
+ * @author Orion && Chacal
  */
-public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
-    private double rendaPerCapta = 0, rendaTotal = 0; 
-    private List<Parente> parentes;
+public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel implements ResultadoBusca, ActionListener {
+
+    private DocumentacaoTableModel modelDocumentacao;
+    private ParenteTableModel modelParente;
+    private Dono dono;
+    private QuestionarioSocioeconomico questionario;
+    private static final Logger LOG = FabricaDeLog.getLog(QuestionarioSocioEconomicoJPanel.class);
+
     /**
      * Creates new form QuestionarioSocioEconomicoJPanel
      */
     public QuestionarioSocioEconomicoJPanel() {
         initComponents();
+        customInitComponents();
+        HUMVApp.esconderMensagemCarregamento();
+    }
+
+    private void customInitComponents() {
+        this.dteDataEntrega.setDate(Calendar.getInstance().getTime());
+        this.modelDocumentacao = new DocumentacaoTableModel();
+        this.jTableDocumentos.setModel(this.modelDocumentacao);
+        this.modelParente = new ParenteTableModel();
+        this.jTableFamiliares.setModel(modelParente);
+
+        buttonGroupEnergia.add(jRadioButtonEnergiaSim);
+        buttonGroupEnergia.add(jRadioButtonEnergiaNao);
+
+        buttonGroupSaneamento.add(jRadioButtonSaneamentoSim);
+        buttonGroupSaneamento.add(jRadioButtonSaneamentoNao);
+
+        buttonGroupEstudante.add(jRadioButtonEstudanteSim);
+        buttonGroupEstudante.add(jRadioButtonEstudanteNao);
+
+        buttonGroupDocumento.add(jRadioButtonDocumentosBolsaFamilia);
+        buttonGroupDocumento.add(jRadioButtonDocumentosComprovanteEndereco);
+        buttonGroupDocumento.add(jRadioButtonDocumentosMembroFamilia);
+        buttonGroupDocumento.add(jRadioButtonDocumentosRGDono);
+        buttonGroupDocumento.add(jRadioButtonDocumentosOutro);
+        jRadioButtonDocumentosBolsaFamilia.addActionListener(this);
+        jRadioButtonDocumentosComprovanteEndereco.addActionListener(this);
+        jRadioButtonDocumentosMembroFamilia.addActionListener(this);
+        jRadioButtonDocumentosRGDono.addActionListener(this);
+        jRadioButtonDocumentosOutro.addActionListener(this);
+
+        buttonGroupConsulta.add(jRadioButtonConsultaAula);
+        buttonGroupConsulta.add(jRadioButtonConsultaDesconto);
+        buttonGroupConsulta.add(jRadioButtonConsultaIsencao);
+        buttonGroupConsulta.add(jRadioButtonConsultaNormal);
+        jRadioButtonConsultaAula.addActionListener(this);
+        jRadioButtonConsultaDesconto.addActionListener(this);
+        jRadioButtonConsultaIsencao.addActionListener(this);
+        jRadioButtonConsultaNormal.addActionListener(this);
+
+        buttonGroupExame.add(jRadioButtonExameAula);
+        buttonGroupExame.add(jRadioButtonExameDesconto);
+        buttonGroupExame.add(jRadioButtonExameIsencao);
+        buttonGroupExame.add(jRadioButtonExameNormal);
+        jRadioButtonExameAula.addActionListener(this);
+        jRadioButtonExameDesconto.addActionListener(this);
+        jRadioButtonExameIsencao.addActionListener(this);
+        jRadioButtonExameNormal.addActionListener(this);
+
+        buttonGroupCirurgia.add(jRadioButtonCirurgiaAula);
+        buttonGroupCirurgia.add(jRadioButtonCirurgiaDesconto);
+        buttonGroupCirurgia.add(jRadioButtonCirurgiaIsencao);
+        buttonGroupCirurgia.add(jRadioButtonCirurgiaNormal);
+        jRadioButtonCirurgiaAula.addActionListener(this);
+        jRadioButtonCirurgiaDesconto.addActionListener(this);
+        jRadioButtonCirurgiaIsencao.addActionListener(this);
+        jRadioButtonCirurgiaNormal.addActionListener(this);
+
+        this.jRadioButtonEstudanteNao.setSelected(true);
+        habilitarPainelEstudante(false);
+        jRadioButtonEstudanteNao.addActionListener(this);
+        jRadioButtonEstudanteSim.addActionListener(this);
+
+        this.jRadioButtonEnergiaSim.setSelected(true);
+        this.jRadioButtonSaneamentoSim.setSelected(true);
+        this.jRadioButtonConsultaNormal.setSelected(true);
+        this.jRadioButtonExameNormal.setSelected(true);
+        this.jRadioButtonCirurgiaNormal.setSelected(true);
+        this.jRadioButtonDocumentosComprovanteEndereco.setSelected(true);
+
+        this.jFormattedTextFieldCirurgia.setEnabled(false);
+        this.jFormattedTextFieldConsulta.setEnabled(false);
+        this.jFormattedTextFieldExame.setEnabled(false);
+        jTextFieldDocumentoOutro.setEnabled(false);
+
+        questionario = new QuestionarioSocioeconomico();
+    }
+
+    public QuestionarioSocioEconomicoJPanel(QuestionarioSocioeconomico questT) {
+        initComponents();
+        customInitComponents();
+        HUMVApp.esconderMensagemCarregamento();
+        this.questionario = questT;
+        reintroduzirDadosQuestionarioDadosDono();
+        reintroduzirDocumentacoes();
+        reintroduzirCobranca();
+        reintroduzirAnalise();
+        reintroduzirComposicaoFamiliar();
+    }
+
+    private void reintroduzirComposicaoFamiliar() {
+        reintroduzirParentes();
+        this.jLabelRendaTotal.setText("" + modelParente.getRendaTotal());
+        this.jLabelRendaPerCapta.setText("" + modelParente.getRendaPerCapita());
+        this.jTextFieldFatoresDeclarados.setText(questionario.getRiscosSociais());
+        this.jTextAreaBemMaterial.setText(questionario.getBensFamiliares());
+        this.jTextAreaDividas.setText(questionario.getEmprestimos());
+        this.jTextAreaMotivos.setText(questionario.getImpossibilidadesCusteio());
+    }
+
+    private void reintroduzirCobranca() {
+        if (questionario.getTipoCobrancaCirurgias().equals(QuestionarioSocioeconomico.COBRANCA_NORMAL)) {
+            this.jRadioButtonCirurgiaNormal.setSelected(true);
+        } else if (questionario.getTipoCobrancaCirurgias().equals(QuestionarioSocioeconomico.COBRANCA_AULA)) {
+            this.jRadioButtonCirurgiaAula.setSelected(true);
+        } else if (questionario.getTipoCobrancaCirurgias().equals(QuestionarioSocioeconomico.COBRANCA_INSENCAO)) {
+            this.jRadioButtonCirurgiaIsencao.setSelected(true);
+        } else if (questionario.getTipoCobrancaCirurgias().equals(QuestionarioSocioeconomico.COBRANCA_DESCONTO)) {
+            this.jRadioButtonCirurgiaDesconto.setSelected(true);
+            this.jFormattedTextFieldCirurgia.setEnabled(true);
+            this.jFormattedTextFieldCirurgia.setText("" + questionario.getValorDescontoCirurgias());
+        } else {
+            InterfaceGraficaUtils.erroResposta("Erro ao reinserir a forma de cobrança");
+        }
+
+        if (questionario.getTipoCobrancaConsultas().equals(QuestionarioSocioeconomico.COBRANCA_NORMAL)) {
+            this.jRadioButtonConsultaNormal.setSelected(true);
+        } else if (questionario.getTipoCobrancaConsultas().equals(QuestionarioSocioeconomico.COBRANCA_AULA)) {
+            this.jRadioButtonConsultaAula.setSelected(true);
+        } else if (questionario.getTipoCobrancaConsultas().equals(QuestionarioSocioeconomico.COBRANCA_INSENCAO)) {
+            this.jRadioButtonConsultaIsencao.setSelected(true);
+        } else if (questionario.getTipoCobrancaConsultas().equals(QuestionarioSocioeconomico.COBRANCA_DESCONTO)) {
+            this.jRadioButtonConsultaDesconto.setSelected(true);
+            this.jFormattedTextFieldConsulta.setEnabled(false);
+            this.jFormattedTextFieldConsulta.setText("" + questionario.getValorDescontoConsultas());
+        } else {
+            InterfaceGraficaUtils.erroResposta("Erro ao reinserir a forma de cobrança");
+        }
+
+        if (questionario.getTipoCobrancaConsultas().equals(QuestionarioSocioeconomico.COBRANCA_NORMAL)) {
+            this.jRadioButtonExameNormal.setSelected(true);
+        } else if (questionario.getTipoCobrancaConsultas().equals(QuestionarioSocioeconomico.COBRANCA_AULA)) {
+            this.jRadioButtonExameAula.setSelected(true);
+        } else if (questionario.getTipoCobrancaConsultas().equals(QuestionarioSocioeconomico.COBRANCA_INSENCAO)) {
+            this.jRadioButtonExameIsencao.setSelected(true);
+        } else if (questionario.getTipoCobrancaConsultas().equals(QuestionarioSocioeconomico.COBRANCA_DESCONTO)) {
+            this.jRadioButtonExameDesconto.setSelected(true);
+            this.jFormattedTextFieldExame.setEnabled(true);
+            this.jFormattedTextFieldConsulta.setText("" + questionario.getValorDescontoConsultas());
+        } else {
+            InterfaceGraficaUtils.erroResposta("Erro ao reinserir a forma de cobrança");
+        }
+    }
+
+    private void reintroduzirAnalise() {
+        this.jTextAreaVulnerabilidades.setText(questionario.getAnaliseBreveResumo());
+        this.jTextAreaEncaminhamentos.setText(questionario.getAnaliseObservacoes());
+        this.jTextAreaConclusoes.setText(questionario.getAnaliseConclusoes());
+    }
+
+    private void reintroduzirParentes() {
+        this.modelParente.setParentes(questionario.getParentes());
+    }
+
+    private void reintroduzirDocumentacoes() {
+        this.modelDocumentacao.setDocumentos(questionario.getDocumentosEntregues());
+    }
+
+    private void reintroduzirDadosQuestionarioDadosDono() {
+        this.jLabelNomeDono.setText("Nome : " + questionario.getDono().getNome());
+        jLabelCpfDono.setText("CPF : " + questionario.getDono().getCpfCnpj());
+        jLabelTelefone.setText("Telefone: " + questionario.getDono().getTelefone());
+        jLabelEndereco.setText("Endereço: " + questionario.getDono().getEndereco());
+
+        this.jFormattedTextFieldIdade.setText("" + questionario.getIdade());
+        this.jComboBoxEstadoCivil.setSelectedIndex(questionario.getEstadoCivil());
+        this.jTextFieldProfissao.setText(questionario.getProfissao());
+        this.jComboBoxEscolaridadeDono.setSelectedIndex(questionario.getEscolaridade());
+        this.jTextFieldOcupacao.setText(questionario.getOcupacaoAtual());
+        this.jFormattedTextFieldRendaFormal.setText("" + questionario.getRendaFormal());
+        this.jFormattedTextFieldRendaInformal.setText("" + questionario.getRendaInformal());
+        this.jFormattedTextFieldAluguel.setText("" + questionario.getValorAluguel());
+        this.jTextFieldTipoConstrucao.setText(questionario.getTipoConstrucao());
+        this.jTextFieldCondicaoMoradia.setText(questionario.getCondicaoMoradia());
+        this.jTextFieldProgramaRenda.setText(questionario.getProgramaTransferenciaRenda());
+        if (questionario.isEstudante()) {
+            this.jRadioButtonEstudanteSim.setSelected(true);
+            this.jFormattedTextFieldGastosMensais.setText("" + questionario.getGastosMensais());
+            this.jTextFieldFonteCusteio.setText(questionario.getFontCusteio());
+            this.jTextFieldBeneficio.setText(questionario.getBolsaOuBeneficio());
+            this.jTextAreaObservacoes.setText(questionario.getObservacoesDadosDono());
+        } else {
+            this.jRadioButtonEstudanteNao.setSelected(true);
+        }
+        if (questionario.isTemEnergia()) {
+            this.jRadioButtonEnergiaSim.setSelected(true);
+        } else {
+            this.jRadioButtonEnergiaNao.setSelected(true);
+        }
+        if (questionario.isTemSaneamento()) {
+            this.jRadioButtonSaneamentoSim.setSelected(true);
+        } else {
+            this.jRadioButtonSaneamentoNao.setSelected(true);
+        }
+
+    }
+
+    @Override
+    public void setResultado(Object resultado) {
+        if (resultado instanceof Dono) {
+            dono = (Dono) resultado;
+            jLabelNomeDono.setText("Nome: " + dono.getNome());
+            if (dono.getTipoDocumento().equalsIgnoreCase("cpf")) {
+                jLabelCpfDono.setText("CPF: " + MaskUtils.formatarStringCPF(dono.getCpfCnpj()));
+            } else {
+                jLabelCpfDono.setText("CNPJ: " + MaskUtils.formatarStringCNPJ(dono.getCpfCnpj()));
+            }
+            jLabelEndereco.setText("Edereço: " + dono.getEndereco());
+            jLabelTelefone.setText("Telefone: " + dono.getTelefone());
+        }
     }
 
     /**
@@ -54,7 +289,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jFormattedTextFieldIdade = new javax.swing.JFormattedTextField();
         jComboBoxEstadoCivil = new javax.swing.JComboBox<>();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBoxEscolaridadeDono = new javax.swing.JComboBox<>();
         jTextFieldProfissao = new javax.swing.JTextField();
         jTextFieldOcupacao = new javax.swing.JTextField();
         jPanelMateriais = new javax.swing.JPanel();
@@ -74,8 +309,8 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jFormattedTextFieldRendaInformal = new javax.swing.JFormattedTextField();
         jTextFieldTipoConstrucao = new javax.swing.JTextField();
         jTextFieldProgramaRenda = new javax.swing.JTextField();
-        jFormattedTextFieldAluguel = new javax.swing.JFormattedTextField();
         jTextFieldCondicaoMoradia = new javax.swing.JTextField();
+        jFormattedTextFieldAluguel = new javax.swing.JFormattedTextField();
         jLabel18 = new javax.swing.JLabel();
         jRadioButtonEstudanteSim = new javax.swing.JRadioButton();
         jRadioButtonEstudanteNao = new javax.swing.JRadioButton();
@@ -91,18 +326,18 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jTextAreaObservacoes = new javax.swing.JTextArea();
         jPanelDocumentos = new javax.swing.JPanel();
         jLabel31 = new javax.swing.JLabel();
-        jTextFieldDocumento = new javax.swing.JTextField();
+        jTextFieldDocumentoOutro = new javax.swing.JTextField();
         jLabel32 = new javax.swing.JLabel();
         dteDataEntrega = new com.toedter.calendar.JDateChooser();
         jButtonDocumentoSalvar = new javax.swing.JButton();
         jButtonDocumentoRemover = new javax.swing.JButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButtonDocumentoDono = new javax.swing.JRadioButton();
-        jRadioButtonDocumentoFamilia = new javax.swing.JRadioButton();
-        jRadioButtonBolsaFamilia = new javax.swing.JRadioButton();
-        jRadioButtonDocumentoOutro = new javax.swing.JRadioButton();
+        jRadioButtonDocumentosComprovanteEndereco = new javax.swing.JRadioButton();
+        jRadioButtonDocumentosRGDono = new javax.swing.JRadioButton();
+        jRadioButtonDocumentosMembroFamilia = new javax.swing.JRadioButton();
+        jRadioButtonDocumentosBolsaFamilia = new javax.swing.JRadioButton();
+        jRadioButtonDocumentosOutro = new javax.swing.JRadioButton();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTableDocumentos = new javax.swing.JTable();
         jCheckBoxNA = new javax.swing.JCheckBox();
         jCheckBoxVistoASocial = new javax.swing.JCheckBox();
         jPanelAnalise = new javax.swing.JPanel();
@@ -151,12 +386,11 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jFormattedIdadeFamilia = new javax.swing.JFormattedTextField();
-        jFormattedRendaMembroFamilia = new javax.swing.JFormattedTextField();
         jTextFieldFamiliaNome = new javax.swing.JTextField();
         jTextFieldParentesco = new javax.swing.JTextField();
         jTextFieldFamiliaOcupacao = new javax.swing.JTextField();
         jButtonSalvar = new javax.swing.JButton();
-        jButtonRemover = new javax.swing.JButton();
+        jButtonFamiliaRemover = new javax.swing.JButton();
         jLabelRendaTotal = new javax.swing.JLabel();
         jLabelRendaPerCapta = new javax.swing.JLabel();
         jLabelFamiliaRendaTotal = new javax.swing.JLabel();
@@ -172,6 +406,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jLabel30 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTextAreaMotivos = new javax.swing.JTextArea();
+        jTextFieldFamiliaRenda = new javax.swing.JTextField();
         jButtonQuestionarioCancelar = new javax.swing.JButton();
         jButtonQuestionarioSalvar = new javax.swing.JButton();
 
@@ -259,7 +494,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
 
         jComboBoxEstadoCivil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Solteiro", "Casado", "Separado", "Divorciado", "Viúvo" }));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fundamental incompleto", "Fundamental completo", "Médio incompleto", "Médio completo", "Superior incompleto", "Superior completo", "Pós-graduação incompleta", "Pós-graduação completa" }));
+        jComboBoxEscolaridadeDono.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fundamental incompleto", "Fundamental completo", "Médio incompleto", "Médio completo", "Superior incompleto", "Superior completo", "Pós-graduação incompleta", "Pós-graduação completa" }));
 
         javax.swing.GroupLayout jPanelAdicionaisLayout = new javax.swing.GroupLayout(jPanelAdicionais);
         jPanelAdicionais.setLayout(jPanelAdicionaisLayout);
@@ -279,7 +514,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAdicionaisLayout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jComboBoxEscolaridadeDono, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelAdicionaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4)
@@ -305,7 +540,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                 .addGroup(jPanelAdicionaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelAdicionaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jComboBoxEscolaridadeDono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelAdicionaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel5)
                         .addComponent(jTextFieldOcupacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -333,26 +568,10 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jRadioButtonSaneamentoSim.setText("Sim");
 
         jRadioButtonSaneamentoNao.setText("Não");
-        jRadioButtonSaneamentoNao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonSaneamentoNaoActionPerformed(evt);
-            }
-        });
 
         jRadioButtonEnergiaSim.setText("Sim");
 
         jRadioButtonEnergiaNao.setText("Não");
-        jRadioButtonEnergiaNao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonEnergiaNaoActionPerformed(evt);
-            }
-        });
-
-        jFormattedTextFieldRendaFormal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
-
-        jFormattedTextFieldRendaInformal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
-
-        jFormattedTextFieldAluguel.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
 
         javax.swing.GroupLayout jPanelMateriaisLayout = new javax.swing.GroupLayout(jPanelMateriais);
         jPanelMateriais.setLayout(jPanelMateriaisLayout);
@@ -380,9 +599,9 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                                 .addComponent(jFormattedTextFieldRendaInformal, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanelMateriaisLayout.createSequentialGroup()
                                 .addComponent(jLabel9)
-                                .addGap(9, 9, 9)
-                                .addComponent(jFormattedTextFieldAluguel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jFormattedTextFieldAluguel, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addGroup(jPanelMateriaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanelMateriaisLayout.createSequentialGroup()
                         .addGap(47, 47, 47)
@@ -452,8 +671,6 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jLabel21.setText("Bolsa ou benefício:");
 
         jLabel22.setText("Observações:");
-
-        jFormattedTextFieldGastosMensais.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
 
         jTextAreaObservacoes.setColumns(20);
         jTextAreaObservacoes.setRows(5);
@@ -541,8 +758,9 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel18)
                     .addComponent(jRadioButtonEstudanteSim)
                     .addComponent(jRadioButtonEstudanteNao))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanelEstudante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelEstudante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(121, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Dados do dono", jPanelDadosDono);
@@ -554,7 +772,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jButtonDocumentoSalvar.setText("Salvar");
         jButtonDocumentoSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDocumentoSalvarActionPerformed(evt);
+                jButtonTabelaDocumentosSalvarActionPerformed(evt);
             }
         });
 
@@ -565,27 +783,17 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
             }
         });
 
-        jRadioButton1.setText("Comprovante de endereço");
+        jRadioButtonDocumentosComprovanteEndereco.setText("Comprovante de endereço");
 
-        jRadioButtonDocumentoDono.setText("Cópia do documento de identidade do dono");
-        jRadioButtonDocumentoDono.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonDocumentoDonoActionPerformed(evt);
-            }
-        });
+        jRadioButtonDocumentosRGDono.setText("Cópia do documento de identidade do dono");
 
-        jRadioButtonDocumentoFamilia.setText("Cópia do documento de identidade de membro da família");
-        jRadioButtonDocumentoFamilia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonDocumentoFamiliaActionPerformed(evt);
-            }
-        });
+        jRadioButtonDocumentosMembroFamilia.setText("Cópia do documento de identidade de membro da família");
 
-        jRadioButtonBolsaFamilia.setText("Cópia do cartão Bolsa Família");
+        jRadioButtonDocumentosBolsaFamilia.setText("Cópia do cartão Bolsa Família");
 
-        jRadioButtonDocumentoOutro.setText("Outro");
+        jRadioButtonDocumentosOutro.setText("Outro");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTableDocumentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -596,14 +804,9 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane6.setViewportView(jTable2);
+        jScrollPane6.setViewportView(jTableDocumentos);
 
         jCheckBoxNA.setText("NA");
-        jCheckBoxNA.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxNAActionPerformed(evt);
-            }
-        });
 
         jCheckBoxVistoASocial.setText("Visto Assistente Social");
 
@@ -625,66 +828,63 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                         .addGap(6, 6, 6)
                         .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jRadioButtonDocumentoDono)
-                                .addComponent(jRadioButton1)
-                                .addComponent(jRadioButtonDocumentoFamilia)
-                                .addComponent(jRadioButtonBolsaFamilia)
-                                .addComponent(jRadioButtonDocumentoOutro))
-                            .addComponent(jTextFieldDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jRadioButtonDocumentosRGDono)
+                                .addComponent(jRadioButtonDocumentosComprovanteEndereco)
+                                .addComponent(jRadioButtonDocumentosMembroFamilia)
+                                .addComponent(jRadioButtonDocumentosBolsaFamilia)
+                                .addComponent(jRadioButtonDocumentosOutro))
+                            .addComponent(jTextFieldDocumentoOutro, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDocumentosLayout.createSequentialGroup()
-                        .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dteDataEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel32))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanelDocumentosLayout.createSequentialGroup()
-                        .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBoxNA)
-                            .addComponent(jCheckBoxVistoASocial))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(dteDataEntrega, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jCheckBoxNA, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBoxVistoASocial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanelDocumentosLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 668, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanelDocumentosLayout.setVerticalGroup(
             jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDocumentosLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelDocumentosLayout.createSequentialGroup()
-                        .addComponent(jLabel31)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButton1))
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanelDocumentosLayout.createSequentialGroup()
+                                .addComponent(jLabel31)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jRadioButtonDocumentosComprovanteEndereco))
+                            .addComponent(dteDataEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanelDocumentosLayout.createSequentialGroup()
-                        .addComponent(jLabel32)
-                        .addGap(35, 35, 35))
-                    .addComponent(dteDataEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel32)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelDocumentosLayout.createSequentialGroup()
-                        .addComponent(jRadioButtonDocumentoDono)
+                        .addComponent(jRadioButtonDocumentosRGDono)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButtonDocumentoFamilia)
+                        .addComponent(jRadioButtonDocumentosMembroFamilia)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDocumentosLayout.createSequentialGroup()
                         .addComponent(jCheckBoxNA)
                         .addGap(15, 15, 15)))
                 .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButtonBolsaFamilia)
+                    .addComponent(jRadioButtonDocumentosBolsaFamilia)
                     .addComponent(jCheckBoxVistoASocial))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButtonDocumentoOutro)
+                .addComponent(jRadioButtonDocumentosOutro)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldDocumentoOutro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonDocumentoRemover)
                     .addComponent(jButtonDocumentoSalvar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(259, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Documentos", jPanelDocumentos);
@@ -772,11 +972,6 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jRadioButtonConsultaAula.setText("Valor aula");
 
         jRadioButtonConsultaIsencao.setText("Isenção");
-        jRadioButtonConsultaIsencao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonConsultaIsencaoActionPerformed(evt);
-            }
-        });
 
         jRadioButtonConsultaDesconto.setText("Desconto");
 
@@ -789,18 +984,8 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jRadioButtonExameAula.setText("Valor aula");
 
         jRadioButtonExameIsencao.setText("Isenção");
-        jRadioButtonExameIsencao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonExameIsencaoActionPerformed(evt);
-            }
-        });
 
         jRadioButtonExameDesconto.setText("Desconto");
-        jRadioButtonExameDesconto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonExameDescontoActionPerformed(evt);
-            }
-        });
 
         jFormattedTextFieldExame.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
 
@@ -811,11 +996,6 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         jRadioButtonCirurgiaAula.setText("Valor aula");
 
         jRadioButtonCirurgiaIsencao.setText("Isenção");
-        jRadioButtonCirurgiaIsencao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonCirurgiaIsencaoActionPerformed(evt);
-            }
-        });
 
         jRadioButtonCirurgiaDesconto.setText("Desconto");
 
@@ -907,7 +1087,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                     .addComponent(jRadioButtonCirurgiaDesconto)
                     .addComponent(jFormattedTextFieldCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel44))
-                .addContainerGap(392, Short.MAX_VALUE))
+                .addContainerGap(501, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Cobrança", Cobranca);
@@ -941,21 +1121,19 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
 
         jFormattedIdadeFamilia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
 
-        jFormattedRendaMembroFamilia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
-
         jButtonSalvar.setIcon(new javax.swing.ImageIcon("imagens/small_salvar.png"));
         jButtonSalvar.setText("Salvar");
         jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSalvarActionPerformed(evt);
+                jButtonTabelaFamiliaSalvarActionPerformed(evt);
             }
         });
 
-        jButtonRemover.setIcon(new javax.swing.ImageIcon("imagens/small_cancelar.png"));
-        jButtonRemover.setText("Remover");
-        jButtonRemover.addActionListener(new java.awt.event.ActionListener() {
+        jButtonFamiliaRemover.setIcon(new javax.swing.ImageIcon("imagens/small_cancelar.png"));
+        jButtonFamiliaRemover.setText("Remover");
+        jButtonFamiliaRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRemoverActionPerformed(evt);
+                jButtonFamiliaRemoverActionPerformed(evt);
             }
         });
 
@@ -1016,34 +1194,33 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                                 .addComponent(jLabel17)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jComboBoxEscolaridadeFamliar, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
                                 .addComponent(jLabel15)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jFormattedIdadeFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel24)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jFormattedRendaMembroFamilia)
-                                .addGap(6, 6, 6))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextFieldFamiliaRenda))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelComposicaoFamiliarLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButtonRemover)
+                                .addGap(0, 191, Short.MAX_VALUE)
+                                .addComponent(jButtonFamiliaRemover)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())))
+                                .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())
                     .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
                         .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
-                                .addComponent(jLabelRendaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabelRendaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabelFamiliaRendaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabelFamiliaRendaTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabelRendaPerCapta, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabelRendaPerCapta, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabelFamiliaRendaPerCapita, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 125, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanelComposicaoFamiliarLayout.createSequentialGroup()
                                 .addComponent(jLabel27)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1054,7 +1231,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                             .addComponent(jLabel28)
                             .addComponent(jLabel29)
                             .addComponent(jLabel30))
-                        .addGap(0, 70, Short.MAX_VALUE))
+                        .addGap(0, 106, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelComposicaoFamiliarLayout.createSequentialGroup()
                         .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING)
@@ -1078,12 +1255,12 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel15)
                     .addComponent(jFormattedIdadeFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel24)
-                    .addComponent(jFormattedRendaMembroFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldFamiliaRenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelComposicaoFamiliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel23)
                     .addComponent(jTextFieldFamiliaOcupacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonRemover)
+                    .addComponent(jButtonFamiliaRemover)
                     .addComponent(jButtonSalvar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1110,7 +1287,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
                 .addComponent(jLabel30)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Composição familiar", jPanelComposicaoFamiliar);
@@ -1146,7 +1323,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 710, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 779, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonQuestionarioSalvar)
@@ -1156,120 +1333,367 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonPesquisarDonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarDonoActionPerformed
-        /*JFrame jFrame = new JFrame("Busca");
+        JFrame jFrame = new JFrame("Busca");
         PropriedadesBuscaDono propriedadesBusca = new PropriedadesBuscaDono(PropriedadesBusca.OPCAO_SELECIONAR, jFrame, this);
         BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE DONO", propriedadesBusca);
         jFrame.setContentPane(buscaPanel);
-        InterfaceGraficaUtils.exibirJanela(jFrame);*/
+        InterfaceGraficaUtils.exibirJanela(jFrame);
     }//GEN-LAST:event_jButtonPesquisarDonoActionPerformed
 
     private void jButtonCadastrarNovoDonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarNovoDonoActionPerformed
-        //new CadastrarDonoJDialog(this).setVisible(true);
+        JFrame jFrame = new JFrame("Cadastro de dono");
+        CadastrarDonoJPanel cadastrarDonoJPanel = new CadastrarDonoJPanel(jFrame, this);
+        jFrame.setContentPane(cadastrarDonoJPanel);
+        InterfaceGraficaUtils.exibirJanela(jFrame);
     }//GEN-LAST:event_jButtonCadastrarNovoDonoActionPerformed
 
-    private void jRadioButtonSaneamentoNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonSaneamentoNaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButtonSaneamentoNaoActionPerformed
+    private void jButtonTabelaDocumentosSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTabelaDocumentosSalvarActionPerformed
+        String nomeDocumento = "";
+        Date data;
+        try {
+            if (this.jRadioButtonDocumentosOutro.isSelected()) {
+                validarCampoVazio(jTextFieldDocumentoOutro, "nome do documento");
+                nomeDocumento = jTextFieldDocumentoOutro.getText();
+            } else if (this.jRadioButtonDocumentosBolsaFamilia.isSelected()) {
+                nomeDocumento = Documentacao.BOLSA_FAMILIA;
+            } else if (jRadioButtonDocumentosComprovanteEndereco.isSelected()) {
+                nomeDocumento = Documentacao.COMPROVANTE_ENDERECO;
+            } else if (jRadioButtonDocumentosMembroFamilia.isSelected()) {
+                nomeDocumento = Documentacao.RG_MEMBRO_FAMILIA;
+            } else if (jRadioButtonDocumentosRGDono.isSelected()) {
+                nomeDocumento = Documentacao.RG_DONO;
+            }
 
-    private void jRadioButtonEnergiaNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEnergiaNaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButtonEnergiaNaoActionPerformed
-
-    private void jButtonDocumentoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDocumentoSalvarActionPerformed
-        
-    }//GEN-LAST:event_jButtonDocumentoSalvarActionPerformed
+            data = this.dteDataEntrega.getDate();
+            Documentacao doc = new Documentacao();
+            doc.setDataEntrega(data);
+            doc.setNomeDocumento(nomeDocumento);
+            doc.setNomeUsuarioRecebinte(HUMVApp.getNomeUsuario());
+            doc.setNa(jCheckBoxNA.isSelected());
+            doc.setVistoAssistenteSocial(jCheckBoxVistoASocial.isSelected());
+            //doc.setQuestionario(questionario);
+            modelDocumentacao.addDocumento(doc);
+        } catch (Exception ex) {
+            InterfaceGraficaUtils.validaCampoVazio(ex.getMessage());
+        }
+    }//GEN-LAST:event_jButtonTabelaDocumentosSalvarActionPerformed
 
     private void jButtonDocumentoRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDocumentoRemoverActionPerformed
-        this.setVisible(false);
+        Integer indexRemover = this.jTableDocumentos.getSelectedRow();
+        this.modelDocumentacao.removerDocumento(indexRemover);
     }//GEN-LAST:event_jButtonDocumentoRemoverActionPerformed
 
-    private void jRadioButtonDocumentoDonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDocumentoDonoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButtonDocumentoDonoActionPerformed
-
-    private void jRadioButtonDocumentoFamiliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDocumentoFamiliaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButtonDocumentoFamiliaActionPerformed
-
-    private void jCheckBoxNAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxNAActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBoxNAActionPerformed
-
-    private void jRadioButtonConsultaIsencaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonConsultaIsencaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButtonConsultaIsencaoActionPerformed
-
-    private void jRadioButtonExameIsencaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonExameIsencaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButtonExameIsencaoActionPerformed
-
-    private void jRadioButtonCirurgiaIsencaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCirurgiaIsencaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButtonCirurgiaIsencaoActionPerformed
-
-    private void jRadioButtonExameDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonExameDescontoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButtonExameDescontoActionPerformed
-
     private void jButtonQuestionarioCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQuestionarioCancelarActionPerformed
-        
+        boolean sair = InterfaceGraficaUtils.dialogoCancelar("o cadastro", "questionário socioeconômico");
+        if (sair) {
+            System.gc();
+            HUMVApp.setPainelCentralComLogo();
+        }
     }//GEN-LAST:event_jButtonQuestionarioCancelarActionPerformed
 
     private void jButtonQuestionarioSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQuestionarioSalvarActionPerformed
+        if (dono == null) {
+            InterfaceGraficaUtils.erroCadastro("Escolha ou cadastre um dono de animal para continuar.");
+            return;
+        }
+
+        boolean okDonoDados, okAnalise, okFatoresRisco;
+        okDonoDados = validarDadosDoDono();
+        if (!okDonoDados) {
+            return;
+        }
+
+        setArrayDocumentacao();
+
+        okAnalise = setAnaliseQuestionario();
+        if (!okAnalise) {
+            return;
+        }
+
+        setValorTipoCirugia();
+        setValorTipoConsulta();
+        setValorTipoExame();
+
+        setArrayParentes();
+        okFatoresRisco = setFatoresRiscos();
+        if (!okFatoresRisco) {
+            return;
+        }
         
+        try {
+            RESTMethods.post("/api/questionarioSocioeconomico", questionario);
+            InterfaceGraficaUtils.sucessoCadastro("questionário socioeconômico");
+            HUMVApp.setPainelCentralComLogo();
+        } catch (RESTConnectionException ex) {
+            InterfaceGraficaUtils.erroConexao();
+            ex.printStackTrace();
+        }
+
     }//GEN-LAST:event_jButtonQuestionarioSalvarActionPerformed
 
-    private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
+    private boolean setAnaliseQuestionario() {
+        try {
+            validarCampoVazio(jTextAreaVulnerabilidades, "breve resumo em análise");
+            validarCampoVazio(jTextAreaEncaminhamentos, "orientação e encaminhamento");
+            validarCampoVazio(jTextAreaConclusoes, "conclusão");
 
-    }//GEN-LAST:event_jButtonRemoverActionPerformed
-
-    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        Parente parente = new Parente();
-
-        if (this.jTextFieldFamiliaNome.getText().isEmpty()) {
-            InterfaceGraficaUtils.validaCampoVazio("Nome do familiar");
-            return;
+            questionario.setAnaliseBreveResumo(jTextAreaVulnerabilidades.getText());
+            questionario.setAnaliseObservacoes(jTextAreaEncaminhamentos.getText());
+            questionario.setAnaliseConclusoes(jTextAreaConclusoes.getText());
+            return true;
+        } catch (Exception ex) {
+            InterfaceGraficaUtils.validaCampoVazio(ex.getMessage());
+            return false;
         }
-        String nome = this.jTextFieldFamiliaNome.getText();
-        parente.setNome(nome);
+    }
 
-        if (this.jFormattedIdadeFamilia.getText().isEmpty()) {
-            InterfaceGraficaUtils.validaCampoVazio("Idade do familiar");
-            return;
+    private boolean setFatoresRiscos() {
+        try {
+            validarCampoVazio(jTextFieldFatoresDeclarados, "fatores declarados");
+            validarCampoVazio(jTextAreaBemMaterial, "bens materiais");
+            validarCampoVazio(jTextAreaDividas, "dívidas");
+            validarCampoVazio(jTextAreaMotivos, "motivo de impossibilidade de pagamento");
+
+            questionario.setRiscosSociais(jTextFieldFatoresDeclarados.getText());
+            questionario.setBensFamiliares(jTextAreaBemMaterial.getText());
+            questionario.setEmprestimos(jTextAreaDividas.getText());
+            questionario.setImpossibilidadesCusteio(jTextAreaMotivos.getText());
+            return true;
+        } catch (Exception ex) {
+            InterfaceGraficaUtils.validaCampoVazio(ex.getMessage());
+            return false;
         }
-        int idade = Integer.parseInt(this.jFormattedIdadeFamilia.getText());
-        parente.setIdade(idade);
+    }
 
-        if (this.jTextFieldParentesco.getText().isEmpty()) {
-            InterfaceGraficaUtils.validaCampoVazio("Parentesco do familiar");
-            return;
+    private void setArrayParentes() {
+        questionario.setParentes(modelParente.getParentes());
+    }
+
+    private void setArrayDocumentacao() {
+        questionario.setDocumentosEntregues(modelDocumentacao.getDocumentos());
+    }
+
+    private void setValorTipoConsulta() {
+        Integer consulta;
+        if (this.jRadioButtonConsultaAula.isSelected()) {
+            consulta = QuestionarioSocioeconomico.COBRANCA_AULA;
+        } else if (this.jRadioButtonConsultaNormal.isSelected()) {
+            consulta = QuestionarioSocioeconomico.COBRANCA_NORMAL;
+        } else if (this.jRadioButtonConsultaIsencao.isSelected()) {
+            consulta = QuestionarioSocioeconomico.COBRANCA_INSENCAO;
+        } else {
+            consulta = QuestionarioSocioeconomico.COBRANCA_DESCONTO;
+            String descontoConsultaST = this.jFormattedTextFieldConsulta.getText();
+            questionario.setValorDescontoConsultas(ValidationsUtils.converteStringParaPreco(descontoConsultaST));
         }
-        String parentesco = this.jTextFieldParentesco.getText();
-        parente.setParentesco(parentesco);
+        questionario.setTipoCobrancaConsultas(consulta);
+    }
 
-        int escolaridade = this.jComboBoxEscolaridadeFamliar.getSelectedIndex();
-        parente.setEscolaridade(escolaridade);
-
-        if (this.jTextFieldFamiliaOcupacao.getText().isEmpty()) {
-            InterfaceGraficaUtils.validaCampoVazio("Ocupação do familiar");
-            return;
+    private void setValorTipoExame() throws HeadlessException {
+        Integer exame;
+        if (this.jRadioButtonExameAula.isSelected()) {
+            exame = QuestionarioSocioeconomico.COBRANCA_AULA;
+        } else if (this.jRadioButtonExameNormal.isSelected()) {
+            exame = QuestionarioSocioeconomico.COBRANCA_NORMAL;
+        } else if (this.jRadioButtonExameIsencao.isSelected()) {
+            exame = QuestionarioSocioeconomico.COBRANCA_INSENCAO;
+        } else {
+            exame = QuestionarioSocioeconomico.COBRANCA_DESCONTO;
+            String descontoExameST = this.jFormattedTextFieldConsulta.getText();
+            questionario.setValorDescontoExames(ValidationsUtils.converteStringParaPreco(descontoExameST));
         }
-        String ocupacao = this.jTextFieldFamiliaOcupacao.getText();
-        parente.setOcupacao(ocupacao);
+        questionario.setTipoCobrancaExames(exame);
+    }
 
-        if (this.jFormattedRendaMembroFamilia.getText().isEmpty()) {
-            InterfaceGraficaUtils.validaCampoVazio("Renda do familiar");
-            return;
+    private void setValorTipoCirugia() throws HeadlessException {
+        Integer cirugia;
+        if (this.jRadioButtonExameAula.isSelected()) {
+            cirugia = QuestionarioSocioeconomico.COBRANCA_AULA;
+        } else if (this.jRadioButtonExameNormal.isSelected()) {
+            cirugia = QuestionarioSocioeconomico.COBRANCA_NORMAL;
+        } else if (this.jRadioButtonExameIsencao.isSelected()) {
+            cirugia = QuestionarioSocioeconomico.COBRANCA_INSENCAO;
+        } else {
+            cirugia = QuestionarioSocioeconomico.COBRANCA_DESCONTO;
+            String descontoCirugiaST = this.jFormattedTextFieldConsulta.getText();
+            questionario.setValorDescontoCirurgias(ValidationsUtils.converteStringParaPreco(descontoCirugiaST));
         }
-        double renda = Double.parseDouble(this.jFormattedRendaMembroFamilia.getText());
-        parente.setRenda(renda);
+        questionario.setTipoCobrancaCirurgias(cirugia);
+    }
 
-        parentes.add(parente);
-        limparTextfieldsInfoFamiliar();
-        atualizaTabelaFamiliares();
-        atualizaCalculoRenda();
-    }//GEN-LAST:event_jButtonSalvarActionPerformed
+    private boolean validarDadosDoDono() {
 
+        try {
+            validarCampoVazio(jFormattedTextFieldIdade, "idade");
+            validarCampoVazio(jTextFieldProfissao, "profissão");
+            validarCampoVazio(jTextFieldOcupacao, "ocupação");
+            validarCampoVazio(jTextFieldTipoConstrucao, "tipo de construção");
+            validarCampoVazio(jTextFieldCondicaoMoradia, "condição de moradia");
+            validarCampoVazio(jTextFieldProgramaRenda, "programa de transferencia de renda");
+            validarCampoVazio(jFormattedTextFieldRendaFormal, "renda formal");
+            validarCampoVazio(jFormattedTextFieldRendaInformal, "renda informal");
+            validarCampoVazio(jFormattedTextFieldAluguel, "aluguel/financ.");
+
+            if (jRadioButtonEstudanteSim.isSelected()) {
+                validarCampoVazio(jFormattedTextFieldGastosMensais, "gastos mensais");
+                validarCampoVazio(jTextFieldFonteCusteio, "fonte de custeio");
+                validarCampoVazio(jTextFieldBeneficio, "bolsa/benefício");
+                validarCampoVazio(jTextAreaObservacoes, "observações");
+            }
+        } catch (Exception e) {
+            InterfaceGraficaUtils.validaCampoVazio(e.getMessage());
+            return false;
+        }
+
+        String rendaFormalST = this.jFormattedTextFieldRendaFormal.getText();
+        Double rendaFormal = ValidationsUtils.converteStringParaPreco(rendaFormalST);
+
+        String rendaInformalST = this.jFormattedTextFieldRendaInformal.getText();
+        Double rendaInformal = ValidationsUtils.converteStringParaPreco(rendaInformalST);
+
+        String aluguelST = this.jFormattedTextFieldAluguel.getText();
+        Double aluguel = ValidationsUtils.converteStringParaPreco(aluguelST);
+
+        if (jRadioButtonEstudanteSim.isSelected()) {
+            String gastosMenssaisST = this.jFormattedTextFieldGastosMensais.getText();
+            Double gastosMensais = ValidationsUtils.converteStringParaPreco(gastosMenssaisST);
+            questionario.setGastosMensais(gastosMensais);
+        }
+
+        questionario.setDono(dono);
+        questionario.setDataResposta(Calendar.getInstance().getTime());
+        questionario.setIdade(Integer.parseInt(jFormattedTextFieldIdade.getText()));
+        questionario.setEstadoCivil(jComboBoxEstadoCivil.getSelectedIndex());
+        questionario.setProfissao(jTextFieldProfissao.getText());
+        questionario.setEscolaridade(jComboBoxEscolaridadeFamliar.getSelectedIndex());
+        questionario.setOcupacaoAtual(jTextFieldOcupacao.getText());
+        questionario.setRendaFormal(rendaFormal);
+        questionario.setRendaInformal(rendaInformal);
+        questionario.setValorAluguel(aluguel);
+        questionario.setTemSaneamento(jRadioButtonSaneamentoSim.isSelected());
+        questionario.setTemEnergia(jRadioButtonEnergiaSim.isSelected());
+        questionario.setTipoConstrucao(jTextFieldTipoConstrucao.getText());
+        questionario.setCondicaoMoradia(jTextFieldCondicaoMoradia.getText());
+        questionario.setProgramaTransferenciaRenda(jTextFieldProgramaRenda.getText());
+        questionario.setEstudante(jRadioButtonEstudanteSim.isSelected());
+        questionario.setFontCusteio(jTextFieldFonteCusteio.getText());
+        questionario.setBolsaOuBeneficio(jTextFieldBeneficio.getText());
+        questionario.setObservacoesDadosDono(jTextAreaObservacoes.getText());
+
+        return true;
+    }
+
+
+    private void jButtonTabelaFamiliaSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTabelaFamiliaSalvarActionPerformed
+
+        try {
+            Parente parente = new Parente();
+
+            validarCampoVazio(jTextFieldFamiliaNome, "nome do familiar");
+            parente.setNome(jTextFieldFamiliaNome.getText());
+
+            if (this.jFormattedIdadeFamilia.getText().isEmpty()) {
+                InterfaceGraficaUtils.validaCampoVazio("Idade do familiar");
+                return;
+            }
+            int idade = Integer.parseInt(this.jFormattedIdadeFamilia.getText());
+            parente.setIdade(idade);
+
+            if (this.jTextFieldParentesco.getText().isEmpty()) {
+                InterfaceGraficaUtils.validaCampoVazio("parentesco do familiar");
+                return;
+            }
+            String parentesco = this.jTextFieldParentesco.getText();
+            parente.setParentesco(parentesco);
+
+            int escolaridade = this.jComboBoxEscolaridadeFamliar.getSelectedIndex();
+            parente.setEscolaridade(escolaridade);
+
+            if (this.jTextFieldFamiliaOcupacao.getText().isEmpty()) {
+                InterfaceGraficaUtils.validaCampoVazio("ocupação do familiar");
+                return;
+            }
+            String ocupacao = this.jTextFieldFamiliaOcupacao.getText();
+            parente.setOcupacao(ocupacao);
+            if (this.jTextFieldFamiliaRenda.getText().isEmpty()) {
+                InterfaceGraficaUtils.validaCampoVazio("renda do familiar");
+                return;
+            }
+            Double renda;
+            String rendaFamilliarST = jTextFieldFamiliaRenda.getText();
+            renda = ValidationsUtils.converteStringParaPreco(rendaFamilliarST);
+            parente.setRenda(renda);
+            //parente.setQuestionario(questionario);
+            modelParente.addParente(parente);
+            limparTextfieldsInfoFamiliar();
+            atualizaCalculoRenda();
+        } catch (Exception ex) {
+            InterfaceGraficaUtils.validaCampoVazio(ex.getMessage());
+        }
+
+    }//GEN-LAST:event_jButtonTabelaFamiliaSalvarActionPerformed
+
+    private void jButtonFamiliaRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFamiliaRemoverActionPerformed
+        Integer indexRemover = this.jTableFamiliares.getSelectedRow();
+        this.modelParente.removerParentes(indexRemover);
+    }//GEN-LAST:event_jButtonFamiliaRemoverActionPerformed
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource().equals(jRadioButtonEstudanteSim) || e.getSource().equals(jRadioButtonEstudanteNao)) {
+            if (jRadioButtonEstudanteSim.isSelected()) {
+                habilitarPainelEstudante(true);
+            } else {
+                habilitarPainelEstudante(false);
+            }
+        } else if (e.getSource().equals(jRadioButtonConsultaAula) || e.getSource().equals(jRadioButtonConsultaDesconto)
+                || e.getSource().equals(jRadioButtonConsultaIsencao) || e.getSource().equals(jRadioButtonConsultaNormal)
+                || e.getSource().equals(jRadioButtonExameAula) || e.getSource().equals(jRadioButtonExameDesconto)
+                || e.getSource().equals(jRadioButtonExameIsencao) || e.getSource().equals(jRadioButtonExameNormal)
+                || e.getSource().equals(jRadioButtonCirurgiaAula) || e.getSource().equals(jRadioButtonCirurgiaDesconto)
+                || e.getSource().equals(jRadioButtonCirurgiaIsencao) || e.getSource().equals(jRadioButtonCirurgiaNormal)) {
+
+            jFormattedTextFieldConsulta.setEnabled(jRadioButtonConsultaDesconto.isSelected());
+            jFormattedTextFieldExame.setEnabled(jRadioButtonExameDesconto.isSelected());
+            jFormattedTextFieldCirurgia.setEnabled(jRadioButtonCirurgiaDesconto.isSelected());
+
+        } else if (e.getSource().equals(jRadioButtonDocumentosBolsaFamilia)
+                || e.getSource().equals(jRadioButtonDocumentosComprovanteEndereco)
+                || e.getSource().equals(jRadioButtonDocumentosMembroFamilia)
+                || e.getSource().equals(jRadioButtonDocumentosRGDono)
+                || e.getSource().equals(jRadioButtonDocumentosOutro)) {
+
+            jTextFieldDocumentoOutro.setEnabled(jRadioButtonDocumentosOutro.isSelected());
+
+        }
+    }
+
+    private void habilitarPainelEstudante(boolean habilitar) {
+        jFormattedTextFieldGastosMensais.setEnabled(habilitar);
+        jTextFieldFonteCusteio.setEnabled(habilitar);
+        jTextFieldBeneficio.setEnabled(habilitar);
+        jTextAreaObservacoes.setEnabled(habilitar);
+    }
+
+    private void validarCampoVazio(JTextComponent campoTexto, String nomeCampo) throws Exception {
+        if (campoTexto.getText().isEmpty()) {
+            campoTexto.setFocusable(true);
+            throw new Exception(nomeCampo);
+        }
+    }
+
+    private void limparTextfieldsInfoFamiliar() {
+        this.jTextFieldFamiliaNome.setText(null);
+        this.jFormattedIdadeFamilia.setText(null);
+        this.jTextFieldParentesco.setText(null);
+        this.jTextFieldFamiliaOcupacao.setText(null);
+        this.jTextFieldFamiliaRenda.setText(null);
+    }
+
+    private void atualizaCalculoRenda() {
+        jLabelFamiliaRendaTotal.setText(ValidationsUtils.convertePrecoParaString(modelParente.getRendaTotal()));
+        jLabelFamiliaRendaPerCapita.setText(ValidationsUtils.convertePrecoParaString(modelParente.getRendaPerCapita()));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Cobranca;
@@ -1284,18 +1708,17 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButtonCadastrarNovoDono;
     private javax.swing.JButton jButtonDocumentoRemover;
     private javax.swing.JButton jButtonDocumentoSalvar;
+    private javax.swing.JButton jButtonFamiliaRemover;
     private javax.swing.JButton jButtonPesquisarDono;
     private javax.swing.JButton jButtonQuestionarioCancelar;
     private javax.swing.JButton jButtonQuestionarioSalvar;
-    private javax.swing.JButton jButtonRemover;
     private javax.swing.JButton jButtonSalvar;
     private javax.swing.JCheckBox jCheckBoxNA;
     private javax.swing.JCheckBox jCheckBoxVistoASocial;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBoxEscolaridadeDono;
     private javax.swing.JComboBox<String> jComboBoxEscolaridadeFamliar;
     private javax.swing.JComboBox<String> jComboBoxEstadoCivil;
     private javax.swing.JFormattedTextField jFormattedIdadeFamilia;
-    private javax.swing.JFormattedTextField jFormattedRendaMembroFamilia;
     private javax.swing.JFormattedTextField jFormattedTextFieldAluguel;
     private javax.swing.JFormattedTextField jFormattedTextFieldCirurgia;
     private javax.swing.JFormattedTextField jFormattedTextFieldConsulta;
@@ -1362,8 +1785,6 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanelDocumentos;
     private javax.swing.JPanel jPanelEstudante;
     private javax.swing.JPanel jPanelMateriais;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButtonBolsaFamilia;
     private javax.swing.JRadioButton jRadioButtonCirurgiaAula;
     private javax.swing.JRadioButton jRadioButtonCirurgiaDesconto;
     private javax.swing.JRadioButton jRadioButtonCirurgiaIsencao;
@@ -1372,9 +1793,11 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     private javax.swing.JRadioButton jRadioButtonConsultaDesconto;
     private javax.swing.JRadioButton jRadioButtonConsultaIsencao;
     private javax.swing.JRadioButton jRadioButtonConsultaNormal;
-    private javax.swing.JRadioButton jRadioButtonDocumentoDono;
-    private javax.swing.JRadioButton jRadioButtonDocumentoFamilia;
-    private javax.swing.JRadioButton jRadioButtonDocumentoOutro;
+    private javax.swing.JRadioButton jRadioButtonDocumentosBolsaFamilia;
+    private javax.swing.JRadioButton jRadioButtonDocumentosComprovanteEndereco;
+    private javax.swing.JRadioButton jRadioButtonDocumentosMembroFamilia;
+    private javax.swing.JRadioButton jRadioButtonDocumentosOutro;
+    private javax.swing.JRadioButton jRadioButtonDocumentosRGDono;
     private javax.swing.JRadioButton jRadioButtonEnergiaNao;
     private javax.swing.JRadioButton jRadioButtonEnergiaSim;
     private javax.swing.JRadioButton jRadioButtonEstudanteNao;
@@ -1395,7 +1818,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTableDocumentos;
     private javax.swing.JTable jTableFamiliares;
     private javax.swing.JTextArea jTextAreaBemMaterial;
     private javax.swing.JTextArea jTextAreaConclusoes;
@@ -1406,9 +1829,10 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     private javax.swing.JTextArea jTextAreaVulnerabilidades;
     private javax.swing.JTextField jTextFieldBeneficio;
     private javax.swing.JTextField jTextFieldCondicaoMoradia;
-    private javax.swing.JTextField jTextFieldDocumento;
+    private javax.swing.JTextField jTextFieldDocumentoOutro;
     private javax.swing.JTextField jTextFieldFamiliaNome;
     private javax.swing.JTextField jTextFieldFamiliaOcupacao;
+    private javax.swing.JTextField jTextFieldFamiliaRenda;
     private javax.swing.JTextField jTextFieldFatoresDeclarados;
     private javax.swing.JTextField jTextFieldFonteCusteio;
     private javax.swing.JTextField jTextFieldOcupacao;
@@ -1418,32 +1842,4 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField jTextFieldTipoConstrucao;
     // End of variables declaration//GEN-END:variables
 
-    private void limparTextfieldsInfoFamiliar() {
-        this.jTextFieldFamiliaNome.setText(null);
-        this.jFormattedIdadeFamilia.setText(null);
-        this.jTextFieldParentesco.setText(null);
-        this.jTextFieldFamiliaOcupacao.setText(null);
-        this.jFormattedRendaMembroFamilia.setText(null); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void atualizaTabelaFamiliares() {
-        String colunas[] ={"Nome","Parentesco","Renda R$"}; 
-        DefaultTableModel model = new DefaultTableModel(colunas, 0);
-        
-        parentes.forEach((p) -> {
-            model.addRow(new String[]{p.getNome(),p.getParentesco(),""+p.getRenda()});
-        });
-        jTableFamiliares.setModel(model); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void atualizaCalculoRenda() {
-        int qtdParentes=0;
-        for(Parente parente:parentes){
-            rendaTotal += parente.getRenda();
-            ++qtdParentes;
-        }
-        rendaPerCapta = rendaTotal/qtdParentes;
-        jLabelRendaTotal.setText("Renda total (R$): "+rendaTotal);
-        jLabelRendaPerCapta.setText("Renda per capta (R$): "+rendaTotal); //To change body of generated methods, choose Tools | Templates.
-    }
 }

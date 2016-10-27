@@ -62,20 +62,6 @@ public class ParenteDAO extends GenericDAO<Parente> implements Serializable {
 		super.delete(Parente);
 	}
 
-	
-	@SuppressWarnings("unchecked")
-	@Transactional
-	public List<Parente> search(String palavrachave) {
-		Criteria criteria = getCriteria();
-		criteria.add(
-				Restrictions.or(
-						Restrictions.ilike("nome", "%" + palavrachave + "%"), 
-						Restrictions.ilike("nomeResponsavel", "%" + palavrachave + "%")
-						)
-				);
-		return (List<Parente>) criteria.list();
-	}
-
 	@SuppressWarnings("unchecked")
 	public List<Parente> findByNome(String nome){
 		Criteria criteria = getCriteria().add(Restrictions.ilike("nome", "%" + nome + "%"));

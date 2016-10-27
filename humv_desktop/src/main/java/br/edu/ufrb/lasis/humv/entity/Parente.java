@@ -6,16 +6,33 @@ import java.math.BigInteger;
 public class Parente implements Serializable {
 
     private static final long serialVersionUID = -6125748157292589614L;
-    private BigInteger id;
 
-    private String nomeClienteCadastrado;
+    private BigInteger idParente;
+
+    private QuestionarioSocioeconomico questionario;
 
     private String nome;
-    private int idade;
+    private Integer idade;
     private String parentesco;
-    private double renda;
-    private Integer escolaridade;
+    private Double renda;
+    private Integer escolaridade; //De acordo com os atributos de QuestionarioSocioeconomico pra escolaridade
     private String ocupacao;
+
+    public BigInteger getIdParente() {
+        return idParente;
+    }
+
+    public void setIdParente(BigInteger idParente) {
+        this.idParente = idParente;
+    }
+
+    public QuestionarioSocioeconomico getQuestionario() {
+        return questionario;
+    }
+
+    public void setQuestionario(QuestionarioSocioeconomico questionario) {
+        this.questionario = questionario;
+    }
 
     public String getNome() {
         return nome;
@@ -25,11 +42,11 @@ public class Parente implements Serializable {
         this.nome = nome;
     }
 
-    public int getIdade() {
+    public Integer getIdade() {
         return idade;
     }
 
-    public void setIdade(int idade) {
+    public void setIdade(Integer idade) {
         this.idade = idade;
     }
 
@@ -41,11 +58,11 @@ public class Parente implements Serializable {
         this.parentesco = parentesco;
     }
 
-    public double getRenda() {
+    public Double getRenda() {
         return renda;
     }
 
-    public void setRenda(double renda) {
+    public void setRenda(Double renda) {
         this.renda = renda;
     }
 
@@ -63,14 +80,6 @@ public class Parente implements Serializable {
 
     public void setOcupacao(String ocupacao) {
         this.ocupacao = ocupacao;
-    }
-
-    public String getNomeClienteCadastrado() {
-        return nomeClienteCadastrado;
-    }
-
-    public void setNomeClienteCadastrado(String nomeClienteCadastrado) {
-        this.nomeClienteCadastrado = nomeClienteCadastrado;
     }
 
 }

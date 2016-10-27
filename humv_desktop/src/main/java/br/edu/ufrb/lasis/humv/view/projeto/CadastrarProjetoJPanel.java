@@ -13,12 +13,12 @@ import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.view.setor.SetorListaJDialog;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.sun.jersey.api.client.ClientResponse;
 import java.io.IOException;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import org.codehaus.jackson.type.TypeReference;
 
 /**
  *
@@ -348,6 +348,7 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
             }
         } catch (RESTConnectionException | IOException ex) {
             InterfaceGraficaUtils.erroConexao();
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_jButtonExibirListaActionPerformed
 

@@ -2,7 +2,7 @@ package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-//import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,8 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -35,18 +35,25 @@ public class QuestionarioSocioeconomico implements Serializable {
     public static final Integer ESTADO_CIVIL_DIVORCIADO = 4;
     public static final Integer ESTADO_CIVIL_VIUVO = 5;
 
+    public static final Integer COBRANCA_NORMAL = 0;
+    public static final Integer COBRANCA_AULA = 1;
+    public static final Integer COBRANCA_INSENCAO = 2;
+    public static final Integer COBRANCA_DESCONTO = 3;
+
     @Id
     @GeneratedValue
     private BigInteger id;
 
-    @OneToOne
-    @JoinColumn(name = "id_dono")
+    @ManyToOne
+    @JoinColumn
     private Dono dono;
 
+    private Date dataResposta;
     private Integer estadoCivil;
     private Integer idade;
     private Integer nis;
     private String profissao;
+    private Integer escolaridade;
     private String ocupacaoAtual;
     private Double rendaFormal;
     private Double rendaInformal;
@@ -55,23 +62,29 @@ public class QuestionarioSocioeconomico implements Serializable {
     private String condicaoMoradia;
     private Double valorAluguel;
     private String tipoConstrucao;
+    private String programaTransferenciaRenda;
+    private boolean estudante;
+    private Double gastosMensais;
+    private String fontCusteio;
+    private String bolsaOuBeneficio;
+    private String observacoesDadosDono;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Parente> parentes;
-    @OneToMany(mappedBy = "rghumv", cascade = CascadeType.ALL)
-    private List<Animal> animais;
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Documentacao> documentosEntregues;
+
     private double rendaPerCapta;
-    private double rendaTotal;
+    private Double rendaTotal;
     private String impossibilidadesCusteio;
     private String bensFamiliares;
     private String riscosSociais;
     private String emprestimos;
 
-    private String breveResumo;
-    private String conclusoes;
-    private String observacoes;
+    private String analiseBreveResumo;
+    private String analiseObservacoes;
+    private String analiseConclusoes;
 
     //Relacionado com atributos da classe Atendimento: valor normal, valor aula, desconto ou isenção
     private Integer tipoCobrancaConsultas;
@@ -86,6 +99,14 @@ public class QuestionarioSocioeconomico implements Serializable {
     private Double valorDescontoCirurgias;
 
     private Double valorDescontoConsultas;
+
+    public Date getDataResposta() {
+        return dataResposta;
+    }
+
+    public void setDataResposta(Date dataResposta) {
+        this.dataResposta = dataResposta;
+    }
 
     public BigInteger getId() {
         return id;
@@ -207,14 +228,6 @@ public class QuestionarioSocioeconomico implements Serializable {
         this.parentes = parentes;
     }
 
-    public List<Animal> getAnimais() {
-        return animais;
-    }
-
-    public void setAnimais(List<Animal> animais) {
-        this.animais = animais;
-    }
-
     public List<Documentacao> getDocumentosEntregues() {
         return documentosEntregues;
     }
@@ -229,14 +242,6 @@ public class QuestionarioSocioeconomico implements Serializable {
 
     public void setRendaPerCapta(double rendaPerCapta) {
         this.rendaPerCapta = rendaPerCapta;
-    }
-
-    public double getRendaTotal() {
-        return rendaTotal;
-    }
-
-    public void setRendaTotal(double rendaTotal) {
-        this.rendaTotal = rendaTotal;
     }
 
     public String getImpossibilidadesCusteio() {
@@ -271,28 +276,36 @@ public class QuestionarioSocioeconomico implements Serializable {
         this.emprestimos = emprestimos;
     }
 
-    public String getBreveResumo() {
-        return breveResumo;
+    public String getAnaliseBreveResumo() {
+        return analiseBreveResumo;
     }
 
-    public void setBreveResumo(String breveResumo) {
-        this.breveResumo = breveResumo;
+    public void setAnaliseBreveResumo(String analiseBreveResumo) {
+        this.analiseBreveResumo = analiseBreveResumo;
     }
 
-    public String getConclusoes() {
-        return conclusoes;
+    public String getAnaliseConclusoes() {
+        return analiseConclusoes;
     }
 
-    public void setConclusoes(String conclusoes) {
-        this.conclusoes = conclusoes;
+    public void setAnaliseConclusoes(String analiseConclusoes) {
+        this.analiseConclusoes = analiseConclusoes;
     }
 
-    public String getObservacoes() {
-        return observacoes;
+    public String getObservacoesDadosDono() {
+        return observacoesDadosDono;
     }
 
-    public void setObservacoes(String observacoes) {
-        this.observacoes = observacoes;
+    public void setObservacoesDadosDono(String observacoesDadosDono) {
+        this.observacoesDadosDono = observacoesDadosDono;
+    }
+
+    public String getAnaliseObservacoes() {
+        return analiseObservacoes;
+    }
+
+    public void setAnaliseObservacoes(String analiseObservacoes) {
+        this.analiseObservacoes = analiseObservacoes;
     }
 
     public Integer getTipoCobrancaConsultas() {
@@ -341,6 +354,62 @@ public class QuestionarioSocioeconomico implements Serializable {
 
     public void setValorDescontoConsultas(Double valorDescontoConsultas) {
         this.valorDescontoConsultas = valorDescontoConsultas;
+    }
+
+    public Integer getEscolaridade() {
+        return escolaridade;
+    }
+
+    public void setEscolaridade(Integer escolaridade) {
+        this.escolaridade = escolaridade;
+    }
+
+    public String getProgramaTransferenciaRenda() {
+        return programaTransferenciaRenda;
+    }
+
+    public void setProgramaTransferenciaRenda(String programaTransferenciaRenda) {
+        this.programaTransferenciaRenda = programaTransferenciaRenda;
+    }
+
+    public boolean isEstudante() {
+        return estudante;
+    }
+
+    public void setEstudante(boolean estudante) {
+        this.estudante = estudante;
+    }
+
+    public Double getGastosMensais() {
+        return gastosMensais;
+    }
+
+    public void setGastosMensais(Double gastosMensais) {
+        this.gastosMensais = gastosMensais;
+    }
+
+    public String getFontCusteio() {
+        return fontCusteio;
+    }
+
+    public void setFontCusteio(String fontCusteio) {
+        this.fontCusteio = fontCusteio;
+    }
+
+    public String getBolsaOuBeneficio() {
+        return bolsaOuBeneficio;
+    }
+
+    public void setBolsaOuBeneficio(String bolsaOuBeneficio) {
+        this.bolsaOuBeneficio = bolsaOuBeneficio;
+    }
+
+    public Double getRendaTotal() {
+        return rendaTotal;
+    }
+
+    public void setRendaTotal(Double rendaTotal) {
+        this.rendaTotal = rendaTotal;
     }
 
 }

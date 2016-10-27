@@ -8,6 +8,7 @@ package br.edu.ufrb.lasis.humv.view.main;
 import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Usuario;
 import br.edu.ufrb.lasis.humv.view.menufactory.FabricaMenuAdministrador;
+import br.edu.ufrb.lasis.humv.view.menufactory.FabricaMenuAssistenteSocial;
 import br.edu.ufrb.lasis.humv.view.menufactory.FabricaMenuFarmaceutico;
 import br.edu.ufrb.lasis.humv.view.menufactory.FabricaMenuRecepcionista;
 import br.edu.ufrb.lasis.humv.view.menufactory.FabricaMenuVeterinario;
@@ -35,13 +36,13 @@ public class MainSplitPanel extends javax.swing.JPanel {
         panelRightButtons.setLayout(new FlowLayout());
 
         MenuBarFabricaAbstrata fabricaMenu = null;
-        if (perfilUsuario.compareTo(Usuario.PERFIL_ADMINISTRADOR) == 0) {
+        if (perfilUsuario.equals(Usuario.PERFIL_ADMINISTRADOR)) {
             fabricaMenu = new FabricaMenuAdministrador(this, panelRightButtons);
-        } else if (perfilUsuario.compareTo(Usuario.PERFIL_ASSISTENTE_SOCIAL) == 0) {
-            //fabricaMenu = new FabricaMenuAdministrador(this, panelRightButtons);
-        } else if (perfilUsuario.compareTo(Usuario.PERFIL_FARMACEUTICO) == 0) {
+        } else if (perfilUsuario.equals(Usuario.PERFIL_ASSISTENTE_SOCIAL)) {
+            fabricaMenu = new FabricaMenuAssistenteSocial(this, panelRightButtons);
+        } else if (perfilUsuario.equals(Usuario.PERFIL_FARMACEUTICO)) {
             fabricaMenu = new FabricaMenuFarmaceutico(this, panelRightButtons);
-        } else if (perfilUsuario.compareTo(Usuario.PERFIL_RECEPCIONISTA) == 0) {
+        } else if (perfilUsuario.equals(Usuario.PERFIL_RECEPCIONISTA)) {
             fabricaMenu = new FabricaMenuRecepcionista(this, panelRightButtons);
         } else {
             fabricaMenu = new FabricaMenuVeterinario(this, panelRightButtons);
