@@ -6,7 +6,7 @@
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{dd/MM/yyyy HH:mm} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <pattern>%d{dd/MM/yyyy HH:mm} [%M] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 	
@@ -32,11 +32,12 @@
         </rollingPolicy>
     </appender>
 
-    <logger name="br.edu.ufrb.lasis.humv" level="all" additivity="false">
+    <logger name="br.edu.ufrb.lasis.humv" level="ALL" additivity="false">
         <appender-ref ref="FILE" />
+        <appender-ref ref="STDOUT" />
     </logger>
         
-    <root level="off">
+    <root level="ALL">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />
     </root>
