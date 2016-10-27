@@ -19,6 +19,10 @@ import javax.swing.border.EmptyBorder;
  * @author tassiovale
  */
 public class HUMVApp {
+    
+    static { 
+        System.setProperty("logback.configurationFile", "logback.xml");
+    }
 
     private static HUMVMainWindow mainWindow;
     private static JPanel mainPanel = null;
