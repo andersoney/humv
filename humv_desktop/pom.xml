@@ -144,9 +144,9 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.6</version>
                 <configuration>
-                    <excludes>
+                    <!--<excludes>
 			<exclude>**/logback.xml</exclude>
-		    </excludes>
+		    </excludes>-->
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
