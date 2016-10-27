@@ -6,7 +6,6 @@
 package br.edu.ufrb.lasis.humv.view.main;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
-import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.SecurityUtils;
 import com.sun.jersey.api.client.ClientResponse;
@@ -25,7 +24,7 @@ import org.slf4j.LoggerFactory;
  * @author tassiovale
  */
 public class LoginJDialog extends javax.swing.JDialog implements ActionListener, KeyListener {
-    
+
     private final static Logger logger = LoggerFactory.getLogger(LoginJDialog.class);
 
     private JFrame window;
@@ -64,7 +63,8 @@ public class LoginJDialog extends javax.swing.JDialog implements ActionListener,
             if (!username.equals("humv")) {
                 try {
                     senha = SecurityUtils.criptography(senha);
-                } catch (Exception ex) {}
+                } catch (Exception ex) {
+                }
             }
 
             ClientResponse response = RESTMethods.userLogin("/login", username, senha);
@@ -78,7 +78,6 @@ public class LoginJDialog extends javax.swing.JDialog implements ActionListener,
                 window.setContentPane(splitPanel);
                 HUMVApp.setNomeUsuario(username);
                 HUMVApp.setPainelCentralComLogo();
-                logger.info("[login - " + HUMVApp.getNomeUsuario() + "] Login realizado com sucesso.");
             } else {
                 JOptionPane.showMessageDialog(this, resposta, "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
                 if (resposta.toLowerCase().contains("senha")) {
@@ -90,8 +89,9 @@ public class LoginJDialog extends javax.swing.JDialog implements ActionListener,
                 }
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
+            String mensagem = "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.";
+            JOptionPane.showMessageDialog(this, mensagem, "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
+            logger.error(/*"[" + HUMVApp.getNomeUsuario() + "] "*/ "mensagem: " + mensagem, ex);
         }
 
     }
@@ -101,7 +101,6 @@ public class LoginJDialog extends javax.swing.JDialog implements ActionListener,
         login();
     }
 
-    
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -188,7 +187,7 @@ public class LoginJDialog extends javax.swing.JDialog implements ActionListener,
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JTextField textFieldUsername;
     // End of variables declaration//GEN-END:variables
-    
+
     @Override
     public void keyTyped(KeyEvent e) {
     }
