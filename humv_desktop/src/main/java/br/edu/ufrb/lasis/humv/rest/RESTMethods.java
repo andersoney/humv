@@ -77,7 +77,7 @@ public class RESTMethods {
         return response;
     }
 
-    public static ClientResponse userLogin(String resource, String username, String senha) throws RESTConnectionException {
+    public static ClientResponse userLogin(String resource, String username, String senha) throws Exception {
         WebResource webResource = createClient(false).resource(HUMVConfigUtils.getVetBackendURL() + resource
                 + "?username=" + username + "&senha=" + senha
         );
