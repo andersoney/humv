@@ -42,7 +42,7 @@
         <pack name="Base" required="yes">
             <description>São necessários arquivos para a execução do programa</description>
             <file src="target/humv_desktop-1.0-SNAPSHOT.jar" targetdir="$INSTALL_PATH"/>
-            <file src="src/main/resources/logback.xml" targetdir="$INSTALL_PATH"/>
+            <file src="logback.xml" targetdir="$INSTALL_PATH"/>
             <fileset dir="target/." includes="lib/" targetdir="$INSTALL_PATH"/>
             <fileset dir="." includes="arquivos/" targetdir="$INSTALL_PATH"/>
             <fileset dir="." includes="imagens/" targetdir="$INSTALL_PATH"/>
