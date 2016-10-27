@@ -5,6 +5,7 @@ import br.edu.ufrb.lasis.humv.entity.Parente;
 import br.edu.ufrb.lasis.humv.entity.Documentacao;
 import br.edu.ufrb.lasis.humv.entity.Dono;
 import br.edu.ufrb.lasis.humv.entity.QuestionarioSocioeconomico;
+import br.edu.ufrb.lasis.humv.log.FabricaDeLog;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
@@ -22,6 +23,7 @@ import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.text.JTextComponent;
+import org.apache.log4j.Logger;
 
 /**
  * Classe que cria o Painel Questionario SOcial.
@@ -35,6 +37,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
     private ParenteTableModel modelParente;
     private Dono dono;
     private QuestionarioSocioeconomico questionario;
+    private static final Logger LOG = FabricaDeLog.getLog(QuestionarioSocioEconomicoJPanel.class);
 
     /**
      * Creates new form QuestionarioSocioEconomicoJPanel
@@ -120,6 +123,9 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
     }
 
     public QuestionarioSocioEconomicoJPanel(QuestionarioSocioeconomico questT) {
+        initComponents();
+        customInitComponents();
+        HUMVApp.esconderMensagemCarregamento();
         this.questionario = questT;
         reintroduzirDadosQuestionarioDadosDono();
         reintroduzirDocumentacoes();
@@ -215,6 +221,10 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         this.jTextFieldProgramaRenda.setText(questionario.getProgramaTransferenciaRenda());
         if (questionario.isEstudante()) {
             this.jRadioButtonEstudanteSim.setSelected(true);
+            this.jFormattedTextFieldGastosMensais.setText("" + questionario.getGastosMensais());
+            this.jTextFieldFonteCusteio.setText(questionario.getFontCusteio());
+            this.jTextFieldBeneficio.setText(questionario.getBolsaOuBeneficio());
+            this.jTextAreaObservacoes.setText(questionario.getObservacoesDadosDono());
         } else {
             this.jRadioButtonEstudanteNao.setSelected(true);
         }
@@ -228,10 +238,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         } else {
             this.jRadioButtonSaneamentoNao.setSelected(true);
         }
-        this.jFormattedTextFieldGastosMensais.setText("" + questionario.getGastosMensais());
-        this.jTextFieldFonteCusteio.setText(questionario.getFontCusteio());
-        this.jTextFieldBeneficio.setText(questionario.getBolsaOuBeneficio());
-        this.jTextAreaObservacoes.setText(questionario.getObservacoesDadosDono());
+
     }
 
     @Override

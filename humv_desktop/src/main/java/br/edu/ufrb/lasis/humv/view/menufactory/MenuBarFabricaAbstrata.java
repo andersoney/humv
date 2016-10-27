@@ -45,70 +45,72 @@ import javax.swing.JPanel;
  * @author tassiovale
  */
 public abstract class MenuBarFabricaAbstrata implements ActionListener {
-    
+
     private JMenuBar menuBar;
-    
+
     private JMenu menuAjuda;
     private JMenuItem menuItemSair, menuItemSobre, menuItemConfiguracoes;
-    
+
     private JMenu menuUsuario;
     private JMenuItem menuItemCadastroUsuario,
             menuItemBuscaUsuario,
             menuItemAlteracaoUsuario,
             menuItemRemocaoUsuario;
     private JButton buttonCadastrarUsuario;
-    
+
     private JMenu menuAnimal;
     private JMenuItem menuItemCadastroAnimal,
             menuItemBuscaAnimal,
             menuItemAlteracaoAnimal,
             menuItemRemocaoAnimal;
     private JButton buttonCadastrarAnimal;
-    
+
     private JMenu menuDono;
     private JMenuItem menuItemCadastroDono,
             menuItemBuscaDono,
             menuItemAlteracaoDono,
             menuItemRemocaoDono;
-    
+
     private JMenu menuProcedimento;
     private JMenuItem menuItemCadastroProcedimento,
             menuItemBuscaProcedimento,
             menuItemAlteracaoProcedimento,
             menuItemRemocaoProcedimento;
     private JButton buttonCadastrarProcedimento;
-    
+
     private JMenu menuSetor;
     private JMenuItem menuItemCadastroSetor,
             menuItemBuscaSetor,
             menuItemAlteracaoSetor,
             menuItemRemocaoSetor;
-    
+
     private JMenu menuProjeto;
     private JMenuItem menuItemCadastroProjeto,
             menuItemBuscaProjeto,
             menuItemAlteracaoProjeto,
             menuItemRemocaoProjeto;
-    
+
     private JMenu menuAtendimento;
     private JMenuItem menuItemAgendarAtendimento;
     private JButton buttonAgendarAtendimento;
-    
+
     private JMenu menuQuestionarioSocial;
     private JMenuItem menuItemCadastrarQuestionarioSocial,
-            menuItemBuscarQuestionarioSocial;
+            menuItemBuscarQuestionarioSocial,
+            menuItemAlterarQuestionarioSocial,
+            menuItemRemocaoQuestionarioSocial;
     private JButton buttonQuestionario;
-    
+
     private JPanel panelButtons;
     private GridBagConstraints panelConstraints;
-    
+
     public MenuBarFabricaAbstrata(JPanel mainPanel, JPanel panelLeft) {
         panelButtons = new JPanel(new GridBagLayout());
         panelConstraints = new GridBagConstraints();
         panelConstraints.gridx = 0;
         panelConstraints.gridy = 0;
         panelConstraints.fill = GridBagConstraints.HORIZONTAL;
-        
+
         panelLeft.setLayout(new BorderLayout());
         panelLeft.add(panelButtons, BorderLayout.NORTH);
         panelConstraints.insets.top = 15;
@@ -117,30 +119,30 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         panelConstraints.insets.top = 0;
         panelConstraints.insets.bottom = 0;
         panelConstraints.ipady = 1;
-        
+
         this.menuBar = new JMenuBar();
         mainPanel.add(menuBar, BorderLayout.PAGE_START);
     }
-    
+
     public abstract void criaMenuBar();
-    
+
     public void criaMenuAjuda() {
         menuAjuda = new JMenu("Ajuda");
-        
+
         menuItemConfiguracoes = new JMenuItem("Configurações");
         menuAjuda.add(menuItemConfiguracoes);
         menuItemConfiguracoes.addActionListener(this);
-        
+
         menuItemSobre = new JMenuItem("Sobre");
         menuAjuda.add(menuItemSobre);
         menuItemSobre.addActionListener(this);
-        
+
         getMenuBar().add(menuAjuda);
     }
-    
+
     public void criaMenuUsuario() {
         menuUsuario = new JMenu("Usuário");
-        
+
         menuItemBuscaUsuario = new JMenuItem("Busca");
         menuItemBuscaUsuario.addActionListener(this);
         menuUsuario.add(menuItemBuscaUsuario);
@@ -157,14 +159,14 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         menuItemSair = new JMenuItem("Encerrar");
         menuItemSair.addActionListener(this);
         menuUsuario.add(menuItemSair);
-        
+
         getMenuBar().add(menuUsuario);
     }
-    
+
     public void criaMenuDono(boolean comRemover) {
         menuDono = new JMenu("Dono");
         menuDono.setMnemonic('D');
-        
+
         menuItemCadastroDono = new JMenuItem("Cadastro");
         menuItemCadastroDono.setMnemonic('C');
         menuItemCadastroDono.addActionListener(this);
@@ -175,20 +177,20 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         menuItemAlteracaoDono = new JMenuItem("Alteração");
         menuItemAlteracaoDono.addActionListener(this);
         menuDono.add(menuItemAlteracaoDono);
-        
+
         if (comRemover) {
             menuItemRemocaoDono = new JMenuItem("Remoção");
             menuItemRemocaoDono.addActionListener(this);
             menuDono.add(menuItemRemocaoDono);
         }
-        
+
         getMenuBar().add(menuDono);
     }
-    
+
     public void criaMenuAnimal(boolean comRemover) {
         menuAnimal = new JMenu("Animal");
         menuAnimal.setMnemonic('A');
-        
+
         menuItemCadastroAnimal = new JMenuItem("Cadastro");
         menuItemCadastroAnimal.setMnemonic('C');
         menuItemCadastroAnimal.addActionListener(this);
@@ -201,20 +203,20 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         menuItemAlteracaoAnimal.setMnemonic('A');
         menuItemAlteracaoAnimal.addActionListener(this);
         menuAnimal.add(menuItemAlteracaoAnimal);
-        
+
         if (comRemover) {
             menuItemRemocaoAnimal = new JMenuItem("Remoção");
             menuItemRemocaoAnimal.setMnemonic('R');
             menuItemRemocaoAnimal.addActionListener(this);
             menuAnimal.add(menuItemRemocaoAnimal);
         }
-        
+
         getMenuBar().add(menuAnimal);
     }
-    
+
     public void criaMenuSetor(boolean comRemover) {
         menuSetor = new JMenu("Setor");
-        
+
         menuItemCadastroSetor = new JMenuItem("Cadastro");
         menuItemCadastroSetor.addActionListener(this);
         menuSetor.add(menuItemCadastroSetor);
@@ -224,45 +226,45 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         menuItemAlteracaoSetor = new JMenuItem("Alteração");
         menuItemAlteracaoSetor.addActionListener(this);
         menuSetor.add(menuItemAlteracaoSetor);
-        
+
         if (comRemover) {
             menuItemRemocaoSetor = new JMenuItem("Remoção");
             menuItemRemocaoSetor.addActionListener(this);
             menuSetor.add(menuItemRemocaoSetor);
         }
-        
+
         getMenuBar().add(menuSetor);
     }
-    
+
     public void criaMenuProcedimento(boolean soBusca) {
         menuProcedimento = new JMenu("Procedimento");
-        
+
         if (!soBusca) {
             menuItemCadastroProcedimento = new JMenuItem("Cadastro");
             menuItemCadastroProcedimento.addActionListener(this);
             menuProcedimento.add(menuItemCadastroProcedimento);
         }
-        
+
         menuItemBuscaProcedimento = new JMenuItem("Busca");
         menuItemBuscaProcedimento.addActionListener(this);
         menuProcedimento.add(menuItemBuscaProcedimento);
-        
+
         if (!soBusca) {
             menuItemAlteracaoProcedimento = new JMenuItem("Alteração");
             menuItemAlteracaoProcedimento.addActionListener(this);
             menuProcedimento.add(menuItemAlteracaoProcedimento);
-            
+
             menuItemRemocaoProcedimento = new JMenuItem("Remoção");
             menuItemRemocaoProcedimento.addActionListener(this);
             menuProcedimento.add(menuItemRemocaoProcedimento);
         }
-        
+
         getMenuBar().add(menuProcedimento);
     }
-    
+
     public void criaMenuProjeto(boolean comRemover) {
         menuProjeto = new JMenu("Projeto");
-        
+
         menuItemCadastroProjeto = new JMenuItem("Cadastro");
         menuItemCadastroProjeto.addActionListener(this);
         menuProjeto.add(menuItemCadastroProjeto);
@@ -272,81 +274,91 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         menuItemAlteracaoProjeto = new JMenuItem("Alteração");
         menuItemAlteracaoProjeto.addActionListener(this);
         menuProjeto.add(menuItemAlteracaoProjeto);
-        
+
         if (comRemover) {
             menuItemRemocaoProjeto = new JMenuItem("Remoção");
             menuItemRemocaoProjeto.addActionListener(this);
             menuProjeto.add(menuItemRemocaoProjeto);
         }
-        
+
         getMenuBar().add(menuProjeto);
     }
-    
+
     public void criaMenuAtendimento() {
         menuAtendimento = new JMenu("Atendimento");
-        
+
         menuItemAgendarAtendimento = new JMenuItem("Ver agenda");
         menuItemAgendarAtendimento.addActionListener(this);
         menuAtendimento.add(menuItemAgendarAtendimento);
-        
+
         getMenuBar().add(menuAtendimento);
     }
-    
+
     public void criaMenuQuestionarioSocial() {
         this.menuQuestionarioSocial = new JMenu("Questionário socioeconômico");
         menuItemCadastrarQuestionarioSocial = new JMenuItem("Cadastrar");
         menuItemCadastrarQuestionarioSocial.addActionListener(this);
+
         menuItemBuscarQuestionarioSocial = new JMenuItem("Buscar");
         menuItemBuscarQuestionarioSocial.addActionListener(this);
-        
+
+        menuItemAlterarQuestionarioSocial = new JMenuItem("Alterar");
+        menuItemAlterarQuestionarioSocial.addActionListener(this);
+
+        menuItemRemocaoQuestionarioSocial = new JMenuItem("Remoção");
+        menuItemRemocaoQuestionarioSocial.addActionListener(this);
+
         menuQuestionarioSocial.add(menuItemCadastrarQuestionarioSocial);
         menuQuestionarioSocial.add(menuItemBuscarQuestionarioSocial);
+        menuQuestionarioSocial.add(menuItemAlterarQuestionarioSocial);
+        menuQuestionarioSocial.add(menuItemRemocaoQuestionarioSocial);
+
         getMenuBar().add(menuQuestionarioSocial);
     }
-    
+
     public void criaBotaoCadastrarAnimal() {
         buttonCadastrarAnimal = new JButton("Cadastrar animal", new ImageIcon("imagens/icon_pet.png"));
         buttonCadastrarAnimal.addActionListener(this);
         this.addButtonToRightPanel(buttonCadastrarAnimal);
     }
-    
+
     public void criaBotaoCadastrarUsuario() {
         buttonCadastrarUsuario = new JButton("Cadastrar usuário", new ImageIcon("imagens/icon_usuario.png"));
         buttonCadastrarUsuario.addActionListener(this);
         this.addButtonToRightPanel(buttonCadastrarUsuario);
     }
-    
+
     public void criaBotaoCadastrarProcedimento() {
         buttonCadastrarProcedimento = new JButton("Cadastrar procedimento", new ImageIcon("imagens/icon_procedimento.png"));
         buttonCadastrarProcedimento.addActionListener(this);
         this.addButtonToRightPanel(buttonCadastrarProcedimento);
     }
-    
+
     public void criaBotaoVisualizarAgenda() {
         buttonAgendarAtendimento = new JButton("Visualizar agenda", new ImageIcon("imagens/icon_agenda.png"));
         buttonAgendarAtendimento.addActionListener(this);
         this.addButtonToRightPanel(buttonAgendarAtendimento);
     }
-    
+
     public void criaBotaoResponderQuestionario() {
         buttonQuestionario = new JButton("Responder questionário", new ImageIcon("imagens/icon_questionario.png"));
         buttonQuestionario.addActionListener(this);
         this.addButtonToRightPanel(buttonQuestionario);
     }
-    
+
     public JMenuBar getMenuBar() {
         return menuBar;
     }
-    
+
     private void addButtonToRightPanel(JButton button) {
         panelConstraints.gridy++;
         panelButtons.add(button, panelConstraints);
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
-        
+
         if (source.equals(menuItemSobre)) {
             JOptionPane.showMessageDialog(null, "Desenvolvido por LaSiS - UFRB");
         } else if (source.equals(menuItemConfiguracoes)) {
@@ -425,8 +437,16 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
             PropriedadesBuscaQuestionarioSocial propriedadesBusca = new PropriedadesBuscaQuestionarioSocial(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
             BuscaJPanel buscaPanel = new BuscaJPanel("BUSCAR QUESTIONÁRIO SOCIAL PARA VISUALIZAÇÃO/ALTERAÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
+        } else if (source.equals(menuItemAlterarQuestionarioSocial)) {
+            PropriedadesBuscaQuestionarioSocial propriedadesBusca = new PropriedadesBuscaQuestionarioSocial(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
+            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCAR QUESTIONÁRIO SOCIAL PARA ALTERAÇÃO", propriedadesBusca);
+            HUMVApp.setNovoPainelCentral(buscaPanel);
+        } else if (source.equals(menuItemRemocaoQuestionarioSocial)) {
+            PropriedadesBuscaQuestionarioSocial propriedadesBusca = new PropriedadesBuscaQuestionarioSocial(PropriedadesBusca.OPCAO_REMOVER);
+            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCAR QUESTIONÁRIO SOCIAL PARA REMOÇÂO", propriedadesBusca);
+            HUMVApp.setNovoPainelCentral(buscaPanel);
         }
-        
+
     }
-    
+
 }
