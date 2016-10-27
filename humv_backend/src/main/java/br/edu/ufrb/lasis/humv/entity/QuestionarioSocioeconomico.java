@@ -412,8 +412,4 @@ public class QuestionarioSocioeconomico implements Serializable {
         this.rendaTotal = rendaTotal;
     }
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> master
