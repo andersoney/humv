@@ -7,7 +7,6 @@ package br.edu.ufrb.lasis.humv.view.questionario;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.QuestionarioSocioeconomico;
-import br.edu.ufrb.lasis.humv.log.FabricaDeLog;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
@@ -20,7 +19,6 @@ import java.io.IOException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import org.apache.log4j.Logger;
 
 /**
  *
@@ -70,7 +68,6 @@ public class PropriedadesBuscaQuestionarioSocial extends PropriedadesBusca {
                 JOptionPane.showMessageDialog(super.getTabelaResultado(), "Por favor, selecione algum Questionario social da tabela para realizar a operação.", "Questionario social não selecionado", JOptionPane.ERROR_MESSAGE);
             } else {
                 QuestionarioSocioeconomico questionario = tableModel.getQuestionario(super.getIndexLinhaSelecionada());
-                LOG.info("Dono: " + questionario.getDono().getNome());
                 switch (super.getTipoOperacao()) {
                     case PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR:
                         if (InterfaceGraficaUtils.dialogoRemoverAlterar("alterar", "Questionario social", questionario.getDono().getNome())) {
@@ -108,6 +105,5 @@ public class PropriedadesBuscaQuestionarioSocial extends PropriedadesBusca {
             }
         }
     }
-    private static final Logger LOG = FabricaDeLog.getLog(PropriedadesBusca.class);
 
 }
