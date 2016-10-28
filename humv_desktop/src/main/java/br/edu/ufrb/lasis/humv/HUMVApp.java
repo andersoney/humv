@@ -13,6 +13,8 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -23,7 +25,7 @@ public class HUMVApp {
     static {
         System.setProperty("logback.configurationFile", "logback.xml");
     }
-
+private final static Logger log = LoggerFactory.getLogger(HUMVApp.class);
     private static HUMVMainWindow mainWindow;
     private static JPanel mainPanel = null;
     private static CarregandoJDialog carregandoDialog = null;
