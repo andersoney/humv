@@ -21,13 +21,17 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import br.edu.ufrb.lasis.humv.HUMVApp;
 
 /**
  *
  * @author Luiz
  */
-public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements ResultadoBusca{
+public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements ResultadoBusca {
 
+    private final static Logger log = LoggerFactory.getLogger(CadastrarProcedimentoJPanel.class);
     private Setor setor = null;
     private String nomeSetor;
     private final String servicoProcedimento = "/api/procedimento";
@@ -57,7 +61,7 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements R
             jTextFieldPreco.setText("" + procedimentoSelecionado.getValor());
             setor = procedimentoSelecionado.getSetor();
             nomeSetor = procedimentoSelecionado.getSetor().getNome();
-            jLabelNomeSetor.setText("Nome: " + setor +  " - " + nomeSetor);
+            jLabelNomeSetor.setText("Nome: " + setor + " - " + nomeSetor);
         }
     }
 
@@ -68,13 +72,12 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements R
     public JLabel getjLabelNomeSetor() {
         return jLabelNomeSetor;
     }
-    
+
     @Override
     public void setResultado(Object resultado) {
         this.setor = (Setor) resultado;
-        this.jLabelNomeSetor.setText("Nome: " + setor.getCodigo().toString() +  " - " + setor.getNome());
+        this.jLabelNomeSetor.setText("Nome: " + setor.getCodigo().toString() + " - " + setor.getNome());
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -300,7 +303,7 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements R
             }
             String resposta = response.getEntity(String.class);
             if (!resposta.equalsIgnoreCase("ok")) {
-                    InterfaceGraficaUtils.erroResposta(resposta);
+                InterfaceGraficaUtils.erroResposta(resposta);
             } else {
                 if (procedimentoSelecionado == null) {
                     InterfaceGraficaUtils.sucessoCadastro("procedimento");
@@ -313,7 +316,8 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements R
             }
         } catch (RESTConnectionException ex) {
             InterfaceGraficaUtils.erroConexao();
-            ex.printStackTrace();
+            String mensagem = InterfaceGraficaUtils.getMensagemErroConexao();
+            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
         }
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
@@ -341,7 +345,8 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements R
             }
         } catch (RESTConnectionException | IOException ex) {
             InterfaceGraficaUtils.erroConexao();
-            ex.printStackTrace();
+            String mensagem = InterfaceGraficaUtils.getMensagemErroConexao();
+            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
         }
     }//GEN-LAST:event_jButtonExibirListaActionPerformed
 

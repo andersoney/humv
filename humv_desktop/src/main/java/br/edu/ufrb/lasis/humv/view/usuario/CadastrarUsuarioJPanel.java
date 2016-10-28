@@ -11,6 +11,9 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import javax.swing.JOptionPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import br.edu.ufrb.lasis.humv.HUMVApp;
 
 /**
  *
@@ -18,6 +21,7 @@ import javax.swing.JOptionPane;
  */
 public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
 
+    private final static Logger log = LoggerFactory.getLogger(CadastrarUsuarioJPanel.class);
     private Usuario usuarioSelecionado = null;
 
     /**
@@ -302,7 +306,9 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
                 ex.printStackTrace();
             } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
                 JOptionPane.showMessageDialog(this, "Erro ao criptografar senha. Tente novamente mais tarde.", "Erro", JOptionPane.ERROR_MESSAGE);
-                ex.printStackTrace();
+
+                String mensagem = "Erro ao criptografar senha. Tente novamente mais tarde.";
+                log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
             }
         }
     }//GEN-LAST:event_buttonOKActionPerformed

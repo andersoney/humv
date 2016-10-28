@@ -16,6 +16,9 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import br.edu.ufrb.lasis.humv.HUMVApp;
 
 /**
  *
@@ -23,6 +26,7 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
 
+    private final static Logger log = LoggerFactory.getLogger(BuscarAgendaMedicoJPanel.class);
     private List<Usuario> medicos = null;
     private AgendaJPanel agendaJPanel = null;
 
@@ -54,7 +58,8 @@ public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
                 });
             } catch (RESTConnectionException | IOException ex) {
                 InterfaceGraficaUtils.erroConexao();
-                ex.printStackTrace();
+                String mensagem = InterfaceGraficaUtils.getMensagemErroConexao();
+                log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
             }
         }
         return medicos;

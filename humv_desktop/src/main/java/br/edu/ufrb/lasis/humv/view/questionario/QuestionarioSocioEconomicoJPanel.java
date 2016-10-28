@@ -22,6 +22,9 @@ import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.text.JTextComponent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import br.edu.ufrb.lasis.humv.HUMVApp;
 
 /**
  * Classe que cria o Painel Questionario SOcial.
@@ -30,6 +33,8 @@ import javax.swing.text.JTextComponent;
  * @author Orion && Chacal
  */
 public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel implements ResultadoBusca, ActionListener {
+
+    private final static Logger log = LoggerFactory.getLogger(QuestionarioSocioEconomicoJPanel.class);
 
     private DocumentacaoTableModel modelDocumentacao;
     private ParenteTableModel modelParente;
@@ -1372,6 +1377,8 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
             modelDocumentacao.addDocumento(doc);
         } catch (Exception ex) {
             InterfaceGraficaUtils.validaCampoVazio(ex.getMessage());
+            String mensagem = InterfaceGraficaUtils.getMensagemValidaCampoVazio(ex.getMessage());
+            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
         }
     }//GEN-LAST:event_jButtonTabelaDocumentosSalvarActionPerformed
 
@@ -1416,14 +1423,15 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         if (!okFatoresRisco) {
             return;
         }
-        
+
         try {
             RESTMethods.post("/api/questionarioSocioeconomico", questionario);
             InterfaceGraficaUtils.sucessoCadastro("questionário socioeconômico");
             HUMVApp.setPainelCentralComLogo();
         } catch (RESTConnectionException ex) {
             InterfaceGraficaUtils.erroConexao();
-            ex.printStackTrace();
+            String mensagem = InterfaceGraficaUtils.getMensagemErroConexao();
+            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
         }
 
     }//GEN-LAST:event_jButtonQuestionarioSalvarActionPerformed
@@ -1440,6 +1448,8 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
             return true;
         } catch (Exception ex) {
             InterfaceGraficaUtils.validaCampoVazio(ex.getMessage());
+            String mensagem = InterfaceGraficaUtils.getMensagemValidaCampoVazio(ex.getMessage());
+            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
             return false;
         }
     }
@@ -1458,6 +1468,8 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
             return true;
         } catch (Exception ex) {
             InterfaceGraficaUtils.validaCampoVazio(ex.getMessage());
+            String mensagem = InterfaceGraficaUtils.getMensagemValidaCampoVazio(ex.getMessage());
+            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
             return false;
         }
     }
@@ -1537,8 +1549,10 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
                 validarCampoVazio(jTextFieldBeneficio, "bolsa/benefício");
                 validarCampoVazio(jTextAreaObservacoes, "observações");
             }
-        } catch (Exception e) {
-            InterfaceGraficaUtils.validaCampoVazio(e.getMessage());
+        } catch (Exception ex) {
+            InterfaceGraficaUtils.validaCampoVazio(ex.getMessage());
+            String mensagem = InterfaceGraficaUtils.getMensagemValidaCampoVazio(ex.getMessage());
+            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
             return false;
         }
 
@@ -1626,6 +1640,8 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
             atualizaCalculoRenda();
         } catch (Exception ex) {
             InterfaceGraficaUtils.validaCampoVazio(ex.getMessage());
+            String mensagem = InterfaceGraficaUtils.getMensagemValidaCampoVazio(ex.getMessage());
+            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
         }
 
     }//GEN-LAST:event_jButtonTabelaFamiliaSalvarActionPerformed

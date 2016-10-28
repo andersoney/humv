@@ -1,5 +1,6 @@
 package br.edu.ufrb.lasis.humv.view.agendamento;
 
+import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Atendimento;
 import br.edu.ufrb.lasis.humv.entity.Usuario;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
@@ -18,6 +19,8 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -25,6 +28,7 @@ import javax.swing.JPanel;
  */
 public class AgendaJPanel extends JPanel {
 
+    private final static Logger log = LoggerFactory.getLogger(AgendaJPanel.class);
     private List<Atendimento> atendimentos;
     private Usuario medico;
     private String[] horarios;
@@ -147,8 +151,9 @@ public class AgendaJPanel extends JPanel {
             atendimentos = (List<Atendimento>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Atendimento>>() {
             });
         } catch (RESTConnectionException | IOException ex) {
+            String mensagem = "Falha na comunicação com a base de dados. Por favor contate o administrador do sistema.";
             InterfaceGraficaUtils.erroConexao();
-            ex.printStackTrace();
+            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
         }
     }
 

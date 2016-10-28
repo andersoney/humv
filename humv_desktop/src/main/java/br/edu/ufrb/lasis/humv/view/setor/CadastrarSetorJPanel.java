@@ -9,6 +9,9 @@ import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
 import java.math.BigInteger;
 import javax.swing.JOptionPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import br.edu.ufrb.lasis.humv.HUMVApp;
 
 /**
  *
@@ -16,6 +19,8 @@ import javax.swing.JOptionPane;
  */
 public class CadastrarSetorJPanel extends javax.swing.JPanel {
 
+    private final static Logger log = LoggerFactory.getLogger(CadastrarSetorJPanel.class
+    );
     /**
      * Creates new form CadastrarSetorJPanel
      *
@@ -214,8 +219,12 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel {
             }
         } catch (RESTConnectionException ex) {
             InterfaceGraficaUtils.erroConexao();
+            String mensagem = InterfaceGraficaUtils.getMensagemErroConexao();
+            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
         } catch (ClientHandlerException ex) {
             JOptionPane.showMessageDialog(null, "Erro no cadastro do setor. Por favor, tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
+            String mensagem = "Erro no cadastro do setor. Por favor, tente novamente.";
+            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
         }
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 

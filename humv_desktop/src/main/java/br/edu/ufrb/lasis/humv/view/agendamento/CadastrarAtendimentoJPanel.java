@@ -25,6 +25,9 @@ import javax.swing.JFrame;
 import javax.swing.JRadioButton;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import br.edu.ufrb.lasis.humv.HUMVApp;
 
 /**
  *
@@ -32,6 +35,7 @@ import javax.swing.event.ChangeListener;
  */
 public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements ResultadoBusca, ActionListener {
 
+    private final static Logger log = LoggerFactory.getLogger(CadastrarAtendimentoJPanel.class);
     private Atendimento atendimento = null;
     private String horario = null;
     private Date data = null;
@@ -140,7 +144,7 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
                 setEnabledComponentesDeValorProcedimento(false);
                 jTextFieldValorCobrado.setText("0,00");
             }
-            
+
             if (atendimento.isExtra()) {
                 jLabelHorario.setText("EXTRA");
             }
@@ -664,6 +668,9 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
                 }
             } catch (ParseException ex) {
                 InterfaceGraficaUtils.valorInvalido("horário marcado");
+                String mensagem = InterfaceGraficaUtils.getMensagemValorInvalido("horário marcado");
+                log.info("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem);
+
             }
 
             int tipoCobranca = Atendimento.COBRANCA_VALOR_NORMAL;
@@ -714,7 +721,8 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
                 }
             } catch (RESTConnectionException ex) {
                 InterfaceGraficaUtils.erroConexao();
-                ex.printStackTrace();
+                String mensagem = InterfaceGraficaUtils.getMensagemErroConexao();
+                log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
             }
         }
     }//GEN-LAST:event_jButtonSalvarActionPerformed

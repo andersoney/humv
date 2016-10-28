@@ -5,6 +5,7 @@
  */
 package br.edu.ufrb.lasis.humv.view.agendamento;
 
+import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Atendimento;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
@@ -17,6 +18,8 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -24,6 +27,7 @@ import javax.swing.JButton;
  */
 public class AtendimentoJPanel implements ActionListener {
 
+    private final static Logger log = LoggerFactory.getLogger(AtendimentoJPanel.class);
     private Atendimento atendimento;
     private AgendaJPanel agendaJPanel;
     private GridBagConstraints constraints;
@@ -98,7 +102,8 @@ public class AtendimentoJPanel implements ActionListener {
                     }
                 } catch (RESTConnectionException ex) {
                     InterfaceGraficaUtils.erroConexao();
-                    ex.printStackTrace();
+                    String mensagem = "Falha na comunicação com a base de dados. Por favor contate o administrador do sistema.";
+                    log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
                 }
             }
         }

@@ -19,6 +19,9 @@ import java.io.IOException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import br.edu.ufrb.lasis.humv.HUMVApp;
 
 /**
  *
@@ -26,6 +29,7 @@ import javax.swing.JTable;
  */
 public class PropriedadesBuscaQuestionarioSocial extends PropriedadesBusca {
 
+    private final static Logger log = LoggerFactory.getLogger(PropriedadesBuscaQuestionarioSocial.class);
     private QuestionarioSocialTableModel tableModel;
     private List<QuestionarioSocioeconomico> listaQuest;
 
@@ -47,7 +51,8 @@ public class PropriedadesBuscaQuestionarioSocial extends PropriedadesBusca {
             super.getTabelaResultado().revalidate();
         } catch (RESTConnectionException | IOException ex) {
             InterfaceGraficaUtils.erroConexao();
-            ex.printStackTrace();
+            String mensagem = InterfaceGraficaUtils.getMensagemErroConexao();
+            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
         }
         HUMVApp.esconderMensagemCarregamento();
 
@@ -88,7 +93,8 @@ public class PropriedadesBuscaQuestionarioSocial extends PropriedadesBusca {
                                 }
                             } catch (RESTConnectionException ex) {
                                 JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
-                                ex.printStackTrace();
+                                String mensagem = "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.";
+                                log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
                             }
                         }
                         break;

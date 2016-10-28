@@ -5,7 +5,6 @@
  */
 package br.edu.ufrb.lasis.humv.view.projeto;
 
-import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Projeto;
 import br.edu.ufrb.lasis.humv.entity.Setor;
 import java.util.Date;
@@ -19,6 +18,9 @@ import java.io.IOException;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import br.edu.ufrb.lasis.humv.HUMVApp;
 
 /**
  *
@@ -26,6 +28,7 @@ import javax.swing.JOptionPane;
  */
 public class CadastrarProjetoJPanel extends javax.swing.JPanel {
 
+    private final static Logger log = LoggerFactory.getLogger(CadastrarProjetoJPanel.class);
     private final String servicoProjeto = "/api/projeto";
     private Projeto projetoSelecionado;
     private Setor setor;
@@ -397,8 +400,8 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
         projeto.setNome(nomeProjeto);
         projeto.setFinalidade(finalidade);
         projeto.setDataCadastro(new Date());
-        
-        if(projetoSelecionado != null){
+
+        if (projetoSelecionado != null) {
             projeto.setId(projetoSelecionado.getId());
         }
 

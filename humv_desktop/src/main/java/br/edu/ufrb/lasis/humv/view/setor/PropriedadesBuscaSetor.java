@@ -21,6 +21,9 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import br.edu.ufrb.lasis.humv.HUMVApp;
 
 /**
  *
@@ -28,6 +31,7 @@ import javax.swing.JTable;
  */
 public class PropriedadesBuscaSetor extends PropriedadesBusca {
 
+    private final static Logger log = LoggerFactory.getLogger(PropriedadesBuscaSetor.class);
     private SetorTableModel tableModel;
     private List<Setor> listaSetores;
     private ResultadoBusca resultadoBusca = null;
@@ -58,7 +62,8 @@ public class PropriedadesBuscaSetor extends PropriedadesBusca {
             super.getTabelaResultado().revalidate();
         } catch (RESTConnectionException | IOException ex) {
             InterfaceGraficaUtils.erroConexao();
-            ex.printStackTrace();
+            String mensagem = InterfaceGraficaUtils.getMensagemErroConexao();
+            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
         }
         HUMVApp.esconderMensagemCarregamento();
 
@@ -84,7 +89,8 @@ public class PropriedadesBuscaSetor extends PropriedadesBusca {
                         if (InterfaceGraficaUtils.dialogoRemoverAlterar("alterar", "setor", setorSelecionado.getNome())) {
                             CadastrarSetorJPanel painel = new CadastrarSetorJPanel(setorSelecionado);
                             HUMVApp.setNovoPainelCentral(painel);
-                        }   break;
+                        }
+                        break;
                     case PropriedadesBusca.OPCAO_REMOVER:
                         if (InterfaceGraficaUtils.dialogoRemoverAlterar("remover", "setor", setorSelecionado.getNome())) {
                             try {
@@ -98,9 +104,10 @@ public class PropriedadesBuscaSetor extends PropriedadesBusca {
                                 }
                             } catch (RESTConnectionException ex) {
                                 JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
-                                ex.printStackTrace();
+                                String mensagem = "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.";
+                                log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
                             }
-                        }   
+                        }
                         break;
                     case PropriedadesBusca.OPCAO_SELECIONAR:
                         resultadoBusca.setResultado(setorSelecionado);
