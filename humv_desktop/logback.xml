@@ -32,12 +32,12 @@
         </rollingPolicy>
     </appender>
 
-    <logger name="br.edu.ufrb.lasis.humv" level="ALL" additivity="false">
+    <logger name="br.edu.ufrb.lasis.humv" level="INFO" additivity="false">
         <appender-ref ref="FILE" />
         <appender-ref ref="STDOUT" />
     </logger>
         
-    <root level="ALL">
+    <root level="INFO">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />
     </root>
