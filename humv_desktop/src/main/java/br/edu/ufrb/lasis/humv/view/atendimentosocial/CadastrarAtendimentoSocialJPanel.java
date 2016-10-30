@@ -1,4 +1,4 @@
-package br.edu.lasis.humv.view.atendimentosocial;
+package br.edu.ufrb.lasis.humv.view.atendimentosocial;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Animal;
@@ -87,7 +87,7 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaObservacoesDono = new javax.swing.JTextArea();
         jLabelData = new javax.swing.JLabel();
-        jComboBoxSituacaoAnimal = new javax.swing.JComboBox<>();
+        jComboBoxSituacaoAnimal = new javax.swing.JComboBox<String>();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextAreaObservacoesGerais = new javax.swing.JTextArea();
         jLabel14 = new javax.swing.JLabel();
@@ -225,7 +225,7 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
 
         jLabelData.setText("Data:                   ");
 
-        jComboBoxSituacaoAnimal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Animal de rua", "Caso de interesse para estudo", "Remanejamento de atendimento em aula", "Outros casos" }));
+        jComboBoxSituacaoAnimal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Animal de rua", "Caso de interesse para estudo", "Remanejamento de atendimento em aula", "Outros casos" }));
 
         jTextAreaObservacoesGerais.setColumns(20);
         jTextAreaObservacoesGerais.setRows(5);
