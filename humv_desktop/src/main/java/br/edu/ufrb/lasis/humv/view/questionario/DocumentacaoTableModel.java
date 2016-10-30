@@ -5,7 +5,7 @@
  */
 package br.edu.ufrb.lasis.humv.view.questionario;
 
-import br.edu.ufrb.lasis.humv.entity.Documentacao;
+import br.edu.ufrb.lasis.humv.entity.DocumentoComprovante;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,7 +18,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class DocumentacaoTableModel extends AbstractTableModel {
 
-    List<Documentacao> documentos;
+    List<DocumentoComprovante> documentos;
 
     private String[] colunas = new String[]{
         "Data de entrega", "Identificador do recebinte", "Nome do documento"};
@@ -29,10 +29,10 @@ public class DocumentacaoTableModel extends AbstractTableModel {
     }
 
     public DocumentacaoTableModel() {
-        this.documentos = new ArrayList<Documentacao>();
+        this.documentos = new ArrayList<DocumentoComprovante>();
     }
 
-    public DocumentacaoTableModel(ArrayList<Documentacao> documentos) {
+    public DocumentacaoTableModel(ArrayList<DocumentoComprovante> documentos) {
         this.documentos = documentos;
     }
 
@@ -48,7 +48,7 @@ public class DocumentacaoTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Documentacao obj = documentos.get(rowIndex);
+        DocumentoComprovante obj = documentos.get(rowIndex);
         switch (columnIndex) {
             case 0:
                 Date dataHoje = new Date();
@@ -64,23 +64,23 @@ public class DocumentacaoTableModel extends AbstractTableModel {
         }
     }
 
-    public List<Documentacao> getDocumentos() {
+    public List<DocumentoComprovante> getDocumentos() {
         return documentos;
     }
 
-    public void setDocumentos(List<Documentacao> documentos) {
+    public void setDocumentos(List<DocumentoComprovante> documentos) {
         this.documentos = documentos;
         fireTableDataChanged();
     }
 
-    public Documentacao getDocumento(Integer rowIndex) {
+    public DocumentoComprovante getDocumento(Integer rowIndex) {
         return this.documentos.get(rowIndex);
     }
 
-    public void addDocumento(Documentacao obj) {
-        if (obj.getNomeDocumento().equals(Documentacao.RG_DONO)) {
+    public void addDocumento(DocumentoComprovante obj) {
+        if (obj.getNomeDocumento().equals(DocumentoComprovante.RG_DONO)) {
             for (int i = 0; i < documentos.size(); i++) {
-                Documentacao as = documentos.get(i);
+                DocumentoComprovante as = documentos.get(i);
                 if (as.getNomeDocumento().equals(obj.getNomeDocumento())) {
                     return;
                 }

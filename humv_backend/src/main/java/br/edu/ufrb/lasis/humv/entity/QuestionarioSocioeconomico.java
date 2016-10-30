@@ -7,12 +7,16 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "QUESTIONARIOS_SOCIOECONOMICOS")
@@ -69,11 +73,13 @@ public class QuestionarioSocioeconomico implements Serializable {
     private String bolsaOuBeneficio;
     private String observacoesDadosDono;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Parente> parentes;
     
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Documentacao> documentosEntregues;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<DocumentoComprovante> documentosEntregues;
 
     private double rendaPerCapta;
     private Double rendaTotal;
@@ -228,11 +234,11 @@ public class QuestionarioSocioeconomico implements Serializable {
         this.parentes = parentes;
     }
 
-    public List<Documentacao> getDocumentosEntregues() {
+    public List<DocumentoComprovante> getDocumentosEntregues() {
         return documentosEntregues;
     }
 
-    public void setDocumentosEntregues(List<Documentacao> documentosEntregues) {
+    public void setDocumentosEntregues(List<DocumentoComprovante> documentosEntregues) {
         this.documentosEntregues = documentosEntregues;
     }
 

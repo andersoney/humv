@@ -56,7 +56,7 @@ public class QuestionarioSocioeconomico implements Serializable {
 
     private List<Parente> parentes;
     
-    private List<Documentacao> documentosEntregues;
+    private List<DocumentoComprovante> documentosEntregues;
     
     private double rendaPerCapta;
     private Double rendaTotal;
@@ -211,11 +211,11 @@ public class QuestionarioSocioeconomico implements Serializable {
         this.parentes = parentes;
     }
 
-    public List<Documentacao> getDocumentosEntregues() {
+    public List<DocumentoComprovante> getDocumentosEntregues() {
         return documentosEntregues;
     }
 
-    public void setDocumentosEntregues(List<Documentacao> documentosEntregues) {
+    public void setDocumentosEntregues(List<DocumentoComprovante> documentosEntregues) {
         this.documentosEntregues = documentosEntregues;
     }
 

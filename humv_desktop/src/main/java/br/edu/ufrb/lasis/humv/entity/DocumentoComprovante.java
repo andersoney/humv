@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
 
-public class Documentacao implements Serializable {
+public class DocumentoComprovante implements Serializable {
 
     private static final long serialVersionUID = -6125748157292589614L;
 

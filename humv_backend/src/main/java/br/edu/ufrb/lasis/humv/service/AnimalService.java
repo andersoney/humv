@@ -40,6 +40,11 @@ public class AnimalService {
     public Animal findById(@PathVariable BigInteger rghumv){
     	return animalServiceImpl.findById(rghumv);
     }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/searchByDono/{idDono}")
+    public List<Animal> findByIdDono(@PathVariable BigInteger idDono){
+    	return animalServiceImpl.findByIdDono(idDono);
+    }
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/search")
     public List<Animal> search(@RequestParam(value="palavrachave") String palavrachave){

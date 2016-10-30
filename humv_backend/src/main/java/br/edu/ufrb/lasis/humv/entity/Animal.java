@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -44,7 +45,8 @@ public class Animal implements Serializable{
 	private String pelagem; // não se aplica para animais de grande porte.
 	private String porte; // pequeno ou grande
 	
-	@JoinColumn(name="id_dono")
+	@ManyToOne
+	@JoinColumn
 	private Dono dono; // Relacionamento entre animal e proprietario.
 	
 	public String getPorte() {

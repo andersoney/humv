@@ -11,8 +11,7 @@ import org.springframework.stereotype.Service;
 import br.edu.ufrb.lasis.humv.dao.AnimalDAO;
 import br.edu.ufrb.lasis.humv.entity.Animal;
 
-
-/** Implementação do serviço para cadastro,atualização e remoção de animais.
+/** Implementação do serviço para cadastro, atualização e remoção de animais.
  *  
  *  @author Luiz Antônio Pereira
  *  
@@ -20,7 +19,6 @@ import br.edu.ufrb.lasis.humv.entity.Animal;
  *  
  *  @since 16 de maio de 2016
  * */
-
 
 @Service
 public class AnimalServiceImpl {
@@ -41,6 +39,10 @@ public class AnimalServiceImpl {
 
 	public Animal findById(BigInteger rghumv){
 		return animalDAO.findByRghumv(rghumv);
+	}
+	
+	public List<Animal> findByIdDono(BigInteger idDono){
+		return animalDAO.findByDono(idDono);
 	}
 
 	public List<Animal> search(String palavrachave){

@@ -32,6 +32,7 @@ public class Animal implements Serializable {
     private String pelagem; // não se aplica para animais de grande porte.
     private String porte; // pequeno ou grande
     private Date dataCadastro; // Data que o animal foi cadastrado no sistema.
+    
     private Dono dono;
 
     public String getPorte() {

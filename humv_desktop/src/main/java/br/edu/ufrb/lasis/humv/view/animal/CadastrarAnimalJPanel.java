@@ -435,8 +435,14 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
         String raca = this.jTextFieldRaca.getText();
         if (this.jTextFieldIdade.getText().isEmpty()) {
             InterfaceGraficaUtils.validaCampoVazio("idade");
+            return;
         } else {
-            idade = Integer.parseInt(this.jTextFieldIdade.getText());
+            try {
+                idade = Integer.parseInt(this.jTextFieldIdade.getText());
+            } catch (NumberFormatException ex) {
+                InterfaceGraficaUtils.validaCampoInvalido("idade");
+                return;
+            }
         }
         if (this.jRadioButtonMacho.isSelected()) {
             sexo = 'M';
@@ -460,7 +466,6 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
 
         data = jDateChooserData.getDate();
 
-        ClientResponse response;
         Animal animal = new Animal();
         animal.setDono(dono);
         animal.setDataCadastro(data);
@@ -472,7 +477,8 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
         animal.setSexo(sexo);
         animal.setPorte(porte);
         animal.setPelagem(pelagem);
-
+        
+        ClientResponse response;
         try {
             if (animalSelecionado == null) {
                 response = RESTMethods.post(this.servicoAnimal, animal);

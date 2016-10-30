@@ -18,7 +18,8 @@ import java.math.BigInteger;
 public class Dono implements Serializable {
 
     private static final long serialVersionUID = -6125748157292589614L;
-    private BigInteger id; // recebe o numero do CPF ou CNPJ do novo dono.
+
+    private BigInteger id; // recebe o numero do CPF ou CNPJ do novo dono.    
     private String cpfCnpj;
     private String tipoDocumento; // Pode ser CPF ou CNPJ
     private String nome;
