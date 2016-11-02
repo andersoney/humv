@@ -47,6 +47,7 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
             textFieldNome.setText(usuarioSelecionado.getNome());
             textFieldEmail.setText(usuarioSelecionado.getEmail());
             textFieldEmail.setEnabled(false);
+            textFieldSiape.setEnabled(false);
             textFieldSiape.setText(usuarioSelecionado.getSiape().toString());
 
             if (usuarioSelecionado.getPerfil().compareTo(Usuario.PERFIL_ADMINISTRADOR) == 0) {
@@ -221,9 +222,22 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
     private void buttonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOKActionPerformed
         BigInteger siape;
         try {
+            if(textFieldSiape.getText().isEmpty()){
+                JOptionPane.showMessageDialog(this, "O campo SIAPE não pode ser vazio.", "SIAPE inválido", JOptionPane.ERROR_MESSAGE);
+                textFieldSiape.setFocusable(true);
+                return;
+            }
+            if(Integer.parseInt(textFieldSiape.getText())<=0){
+                JOptionPane.showMessageDialog(this, "O campo SIAPE não pode ser negativo.", "SIAPE inválido", JOptionPane.ERROR_MESSAGE);
+                textFieldSiape.setFocusable(true);
+                return;
+            }
             siape = new BigInteger(textFieldSiape.getText());
         } catch (NumberFormatException ex) {
-            siape = new BigInteger("-1");
+            //siape = new BigInteger("-1");
+            JOptionPane.showMessageDialog(this, "O campo SIAPE não parece válido.", "SIAPE inválido", JOptionPane.ERROR_MESSAGE);
+            textFieldSiape.setFocusable(true);
+            return;
         }
 
         if (textFieldNome.getText().isEmpty()) {
