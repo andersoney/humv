@@ -129,7 +129,7 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
     public void criaMenuAjuda() {
         menuAjuda = new JMenu("Ajuda");
 
-        menuItemConfiguracoes = new JMenuItem("Configurações");
+        menuItemConfiguracoes = new JMenuItem("Configurações da agenda");
         menuAjuda.add(menuItemConfiguracoes);
         menuItemConfiguracoes.addActionListener(this);
 
