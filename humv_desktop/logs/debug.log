@@ -67,3 +67,49 @@ Caused by: java.net.ConnectException: Connection refused
 	... 40 common frames omitted
 03/11/2016 18:29 [AWT-EventQueue-0] INFO  b.e.u.l.h.v.m.MenuBarFabricaAbstrata - asdasda%n%n%n
 03/11/2016 18:43 [AWT-EventQueue-0] INFO  b.e.u.l.h.v.m.MenuBarFabricaAbstrata - asdasda%n%n%n
+03/11/2016 20:10 [AWT-EventQueue-0] ERROR b.e.u.l.humv.view.main.LoginJDialog - mensagem: Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.
+br.edu.ufrb.lasis.humv.rest.RESTConnectionException: Erro: código HTTP - 404
+
+Mensagem: <!DOCTYPE html><html><head><title>Pivotal tc Runtime 3.2.0.RELEASE/8.5.4.B.RELEASE - Error report</title><style type="text/css">H1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;} H2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;} H3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;} BODY {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;} B {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;} P {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;}A {color : black;}A.name {color : black;}.line {height: 1px; background-color: #525D76; border: none;}</style> </head><body><h1>HTTP Status 404 - /humv_backend//login</h1><div class="line"></div><p><b>type</b> Status report</p><p><b>message</b> <u>/humv_backend//login</u></p><p><b>description</b> <u>The requested resource is not available.</u></p><hr class="line"><h3>Pivotal tc Runtime 3.2.0.RELEASE/8.5.4.B.RELEASE</h3></body></html>
+	at br.edu.ufrb.lasis.humv.rest.RESTMethods.userLogin(RESTMethods.java:87) ~[classes/:na]
+	at br.edu.ufrb.lasis.humv.view.main.LoginJDialog.login(LoginJDialog.java:70) [classes/:na]
+	at br.edu.ufrb.lasis.humv.view.main.LoginJDialog.keyPressed(LoginJDialog.java:107) [classes/:na]
+	at java.awt.Component.processKeyEvent(Component.java:6491) [na:1.8.0_102]
+	at javax.swing.JComponent.processKeyEvent(JComponent.java:2832) [na:1.8.0_102]
+	at java.awt.Component.processEvent(Component.java:6310) [na:1.8.0_102]
+	at java.awt.Container.processEvent(Container.java:2236) [na:1.8.0_102]
+	at java.awt.Component.dispatchEventImpl(Component.java:4889) [na:1.8.0_102]
+	at java.awt.Container.dispatchEventImpl(Container.java:2294) [na:1.8.0_102]
+	at java.awt.Component.dispatchEvent(Component.java:4711) [na:1.8.0_102]
+	at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1954) [na:1.8.0_102]
+	at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:806) [na:1.8.0_102]
+	at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:1074) [na:1.8.0_102]
+	at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:945) [na:1.8.0_102]
+	at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:771) [na:1.8.0_102]
+	at java.awt.Component.dispatchEventImpl(Component.java:4760) [na:1.8.0_102]
+	at java.awt.Container.dispatchEventImpl(Container.java:2294) [na:1.8.0_102]
+	at java.awt.Window.dispatchEventImpl(Window.java:2746) [na:1.8.0_102]
+	at java.awt.Component.dispatchEvent(Component.java:4711) [na:1.8.0_102]
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:758) [na:1.8.0_102]
+	at java.awt.EventQueue.access$500(EventQueue.java:97) [na:1.8.0_102]
+	at java.awt.EventQueue$3.run(EventQueue.java:709) [na:1.8.0_102]
+	at java.awt.EventQueue$3.run(EventQueue.java:703) [na:1.8.0_102]
+	at java.security.AccessController.doPrivileged(Native Method) [na:1.8.0_102]
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:76) [na:1.8.0_102]
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:86) [na:1.8.0_102]
+	at java.awt.EventQueue$4.run(EventQueue.java:731) [na:1.8.0_102]
+	at java.awt.EventQueue$4.run(EventQueue.java:729) [na:1.8.0_102]
+	at java.security.AccessController.doPrivileged(Native Method) [na:1.8.0_102]
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:76) [na:1.8.0_102]
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:728) [na:1.8.0_102]
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201) [na:1.8.0_102]
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116) [na:1.8.0_102]
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105) [na:1.8.0_102]
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101) [na:1.8.0_102]
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93) [na:1.8.0_102]
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82) [na:1.8.0_102]
+03/11/2016 20:15 [AWT-EventQueue-0] INFO  b.e.u.l.h.v.m.MenuBarFabricaAbstrata - asdasda%n%n%n
+03/11/2016 20:18 [AWT-EventQueue-0] INFO  b.e.u.l.h.v.m.MenuBarFabricaAbstrata - asdasda%n%n%n
+03/11/2016 20:28 [AWT-EventQueue-0] INFO  b.e.u.l.h.v.m.MenuBarFabricaAbstrata - asdasda%n%n%n
+03/11/2016 20:39 [AWT-EventQueue-0] INFO  b.e.u.l.h.v.m.MenuBarFabricaAbstrata - asdasda%n%n%n
+03/11/2016 20:41 [AWT-EventQueue-0] INFO  b.e.u.l.h.v.m.MenuBarFabricaAbstrata - asdasda%n%n%n
