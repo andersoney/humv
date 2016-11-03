@@ -10,7 +10,7 @@ import br.edu.ufrb.lasis.humv.entity.QuestionarioSocioeconomico;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
-import br.edu.ufrb.lasis.humv.utils.PrintUtils;
+import br.edu.ufrb.lasis.humv.reports.PrintUtils;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.sun.jersey.api.client.ClientResponse;
@@ -24,12 +24,12 @@ import javax.swing.JTable;
  *
  * @author Orion
  */
-public class PropriedadesBuscaQuestionarioSocial extends PropriedadesBusca {
+public class PropriedadesBuscaQuestionarioSocioeconomico extends PropriedadesBusca {
 
     private QuestionarioSocialTableModel tableModel;
     private List<QuestionarioSocioeconomico> listaQuest;
 
-    public PropriedadesBuscaQuestionarioSocial(String tipoOperacao) {
+    public PropriedadesBuscaQuestionarioSocioeconomico(String tipoOperacao) {
         super(tipoOperacao);
         tableModel = new QuestionarioSocialTableModel();
         super.setTabelaResultado(new JTable(tableModel));
@@ -97,7 +97,7 @@ public class PropriedadesBuscaQuestionarioSocial extends PropriedadesBusca {
                 }
             }
         } else if (e.getSource().equals(super.getBotaoImprimirTabela())) {
-            PrintUtils.print(PrintUtils.TABELA_PROJETOS, listaQuest);
+            PrintUtils.printLista(PrintUtils.TABELA_PROJETOS, listaQuest);
         } else if (e.getSource().equals(super.getBotaoCancelar())) {
             boolean sair = InterfaceGraficaUtils.dialogoSair();
             if (sair) {

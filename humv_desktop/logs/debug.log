@@ -65,3 +65,5 @@ Caused by: java.net.ConnectException: Connection refused
 	at com.sun.jersey.client.urlconnection.URLConnectionClientHandler._invoke(URLConnectionClientHandler.java:253) ~[jersey-client-1.19.1.jar:1.19.1]
 	at com.sun.jersey.client.urlconnection.URLConnectionClientHandler.handle(URLConnectionClientHandler.java:153) ~[jersey-client-1.19.1.jar:1.19.1]
 	... 40 common frames omitted
+03/11/2016 18:29 [AWT-EventQueue-0] INFO  b.e.u.l.h.v.m.MenuBarFabricaAbstrata - asdasda%n%n%n
+03/11/2016 18:43 [AWT-EventQueue-0] INFO  b.e.u.l.h.v.m.MenuBarFabricaAbstrata - asdasda%n%n%n

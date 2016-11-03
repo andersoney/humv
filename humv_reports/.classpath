@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry exported="true" kind="con" path="net.sf.jasperreports.JR_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/tassiovale/Dropbox/UFRB/Pesquisa e Extensão/2016 - VET-UFRB/humv/humv_desktop/target/humv_desktop-1.0-SNAPSHOT.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/HUMV"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

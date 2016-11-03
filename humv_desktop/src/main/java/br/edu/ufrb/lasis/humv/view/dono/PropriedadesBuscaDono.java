@@ -10,7 +10,7 @@ import br.edu.ufrb.lasis.humv.entity.Dono;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
-import br.edu.ufrb.lasis.humv.utils.PrintUtils;
+import br.edu.ufrb.lasis.humv.reports.PrintUtils;
 import br.edu.ufrb.lasis.humv.utils.ResultadoBusca;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -112,7 +112,7 @@ public class PropriedadesBuscaDono extends PropriedadesBusca {
                 }
             }
         } else if (ae.getSource().equals(super.getBotaoImprimirTabela())) {
-            PrintUtils.print(PrintUtils.TABELA_DONOS, listaDonos);
+            PrintUtils.printLista(PrintUtils.TABELA_DONOS, listaDonos);
         } else if (ae.getSource().equals(super.getBotaoCancelar())) {
             if (getjFrame() != null) {
                 getjFrame().dispose();

@@ -21,7 +21,7 @@ import br.edu.ufrb.lasis.humv.view.procedimento.CadastrarProcedimentoJPanel;
 import br.edu.ufrb.lasis.humv.view.procedimento.PropriedadesBuscaProcedimento;
 import br.edu.ufrb.lasis.humv.view.projeto.CadastrarProjetoJPanel;
 import br.edu.ufrb.lasis.humv.view.projeto.PropriedadesBuscaProjeto;
-import br.edu.ufrb.lasis.humv.view.questionario.PropriedadesBuscaQuestionarioSocial;
+import br.edu.ufrb.lasis.humv.view.questionario.PropriedadesBuscaQuestionarioSocioeconomico;
 import br.edu.ufrb.lasis.humv.view.questionario.QuestionarioSocioEconomicoJPanel;
 import br.edu.ufrb.lasis.humv.view.setor.CadastrarSetorJPanel;
 import br.edu.ufrb.lasis.humv.view.setor.PropriedadesBuscaSetor;
@@ -454,15 +454,15 @@ private final static Logger logger = LoggerFactory.getLogger(MenuBarFabricaAbstr
         } else if (source.equals(menuItemCadastrarQuestionarioSocial) || source.equals(buttonQuestionario)) {
             HUMVApp.setNovoPainelCentral(new QuestionarioSocioEconomicoJPanel());
         } else if (source.equals(menuItemBuscarQuestionarioSocial)) {
-            PropriedadesBuscaQuestionarioSocial propriedadesBusca = new PropriedadesBuscaQuestionarioSocial(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
+            PropriedadesBuscaQuestionarioSocioeconomico propriedadesBusca = new PropriedadesBuscaQuestionarioSocioeconomico(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
             BuscaJPanel buscaPanel = new BuscaJPanel("BUSCAR QUESTIONÁRIO SOCIAL PARA VISUALIZAÇÃO/ALTERAÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
         } else if (source.equals(menuItemAlterarQuestionarioSocial)) {
-            PropriedadesBuscaQuestionarioSocial propriedadesBusca = new PropriedadesBuscaQuestionarioSocial(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
+            PropriedadesBuscaQuestionarioSocioeconomico propriedadesBusca = new PropriedadesBuscaQuestionarioSocioeconomico(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
             BuscaJPanel buscaPanel = new BuscaJPanel("BUSCAR QUESTIONÁRIO SOCIAL PARA ALTERAÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
         } else if (source.equals(menuItemRemocaoQuestionarioSocial)) {
-            PropriedadesBuscaQuestionarioSocial propriedadesBusca = new PropriedadesBuscaQuestionarioSocial(PropriedadesBusca.OPCAO_REMOVER);
+            PropriedadesBuscaQuestionarioSocioeconomico propriedadesBusca = new PropriedadesBuscaQuestionarioSocioeconomico(PropriedadesBusca.OPCAO_REMOVER);
             BuscaJPanel buscaPanel = new BuscaJPanel("BUSCAR QUESTIONÁRIO SOCIAL PARA REMOÇÂO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
         } else if (source.equals(menuItemCadastrarAtendimentoSocial)) {

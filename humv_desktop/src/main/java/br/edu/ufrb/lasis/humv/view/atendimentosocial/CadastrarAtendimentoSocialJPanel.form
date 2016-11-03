@@ -74,21 +74,21 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="18" max="32767" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
               <Component id="jButtonBuscarAnimal" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jComboBoxSituacaoAnimal" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabelData" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane2" min="-2" pref="55" max="-2" attributes="0"/>
@@ -115,6 +115,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonBuscarAnimal">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new javax.swing.ImageIcon(&quot;imagens/small_buscar.png&quot;)" type="code"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Buscar animal"/>
       </Properties>
       <Events>
@@ -135,32 +138,33 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabelNomeAnimal" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelRaca" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jLabelNomeAnimal" pref="314" max="32767" attributes="0"/>
+                      <Component id="jLabelRaca" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="155" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabelEspecie" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelRghumv" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelRghumv" max="32767" attributes="0"/>
+                      <Component id="jLabelEspecie" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabelNomeAnimal" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelRghumv" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabelRaca" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelEspecie" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace pref="12" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -168,21 +172,33 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabelNomeAnimal">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Lucida Grande" size="13" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Nome:                                  "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelRghumv">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Lucida Grande" size="13" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="RGHUMV:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelRaca">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Lucida Grande" size="13" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Ra&#xe7;a:                          "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelEspecie">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Lucida Grande" size="13" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Esp&#xe9;cie:                    "/>
           </Properties>
         </Component>
@@ -203,24 +219,25 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="jLabelNomeDono" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jLabelCpf" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="jLabelTelefone" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jLabelEmail" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="jScrollPane1" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabelTelefone" max="32767" attributes="0"/>
+                                      <Component id="jLabelNomeDono" min="-2" pref="298" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabelCpf" min="-2" pref="266" max="-2" attributes="0"/>
+                                      <Component id="jLabelEmail" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -230,17 +247,17 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabelCpf" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelNomeDono" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabelNomeDono" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelCpf" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabelEmail" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabelEmail" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelTelefone" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="56" max="-2" attributes="0"/>
@@ -252,21 +269,33 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabelNomeDono">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Lucida Grande" size="13" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Nome:                                         "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelCpf">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Lucida Grande" size="13" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="CPF/CNPJ:                                      "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelTelefone">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Lucida Grande" size="13" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Telefone:                                    "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelEmail">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Lucida Grande" size="13" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="E-mail:                                                            "/>
           </Properties>
         </Component>
@@ -409,7 +438,7 @@
                       <Component id="jRadioButtonConsultasValorAula" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jRadioButtonConsultasIsencao" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="2" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jRadioButtonConsultasDesconto" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jSpinnerDescontoConsultas" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -493,7 +522,7 @@
                       <Component id="jRadioButtonCirurgiaValorAula" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jRadioButtonCirurgiaIsencao" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="2" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jRadioButtonCirurgiaDesconto" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jSpinnerDescontoCirurgias" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -577,7 +606,7 @@
                       <Component id="jRadioButtonExamesValorAula" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jRadioButtonExamesIsencao" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="6" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jRadioButtonExamesDesconto" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jSpinnerDescontoExames" alignment="3" min="-2" max="-2" attributes="0"/>

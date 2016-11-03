@@ -93,7 +93,7 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaObservacoesDono = new javax.swing.JTextArea();
         jLabelData = new javax.swing.JLabel();
-        jComboBoxSituacaoAnimal = new javax.swing.JComboBox<String>();
+        jComboBoxSituacaoAnimal = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextAreaObservacoesGerais = new javax.swing.JTextArea();
         jLabel14 = new javax.swing.JLabel();
@@ -126,6 +126,7 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("CADASTRAR ATENDIMENTO SOCIAL");
 
+        jButtonBuscarAnimal.setIcon(new javax.swing.ImageIcon("imagens/small_buscar.png"));
         jButtonBuscarAnimal.setText("Buscar animal");
         jButtonBuscarAnimal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,12 +136,16 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Animal"));
 
+        jLabelNomeAnimal.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabelNomeAnimal.setText("Nome:                                  ");
 
+        jLabelRghumv.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabelRghumv.setText("RGHUMV:");
 
+        jLabelRaca.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabelRaca.setText("Raça:                          ");
 
+        jLabelEspecie.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabelEspecie.setText("Espécie:                    ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -149,36 +154,41 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelNomeAnimal, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                    .addComponent(jLabelRaca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelNomeAnimal)
-                    .addComponent(jLabelRaca))
-                .addGap(155, 155, 155)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelEspecie)
-                    .addComponent(jLabelRghumv))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabelRghumv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelEspecie, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNomeAnimal)
                     .addComponent(jLabelRghumv))
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelRaca)
                     .addComponent(jLabelEspecie))
-                .addContainerGap())
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Dono"));
 
+        jLabelNomeDono.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabelNomeDono.setText("Nome:                                         ");
 
+        jLabelCpf.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabelCpf.setText("CPF/CNPJ:                                      ");
 
+        jLabelTelefone.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabelTelefone.setText("Telefone:                                    ");
 
+        jLabelEmail.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabelEmail.setText("E-mail:                                                            ");
 
         jLabel12.setText("Observações:");
@@ -195,34 +205,33 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabelNomeDono)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabelCpf)
-                        .addGap(56, 56, 56))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabelTelefone)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabelEmail)
-                        .addContainerGap())
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabelNomeDono, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabelEmail))))
                         .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelCpf)
-                    .addComponent(jLabelNomeDono, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelNomeDono)
+                    .addComponent(jLabelCpf))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelEmail)
                     .addComponent(jLabelTelefone))
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -231,7 +240,7 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
 
         jLabelData.setText("Data:                   ");
 
-        jComboBoxSituacaoAnimal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Animal de rua", "Caso de interesse para estudo", "Remanejamento de atendimento em aula", "Outros casos" }));
+        jComboBoxSituacaoAnimal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Animal de rua", "Caso de interesse para estudo", "Remanejamento de atendimento em aula", "Outros casos" }));
 
         jTextAreaObservacoesGerais.setColumns(20);
         jTextAreaObservacoesGerais.setRows(5);
@@ -282,7 +291,7 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
                 .addComponent(jRadioButtonConsultasValorAula)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jRadioButtonConsultasIsencao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 2, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButtonConsultasDesconto)
                     .addComponent(jSpinnerDescontoConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -330,7 +339,7 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
                 .addComponent(jRadioButtonCirurgiaValorAula)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jRadioButtonCirurgiaIsencao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 2, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButtonCirurgiaDesconto)
                     .addComponent(jSpinnerDescontoCirurgias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -383,7 +392,7 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
                 .addComponent(jRadioButtonExamesValorAula)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jRadioButtonExamesIsencao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButtonExamesDesconto)
                     .addComponent(jSpinnerDescontoExames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -449,7 +458,7 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabelData)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel13)
                         .addGap(18, 18, 18)
                         .addComponent(jComboBoxSituacaoAnimal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -472,20 +481,20 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(18, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(24, 24, 24)
                 .addComponent(jButtonBuscarAnimal)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(jComboBoxSituacaoAnimal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelData))
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -516,8 +525,10 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
         if (animalResultadoBusca == null) {
             InterfaceGraficaUtils.erroResposta("Por favor, selecione um animal antes de registrar o atendimento.");
         } else {
-            if(atendimentoSocial==null){
-                atendimentoSocial=new AtendimentoSocial();
+            if(atendimentoSocial == null){
+                atendimentoSocial = new AtendimentoSocial();
+            } else {
+                cadastrar = false;
             }
             atendimentoSocial.setData(data);
             atendimentoSocial.setDono(dono);

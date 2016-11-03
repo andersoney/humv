@@ -5,7 +5,7 @@ import br.edu.ufrb.lasis.humv.entity.Animal;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
-import br.edu.ufrb.lasis.humv.utils.PrintUtils;
+import br.edu.ufrb.lasis.humv.reports.PrintUtils;
 import br.edu.ufrb.lasis.humv.utils.ResultadoBusca;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -104,7 +104,7 @@ public class PropriedadesBuscaAnimal extends PropriedadesBusca {
                 }
             }
         } else if (e.getSource().equals(super.getBotaoImprimirTabela())) {
-            PrintUtils.print(PrintUtils.TABELA_ANIMAIS, listaAnimais);
+            PrintUtils.printLista(PrintUtils.TABELA_ANIMAIS, listaAnimais);
         } else if (e.getSource().equals(super.getBotaoCancelar())) {
             if (getjFrame() != null) {
                 getjFrame().dispose();
