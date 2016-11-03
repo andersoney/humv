@@ -10,6 +10,7 @@ import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.view.agendamento.BuscarAgendaMedicoJPanel;
 import br.edu.ufrb.lasis.humv.view.animal.CadastrarAnimalJPanel;
 import br.edu.ufrb.lasis.humv.view.animal.PropriedadesBuscaAnimal;
+import br.edu.ufrb.lasis.humv.view.atendimentosocial.CadastrarAtendimentoSocialJPanel;
 import br.edu.ufrb.lasis.humv.view.busca.BuscaJPanel;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import br.edu.ufrb.lasis.humv.view.config.ConfiguracoesJPanel;
@@ -39,13 +40,15 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author tassiovale
  */
 public abstract class MenuBarFabricaAbstrata implements ActionListener {
-
+private final static Logger logger = LoggerFactory.getLogger(MenuBarFabricaAbstrata.class);
     private JMenuBar menuBar;
 
     private JMenu menuAjuda;
@@ -101,6 +104,9 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
             menuItemRemocaoQuestionarioSocial;
     private JButton buttonQuestionario;
 
+    private JMenu menuAtendimentoSocial;
+    private JMenuItem menuItemCadastrarAtendimentoSocial;
+
     private JPanel panelButtons;
     private GridBagConstraints panelConstraints;
 
@@ -138,6 +144,20 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         menuItemSobre.addActionListener(this);
 
         getMenuBar().add(menuAjuda);
+    }
+
+    public void criaMenuAtendimentoSocial() {
+        /**
+         * private JMenu menuAtendimentoSocial; private JMenuItem
+         * menuItemCadastrarAtendimentoSocial;
+         */
+        menuAtendimentoSocial = new JMenu("Atendimento Social");
+
+        menuItemCadastrarAtendimentoSocial = new JMenuItem("Cadastrar");
+        menuItemCadastrarAtendimentoSocial.addActionListener(this);
+        menuAtendimentoSocial.add(menuItemCadastrarAtendimentoSocial);
+
+        getMenuBar().add(menuAtendimentoSocial);
     }
 
     public void criaMenuUsuario() {
@@ -445,6 +465,10 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
             PropriedadesBuscaQuestionarioSocial propriedadesBusca = new PropriedadesBuscaQuestionarioSocial(PropriedadesBusca.OPCAO_REMOVER);
             BuscaJPanel buscaPanel = new BuscaJPanel("BUSCAR QUESTIONÁRIO SOCIAL PARA REMOÇÂO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
+        } else if (source.equals(menuItemCadastrarAtendimentoSocial)) {
+            logger.info("asdasda%n%n%n");
+            CadastrarAtendimentoSocialJPanel as=new CadastrarAtendimentoSocialJPanel();
+            HUMVApp.setNovoPainelCentral(as);
         }
 
     }

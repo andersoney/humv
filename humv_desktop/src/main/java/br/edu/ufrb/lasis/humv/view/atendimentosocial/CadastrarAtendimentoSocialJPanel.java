@@ -17,53 +17,59 @@ import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JRadioButton;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Luiz Toni
  */
 public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel implements ResultadoBusca, ActionListener {
+
     private Animal animalResultadoBusca = null;
     private Dono dono = null;
     private Date data;
     private AtendimentoSocial atendimentoSocial = null;
-    
+    private final static Logger logger = LoggerFactory.getLogger(CadastrarAtendimentoSocialJPanel.class);
+
     private static final String ISENCAO = "Isenção";
     private static final String DESCONTO = "Desconto";
     private static final String VALOR_AULA = "Valor aula";
     private static final String VALOR_NORMAL = "Valor normal";
-    
+
     public CadastrarAtendimentoSocialJPanel() {
+        data = Calendar.getInstance().getTime();
         initComponents();
         customInitComponents(data);
     }
 
-    public void customInitComponents(Date data){
+    public void customInitComponents(Date data) {
         jLabelData.setText(ValidationsUtils.obterDataString(data));
-        
         buttonGroupCobrancaCirurgias.add(jRadioButtonCirurgiaValorNormal);
         buttonGroupCobrancaCirurgias.add(jRadioButtonCirurgiaValorAula);
         buttonGroupCobrancaCirurgias.add(jRadioButtonCirurgiaIsencao);
         buttonGroupCobrancaCirurgias.add(jRadioButtonCirurgiaDesconto);
-        
+
         buttonGroupCobrancaExames.add(jRadioButtonExamesValorNormal);
         buttonGroupCobrancaExames.add(jRadioButtonExamesValorAula);
         buttonGroupCobrancaExames.add(jRadioButtonExamesIsencao);
         buttonGroupCobrancaExames.add(jRadioButtonExamesDesconto);
-        
+
         buttonGroupCobrancaConsultas.add(jRadioButtonConsultasValorNormal);
         buttonGroupCobrancaConsultas.add(jRadioButtonConsultasValorAula);
         buttonGroupCobrancaConsultas.add(jRadioButtonConsultasIsencao);
         buttonGroupCobrancaConsultas.add(jRadioButtonConsultasDesconto);
-        
+
         jRadioButtonCirurgiaValorNormal.setSelected(true);
         jRadioButtonConsultasValorNormal.setSelected(true);
         jRadioButtonExamesValorNormal.setSelected(true);
-        
+
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -509,16 +515,18 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
         boolean cadastrar = true;
         if (animalResultadoBusca == null) {
             InterfaceGraficaUtils.erroResposta("Por favor, selecione um animal antes de registrar o atendimento.");
-        } 
-        else {
+        } else {
+            if(atendimentoSocial==null){
+                atendimentoSocial=new AtendimentoSocial();
+            }
             atendimentoSocial.setData(data);
             atendimentoSocial.setDono(dono);
             atendimentoSocial.setAnimal(animalResultadoBusca);
-           
+
             atendimentoSocial.setObservacoesAnimal(jTextAreaObservacoesGerais.getText());
             atendimentoSocial.setObservacoesDono(jTextAreaObservacoesDono.getText());
             atendimentoSocial.setSituacaoAnimal(jComboBoxSituacaoAnimal.getSelectedItem().toString());
-            
+
             try {
                 ClientResponse response;
                 if (cadastrar) {
@@ -615,47 +623,47 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
     public void setResultado(Object resultado) {
         if (resultado instanceof Animal) {
             animalResultadoBusca = (Animal) resultado;
-            jLabelNomeAnimal.setText("Nome: "+animalResultadoBusca.getNome());
-            jLabelRghumv.setText("RGHUMV: "+animalResultadoBusca.getRghumv().toString());
-            jLabelEspecie.setText("Espécie: "+animalResultadoBusca.getEspecie());
-            jLabelRaca.setText("Raça: "+animalResultadoBusca.getRaca());
+            jLabelNomeAnimal.setText("Nome: " + animalResultadoBusca.getNome());
+            jLabelRghumv.setText("RGHUMV: " + animalResultadoBusca.getRghumv().toString());
+            jLabelEspecie.setText("Espécie: " + animalResultadoBusca.getEspecie());
+            jLabelRaca.setText("Raça: " + animalResultadoBusca.getRaca());
 
             dono = animalResultadoBusca.getDono();
-            jLabelNomeDono.setText("Nome: "+dono.getNome());
-            jLabelCpf.setText("CPF/CNPJ: "+MaskUtils.formatarCPF_CNPJ(dono.getCpfCnpj(), dono.getTipoDocumento()));
-            jLabelTelefone.setText("Telefone: "+dono.getTelefone());
-            jLabelEmail.setText("E-mail: "+dono.getEmail());
+            jLabelNomeDono.setText("Nome: " + dono.getNome());
+            jLabelCpf.setText("CPF/CNPJ: " + MaskUtils.formatarCPF_CNPJ(dono.getCpfCnpj(), dono.getTipoDocumento()));
+            jLabelTelefone.setText("Telefone: " + dono.getTelefone());
+            jLabelEmail.setText("E-mail: " + dono.getEmail());
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         if (e.getSource() instanceof JRadioButton && buttonGroupCobrancaCirurgias.equals(e.getSource())) {
             if (e.getSource().equals(jRadioButtonCirurgiaDesconto)) {
                 jSpinnerDescontoCirurgias.setEnabled(true);
                 atendimentoSocial.setTipoCobrancaCirurgias(DESCONTO);
-                int desconto =Integer.parseInt(jSpinnerDescontoCirurgias.getValue().toString());
+                int desconto = Integer.parseInt(jSpinnerDescontoCirurgias.getValue().toString());
                 atendimentoSocial.setPercentualDescontoCirurgias(desconto);
-                    
+
             } else {
                 jSpinnerDescontoCirurgias.setEnabled(false);
                 if (e.getSource().equals(jRadioButtonCirurgiaIsencao)) {
                     atendimentoSocial.setTipoCobrancaCirurgias(ISENCAO);
-                    int desconto= 100;
+                    int desconto = 100;
                     atendimentoSocial.setPercentualDescontoCirurgias(desconto);
-                    
+
                 } else if (e.getSource().equals(jRadioButtonCirurgiaValorAula)) {
                     int desconto = Integer.parseInt(HUMVConfigUtils.getPorcentagemDescontoValorAula());
                     atendimentoSocial.setTipoCobrancaCirurgias(VALOR_AULA);
                     atendimentoSocial.setPercentualDescontoCirurgias(desconto);
                 } else if (e.getSource().equals(jRadioButtonCirurgiaValorNormal)) {
                     atendimentoSocial.setTipoCobrancaCirurgias(VALOR_NORMAL);
-                    int desconto =100;
+                    int desconto = 100;
                     atendimentoSocial.setPercentualDescontoCirurgias(desconto);
                 }
             }
-        }
-        else if(e.getSource() instanceof JRadioButton && buttonGroupCobrancaExames.equals(e.getSource())){
+        } else if (e.getSource() instanceof JRadioButton && buttonGroupCobrancaExames.equals(e.getSource())) {
             if (e.getSource().equals(jRadioButtonExamesDesconto)) {
                 jSpinnerDescontoExames.setEnabled(true);
                 atendimentoSocial.setTipoCobrancaExames(DESCONTO);
@@ -672,23 +680,22 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
                     atendimentoSocial.setPercentualDescontoConsultas(desconto);
                     atendimentoSocial.setTipoCobrancaExames(VALOR_AULA);
                 } else if (e.getSource().equals(jRadioButtonExamesValorNormal)) {
-                    int desconto =0;
+                    int desconto = 0;
                     atendimentoSocial.setPercentualDescontoExames(desconto);
                     atendimentoSocial.setTipoCobrancaExames(VALOR_NORMAL);
                 }
             }
-        }
-        else if(e.getSource() instanceof JRadioButton && buttonGroupCobrancaConsultas.equals(e.getSource())){
+        } else if (e.getSource() instanceof JRadioButton && buttonGroupCobrancaConsultas.equals(e.getSource())) {
             if (e.getSource().equals(jRadioButtonConsultasDesconto)) {
                 jSpinnerDescontoConsultas.setEnabled(true);
                 atendimentoSocial.setTipoCobrancaConsultas(DESCONTO);
-                int desconto =Integer.parseInt(jSpinnerDescontoCirurgias.getValue().toString());
+                int desconto = Integer.parseInt(jSpinnerDescontoCirurgias.getValue().toString());
                 atendimentoSocial.setPercentualDescontoConsultas(desconto);
             } else {
                 jSpinnerDescontoConsultas.setEnabled(false);
                 if (e.getSource().equals(jRadioButtonConsultasIsencao)) {
                     atendimentoSocial.setTipoCobrancaConsultas(ISENCAO);
-                    int desconto =0;
+                    int desconto = 0;
                     atendimentoSocial.setPercentualDescontoConsultas(desconto);
                 } else if (e.getSource().equals(jRadioButtonConsultasValorAula)) {
                     int desconto = Integer.parseInt(HUMVConfigUtils.getPorcentagemDescontoValorAula());
@@ -701,6 +708,6 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
                 }
             }
         }
-        
+
     }
 }
