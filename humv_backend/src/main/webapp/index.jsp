@@ -77,6 +77,7 @@
     <ul>
     	<li>Obter todos: /api/atendimentoSocial (GET)</li>
     	<li>Obter um atendimento social: /api/atendimentoSocial/{id} (GET)</li>
+    	<li>Buscar por CPF do dono, RGHUMV do animal ou nome do dono: /api/atendimentoSocial/search?palavrachave=[<i>palavra</i>] (GET)</li>
     	<li>Inserir: /api/atendimentoSocial (POST)</li>
     	<li>Alterar: /api/atendimentoSocial (PUT)</li>
     	<li>Excluir: /api/atendimentoSocial/{id} (DELETE)</li>

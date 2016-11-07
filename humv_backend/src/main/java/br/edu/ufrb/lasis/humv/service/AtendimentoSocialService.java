@@ -28,6 +28,11 @@ public class AtendimentoSocialService {
     	return atendimentoSocialServiceImpl.getAll(); 
     }
     
+    @RequestMapping(method = RequestMethod.GET, value = "/search")
+    public List<AtendimentoSocial> search(@RequestParam(value="palavrachave") String palavrachave){
+    	return atendimentoSocialServiceImpl.search(palavrachave);
+    }
+    
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public AtendimentoSocial findById(@PathVariable final BigInteger id){
     	return atendimentoSocialServiceImpl.findById(id);

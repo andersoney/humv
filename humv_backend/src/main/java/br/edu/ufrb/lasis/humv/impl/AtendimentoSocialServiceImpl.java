@@ -59,6 +59,10 @@ public class AtendimentoSocialServiceImpl {
 		logger.info("[removerAtendimentoSocial - " + usuarioResponsavel + "] Atendimento " + atendimentoSocial.getId() + " removido com sucesso.");
 		return "OK";
 	}
+	
+	public List<AtendimentoSocial> search(String palavrachave){
+		return atendimentoSocialDAO.search(palavrachave);
+	}
 
 	public AtendimentoSocialDAO getAtendimentoSocialDAO() {
 		return atendimentoSocialDAO;

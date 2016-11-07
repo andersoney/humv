@@ -1,5 +1,6 @@
 package br.edu.ufrb.lasis.humv.entity;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -7,6 +8,7 @@ import java.util.Date;
  * @author Luiz Toni
  */
 public class AtendimentoSocial {
+    private BigInteger id;
     private Dono dono;
     private Animal animal;
     private String observacoesDono;
@@ -116,5 +118,9 @@ public class AtendimentoSocial {
 
     public void setData(Date data) {
         this.data = data;
+    }
+
+    public BigInteger getId() {
+        return id;
     }
 }
