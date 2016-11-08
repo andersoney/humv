@@ -305,7 +305,7 @@ private final static Logger logger = LoggerFactory.getLogger(MenuBarFabricaAbstr
     }
 
     public void criaMenuAtendimento() {
-        menuAtendimento = new JMenu("Atendimento");
+        menuAtendimento = new JMenu("Agendamento");
 
         menuItemAgendarAtendimento = new JMenuItem("Ver agenda");
         menuItemAgendarAtendimento.addActionListener(this);

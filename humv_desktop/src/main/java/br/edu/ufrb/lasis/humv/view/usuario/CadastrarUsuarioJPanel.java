@@ -221,6 +221,7 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
 
     private void buttonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOKActionPerformed
         BigInteger siape;
+        /*
         try {
             if(textFieldSiape.getText().isEmpty()){
                 JOptionPane.showMessageDialog(this, "O campo SIAPE não pode ser vazio.", "SIAPE inválido", JOptionPane.ERROR_MESSAGE);
@@ -239,7 +240,12 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
             textFieldSiape.setFocusable(true);
             return;
         }
-
+        */
+        if(textFieldSiape.getText().isEmpty()){
+            siape = new BigInteger("-1");
+        }else{
+            siape = new BigInteger(textFieldSiape.getText());
+        }
         if (textFieldNome.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "O campo nome não pode ser vazio.", "Nome inválido", JOptionPane.ERROR_MESSAGE);
             textFieldNome.setFocusable(true);
