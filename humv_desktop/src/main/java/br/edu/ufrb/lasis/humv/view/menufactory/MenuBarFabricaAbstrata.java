@@ -11,6 +11,7 @@ import br.edu.ufrb.lasis.humv.view.agendamento.BuscarAgendaMedicoJPanel;
 import br.edu.ufrb.lasis.humv.view.animal.CadastrarAnimalJPanel;
 import br.edu.ufrb.lasis.humv.view.animal.PropriedadesBuscaAnimal;
 import br.edu.ufrb.lasis.humv.view.atendimentosocial.CadastrarAtendimentoSocialJPanel;
+import br.edu.ufrb.lasis.humv.view.atendimentosocial.PropriedadesBuscaAtendimentoSocial;
 import br.edu.ufrb.lasis.humv.view.busca.BuscaJPanel;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import br.edu.ufrb.lasis.humv.view.config.ConfiguracoesJPanel;
@@ -106,7 +107,10 @@ private final static Logger logger = LoggerFactory.getLogger(MenuBarFabricaAbstr
 
     private JMenu menuAtendimentoSocial;
     private JMenuItem menuItemCadastrarAtendimentoSocial;
-
+    private JMenuItem menuItemBuscarAtendimentoSocial;
+    private JMenuItem menuItemAlterarAtendimentoSocial;
+    private JMenuItem menuItemRemoverAtendimentoSocial;
+    
     private JPanel panelButtons;
     private GridBagConstraints panelConstraints;
 
@@ -154,9 +158,20 @@ private final static Logger logger = LoggerFactory.getLogger(MenuBarFabricaAbstr
         menuAtendimentoSocial = new JMenu("Atendimento Social");
 
         menuItemCadastrarAtendimentoSocial = new JMenuItem("Cadastrar");
+        menuItemBuscarAtendimentoSocial = new JMenuItem("Buscar");
+        menuItemAlterarAtendimentoSocial = new JMenuItem("Alterar");
+        menuItemRemoverAtendimentoSocial = new JMenuItem("Remover");
+        
         menuItemCadastrarAtendimentoSocial.addActionListener(this);
+        menuItemBuscarAtendimentoSocial.addActionListener(this);
+        menuItemAlterarAtendimentoSocial.addActionListener(this);
+        menuItemRemoverAtendimentoSocial.addActionListener(this);
+        
         menuAtendimentoSocial.add(menuItemCadastrarAtendimentoSocial);
-
+        menuAtendimentoSocial.add(menuItemBuscarAtendimentoSocial);
+        menuAtendimentoSocial.add(menuItemAlterarAtendimentoSocial);
+        menuAtendimentoSocial.add(menuItemRemoverAtendimentoSocial);
+        
         getMenuBar().add(menuAtendimentoSocial);
     }
 
@@ -463,12 +478,24 @@ private final static Logger logger = LoggerFactory.getLogger(MenuBarFabricaAbstr
             HUMVApp.setNovoPainelCentral(buscaPanel);
         } else if (source.equals(menuItemRemocaoQuestionarioSocial)) {
             PropriedadesBuscaQuestionarioSocioeconomico propriedadesBusca = new PropriedadesBuscaQuestionarioSocioeconomico(PropriedadesBusca.OPCAO_REMOVER);
-            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCAR QUESTIONÁRIO SOCIAL PARA REMOÇÂO", propriedadesBusca);
+            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCAR QUESTIONÁRIO SOCIAL PARA REMOÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
         } else if (source.equals(menuItemCadastrarAtendimentoSocial)) {
             logger.info("asdasda%n%n%n");
             CadastrarAtendimentoSocialJPanel as=new CadastrarAtendimentoSocialJPanel();
             HUMVApp.setNovoPainelCentral(as);
+        } else if(source.equals(menuItemAlterarAtendimentoSocial)){
+            PropriedadesBuscaAtendimentoSocial propriedadesBusca = new PropriedadesBuscaAtendimentoSocial(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
+            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCAR ATENDIMENTO SOCIAL PARA ALTERAÇÃO", propriedadesBusca);
+            HUMVApp.setNovoPainelCentral(buscaPanel);
+        }else if(source.equals(menuItemBuscarAtendimentoSocial)){
+            PropriedadesBuscaAtendimentoSocial propriedadesBusca = new PropriedadesBuscaAtendimentoSocial(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
+            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCAR ATENDIMENTO SOCIAL PARA VISUALIZAÇÃO/ALTERAÇÃO", propriedadesBusca);
+            HUMVApp.setNovoPainelCentral(buscaPanel);
+        }else if(source.equals(menuItemRemoverAtendimentoSocial)){
+            PropriedadesBuscaAtendimentoSocial propriedadesBusca = new PropriedadesBuscaAtendimentoSocial(PropriedadesBusca.OPCAO_REMOVER);
+            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCAR ATENDIMENTO SOCIAL PARA REMOÇÃO", propriedadesBusca);
+            HUMVApp.setNovoPainelCentral(buscaPanel);
         }
 
     }
