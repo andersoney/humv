@@ -57,7 +57,7 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements R
             jTextFieldPreco.setText("" + procedimentoSelecionado.getValor());
             setor = procedimentoSelecionado.getSetor();
             nomeSetor = procedimentoSelecionado.getSetor().getNome();
-            jLabelNomeSetor.setText("Nome: " + setor +  " - " + nomeSetor);
+            jLabelNomeSetor.setText("Nome: " + nomeSetor);
         }
     }
 

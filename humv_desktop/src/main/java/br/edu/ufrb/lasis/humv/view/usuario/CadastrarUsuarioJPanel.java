@@ -47,7 +47,7 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
             textFieldNome.setText(usuarioSelecionado.getNome());
             textFieldEmail.setText(usuarioSelecionado.getEmail());
             textFieldEmail.setEnabled(false);
-            textFieldSiape.setEnabled(false);
+            textFieldSiape.setEnabled(true);
             textFieldSiape.setText(usuarioSelecionado.getSiape().toString());
 
             if (usuarioSelecionado.getPerfil().compareTo(Usuario.PERFIL_ADMINISTRADOR) == 0) {
@@ -220,7 +220,7 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_buttonCancelarActionPerformed
 
     private void buttonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOKActionPerformed
-        BigInteger siape;
+        BigInteger siape = null;
         /*
         try {
             if(textFieldSiape.getText().isEmpty()){
@@ -244,7 +244,11 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
         if(textFieldSiape.getText().isEmpty()){
             siape = new BigInteger("-1");
         }else{
-            siape = new BigInteger(textFieldSiape.getText());
+            try{
+                siape = new BigInteger(textFieldSiape.getText());
+            }catch(NumberFormatException ex){
+                JOptionPane.showMessageDialog(this, "O campo SIAPE não parece válido.", "SIAPE inválido", JOptionPane.ERROR_MESSAGE);
+            }
         }
         if (textFieldNome.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "O campo nome não pode ser vazio.", "Nome inválido", JOptionPane.ERROR_MESSAGE);

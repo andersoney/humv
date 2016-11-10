@@ -48,7 +48,7 @@ public class ProcedimentoServiceImpl {
 		}catch(DataIntegrityViolationException ex){
 			if(ex.getMessage().toLowerCase().contains("constraint")){
 				//logger.error("[signup] Nome do Procedimento j� cadastrado: " + procedimento.getNome() + ".");
-				return "Setor " +  procedimento.getNome() + " já cadastrado no sistema. Por favor, informe um nome diferente.";
+				return "Procedimento " +  procedimento.getNome() + " já cadastrado no sistema. Por favor, informe um nome diferente.";
 			}else{
 				return "Erro ao conectar-se com o banco de dados.";
 			}
