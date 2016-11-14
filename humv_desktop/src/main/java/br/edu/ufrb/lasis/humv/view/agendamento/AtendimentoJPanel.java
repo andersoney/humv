@@ -44,21 +44,21 @@ public class AtendimentoJPanel implements ActionListener {
         if (atendimento.getStatus() == Atendimento.STATUS_AGENDADO) {
             agendaJPanel.add(atendimentoButton, constraints);
             Color color = new Color(174, 226, 245);
-            addBotaoCancelar(color);
+            addBotaoCancelar(color, 1);
             realizadoJButton = new JButton(new ImageIcon("imagens/icon_realizado.png"));
             constraints.gridx++;
             addBotao(realizadoJButton, color, "Marcar atendimento como realizado", constraints);
         } else if (atendimento.getStatus() == Atendimento.STATUS_REALIZADO) {
             agendaJPanel.add(atendimentoButton, constraints);
             Color color = new Color(123, 198, 133);
-            addBotaoCancelar(color);
+            addBotaoCancelar(color,1);
             reativarJButton = new JButton(new ImageIcon("imagens/icon_reativar.png"));
             constraints.gridx++;
             addBotao(reativarJButton, color, "Reativar atendimento", constraints);
         }
     }
 
-    private void addBotaoCancelar(Color color) {
+    private void addBotaoCancelar(Color color, int flag) {
         cancelarJButton = new JButton(new ImageIcon("imagens/icon_cancelar.png"));
         constraints.gridx++;
         addBotao(cancelarJButton, color, "Cancelar atendimento", constraints);

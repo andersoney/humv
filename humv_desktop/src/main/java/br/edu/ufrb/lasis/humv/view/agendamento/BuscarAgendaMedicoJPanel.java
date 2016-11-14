@@ -25,7 +25,9 @@ public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
 
     private List<Usuario> medicos = null;
     private AgendaJPanel agendaJPanel = null;
-
+    
+    private static final int CANCELAR_UM_ATENDIMENTO = 1;
+    private static final int CANCELAR_VARIOS_ATENDIMENTOS = 2;
     /**
      * Creates new form RealizarAgendamentoJPanel
      */
@@ -206,7 +208,7 @@ public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
     private void jButtonCancelarAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarAgendaActionPerformed
         Usuario medico = ((MedicoComboBox) comboBoxMedicos.getSelectedItem()).getUsuario();
         Date data = jDateChooserDiaAgenda.getDate();
-        new CancelarAtendimentoJDialog(medico, data, agendaJPanel).setVisible(true);
+        new CancelarAtendimentoJDialog(medico, data, agendaJPanel,CANCELAR_VARIOS_ATENDIMENTOS).setVisible(true);
     }//GEN-LAST:event_jButtonCancelarAgendaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

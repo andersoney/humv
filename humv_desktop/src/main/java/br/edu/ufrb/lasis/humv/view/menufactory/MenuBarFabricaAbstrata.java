@@ -459,7 +459,7 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
             HUMVApp.setNovoPainelCentral(projeto);
         } else if (source.equals(menuItemBuscaProjeto) || source.equals(menuItemAlteracaoProjeto)) {
             PropriedadesBuscaProjeto propriedadesBusca = new PropriedadesBuscaProjeto(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
-            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE PROCEDIMENTO PARA VISUALIZAÇÃO/ALTERAÇÃO", propriedadesBusca);
+            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE PROJETO PARA VISUALIZAÇÃO/ALTERAÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
         } else if (source.equals(menuItemRemocaoProjeto)) {
             PropriedadesBuscaProjeto propriedadesBusca = new PropriedadesBuscaProjeto(PropriedadesBusca.OPCAO_REMOVER);

@@ -30,9 +30,12 @@ public class CancelarAtendimentoJDialog extends javax.swing.JDialog implements A
     private Usuario medico;
     private Date data;
     private AgendaJPanel agendaJPanel;
-
+    private int tipoCancelamento = 1;
+    
     /**
      * Creates new form CancelarAtendimentoJDialog
+     * @param atendimento
+     * @param agendaJPanel
      */
     public CancelarAtendimentoJDialog(Atendimento atendimento, AgendaJPanel agendaJPanel) {
         super(HUMVApp.getMainWindow(), true);
@@ -41,7 +44,7 @@ public class CancelarAtendimentoJDialog extends javax.swing.JDialog implements A
         initComponents();
         customInitComponents();
     }
-
+    
     public CancelarAtendimentoJDialog(Usuario medico, Date data, AgendaJPanel agendaJPanel) {
         super(HUMVApp.getMainWindow(), true);
         this.medico = medico;
@@ -51,6 +54,16 @@ public class CancelarAtendimentoJDialog extends javax.swing.JDialog implements A
         customInitComponents();
     }
 
+    public CancelarAtendimentoJDialog(Usuario medico, Date data, AgendaJPanel agendaJPanel, int tipoCancelamento) {
+        super(HUMVApp.getMainWindow(), true);
+        this.medico = medico;
+        this.data = data;
+        this.agendaJPanel = agendaJPanel;
+        this.tipoCancelamento = tipoCancelamento;
+        initComponents();
+        customInitComponents();
+    }
+    
     private void customInitComponents() {
         buttonGroupMotivos.add(jRadioButtonMedico);
         buttonGroupMotivos.add(jRadioButtonDono);
@@ -228,11 +241,16 @@ public class CancelarAtendimentoJDialog extends javax.swing.JDialog implements A
         }
 
         try {
-            ClientResponse response = RESTMethods.put(resourceURL, textoMotivo);
+            ClientResponse response;
+            if(tipoCancelamento!= 1)
+                response = RESTMethods.put(resourceURL, textoMotivo);
+            else
+                response = RESTMethods.delete("/api/atendimento", "" + atendimento.getId());
             String resposta = response.getEntity(String.class);
             if (!resposta.equalsIgnoreCase("ok")) {
                 InterfaceGraficaUtils.erroResposta(resposta);
             } else {
+                //JOptionPane.showMessageDialog(null,"Passei por aqui!!");
                 InterfaceGraficaUtils.sucessoAtualizacao(mensagemSucesso);
                 agendaJPanel.construirHorarios();
                 dispose();
