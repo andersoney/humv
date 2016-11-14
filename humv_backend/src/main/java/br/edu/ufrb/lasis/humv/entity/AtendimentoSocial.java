@@ -1,6 +1,5 @@
 package br.edu.ufrb.lasis.humv.entity;
 
-
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
@@ -17,44 +16,44 @@ import javax.persistence.Table;
  * @author Luiz Toni
  */
 @Entity
-@Table(name="ATENDIMENTOS_SOCIAIS")
-public class AtendimentoSocial implements Serializable{    
-	
-	private static final long serialVersionUID = 1L;
+@Table(name = "ATENDIMENTOS_SOCIAIS")
+public class AtendimentoSocial implements Serializable {
 
-	@Id
-	@GeneratedValue
-	BigInteger id;
-	
-	@OneToOne
-	@JoinColumn
-	private Dono dono;
-	@OneToOne
-	@JoinColumn
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue
+    BigInteger id;
+
+    @OneToOne
+    @JoinColumn
+    private Dono dono;
+    @OneToOne
+    @JoinColumn
     private Animal animal;
-    
+
     private String observacoesDono;
     private String observacoesAnimal;
     private String situacaoAnimal;
     private Date data;
-    
+
     private String tipoCobrancaConsultas;
     private String tipoCobrancaExames;
     private String tipoCobrancaCirurgias;
-    
+
     private int percentualDescontoConsultas;
     private int percentualDescontoExames;
     private int percentualDescontoCirurgias;
 
     public BigInteger getId() {
-		return id;
-	}
+        return id;
+    }
 
-	public void setId(BigInteger id) {
-		this.id = id;
-	}
+    public void setId(BigInteger id) {
+        this.id = id;
+    }
 
-	public Dono getDono() {
+    public Dono getDono() {
         return dono;
     }
 

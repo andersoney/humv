@@ -53,80 +53,81 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
         initComponents();
         customInitComponents(data);
     }
+
     public void customInitComponents(Date data) {
         jLabelData.setText(ValidationsUtils.obterDataString(data));
-        if(atendimentoSocial != null){
+        if (atendimentoSocial != null) {
             jLabelTitulo.setText("ATUALIZAR ATENDIMENTO SOCIAL");
-            
-            jLabelNomeAnimal.setText("Nome: "+atendimentoSocial.getAnimal().getNome());
-            jLabelRghumv.setText("RGHUMV: "+atendimentoSocial.getAnimal().getRghumv());
-            jLabelEspecie.setText("Espécie: "+atendimentoSocial.getAnimal().getEspecie());
-            jLabelRaca.setText("Raça: "+atendimentoSocial.getAnimal().getRaca());
-            
-            jLabelNomeDono.setText("Nome: "+atendimentoSocial.getDono().getNome());
-            jLabelCpf.setText("CPF/CNPJ: "+atendimentoSocial.getDono().getCpfCnpj());
-            jLabelTelefone.setText("Telefone: "+atendimentoSocial.getDono().getTelefone());
-            jLabelEmail.setText("E-mail: "+atendimentoSocial.getDono().getEmail());
-            
+
+            jLabelNomeAnimal.setText("Nome: " + atendimentoSocial.getAnimal().getNome());
+            jLabelRghumv.setText("RGHUMV: " + atendimentoSocial.getAnimal().getRghumv());
+            jLabelEspecie.setText("Espécie: " + atendimentoSocial.getAnimal().getEspecie());
+            jLabelRaca.setText("Raça: " + atendimentoSocial.getAnimal().getRaca());
+
+            jLabelNomeDono.setText("Nome: " + atendimentoSocial.getDono().getNome());
+            jLabelCpf.setText("CPF/CNPJ: " + atendimentoSocial.getDono().getCpfCnpj());
+            jLabelTelefone.setText("Telefone: " + atendimentoSocial.getDono().getTelefone());
+            jLabelEmail.setText("E-mail: " + atendimentoSocial.getDono().getEmail());
+
             jTextAreaObservacoesDono.setText(atendimentoSocial.getObservacoesDono());
-            
-            if(atendimentoSocial.getSituacaoAnimal().equalsIgnoreCase("animal de rua")){
+
+            if (atendimentoSocial.getSituacaoAnimal().equalsIgnoreCase("animal de rua")) {
                 jComboBoxSituacaoAnimal.setSelectedItem(0);
-            }else if(atendimentoSocial.getSituacaoAnimal().equalsIgnoreCase("caso de interesse para estudo")){
+            } else if (atendimentoSocial.getSituacaoAnimal().equalsIgnoreCase("caso de interesse para estudo")) {
                 jComboBoxSituacaoAnimal.setSelectedItem(1);
-            }else if(atendimentoSocial.getSituacaoAnimal().equalsIgnoreCase("remanejamento de atendimento em aula")){
+            } else if (atendimentoSocial.getSituacaoAnimal().equalsIgnoreCase("remanejamento de atendimento em aula")) {
                 jComboBoxSituacaoAnimal.setSelectedItem(2);
-            }else if(atendimentoSocial.getSituacaoAnimal().equalsIgnoreCase("outros casos")){
+            } else if (atendimentoSocial.getSituacaoAnimal().equalsIgnoreCase("outros casos")) {
                 jComboBoxSituacaoAnimal.setSelectedItem(3);
             }
-            
+
             jTextAreaObservacoesGerais.setText(atendimentoSocial.getObservacoesAnimal());
-            
-            if(atendimentoSocial.getTipoCobrancaExames().equalsIgnoreCase(VALOR_NORMAL)){
+
+            if (atendimentoSocial.getTipoCobrancaExames().equalsIgnoreCase(VALOR_NORMAL)) {
                 jRadioButtonExamesValorNormal.setSelected(true);
                 jRadioButtonExamesValorNormalActionPerformed(null);
-            }else if(atendimentoSocial.getTipoCobrancaExames().equalsIgnoreCase(VALOR_AULA)){
+            } else if (atendimentoSocial.getTipoCobrancaExames().equalsIgnoreCase(VALOR_AULA)) {
                 jRadioButtonExamesValorAula.setSelected(true);
                 jRadioButtonExamesValorAulaActionPerformed(null);
-            }else if(atendimentoSocial.getTipoCobrancaExames().equalsIgnoreCase(ISENCAO)){
+            } else if (atendimentoSocial.getTipoCobrancaExames().equalsIgnoreCase(ISENCAO)) {
                 jRadioButtonExamesIsencao.setSelected(true);
                 jRadioButtonExamesIsencaoActionPerformed(null);
-            }else if(atendimentoSocial.getTipoCobrancaExames().equalsIgnoreCase(DESCONTO)){
+            } else if (atendimentoSocial.getTipoCobrancaExames().equalsIgnoreCase(DESCONTO)) {
                 jRadioButtonExamesDesconto.setSelected(true);
                 jSpinnerDescontoExames.setValue(atendimentoSocial.getPercentualDescontoExames());
                 jRadioButtonExamesDescontoActionPerformed(null);
             }
-            
-            if(atendimentoSocial.getTipoCobrancaConsultas().equalsIgnoreCase(VALOR_NORMAL)){
+
+            if (atendimentoSocial.getTipoCobrancaConsultas().equalsIgnoreCase(VALOR_NORMAL)) {
                 jRadioButtonConsultasValorNormal.setSelected(true);
                 jRadioButtonConsultasValorNormalActionPerformed(null);
-            }else if(atendimentoSocial.getTipoCobrancaConsultas().equalsIgnoreCase(VALOR_AULA)){
+            } else if (atendimentoSocial.getTipoCobrancaConsultas().equalsIgnoreCase(VALOR_AULA)) {
                 jRadioButtonConsultasValorAula.setSelected(true);
                 jRadioButtonConsultasValorAulaActionPerformed(null);
-            }else if(atendimentoSocial.getTipoCobrancaConsultas().equalsIgnoreCase(ISENCAO)){
+            } else if (atendimentoSocial.getTipoCobrancaConsultas().equalsIgnoreCase(ISENCAO)) {
                 jRadioButtonConsultasIsencao.setSelected(true);
                 jRadioButtonConsultasIsencaoActionPerformed(null);
-            }else if(atendimentoSocial.getTipoCobrancaConsultas().equalsIgnoreCase(DESCONTO)){
+            } else if (atendimentoSocial.getTipoCobrancaConsultas().equalsIgnoreCase(DESCONTO)) {
                 jRadioButtonConsultasDesconto.setSelected(true);
                 jSpinnerDescontoConsultas.setValue(atendimentoSocial.getPercentualDescontoExames());
                 jRadioButtonConsultasDescontoActionPerformed(null);
             }
-            
-            if(atendimentoSocial.getTipoCobrancaCirurgias().equalsIgnoreCase(VALOR_NORMAL)){
+
+            if (atendimentoSocial.getTipoCobrancaCirurgias().equalsIgnoreCase(VALOR_NORMAL)) {
                 jRadioButtonCirurgiaValorNormal.setSelected(true);
                 jRadioButtonCirurgiaValorNormalActionPerformed(null);
-            }else if(atendimentoSocial.getTipoCobrancaCirurgias().equalsIgnoreCase(VALOR_AULA)){
+            } else if (atendimentoSocial.getTipoCobrancaCirurgias().equalsIgnoreCase(VALOR_AULA)) {
                 jRadioButtonCirurgiaValorAula.setSelected(true);
                 jRadioButtonCirurgiaValorAulaActionPerformed(null);
-            }else if(atendimentoSocial.getTipoCobrancaCirurgias().equalsIgnoreCase(ISENCAO)){
+            } else if (atendimentoSocial.getTipoCobrancaCirurgias().equalsIgnoreCase(ISENCAO)) {
                 jRadioButtonCirurgiaIsencao.setSelected(true);
                 jRadioButtonCirurgiaIsencaoActionPerformed(null);
-            }else if(atendimentoSocial.getTipoCobrancaCirurgias().equalsIgnoreCase(DESCONTO)){
+            } else if (atendimentoSocial.getTipoCobrancaCirurgias().equalsIgnoreCase(DESCONTO)) {
                 jRadioButtonCirurgiaDesconto.setSelected(true);
                 jSpinnerDescontoCirurgias.setValue(atendimentoSocial.getPercentualDescontoExames());
                 jRadioButtonCirurgiaDescontoActionPerformed(null);
             }
-        }else{
+        } else {
             buttonGroupCobrancaCirurgias.add(jRadioButtonCirurgiaValorNormal);
             buttonGroupCobrancaCirurgias.add(jRadioButtonCirurgiaValorAula);
             buttonGroupCobrancaCirurgias.add(jRadioButtonCirurgiaIsencao);
@@ -145,7 +146,7 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
             jRadioButtonCirurgiaValorNormal.setSelected(true);
             jRadioButtonConsultasValorNormal.setSelected(true);
             jRadioButtonExamesValorNormal.setSelected(true);
-        
+
             jSpinnerDescontoExames.setEnabled(false);
             jSpinnerDescontoCirurgias.setEnabled(false);
             jSpinnerDescontoConsultas.setEnabled(false);
@@ -661,7 +662,7 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
         if (animalResultadoBusca == null) {
             InterfaceGraficaUtils.erroResposta("Por favor, selecione um animal antes de registrar o atendimento.");
         } else {
-            if(atendimentoSocial == null){
+            if (atendimentoSocial == null) {
                 cadastrarNovo = true;
                 atendimentoSocial = new AtendimentoSocial();
             } else {
@@ -674,6 +675,39 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
             atendimentoSocial.setObservacoesAnimal(jTextAreaObservacoesGerais.getText());
             atendimentoSocial.setObservacoesDono(jTextAreaObservacoesDono.getText());
             atendimentoSocial.setSituacaoAnimal(jComboBoxSituacaoAnimal.getSelectedItem().toString());
+            if (jRadioButtonConsultasValorNormal.isSelected()) {
+                atendimentoSocial.setTipoCobrancaConsultas(VALOR_NORMAL);
+            } else if (jRadioButtonConsultasIsencao.isSelected()) {
+                atendimentoSocial.setTipoCobrancaConsultas(ISENCAO);
+            } else if (jRadioButtonConsultasValorAula.isSelected()) {
+                atendimentoSocial.setTipoCobrancaConsultas(VALOR_AULA);
+            } else if (jRadioButtonConsultasDesconto.isSelected()) {
+                atendimentoSocial.setTipoCobrancaConsultas(DESCONTO);
+                Integer descontoConsulta = (Integer) jSpinnerDescontoConsultas.getValue();
+                atendimentoSocial.setPercentualDescontoConsultas(descontoConsulta);
+            }
+            if (jRadioButtonExamesValorNormal.isSelected()) {
+                atendimentoSocial.setTipoCobrancaExames(VALOR_NORMAL);
+            } else if (jRadioButtonExamesIsencao.isSelected()) {
+                atendimentoSocial.setTipoCobrancaExames(ISENCAO);
+            } else if (jRadioButtonExamesValorAula.isSelected()) {
+                atendimentoSocial.setTipoCobrancaExames(VALOR_AULA);
+            } else if (jRadioButtonExamesDesconto.isSelected()) {
+                atendimentoSocial.setTipoCobrancaExames(DESCONTO);
+                Integer descontoExames = (Integer) jSpinnerDescontoExames.getValue();
+                atendimentoSocial.setPercentualDescontoExames(descontoExames);
+            }
+            if (jRadioButtonCirurgiaValorNormal.isSelected()) {
+                atendimentoSocial.setTipoCobrancaCirurgias(VALOR_NORMAL);
+            } else if (jRadioButtonCirurgiaIsencao.isSelected()) {
+                atendimentoSocial.setTipoCobrancaCirurgias(ISENCAO);
+            } else if (jRadioButtonCirurgiaValorAula.isSelected()) {
+                atendimentoSocial.setTipoCobrancaCirurgias(VALOR_AULA);
+            } else if (jRadioButtonCirurgiaDesconto.isSelected()) {
+                atendimentoSocial.setTipoCobrancaCirurgias(DESCONTO);
+                Integer descontoCirugia = (Integer) jSpinnerDescontoCirurgias.getValue();
+                atendimentoSocial.setPercentualDescontoCirurgias(descontoCirugia);
+            }
 
             try {
                 ClientResponse response;
