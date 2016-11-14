@@ -11,20 +11,19 @@ import java.math.BigInteger;
  *
  * @author Luiz Antônio Pereira
  * @author Vinicius Moura
- * 
+ *
  * @version 3
  *
  * @since 26 de junho de 2016
  *
  */
-
 public class Setor implements Serializable {
-    
+
     private static final long serialVersionUID = 3567599639175582162L;
 
     private BigInteger codigo;
     private String nome;
-    
+
     public String getNome() {
         return nome;
     }

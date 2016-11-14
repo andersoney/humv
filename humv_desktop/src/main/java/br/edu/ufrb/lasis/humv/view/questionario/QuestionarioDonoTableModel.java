@@ -80,7 +80,8 @@ public class QuestionarioDonoTableModel extends AbstractTableModel {
         }
         return null;
     }
-    public Dono getDono(Integer index){
+
+    public Dono getDono(Integer index) {
         return this.donos.get(index);
     }
 }

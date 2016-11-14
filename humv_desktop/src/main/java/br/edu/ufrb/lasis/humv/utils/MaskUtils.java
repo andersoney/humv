@@ -69,9 +69,9 @@ public class MaskUtils {
     public static String removeMascara(String string) {
         return string.replaceAll("\\D", "");
     }
-    
+
     public static String formatarCPF_CNPJ(String id, String tipoId) {
-        if(tipoId.equalsIgnoreCase("CPF")){
+        if (tipoId.equalsIgnoreCase("CPF")) {
             return formatarStringCPF(id);
         } else {
             return formatarStringCPF(id);
@@ -95,5 +95,5 @@ public class MaskUtils {
         numberFormat.setGroupingUsed(false);
         return numberFormat.format(idInt);
     }
-    
+
 }

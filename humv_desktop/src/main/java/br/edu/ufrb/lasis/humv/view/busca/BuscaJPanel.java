@@ -37,7 +37,7 @@ public class BuscaJPanel extends javax.swing.JPanel {
         propriedadesBusca.configurarBusca(textFieldPalavraChave, buttonBuscar, buttonImprimirTabela, buttonCancelar, tabelaResultado);
         propriedadesBusca.configurarBotaoOperacaoPosBusca(buttonOperacao);
     }
-   
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -134,7 +134,6 @@ public class BuscaJPanel extends javax.swing.JPanel {
                 .addContainerGap(32, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonBuscar;

@@ -26,7 +26,7 @@ import javax.swing.JOptionPane;
  *
  * @author Luiz
  */
-public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements ResultadoBusca{
+public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements ResultadoBusca {
 
     private Setor setor = null;
     private String nomeSetor;
@@ -68,13 +68,12 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements R
     public JLabel getjLabelNomeSetor() {
         return jLabelNomeSetor;
     }
-    
+
     @Override
     public void setResultado(Object resultado) {
         this.setor = (Setor) resultado;
-        this.jLabelNomeSetor.setText("Nome: " + setor.getCodigo().toString() +  " - " + setor.getNome());
+        this.jLabelNomeSetor.setText("Nome: " + setor.getCodigo().toString() + " - " + setor.getNome());
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -300,7 +299,7 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements R
             }
             String resposta = response.getEntity(String.class);
             if (!resposta.equalsIgnoreCase("ok")) {
-                    InterfaceGraficaUtils.erroResposta(resposta);
+                InterfaceGraficaUtils.erroResposta(resposta);
             } else {
                 if (procedimentoSelecionado == null) {
                     InterfaceGraficaUtils.sucessoCadastro("procedimento");
@@ -352,7 +351,6 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements R
         jFrame.setContentPane(buscaPanel);
         InterfaceGraficaUtils.exibirJanela(jFrame);
     }//GEN-LAST:event_jButtonPesqusarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCadastrarSetor;

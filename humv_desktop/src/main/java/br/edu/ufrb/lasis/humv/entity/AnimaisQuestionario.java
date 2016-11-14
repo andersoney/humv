@@ -20,13 +20,15 @@ public class AnimaisQuestionario implements Serializable {
     private Date dataCadastro; // Data que o animal foi cadastrado no sistema.
     private Dono dono;
     private String obs;
-    
+
     public void setObs(String obs) {
         this.obs = obs;
     }
-    public String getObs(){
+
+    public String getObs() {
         return obs;
     }
+
     public String getPorte() {
         return porte;
     }

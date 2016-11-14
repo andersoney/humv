@@ -140,7 +140,7 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
                 setEnabledComponentesDeValorProcedimento(false);
                 jTextFieldValorCobrado.setText("0,00");
             }
-            
+
             if (atendimento.isExtra()) {
                 jLabelHorario.setText("EXTRA");
             }
@@ -722,7 +722,6 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
         HUMVApp.setNovoPainelCentral(agendaJPanel.getBuscarAgendaMedicoJPanel());
     }//GEN-LAST:event_jButtonVoltarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;

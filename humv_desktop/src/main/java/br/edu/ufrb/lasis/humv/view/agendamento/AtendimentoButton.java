@@ -49,16 +49,16 @@ public class AtendimentoButton extends JButton implements ActionListener {
             setText("Clique para adicionar - atendimento " + horario);
         } else {
             String retornoStr = "";
-            if(atendimento.isRetorno()){
+            if (atendimento.isRetorno()) {
                 retornoStr = "&nbsp;&nbsp;&nbsp; (retorno)";
             }
-            
+
             setText("<html>"
-                    + atendimento.getAnimal().getNome().toUpperCase() + retornoStr +
-                    "<br/>Dono: " + atendimento.getAnimal().getDono().getNome().split(" ")[0]
+                    + atendimento.getAnimal().getNome().toUpperCase() + retornoStr
+                    + "<br/>Dono: " + atendimento.getAnimal().getDono().getNome().split(" ")[0]
                     + "&nbsp;&nbsp;&nbsp;&nbsp;Telefone: " + atendimento.getAnimal().getDono().getTelefone()
-                    + "<br/>Procedimento: " + atendimento.getProcedimento().getCodigo().toString() + " - " + atendimento.getProcedimento().getNome() + 
-                    "&nbsp;&nbsp;&nbsp;&nbsp;Valor: R$" + ValidationsUtils.convertePrecoParaString(atendimento.getValorCobrado())
+                    + "<br/>Procedimento: " + atendimento.getProcedimento().getCodigo().toString() + " - " + atendimento.getProcedimento().getNome()
+                    + "&nbsp;&nbsp;&nbsp;&nbsp;Valor: R$" + ValidationsUtils.convertePrecoParaString(atendimento.getValorCobrado())
                     + "</html>");
             if (atendimento.getStatus() == Atendimento.STATUS_AGENDADO) {
                 setBackground(new Color(174, 226, 245));

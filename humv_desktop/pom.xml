@@ -145,8 +145,8 @@
                 <version>2.6</version>
                 <configuration>
                     <excludes>
-			<exclude>**/logback.xml</exclude>
-		    </excludes>
+                        <exclude>**/logback.xml</exclude>
+                    </excludes>
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>

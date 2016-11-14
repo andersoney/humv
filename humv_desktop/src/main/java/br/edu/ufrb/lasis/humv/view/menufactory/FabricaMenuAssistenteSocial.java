@@ -24,9 +24,9 @@ public class FabricaMenuAssistenteSocial extends MenuBarFabricaAbstrata {
         super.criaMenuDono(comRemover);
         super.criaMenuAnimal(comRemover);
         super.criaMenuAjuda();
-        
+
         super.criaBotaoResponderQuestionario();
         super.criaBotaoCadastrarAnimal();
     }
-    
+
 }

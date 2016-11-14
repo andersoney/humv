@@ -4,10 +4,10 @@
     <programGroup defaultName="HUMV UFRB" location="startMenu" />
 
     <shortcut name="HUMV UFRB" target="$INSTALL_PATH/humv_desktop-1.0-SNAPSHOT.jar"
-                  iconFile="$INSTALL_PATH/imagens/humv-logo.ico" commandLine=""
-                  workingDirectory="$INSTALL_PATH" description="Clique para iniciar o HUMV UFRB"
-                  programGroup="no" desktop="yes" applications="yes" startMenu="yes"
-                  startup="no">
+              iconFile="$INSTALL_PATH/imagens/humv-logo.ico" commandLine=""
+              workingDirectory="$INSTALL_PATH" description="Clique para iniciar o HUMV UFRB"
+              programGroup="no" desktop="yes" applications="yes" startMenu="yes"
+              startup="no">
     </shortcut>
 
 </shortcuts>

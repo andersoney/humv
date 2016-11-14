@@ -81,7 +81,7 @@ public class PropriedadesBuscaAtendimentoSocial extends PropriedadesBusca {
                     case PropriedadesBusca.OPCAO_REMOVER:
                         if (InterfaceGraficaUtils.dialogoRemoverAlterar("remover", "atendimento social para", atendimentoSocialSelecionado.getDono().getNome())) {
                             try {
-                                ClientResponse response = RESTMethods.delete("/api/atendimentoSocial", ""+atendimentoSocialSelecionado.getId());
+                                ClientResponse response = RESTMethods.delete("/api/atendimentoSocial", "" + atendimentoSocialSelecionado.getId());
                                 String resposta = response.getEntity(String.class);
                                 if (resposta.equals("OK")) {
                                     JOptionPane.showMessageDialog(super.getTabelaResultado(), "Atendimento social removido com sucesso", "Remoção de atendimento social", JOptionPane.PLAIN_MESSAGE);

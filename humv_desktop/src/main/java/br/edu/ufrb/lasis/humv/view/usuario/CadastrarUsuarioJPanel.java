@@ -240,13 +240,13 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
             textFieldSiape.setFocusable(true);
             return;
         }
-        */
-        if(textFieldSiape.getText().isEmpty()){
+         */
+        if (textFieldSiape.getText().isEmpty()) {
             siape = new BigInteger("-1");
-        }else{
-            try{
+        } else {
+            try {
                 siape = new BigInteger(textFieldSiape.getText());
-            }catch(NumberFormatException ex){
+            } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "O campo SIAPE não parece válido.", "SIAPE inválido", JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -330,7 +330,6 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_buttonOKActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancelar;

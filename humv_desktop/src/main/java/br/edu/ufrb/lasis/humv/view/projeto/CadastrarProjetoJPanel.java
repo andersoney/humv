@@ -397,8 +397,8 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
         projeto.setNome(nomeProjeto);
         projeto.setFinalidade(finalidade);
         projeto.setDataCadastro(new Date());
-        
-        if(projetoSelecionado != null){
+
+        if (projetoSelecionado != null) {
             projeto.setId(projetoSelecionado.getId());
         }
 
@@ -438,7 +438,6 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_jButtonCancelarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;

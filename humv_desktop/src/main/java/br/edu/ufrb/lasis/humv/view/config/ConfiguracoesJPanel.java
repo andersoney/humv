@@ -22,8 +22,8 @@ public class ConfiguracoesJPanel extends javax.swing.JPanel {
         initComponents();
         customInitComponents();
     }
-    
-    private void customInitComponents(){
+
+    private void customInitComponents() {
         jFormattedDuracao.setText(HUMVConfigUtils.getAtendimentoDuracao());
         jFormattedDescontoAula.setText(HUMVConfigUtils.getPorcentagemDescontoValorAula());
         jFormattedInicioMatutino.setText(HUMVConfigUtils.getAtendimentoInicioMatutino() + ":00");
@@ -261,7 +261,7 @@ public class ConfiguracoesJPanel extends javax.swing.JPanel {
         String terminoMatutino = jFormattedTerminoMatutino.getText();
         String inicioVespertino = jFormattedInicioVespertino.getText();
         String terminoVespertino = jFormattedTerminoVespertino.getText();
-        if(!inicioMatutino.contains(":") || !terminoMatutino.contains(":") || !inicioVespertino.contains(":") || !terminoVespertino.contains(":")){
+        if (!inicioMatutino.contains(":") || !terminoMatutino.contains(":") || !inicioVespertino.contains(":") || !terminoVespertino.contains(":")) {
             InterfaceGraficaUtils.erroResposta("Formato de hora inválido. Por favor, informe os horários novamente.");
         } else {
             HUMVConfigUtils.setAtendimentoDuracao(jFormattedDuracao.getText());
@@ -273,9 +273,8 @@ public class ConfiguracoesJPanel extends javax.swing.JPanel {
             InterfaceGraficaUtils.sucessoCadastro("configurações");
             HUMVApp.setPainelCentralComLogo();
         }
-        
-    }//GEN-LAST:event_jButtonSalvarActionPerformed
 
+    }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;

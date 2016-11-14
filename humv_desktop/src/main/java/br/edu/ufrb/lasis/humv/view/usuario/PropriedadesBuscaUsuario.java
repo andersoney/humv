@@ -83,7 +83,8 @@ public class PropriedadesBuscaUsuario extends PropriedadesBusca {
                                 InterfaceGraficaUtils.erroConexao();
                                 ex.printStackTrace();
                             }
-                        }   break;
+                        }
+                        break;
                     default:
                         break;
                 }

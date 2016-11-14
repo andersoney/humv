@@ -477,7 +477,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
         animal.setSexo(sexo);
         animal.setPorte(porte);
         animal.setPelagem(pelagem);
-        
+
         ClientResponse response;
         try {
             if (animalSelecionado == null) {
@@ -509,7 +509,6 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
             InterfaceGraficaUtils.erroConexao();
         }
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
-
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         boolean sair = InterfaceGraficaUtils.dialogoCancelar("o cadastro", "animal");
@@ -556,7 +555,6 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
     private void jRadioButtonMachoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMachoActionPerformed
         this.jRadioButtonFemea.setSelected(false);
     }//GEN-LAST:event_jRadioButtonMachoActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCadastrarNovoDono;

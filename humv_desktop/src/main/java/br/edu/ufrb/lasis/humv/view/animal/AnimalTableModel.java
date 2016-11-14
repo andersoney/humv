@@ -33,8 +33,8 @@ public class AnimalTableModel extends AbstractTableModel {
         initArrayTitulos();
         animais = new ArrayList<Animal>();
     }
-    
-    private void initArrayTitulos(){
+
+    private void initArrayTitulos() {
         titulos = new String[5];
         titulos[0] = "Nome do animal";
         titulos[1] = "RGHUMV";

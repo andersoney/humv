@@ -1634,7 +1634,6 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         return true;
     }
 
-
     private void jButtonTabelaFamiliaSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTabelaFamiliaSalvarActionPerformed
 
         try {

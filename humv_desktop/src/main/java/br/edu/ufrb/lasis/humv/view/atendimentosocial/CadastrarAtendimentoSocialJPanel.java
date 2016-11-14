@@ -792,7 +792,6 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
         jSpinnerDescontoConsultas.setEnabled(true);
     }//GEN-LAST:event_jRadioButtonConsultasDescontoActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupCobrancaCirurgias;
     private javax.swing.ButtonGroup buttonGroupCobrancaConsultas;

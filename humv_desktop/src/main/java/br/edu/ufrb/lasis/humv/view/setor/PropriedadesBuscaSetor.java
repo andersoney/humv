@@ -84,7 +84,8 @@ public class PropriedadesBuscaSetor extends PropriedadesBusca {
                         if (InterfaceGraficaUtils.dialogoRemoverAlterar("alterar", "setor", setorSelecionado.getNome())) {
                             CadastrarSetorJPanel painel = new CadastrarSetorJPanel(setorSelecionado);
                             HUMVApp.setNovoPainelCentral(painel);
-                        }   break;
+                        }
+                        break;
                     case PropriedadesBusca.OPCAO_REMOVER:
                         if (InterfaceGraficaUtils.dialogoRemoverAlterar("remover", "setor", setorSelecionado.getNome())) {
                             try {
@@ -100,7 +101,7 @@ public class PropriedadesBuscaSetor extends PropriedadesBusca {
                                 JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
                                 ex.printStackTrace();
                             }
-                        }   
+                        }
                         break;
                     case PropriedadesBusca.OPCAO_SELECIONAR:
                         resultadoBusca.setResultado(setorSelecionado);

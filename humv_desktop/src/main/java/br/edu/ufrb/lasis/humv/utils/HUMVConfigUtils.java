@@ -29,7 +29,7 @@ public class HUMVConfigUtils {
     private static String getConfigValue(String configParam) {
         return getProperties().getProperty(configParam);
     }
-    
+
     private static void setConfigValue(String configParam, String value) {
         getProperties().setProperty(configParam, value);
     }
@@ -70,7 +70,7 @@ public class HUMVConfigUtils {
     public static String getPorcentagemDescontoValorAula() {
         return getConfigValue("humv.procedimento.desconto.valoraula");
     }
-    
+
     public static void setAtendimentoInicioMatutino(String valor) {
         setConfigValue("humv.atendimento.matutino.inicio", valor);
     }

@@ -12,7 +12,7 @@ import java.util.Date;
  *
  * @author Andersoney Rodrigues
  * @author Luiz Antônio Pereira
- * 
+ *
  * @version 3
  *
  * @since 26 de junho de 2016
@@ -32,7 +32,7 @@ public class Animal implements Serializable {
     private String pelagem; // não se aplica para animais de grande porte.
     private String porte; // pequeno ou grande
     private Date dataCadastro; // Data que o animal foi cadastrado no sistema.
-    
+
     private Dono dono;
 
     public String getPorte() {

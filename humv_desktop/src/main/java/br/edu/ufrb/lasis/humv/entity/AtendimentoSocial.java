@@ -8,6 +8,7 @@ import java.util.Date;
  * @author Luiz Toni
  */
 public class AtendimentoSocial {
+
     private BigInteger id;
     private Dono dono;
     private Animal animal;
@@ -15,11 +16,11 @@ public class AtendimentoSocial {
     private String observacoesAnimal;
     private String situacaoAnimal;
     private Date data;
-    
+
     private String tipoCobrancaConsultas;
     private String tipoCobrancaExames;
     private String tipoCobrancaCirurgias;
-    
+
     private int percentualDescontoConsultas;
     private int percentualDescontoExames;
     private int percentualDescontoCirurgias;

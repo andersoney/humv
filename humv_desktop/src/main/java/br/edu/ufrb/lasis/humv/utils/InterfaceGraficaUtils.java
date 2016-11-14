@@ -19,11 +19,11 @@ public class InterfaceGraficaUtils {
     public static void sucessoResposta(String resposta) {
         JOptionPane.showMessageDialog(null, resposta, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
     }
-    
+
     public static void erroResposta(String resposta) {
         JOptionPane.showMessageDialog(null, resposta, "Erro", JOptionPane.ERROR_MESSAGE);
     }
-    
+
     public static void sucessoCadastro(String tipoObjeto) {
         String msg = "Registro de " + tipoObjeto + " efetuado com sucesso!";
         JOptionPane.showMessageDialog(null, msg, "Registro de " + tipoObjeto, JOptionPane.INFORMATION_MESSAGE);
@@ -88,7 +88,7 @@ public class InterfaceGraficaUtils {
             return false;
         }
     }
-    
+
     public static boolean dialogoSair() {
         String msg = "Deseja realmente sair desta página?";
         int op = JOptionPane.showConfirmDialog(null, msg, "Cancelar?", JOptionPane.YES_NO_OPTION);
@@ -108,7 +108,7 @@ public class InterfaceGraficaUtils {
             return false;
         }
     }
-    
+
     public static boolean dialogoMensagem(String titulo, String msg) {
         int op = JOptionPane.showConfirmDialog(null, msg, titulo, JOptionPane.YES_NO_OPTION);
         if (op == JOptionPane.YES_OPTION) {
@@ -117,20 +117,20 @@ public class InterfaceGraficaUtils {
             return false;
         }
     }
-    
+
     public static void semResultadosGeracaoRelatorio() {
         JOptionPane.showMessageDialog(null, "Não existe resultado para geração do relatório.\nPor favor, realize uma nova busca e solicite a geração do relatório.", "Busca sem resultados", JOptionPane.WARNING_MESSAGE);
     }
-    
+
     public static void erroGeracaoRelatorio() {
         JOptionPane.showMessageDialog(null, "Ocorreu um erro inesperado na geração do relatório. Por favor, contacte o administrador do sistema.", "Erro no relatório", JOptionPane.ERROR_MESSAGE);
     }
-    
+
     public static void sucessoGeracaoRelatorio() {
         JOptionPane.showMessageDialog(null, "Relatório gerado com sucesso!", "Relatório", JOptionPane.INFORMATION_MESSAGE);
     }
-    
-    public static void exibirJanela(JFrame jFrame){
+
+    public static void exibirJanela(JFrame jFrame) {
         jFrame.pack();
         int height = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
         int width = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();

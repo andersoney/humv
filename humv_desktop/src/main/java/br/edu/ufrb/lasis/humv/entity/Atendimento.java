@@ -8,7 +8,7 @@ import java.util.Date;
  *
  * @author tassiovale
  */
-public class Atendimento implements Serializable{
+public class Atendimento implements Serializable {
 
     private static final long serialVersionUID = -2865522164162006684L;
 

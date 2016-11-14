@@ -4,25 +4,25 @@ import java.io.Serializable;
 
 public class Hello implements Serializable {
 
-	private static final long serialVersionUID = -106456548632220994L;
-	
-	private long id;
-        private String content;
+    private static final long serialVersionUID = -106456548632220994L;
 
-	public long getId() {
-		return id;
-	}
+    private long id;
+    private String content;
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public String getContent() {
-		return content;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
 }

@@ -35,7 +35,6 @@ public class PropriedadesBuscaProjeto extends PropriedadesBusca {
         super.setTabelaResultado(new JTable(tableModel));
     }
 
-
     @Override
     public void buscar() {
         HUMVApp.exibirMensagemCarregamento();
@@ -75,7 +74,8 @@ public class PropriedadesBuscaProjeto extends PropriedadesBusca {
                         if (InterfaceGraficaUtils.dialogoRemoverAlterar("alterar", "projeto", projetoSelecionado.getNome())) {
                             CadastrarProjetoJPanel painel = new CadastrarProjetoJPanel(projetoSelecionado);
                             HUMVApp.setNovoPainelCentral(painel);
-                        }   break;
+                        }
+                        break;
                     case PropriedadesBusca.OPCAO_REMOVER:
                         if (InterfaceGraficaUtils.dialogoRemoverAlterar("remover", "projeto", projetoSelecionado.getNome())) {
                             try {
@@ -91,7 +91,8 @@ public class PropriedadesBuscaProjeto extends PropriedadesBusca {
                                 JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
                                 ex.printStackTrace();
                             }
-                        }   break;
+                        }
+                        break;
                     default:
                         break;
                 }
@@ -106,5 +107,4 @@ public class PropriedadesBuscaProjeto extends PropriedadesBusca {
         }
     }
 
-    
 }

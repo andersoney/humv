@@ -15,7 +15,6 @@ public class AtendimentoSocialTableModel extends AbstractTableModel {
     String[] titulos;
     List<AtendimentoSocial> atendimentosSociais;
 
-    
     public AtendimentoSocialTableModel(List<AtendimentoSocial> atendimentosSociais) {
         initArrayTitulos();
         this.atendimentosSociais = atendimentosSociais;
@@ -25,8 +24,8 @@ public class AtendimentoSocialTableModel extends AbstractTableModel {
         initArrayTitulos();
         atendimentosSociais = new ArrayList<AtendimentoSocial>();
     }
-    
-    private void initArrayTitulos(){
+
+    private void initArrayTitulos() {
         titulos = new String[4];
         titulos[0] = "Dono";
         titulos[1] = "CPF/CNPJ";
@@ -82,12 +81,12 @@ public class AtendimentoSocialTableModel extends AbstractTableModel {
                 } else {
                     return MaskUtils.formatarStringCNPJ(this.atendimentosSociais.get(rowIndex).getDono().getCpfCnpj());
                 }
-                
+
             case 2:
                 return this.atendimentosSociais.get(rowIndex).getAnimal().getNome();
             case 3:
                 return this.atendimentosSociais.get(rowIndex).getAnimal().getRghumv();
-          
+
         }
         return null;
     }

@@ -12,10 +12,10 @@ import com.sun.jersey.api.client.ClientResponse;
  * @author tassiovale
  */
 public class RESTConnectionException extends Exception {
-    
+
     private ClientResponse response;
-    
-    public RESTConnectionException(ClientResponse response, String message){
+
+    public RESTConnectionException(ClientResponse response, String message) {
         super(message);
         this.response = response;
     }
@@ -27,5 +27,5 @@ public class RESTConnectionException extends Exception {
     public void setResponse(ClientResponse response) {
         this.response = response;
     }
-    
+
 }

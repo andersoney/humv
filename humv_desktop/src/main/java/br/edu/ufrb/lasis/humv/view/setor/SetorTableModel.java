@@ -19,7 +19,6 @@ public class SetorTableModel extends AbstractTableModel {
     String[] titulos;
     List<Setor> setores;
 
-    
     public SetorTableModel(List<Setor> setores) {
         initArrayTitulos();
         this.setores = setores;
@@ -29,8 +28,8 @@ public class SetorTableModel extends AbstractTableModel {
         initArrayTitulos();
         setores = new ArrayList<Setor>();
     }
-    
-    private void initArrayTitulos(){
+
+    private void initArrayTitulos() {
         titulos = new String[2];
         titulos[0] = "Nome do setor";
         titulos[1] = "Código do setor";
@@ -76,7 +75,7 @@ public class SetorTableModel extends AbstractTableModel {
                 return this.setores.get(rowIndex).getNome();
             case 1:
                 return this.setores.get(rowIndex).getCodigo();
-            
+
         }
         return null;
     }

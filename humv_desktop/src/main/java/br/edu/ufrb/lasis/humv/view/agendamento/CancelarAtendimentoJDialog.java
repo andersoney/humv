@@ -178,12 +178,12 @@ public class CancelarAtendimentoJDialog extends javax.swing.JDialog implements A
     private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
         String resourceURL = "/api/atendimento/";
         String mensagemSucesso = null;
-        if(medico != null){
+        if (medico != null) {
             resourceURL = resourceURL + medico.getEmail();
         } else {
             resourceURL = resourceURL + atendimento.getMedico().getEmail();
         }
-        
+
         String textoMotivo = null;
         if (jRadioButtonMedico.isSelected()) {
             textoMotivo = jRadioButtonMedico.getText();
@@ -204,7 +204,7 @@ public class CancelarAtendimentoJDialog extends javax.swing.JDialog implements A
             int opcao = JOptionPane.showOptionDialog(HUMVApp.getMainWindow(), "Escolha abaixo o conjunto de atendimentos que deseja cancelar:",
                     "Cancelar atendimento", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[3]);
 
-           String dataStr = dateFormat.format(data);
+            String dataStr = dateFormat.format(data);
 
             String inicio, termino;
             switch (opcao) {

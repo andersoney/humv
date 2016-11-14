@@ -14,18 +14,19 @@ import javax.swing.table.AbstractTableModel;
  * @author tassi
  */
 public class UsuarioTableModel extends AbstractTableModel {
-    
+
     private List<Usuario> lista;
-    
-    public UsuarioTableModel(List<Usuario> lista){
+
+    public UsuarioTableModel(List<Usuario> lista) {
         this.lista = lista;
     }
-    
-    public Usuario getUsuarioSelecionado(int index){
-        if(index >=0 && index < lista.size()){
+
+    public Usuario getUsuarioSelecionado(int index) {
+        if (index >= 0 && index < lista.size()) {
             return lista.get(index);
-        }else
+        } else {
             return null;
+        }
     }
 
     @Override
@@ -45,11 +46,11 @@ public class UsuarioTableModel extends AbstractTableModel {
         Object[] valores = new Object[]{u.getNome(), u.getEmail(), u.getSiape(), u.getPerfil()};
         return valores[columnIndex];
     }
-    
+
     @Override
     public String getColumnName(int column) {
-        String[] nomesColunas = new String[]{"Nome","E-mail","SIAPE","Perfil"};
+        String[] nomesColunas = new String[]{"Nome", "E-mail", "SIAPE", "Perfil"};
         return nomesColunas[column];
     }
-    
+
 }

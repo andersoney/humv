@@ -53,7 +53,6 @@ public class ParenteTableModel extends AbstractTableModel {
      private double renda;
      private Integer escolaridade;
      private String ocupacao;*/
-
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Parente obj = parentes.get(rowIndex);

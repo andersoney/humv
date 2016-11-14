@@ -19,8 +19,8 @@ import javax.swing.border.EmptyBorder;
  * @author tassiovale
  */
 public class HUMVApp {
-    
-    static { 
+
+    static {
         System.setProperty("logback.configurationFile", "logback.xml");
     }
 
@@ -28,8 +28,8 @@ public class HUMVApp {
     private static JPanel mainPanel = null;
     private static CarregandoJDialog carregandoDialog = null;
     private static String nomeUsuario;
-    
-    public static HUMVMainWindow getMainWindow(){
+
+    public static HUMVMainWindow getMainWindow() {
         return mainWindow;
     }
 
@@ -123,7 +123,7 @@ public class HUMVApp {
             public void run() {
                 try {
                     UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-                 
+
                 } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
                     java.util.logging.Logger.getLogger(HUMVMainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                 }

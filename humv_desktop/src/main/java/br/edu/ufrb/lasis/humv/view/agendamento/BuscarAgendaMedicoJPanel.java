@@ -209,7 +209,6 @@ public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
         new CancelarAtendimentoJDialog(medico, data, agendaJPanel).setVisible(true);
     }//GEN-LAST:event_jButtonCancelarAgendaActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> comboBoxMedicos;
     private javax.swing.JButton jButton1;
