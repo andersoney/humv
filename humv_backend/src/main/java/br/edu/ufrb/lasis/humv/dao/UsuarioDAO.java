@@ -79,7 +79,7 @@ public class UsuarioDAO extends GenericDAO<Usuario> implements Serializable{
 	public Usuario findBySiapeOrEmail(String siapeEmail) {
 		Criteria criteria = getCriteria();
 
-		BigInteger conversionResult = NumberUtils.convertStringToInteger(siapeEmail);
+		BigInteger conversionResult = NumberUtils.convertStringToBigInteger(siapeEmail);
 		if (conversionResult != null) {
 			criteria.add(
 					Restrictions.or(Restrictions.eq("siape", conversionResult), Restrictions.eq("email", siapeEmail)));
@@ -95,7 +95,7 @@ public class UsuarioDAO extends GenericDAO<Usuario> implements Serializable{
 	public List<Usuario> search(String palavrachave) {
 		Criteria criteria = getCriteria();
 
-		BigInteger conversionResult = NumberUtils.convertStringToInteger(palavrachave);
+		BigInteger conversionResult = NumberUtils.convertStringToBigInteger(palavrachave);
 		if (conversionResult != null) {
 			criteria.add(
 					Restrictions.or(
