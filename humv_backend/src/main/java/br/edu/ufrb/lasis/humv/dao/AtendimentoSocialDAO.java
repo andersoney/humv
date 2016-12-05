@@ -53,25 +53,32 @@ public class AtendimentoSocialDAO extends GenericDAO<AtendimentoSocial> implemen
     @Transactional
     public List<AtendimentoSocial> search(String palavrachave) {
         Criteria criteria = getCriteria();
-
         BigInteger conversionResult = NumberUtils.convertStringToBigInteger(palavrachave);
         if (conversionResult != null) {
-            System.out.println("\n\n\n\nasdasda\n\n\n");
-            criteria.add(
+        	criteria.add(
                     Restrictions.or(
                             Restrictions.eq("animal.rghumv", conversionResult),
                             Restrictions.eq("dono.id", conversionResult)
                     )
             );
-        } else {
-            System.out.println("\n\n\n\nDArk\n\n\n");
-            //TODO implementar busca por nome do dono
-            criteria = getCriteria().createAlias("dono", "d").add(
-                    Restrictions.or(
-                            Restrictions.ilike("d.nome", "%" + palavrachave + "%"),
-                            Restrictions.ilike("d.cpfCnpj", "%" + palavrachave + "%")
-                    )
-            );
+        } else{
+        	if( palavrachave.indexOf('+')>= 0){
+        		palavrachave = palavrachave.replaceAll("+", " ");
+            }
+        	criteria = getCriteria().createAlias("dono", "d").add(Restrictions.eq("d.nome", palavrachave));
+        	List <AtendimentoSocial> results = criteria.list();
+        	if(results.size() != 0){
+        		return results;
+        	}
+        	else {
+        	    criteria = getCriteria().createAlias("dono", "d").add(
+                        Restrictions.or(
+                                Restrictions.ilike("d.nome", "%" + palavrachave + "%"),
+                                Restrictions.ilike("d.cpfCnpj", "%" + palavrachave + "%")
+                        )
+                );
+        	}
+        	
         }
 
         return (List<AtendimentoSocial>) criteria.list();
