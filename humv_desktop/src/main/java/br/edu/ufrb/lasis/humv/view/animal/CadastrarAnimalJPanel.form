@@ -232,6 +232,7 @@
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="jRadioButtonPequenoPorte" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="jLabelRghumv" min="-2" pref="130" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -279,7 +280,10 @@
                       <Component id="jRadioButtonPequenoPorte" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jLabelPelagem" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabelPelagem" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelRghumv" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jTextFieldPelagem" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
@@ -364,6 +368,8 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldPelagem">
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelRghumv">
         </Component>
       </SubComponents>
     </Container>

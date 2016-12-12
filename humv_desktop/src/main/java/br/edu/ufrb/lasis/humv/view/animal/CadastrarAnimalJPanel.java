@@ -64,6 +64,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
     private void customInitComponents() {
         jTextFieldNomeAnimal.setFocusable(true);
         if (animalSelecionado != null) {
+            jLabelRghumv.setText("RGHUMV: "+animalSelecionado.getRghumv());
             jLabelTitulo.setText("ATUALIZAÇÃO DE ANIMAL");
             jTextFieldNomeAnimal.setText(animalSelecionado.getNome());
             jTextFieldEspecie.setText(animalSelecionado.getEspecie());
@@ -155,6 +156,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
         jRadioButtonPequenoPorte = new javax.swing.JRadioButton();
         jLabelPelagem = new javax.swing.JLabel();
         jTextFieldPelagem = new javax.swing.JTextField();
+        jLabelRghumv = new javax.swing.JLabel();
         jButtonCancelar = new javax.swing.JButton();
         jLabelTitulo = new javax.swing.JLabel();
         jButtonConfirmar = new javax.swing.JButton();
@@ -311,7 +313,8 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
                             .addGroup(jPanelDadosAnimalLayout.createSequentialGroup()
                                 .addComponent(jRadioButtonGrandePorte)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jRadioButtonPequenoPorte)))
+                                .addComponent(jRadioButtonPequenoPorte))
+                            .addComponent(jLabelRghumv, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanelDadosAnimalLayout.setVerticalGroup(
@@ -346,7 +349,9 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
                     .addComponent(jRadioButtonGrandePorte)
                     .addComponent(jRadioButtonPequenoPorte))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabelPelagem)
+                .addGroup(jPanelDadosAnimalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelPelagem)
+                    .addComponent(jLabelRghumv, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldPelagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -572,6 +577,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
     private javax.swing.JLabel jLabelPelagem;
     private javax.swing.JLabel jLabelPorte;
     private javax.swing.JLabel jLabelRaca;
+    private javax.swing.JLabel jLabelRghumv;
     private javax.swing.JLabel jLabelSexo;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanelDadosAnimal;
