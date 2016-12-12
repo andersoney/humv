@@ -54,7 +54,7 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements R
             jLabelTitulo.setText("ALTERAÇÃO DO PROCEDIMENTO");
             jTextFieldNome.setText(procedimentoSelecionado.getNome());
             jTextFieldCodigo.setText(procedimentoSelecionado.getCodigo().toString());
-            jTextFieldPreco.setText("" + procedimentoSelecionado.getValor());
+            jTextFieldPreco.setText("" + ValidationsUtils.convertePrecoParaString(procedimentoSelecionado.getValor()));
             setor = procedimentoSelecionado.getSetor();
             nomeSetor = procedimentoSelecionado.getSetor().getNome();
             jLabelNomeSetor.setText("Nome: " + nomeSetor);
