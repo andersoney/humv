@@ -375,7 +375,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
@@ -413,18 +413,18 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jRadioButtonConsultasValorNormal" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButtonConsultasValorAula" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButtonConsultasIsencao" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jRadioButtonConsultasDesconto" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jSpinnerDescontoConsultas" min="-2" pref="38" max="-2" attributes="0"/>
+                              <Component id="jSpinnerDescontoConsultas" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="jRadioButtonConsultasValorNormal" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonConsultasValorAula" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonConsultasIsencao" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="13" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -512,15 +512,15 @@
                           <Component id="jRadioButtonCirurgiaValorNormal" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jRadioButtonCirurgiaValorAula" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jRadioButtonCirurgiaIsencao" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <Component id="jRadioButtonCirurgiaDesconto" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jSpinnerDescontoCirurgias" min="-2" pref="39" max="-2" attributes="0"/>
+                              <Component id="jSpinnerDescontoCirurgias" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="15" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -607,16 +607,16 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jRadioButtonExamesValorNormal" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jRadioButtonExamesValorAula" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonExamesIsencao" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jRadioButtonExamesDesconto" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jSpinnerDescontoExames" min="-2" pref="38" max="-2" attributes="0"/>
+                              <Component id="jSpinnerDescontoExames" min="-2" pref="47" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jRadioButtonExamesIsencao" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="14" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

@@ -373,16 +373,16 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButtonConsultasValorNormal)
-                    .addComponent(jRadioButtonConsultasValorAula)
-                    .addComponent(jRadioButtonConsultasIsencao)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jRadioButtonConsultasDesconto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jSpinnerDescontoConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSpinnerDescontoConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel4)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel4))
+                    .addComponent(jRadioButtonConsultasValorNormal)
+                    .addComponent(jRadioButtonConsultasValorAula)
+                    .addComponent(jRadioButtonConsultasIsencao))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -447,10 +447,10 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jRadioButtonCirurgiaDesconto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jSpinnerDescontoCirurgias, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSpinnerDescontoCirurgias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel2)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -511,14 +511,14 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jRadioButtonExamesValorNormal)
                     .addComponent(jRadioButtonExamesValorAula)
+                    .addComponent(jRadioButtonExamesIsencao)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jRadioButtonExamesDesconto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jSpinnerDescontoExames, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSpinnerDescontoExames, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3))
-                    .addComponent(jRadioButtonExamesIsencao))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel3)))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -543,7 +543,7 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -655,6 +655,9 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
 
     private void jRadioButtonExamesDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonExamesDescontoActionPerformed
         jSpinnerDescontoExames.setEnabled(true);
+        jRadioButtonExamesIsencao.setSelected(false);
+        jRadioButtonExamesValorAula.setSelected(false);
+        jRadioButtonExamesValorNormal.setSelected(false);
     }//GEN-LAST:event_jRadioButtonExamesDescontoActionPerformed
 
     private void jButtonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOkActionPerformed
@@ -750,46 +753,79 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
 
     private void jRadioButtonCirurgiaDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCirurgiaDescontoActionPerformed
         jSpinnerDescontoCirurgias.setEnabled(true);
+        jRadioButtonCirurgiaValorNormal.setSelected(false);
+        jRadioButtonCirurgiaValorAula.setSelected(false);
+        jRadioButtonCirurgiaIsencao.setSelected(false);
     }//GEN-LAST:event_jRadioButtonCirurgiaDescontoActionPerformed
 
     private void jRadioButtonCirurgiaIsencaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCirurgiaIsencaoActionPerformed
         jSpinnerDescontoCirurgias.setEnabled(false);
+        jRadioButtonCirurgiaDesconto.setSelected(false);
+        jRadioButtonCirurgiaValorAula.setSelected(false);
+        jRadioButtonCirurgiaValorNormal.setSelected(false);
     }//GEN-LAST:event_jRadioButtonCirurgiaIsencaoActionPerformed
 
     private void jRadioButtonCirurgiaValorAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCirurgiaValorAulaActionPerformed
         jSpinnerDescontoCirurgias.setEnabled(false);
+        jRadioButtonCirurgiaDesconto.setSelected(false);
+        jRadioButtonCirurgiaValorNormal.setSelected(false);
+        jRadioButtonCirurgiaIsencao.setSelected(false);
     }//GEN-LAST:event_jRadioButtonCirurgiaValorAulaActionPerformed
 
     private void jRadioButtonCirurgiaValorNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCirurgiaValorNormalActionPerformed
         jSpinnerDescontoCirurgias.setEnabled(false);
+        jRadioButtonCirurgiaDesconto.setSelected(false);
+        jRadioButtonCirurgiaValorAula.setSelected(false);
+        jRadioButtonCirurgiaIsencao.setSelected(false);
     }//GEN-LAST:event_jRadioButtonCirurgiaValorNormalActionPerformed
 
     private void jRadioButtonExamesIsencaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonExamesIsencaoActionPerformed
         jSpinnerDescontoExames.setEnabled(false);
+        jRadioButtonExamesDesconto.setSelected(false);
+        jRadioButtonExamesValorAula.setSelected(false);
+        jRadioButtonExamesValorNormal.setSelected(false);
     }//GEN-LAST:event_jRadioButtonExamesIsencaoActionPerformed
 
     private void jRadioButtonExamesValorAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonExamesValorAulaActionPerformed
         jSpinnerDescontoExames.setEnabled(false);
+        jRadioButtonExamesDesconto.setSelected(false);
+        jRadioButtonExamesValorNormal.setSelected(false);
+        jRadioButtonExamesIsencao.setSelected(false);
     }//GEN-LAST:event_jRadioButtonExamesValorAulaActionPerformed
 
     private void jRadioButtonExamesValorNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonExamesValorNormalActionPerformed
         jSpinnerDescontoExames.setEnabled(false);
+        jRadioButtonExamesDesconto.setSelected(false);
+        jRadioButtonExamesValorAula.setSelected(false);
+        jRadioButtonExamesIsencao.setSelected(false);
     }//GEN-LAST:event_jRadioButtonExamesValorNormalActionPerformed
 
     private void jRadioButtonConsultasValorNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonConsultasValorNormalActionPerformed
         jSpinnerDescontoConsultas.setEnabled(false);
+        jRadioButtonConsultasIsencao.setSelected(false);
+        jRadioButtonConsultasValorAula.setSelected(false);
+        jRadioButtonConsultasDesconto.setSelected(false);
     }//GEN-LAST:event_jRadioButtonConsultasValorNormalActionPerformed
 
     private void jRadioButtonConsultasValorAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonConsultasValorAulaActionPerformed
         jSpinnerDescontoConsultas.setEnabled(false);
+        jRadioButtonConsultasIsencao.setSelected(false);
+        jRadioButtonConsultasDesconto.setSelected(false);
+        jRadioButtonConsultasValorNormal.setSelected(false);
     }//GEN-LAST:event_jRadioButtonConsultasValorAulaActionPerformed
 
     private void jRadioButtonConsultasIsencaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonConsultasIsencaoActionPerformed
         jSpinnerDescontoConsultas.setEnabled(false);
+        jRadioButtonConsultasDesconto.setSelected(false);
+        jRadioButtonConsultasValorAula.setSelected(false);
+        jRadioButtonConsultasValorNormal.setSelected(false);
     }//GEN-LAST:event_jRadioButtonConsultasIsencaoActionPerformed
 
     private void jRadioButtonConsultasDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonConsultasDescontoActionPerformed
         jSpinnerDescontoConsultas.setEnabled(true);
+        jRadioButtonConsultasIsencao.setSelected(false);
+        jRadioButtonConsultasValorAula.setSelected(false);
+        jRadioButtonConsultasValorNormal.setSelected(false);
     }//GEN-LAST:event_jRadioButtonConsultasDescontoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
