@@ -11,11 +11,13 @@ import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.reports.PrintUtils;
+import br.edu.ufrb.lasis.humv.reports.QuestionarioSocioeconomicoReport;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -97,7 +99,11 @@ public class PropriedadesBuscaQuestionarioSocioeconomico extends PropriedadesBus
                 }
             }
         } else if (e.getSource().equals(super.getBotaoImprimirTabela())) {
-            PrintUtils.printLista(PrintUtils.TABELA_PROJETOS, listaQuest);
+            List listaQuestionarios = new ArrayList();
+            
+            QuestionarioSocioeconomicoReport report = QuestionarioSocioeconomicoReport.fillReportObject(tableModel.getQuestionario(super.getIndexLinhaSelecionada()));
+            listaQuestionarios.add(report);
+            PrintUtils.printLista(PrintUtils.QUESTIONARIO_SOCIOECONOMICO, listaQuestionarios);
         } else if (e.getSource().equals(super.getBotaoCancelar())) {
             boolean sair = InterfaceGraficaUtils.dialogoSair();
             if (sair) {
