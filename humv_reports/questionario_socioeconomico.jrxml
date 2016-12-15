@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2016-12-15T19:20:55 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="questionario_socioeconomico" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a98fb9c7-877c-4d65-909c-c1c6efec2d4e">
+	<subDataset name="Dataset1" uuid="0a25de1e-a0ad-41bc-8658-4ba28c43f58b">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="animais" class="java.util.List">
+			<fieldDescription><![CDATA[animais]]></fieldDescription>
+		</field>
+		<field name="questionario" class="br.edu.ufrb.lasis.humv.entity.QuestionarioSocioeconomico">
+			<fieldDescription><![CDATA[questionario]]></fieldDescription>
+		</field>
+	</subDataset>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="animais" class="java.util.List">
+		<fieldDescription><![CDATA[animais]]></fieldDescription>
+	</field>
+	<field name="questionario" class="br.edu.ufrb.lasis.humv.entity.QuestionarioSocioeconomico">
+		<fieldDescription><![CDATA[questionario]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="93" splitType="Stretch">
+			<image>
+				<reportElement x="413" y="22" width="130" height="38" uuid="8f60c0a2-e5c6-4d70-a052-ee3fe06e6c9a"/>
+				<imageExpression><![CDATA["imagens/humv-report.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="-9" y="51" width="552" height="10" uuid="fb199133-62d4-462d-9256-1c4a0ba64b85">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="10"/>
+				</textElement>
+				<text><![CDATA[MINISTÉRIO DA EDUCAÇÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-9" y="63" width="552" height="10" uuid="31c7bc6d-b1f6-4c83-b0f4-56b6ea094758">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="10"/>
+				</textElement>
+				<text><![CDATA[UNIVERSIDADE FEDERAL DO RECÔNCAVO DA BAHIA]]></text>
+			</staticText>
+			<image>
+				<reportElement x="2" y="22" width="90" height="38" uuid="0029455a-1d0b-4a62-af28-cb928daaee1e"/>
+				<imageExpression><![CDATA["imagens/ufrb.png"]]></imageExpression>
+			</image>
+			<image hAlign="Center">
+				<reportElement x="169" y="0" width="200" height="50" uuid="3a12b34e-de16-43e2-94d9-71bf359de946"/>
+				<imageExpression><![CDATA["imagens/republica.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="-9" y="75" width="552" height="8" uuid="95b652ef-b9a2-4ed9-85ee-b82b18d2734a">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<text><![CDATA[Hospital Universitário de Medicina Veterinária]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-9" y="85" width="552" height="8" uuid="09bb8d35-ac57-427c-8fbb-3c6e60d34272">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<text><![CDATA[CNPJ 07.777.800/0001-62]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<pageFooter>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement x="-30" y="5" width="595" height="8" uuid="381dc650-56ae-4134-abcd-d23729276ba8">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<text><![CDATA[Hospital Universitário de Medicina Veterinária]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-30" y="15" width="595" height="8" uuid="17875942-1546-4f2f-8ac3-45ddbc7c4ef4"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<text><![CDATA[Rua Rui Barbosa, Nº 710 - Centro - Cruz das Almas/BA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-30" y="25" width="595" height="8" uuid="645a2f06-c7a9-45e8-bbfc-0ba392763f5e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<text><![CDATA[CEP 44.380-000   Telefone: (75) 3621 - 0972]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="440" y="11" width="100" height="16" uuid="83569a8e-38c6-4c23-b013-02b0c4b094b3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Serif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="182" splitType="Stretch">
+			<textField>
+				<reportElement x="2" y="10" width="548" height="30" uuid="ee2f64bd-26f7-4617-b471-096f3a656377"/>
+				<textFieldExpression><![CDATA[$F{questionario}.getProfissao()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="98" y="60" width="452" height="30" uuid="abbc9017-f577-472f-9c6e-3080acb54866"/>
+				<textFieldExpression><![CDATA[$F{questionario}.getDono().getNome()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-2" y="60" width="100" height="30" uuid="f4b8ece3-439b-48d7-a63d-a46b7907c1f5"/>
+				<text><![CDATA[Nome do dono:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
