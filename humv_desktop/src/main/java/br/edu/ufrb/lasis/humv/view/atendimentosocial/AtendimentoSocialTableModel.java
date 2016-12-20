@@ -74,12 +74,12 @@ public class AtendimentoSocialTableModel extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch (columnIndex) {
             case 0:
-                return this.atendimentosSociais.get(rowIndex).getDono().getNome();
+                return this.atendimentosSociais.get(rowIndex).getAnimal().getDono().getNome();
             case 1:
-                if (this.atendimentosSociais.get(rowIndex).getDono().getTipoDocumento().equalsIgnoreCase("CPF")) {
-                    return MaskUtils.formatarStringCPF(this.atendimentosSociais.get(rowIndex).getDono().getCpfCnpj());
+                if (this.atendimentosSociais.get(rowIndex).getAnimal().getDono().getTipoDocumento().equalsIgnoreCase("CPF")) {
+                    return MaskUtils.formatarStringCPF(this.atendimentosSociais.get(rowIndex).getAnimal().getDono().getCpfCnpj());
                 } else {
-                    return MaskUtils.formatarStringCNPJ(this.atendimentosSociais.get(rowIndex).getDono().getCpfCnpj());
+                    return MaskUtils.formatarStringCNPJ(this.atendimentosSociais.get(rowIndex).getAnimal().getDono().getCpfCnpj());
                 }
 
             case 2:

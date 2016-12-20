@@ -25,6 +25,8 @@ import javax.swing.JFrame;
 import javax.swing.JRadioButton;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -32,6 +34,7 @@ import javax.swing.event.ChangeListener;
  */
 public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements ResultadoBusca, ActionListener {
 
+    private final static Logger logger = LoggerFactory.getLogger(CadastrarAtendimentoJPanel.class);
     private Atendimento atendimento = null;
     private String horario = null;
     private Date data = null;
@@ -714,7 +717,7 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
                 }
             } catch (RESTConnectionException ex) {
                 InterfaceGraficaUtils.erroConexao();
-                ex.printStackTrace();
+                logger.error("mensagem: " + ex.getMessage(), ex);
             }
         }
     }//GEN-LAST:event_jButtonSalvarActionPerformed

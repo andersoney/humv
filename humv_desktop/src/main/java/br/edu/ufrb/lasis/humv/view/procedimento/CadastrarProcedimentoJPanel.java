@@ -21,6 +21,8 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -28,6 +30,7 @@ import javax.swing.JOptionPane;
  */
 public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements ResultadoBusca {
 
+    private final static Logger logger = LoggerFactory.getLogger(CadastrarProcedimentoJPanel.class);
     private Setor setor = null;
     private String nomeSetor;
     private final String servicoProcedimento = "/api/procedimento";
@@ -312,7 +315,7 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements R
             }
         } catch (RESTConnectionException ex) {
             InterfaceGraficaUtils.erroConexao();
-            ex.printStackTrace();
+            logger.error("mensagem: " + ex.getMessage(), ex);
         }
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
@@ -340,7 +343,7 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements R
             }
         } catch (RESTConnectionException | IOException ex) {
             InterfaceGraficaUtils.erroConexao();
-            ex.printStackTrace();
+            logger.error("mensagem: " + ex.getMessage(), ex);
         }
     }//GEN-LAST:event_jButtonExibirListaActionPerformed
 

@@ -28,6 +28,8 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.text.JTextComponent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Classe que cria o Painel Questionario SOcial.
@@ -37,6 +39,7 @@ import javax.swing.text.JTextComponent;
  */
 public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel implements ResultadoBusca, ActionListener {
 
+    private final static Logger logger = LoggerFactory.getLogger(QuestionarioSocioEconomicoJPanel.class);
     private DocumentacaoTableModel modelDocumentacao;
     private ParenteTableModel modelParente;
     private Dono dono;
@@ -285,7 +288,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
             jLabelAnimais.setText(textoLabel);
         } catch (RESTConnectionException | IOException ex) {
             JOptionPane.showMessageDialog(HUMVApp.getMainWindow(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
+            logger.error("mensagem: " + ex.getMessage(), ex);
         }
     }
 
@@ -1501,7 +1504,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
             HUMVApp.setPainelCentralComLogo();
         } catch (RESTConnectionException ex) {
             InterfaceGraficaUtils.erroConexao();
-            ex.printStackTrace();
+            logger.error("mensagem: " + ex.getMessage(), ex);
         }
 
     }//GEN-LAST:event_jButtonQuestionarioSalvarActionPerformed
@@ -1648,7 +1651,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         questionario.setIdade(Integer.parseInt(jFormattedTextFieldIdade.getText()));
         questionario.setEstadoCivil(jComboBoxEstadoCivil.getSelectedIndex()+1);
         questionario.setProfissao(jTextFieldProfissao.getText());
-        questionario.setEscolaridade(jComboBoxEscolaridadeFamliar.getSelectedIndex()+1);
+        questionario.setEscolaridade(jComboBoxEscolaridadeDono.getSelectedIndex()+1);
         questionario.setOcupacaoAtual(jTextFieldOcupacao.getText());
         questionario.setRendaFormal(rendaFormal);
         questionario.setRendaInformal(rendaInformal);
@@ -1659,6 +1662,8 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         questionario.setCondicaoMoradia(jTextFieldCondicaoMoradia.getText());
         questionario.setProgramaTransferenciaRenda(jTextFieldProgramaRenda.getText());
         questionario.setEstudante(jRadioButtonEstudanteSim.isSelected());
+        questionario.setRendaTotal(modelParente.getRendaTotal());
+        questionario.setRendaPerCapta(modelParente.getRendaPerCapita());
         questionario.setValidade6Meses(jRadioButtonValidade6Meses.isSelected());
 
         return true;

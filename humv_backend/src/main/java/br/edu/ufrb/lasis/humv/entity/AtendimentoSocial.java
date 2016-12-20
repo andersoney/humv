@@ -3,12 +3,11 @@ package br.edu.ufrb.lasis.humv.entity;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -24,11 +23,8 @@ public class AtendimentoSocial implements Serializable {
     @Id
     @GeneratedValue
     BigInteger id;
-
-    @OneToOne
-    @JoinColumn
-    private Dono dono;
-    @OneToOne
+    
+    @ManyToOne
     @JoinColumn
     private Animal animal;
 
@@ -51,14 +47,6 @@ public class AtendimentoSocial implements Serializable {
 
     public void setId(BigInteger id) {
         this.id = id;
-    }
-
-    public Dono getDono() {
-        return dono;
-    }
-
-    public void setDono(Dono dono) {
-        this.dono = dono;
     }
 
     public Animal getAnimal() {
@@ -109,7 +97,7 @@ public class AtendimentoSocial implements Serializable {
         this.tipoCobrancaCirurgias = tipoCobrancaCirurgias;
     }
 
-    public double getPercentualDescontoConsultas() {
+    public int getPercentualDescontoConsultas() {
         return percentualDescontoConsultas;
     }
 
@@ -117,7 +105,7 @@ public class AtendimentoSocial implements Serializable {
         this.percentualDescontoConsultas = percentualDescontoConsultas;
     }
 
-    public double getPercentualDescontoExames() {
+    public int getPercentualDescontoExames() {
         return percentualDescontoExames;
     }
 
@@ -125,7 +113,7 @@ public class AtendimentoSocial implements Serializable {
         this.percentualDescontoExames = percentualDescontoExames;
     }
 
-    public double getPercentualDescontoCirurgias() {
+    public int getPercentualDescontoCirurgias() {
         return percentualDescontoCirurgias;
     }
 

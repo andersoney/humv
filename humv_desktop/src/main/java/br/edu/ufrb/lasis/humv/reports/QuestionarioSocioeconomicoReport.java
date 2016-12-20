@@ -13,6 +13,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.sun.jersey.api.client.ClientResponse;
 import java.io.IOException;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -20,6 +22,7 @@ import java.util.List;
  */
 public class QuestionarioSocioeconomicoReport {
 
+    private final static Logger logger = LoggerFactory.getLogger(QuestionarioSocioeconomicoReport.class);
     private QuestionarioSocioeconomico questionario;
     private List<Animal> animais;
 
@@ -48,7 +51,7 @@ public class QuestionarioSocioeconomicoReport {
             });
             reportItem.setAnimais(animais);
         } catch (RESTConnectionException | IOException ex) {
-            ex.printStackTrace();
+            logger.error("mensagem: " + ex.getMessage(), ex);
             return null;
         }
         return reportItem;

@@ -18,6 +18,8 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
 import javax.swing.JOptionPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -25,6 +27,7 @@ import javax.swing.JOptionPane;
  */
 public class PropriedadesBuscaUsuario extends PropriedadesBusca {
 
+    private final static Logger logger = LoggerFactory.getLogger(PropriedadesBuscaUsuario.class);
     private UsuarioTableModel tableModel;
     private List<Usuario> listaUsuarios;
 
@@ -43,7 +46,7 @@ public class PropriedadesBuscaUsuario extends PropriedadesBusca {
             super.getTabelaResultado().revalidate();
         } catch (RESTConnectionException | IOException ex) {
             InterfaceGraficaUtils.erroConexao();
-            ex.printStackTrace();
+            logger.error("mensagem: " + ex.getMessage(), ex);
         }
         HUMVApp.esconderMensagemCarregamento();
     }
@@ -81,7 +84,7 @@ public class PropriedadesBuscaUsuario extends PropriedadesBusca {
                                 }
                             } catch (RESTConnectionException ex) {
                                 InterfaceGraficaUtils.erroConexao();
-                                ex.printStackTrace();
+                                logger.error("mensagem: " + ex.getMessage(), ex);
                             }
                         }
                         break;

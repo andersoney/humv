@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -28,6 +30,7 @@ import javax.swing.JTable;
  */
 public class PropriedadesBuscaQuestionarioSocioeconomico extends PropriedadesBusca {
 
+    private final static Logger logger = LoggerFactory.getLogger(PropriedadesBuscaQuestionarioSocioeconomico.class);
     private QuestionarioSocialTableModel tableModel;
     private List<QuestionarioSocioeconomico> listaQuest;
 
@@ -49,7 +52,7 @@ public class PropriedadesBuscaQuestionarioSocioeconomico extends PropriedadesBus
             super.getTabelaResultado().revalidate();
         } catch (RESTConnectionException | IOException ex) {
             InterfaceGraficaUtils.erroConexao();
-            ex.printStackTrace();
+            logger.error("mensagem: " + ex.getMessage(), ex);
         }
         HUMVApp.esconderMensagemCarregamento();
 
@@ -90,7 +93,7 @@ public class PropriedadesBuscaQuestionarioSocioeconomico extends PropriedadesBus
                                 }
                             } catch (RESTConnectionException ex) {
                                 JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
-                                ex.printStackTrace();
+                                logger.error("mensagem: " + ex.getMessage(), ex);
                             }
                         }
                         break;

@@ -17,6 +17,8 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -24,6 +26,7 @@ import javax.swing.JButton;
  */
 public class AtendimentoJPanel implements ActionListener {
 
+    private final static Logger logger = LoggerFactory.getLogger(AtendimentoJPanel.class);
     private Atendimento atendimento;
     private AgendaJPanel agendaJPanel;
     private GridBagConstraints constraints;
@@ -98,7 +101,7 @@ public class AtendimentoJPanel implements ActionListener {
                     }
                 } catch (RESTConnectionException ex) {
                     InterfaceGraficaUtils.erroConexao();
-                    ex.printStackTrace();
+                    logger.error("mensagem: " + ex.getMessage(), ex);
                 }
             }
         }

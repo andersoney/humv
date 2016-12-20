@@ -11,6 +11,8 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import javax.swing.JOptionPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -18,6 +20,7 @@ import javax.swing.JOptionPane;
  */
 public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
 
+    private final static Logger logger = LoggerFactory.getLogger(CadastrarUsuarioJPanel.class);
     private Usuario usuarioSelecionado = null;
 
     /**
@@ -323,10 +326,10 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
                 }
             } catch (RESTConnectionException ex) {
                 InterfaceGraficaUtils.erroConexao();
-                ex.printStackTrace();
+                logger.error("mensagem: " + ex.getMessage(), ex);
             } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
                 JOptionPane.showMessageDialog(this, "Erro ao criptografar senha. Tente novamente mais tarde.", "Erro", JOptionPane.ERROR_MESSAGE);
-                ex.printStackTrace();
+                logger.error("mensagem: " + ex.getMessage(), ex);
             }
         }
     }//GEN-LAST:event_buttonOKActionPerformed

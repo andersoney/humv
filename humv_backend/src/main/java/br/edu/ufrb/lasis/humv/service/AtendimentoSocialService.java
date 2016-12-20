@@ -38,7 +38,6 @@ public class AtendimentoSocialService {
     	return atendimentoSocialServiceImpl.findById(id);
     }
     
-    
     @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public String cadastrarAtendimentoSocial(@RequestBody AtendimentoSocial atendimentoSocial, @RequestParam(value="username") String username){
     	return atendimentoSocialServiceImpl.cadastrarAtendimentoSocial(atendimentoSocial, username);

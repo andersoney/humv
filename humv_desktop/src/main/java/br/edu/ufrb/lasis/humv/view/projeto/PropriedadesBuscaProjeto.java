@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -26,6 +28,7 @@ import javax.swing.JTable;
  */
 public class PropriedadesBuscaProjeto extends PropriedadesBusca {
 
+    private final static Logger logger = LoggerFactory.getLogger(PropriedadesBuscaProjeto.class);
     private ProjetoTableModel tableModel;
     private List<Projeto> listaProjetos;
 
@@ -48,7 +51,7 @@ public class PropriedadesBuscaProjeto extends PropriedadesBusca {
             super.getTabelaResultado().revalidate();
         } catch (RESTConnectionException | IOException ex) {
             InterfaceGraficaUtils.erroConexao();
-            ex.printStackTrace();
+            logger.error("mensagem: " + ex.getMessage(), ex);
         }
         HUMVApp.esconderMensagemCarregamento();
 
@@ -89,7 +92,7 @@ public class PropriedadesBuscaProjeto extends PropriedadesBusca {
                                 }
                             } catch (RESTConnectionException ex) {
                                 JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
-                                ex.printStackTrace();
+                                logger.error("mensagem: " + ex.getMessage(), ex);
                             }
                         }
                         break;

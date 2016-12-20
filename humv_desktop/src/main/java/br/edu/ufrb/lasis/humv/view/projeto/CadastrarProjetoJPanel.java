@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -26,6 +28,7 @@ import javax.swing.JOptionPane;
  */
 public class CadastrarProjetoJPanel extends javax.swing.JPanel {
 
+    private final static Logger logger = LoggerFactory.getLogger(CadastrarProjetoJPanel.class);
     private final String servicoProjeto = "/api/projeto";
     private Projeto projetoSelecionado;
     private Setor setor;
@@ -348,7 +351,7 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
             }
         } catch (RESTConnectionException | IOException ex) {
             InterfaceGraficaUtils.erroConexao();
-            ex.printStackTrace();
+            logger.error("mensagem: " + ex.getMessage(), ex);
         }
     }//GEN-LAST:event_jButtonExibirListaActionPerformed
 

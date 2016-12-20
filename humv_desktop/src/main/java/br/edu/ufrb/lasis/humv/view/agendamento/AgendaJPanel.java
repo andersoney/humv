@@ -18,6 +18,8 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -25,6 +27,7 @@ import javax.swing.JPanel;
  */
 public class AgendaJPanel extends JPanel {
 
+    private final static Logger logger = LoggerFactory.getLogger(AgendaJPanel.class);
     private List<Atendimento> atendimentos;
     private Usuario medico;
     private String[] horarios;
@@ -148,7 +151,7 @@ public class AgendaJPanel extends JPanel {
             });
         } catch (RESTConnectionException | IOException ex) {
             InterfaceGraficaUtils.erroConexao();
-            ex.printStackTrace();
+            logger.error("mensagem: " + ex.getMessage(), ex);
         }
     }
 

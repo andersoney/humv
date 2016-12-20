@@ -12,6 +12,8 @@ import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -19,6 +21,7 @@ import javax.swing.JOptionPane;
  */
 public class CadastrarDonoJPanel extends javax.swing.JPanel {
 
+    private final static Logger logger = LoggerFactory.getLogger(CadastrarDonoJPanel.class);
     private final String servicoDono = "/api/dono";
     private String cpfCnpj;
     private String tipoDocumento;
@@ -440,10 +443,10 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
             }
         } catch (RESTConnectionException ex) {
             InterfaceGraficaUtils.erroConexao();
-            ex.printStackTrace();
+            logger.error("mensagem: " + ex.getMessage(), ex);
         } catch (ClientHandlerException ex) {
             JOptionPane.showMessageDialog(null, "Erro no cadastro do dono. Por favor, tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
+            logger.error("mensagem: " + ex.getMessage(), ex);
         }
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 

@@ -12,7 +12,7 @@ public class NumberUtils {
                 return null;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return null;
         }
     }

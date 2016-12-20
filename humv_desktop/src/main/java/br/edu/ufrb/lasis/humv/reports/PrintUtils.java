@@ -40,6 +40,7 @@ public class PrintUtils {
     public static final String TABELA_SETORES = "relatorios/tabela_setores.jasper";
     public static final String TABELA_USUARIOS = "relatorios/tabela_usuarios.jasper";
     public static final String QUESTIONARIO_SOCIOECONOMICO = "relatorios/questionario_socioeconomico.jasper";
+    public static final String ATENDIMENTO_SOCIAL = "relatorios/atendimento_social.jasper";
 
     public static void printLista(String reportFileName, List lista) {
         if (lista != null && !lista.isEmpty()) {

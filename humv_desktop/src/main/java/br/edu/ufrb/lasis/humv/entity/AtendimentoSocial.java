@@ -10,7 +10,6 @@ import java.util.Date;
 public class AtendimentoSocial {
 
     private BigInteger id;
-    private Dono dono;
     private Animal animal;
     private String observacoesDono;
     private String observacoesAnimal;
@@ -24,14 +23,6 @@ public class AtendimentoSocial {
     private int percentualDescontoConsultas;
     private int percentualDescontoExames;
     private int percentualDescontoCirurgias;
-
-    public Dono getDono() {
-        return dono;
-    }
-
-    public void setDono(Dono dono) {
-        this.dono = dono;
-    }
 
     public Animal getAnimal() {
         return animal;
@@ -81,7 +72,7 @@ public class AtendimentoSocial {
         this.tipoCobrancaCirurgias = tipoCobrancaCirurgias;
     }
 
-    public double getPercentualDescontoConsultas() {
+    public int getPercentualDescontoConsultas() {
         return percentualDescontoConsultas;
     }
 
@@ -89,7 +80,7 @@ public class AtendimentoSocial {
         this.percentualDescontoConsultas = percentualDescontoConsultas;
     }
 
-    public double getPercentualDescontoExames() {
+    public int getPercentualDescontoExames() {
         return percentualDescontoExames;
     }
 
@@ -97,7 +88,7 @@ public class AtendimentoSocial {
         this.percentualDescontoExames = percentualDescontoExames;
     }
 
-    public double getPercentualDescontoCirurgias() {
+    public int getPercentualDescontoCirurgias() {
         return percentualDescontoCirurgias;
     }
 

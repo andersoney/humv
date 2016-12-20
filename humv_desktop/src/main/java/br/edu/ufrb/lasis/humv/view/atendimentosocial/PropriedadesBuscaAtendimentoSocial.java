@@ -12,10 +12,13 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -23,6 +26,7 @@ import javax.swing.JTable;
  */
 public class PropriedadesBuscaAtendimentoSocial extends PropriedadesBusca {
 
+    private final static Logger logger = LoggerFactory.getLogger(PropriedadesBuscaAtendimentoSocial.class);
     private AtendimentoSocialTableModel tableModel;
     private List<AtendimentoSocial> listaAtendimentoSocial;
     private ResultadoBusca resultadoBusca;
@@ -43,22 +47,18 @@ public class PropriedadesBuscaAtendimentoSocial extends PropriedadesBusca {
     @Override
     public void buscar() {
         HUMVApp.exibirMensagemCarregamento();
-        try {
-            String str =  getCampoPalavraChave().getText();
-            if( str.indexOf(' ')>= 0){
-                str = str.replaceAll(" ", "+");
-            }
-            
-            ClientResponse response = RESTMethods.get("/api/atendimentoSocial/search?palavrachave=" + str);
+        try {            
+            ClientResponse response = RESTMethods.get("/api/atendimentoSocial/search?palavrachave=" +  getCampoPalavraChave().getText());
 
             listaAtendimentoSocial = (List<AtendimentoSocial>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<AtendimentoSocial>>() {
             });
+            System.out.println("SIZE: " + listaAtendimentoSocial.size());
             tableModel = new AtendimentoSocialTableModel(listaAtendimentoSocial);
             super.getTabelaResultado().setModel(tableModel);
             super.getTabelaResultado().revalidate();
         } catch (RESTConnectionException | IOException ex) {
             JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
+            logger.error("mensagem: " + ex.getMessage(), ex);
         }
         HUMVApp.esconderMensagemCarregamento();
     }
@@ -84,7 +84,7 @@ public class PropriedadesBuscaAtendimentoSocial extends PropriedadesBusca {
                         HUMVApp.setNovoPainelCentral(painelCadastroAtendimentoSocial);
                         break;
                     case PropriedadesBusca.OPCAO_REMOVER:
-                        if (InterfaceGraficaUtils.dialogoRemoverAlterar("remover", "atendimento social para", atendimentoSocialSelecionado.getDono().getNome())) {
+                        if (InterfaceGraficaUtils.dialogoRemoverAlterar("remover", "atendimento social para", atendimentoSocialSelecionado.getAnimal().getDono().getNome())) {
                             try {
                                 ClientResponse response = RESTMethods.delete("/api/atendimentoSocial", "" + atendimentoSocialSelecionado.getId());
                                 String resposta = response.getEntity(String.class);
@@ -96,7 +96,7 @@ public class PropriedadesBuscaAtendimentoSocial extends PropriedadesBusca {
                                 }
                             } catch (RESTConnectionException ex) {
                                 JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
-                                ex.printStackTrace();
+                                logger.error("mensagem: " + ex.getMessage(), ex);
                             }
                         }
                         break;
@@ -109,7 +109,9 @@ public class PropriedadesBuscaAtendimentoSocial extends PropriedadesBusca {
                 }
             }
         } else if (e.getSource().equals(super.getBotaoImprimirTabela())) {
-            PrintUtils.printLista(PrintUtils.TABELA_ANIMAIS, listaAtendimentoSocial);
+            List listaAtendimentoSocial = new ArrayList();
+            listaAtendimentoSocial.add(tableModel.getAtendimentoSocialSelecionado(super.getIndexLinhaSelecionada()));
+            PrintUtils.printLista(PrintUtils.ATENDIMENTO_SOCIAL, listaAtendimentoSocial);
         } else if (e.getSource().equals(super.getBotaoCancelar())) {
             if (getjFrame() != null) {
                 getjFrame().dispose();
