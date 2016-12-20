@@ -7,7 +7,6 @@ public class NumberUtils {
     public static BigInteger convertStringToBigInteger(String str) {
         try {
             if (!str.matches("\\D+")) {
-                
                 return new BigInteger(str);
             } else {
                 return null;

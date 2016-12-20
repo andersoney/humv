@@ -118,6 +118,9 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         jRadioButtonCirurgiaDesconto.addActionListener(this);
         jRadioButtonCirurgiaIsencao.addActionListener(this);
         jRadioButtonCirurgiaNormal.addActionListener(this);
+        
+        buttonGroupValidade.add(jRadioButtonValidadePatologia);
+        buttonGroupValidade.add(jRadioButtonValidade6Meses);
 
         this.jRadioButtonEstudanteNao.setSelected(true);
         jRadioButtonEstudanteNao.addActionListener(this);
@@ -129,6 +132,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         this.jRadioButtonExameNormal.setSelected(true);
         this.jRadioButtonCirurgiaNormal.setSelected(true);
         this.jRadioButtonDocumentosComprovanteEndereco.setSelected(true);
+        this.jRadioButtonValidadePatologia.setSelected(true);
 
         this.jFormattedTextFieldCirurgia.setEnabled(false);
         this.jFormattedTextFieldConsulta.setEnabled(false);
@@ -208,9 +212,9 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         setResultado(questionario.getDono());
 
         this.jFormattedTextFieldIdade.setText("" + questionario.getIdade());
-        this.jComboBoxEstadoCivil.setSelectedIndex(questionario.getEstadoCivil());
+        this.jComboBoxEstadoCivil.setSelectedIndex(questionario.getEstadoCivil()-1);
         this.jTextFieldProfissao.setText(questionario.getProfissao());
-        this.jComboBoxEscolaridadeDono.setSelectedIndex(questionario.getEscolaridade());
+        this.jComboBoxEscolaridadeDono.setSelectedIndex(questionario.getEscolaridade()-1);
         this.jTextFieldOcupacao.setText(questionario.getOcupacaoAtual());
         this.jFormattedTextFieldRendaFormal.setText(ValidationsUtils.convertePrecoParaString(questionario.getRendaFormal()));
         this.jFormattedTextFieldRendaInformal.setText(ValidationsUtils.convertePrecoParaString(questionario.getRendaInformal()));
@@ -237,6 +241,10 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
             this.jRadioButtonSaneamentoSim.setSelected(true);
         } else {
             this.jRadioButtonSaneamentoNao.setSelected(true);
+        }
+        
+        if(questionario.isValidade6Meses()){
+            this.jRadioButtonValidade6Meses.setSelected(true);
         }
 
     }
@@ -297,6 +305,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         buttonGroupConsulta = new javax.swing.ButtonGroup();
         buttonGroupExame = new javax.swing.ButtonGroup();
         buttonGroupCirurgia = new javax.swing.ButtonGroup();
+        buttonGroupValidade = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanelDadosDono = new javax.swing.JPanel();
         jPanelDadosBasicos = new javax.swing.JPanel();
@@ -378,6 +387,9 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         jTextAreaConclusoes = new javax.swing.JTextArea();
         jLabel36 = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jRadioButtonValidadePatologia = new javax.swing.JRadioButton();
+        jRadioButtonValidade6Meses = new javax.swing.JRadioButton();
         Cobranca = new javax.swing.JPanel();
         jLabel38 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
@@ -945,6 +957,12 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         jLabel37.setFont(new java.awt.Font("Lucida Grande", 2, 12)); // NOI18N
         jLabel37.setText("acesso ao sistema degarantias de direitos, outras situações.");
 
+        jLabel25.setText("Validade:");
+
+        jRadioButtonValidadePatologia.setText("Durante o tratamento da patologia apresentada");
+
+        jRadioButtonValidade6Meses.setText("Durante 6 meses");
+
         javax.swing.GroupLayout jPanelAnaliseLayout = new javax.swing.GroupLayout(jPanelAnalise);
         jPanelAnalise.setLayout(jPanelAnaliseLayout);
         jPanelAnaliseLayout.setHorizontalGroup(
@@ -961,8 +979,14 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
                             .addComponent(jLabel36)
                             .addComponent(jLabel37)
                             .addComponent(jLabel34)
-                            .addComponent(jLabel35))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jLabel35)
+                            .addGroup(jPanelAnaliseLayout.createSequentialGroup()
+                                .addComponent(jLabel25)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioButtonValidadePatologia)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioButtonValidade6Meses)))
+                        .addGap(0, 44, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanelAnaliseLayout.setVerticalGroup(
@@ -984,7 +1008,12 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
                 .addComponent(jLabel35)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelAnaliseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel25)
+                    .addComponent(jRadioButtonValidadePatologia)
+                    .addComponent(jRadioButtonValidade6Meses))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Análise", jPanelAnalise);
@@ -1617,9 +1646,9 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         questionario.setDono(dono);
         questionario.setDataResposta(Calendar.getInstance().getTime());
         questionario.setIdade(Integer.parseInt(jFormattedTextFieldIdade.getText()));
-        questionario.setEstadoCivil(jComboBoxEstadoCivil.getSelectedIndex());
+        questionario.setEstadoCivil(jComboBoxEstadoCivil.getSelectedIndex()+1);
         questionario.setProfissao(jTextFieldProfissao.getText());
-        questionario.setEscolaridade(jComboBoxEscolaridadeFamliar.getSelectedIndex());
+        questionario.setEscolaridade(jComboBoxEscolaridadeFamliar.getSelectedIndex()+1);
         questionario.setOcupacaoAtual(jTextFieldOcupacao.getText());
         questionario.setRendaFormal(rendaFormal);
         questionario.setRendaInformal(rendaInformal);
@@ -1630,6 +1659,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         questionario.setCondicaoMoradia(jTextFieldCondicaoMoradia.getText());
         questionario.setProgramaTransferenciaRenda(jTextFieldProgramaRenda.getText());
         questionario.setEstudante(jRadioButtonEstudanteSim.isSelected());
+        questionario.setValidade6Meses(jRadioButtonValidade6Meses.isSelected());
 
         return true;
     }
@@ -1643,7 +1673,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
             parente.setNome(jTextFieldFamiliaNome.getText());
 
             if (this.jFormattedIdadeFamilia.getText().isEmpty()) {
-                InterfaceGraficaUtils.validaCampoVazio("Idade do familiar");
+                InterfaceGraficaUtils.validaCampoVazio("idade do familiar");
                 return;
             }
             int idade = Integer.parseInt(this.jFormattedIdadeFamilia.getText());
@@ -1656,7 +1686,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
             String parentesco = this.jTextFieldParentesco.getText();
             parente.setParentesco(parentesco);
 
-            int escolaridade = this.jComboBoxEscolaridadeFamliar.getSelectedIndex();
+            int escolaridade = this.jComboBoxEscolaridadeFamliar.getSelectedIndex()+1;
             parente.setEscolaridade(escolaridade);
 
             if (this.jTextFieldFamiliaOcupacao.getText().isEmpty()) {
@@ -1754,6 +1784,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
     private javax.swing.ButtonGroup buttonGroupEstudante;
     private javax.swing.ButtonGroup buttonGroupExame;
     private javax.swing.ButtonGroup buttonGroupSaneamento;
+    private javax.swing.ButtonGroup buttonGroupValidade;
     private com.toedter.calendar.JDateChooser dteDataEntrega;
     private javax.swing.JButton jButtonCadastrarNovoDono;
     private javax.swing.JButton jButtonDocumentoRemover;
@@ -1794,6 +1825,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
@@ -1859,6 +1891,8 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
     private javax.swing.JRadioButton jRadioButtonExameNormal;
     private javax.swing.JRadioButton jRadioButtonSaneamentoNao;
     private javax.swing.JRadioButton jRadioButtonSaneamentoSim;
+    private javax.swing.JRadioButton jRadioButtonValidade6Meses;
+    private javax.swing.JRadioButton jRadioButtonValidadePatologia;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

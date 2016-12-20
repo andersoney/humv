@@ -47,9 +47,10 @@ public class PrintUtils {
                 InputStream reportStream = new FileInputStream(reportFileName);
                 Map parameters = new HashMap();
                 parameters.put("INFO", "Relatório");
-                parameters.put("TABELA", lista);
+                parameters.put("TABELA", lista);                
                 printDataSource(reportStream, parameters, lista);
             } catch (JRException | FileNotFoundException exception) {
+                exception.printStackTrace();
                 InterfaceGraficaUtils.erroGeracaoRelatorio();
             }
         } else {
@@ -82,6 +83,7 @@ public class PrintUtils {
             JasperExportManager.exportReportToPdfFile(print, pathToPDF);
             InterfaceGraficaUtils.sucessoGeracaoRelatorio();
         } catch (JRException exception) {
+            exception.printStackTrace();
             InterfaceGraficaUtils.erroGeracaoRelatorio();
         }
     }
