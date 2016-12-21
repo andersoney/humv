@@ -82,10 +82,14 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
 
         setEnabledComponentesDeValorProcedimento(false);
 
-        if (horario == null) {
+        if (horario == null && atendimento == null) {
             jLabelHorario.setText("EXTRA");
         } else {
-            jLabelHorario.setText(horario);
+            if (horario != null) {
+                jLabelHorario.setText(horario);
+            } else {
+                jLabelHorario.setText(ValidationsUtils.obterHoraString(atendimento.getHorarioMarcado()));
+            }
         }
 
         jCheckBoxRetorno.addActionListener(this);

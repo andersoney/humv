@@ -47,8 +47,8 @@ public class PropriedadesBuscaAtendimentoSocial extends PropriedadesBusca {
     @Override
     public void buscar() {
         HUMVApp.exibirMensagemCarregamento();
-        try {            
-            ClientResponse response = RESTMethods.get("/api/atendimentoSocial/search?palavrachave=" +  getCampoPalavraChave().getText());
+        try {
+            ClientResponse response = RESTMethods.get("/api/atendimentoSocial/search?palavrachave=" + getCampoPalavraChave().getText());
 
             listaAtendimentoSocial = (List<AtendimentoSocial>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<AtendimentoSocial>>() {
             });
@@ -109,9 +109,13 @@ public class PropriedadesBuscaAtendimentoSocial extends PropriedadesBusca {
                 }
             }
         } else if (e.getSource().equals(super.getBotaoImprimirTabela())) {
-            List listaAtendimentoSocial = new ArrayList();
-            listaAtendimentoSocial.add(tableModel.getAtendimentoSocialSelecionado(super.getIndexLinhaSelecionada()));
-            PrintUtils.printLista(PrintUtils.ATENDIMENTO_SOCIAL, listaAtendimentoSocial);
+            if (super.getIndexLinhaSelecionada() < 0) {
+                JOptionPane.showMessageDialog(super.getTabelaResultado(), "Por favor, selecione algum atendimento social da tabela para realizar a operação.", "Atendimento social não selecionado", JOptionPane.ERROR_MESSAGE);
+            } else {
+                List listaAtendimentoSocial = new ArrayList();
+                listaAtendimentoSocial.add(tableModel.getAtendimentoSocialSelecionado(super.getIndexLinhaSelecionada()));
+                PrintUtils.printLista(PrintUtils.ATENDIMENTO_SOCIAL, listaAtendimentoSocial);
+            }
         } else if (e.getSource().equals(super.getBotaoCancelar())) {
             if (getjFrame() != null) {
                 getjFrame().dispose();

@@ -102,11 +102,15 @@ public class PropriedadesBuscaQuestionarioSocioeconomico extends PropriedadesBus
                 }
             }
         } else if (e.getSource().equals(super.getBotaoImprimirTabela())) {
-            List listaQuestionarios = new ArrayList();
-            
-            QuestionarioSocioeconomicoReport report = QuestionarioSocioeconomicoReport.fillReportObject(tableModel.getQuestionario(super.getIndexLinhaSelecionada()));
-            listaQuestionarios.add(report);
-            PrintUtils.printLista(PrintUtils.QUESTIONARIO_SOCIOECONOMICO, listaQuestionarios);
+            if (super.getIndexLinhaSelecionada() < 0) {
+                JOptionPane.showMessageDialog(super.getTabelaResultado(), "Por favor, selecione algum Questionario social da tabela para realizar a operação.", "Questionario social não selecionado", JOptionPane.ERROR_MESSAGE);
+            } else {
+                List listaQuestionarios = new ArrayList();
+
+                QuestionarioSocioeconomicoReport report = QuestionarioSocioeconomicoReport.fillReportObject(tableModel.getQuestionario(super.getIndexLinhaSelecionada()));
+                listaQuestionarios.add(report);
+                PrintUtils.printLista(PrintUtils.QUESTIONARIO_SOCIOECONOMICO, listaQuestionarios);
+            }
         } else if (e.getSource().equals(super.getBotaoCancelar())) {
             boolean sair = InterfaceGraficaUtils.dialogoSair();
             if (sair) {
