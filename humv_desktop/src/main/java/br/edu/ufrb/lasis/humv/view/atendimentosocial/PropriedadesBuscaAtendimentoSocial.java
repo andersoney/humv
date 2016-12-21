@@ -48,7 +48,7 @@ public class PropriedadesBuscaAtendimentoSocial extends PropriedadesBusca {
     public void buscar() {
         HUMVApp.exibirMensagemCarregamento();
         try {
-            ClientResponse response = RESTMethods.get("/api/atendimentoSocial/search?palavrachave=" + getCampoPalavraChave().getText());
+            ClientResponse response = RESTMethods.get("/api/atendimentoSocial/search?palavrachave=" + getPalavraChave());
 
             listaAtendimentoSocial = (List<AtendimentoSocial>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<AtendimentoSocial>>() {
             });

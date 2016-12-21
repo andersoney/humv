@@ -38,7 +38,7 @@ public class PropriedadesBuscaUsuario extends PropriedadesBusca {
     @Override
     public void buscar() {
         try {
-            ClientResponse response = RESTMethods.get("/api/usuario/search?palavrachave=" + getCampoPalavraChave().getText());
+            ClientResponse response = RESTMethods.get("/api/usuario/search?palavrachave=" + getPalavraChave());
             listaUsuarios = (List<Usuario>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Usuario>>() {
             });
             tableModel = new UsuarioTableModel(listaUsuarios);

@@ -44,7 +44,7 @@ public class PropriedadesBuscaQuestionarioSocioeconomico extends PropriedadesBus
     public void buscar() {
         HUMVApp.exibirMensagemCarregamento();
         try {
-            ClientResponse response = RESTMethods.get("/api/questionarioSocioeconomico/search?palavrachave=" + getCampoPalavraChave().getText());
+            ClientResponse response = RESTMethods.get("/api/questionarioSocioeconomico/search?palavrachave=" + getPalavraChave());
             listaQuest = (List<QuestionarioSocioeconomico>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<QuestionarioSocioeconomico>>() {
             });
             tableModel.setQuestionarios(listaQuest);

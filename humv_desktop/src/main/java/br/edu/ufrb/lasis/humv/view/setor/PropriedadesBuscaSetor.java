@@ -52,11 +52,7 @@ public class PropriedadesBuscaSetor extends PropriedadesBusca {
     public void buscar() {
         HUMVApp.exibirMensagemCarregamento();
         try {
-            String str =  getCampoPalavraChave().getText();
-            if( str.indexOf(' ')>= 0){
-                str = str.replaceAll(" ", "+");
-            }
-            ClientResponse response = RESTMethods.get("/api/setor/search?palavrachave=" + str);
+            ClientResponse response = RESTMethods.get("/api/setor/search?palavrachave=" + getPalavraChave());
 
             listaSetores = (List<Setor>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Setor>>() {
             });

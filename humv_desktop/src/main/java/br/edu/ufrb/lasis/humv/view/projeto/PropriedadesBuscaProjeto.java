@@ -42,7 +42,7 @@ public class PropriedadesBuscaProjeto extends PropriedadesBusca {
     public void buscar() {
         HUMVApp.exibirMensagemCarregamento();
         try {
-            ClientResponse response = RESTMethods.get("/api/projeto/search?palavrachave=" + getCampoPalavraChave().getText());
+            ClientResponse response = RESTMethods.get("/api/projeto/search?palavrachave=" + getPalavraChave());
 
             listaProjetos = (List<Projeto>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Projeto>>() {
             });

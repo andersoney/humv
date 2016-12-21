@@ -8,6 +8,10 @@ package br.edu.ufrb.lasis.humv.view.busca;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -70,6 +74,15 @@ public abstract class PropriedadesBusca implements ActionListener, KeyListener {
             this.getBotaoOperacao().setIcon(new ImageIcon("imagens/small_cancelar.png"));
         } else if (this.getTipoOperacao().equalsIgnoreCase(PropriedadesBusca.OPCAO_SELECIONAR)) {
             this.getBotaoOperacao().setIcon(new ImageIcon("imagens/small_salvar.png"));
+        }
+    }
+    
+    public String getPalavraChave(){
+        try {
+            String palavrachave = URLEncoder.encode(getCampoPalavraChave().getText(), "UTF-8");
+            return palavrachave;
+        } catch (UnsupportedEncodingException ex) {
+            return null;
         }
     }
 

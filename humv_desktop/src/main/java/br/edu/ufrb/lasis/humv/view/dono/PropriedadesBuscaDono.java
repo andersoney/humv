@@ -52,7 +52,7 @@ public class PropriedadesBuscaDono extends PropriedadesBusca {
     public void buscar() {
         HUMVApp.exibirMensagemCarregamento();
         try {
-            ClientResponse response = RESTMethods.get("/api/dono/search?palavrachave=" + getCampoPalavraChave().getText());
+            ClientResponse response = RESTMethods.get("/api/dono/search?palavrachave=" + getPalavraChave());
 
             listaDonos = (List<Dono>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Dono>>() {
             });
