@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
-<!-- 2016-07-28T22:01:13 -->
+<!-- 2016-12-20T21:13:05 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tabela_animais" pageWidth="595" pageHeight="842" columnWidth="539" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isSummaryWithPageHeaderAndFooter="true" uuid="0af905c7-4b1b-436d-a67c-46c11073e657">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="tabela_animais"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -41,8 +41,8 @@
 		<queryString>
 			<![CDATA[]]>
 		</queryString>
-		<field name="tipoId" class="java.lang.String">
-			<fieldDescription><![CDATA[tipoId]]></fieldDescription>
+		<field name="tipoDocumento" class="java.lang.String">
+			<fieldDescription><![CDATA[tipoDocumento]]></fieldDescription>
 		</field>
 		<field name="telefone" class="java.lang.String">
 			<fieldDescription><![CDATA[telefone]]></fieldDescription>
@@ -53,8 +53,8 @@
 		<field name="nome" class="java.lang.String">
 			<fieldDescription><![CDATA[nome]]></fieldDescription>
 		</field>
-		<field name="id" class="java.math.BigInteger">
-			<fieldDescription><![CDATA[id]]></fieldDescription>
+		<field name="cpfCnpj" class="java.lang.String">
+			<fieldDescription><![CDATA[cpfCnpj]]></fieldDescription>
 		</field>
 	</subDataset>
 	<parameter name="TABELA" class="java.util.List">
@@ -63,6 +63,21 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
+	<field name="tipoDocumento" class="java.lang.String">
+		<fieldDescription><![CDATA[tipoDocumento]]></fieldDescription>
+	</field>
+	<field name="telefone" class="java.lang.String">
+		<fieldDescription><![CDATA[telefone]]></fieldDescription>
+	</field>
+	<field name="endereco" class="java.lang.String">
+		<fieldDescription><![CDATA[endereco]]></fieldDescription>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[nome]]></fieldDescription>
+	</field>
+	<field name="cpfCnpj" class="java.lang.String">
+		<fieldDescription><![CDATA[cpfCnpj]]></fieldDescription>
+	</field>
 	<pageHeader>
 		<band height="107" splitType="Stretch">
 			<image>
@@ -241,7 +256,7 @@
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Serif" size="10"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{tipoId} + " - " + $F{id}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{tipoDocumento} + " - " + $F{cpfCnpj}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>

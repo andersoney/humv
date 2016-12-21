@@ -8,6 +8,7 @@ import br.edu.ufrb.lasis.humv.entity.Dono;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.ResultadoBusca;
+import br.edu.ufrb.lasis.humv.view.main.HUMVMainWindow;
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
 import javax.swing.JFrame;
@@ -34,6 +35,7 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
      */
     public CadastrarDonoJPanel() {
         initComponents();
+        customInitComponents();
         this.jRadioButtonCidade.setSelected(true);
         this.jRadioButtonCpf.setSelected(true);
         this.jRadioButtonCnpj.setSelected(false);
@@ -42,8 +44,6 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
         this.jTextFieldCnpj.setText("");
         this.jTextFieldCnpj.setEnabled(false);
         this.tipoDocumento = "CPF";
-        buttonGroupLocal.add(jRadioButtonCidade);
-        buttonGroupLocal.add(jRadioButtonFazenda);
     }
 
     public CadastrarDonoJPanel(Dono donoSelecionado) {
@@ -59,6 +59,8 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
     }
 
     private void customInitComponents() {
+        buttonGroupLocal.add(jRadioButtonCidade);
+        buttonGroupLocal.add(jRadioButtonFazenda);
         if (donoSelecionado != null) {
             jLabelTitulo.setText("ATUALIZAÇÃO DE DONO");
             nomeJTF.setText(donoSelecionado.getNome());
@@ -332,8 +334,12 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         boolean sair = InterfaceGraficaUtils.dialogoCancelar("o cadastro", "dono");
-        if (sair && jFrame != null) {
-            jFrame.dispose();
+        if (sair) {
+            if(jFrame != null){
+                jFrame.dispose();
+            } else {
+                HUMVApp.setPainelCentralComLogo();
+            }
         }
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 

@@ -43,7 +43,26 @@ public class UsuarioTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Usuario u = lista.get(rowIndex);
-        Object[] valores = new Object[]{u.getNome(), u.getEmail(), u.getSiape(), u.getPerfil()};
+        
+        String perfil;
+        switch(u.getPerfil()){
+            case 0:
+                perfil = "Administrador";
+                break;
+            case 1:
+                perfil = "Recepcionista";
+                break;
+            case 2:
+                perfil = "Médico";
+                break;
+            case 3:
+                perfil = "Farmacêutico";
+                break;
+            default:
+                perfil = "Assistente Social";
+        }
+        
+        Object[] valores = new Object[]{u.getNome(), u.getEmail(), u.getSiape(), perfil};
         return valores[columnIndex];
     }
 
