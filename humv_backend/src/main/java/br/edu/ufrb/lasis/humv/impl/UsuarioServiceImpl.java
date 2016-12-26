@@ -28,7 +28,7 @@ public class UsuarioServiceImpl {
 	}
 
 	public Usuario findById(String email){
-		return usuarioDAO.findByEmail(email);
+		return usuarioDAO.findBySiapeOrEmail(email);
 	}
 	
 	public List<Usuario> search(String palavrachave){

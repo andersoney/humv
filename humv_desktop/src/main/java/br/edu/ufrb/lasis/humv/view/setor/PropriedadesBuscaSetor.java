@@ -54,7 +54,7 @@ public class PropriedadesBuscaSetor extends PropriedadesBusca {
         try {
             ClientResponse response = RESTMethods.get("/api/setor/search?palavrachave=" + getPalavraChave());
 
-            listaSetores = (List<Setor>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Setor>>() {
+            listaSetores = (List<Setor>) RESTMethods.getObjectsFromJSON(response, new TypeReference<List<Setor>>() {
             });
             tableModel = new SetorTableModel(listaSetores);
             super.getTabelaResultado().setModel(tableModel);

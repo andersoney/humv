@@ -32,6 +32,15 @@ import javax.persistence.TemporalType;
 public class Animal implements Serializable{
 	
 	private static final long serialVersionUID = -4309147069247595790L;
+    
+    public static final String ESPECIE_CANINO = "Canino";
+    public static final String ESPECIE_FELINO = "Felino";
+    public static final String ESPECIE_CAPRINO = "Caprino";
+    public static final String ESPECIE_OVINO = "Ovino";
+    public static final String ESPECIE_BOVINO = "Bovino";
+    public static final String ESPECIE_EQUINO = "Equino";
+    public static final String ESPECIE_SUINO = "Suíno";
+    public static final String ESPECIE_OUTROS = "Outros";
 	
 	@Id
 	@GeneratedValue

@@ -45,7 +45,7 @@ public class PropriedadesBuscaQuestionarioSocioeconomico extends PropriedadesBus
         HUMVApp.exibirMensagemCarregamento();
         try {
             ClientResponse response = RESTMethods.get("/api/questionarioSocioeconomico/search?palavrachave=" + getPalavraChave());
-            listaQuest = (List<QuestionarioSocioeconomico>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<QuestionarioSocioeconomico>>() {
+            listaQuest = (List<QuestionarioSocioeconomico>) RESTMethods.getObjectsFromJSON(response, new TypeReference<List<QuestionarioSocioeconomico>>() {
             });
             tableModel.setQuestionarios(listaQuest);
             super.getTabelaResultado().setModel(tableModel);
@@ -112,9 +112,13 @@ public class PropriedadesBuscaQuestionarioSocioeconomico extends PropriedadesBus
                 PrintUtils.printLista(PrintUtils.QUESTIONARIO_SOCIOECONOMICO, listaQuestionarios);
             }
         } else if (e.getSource().equals(super.getBotaoCancelar())) {
-            boolean sair = InterfaceGraficaUtils.dialogoSair();
-            if (sair) {
-                HUMVApp.setPainelCentralComLogo();
+            if (getjFrame() != null) {
+                getjFrame().dispose();
+            } else {
+                boolean sair = InterfaceGraficaUtils.dialogoSair();
+                if (sair) {
+                    HUMVApp.setPainelCentralComLogo();
+                }
             }
         }
     }

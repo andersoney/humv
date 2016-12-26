@@ -5,10 +5,10 @@ import br.edu.ufrb.lasis.humv.utils.ValidationsUtils;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.utils.MaskUtils;
 import br.edu.ufrb.lasis.humv.entity.Dono;
+import br.edu.ufrb.lasis.humv.entity.Usuario;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.ResultadoBusca;
-import br.edu.ufrb.lasis.humv.view.main.HUMVMainWindow;
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
 import javax.swing.JFrame;
@@ -351,7 +351,7 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
             return;
         }
 
-        if (jRadioButtonCpf.isSelected()) {
+        if (jRadioButtonCpf.isSelected() && !HUMVApp.getUsuarioLogado().getPerfil().equals(Usuario.PERFIL_ADMINISTRADOR)) {
             if (!ValidationsUtils.isCPF(MaskUtils.removeMascara(jTextFieldCpf.getText()))) {
                 InterfaceGraficaUtils.validaCampoInvalido("CPF");
                 return;
@@ -360,7 +360,7 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
             }
         }
 
-        if (jRadioButtonCnpj.isSelected()) {
+        if (jRadioButtonCnpj.isSelected() && !HUMVApp.getUsuarioLogado().getPerfil().equals(Usuario.PERFIL_ADMINISTRADOR)) {
             if (!ValidationsUtils.isCNPJ(MaskUtils.removeMascara(jTextFieldCnpj.getText()))) {
                 InterfaceGraficaUtils.validaCampoInvalido("CNPJ");
                 return;

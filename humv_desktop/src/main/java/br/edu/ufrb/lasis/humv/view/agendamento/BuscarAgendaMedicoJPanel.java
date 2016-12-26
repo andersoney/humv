@@ -55,7 +55,7 @@ public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
         if (medicos == null) {
             try {
                 ClientResponse response = RESTMethods.get("/api/usuario/obterMedicosAtivos");
-                medicos = (List<Usuario>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Usuario>>() {
+                medicos = (List<Usuario>) RESTMethods.getObjectsFromJSON(response, new TypeReference<List<Usuario>>() {
                 });
             } catch (RESTConnectionException | IOException ex) {
                 InterfaceGraficaUtils.erroConexao();

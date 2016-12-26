@@ -151,31 +151,6 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         getMenuBar().add(menuAjuda);
     }
 
-    public void criaMenuAtendimentoSocial() {
-        /**
-         * private JMenu menuAtendimentoSocial; private JMenuItem
-         * menuItemCadastrarAtendimentoSocial;
-         */
-        menuAtendimentoSocial = new JMenu("Atendimento Social");
-
-        menuItemCadastrarAtendimentoSocial = new JMenuItem("Cadastrar");
-        menuItemBuscarAtendimentoSocial = new JMenuItem("Buscar");
-        menuItemAlterarAtendimentoSocial = new JMenuItem("Alterar");
-        menuItemRemoverAtendimentoSocial = new JMenuItem("Remover");
-
-        menuItemCadastrarAtendimentoSocial.addActionListener(this);
-        menuItemBuscarAtendimentoSocial.addActionListener(this);
-        menuItemAlterarAtendimentoSocial.addActionListener(this);
-        menuItemRemoverAtendimentoSocial.addActionListener(this);
-
-        menuAtendimentoSocial.add(menuItemCadastrarAtendimentoSocial);
-        menuAtendimentoSocial.add(menuItemBuscarAtendimentoSocial);
-        menuAtendimentoSocial.add(menuItemAlterarAtendimentoSocial);
-        menuAtendimentoSocial.add(menuItemRemoverAtendimentoSocial);
-
-        getMenuBar().add(menuAtendimentoSocial);
-    }
-
     public void criaMenuUsuario() {
         menuUsuario = new JMenu("Usuário");
 
@@ -330,24 +305,58 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         getMenuBar().add(menuAtendimento);
     }
 
-    public void criaMenuQuestionarioSocial() {
+    public void criaMenuAtendimentoSocial(boolean soBusca) {
+        /**
+         * private JMenu menuAtendimentoSocial; private JMenuItem
+         * menuItemCadastrarAtendimentoSocial;
+         */
+        menuAtendimentoSocial = new JMenu("Atendimento Social");
+
+        if (!soBusca) {
+            menuItemCadastrarAtendimentoSocial = new JMenuItem("Cadastrar");
+            menuItemCadastrarAtendimentoSocial.addActionListener(this);
+            menuAtendimentoSocial.add(menuItemCadastrarAtendimentoSocial);
+        }
+
+        menuItemBuscarAtendimentoSocial = new JMenuItem("Buscar");
+        menuItemBuscarAtendimentoSocial.addActionListener(this);
+        menuAtendimentoSocial.add(menuItemBuscarAtendimentoSocial);
+
+        if (!soBusca) {
+            menuItemAlterarAtendimentoSocial = new JMenuItem("Alterar");
+            menuItemAlterarAtendimentoSocial.addActionListener(this);
+            menuAtendimentoSocial.add(menuItemAlterarAtendimentoSocial);
+
+            menuItemRemoverAtendimentoSocial = new JMenuItem("Remover");
+            menuItemRemoverAtendimentoSocial.addActionListener(this);
+            menuAtendimentoSocial.add(menuItemRemoverAtendimentoSocial);
+        }
+
+        getMenuBar().add(menuAtendimentoSocial);
+    }
+
+    public void criaMenuQuestionarioSocioeconomico(boolean soBusca) {
         this.menuQuestionarioSocial = new JMenu("Questionário socioeconômico");
-        menuItemCadastrarQuestionarioSocial = new JMenuItem("Cadastrar");
-        menuItemCadastrarQuestionarioSocial.addActionListener(this);
+
+        if (!soBusca) {
+            menuItemCadastrarQuestionarioSocial = new JMenuItem("Cadastrar");
+            menuItemCadastrarQuestionarioSocial.addActionListener(this);
+            menuQuestionarioSocial.add(menuItemCadastrarQuestionarioSocial);
+        }
 
         menuItemBuscarQuestionarioSocial = new JMenuItem("Buscar");
         menuItemBuscarQuestionarioSocial.addActionListener(this);
-
-        menuItemAlterarQuestionarioSocial = new JMenuItem("Alterar");
-        menuItemAlterarQuestionarioSocial.addActionListener(this);
-
-        menuItemRemocaoQuestionarioSocial = new JMenuItem("Remoção");
-        menuItemRemocaoQuestionarioSocial.addActionListener(this);
-
-        menuQuestionarioSocial.add(menuItemCadastrarQuestionarioSocial);
         menuQuestionarioSocial.add(menuItemBuscarQuestionarioSocial);
-        menuQuestionarioSocial.add(menuItemAlterarQuestionarioSocial);
-        menuQuestionarioSocial.add(menuItemRemocaoQuestionarioSocial);
+
+        if (!soBusca) {
+            menuItemAlterarQuestionarioSocial = new JMenuItem("Alterar");
+            menuItemAlterarQuestionarioSocial.addActionListener(this);
+            menuQuestionarioSocial.add(menuItemAlterarQuestionarioSocial);
+
+            menuItemRemocaoQuestionarioSocial = new JMenuItem("Remoção");
+            menuItemRemocaoQuestionarioSocial.addActionListener(this);
+            menuQuestionarioSocial.add(menuItemRemocaoQuestionarioSocial);
+        }
 
         getMenuBar().add(menuQuestionarioSocial);
     }
@@ -407,6 +416,7 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
             HUMVApp.setNovoPainelCentral(new BuscaJPanel("BUSCAR USUÁRIO PARA REMOÇÃO", new PropriedadesBuscaUsuario(PropriedadesBuscaUsuario.OPCAO_REMOVER)));
         } else if (source.equals(menuItemSair)) {
             if (InterfaceGraficaUtils.dialogoSair()) {
+                HUMVApp.invalidarUsuarioLogado();
                 HUMVApp.getMainWindow().setContentPane(new JPanel());
                 HUMVApp.getMainWindow().repaint();
                 new LoginJDialog(HUMVApp.getMainWindow()).setVisible(true);

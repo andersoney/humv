@@ -39,7 +39,7 @@ public class PropriedadesBuscaUsuario extends PropriedadesBusca {
     public void buscar() {
         try {
             ClientResponse response = RESTMethods.get("/api/usuario/search?palavrachave=" + getPalavraChave());
-            listaUsuarios = (List<Usuario>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Usuario>>() {
+            listaUsuarios = (List<Usuario>) RESTMethods.getObjectsFromJSON(response, new TypeReference<List<Usuario>>() {
             });
             tableModel = new UsuarioTableModel(listaUsuarios);
             super.getTabelaResultado().setModel(tableModel);
@@ -95,9 +95,13 @@ public class PropriedadesBuscaUsuario extends PropriedadesBusca {
         } else if (e.getSource().equals(super.getBotaoImprimirTabela())) {
             PrintUtils.printLista(PrintUtils.TABELA_USUARIOS, listaUsuarios);
         } else if (e.getSource().equals(super.getBotaoCancelar())) {
-            boolean sair = InterfaceGraficaUtils.dialogoSair();
-            if (sair) {
-                HUMVApp.setPainelCentralComLogo();
+            if (getjFrame() != null) {
+                getjFrame().dispose();
+            } else {
+                boolean sair = InterfaceGraficaUtils.dialogoSair();
+                if (sair) {
+                    HUMVApp.setPainelCentralComLogo();
+                }
             }
         }
     }

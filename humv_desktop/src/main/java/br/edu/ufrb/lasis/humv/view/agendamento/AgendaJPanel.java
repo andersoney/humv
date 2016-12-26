@@ -147,7 +147,7 @@ public class AgendaJPanel extends JPanel {
             String dataStr = ValidationsUtils.obterDataString(data);
             String emailMedico = medico.getEmail();
             ClientResponse response = RESTMethods.get("/api/atendimento/searchByDateAndMedicoSemCancelados?data=" + dataStr + "&idEmailMedico=" + emailMedico);
-            atendimentos = (List<Atendimento>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Atendimento>>() {
+            atendimentos = (List<Atendimento>) RESTMethods.getObjectsFromJSON(response, new TypeReference<List<Atendimento>>() {
             });
         } catch (RESTConnectionException | IOException ex) {
             InterfaceGraficaUtils.erroConexao();

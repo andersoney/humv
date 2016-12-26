@@ -54,7 +54,7 @@ public class PropriedadesBuscaDono extends PropriedadesBusca {
         try {
             ClientResponse response = RESTMethods.get("/api/dono/search?palavrachave=" + getPalavraChave());
 
-            listaDonos = (List<Dono>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Dono>>() {
+            listaDonos = (List<Dono>) RESTMethods.getObjectsFromJSON(response, new TypeReference<List<Dono>>() {
             });
             tableModel = new DonoTableModel(listaDonos);
             super.getTabelaResultado().setModel(tableModel);

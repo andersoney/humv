@@ -28,7 +28,10 @@ public class UsuarioService {
     
     @RequestMapping(method = RequestMethod.GET, value = "/{email:.*}")
     public Usuario findById(@PathVariable final String email){
-    	return usuarioServiceImpl.findById(email);
+    	System.out.println(email);
+    	Usuario u = usuarioServiceImpl.findById(email);
+    	System.out.println(u);
+    	return u;
     }
     
     @RequestMapping(method = RequestMethod.GET, value = "/search")

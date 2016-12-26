@@ -271,7 +271,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
     private void inserirAnimais(Dono dono) {
         try {
             ClientResponse response = RESTMethods.get("/api/animal/searchByDono/" + dono.getId().toString());
-            List<Animal> animais = (List<Animal>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Animal>>() {
+            List<Animal> animais = (List<Animal>) RESTMethods.getObjectsFromJSON(response, new TypeReference<List<Animal>>() {
             });
 
             String textoLabel = "Animais: ";

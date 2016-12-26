@@ -2,6 +2,7 @@ package br.edu.ufrb.lasis.humv.rest;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.utils.HUMVConfigUtils;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,7 +36,7 @@ public class RESTMethods {
     public static ClientResponse get(String resource) throws RESTConnectionException {
         //Exemplo de URL: "http://localhost:9090/JerseyJSONExample/rest/jsonServices/send"
         WebResource webResource = createClient(true).resource(getResourceURL(resource, false));
-        ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
+        ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON).get(ClientResponse.class);
 
         if (response.getStatus() != 200) {
             throw new RESTConnectionException(response, "Erro: código HTTP - " + response.getStatus() + "\n\nMensagem: " + response.getEntity(String.class));
@@ -89,7 +90,7 @@ public class RESTMethods {
         return response;
     }
 
-    public static Object getObjectFromJSON(ClientResponse response, TypeReference typeReference) throws IOException {
+    public static Object getObjectsFromJSON(ClientResponse response, TypeReference typeReference) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         Object obj = mapper.readValue(response.getEntityInputStream(), typeReference);

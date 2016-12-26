@@ -19,6 +19,8 @@ import java.util.Calendar;
 import javax.swing.JFrame;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -26,11 +28,13 @@ import javax.swing.SpinnerDateModel;
  */
 public class CadastrarAnimalJPanel extends javax.swing.JPanel implements ResultadoBusca {
 
+    private final static Logger logger = LoggerFactory.getLogger(CadastrarAnimalJPanel.class);
     private boolean grande = false;
     private Dono dono = null;
     private String porte;
     private final String servicoAnimal = "/api/animal";
     private Animal animalSelecionado;
+    private static final String[] ESPECIES = {Animal.ESPECIE_CANINO, Animal.ESPECIE_FELINO, Animal.ESPECIE_CAPRINO, Animal.ESPECIE_OVINO, Animal.ESPECIE_BOVINO, Animal.ESPECIE_EQUINO, Animal.ESPECIE_SUINO, Animal.ESPECIE_OUTROS};
 
     public CadastrarAnimalJPanel() {
         initComponents();
@@ -67,7 +71,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
             jLabelRghumv.setText("RGHUMV: "+animalSelecionado.getRghumv());
             jLabelTitulo.setText("ATUALIZAÇÃO DE ANIMAL");
             jTextFieldNomeAnimal.setText(animalSelecionado.getNome());
-            jTextFieldEspecie.setText(animalSelecionado.getEspecie());
+            jComboBoxEspecies.setSelectedIndex(findEspecieIndex(animalSelecionado.getEspecie()));
             jTextFieldIdade.setText("" + animalSelecionado.getIdade());
             jTextFieldRaca.setText(animalSelecionado.getRaca());
             if (animalSelecionado.getDono().getTipoDocumento().equalsIgnoreCase("CPF")) {
@@ -102,6 +106,15 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
             jRadioButtonMacho.setSelected(true);
             jRadioButtonPequenoPorte.setSelected(true);
         }
+    }
+    
+    private int findEspecieIndex(String especie){
+        for(int i=0; i < ESPECIES.length; i++){
+            if(especie.equalsIgnoreCase(ESPECIES[i])){
+                return i;
+            }
+        }
+        return ESPECIES.length - 1;
     }
 
     public void setIdNull() {
@@ -143,7 +156,6 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
         jLabelNomeAnimal = new javax.swing.JLabel();
         jTextFieldNomeAnimal = new javax.swing.JTextField();
         jLabelEspecie = new javax.swing.JLabel();
-        jTextFieldEspecie = new javax.swing.JTextField();
         jLabelRaca = new javax.swing.JLabel();
         jTextFieldRaca = new javax.swing.JTextField();
         jLabelSexo = new javax.swing.JLabel();
@@ -157,6 +169,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
         jLabelPelagem = new javax.swing.JLabel();
         jTextFieldPelagem = new javax.swing.JTextField();
         jLabelRghumv = new javax.swing.JLabel();
+        jComboBoxEspecies = new javax.swing.JComboBox<>();
         jButtonCancelar = new javax.swing.JButton();
         jLabelTitulo = new javax.swing.JLabel();
         jButtonConfirmar = new javax.swing.JButton();
@@ -207,7 +220,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
                             .addComponent(jSpinnerHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabelNomeDono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
                     .addComponent(jLabelCpfDono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanelDadosDonoLayout.createSequentialGroup()
                 .addComponent(jButtonPesquisarDono, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -280,6 +293,8 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
 
         jLabelPelagem.setText("Pelagem:");
 
+        jComboBoxEspecies.setModel(new javax.swing.DefaultComboBoxModel(ESPECIES));
+
         javax.swing.GroupLayout jPanelDadosAnimalLayout = new javax.swing.GroupLayout(jPanelDadosAnimal);
         jPanelDadosAnimal.setLayout(jPanelDadosAnimalLayout);
         jPanelDadosAnimalLayout.setHorizontalGroup(
@@ -295,27 +310,22 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
                     .addComponent(jTextFieldPelagem)
                     .addComponent(jLabelPelagem, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldIdade))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(jPanelDadosAnimalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanelDadosAnimalLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jTextFieldEspecie)
-                        .addGap(37, 37, 37))
+                        .addComponent(jRadioButtonMacho)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButtonFemea))
+                    .addComponent(jLabelSexo)
+                    .addComponent(jLabelPorte)
                     .addGroup(jPanelDadosAnimalLayout.createSequentialGroup()
-                        .addGroup(jPanelDadosAnimalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanelDadosAnimalLayout.createSequentialGroup()
-                                .addComponent(jRadioButtonMacho)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jRadioButtonFemea))
-                            .addComponent(jLabelSexo)
-                            .addComponent(jLabelPorte)
-                            .addGroup(jPanelDadosAnimalLayout.createSequentialGroup()
-                                .addComponent(jRadioButtonGrandePorte)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jRadioButtonPequenoPorte))
-                            .addComponent(jLabelRghumv, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(jRadioButtonGrandePorte)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButtonPequenoPorte))
+                    .addComponent(jLabelRghumv, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxEspecies, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 11, Short.MAX_VALUE))
         );
         jPanelDadosAnimalLayout.setVerticalGroup(
             jPanelDadosAnimalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,7 +334,8 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
                     .addGroup(jPanelDadosAnimalLayout.createSequentialGroup()
                         .addComponent(jLabelEspecie)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jComboBoxEspecies, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(1, 1, 1))
                     .addGroup(jPanelDadosAnimalLayout.createSequentialGroup()
                         .addComponent(jLabelNomeAnimal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -386,14 +397,15 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanelDadosDono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanelDadosAnimal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanelDadosAnimal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanelDadosDono, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -428,11 +440,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
             return;
         }
         String nomeAnimal = this.jTextFieldNomeAnimal.getText();
-        if (this.jTextFieldEspecie.getText().isEmpty()) {
-            InterfaceGraficaUtils.validaCampoVazio("espécie");
-            return;
-        }
-        String especie = this.jTextFieldEspecie.getText();
+        String especie = (String) this.jComboBoxEspecies.getSelectedItem();
         if (this.jTextFieldRaca.getText().isEmpty()) {
             InterfaceGraficaUtils.validaCampoVazio("raça");
             return;
@@ -512,6 +520,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
             }
         } catch (RESTConnectionException ex) {
             InterfaceGraficaUtils.erroConexao();
+            logger.error("mensagem: " + ex.getMessage(), ex);
         }
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
@@ -566,6 +575,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonConfirmar;
     private javax.swing.JButton jButtonPesquisarDono;
+    private javax.swing.JComboBox<String> jComboBoxEspecies;
     private com.toedter.calendar.JDateChooser jDateChooserData;
     private javax.swing.JLabel jLabelCpfDono;
     private javax.swing.JLabel jLabelDia;
@@ -587,7 +597,6 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
     private javax.swing.JRadioButton jRadioButtonMacho;
     private javax.swing.JRadioButton jRadioButtonPequenoPorte;
     private javax.swing.JSpinner jSpinnerHoras;
-    private javax.swing.JTextField jTextFieldEspecie;
     private javax.swing.JTextField jTextFieldIdade;
     private javax.swing.JTextField jTextFieldNomeAnimal;
     private javax.swing.JTextField jTextFieldPelagem;

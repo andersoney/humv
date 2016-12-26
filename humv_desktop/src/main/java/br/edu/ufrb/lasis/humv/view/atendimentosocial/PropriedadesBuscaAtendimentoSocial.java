@@ -50,7 +50,7 @@ public class PropriedadesBuscaAtendimentoSocial extends PropriedadesBusca {
         try {
             ClientResponse response = RESTMethods.get("/api/atendimentoSocial/search?palavrachave=" + getPalavraChave());
 
-            listaAtendimentoSocial = (List<AtendimentoSocial>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<AtendimentoSocial>>() {
+            listaAtendimentoSocial = (List<AtendimentoSocial>) RESTMethods.getObjectsFromJSON(response, new TypeReference<List<AtendimentoSocial>>() {
             });
             System.out.println("SIZE: " + listaAtendimentoSocial.size());
             tableModel = new AtendimentoSocialTableModel(listaAtendimentoSocial);

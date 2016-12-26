@@ -11,12 +11,14 @@ import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.reports.PrintUtils;
+import br.edu.ufrb.lasis.humv.utils.ResultadoBusca;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import org.slf4j.Logger;
@@ -31,9 +33,17 @@ public class PropriedadesBuscaProjeto extends PropriedadesBusca {
     private final static Logger logger = LoggerFactory.getLogger(PropriedadesBuscaProjeto.class);
     private ProjetoTableModel tableModel;
     private List<Projeto> listaProjetos;
+    private ResultadoBusca resultadoBusca = null;
 
     public PropriedadesBuscaProjeto(String tipoOperacao) {
         super(tipoOperacao);
+        tableModel = new ProjetoTableModel();
+        super.setTabelaResultado(new JTable(tableModel));
+    }
+    
+    public PropriedadesBuscaProjeto(String tipoOperacao, JFrame jFrame, ResultadoBusca resultadoBusca) {
+        super(tipoOperacao, jFrame);
+        this.resultadoBusca = resultadoBusca;
         tableModel = new ProjetoTableModel();
         super.setTabelaResultado(new JTable(tableModel));
     }
@@ -44,7 +54,7 @@ public class PropriedadesBuscaProjeto extends PropriedadesBusca {
         try {
             ClientResponse response = RESTMethods.get("/api/projeto/search?palavrachave=" + getPalavraChave());
 
-            listaProjetos = (List<Projeto>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Projeto>>() {
+            listaProjetos = (List<Projeto>) RESTMethods.getObjectsFromJSON(response, new TypeReference<List<Projeto>>() {
             });
             tableModel = new ProjetoTableModel(listaProjetos);
             super.getTabelaResultado().setModel(tableModel);
@@ -96,6 +106,10 @@ public class PropriedadesBuscaProjeto extends PropriedadesBusca {
                             }
                         }
                         break;
+                    case PropriedadesBusca.OPCAO_SELECIONAR:
+                        resultadoBusca.setResultado(projetoSelecionado);
+                        getjFrame().dispose();
+                        break;
                     default:
                         break;
                 }
@@ -103,9 +117,13 @@ public class PropriedadesBuscaProjeto extends PropriedadesBusca {
         } else if (ae.getSource().equals(super.getBotaoImprimirTabela())) {
             PrintUtils.printLista(PrintUtils.TABELA_PROJETOS, listaProjetos);
         } else if (ae.getSource().equals(super.getBotaoCancelar())) {
-            boolean sair = InterfaceGraficaUtils.dialogoSair();
-            if (sair) {
-                HUMVApp.setPainelCentralComLogo();
+            if (getjFrame() != null) {
+                getjFrame().dispose();
+            } else {
+                boolean sair = InterfaceGraficaUtils.dialogoSair();
+                if (sair) {
+                    HUMVApp.setPainelCentralComLogo();
+                }
             }
         }
     }

@@ -24,6 +24,8 @@ public class Atendimento implements Serializable {
     private BigInteger id;
 
     private Animal animal;
+    
+    private Projeto projeto;
 
     private Procedimento procedimento;
 
@@ -53,6 +55,14 @@ public class Atendimento implements Serializable {
 
     public void setAnimal(Animal animal) {
         this.animal = animal;
+    }
+
+    public Projeto getProjeto() {
+        return projeto;
+    }
+
+    public void setProjeto(Projeto projeto) {
+        this.projeto = projeto;
     }
 
     public Procedimento getProcedimento() {

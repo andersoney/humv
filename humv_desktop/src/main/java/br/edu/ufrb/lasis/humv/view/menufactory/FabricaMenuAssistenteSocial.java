@@ -19,8 +19,8 @@ public class FabricaMenuAssistenteSocial extends MenuBarFabricaAbstrata {
 
     @Override
     public void criaMenuBar() {
-        boolean comRemover = false;
-        super.criaMenuQuestionarioSocial();
+        boolean soBusca = false, comRemover = false;
+        super.criaMenuQuestionarioSocioeconomico(soBusca);
         super.criaMenuDono(comRemover);
         super.criaMenuAnimal(comRemover);
         super.criaMenuAjuda();

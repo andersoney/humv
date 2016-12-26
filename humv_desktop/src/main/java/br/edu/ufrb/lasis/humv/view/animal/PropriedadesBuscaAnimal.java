@@ -49,7 +49,7 @@ public class PropriedadesBuscaAnimal extends PropriedadesBusca {
         try {
             ClientResponse response = RESTMethods.get("/api/animal/search?palavrachave=" + getPalavraChave());
 
-            listaAnimais = (List<Animal>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Animal>>() {
+            listaAnimais = (List<Animal>) RESTMethods.getObjectsFromJSON(response, new TypeReference<List<Animal>>() {
             });
             tableModel = new AnimalTableModel(listaAnimais);
             super.getTabelaResultado().setModel(tableModel);

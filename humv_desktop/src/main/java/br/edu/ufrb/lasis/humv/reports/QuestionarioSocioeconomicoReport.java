@@ -47,7 +47,7 @@ public class QuestionarioSocioeconomicoReport {
         reportItem.setQuestionario(questionario);
         try {
             ClientResponse response = RESTMethods.get("/api/animal/searchByDono/" + questionario.getDono().getId().toString());
-            List<Animal> animais = (List<Animal>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Animal>>() {
+            List<Animal> animais = (List<Animal>) RESTMethods.getObjectsFromJSON(response, new TypeReference<List<Animal>>() {
             });
             reportItem.setAnimais(animais);
         } catch (RESTConnectionException | IOException ex) {

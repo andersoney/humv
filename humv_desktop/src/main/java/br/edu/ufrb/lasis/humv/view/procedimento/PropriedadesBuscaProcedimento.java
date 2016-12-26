@@ -54,7 +54,7 @@ public class PropriedadesBuscaProcedimento extends PropriedadesBusca {
         try {
             ClientResponse response = RESTMethods.get("/api/procedimento/search?palavrachave=" + getPalavraChave());
 
-            listaProcedimentos = (List<Procedimento>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Procedimento>>() {
+            listaProcedimentos = (List<Procedimento>) RESTMethods.getObjectsFromJSON(response, new TypeReference<List<Procedimento>>() {
             });
             tableModel = new ProcedimentoTableModel(listaProcedimentos);
             super.getTabelaResultado().setModel(tableModel);

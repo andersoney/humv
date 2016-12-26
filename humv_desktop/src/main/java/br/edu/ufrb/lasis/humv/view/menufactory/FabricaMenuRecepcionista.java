@@ -19,12 +19,12 @@ public class FabricaMenuRecepcionista extends MenuBarFabricaAbstrata {
 
     @Override
     public void criaMenuBar() {
-        boolean comRemover = false;
+        boolean soBusca = true, comRemover = false;
         super.criaMenuAtendimento();
         super.criaMenuDono(comRemover);
         super.criaMenuAnimal(comRemover);
         super.criaMenuProcedimento(comRemover);
-        super.criaMenuProjeto(comRemover);
+        super.criaMenuQuestionarioSocioeconomico(soBusca);
         super.criaMenuAjuda();
 
         super.criaBotaoVisualizarAgenda();
