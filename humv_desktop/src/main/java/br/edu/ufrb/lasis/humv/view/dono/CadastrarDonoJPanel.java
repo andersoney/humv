@@ -69,18 +69,18 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
             jTextFieldCep.setText(donoSelecionado.getCep());
             jTextFieldEndereco.setText(donoSelecionado.getEndereco());
             jTextFieldCidadeFazenda.setText(donoSelecionado.getCidade());
-            if (donoSelecionado.getTipoDocumento().equalsIgnoreCase("CPF")) {
-                jTextFieldCpf.setText(MaskUtils.formatarStringCPF(donoSelecionado.getCpfCnpj()));
-                jRadioButtonCpf.setSelected(true);
-                jRadioButtonCnpj.setSelected(false);
-                jTextFieldCnpj.setEnabled(false);
-                this.tipoDocumento = "CPF";
-            } else {
+            if (donoSelecionado.getTipoDocumento().equalsIgnoreCase("CNPJ")) {
                 jTextFieldCnpj.setText(MaskUtils.formatarStringCNPJ(donoSelecionado.getCpfCnpj()));
                 jRadioButtonCnpj.setSelected(true);
                 jRadioButtonCpf.setSelected(false);
                 jTextFieldCpf.setEnabled(false);
                 this.tipoDocumento = "CNPJ";
+            } else {
+                jTextFieldCpf.setText(MaskUtils.formatarStringCPF(donoSelecionado.getCpfCnpj()));
+                jRadioButtonCpf.setSelected(true);
+                jRadioButtonCnpj.setSelected(false);
+                jTextFieldCnpj.setEnabled(false);
+                this.tipoDocumento = "CPF";
             }
         }
     }

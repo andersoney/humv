@@ -88,7 +88,7 @@ public class MaskUtils {
     }
 
     public static String formatarStringCPF(String cpf) {
-        if (cpf != null && !cpf.isEmpty()) {
+        if (cpf != null && !cpf.isEmpty() && !cpf.equalsIgnoreCase("Não informado")) {
             BigInteger idInt = new BigInteger(cpf);
             NumberFormat numberFormat = NumberFormat.getInstance();
             numberFormat.setMinimumIntegerDigits(11);
@@ -101,7 +101,7 @@ public class MaskUtils {
     }
 
     public static String formatarStringCNPJ(String cnpj) {
-        if (cnpj != null && !cnpj.isEmpty()) {
+        if (cnpj != null && !cnpj.isEmpty() && !cnpj.equalsIgnoreCase("Não informado")) {
             BigInteger idInt = new BigInteger(cnpj);
             NumberFormat numberFormat = NumberFormat.getInstance();
             numberFormat.setMinimumIntegerDigits(14);

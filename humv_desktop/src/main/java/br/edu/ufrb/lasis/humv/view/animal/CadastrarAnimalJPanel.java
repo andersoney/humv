@@ -471,9 +471,9 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
             } else {
                 pelagem = this.jTextFieldPelagem.getText();
             }
-            porte = "pequeno";
+            porte = "Pequeno";
         } else {
-            porte = "grande";
+            porte = "Grande";
             pelagem = "não se aplica.";
         }
 
