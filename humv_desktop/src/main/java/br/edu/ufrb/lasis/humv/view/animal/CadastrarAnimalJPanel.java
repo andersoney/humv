@@ -1,5 +1,6 @@
 package br.edu.ufrb.lasis.humv.view.animal;
 
+import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.utils.MaskUtils;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -513,9 +514,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
                 } else {
                     InterfaceGraficaUtils.sucessoAtualizacao("animal");
                 }
-                HUMVApp.exibirMensagemCarregamento();
                 HUMVApp.setPainelCentralComLogo();
-                HUMVApp.esconderMensagemCarregamento();
             }
         } catch (RESTConnectionException ex) {
             InterfaceGraficaUtils.erroConexao();
@@ -528,9 +527,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
         if (sair) {
             this.setVisible(false);
             System.gc();
-            HUMVApp.exibirMensagemCarregamento();
             HUMVApp.setPainelCentralComLogo();
-            HUMVApp.esconderMensagemCarregamento();
         }
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 

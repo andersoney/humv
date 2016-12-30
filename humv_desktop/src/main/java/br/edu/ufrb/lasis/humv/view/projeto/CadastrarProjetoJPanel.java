@@ -5,6 +5,7 @@
  */
 package br.edu.ufrb.lasis.humv.view.projeto;
 
+import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Projeto;
 import br.edu.ufrb.lasis.humv.entity.Setor;
 import java.util.Date;
@@ -421,12 +422,11 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
                 } else {
                     InterfaceGraficaUtils.sucessoAtualizacao("projeto");
                 }
-                HUMVApp.exibirMensagemCarregamento();
                 HUMVApp.setPainelCentralComLogo();
-                HUMVApp.esconderMensagemCarregamento();
             }
         } catch (RESTConnectionException ex) {
             InterfaceGraficaUtils.erroConexao();
+            logger.error("mensagem: " + ex.getMessage(), ex);
         }
 
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
@@ -434,9 +434,7 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         boolean sair = InterfaceGraficaUtils.dialogoCancelar("o cadastro", "projeto");
         if (sair) {
-            HUMVApp.exibirMensagemCarregamento();
             HUMVApp.setPainelCentralComLogo();
-            HUMVApp.esconderMensagemCarregamento();
         }
 
     }//GEN-LAST:event_jButtonCancelarActionPerformed

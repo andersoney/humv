@@ -36,7 +36,7 @@ import br.edu.ufrb.lasis.humv.HUMVApp;
  */
 public class PrintUtils {
 
-    private final static Logger log = LoggerFactory.getLogger(PrintUtils.class);
+    private final static Logger logger = LoggerFactory.getLogger(PrintUtils.class);
     public static final String TABELA_ANIMAIS = "relatorios/tabela_animais.jasper";
     public static final String TABELA_DONOS = "relatorios/tabela_donos.jasper";
     public static final String TABELA_PROCEDIMENTOS = "relatorios/tabela_procedimentos.jasper";
@@ -54,11 +54,9 @@ public class PrintUtils {
                 parameters.put("INFO", "Relatório");
                 parameters.put("TABELA", lista);                
                 printDataSource(reportStream, parameters, lista);
-            } catch (JRException | FileNotFoundException exception) {
-                exception.printStackTrace();
+            } catch (JRException | FileNotFoundException ex) {
                 InterfaceGraficaUtils.erroGeracaoRelatorio();
-                String mensagem = InterfaceGraficaUtils.getMensagemErroGeracaoRelatorio();
-                log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, exception);
+                logger.error("mensagem: " + ex.getMessage(), ex);
             }
         } else {
             InterfaceGraficaUtils.semResultadosGeracaoRelatorio();
@@ -89,11 +87,9 @@ public class PrintUtils {
         try {
             JasperExportManager.exportReportToPdfFile(print, pathToPDF);
             InterfaceGraficaUtils.sucessoGeracaoRelatorio();
-        } catch (JRException exception) {
-            exception.printStackTrace();
+        } catch (JRException ex) {
             InterfaceGraficaUtils.erroGeracaoRelatorio();
-            String mensagem = InterfaceGraficaUtils.getMensagemErroGeracaoRelatorio();
-            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, exception);
+            logger.error("mensagem: " + ex.getMessage(), ex);
         }
     }
 
