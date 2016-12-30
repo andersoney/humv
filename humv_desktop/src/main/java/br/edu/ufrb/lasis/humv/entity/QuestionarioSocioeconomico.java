@@ -30,13 +30,13 @@ public class QuestionarioSocioeconomico implements Serializable {
     public static final Integer COBRANCA_DESCONTO = 3;
 
     private BigInteger id;
-    
+
     private Dono dono;
 
     private Date dataResposta;
     private Integer estadoCivil;
     private Integer idade;
-    private Integer nis;
+    private String nis;
     private String profissao;
     private Integer escolaridade;
     private String ocupacaoAtual;
@@ -55,10 +55,10 @@ public class QuestionarioSocioeconomico implements Serializable {
     private String observacoesDadosDono;
 
     private List<Parente> parentes;
-    
-    private List<Documentacao> documentosEntregues;
-    
-    private double rendaPerCapta;
+
+    private List<DocumentoComprovante> documentosEntregues;
+
+    private Double rendaPerCapta;
     private Double rendaTotal;
     private String impossibilidadesCusteio;
     private String bensFamiliares;
@@ -82,20 +82,22 @@ public class QuestionarioSocioeconomico implements Serializable {
     private Double valorDescontoCirurgias;
 
     private Double valorDescontoConsultas;
+    
+    private boolean validade6Meses;
 
     public Date getDataResposta() {
-		return dataResposta;
-	}
+        return dataResposta;
+    }
 
-	public void setDataResposta(Date dataResposta) {
-		this.dataResposta = dataResposta;
-	}
-	
-	public BigInteger getId() {
+    public void setDataResposta(Date dataResposta) {
+        this.dataResposta = dataResposta;
+    }
+
+    public BigInteger getId() {
         return id;
     }
 
-	public void setId(BigInteger id) {
+    public void setId(BigInteger id) {
         this.id = id;
     }
 
@@ -123,11 +125,11 @@ public class QuestionarioSocioeconomico implements Serializable {
         this.idade = idade;
     }
 
-    public Integer getNis() {
+    public String getNis() {
         return nis;
     }
 
-    public void setNis(Integer nis) {
+    public void setNis(String nis) {
         this.nis = nis;
     }
 
@@ -211,19 +213,19 @@ public class QuestionarioSocioeconomico implements Serializable {
         this.parentes = parentes;
     }
 
-    public List<Documentacao> getDocumentosEntregues() {
+    public List<DocumentoComprovante> getDocumentosEntregues() {
         return documentosEntregues;
     }
 
-    public void setDocumentosEntregues(List<Documentacao> documentosEntregues) {
+    public void setDocumentosEntregues(List<DocumentoComprovante> documentosEntregues) {
         this.documentosEntregues = documentosEntregues;
     }
 
-    public double getRendaPerCapta() {
+    public Double getRendaPerCapta() {
         return rendaPerCapta;
     }
 
-    public void setRendaPerCapta(double rendaPerCapta) {
+    public void setRendaPerCapta(Double rendaPerCapta) {
         this.rendaPerCapta = rendaPerCapta;
     }
 
@@ -393,6 +395,14 @@ public class QuestionarioSocioeconomico implements Serializable {
 
     public void setRendaTotal(Double rendaTotal) {
         this.rendaTotal = rendaTotal;
+    }
+
+    public boolean isValidade6Meses() {
+        return validade6Meses;
+    }
+
+    public void setValidade6Meses(boolean validade6Meses) {
+        this.validade6Meses = validade6Meses;
     }
 
 }

@@ -10,7 +10,7 @@ package br.edu.ufrb.lasis.humv.utils;
  * @author tassiovale
  */
 public interface ResultadoBusca {
-    
+
     public void setResultado(Object resultado);
-    
+
 }

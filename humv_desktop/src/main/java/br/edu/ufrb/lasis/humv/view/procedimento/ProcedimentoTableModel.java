@@ -24,8 +24,8 @@ public class ProcedimentoTableModel extends AbstractTableModel {
         initArrayTitulos();
         procedimentos = new ArrayList<Procedimento>();
     }
-    
-    private void initArrayTitulos(){
+
+    private void initArrayTitulos() {
         titulos = new String[4];
         titulos[0] = "Código";
         titulos[1] = "Nome";

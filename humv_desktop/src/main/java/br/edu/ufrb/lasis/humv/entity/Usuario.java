@@ -3,7 +3,7 @@ package br.edu.ufrb.lasis.humv.entity;
 import java.math.BigInteger;
 
 public class Usuario {
-    
+
     public static final String ADMINISTRADOR = "Administrador";
     public static final String RECEPCIONISTA = "Recepcionista";
     public static final String VETERINARIO = "Médico";

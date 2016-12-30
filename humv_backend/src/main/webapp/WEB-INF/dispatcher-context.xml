@@ -29,7 +29,7 @@
 		<property name="defaultContentType" value="application/json" />
 		<property name="favorPathExtension" value="false" />
 		<property name="favorParameter" value="true" />
-		<property name="useJaf" value="false" />
+		<property name="useJaf" value="false" /> 
 		<property name="mediaTypes">
 			<map>
 				<entry key="json" value="application/json" />

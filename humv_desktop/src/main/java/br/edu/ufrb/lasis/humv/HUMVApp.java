@@ -1,13 +1,21 @@
 package br.edu.ufrb.lasis.humv;
 
+import br.edu.ufrb.lasis.humv.entity.Usuario;
+import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
+import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.view.main.CarregandoJDialog;
 import br.edu.ufrb.lasis.humv.view.main.HUMVMainWindow;
 import br.edu.ufrb.lasis.humv.view.main.LoginJDialog;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.sun.jersey.api.client.ClientResponse;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.io.IOException;
+import java.net.URLEncoder;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -25,11 +33,12 @@ public class HUMVApp {
     static {
         System.setProperty("logback.configurationFile", "logback.xml");
     }
-private final static Logger log = LoggerFactory.getLogger(HUMVApp.class);
+    private final static Logger logger = LoggerFactory.getLogger(HUMVApp.class);
     private static HUMVMainWindow mainWindow;
     private static JPanel mainPanel = null;
     private static CarregandoJDialog carregandoDialog = null;
     private static String nomeUsuario;
+    private static Usuario usuarioLogado = null;
 
     public static HUMVMainWindow getMainWindow() {
         return mainWindow;
@@ -57,6 +66,33 @@ private final static Logger log = LoggerFactory.getLogger(HUMVApp.class);
 
     public static void setNomeUsuario(String usuario) {
         HUMVApp.nomeUsuario = usuario;
+    }
+
+    public static Usuario getUsuarioLogado() {
+        if (usuarioLogado == null) {
+            if (nomeUsuario.equalsIgnoreCase("humv")) {
+                usuarioLogado = new Usuario();
+                usuarioLogado.setAtivo(true);
+                usuarioLogado.setEmail("humv");
+                usuarioLogado.setNome("humv");
+                usuarioLogado.setPerfil(Usuario.PERFIL_ADMINISTRADOR);
+            } else {
+                try {
+                    ClientResponse response = RESTMethods.get("/api/usuario/" + URLEncoder.encode(nomeUsuario, "UTF-8"));
+                    usuarioLogado = (Usuario) RESTMethods.getObjectsFromJSON(response, new TypeReference<Usuario>() {
+                    });
+                } catch (RESTConnectionException | IOException ex) {
+                    //JOptionPane.showMessageDialog(getMainWindow(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
+                    logger.error("mensagem: " + ex.getMessage(), ex);
+                }
+            }
+        }
+        return usuarioLogado;
+    }
+
+    public static void invalidarUsuarioLogado() {
+        HUMVApp.nomeUsuario = null;
+        usuarioLogado = null;
     }
 
     public static void setPainelCentralComLogo() {
@@ -125,7 +161,7 @@ private final static Logger log = LoggerFactory.getLogger(HUMVApp.class);
             public void run() {
                 try {
                     UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-
+                    //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                 } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
                     java.util.logging.Logger.getLogger(HUMVMainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                 }

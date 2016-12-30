@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
  */
 public class AgendaJPanel extends JPanel {
 
-    private final static Logger log = LoggerFactory.getLogger(AgendaJPanel.class);
+    private final static Logger logger = LoggerFactory.getLogger(AgendaJPanel.class);
     private List<Atendimento> atendimentos;
     private Usuario medico;
     private String[] horarios;
@@ -148,12 +148,12 @@ public class AgendaJPanel extends JPanel {
             String dataStr = ValidationsUtils.obterDataString(data);
             String emailMedico = medico.getEmail();
             ClientResponse response = RESTMethods.get("/api/atendimento/searchByDateAndMedicoSemCancelados?data=" + dataStr + "&idEmailMedico=" + emailMedico);
-            atendimentos = (List<Atendimento>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Atendimento>>() {
+            atendimentos = (List<Atendimento>) RESTMethods.getObjectsFromJSON(response, new TypeReference<List<Atendimento>>() {
             });
         } catch (RESTConnectionException | IOException ex) {
             String mensagem = "Falha na comunicação com a base de dados. Por favor contate o administrador do sistema.";
             InterfaceGraficaUtils.erroConexao();
-            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
+            logger.error("mensagem: " + ex.getMessage(), ex);
         }
     }
 

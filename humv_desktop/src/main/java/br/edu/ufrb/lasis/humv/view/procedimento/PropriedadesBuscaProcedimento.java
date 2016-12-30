@@ -14,7 +14,7 @@ import br.edu.ufrb.lasis.humv.entity.Procedimento;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
-import br.edu.ufrb.lasis.humv.utils.PrintUtils;
+import br.edu.ufrb.lasis.humv.reports.PrintUtils;
 import br.edu.ufrb.lasis.humv.utils.ResultadoBusca;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -27,11 +27,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import br.edu.ufrb.lasis.humv.HUMVApp;
 
 public class PropriedadesBuscaProcedimento extends PropriedadesBusca {
 
-    private final static Logger log = LoggerFactory.getLogger(PropriedadesBuscaProcedimento.class);
+    private final static Logger logger = LoggerFactory.getLogger(PropriedadesBuscaProcedimento.class);
     private ProcedimentoTableModel tableModel;
     private List<Procedimento> listaProcedimentos;
     private ResultadoBusca resultadoBusca = null;
@@ -53,17 +52,16 @@ public class PropriedadesBuscaProcedimento extends PropriedadesBusca {
     public void buscar() {
         HUMVApp.exibirMensagemCarregamento();
         try {
-            ClientResponse response = RESTMethods.get("/api/procedimento/search?palavrachave=" + getCampoPalavraChave().getText());
+            ClientResponse response = RESTMethods.get("/api/procedimento/search?palavrachave=" + getPalavraChave());
 
-            listaProcedimentos = (List<Procedimento>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Procedimento>>() {
+            listaProcedimentos = (List<Procedimento>) RESTMethods.getObjectsFromJSON(response, new TypeReference<List<Procedimento>>() {
             });
             tableModel = new ProcedimentoTableModel(listaProcedimentos);
             super.getTabelaResultado().setModel(tableModel);
             super.getTabelaResultado().revalidate();
         } catch (RESTConnectionException | IOException ex) {
             InterfaceGraficaUtils.erroConexao();
-            String mensagem = InterfaceGraficaUtils.getMensagemErroConexao();
-            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
+            logger.error("mensagem: " + ex.getMessage(), ex);
         }
         HUMVApp.esconderMensagemCarregamento();
     }
@@ -104,9 +102,8 @@ public class PropriedadesBuscaProcedimento extends PropriedadesBusca {
                                     JOptionPane.showMessageDialog(super.getTabelaResultado(), resposta, "Erro", JOptionPane.ERROR_MESSAGE);
                                 }
                             } catch (RESTConnectionException ex) {
-                                String mensagem = "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.";
-                                JOptionPane.showMessageDialog(super.getTabelaResultado(), mensagem, "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
-                                log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
+                                JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
+                                logger.error("mensagem: " + ex.getMessage(), ex);
                             }
                         }
                         break;
@@ -119,7 +116,7 @@ public class PropriedadesBuscaProcedimento extends PropriedadesBusca {
                 }
             }
         } else if (e.getSource().equals(super.getBotaoImprimirTabela())) {
-            PrintUtils.print(PrintUtils.TABELA_PROCEDIMENTOS, listaProcedimentos);
+            PrintUtils.printLista(PrintUtils.TABELA_PROCEDIMENTOS, listaProcedimentos);
         } else if (e.getSource().equals(super.getBotaoCancelar())) {
             if (getjFrame() != null) {
                 getjFrame().dispose();

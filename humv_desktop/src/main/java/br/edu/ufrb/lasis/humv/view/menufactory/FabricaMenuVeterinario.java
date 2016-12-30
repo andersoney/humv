@@ -21,5 +21,5 @@ public class FabricaMenuVeterinario extends MenuBarFabricaAbstrata {
     public void criaMenuBar() {
         super.criaMenuAjuda();
     }
-    
+
 }

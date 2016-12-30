@@ -21,8 +21,8 @@ public class HUMVMainWindow extends javax.swing.JFrame {
         initComponents();
         customInitComponents();
     }
-    
-    private void customInitComponents(){
+
+    private void customInitComponents() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("HUMV UFRB v1.0");
         ImageIcon img = new ImageIcon("images/humv-logo-jframe.ico");

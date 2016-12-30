@@ -37,7 +37,7 @@
         <appender-ref ref="STDOUT" />
     </logger>
         
-    <root level="ALL">
+    <root level="OFF">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />
     </root>

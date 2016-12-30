@@ -5,7 +5,6 @@ import java.text.NumberFormat;
 import javax.swing.JFormattedTextField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import br.edu.ufrb.lasis.humv.HUMVApp;
 
 /**
  * Utilitário: Máscaras de campo.
@@ -19,17 +18,15 @@ import br.edu.ufrb.lasis.humv.HUMVApp;
  */
 public class MaskUtils {
 
-    private final static Logger log = LoggerFactory.getLogger(MaskUtils.class);
+    private final static Logger logger = LoggerFactory.getLogger(MaskUtils.class);
 
     public static JFormattedTextField mascaraTelefone() {
         try {
             javax.swing.text.MaskFormatter telefone = new javax.swing.text.MaskFormatter("(##)#####-####");
             JFormattedTextField jFormattedTextField = new JFormattedTextField(telefone);
             return jFormattedTextField;
-        } catch (Exception ex) {
-
-            String mensagem = "Falha na conversão da mascara de telefone";
-            log.debug("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem);
+        } catch (Exception e) {
+            logger.error("mensagem: " + e.getMessage(), e);
         }
         return null;
     }
@@ -39,9 +36,8 @@ public class MaskUtils {
             javax.swing.text.MaskFormatter cep = new javax.swing.text.MaskFormatter("#####-###");
             JFormattedTextField jFormattedTextField = new JFormattedTextField(cep);
             return jFormattedTextField;
-        } catch (Exception ex) {
-            String mensagem = "Falha na conversão da mescara de cep";
-            log.debug("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem);
+        } catch (Exception e) {
+            logger.error("mensagem: " + e.getMessage(), e);
         }
         return null;
     }
@@ -52,8 +48,7 @@ public class MaskUtils {
             JFormattedTextField jFormattedTextField = new JFormattedTextField(cnpj);
             return jFormattedTextField;
         } catch (Exception e) {
-            String mensagem = "Falha na conversão da mascara de Cnpj";
-            log.debug("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem);
+            logger.error("mensagem: " + e.getMessage(), e);
         }
         return null;
     }
@@ -64,8 +59,7 @@ public class MaskUtils {
             JFormattedTextField jFormattedTextField = new JFormattedTextField(cpf);
             return jFormattedTextField;
         } catch (Exception e) {
-            String mensagem = "Falha na conversão da mascara de CPF";
-            log.debug("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem);
+            logger.error("mensagem: " + e.getMessage(), e);
         }
         return null;
     }
@@ -76,8 +70,7 @@ public class MaskUtils {
             JFormattedTextField jFormattedTextField = new JFormattedTextField(idade);
             return jFormattedTextField;
         } catch (Exception e) {
-            String mensagem = "Falha na conversão da mascara de Idade.";
-            log.debug("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem);
+            logger.error("mensagem: " + e.getMessage(), e);
         }
         return null;
     }
@@ -95,21 +88,29 @@ public class MaskUtils {
     }
 
     public static String formatarStringCPF(String cpf) {
-        BigInteger idInt = new BigInteger(cpf);
-        NumberFormat numberFormat = NumberFormat.getInstance();
-        numberFormat.setMinimumIntegerDigits(11);
-        numberFormat.setMaximumIntegerDigits(11);
-        numberFormat.setGroupingUsed(false);
-        return numberFormat.format(idInt);
+        if (cpf != null && !cpf.isEmpty() && !cpf.equalsIgnoreCase("Não informado")) {
+            BigInteger idInt = new BigInteger(cpf);
+            NumberFormat numberFormat = NumberFormat.getInstance();
+            numberFormat.setMinimumIntegerDigits(11);
+            numberFormat.setMaximumIntegerDigits(11);
+            numberFormat.setGroupingUsed(false);
+            return numberFormat.format(idInt);
+        } else {
+            return "Não informado";
+        }
     }
 
     public static String formatarStringCNPJ(String cnpj) {
-        BigInteger idInt = new BigInteger(cnpj);
-        NumberFormat numberFormat = NumberFormat.getInstance();
-        numberFormat.setMinimumIntegerDigits(14);
-        numberFormat.setMaximumIntegerDigits(14);
-        numberFormat.setGroupingUsed(false);
-        return numberFormat.format(idInt);
+        if (cnpj != null && !cnpj.isEmpty() && !cnpj.equalsIgnoreCase("Não informado")) {
+            BigInteger idInt = new BigInteger(cnpj);
+            NumberFormat numberFormat = NumberFormat.getInstance();
+            numberFormat.setMinimumIntegerDigits(14);
+            numberFormat.setMaximumIntegerDigits(14);
+            numberFormat.setGroupingUsed(false);
+            return numberFormat.format(idInt);
+        } else {
+            return "Não informado";
+        }
     }
 
 }

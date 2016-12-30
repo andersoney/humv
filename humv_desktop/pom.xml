@@ -50,11 +50,22 @@
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
             <version>6.2.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.lowagie</groupId>
+                    <artifactId>itext</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports-fonts</artifactId>
             <version>4.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+            <version>2.1.7</version>
         </dependency>
 
         <!-- JCalendar -->
@@ -145,8 +156,8 @@
                 <version>2.6</version>
                 <configuration>
                     <excludes>
-			<exclude>**/logback.xml</exclude>
-		    </excludes>
+                        <exclude>**/logback.xml</exclude>
+                    </excludes>
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>

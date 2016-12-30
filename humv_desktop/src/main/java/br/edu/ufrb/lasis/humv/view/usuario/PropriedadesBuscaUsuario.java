@@ -10,7 +10,7 @@ import br.edu.ufrb.lasis.humv.entity.Usuario;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
-import br.edu.ufrb.lasis.humv.utils.PrintUtils;
+import br.edu.ufrb.lasis.humv.reports.PrintUtils;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.sun.jersey.api.client.ClientResponse;
@@ -20,7 +20,6 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import br.edu.ufrb.lasis.humv.HUMVApp;
 
 /**
  *
@@ -28,8 +27,7 @@ import br.edu.ufrb.lasis.humv.HUMVApp;
  */
 public class PropriedadesBuscaUsuario extends PropriedadesBusca {
 
-    private final static Logger log = LoggerFactory.getLogger(PropriedadesBuscaUsuario.class);
-
+    private final static Logger logger = LoggerFactory.getLogger(PropriedadesBuscaUsuario.class);
     private UsuarioTableModel tableModel;
     private List<Usuario> listaUsuarios;
 
@@ -40,16 +38,15 @@ public class PropriedadesBuscaUsuario extends PropriedadesBusca {
     @Override
     public void buscar() {
         try {
-            ClientResponse response = RESTMethods.get("/api/usuario/search?palavrachave=" + getCampoPalavraChave().getText());
-            listaUsuarios = (List<Usuario>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Usuario>>() {
+            ClientResponse response = RESTMethods.get("/api/usuario/search?palavrachave=" + getPalavraChave());
+            listaUsuarios = (List<Usuario>) RESTMethods.getObjectsFromJSON(response, new TypeReference<List<Usuario>>() {
             });
             tableModel = new UsuarioTableModel(listaUsuarios);
             super.getTabelaResultado().setModel(tableModel);
             super.getTabelaResultado().revalidate();
         } catch (RESTConnectionException | IOException ex) {
             InterfaceGraficaUtils.erroConexao();
-            String mensagem = InterfaceGraficaUtils.getMensagemErroConexao();
-            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
+            logger.error("mensagem: " + ex.getMessage(), ex);
         }
         HUMVApp.esconderMensagemCarregamento();
     }
@@ -87,8 +84,7 @@ public class PropriedadesBuscaUsuario extends PropriedadesBusca {
                                 }
                             } catch (RESTConnectionException ex) {
                                 InterfaceGraficaUtils.erroConexao();
-                                String mensagem = InterfaceGraficaUtils.getMensagemErroConexao();
-                                log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
+                                logger.error("mensagem: " + ex.getMessage(), ex);
                             }
                         }
                         break;
@@ -97,11 +93,15 @@ public class PropriedadesBuscaUsuario extends PropriedadesBusca {
                 }
             }
         } else if (e.getSource().equals(super.getBotaoImprimirTabela())) {
-            PrintUtils.print(PrintUtils.TABELA_USUARIOS, listaUsuarios);
+            PrintUtils.printLista(PrintUtils.TABELA_USUARIOS, listaUsuarios);
         } else if (e.getSource().equals(super.getBotaoCancelar())) {
-            boolean sair = InterfaceGraficaUtils.dialogoSair();
-            if (sair) {
-                HUMVApp.setPainelCentralComLogo();
+            if (getjFrame() != null) {
+                getjFrame().dispose();
+            } else {
+                boolean sair = InterfaceGraficaUtils.dialogoSair();
+                if (sair) {
+                    HUMVApp.setPainelCentralComLogo();
+                }
             }
         }
     }

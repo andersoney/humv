@@ -20,7 +20,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import br.edu.ufrb.lasis.humv.HUMVApp;
 
 /**
  *
@@ -28,7 +27,7 @@ import br.edu.ufrb.lasis.humv.HUMVApp;
  */
 public class CadastrarProjetoJPanel extends javax.swing.JPanel {
 
-    private final static Logger log = LoggerFactory.getLogger(CadastrarProjetoJPanel.class);
+    private final static Logger logger = LoggerFactory.getLogger(CadastrarProjetoJPanel.class);
     private final String servicoProjeto = "/api/projeto";
     private Projeto projetoSelecionado;
     private Setor setor;
@@ -342,7 +341,7 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
     private void jButtonExibirListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExibirListaActionPerformed
         try {
             ClientResponse response = RESTMethods.get("/api/setor");
-            List<Setor> lista = (List<Setor>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Setor>>() {
+            List<Setor> lista = (List<Setor>) RESTMethods.getObjectsFromJSON(response, new TypeReference<List<Setor>>() {
             });
             if (lista.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Não existem setores cadastrados.", "Lista de setores", JOptionPane.INFORMATION_MESSAGE);
@@ -351,7 +350,7 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
             }
         } catch (RESTConnectionException | IOException ex) {
             InterfaceGraficaUtils.erroConexao();
-            ex.printStackTrace();
+            logger.error("mensagem: " + ex.getMessage(), ex);
         }
     }//GEN-LAST:event_jButtonExibirListaActionPerformed
 
@@ -441,7 +440,6 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_jButtonCancelarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;

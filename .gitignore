@@ -8,3 +8,7 @@ humv_backend/src/main/webapp/META-INF/context.xml
 
 humv_desktop/arquivos/*
 /humv_desktop/target/
+/humv_excel_importer/nbproject/private/
+/humv_excel_importer/build/
+/humv_excel_importer/dist/
+/humv_importer/target/

@@ -12,7 +12,7 @@ import java.util.Date;
  *
  * @author Andersoney Rodrigues
  * @author Luiz Antônio Pereira
- * 
+ *
  * @version 3
  *
  * @since 26 de junho de 2016
@@ -21,6 +21,15 @@ import java.util.Date;
 public class Animal implements Serializable {
 
     private static final long serialVersionUID = -4309147069247595796L;
+    
+    public static final String ESPECIE_CANINO = "Canino";
+    public static final String ESPECIE_FELINO = "Felino";
+    public static final String ESPECIE_CAPRINO = "Caprino";
+    public static final String ESPECIE_OVINO = "Ovino";
+    public static final String ESPECIE_BOVINO = "Bovino";
+    public static final String ESPECIE_EQUINO = "Equino";
+    public static final String ESPECIE_SUINO = "Suíno";
+    public static final String ESPECIE_OUTROS = "Outros";
 
     private BigInteger rghumv; // RGHUMV é um número de registro próprio do hospital veterinário.
     private String nome;
@@ -32,6 +41,7 @@ public class Animal implements Serializable {
     private String pelagem; // não se aplica para animais de grande porte.
     private String porte; // pequeno ou grande
     private Date dataCadastro; // Data que o animal foi cadastrado no sistema.
+
     private Dono dono;
 
     public String getPorte() {

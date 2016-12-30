@@ -13,7 +13,6 @@ import java.security.NoSuchAlgorithmException;
 import javax.swing.JOptionPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import br.edu.ufrb.lasis.humv.HUMVApp;
 
 /**
  *
@@ -21,7 +20,7 @@ import br.edu.ufrb.lasis.humv.HUMVApp;
  */
 public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
 
-    private final static Logger log = LoggerFactory.getLogger(CadastrarUsuarioJPanel.class);
+    private final static Logger logger = LoggerFactory.getLogger(CadastrarUsuarioJPanel.class);
     private Usuario usuarioSelecionado = null;
 
     /**
@@ -51,6 +50,7 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
             textFieldNome.setText(usuarioSelecionado.getNome());
             textFieldEmail.setText(usuarioSelecionado.getEmail());
             textFieldEmail.setEnabled(false);
+            textFieldSiape.setEnabled(true);
             textFieldSiape.setText(usuarioSelecionado.getSiape().toString());
 
             if (usuarioSelecionado.getPerfil().compareTo(Usuario.PERFIL_ADMINISTRADOR) == 0) {
@@ -223,13 +223,36 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_buttonCancelarActionPerformed
 
     private void buttonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOKActionPerformed
-        BigInteger siape;
+        BigInteger siape = null;
+        /*
         try {
+            if(textFieldSiape.getText().isEmpty()){
+                JOptionPane.showMessageDialog(this, "O campo SIAPE não pode ser vazio.", "SIAPE inválido", JOptionPane.ERROR_MESSAGE);
+                textFieldSiape.setFocusable(true);
+                return;
+            }
+            if(Integer.parseInt(textFieldSiape.getText())<=0){
+                JOptionPane.showMessageDialog(this, "O campo SIAPE não pode ser negativo.", "SIAPE inválido", JOptionPane.ERROR_MESSAGE);
+                textFieldSiape.setFocusable(true);
+                return;
+            }
             siape = new BigInteger(textFieldSiape.getText());
         } catch (NumberFormatException ex) {
-            siape = new BigInteger("-1");
+            //siape = new BigInteger("-1");
+            JOptionPane.showMessageDialog(this, "O campo SIAPE não parece válido.", "SIAPE inválido", JOptionPane.ERROR_MESSAGE);
+            textFieldSiape.setFocusable(true);
+            return;
         }
-
+         */
+        if (textFieldSiape.getText().isEmpty()) {
+            siape = new BigInteger("-1");
+        } else {
+            try {
+                siape = new BigInteger(textFieldSiape.getText());
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "O campo SIAPE não parece válido.", "SIAPE inválido", JOptionPane.ERROR_MESSAGE);
+            }
+        }
         if (textFieldNome.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "O campo nome não pode ser vazio.", "Nome inválido", JOptionPane.ERROR_MESSAGE);
             textFieldNome.setFocusable(true);
@@ -303,16 +326,13 @@ public class CadastrarUsuarioJPanel extends javax.swing.JPanel {
                 }
             } catch (RESTConnectionException ex) {
                 InterfaceGraficaUtils.erroConexao();
-                ex.printStackTrace();
+                logger.error("mensagem: " + ex.getMessage(), ex);
             } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
                 JOptionPane.showMessageDialog(this, "Erro ao criptografar senha. Tente novamente mais tarde.", "Erro", JOptionPane.ERROR_MESSAGE);
-
-                String mensagem = "Erro ao criptografar senha. Tente novamente mais tarde.";
-                log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
+                logger.error("mensagem: " + ex.getMessage(), ex);
             }
         }
     }//GEN-LAST:event_buttonOKActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancelar;

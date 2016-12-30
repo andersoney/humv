@@ -5,7 +5,7 @@ import br.edu.ufrb.lasis.humv.entity.Animal;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
-import br.edu.ufrb.lasis.humv.utils.PrintUtils;
+import br.edu.ufrb.lasis.humv.reports.PrintUtils;
 import br.edu.ufrb.lasis.humv.utils.ResultadoBusca;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -18,7 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import br.edu.ufrb.lasis.humv.HUMVApp;
 
 /**
  *
@@ -26,7 +25,7 @@ import br.edu.ufrb.lasis.humv.HUMVApp;
  */
 public class PropriedadesBuscaAnimal extends PropriedadesBusca {
 
-    private final static Logger log = LoggerFactory.getLogger(PropriedadesBuscaAnimal.class);
+    private final static Logger logger = LoggerFactory.getLogger(PropriedadesBuscaAnimal.class);
     private AnimalTableModel tableModel;
     private List<Animal> listaAnimais;
     private ResultadoBusca resultadoBusca;
@@ -48,17 +47,16 @@ public class PropriedadesBuscaAnimal extends PropriedadesBusca {
     public void buscar() {
         HUMVApp.exibirMensagemCarregamento();
         try {
-            ClientResponse response = RESTMethods.get("/api/animal/search?palavrachave=" + getCampoPalavraChave().getText());
+            ClientResponse response = RESTMethods.get("/api/animal/search?palavrachave=" + getPalavraChave());
 
-            listaAnimais = (List<Animal>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Animal>>() {
+            listaAnimais = (List<Animal>) RESTMethods.getObjectsFromJSON(response, new TypeReference<List<Animal>>() {
             });
             tableModel = new AnimalTableModel(listaAnimais);
             super.getTabelaResultado().setModel(tableModel);
             super.getTabelaResultado().revalidate();
         } catch (RESTConnectionException | IOException ex) {
             JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
-            String mensagem = "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.";
-            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
+            logger.error("mensagem: " + ex.getMessage(), ex);
         }
         HUMVApp.esconderMensagemCarregamento();
     }
@@ -96,8 +94,7 @@ public class PropriedadesBuscaAnimal extends PropriedadesBusca {
                                 }
                             } catch (RESTConnectionException ex) {
                                 JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
-                                String mensagem = "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.";
-                                log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
+                                logger.error("mensagem: " + ex.getMessage(), ex);
                             }
                         }
                         break;
@@ -110,7 +107,7 @@ public class PropriedadesBuscaAnimal extends PropriedadesBusca {
                 }
             }
         } else if (e.getSource().equals(super.getBotaoImprimirTabela())) {
-            PrintUtils.print(PrintUtils.TABELA_ANIMAIS, listaAnimais);
+            PrintUtils.printLista(PrintUtils.TABELA_ANIMAIS, listaAnimais);
         } else if (e.getSource().equals(super.getBotaoCancelar())) {
             if (getjFrame() != null) {
                 getjFrame().dispose();

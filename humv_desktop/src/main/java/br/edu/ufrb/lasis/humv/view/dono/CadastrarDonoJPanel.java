@@ -5,6 +5,7 @@ import br.edu.ufrb.lasis.humv.utils.ValidationsUtils;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.utils.MaskUtils;
 import br.edu.ufrb.lasis.humv.entity.Dono;
+import br.edu.ufrb.lasis.humv.entity.Usuario;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.ResultadoBusca;
@@ -14,7 +15,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import br.edu.ufrb.lasis.humv.HUMVApp;
 
 /**
  *
@@ -22,7 +22,7 @@ import br.edu.ufrb.lasis.humv.HUMVApp;
  */
 public class CadastrarDonoJPanel extends javax.swing.JPanel {
 
-    private final static Logger log = LoggerFactory.getLogger(CadastrarDonoJPanel.class);
+    private final static Logger logger = LoggerFactory.getLogger(CadastrarDonoJPanel.class);
     private final String servicoDono = "/api/dono";
     private String cpfCnpj;
     private String tipoDocumento;
@@ -35,6 +35,7 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
      */
     public CadastrarDonoJPanel() {
         initComponents();
+        customInitComponents();
         this.jRadioButtonCidade.setSelected(true);
         this.jRadioButtonCpf.setSelected(true);
         this.jRadioButtonCnpj.setSelected(false);
@@ -43,8 +44,6 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
         this.jTextFieldCnpj.setText("");
         this.jTextFieldCnpj.setEnabled(false);
         this.tipoDocumento = "CPF";
-        buttonGroupLocal.add(jRadioButtonCidade);
-        buttonGroupLocal.add(jRadioButtonFazenda);
     }
 
     public CadastrarDonoJPanel(Dono donoSelecionado) {
@@ -60,6 +59,8 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
     }
 
     private void customInitComponents() {
+        buttonGroupLocal.add(jRadioButtonCidade);
+        buttonGroupLocal.add(jRadioButtonFazenda);
         if (donoSelecionado != null) {
             jLabelTitulo.setText("ATUALIZAÇÃO DE DONO");
             nomeJTF.setText(donoSelecionado.getNome());
@@ -68,18 +69,18 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
             jTextFieldCep.setText(donoSelecionado.getCep());
             jTextFieldEndereco.setText(donoSelecionado.getEndereco());
             jTextFieldCidadeFazenda.setText(donoSelecionado.getCidade());
-            if (donoSelecionado.getTipoDocumento().equalsIgnoreCase("CPF")) {
-                jTextFieldCpf.setText(MaskUtils.formatarStringCPF(donoSelecionado.getCpfCnpj()));
-                jRadioButtonCpf.setSelected(true);
-                jRadioButtonCnpj.setSelected(false);
-                jTextFieldCnpj.setEnabled(false);
-                this.tipoDocumento = "CPF";
-            } else {
+            if (donoSelecionado.getTipoDocumento().equalsIgnoreCase("CNPJ")) {
                 jTextFieldCnpj.setText(MaskUtils.formatarStringCNPJ(donoSelecionado.getCpfCnpj()));
                 jRadioButtonCnpj.setSelected(true);
                 jRadioButtonCpf.setSelected(false);
                 jTextFieldCpf.setEnabled(false);
                 this.tipoDocumento = "CNPJ";
+            } else {
+                jTextFieldCpf.setText(MaskUtils.formatarStringCPF(donoSelecionado.getCpfCnpj()));
+                jRadioButtonCpf.setSelected(true);
+                jRadioButtonCnpj.setSelected(false);
+                jTextFieldCnpj.setEnabled(false);
+                this.tipoDocumento = "CPF";
             }
         }
     }
@@ -333,8 +334,12 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         boolean sair = InterfaceGraficaUtils.dialogoCancelar("o cadastro", "dono");
-        if (sair && jFrame != null) {
-            jFrame.dispose();
+        if (sair) {
+            if(jFrame != null){
+                jFrame.dispose();
+            } else {
+                HUMVApp.setPainelCentralComLogo();
+            }
         }
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
@@ -346,7 +351,7 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
             return;
         }
 
-        if (jRadioButtonCpf.isSelected()) {
+        if (jRadioButtonCpf.isSelected() && !HUMVApp.getUsuarioLogado().getPerfil().equals(Usuario.PERFIL_ADMINISTRADOR)) {
             if (!ValidationsUtils.isCPF(MaskUtils.removeMascara(jTextFieldCpf.getText()))) {
                 InterfaceGraficaUtils.validaCampoInvalido("CPF");
                 return;
@@ -355,7 +360,7 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
             }
         }
 
-        if (jRadioButtonCnpj.isSelected()) {
+        if (jRadioButtonCnpj.isSelected() && !HUMVApp.getUsuarioLogado().getPerfil().equals(Usuario.PERFIL_ADMINISTRADOR)) {
             if (!ValidationsUtils.isCNPJ(MaskUtils.removeMascara(jTextFieldCnpj.getText()))) {
                 InterfaceGraficaUtils.validaCampoInvalido("CNPJ");
                 return;
@@ -444,12 +449,10 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
             }
         } catch (RESTConnectionException ex) {
             InterfaceGraficaUtils.erroConexao();
-            String mensagem = InterfaceGraficaUtils.getMensagemErroConexao();
-            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
+            logger.error("mensagem: " + ex.getMessage(), ex);
         } catch (ClientHandlerException ex) {
             JOptionPane.showMessageDialog(null, "Erro no cadastro do dono. Por favor, tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
-            String mensagem = "Erro no cadastro do dono. Por favor, tente novamente.";
-            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
+            logger.error("mensagem: " + ex.getMessage(), ex);
         }
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 

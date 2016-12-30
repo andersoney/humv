@@ -61,7 +61,7 @@ public class DonoServiceImpl {
 
 	public String atualizarDono(Dono dono, String usuarioResponsavel){
 		if(donoDAO.findByKey(dono.getId())==null){
-			//logger.error("[signup] Nenhum dono com o id " + dono.getId() + "foi encontrado no sistema.");
+			logger.error("[signup] Nenhum dono com o id " + dono.getId() + "foi encontrado no sistema.");
 			return "Nenhum dono com o CPF " + dono.getId() + " encontrado no sistema. Por favor, informe um CPF diferente.";
 		}
 		donoDAO.updateOwner(dono);

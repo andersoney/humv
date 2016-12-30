@@ -23,7 +23,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import br.edu.ufrb.lasis.humv.HUMVApp;
 
 /**
  *
@@ -31,7 +30,7 @@ import br.edu.ufrb.lasis.humv.HUMVApp;
  */
 public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements ResultadoBusca {
 
-    private final static Logger log = LoggerFactory.getLogger(CadastrarProcedimentoJPanel.class);
+    private final static Logger logger = LoggerFactory.getLogger(CadastrarProcedimentoJPanel.class);
     private Setor setor = null;
     private String nomeSetor;
     private final String servicoProcedimento = "/api/procedimento";
@@ -58,10 +57,10 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements R
             jLabelTitulo.setText("ALTERAÇÃO DO PROCEDIMENTO");
             jTextFieldNome.setText(procedimentoSelecionado.getNome());
             jTextFieldCodigo.setText(procedimentoSelecionado.getCodigo().toString());
-            jTextFieldPreco.setText("" + procedimentoSelecionado.getValor());
+            jTextFieldPreco.setText("" + ValidationsUtils.convertePrecoParaString(procedimentoSelecionado.getValor()));
             setor = procedimentoSelecionado.getSetor();
             nomeSetor = procedimentoSelecionado.getSetor().getNome();
-            jLabelNomeSetor.setText("Nome: " + setor + " - " + nomeSetor);
+            jLabelNomeSetor.setText("Nome: " + nomeSetor);
         }
     }
 
@@ -316,8 +315,7 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements R
             }
         } catch (RESTConnectionException ex) {
             InterfaceGraficaUtils.erroConexao();
-            String mensagem = InterfaceGraficaUtils.getMensagemErroConexao();
-            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
+            logger.error("mensagem: " + ex.getMessage(), ex);
         }
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
@@ -336,7 +334,7 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements R
     private void jButtonExibirListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExibirListaActionPerformed
         try {
             ClientResponse response = RESTMethods.get("/api/setor");
-            List<Setor> lista = (List<Setor>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Setor>>() {
+            List<Setor> lista = (List<Setor>) RESTMethods.getObjectsFromJSON(response, new TypeReference<List<Setor>>() {
             });
             if (lista.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Não existem setores cadastrados.", "Lista de setores", JOptionPane.INFORMATION_MESSAGE);
@@ -345,8 +343,7 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements R
             }
         } catch (RESTConnectionException | IOException ex) {
             InterfaceGraficaUtils.erroConexao();
-            String mensagem = InterfaceGraficaUtils.getMensagemErroConexao();
-            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
+            logger.error("mensagem: " + ex.getMessage(), ex);
         }
     }//GEN-LAST:event_jButtonExibirListaActionPerformed
 
@@ -357,7 +354,6 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements R
         jFrame.setContentPane(buscaPanel);
         InterfaceGraficaUtils.exibirJanela(jFrame);
     }//GEN-LAST:event_jButtonPesqusarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCadastrarSetor;

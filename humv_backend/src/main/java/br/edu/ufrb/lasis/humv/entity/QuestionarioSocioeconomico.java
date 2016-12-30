@@ -7,12 +7,16 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "QUESTIONARIOS_SOCIOECONOMICOS")
@@ -39,7 +43,7 @@ public class QuestionarioSocioeconomico implements Serializable {
     public static final Integer COBRANCA_AULA = 1;
     public static final Integer COBRANCA_INSENCAO = 2;
     public static final Integer COBRANCA_DESCONTO = 3;
-
+    
     @Id
     @GeneratedValue
     private BigInteger id;
@@ -51,7 +55,7 @@ public class QuestionarioSocioeconomico implements Serializable {
     private Date dataResposta;
     private Integer estadoCivil;
     private Integer idade;
-    private Integer nis;
+    private String nis;
     private String profissao;
     private Integer escolaridade;
     private String ocupacaoAtual;
@@ -69,13 +73,15 @@ public class QuestionarioSocioeconomico implements Serializable {
     private String bolsaOuBeneficio;
     private String observacoesDadosDono;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Parente> parentes;
     
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Documentacao> documentosEntregues;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<DocumentoComprovante> documentosEntregues;
 
-    private double rendaPerCapta;
+    private Double rendaPerCapta;
     private Double rendaTotal;
     private String impossibilidadesCusteio;
     private String bensFamiliares;
@@ -99,6 +105,8 @@ public class QuestionarioSocioeconomico implements Serializable {
     private Double valorDescontoCirurgias;
 
     private Double valorDescontoConsultas;
+    
+    private boolean validade6Meses;
 
     public Date getDataResposta() {
         return dataResposta;
@@ -140,11 +148,11 @@ public class QuestionarioSocioeconomico implements Serializable {
         this.idade = idade;
     }
 
-    public Integer getNis() {
+    public String getNis() {
         return nis;
     }
 
-    public void setNis(Integer nis) {
+    public void setNis(String nis) {
         this.nis = nis;
     }
 
@@ -228,19 +236,19 @@ public class QuestionarioSocioeconomico implements Serializable {
         this.parentes = parentes;
     }
 
-    public List<Documentacao> getDocumentosEntregues() {
+    public List<DocumentoComprovante> getDocumentosEntregues() {
         return documentosEntregues;
     }
 
-    public void setDocumentosEntregues(List<Documentacao> documentosEntregues) {
+    public void setDocumentosEntregues(List<DocumentoComprovante> documentosEntregues) {
         this.documentosEntregues = documentosEntregues;
     }
 
-    public double getRendaPerCapta() {
+    public Double getRendaPerCapta() {
         return rendaPerCapta;
     }
 
-    public void setRendaPerCapta(double rendaPerCapta) {
+    public void setRendaPerCapta(Double rendaPerCapta) {
         this.rendaPerCapta = rendaPerCapta;
     }
 
@@ -411,5 +419,13 @@ public class QuestionarioSocioeconomico implements Serializable {
     public void setRendaTotal(Double rendaTotal) {
         this.rendaTotal = rendaTotal;
     }
+
+	public boolean isValidade6Meses() {
+		return validade6Meses;
+	}
+
+	public void setValidade6Meses(boolean validade6Meses) {
+		this.validade6Meses = validade6Meses;
+	}
 
 }

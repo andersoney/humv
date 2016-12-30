@@ -14,17 +14,18 @@ public class FabricaMenuAdministrador extends MenuBarFabricaAbstrata {
 
     @Override
     public void criaMenuBar() {
-        boolean comRemover = true;
+        boolean soBusca = false, comRemover = true;
         super.criaMenuUsuario();
         super.criaMenuDono(comRemover);
         super.criaMenuAnimal(comRemover);
         super.criaMenuSetor(comRemover);
-        super.criaMenuProcedimento(false);
+        super.criaMenuProcedimento(soBusca);
         super.criaMenuProjeto(comRemover);
         super.criaMenuAtendimento();
-        super.criaMenuQuestionarioSocial();
+        super.criaMenuQuestionarioSocioeconomico(soBusca);
+        this.criaMenuAtendimentoSocial(soBusca);
         super.criaMenuAjuda();
-        
+
         super.criaBotaoCadastrarProcedimento();
         super.criaBotaoCadastrarAnimal();
         super.criaBotaoCadastrarUsuario();

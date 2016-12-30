@@ -21,16 +21,18 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabelTitulo" alignment="1" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jPanelDadosDono" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Component id="jButtonCancelar" min="-2" pref="110" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButtonConfirmar" min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jPanelDadosAnimal" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jPanelDadosAnimal" max="32767" attributes="0"/>
+                          <Component id="jPanelDadosDono" pref="435" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -86,7 +88,7 @@
                       <Component id="jLabelNomeDono" alignment="0" pref="442" max="32767" attributes="0"/>
                       <Component id="jLabelCpfDono" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="16" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jButtonPesquisarDono" min="-2" pref="110" max="-2" attributes="0"/>
@@ -210,32 +212,25 @@
                       <Component id="jLabelPelagem" alignment="0" min="-2" pref="172" max="-2" attributes="0"/>
                       <Component id="jTextFieldIdade" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="17" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                          <Component id="jTextFieldEspecie" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="jLabelEspecie" min="-2" pref="172" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jRadioButtonMacho" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonFemea" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabelEspecie" min="-2" pref="172" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jRadioButtonMacho" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jRadioButtonFemea" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="jLabelSexo" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelPorte" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jRadioButtonGrandePorte" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jRadioButtonPequenoPorte" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jLabelSexo" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelPorte" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jRadioButtonGrandePorte" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonPequenoPorte" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="jLabelRghumv" min="-2" pref="130" max="-2" attributes="0"/>
+                      <Component id="jComboBoxEspecies" alignment="0" min="-2" pref="189" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace min="0" pref="11" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -246,7 +241,8 @@
                       <Group type="102" attributes="0">
                           <Component id="jLabelEspecie" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jTextFieldEspecie" min="-2" max="-2" attributes="0"/>
+                          <Component id="jComboBoxEspecies" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Component id="jLabelNomeAnimal" min="-2" max="-2" attributes="0"/>
@@ -279,7 +275,10 @@
                       <Component id="jRadioButtonPequenoPorte" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jLabelPelagem" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabelPelagem" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelRghumv" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jTextFieldPelagem" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
@@ -299,8 +298,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Esp&#xe9;cie:"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldEspecie">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelRaca">
           <Properties>
@@ -364,6 +361,18 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldPelagem">
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelRghumv">
+        </Component>
+        <Component class="javax.swing.JComboBox" name="jComboBoxEspecies">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new javax.swing.DefaultComboBoxModel(ESPECIES)" type="code"/>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

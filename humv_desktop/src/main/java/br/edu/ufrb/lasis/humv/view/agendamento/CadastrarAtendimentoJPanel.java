@@ -5,6 +5,7 @@ import br.edu.ufrb.lasis.humv.entity.Animal;
 import br.edu.ufrb.lasis.humv.entity.Atendimento;
 import br.edu.ufrb.lasis.humv.entity.Dono;
 import br.edu.ufrb.lasis.humv.entity.Procedimento;
+import br.edu.ufrb.lasis.humv.entity.Projeto;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.HUMVConfigUtils;
@@ -16,6 +17,7 @@ import br.edu.ufrb.lasis.humv.view.animal.PropriedadesBuscaAnimal;
 import br.edu.ufrb.lasis.humv.view.busca.BuscaJPanel;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import br.edu.ufrb.lasis.humv.view.procedimento.PropriedadesBuscaProcedimento;
+import br.edu.ufrb.lasis.humv.view.projeto.PropriedadesBuscaProjeto;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,7 +29,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import br.edu.ufrb.lasis.humv.HUMVApp;
 
 /**
  *
@@ -35,13 +36,14 @@ import br.edu.ufrb.lasis.humv.HUMVApp;
  */
 public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements ResultadoBusca, ActionListener {
 
-    private final static Logger log = LoggerFactory.getLogger(CadastrarAtendimentoJPanel.class);
+    private final static Logger logger = LoggerFactory.getLogger(CadastrarAtendimentoJPanel.class);
     private Atendimento atendimento = null;
     private String horario = null;
     private Date data = null;
     private AgendaJPanel agendaJPanel;
     private Animal animalResultadoBusca = null;
     private Procedimento procedimentoResultadoBusca = null;
+    private Projeto projetoResultadoBusca = null;
     private String valorAnterior = "0,00";
 
     public CadastrarAtendimentoJPanel(AgendaJPanel agendaJPanel, Date data, String horario) {
@@ -83,10 +85,12 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
 
         setEnabledComponentesDeValorProcedimento(false);
 
-        if (horario == null) {
+        if (horario == null && atendimento == null) {
             jLabelHorario.setText("EXTRA");
-        } else {
+        } else if (horario != null) {
             jLabelHorario.setText(horario);
+        } else {
+            jLabelHorario.setText(ValidationsUtils.obterHoraString(atendimento.getHorarioMarcado()));
         }
 
         jCheckBoxRetorno.addActionListener(this);
@@ -123,6 +127,11 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
             jLabelProcedimento.setText(
                     procedimentoResultadoBusca.getCodigo().toString() + " - " + procedimentoResultadoBusca.getNome()
             );
+            
+            if(atendimento.getProjeto() != null){
+                projetoResultadoBusca = atendimento.getProjeto();
+                jLabelProjeto.setText(atendimento.getProjeto().getId() + " - " + atendimento.getProjeto().getNome());
+            }
 
             int tipoCobranca = atendimento.getTipoCobranca();
             if (tipoCobranca == Atendimento.COBRANCA_VALOR_NORMAL) {
@@ -222,6 +231,9 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
                     ValidationsUtils.convertePrecoParaString(procedimentoResultadoBusca.getValor())
             );
             setEnabledComponentesDeValorProcedimento(true);
+        } else if (resultado instanceof Projeto) {
+            projetoResultadoBusca = (Projeto) resultado;
+            jLabelProjeto.setText(projetoResultadoBusca.getId() + " - " + projetoResultadoBusca.getNome());
         }
     }
 
@@ -282,6 +294,9 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
         jTextAreaMotivo = new javax.swing.JTextArea();
         jCheckBoxRetorno = new javax.swing.JCheckBox();
         jSpinnerDesconto = new javax.swing.JSpinner();
+        jButtonBuscarProjeto = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jLabelProjeto = new javax.swing.JLabel();
 
         jLabelTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -490,6 +505,20 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
 
         jCheckBoxRetorno.setText("Retorno");
 
+        jButtonBuscarProjeto.setIcon(new javax.swing.ImageIcon("imagens/small_buscar.png"));
+        jButtonBuscarProjeto.setText("Buscar projeto");
+        jButtonBuscarProjeto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarProjetoActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Projeto:");
+
+        jLabelProjeto.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabelProjeto.setText("Não informado");
+        jLabelProjeto.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -498,44 +527,53 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
                 .addContainerGap()
                 .addComponent(jLabelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap(18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonSalvar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel16))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane2)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel15)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextFieldValorCobrado, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(234, 234, 234)
-                            .addComponent(jCheckBoxRetorno))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel13)
-                            .addGap(10, 10, 10)
-                            .addComponent(jRadioNormal)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jRadioAula)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jRadioIsencao)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jRadioDesconto)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jSpinnerDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel14)))
-                    .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel16))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane2)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel15)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTextFieldValorCobrado, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(234, 234, 234)
+                                    .addComponent(jCheckBoxRetorno))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel13)
+                                    .addGap(10, 10, 10)
+                                    .addComponent(jRadioNormal)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jRadioAula)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jRadioIsencao)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jRadioDesconto)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jSpinnerDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel14)))
+                            .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonBuscarAnimal, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButtonBuscarProcedimento, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabelProcedimento, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -543,29 +581,20 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabelHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 226, Short.MAX_VALUE))
+                                .addComponent(jLabelHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButtonBuscarProcedimento, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButtonBuscarProjeto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel12)
+                                .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabelProcedimento, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButtonBuscarAnimal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 17, Short.MAX_VALUE))
+                                .addComponent(jLabelProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)))
+                        .addGap(0, 17, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(0, 0, 0)
                 .addComponent(jLabelTitulo)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonBuscarAnimal)
@@ -573,7 +602,7 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabelData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -581,7 +610,12 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel11)
                         .addComponent(jLabelHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonBuscarProjeto)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabelProjeto))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonBuscarProcedimento)
                     .addComponent(jLabel12)
@@ -612,7 +646,7 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonVoltar)
                     .addComponent(jButtonSalvar))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGap(0, 21, Short.MAX_VALUE))
         );
 
         jPanel1.getAccessibleContext().setAccessibleDescription("");
@@ -655,6 +689,7 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
             atendimento.setStatus(Atendimento.STATUS_AGENDADO);
             atendimento.setAnimal(animalResultadoBusca);
             atendimento.setProcedimento(procedimentoResultadoBusca);
+            atendimento.setProjeto(projetoResultadoBusca);
 
             try {
                 if (horario != null) {
@@ -721,8 +756,7 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
                 }
             } catch (RESTConnectionException ex) {
                 InterfaceGraficaUtils.erroConexao();
-                String mensagem = InterfaceGraficaUtils.getMensagemErroConexao();
-                log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
+                logger.error("mensagem: " + ex.getMessage(), ex);
             }
         }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
@@ -731,6 +765,13 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
         HUMVApp.setNovoPainelCentral(agendaJPanel.getBuscarAgendaMedicoJPanel());
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
+    private void jButtonBuscarProjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarProjetoActionPerformed
+        JFrame jFrame = new JFrame("Busca");
+        PropriedadesBuscaProjeto propriedadesBusca = new PropriedadesBuscaProjeto(PropriedadesBusca.OPCAO_SELECIONAR, jFrame, this);
+        BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE PROJETO", propriedadesBusca);
+        jFrame.setContentPane(buscaPanel);
+        InterfaceGraficaUtils.exibirJanela(jFrame);
+    }//GEN-LAST:event_jButtonBuscarProjetoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -738,6 +779,7 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
     private javax.swing.ButtonGroup buttonGroupExtra;
     private javax.swing.JButton jButtonBuscarAnimal;
     private javax.swing.JButton jButtonBuscarProcedimento;
+    private javax.swing.JButton jButtonBuscarProjeto;
     private javax.swing.JButton jButtonSalvar;
     private javax.swing.JButton jButtonVoltar;
     private javax.swing.JCheckBox jCheckBoxRetorno;
@@ -753,6 +795,7 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -764,6 +807,7 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
     private javax.swing.JLabel jLabelNomeAnimal;
     private javax.swing.JLabel jLabelNomeDono;
     private javax.swing.JLabel jLabelProcedimento;
+    private javax.swing.JLabel jLabelProjeto;
     private javax.swing.JLabel jLabelRGHUMV;
     private javax.swing.JLabel jLabelRaca;
     private javax.swing.JLabel jLabelTelefone;

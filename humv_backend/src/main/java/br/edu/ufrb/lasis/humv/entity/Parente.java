@@ -5,7 +5,6 @@ import java.math.BigInteger;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -20,7 +19,6 @@ public class Parente implements Serializable {
 	private BigInteger idParente;
 	
 	@ManyToOne
-	@JoinColumn
 	private QuestionarioSocioeconomico questionario;
 		
 	private String nome;

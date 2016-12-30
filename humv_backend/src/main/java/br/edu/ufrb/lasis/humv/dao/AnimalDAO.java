@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import br.edu.ufrb.lasis.humv.entity.Animal;
-import br.edu.ufrb.lasis.humv.entity.Dono;
 import br.edu.ufrb.lasis.humv.utils.NumberUtils;
 
 /**
@@ -74,10 +73,9 @@ public class AnimalDAO  extends GenericDAO<Animal> implements Serializable {
 
 	@Transactional
 	@SuppressWarnings("unchecked")
-	public List<Animal> findByDono(Dono dono) {
-		BigInteger id = dono.getId();
-		Criteria criteria = getCriteria().add(Restrictions.ilike("idDono", "%" + id + "%"));
-		criteria.addOrder(Order.asc("nome"));
+	public List<Animal> findByDono(BigInteger idDono) {
+		Criteria criteria = getCriteria().createAlias("dono", "d").add(Restrictions.eq("d.id", idDono));
+		criteria.addOrder(Order.desc("nome"));
 		return (List<Animal>) criteria.list();	
 	}
 
@@ -86,7 +84,7 @@ public class AnimalDAO  extends GenericDAO<Animal> implements Serializable {
 	public List<Animal> search(String palavrachave) {
 		Criteria criteria = getCriteria();
 
-		BigInteger conversionResult = NumberUtils.convertStringToInteger(palavrachave);
+		BigInteger conversionResult = NumberUtils.convertStringToBigInteger(palavrachave);
 		if (conversionResult != null) {
 			criteria.add(
 					Restrictions.or(

@@ -86,7 +86,6 @@ public class MainSplitPanel extends javax.swing.JPanel {
         add(splitPanel, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel panelRightButtons;
     private javax.swing.JScrollPane scrollPane;

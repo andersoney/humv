@@ -22,7 +22,6 @@ public class ProjetoTableModel extends AbstractTableModel {
     List<Projeto> projetos;
     private static final Logger LOG = Logger.getLogger(SetorTableModel.class.getName());
 
-    
     public ProjetoTableModel(List<Projeto> projetos) {
         initArrayTitulos();
         this.projetos = projetos;
@@ -32,8 +31,8 @@ public class ProjetoTableModel extends AbstractTableModel {
         initArrayTitulos();
         projetos = new ArrayList<Projeto>();
     }
-    
-    private void initArrayTitulos(){
+
+    private void initArrayTitulos() {
         titulos = new String[2];
         titulos[0] = "Nome do projeto";
         titulos[1] = "Código do orientador";
@@ -79,9 +78,9 @@ public class ProjetoTableModel extends AbstractTableModel {
                 return this.projetos.get(rowIndex).getNome();
             case 1:
                 return this.projetos.get(rowIndex).getNomeResponsavel();
-            
+
         }
         return null;
     }
-    
+
 }

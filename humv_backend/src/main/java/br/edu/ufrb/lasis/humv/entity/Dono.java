@@ -2,7 +2,6 @@ package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -31,6 +30,7 @@ public class Dono implements Serializable {
 	@Id
 	@GeneratedValue
 	private BigInteger id; // recebe o numero do CPF ou CNPJ do novo dono.
+	
 	private String cpfCnpj;
 	private String tipoDocumento; // Pode ser CPF ou CNPJ
 	private String nome;

@@ -4,12 +4,17 @@ import java.math.BigInteger;
 
 public class NumberUtils {
 
-	public static BigInteger convertStringToInteger(String str){
-		if(str.matches("\\d+")){
-			return BigInteger.valueOf(Integer.parseInt(str));
-		}else{
-			return null;
-		}
-	}
+    public static BigInteger convertStringToBigInteger(String str) {
+        try {
+            if (!str.matches("\\D+")) {
+                return new BigInteger(str);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            //e.printStackTrace();
+            return null;
+        }
+    }
 
 }

@@ -85,7 +85,7 @@ public class DonoDAO extends GenericDAO<Dono> implements Serializable{
 	public List<Dono> search(String palavrachave) {
 		Criteria criteria = getCriteria();
 
-		BigInteger conversionResult = NumberUtils.convertStringToInteger(palavrachave);
+		BigInteger conversionResult = NumberUtils.convertStringToBigInteger(palavrachave);
 		if (conversionResult != null) {
 			criteria.add(
 					Restrictions.or(

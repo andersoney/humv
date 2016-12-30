@@ -18,7 +18,6 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import br.edu.ufrb.lasis.humv.HUMVApp;
 
 /**
  *
@@ -26,10 +25,12 @@ import br.edu.ufrb.lasis.humv.HUMVApp;
  */
 public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
 
-    private final static Logger log = LoggerFactory.getLogger(BuscarAgendaMedicoJPanel.class);
+    private final static Logger logger = LoggerFactory.getLogger(BuscarAgendaMedicoJPanel.class);
     private List<Usuario> medicos = null;
     private AgendaJPanel agendaJPanel = null;
-
+    
+    private static final int CANCELAR_UM_ATENDIMENTO = 1;
+    private static final int CANCELAR_VARIOS_ATENDIMENTOS = 2;
     /**
      * Creates new form RealizarAgendamentoJPanel
      */
@@ -54,12 +55,11 @@ public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
         if (medicos == null) {
             try {
                 ClientResponse response = RESTMethods.get("/api/usuario/obterMedicosAtivos");
-                medicos = (List<Usuario>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Usuario>>() {
+                medicos = (List<Usuario>) RESTMethods.getObjectsFromJSON(response, new TypeReference<List<Usuario>>() {
                 });
             } catch (RESTConnectionException | IOException ex) {
                 InterfaceGraficaUtils.erroConexao();
-                String mensagem = InterfaceGraficaUtils.getMensagemErroConexao();
-                log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
+                logger.error("mensagem: " + ex.getMessage(), ex);
             }
         }
         return medicos;
@@ -211,9 +211,8 @@ public class BuscarAgendaMedicoJPanel extends javax.swing.JPanel {
     private void jButtonCancelarAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarAgendaActionPerformed
         Usuario medico = ((MedicoComboBox) comboBoxMedicos.getSelectedItem()).getUsuario();
         Date data = jDateChooserDiaAgenda.getDate();
-        new CancelarAtendimentoJDialog(medico, data, agendaJPanel).setVisible(true);
+        new CancelarAtendimentoJDialog(medico, data, agendaJPanel,CANCELAR_VARIOS_ATENDIMENTOS).setVisible(true);
     }//GEN-LAST:event_jButtonCancelarAgendaActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> comboBoxMedicos;

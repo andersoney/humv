@@ -24,16 +24,8 @@ public class InterfaceGraficaUtils {
         JOptionPane.showMessageDialog(null, resposta, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public static String getMensagemErroResposta(String resposta) {
-        return resposta;
-    }
-
     public static void erroResposta(String resposta) {
         JOptionPane.showMessageDialog(null, resposta, "Erro", JOptionPane.ERROR_MESSAGE);
-    }
-
-    public static String getMensagemSucessoCadastro(String tipoObjeto) {
-        return "Registro de " + tipoObjeto + " efetuado com sucesso!";
     }
 
     public static void sucessoCadastro(String tipoObjeto) {
@@ -172,23 +164,14 @@ public class InterfaceGraficaUtils {
         }
     }
 
-    public static String getMensagemSemRsultadosGeracaoRelatorio(){
-        return "Não existe resultado para geração do relatório.\nPor favor, realize uma nova busca e solicite a geração do relatório.";
-    }
     public static void semResultadosGeracaoRelatorio() {
         JOptionPane.showMessageDialog(null, "Não existe resultado para geração do relatório.\nPor favor, realize uma nova busca e solicite a geração do relatório.", "Busca sem resultados", JOptionPane.WARNING_MESSAGE);
     }
 
-    public static String getMensagemErroGeracaoRelatorio(){
-        return "Ocorreu um erro inesperado na geração do relatório. Por favor, contacte o administrador do sistema.";
-    }
     public static void erroGeracaoRelatorio() {
         JOptionPane.showMessageDialog(null, "Ocorreu um erro inesperado na geração do relatório. Por favor, contacte o administrador do sistema.", "Erro no relatório", JOptionPane.ERROR_MESSAGE);
     }
 
-    public static String getMensagemSucessoGeracaoRelatorio(){
-        return "Relatório gerado com sucesso!";
-    }
     public static void sucessoGeracaoRelatorio() {
         JOptionPane.showMessageDialog(null, "Relatório gerado com sucesso!", "Relatório", JOptionPane.INFORMATION_MESSAGE);
     }

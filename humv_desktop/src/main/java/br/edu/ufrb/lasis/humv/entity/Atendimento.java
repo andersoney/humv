@@ -8,7 +8,7 @@ import java.util.Date;
  *
  * @author tassiovale
  */
-public class Atendimento implements Serializable{
+public class Atendimento implements Serializable {
 
     private static final long serialVersionUID = -2865522164162006684L;
 
@@ -24,6 +24,8 @@ public class Atendimento implements Serializable{
     private BigInteger id;
 
     private Animal animal;
+    
+    private Projeto projeto;
 
     private Procedimento procedimento;
 
@@ -53,6 +55,14 @@ public class Atendimento implements Serializable{
 
     public void setAnimal(Animal animal) {
         this.animal = animal;
+    }
+
+    public Projeto getProjeto() {
+        return projeto;
+    }
+
+    public void setProjeto(Projeto projeto) {
+        this.projeto = projeto;
     }
 
     public Procedimento getProcedimento() {

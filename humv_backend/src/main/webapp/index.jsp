@@ -64,5 +64,23 @@
     	<li>Cancelar grupos de atendimentos: /api/atendimento/cancelarAtendimentos (PUT)</li>
     	<li>Excluir: /api/atendimento/{id} (DELETE)</li>
     </ul>
+    <h2>Questinário socioeconômico</h2>
+    <ul>
+    	<li>Obter todos: /api/questionarioSocioeconomico (GET)</li>
+    	<li>Obter um questinário socioeconômico: /api/questionarioSocioeconomico/{id} (GET)</li>
+    	<li>Buscar por nome do dono: /api/questionarioSocioeconomico/search?palavrachave=[<i>palavra</i>] (GET)</li>
+    	<li>Inserir: /api/questionarioSocioeconomico (POST)</li>
+    	<li>Alterar: /api/questionarioSocioeconomico (PUT)</li>
+    	<li>Excluir: /api/questionarioSocioeconomico/{id} (DELETE)</li>
+    </ul>
+    <h2>Atendimento social</h2>
+    <ul>
+    	<li>Obter todos: /api/atendimentoSocial (GET)</li>
+    	<li>Obter um atendimento social: /api/atendimentoSocial/{id} (GET)</li>
+    	<li>Buscar por CPF do dono, RGHUMV do animal ou nome do dono: /api/atendimentoSocial/search?palavrachave=[<i>palavra</i>] (GET)</li>
+    	<li>Inserir: /api/atendimentoSocial (POST)</li>
+    	<li>Alterar: /api/atendimentoSocial (PUT)</li>
+    	<li>Excluir: /api/atendimentoSocial/{id} (DELETE)</li>
+    </ul>
 </body>
 </html>

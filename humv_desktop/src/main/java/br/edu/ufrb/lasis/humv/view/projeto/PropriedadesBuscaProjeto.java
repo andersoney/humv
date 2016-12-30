@@ -9,18 +9,19 @@ import br.edu.ufrb.lasis.humv.entity.Projeto;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
-import br.edu.ufrb.lasis.humv.utils.PrintUtils;
+import br.edu.ufrb.lasis.humv.reports.PrintUtils;
+import br.edu.ufrb.lasis.humv.utils.ResultadoBusca;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import br.edu.ufrb.lasis.humv.HUMVApp;
 
 /**
  *
@@ -28,12 +29,20 @@ import br.edu.ufrb.lasis.humv.HUMVApp;
  */
 public class PropriedadesBuscaProjeto extends PropriedadesBusca {
 
-    private final static Logger log = LoggerFactory.getLogger(PropriedadesBuscaProjeto.class);
+    private final static Logger logger = LoggerFactory.getLogger(PropriedadesBuscaProjeto.class);
     private ProjetoTableModel tableModel;
     private List<Projeto> listaProjetos;
+    private ResultadoBusca resultadoBusca = null;
 
     public PropriedadesBuscaProjeto(String tipoOperacao) {
         super(tipoOperacao);
+        tableModel = new ProjetoTableModel();
+        super.setTabelaResultado(new JTable(tableModel));
+    }
+
+    public PropriedadesBuscaProjeto(String tipoOperacao, JFrame jFrame, ResultadoBusca resultadoBusca) {
+        super(tipoOperacao, jFrame);
+        this.resultadoBusca = resultadoBusca;
         tableModel = new ProjetoTableModel();
         super.setTabelaResultado(new JTable(tableModel));
     }
@@ -42,17 +51,16 @@ public class PropriedadesBuscaProjeto extends PropriedadesBusca {
     public void buscar() {
         HUMVApp.exibirMensagemCarregamento();
         try {
-            ClientResponse response = RESTMethods.get("/api/projeto/search?palavrachave=" + getCampoPalavraChave().getText());
+            ClientResponse response = RESTMethods.get("/api/projeto/search?palavrachave=" + getPalavraChave());
 
-            listaProjetos = (List<Projeto>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Projeto>>() {
+            listaProjetos = (List<Projeto>) RESTMethods.getObjectsFromJSON(response, new TypeReference<List<Projeto>>() {
             });
             tableModel = new ProjetoTableModel(listaProjetos);
             super.getTabelaResultado().setModel(tableModel);
             super.getTabelaResultado().revalidate();
         } catch (RESTConnectionException | IOException ex) {
             InterfaceGraficaUtils.erroConexao();
-            String mensagem = InterfaceGraficaUtils.getMensagemErroConexao();
-            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
+            logger.error("mensagem: " + ex.getMessage(), ex);
         }
         HUMVApp.esconderMensagemCarregamento();
 
@@ -93,21 +101,28 @@ public class PropriedadesBuscaProjeto extends PropriedadesBusca {
                                 }
                             } catch (RESTConnectionException ex) {
                                 JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
-                                String mensagem = "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.";
-                                this.log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
+                                logger.error("mensagem: " + ex.getMessage(), ex);
                             }
                         }
+                        break;
+                    case PropriedadesBusca.OPCAO_SELECIONAR:
+                        resultadoBusca.setResultado(projetoSelecionado);
+                        getjFrame().dispose();
                         break;
                     default:
                         break;
                 }
             }
         } else if (ae.getSource().equals(super.getBotaoImprimirTabela())) {
-            PrintUtils.print(PrintUtils.TABELA_PROJETOS, listaProjetos);
+            PrintUtils.printLista(PrintUtils.TABELA_PROJETOS, listaProjetos);
         } else if (ae.getSource().equals(super.getBotaoCancelar())) {
-            boolean sair = InterfaceGraficaUtils.dialogoSair();
-            if (sair) {
-                HUMVApp.setPainelCentralComLogo();
+            if (getjFrame() != null) {
+                getjFrame().dispose();
+            } else {
+                boolean sair = InterfaceGraficaUtils.dialogoSair();
+                if (sair) {
+                    HUMVApp.setPainelCentralComLogo();
+                }
             }
         }
     }

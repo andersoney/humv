@@ -10,7 +10,7 @@ import br.edu.ufrb.lasis.humv.entity.Setor;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
-import br.edu.ufrb.lasis.humv.utils.PrintUtils;
+import br.edu.ufrb.lasis.humv.reports.PrintUtils;
 import br.edu.ufrb.lasis.humv.utils.ResultadoBusca;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -23,7 +23,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import br.edu.ufrb.lasis.humv.HUMVApp;
 
 /**
  *
@@ -31,7 +30,7 @@ import br.edu.ufrb.lasis.humv.HUMVApp;
  */
 public class PropriedadesBuscaSetor extends PropriedadesBusca {
 
-    private final static Logger log = LoggerFactory.getLogger(PropriedadesBuscaSetor.class);
+    private final static Logger logger = LoggerFactory.getLogger(PropriedadesBuscaSetor.class);
     private SetorTableModel tableModel;
     private List<Setor> listaSetores;
     private ResultadoBusca resultadoBusca = null;
@@ -53,17 +52,16 @@ public class PropriedadesBuscaSetor extends PropriedadesBusca {
     public void buscar() {
         HUMVApp.exibirMensagemCarregamento();
         try {
-            ClientResponse response = RESTMethods.get("/api/setor/search?palavrachave=" + getCampoPalavraChave().getText());
+            ClientResponse response = RESTMethods.get("/api/setor/search?palavrachave=" + getPalavraChave());
 
-            listaSetores = (List<Setor>) RESTMethods.getObjectFromJSON(response, new TypeReference<List<Setor>>() {
+            listaSetores = (List<Setor>) RESTMethods.getObjectsFromJSON(response, new TypeReference<List<Setor>>() {
             });
             tableModel = new SetorTableModel(listaSetores);
             super.getTabelaResultado().setModel(tableModel);
             super.getTabelaResultado().revalidate();
         } catch (RESTConnectionException | IOException ex) {
             InterfaceGraficaUtils.erroConexao();
-            String mensagem = InterfaceGraficaUtils.getMensagemErroConexao();
-            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
+            logger.error("mensagem: " + ex.getMessage(), ex);
         }
         HUMVApp.esconderMensagemCarregamento();
 
@@ -104,8 +102,7 @@ public class PropriedadesBuscaSetor extends PropriedadesBusca {
                                 }
                             } catch (RESTConnectionException ex) {
                                 JOptionPane.showMessageDialog(super.getTabelaResultado(), "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.", "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
-                                String mensagem = "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.";
-                                log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
+                                logger.error("mensagem: " + ex.getMessage(), ex);
                             }
                         }
                         break;
@@ -118,7 +115,7 @@ public class PropriedadesBuscaSetor extends PropriedadesBusca {
                 }
             }
         } else if (ae.getSource().equals(super.getBotaoImprimirTabela())) {
-            PrintUtils.print(PrintUtils.TABELA_SETORES, listaSetores);
+            PrintUtils.printLista(PrintUtils.TABELA_SETORES, listaSetores);
         } else if (ae.getSource().equals(super.getBotaoCancelar())) {
             if (getjFrame() != null) {
                 getjFrame().dispose();

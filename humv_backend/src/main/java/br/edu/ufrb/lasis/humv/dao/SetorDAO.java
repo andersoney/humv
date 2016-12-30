@@ -55,7 +55,7 @@ public class SetorDAO  extends GenericDAO<Setor> implements Serializable {
 	 */
 	@Transactional
 	public void updateSetor(Setor setor) {
-		super.update(setor);
+		super.update(setor); 
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class SetorDAO  extends GenericDAO<Setor> implements Serializable {
 	 */
 	@Transactional
 	public void removeSetor(Setor setor) {
-		super.delete(setor);
+		super.delete(setor); 
 	}
 	
 	
@@ -80,7 +80,7 @@ public class SetorDAO  extends GenericDAO<Setor> implements Serializable {
 	public List<Setor> search(String palavrachave) {
 		Criteria criteria = getCriteria();
 
-		BigInteger conversionResult = NumberUtils.convertStringToInteger(palavrachave);
+		BigInteger conversionResult = NumberUtils.convertStringToBigInteger(palavrachave);
 		if (conversionResult != null) {
 			criteria.add(
 					Restrictions.or(

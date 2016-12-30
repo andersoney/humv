@@ -11,7 +11,7 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
         http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+        http://www.springframework.org/schema/tx/spring-tx-4.2.xsd"> 
     
     <!-- Hibernate -->
 	<tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager" />
@@ -21,10 +21,10 @@
     </bean>
 
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
-        destroy-method="close">
+        destroy-method="close"> 
         <property name="driverClassName" value="org.postgresql.Driver" />
-        <property name="url" value="jdbc:postgresql://localhost:15432/humv_db" />
-        <property name="username" value="humv" />
+        <property name="url" value="jdbc:postgresql://localhost:5432/humv_db" />
+        <property name="username" value="humv" /> 
         <property name="password" value="lAs1s_UFRB" />
     </bean>
 
@@ -39,7 +39,7 @@
                 <prop key="hibernate.connection.charSet">UTF-8</prop>
         	
                 <!-- Options for hibernate.hbm2ddl.auto: create, update or none -->
-                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
             </props>
         </property>
     </bean>

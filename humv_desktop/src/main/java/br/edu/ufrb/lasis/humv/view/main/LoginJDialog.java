@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
  */
 public class LoginJDialog extends javax.swing.JDialog implements ActionListener, KeyListener {
 
-    private final static Logger log = LoggerFactory.getLogger(LoginJDialog.class);
+    private final static Logger logger = LoggerFactory.getLogger(LoginJDialog.class);
 
     private JFrame window;
 
@@ -93,7 +93,7 @@ public class LoginJDialog extends javax.swing.JDialog implements ActionListener,
         } catch (Exception ex) {
             String mensagem = "Erro ao conectar-se com banco de dados. Por favor, tente novamente mais tarde.";
             JOptionPane.showMessageDialog(this, mensagem, "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
-            log.error(/*"[" + HUMVApp.getNomeUsuario() + "] "*/"mensagem: " + mensagem, ex);
+            logger.error("mensagem: " + mensagem, ex);
         }
 
     }
