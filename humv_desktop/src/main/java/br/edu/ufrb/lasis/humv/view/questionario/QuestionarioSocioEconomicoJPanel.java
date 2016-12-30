@@ -30,6 +30,10 @@ import javax.swing.JOptionPane;
 import javax.swing.text.JTextComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+<<<<<<< HEAD
+=======
+import br.edu.ufrb.lasis.humv.HUMVApp;
+>>>>>>> master
 
 /**
  * Classe que cria o Painel Questionario SOcial.
@@ -39,7 +43,12 @@ import org.slf4j.LoggerFactory;
  */
 public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel implements ResultadoBusca, ActionListener {
 
+<<<<<<< HEAD
     private final static Logger logger = LoggerFactory.getLogger(QuestionarioSocioEconomicoJPanel.class);
+=======
+    private final static Logger log = LoggerFactory.getLogger(QuestionarioSocioEconomicoJPanel.class);
+
+>>>>>>> master
     private DocumentacaoTableModel modelDocumentacao;
     private ParenteTableModel modelParente;
     private Dono dono;
@@ -1439,6 +1448,8 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
             modelDocumentacao.addDocumento(doc);
         } catch (Exception ex) {
             InterfaceGraficaUtils.validaCampoVazio(ex.getMessage());
+            String mensagem = InterfaceGraficaUtils.getMensagemValidaCampoVazio(ex.getMessage());
+            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
         }
     }//GEN-LAST:event_jButtonTabelaDocumentosSalvarActionPerformed
 
@@ -1504,7 +1515,12 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
             HUMVApp.setPainelCentralComLogo();
         } catch (RESTConnectionException ex) {
             InterfaceGraficaUtils.erroConexao();
+<<<<<<< HEAD
             logger.error("mensagem: " + ex.getMessage(), ex);
+=======
+            String mensagem = InterfaceGraficaUtils.getMensagemErroConexao();
+            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
+>>>>>>> master
         }
 
     }//GEN-LAST:event_jButtonQuestionarioSalvarActionPerformed
@@ -1521,6 +1537,8 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
             return true;
         } catch (Exception ex) {
             InterfaceGraficaUtils.validaCampoVazio(ex.getMessage());
+            String mensagem = InterfaceGraficaUtils.getMensagemValidaCampoVazio(ex.getMessage());
+            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
             return false;
         }
     }
@@ -1539,6 +1557,8 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
             return true;
         } catch (Exception ex) {
             InterfaceGraficaUtils.validaCampoVazio(ex.getMessage());
+            String mensagem = InterfaceGraficaUtils.getMensagemValidaCampoVazio(ex.getMessage());
+            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
             return false;
         }
     }
@@ -1618,8 +1638,10 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
                 validarCampoVazio(jTextFieldBeneficio, "bolsa/benefício");
                 validarCampoVazio(jTextAreaObservacoes, "observações");
             }
-        } catch (Exception e) {
-            InterfaceGraficaUtils.validaCampoVazio(e.getMessage());
+        } catch (Exception ex) {
+            InterfaceGraficaUtils.validaCampoVazio(ex.getMessage());
+            String mensagem = InterfaceGraficaUtils.getMensagemValidaCampoVazio(ex.getMessage());
+            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
             return false;
         }
 
@@ -1714,6 +1736,8 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
             atualizaCalculoRenda();
         } catch (Exception ex) {
             InterfaceGraficaUtils.validaCampoVazio(ex.getMessage());
+            String mensagem = InterfaceGraficaUtils.getMensagemValidaCampoVazio(ex.getMessage());
+            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
         }
 
     }//GEN-LAST:event_jButtonTabelaFamiliaSalvarActionPerformed

@@ -78,6 +78,8 @@ public class LoginJDialog extends javax.swing.JDialog implements ActionListener,
                 window.setContentPane(splitPanel);
                 HUMVApp.setNomeUsuario(username);
                 HUMVApp.setPainelCentralComLogo();
+                String mensagem = "Login realizado com sucesso.";
+                log.info("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem);
             } else {
                 JOptionPane.showMessageDialog(this, resposta, "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
                 if (resposta.toLowerCase().contains("senha")) {

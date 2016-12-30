@@ -26,6 +26,9 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import br.edu.ufrb.lasis.humv.HUMVApp;
 
 /**
  *
@@ -33,6 +36,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
  */
 public class PrintUtils {
 
+    private final static Logger log = LoggerFactory.getLogger(PrintUtils.class);
     public static final String TABELA_ANIMAIS = "relatorios/tabela_animais.jasper";
     public static final String TABELA_DONOS = "relatorios/tabela_donos.jasper";
     public static final String TABELA_PROCEDIMENTOS = "relatorios/tabela_procedimentos.jasper";
@@ -53,6 +57,8 @@ public class PrintUtils {
             } catch (JRException | FileNotFoundException exception) {
                 exception.printStackTrace();
                 InterfaceGraficaUtils.erroGeracaoRelatorio();
+                String mensagem = InterfaceGraficaUtils.getMensagemErroGeracaoRelatorio();
+                log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, exception);
             }
         } else {
             InterfaceGraficaUtils.semResultadosGeracaoRelatorio();
@@ -86,6 +92,8 @@ public class PrintUtils {
         } catch (JRException exception) {
             exception.printStackTrace();
             InterfaceGraficaUtils.erroGeracaoRelatorio();
+            String mensagem = InterfaceGraficaUtils.getMensagemErroGeracaoRelatorio();
+            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, exception);
         }
     }
 

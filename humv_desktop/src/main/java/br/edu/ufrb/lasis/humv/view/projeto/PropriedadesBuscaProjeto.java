@@ -5,7 +5,6 @@
  */
 package br.edu.ufrb.lasis.humv.view.projeto;
 
-import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Projeto;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
@@ -40,7 +39,7 @@ public class PropriedadesBuscaProjeto extends PropriedadesBusca {
         tableModel = new ProjetoTableModel();
         super.setTabelaResultado(new JTable(tableModel));
     }
-    
+
     public PropriedadesBuscaProjeto(String tipoOperacao, JFrame jFrame, ResultadoBusca resultadoBusca) {
         super(tipoOperacao, jFrame);
         this.resultadoBusca = resultadoBusca;

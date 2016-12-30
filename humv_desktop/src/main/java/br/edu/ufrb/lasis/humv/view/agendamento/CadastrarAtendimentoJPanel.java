@@ -703,6 +703,9 @@ public class CadastrarAtendimentoJPanel extends javax.swing.JPanel implements Re
                 }
             } catch (ParseException ex) {
                 InterfaceGraficaUtils.valorInvalido("horário marcado");
+                String mensagem = InterfaceGraficaUtils.getMensagemValorInvalido("horário marcado");
+                log.info("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem);
+
             }
 
             int tipoCobranca = Atendimento.COBRANCA_VALOR_NORMAL;

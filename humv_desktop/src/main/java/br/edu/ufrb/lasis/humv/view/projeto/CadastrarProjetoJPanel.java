@@ -5,7 +5,6 @@
  */
 package br.edu.ufrb.lasis.humv.view.projeto;
 
-import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Projeto;
 import br.edu.ufrb.lasis.humv.entity.Setor;
 import java.util.Date;

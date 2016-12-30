@@ -1,5 +1,6 @@
 package br.edu.ufrb.lasis.humv.utils;
 
+import br.edu.ufrb.lasis.humv.HUMVApp;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.DecimalFormat;

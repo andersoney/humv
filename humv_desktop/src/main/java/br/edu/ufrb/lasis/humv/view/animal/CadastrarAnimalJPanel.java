@@ -1,6 +1,5 @@
 package br.edu.ufrb.lasis.humv.view.animal;
 
-import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.utils.MaskUtils;
 import java.util.Date;
 import javax.swing.JOptionPane;

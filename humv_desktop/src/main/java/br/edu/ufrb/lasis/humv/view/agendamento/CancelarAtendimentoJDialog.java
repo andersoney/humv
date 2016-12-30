@@ -19,6 +19,9 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import br.edu.ufrb.lasis.humv.HUMVApp;
 
 /**
  *
@@ -26,6 +29,7 @@ import javax.swing.JOptionPane;
  */
 public class CancelarAtendimentoJDialog extends javax.swing.JDialog implements ActionListener {
 
+    private final static Logger log = LoggerFactory.getLogger(CancelarAtendimentoJDialog.class);
     private Atendimento atendimento = null;
     private Usuario medico;
     private Date data;
@@ -257,6 +261,8 @@ public class CancelarAtendimentoJDialog extends javax.swing.JDialog implements A
             }
         } catch (RESTConnectionException ex) {
             InterfaceGraficaUtils.erroConexao();
+            String mensagem = InterfaceGraficaUtils.getMensagemErroConexao();
+            log.error("[" + HUMVApp.getNomeUsuario() + "] " + "mensagem: " + mensagem, ex);
         }
     }//GEN-LAST:event_jButtonRemoverActionPerformed
 
