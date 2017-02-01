@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2017-02-01T10:40:29 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tabela_animais" pageWidth="595" pageHeight="842" columnWidth="539" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isSummaryWithPageHeaderAndFooter="true" uuid="0af905c7-4b1b-436d-a67c-46c11073e657">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="tabela_animais"/>
+	<property name="com.jaspersoft.studio.unit." value="cm"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="cm"/>
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Dataset1" uuid="ef83bcf8-25a1-4148-bf09-9323fae046f7">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="especie" class="java.lang.String">
+			<fieldDescription><![CDATA[especie]]></fieldDescription>
+		</field>
+		<field name="idade" class="java.lang.Integer">
+			<fieldDescription><![CDATA[idade]]></fieldDescription>
+		</field>
+		<field name="dono" class="br.edu.ufrb.lasis.humv.entity.Dono">
+			<fieldDescription><![CDATA[dono]]></fieldDescription>
+		</field>
+		<field name="peso" class="java.lang.Double">
+			<fieldDescription><![CDATA[peso]]></fieldDescription>
+		</field>
+		<field name="pelagem" class="java.lang.String">
+			<fieldDescription><![CDATA[pelagem]]></fieldDescription>
+		</field>
+		<field name="raca" class="java.lang.String">
+			<fieldDescription><![CDATA[raca]]></fieldDescription>
+		</field>
+		<field name="nome" class="java.lang.String">
+			<fieldDescription><![CDATA[nome]]></fieldDescription>
+		</field>
+		<field name="porte" class="java.lang.String">
+			<fieldDescription><![CDATA[porte]]></fieldDescription>
+		</field>
+		<field name="sexo" class="java.lang.Character">
+			<fieldDescription><![CDATA[sexo]]></fieldDescription>
+		</field>
+		<field name="class" class="java.lang.Class">
+			<fieldDescription><![CDATA[class]]></fieldDescription>
+		</field>
+		<field name="dataCadastro" class="java.util.Date">
+			<fieldDescription><![CDATA[dataCadastro]]></fieldDescription>
+		</field>
+		<field name="rghumv" class="java.math.BigInteger">
+			<fieldDescription><![CDATA[rghumv]]></fieldDescription>
+		</field>
+	</subDataset>
+	<parameter name="TABELA" class="java.util.List">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="especie" class="java.lang.String">
+		<fieldDescription><![CDATA[especie]]></fieldDescription>
+	</field>
+	<field name="idade" class="java.lang.Integer">
+		<fieldDescription><![CDATA[idade]]></fieldDescription>
+	</field>
+	<field name="dono" class="br.edu.ufrb.lasis.humv.entity.Dono">
+		<fieldDescription><![CDATA[dono]]></fieldDescription>
+	</field>
+	<field name="peso" class="java.lang.Double">
+		<fieldDescription><![CDATA[peso]]></fieldDescription>
+	</field>
+	<field name="pelagem" class="java.lang.String">
+		<fieldDescription><![CDATA[pelagem]]></fieldDescription>
+	</field>
+	<field name="raca" class="java.lang.String">
+		<fieldDescription><![CDATA[raca]]></fieldDescription>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[nome]]></fieldDescription>
+	</field>
+	<field name="porte" class="java.lang.String">
+		<fieldDescription><![CDATA[porte]]></fieldDescription>
+	</field>
+	<field name="sexo" class="java.lang.Character">
+		<fieldDescription><![CDATA[sexo]]></fieldDescription>
+	</field>
+	<field name="dataCadastro" class="java.util.Date">
+		<fieldDescription><![CDATA[dataCadastro]]></fieldDescription>
+	</field>
+	<field name="rghumv" class="java.math.BigInteger">
+		<fieldDescription><![CDATA[rghumv]]></fieldDescription>
+	</field>
+	<pageHeader>
+		<band height="107" splitType="Stretch">
+			<image>
+				<reportElement x="413" y="22" width="130" height="38" uuid="be6a2f3c-7e4b-450c-afd2-b9b9380bc1e2"/>
+				<imageExpression><![CDATA["imagens/humv-report.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="-9" y="51" width="552" height="10" uuid="6effbc66-ef8c-41bb-a0d3-1f142e9965f4">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="10"/>
+				</textElement>
+				<text><![CDATA[MINISTÉRIO DA EDUCAÇÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-9" y="63" width="552" height="10" uuid="dd10f977-5030-4e55-bb42-fad6b65a85cb">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="10"/>
+				</textElement>
+				<text><![CDATA[UNIVERSIDADE FEDERAL DO RECÔNCAVO DA BAHIA]]></text>
+			</staticText>
+			<image>
+				<reportElement x="2" y="22" width="90" height="38" uuid="c21294c1-db71-46c5-88c0-40fe082738cc"/>
+				<imageExpression><![CDATA["imagens/ufrb.png"]]></imageExpression>
+			</image>
+			<image hAlign="Center">
+				<reportElement x="169" y="0" width="200" height="50" uuid="bbe862b7-c5b3-4863-a490-6f40e46f4b83"/>
+				<imageExpression><![CDATA["imagens/republica.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="-9" y="75" width="552" height="8" uuid="65a63b85-69d7-45de-9231-ec709eb18616">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<text><![CDATA[Hospital Universitário de Medicina Veterinária]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-9" y="85" width="552" height="8" uuid="8135b026-d57e-4e41-a0e0-322ff3a05060">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<text><![CDATA[CNPJ 07.777.800/0001-62]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="640">
+			<staticText>
+				<reportElement x="0" y="0" width="539" height="43" uuid="ea88c314-4f8b-4b0d-82ce-343c9c1e9a39"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ficha clínica]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="43" width="60" height="16" uuid="b3125da8-3767-4e32-9be0-84b277c5f0ef">
+					<property name="com.jaspersoft.studio.unit.height" value="cm"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RGHUMV:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="60" y="43" width="90" height="16" uuid="b4176764-4229-4da8-9644-a982fbd3c83d"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{rghumv}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="60" width="50" height="16" uuid="9934ab32-658f-425d-bedf-1ae96dc49cd7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Espécie: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="50" y="60" width="100" height="16" uuid="a871a915-91f6-434c-b17a-5b08f8905b51"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{especie}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="111" width="60" height="16" uuid="1ae94d3b-d5c4-4c3d-b75d-0d82aa4ecba9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Endereço:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="60" y="111" width="479" height="16" uuid="4b6fdb2b-748b-4a3e-825c-cde2620405e9"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dono}.getEndereco()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="166" y="60" width="40" height="16" uuid="d7e8f844-13cf-4c35-963d-9cbdf5fc7dcb"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Raça: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="206" y="60" width="333" height="16" uuid="68aca13e-2a80-4604-a8a6-5a4101f04c67"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{raca}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="94" width="70" height="16" uuid="fd0111d8-a05b-4914-98de-7ac46a47d6fa"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Proprietário:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="175" width="120" height="19" uuid="042b3d2f-e4c7-4dfe-aae7-99b9e2734900"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[QUEIXA PRINCIPAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="70" y="94" width="469" height="16" uuid="89711763-0e25-47ef-929f-cf9546f96e54"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dono}.getNome()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="166" y="43" width="40" height="16" uuid="bb79e824-8f25-4ac4-872f-9b09cfe47f8b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="206" y="43" width="140" height="16" uuid="538fa0bc-854d-4c81-80c2-e23c73ab61fe"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="349" y="43" width="50" height="16" uuid="e47c4d33-ffac-46f7-9bc4-41b358693f69"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pelagem:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="399" y="43" width="140" height="16" uuid="e699f449-e2c8-4b8b-8180-33275a627b36"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pelagem}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="77" width="40" height="16" uuid="20a23a3d-0aca-407b-960d-e10922f5ab3d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sexo:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="40" y="77" width="110" height="16" uuid="9988de20-82fa-4c18-93bd-b383c8e20ccd"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sexo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="166" y="77" width="40" height="16" uuid="a01a6315-1d96-4f89-ab55-9f10ddd5061b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Idade:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="206" y="77" width="140" height="16" uuid="6f21463d-0336-42e3-93ca-ace22a0b9c6f"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idade}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="349" y="77" width="50" height="16" uuid="c23cc0c3-a547-4f18-aeb7-170302f80785"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Peso:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="399" y="77" width="140" height="16" uuid="033c5f6b-ab99-44ba-a157-45de15018c77"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{peso} + "kg"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="128" width="40" height="16" uuid="a181e037-0d92-43da-8877-a4db642fd30b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cidade:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="40" y="128" width="290" height="16" uuid="f91d332a-97a2-42a4-b126-665482e80f99"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dono}.getCidade() + " - " + $F{dono}.getEstado()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="349" y="128" width="30" height="16" uuid="42eff088-02f8-417f-a0cf-44a9aae16632"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CEP:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="379" y="128" width="160" height="16" uuid="1c6f39c0-0368-4364-99d7-ee9488529401"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dono}.getCep()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="145" width="50" height="16" uuid="1f3312a5-ff01-49f0-8a22-a7ade09ae739"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="50" y="145" width="100" height="16" uuid="25923488-a2f9-4f56-bff9-ba77b70db767"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dono}.getTelefone()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="166" y="145" width="60" height="16" uuid="6fa6dccd-aa8c-453e-9bc9-c49f33711d13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CPF/CNPJ:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="226" y="145" width="110" height="16" uuid="a04a501f-1a54-46ba-931b-81e2a2171765"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dono}.getCpfCnpj()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="349" y="145" width="39" height="16" uuid="d78bd1df-b656-4248-8bc4-a298a185c246"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-mail:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="388" y="145" width="151" height="16" uuid="8961529b-a96b-4dbe-a2b6-855507b9bc7d"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dono}.getEmail()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="290" width="120" height="20" uuid="be041ae6-41d8-40a7-83c2-79d0f982f34e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ANAMNESE GERAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="310" width="540" height="30" uuid="985156a0-a602-476b-9fd9-2fc82eb283b7"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="false"/>
+				</textElement>
+				<text><![CDATA[(antecedentes mórbidos, vacinações, vermifugações, ectoparasitas, comportamento, alimentação, histórico familiar, acesso à rua, habitat, contactantes, contato com roedores)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="491" width="140" height="20" uuid="cb396937-56bc-4ead-b4c3-ed9d84bf820a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ANAMNESE ESPECÍFICA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="511" width="240" height="20" uuid="39f1a6b2-cd86-4a6f-8bfa-d12864ac3ecc"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SISTEMA DIGESTÓRIO E GLÂNDULAS ANEXAS:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="511" width="299" height="20" uuid="b384fe89-ae77-496b-8216-060c6ae19ff6"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="false"/>
+				</textElement>
+				<text><![CDATA[(emese, emagrecimento, regurgitação, diarréia, disquesia, tenesmo) ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="531" width="110" height="20" uuid="85125e49-c8d5-4d82-a6ce-df5be3668efa"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vide ficha odontológica]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="531" width="90" height="20" uuid="7ed197f4-6d90-4a6c-99a0-18ca19f4d42f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vide ficha digestório]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="110" y="531" width="20" height="20" uuid="ffdc8043-bc76-4539-800e-483617ee1f10"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="240" y="531" width="20" height="20" uuid="177a7064-fa15-46bb-9986-40b0ed93abf0"/>
+			</rectangle>
+			<line>
+				<reportElement x="0" y="208" width="539" height="1" uuid="3ae8aef5-bd29-4961-a384-a1d5de61d24c"/>
+			</line>
+			<line>
+				<reportElement x="0" y="224" width="539" height="1" uuid="feb754f3-4ef1-40ba-99f3-8167ca5cb08f"/>
+			</line>
+			<line>
+				<reportElement x="0" y="274" width="539" height="1" uuid="be9abb23-dff8-4b5b-8e79-84164dee4ce6"/>
+			</line>
+			<line>
+				<reportElement x="0" y="241" width="539" height="1" uuid="a461394b-4cc2-453d-95ba-b2777c0e85d5"/>
+			</line>
+			<line>
+				<reportElement x="0" y="258" width="539" height="1" uuid="af654781-1c70-4b2d-a8d1-17534dfcf856"/>
+			</line>
+			<line>
+				<reportElement x="1" y="355" width="539" height="1" uuid="0b0b0b64-e28f-4937-95a9-3d9717fc7a9a"/>
+			</line>
+			<line>
+				<reportElement x="1" y="371" width="539" height="1" uuid="6a9d084e-e167-42de-996f-15a8f78a9cfc"/>
+			</line>
+			<line>
+				<reportElement x="1" y="421" width="539" height="1" uuid="6ab50013-566e-44e2-87fc-61bcbdd23ba4"/>
+			</line>
+			<line>
+				<reportElement x="1" y="388" width="539" height="1" uuid="37462e15-9cb7-41fe-9eaa-1f6a332a2a52"/>
+			</line>
+			<line>
+				<reportElement x="1" y="405" width="539" height="1" uuid="dafe3a7d-ae06-46dc-b9a5-5a044eb35f13"/>
+			</line>
+			<line>
+				<reportElement x="0" y="472" width="539" height="1" uuid="2b01337d-280a-4da4-bd28-95ba8531f004"/>
+			</line>
+			<line>
+				<reportElement x="0" y="456" width="539" height="1" uuid="fdb9bfed-18d6-4473-a7bb-8472dcba54bf"/>
+			</line>
+			<line>
+				<reportElement x="0" y="439" width="539" height="1" uuid="20eba2c4-4cdd-48c1-8991-f882dfa4e8d4"/>
+			</line>
+			<line>
+				<reportElement x="1" y="568" width="539" height="1" uuid="bb2a550b-5f6e-4b32-821b-8ca44f9e00c7"/>
+			</line>
+			<line>
+				<reportElement x="1" y="618" width="539" height="1" uuid="0c35e3f1-714e-4a76-a6d3-f89df1a02a5c"/>
+			</line>
+			<line>
+				<reportElement x="1" y="585" width="539" height="1" uuid="1af296a9-917e-4eaf-b8a3-b8bdc91c2857"/>
+			</line>
+			<line>
+				<reportElement x="1" y="602" width="539" height="1" uuid="2cade1c0-86fe-4ff5-998c-6a2a431bfb89"/>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="39">
+			<staticText>
+				<reportElement x="-30" y="5" width="595" height="8" uuid="2e3c7843-1bff-430f-8256-2653e310523c">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<text><![CDATA[Hospital Universitário de Medicina Veterinária]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-30" y="15" width="595" height="8" uuid="80832bf3-f301-4872-a140-a6f4a30bdd42"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<text><![CDATA[Rua Rui Barbosa, Nº 710 - Centro - Cruz das Almas/BA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-30" y="25" width="595" height="8" uuid="c94b34d2-b9af-40ff-b5e3-87c37dbe9f55"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="8"/>
+				</textElement>
+				<text><![CDATA[CEP 44.380-000   Telefone: (75) 3621 - 0972]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>
