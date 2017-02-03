@@ -111,6 +111,10 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
     private JMenuItem menuItemBuscarAtendimentoSocial;
     private JMenuItem menuItemAlterarAtendimentoSocial;
     private JMenuItem menuItemRemoverAtendimentoSocial;
+    
+    private JMenu menuProntuario;
+    private JMenuItem menuItemImprimirFichaClinica;
+    private JButton buttonImprimirFichaClinica;
 
     private JPanel panelButtons;
     private GridBagConstraints panelConstraints;
@@ -360,6 +364,16 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
 
         getMenuBar().add(menuQuestionarioSocial);
     }
+    
+    public void criaMenuProntuarioEletronico() {
+        this.menuProntuario = new JMenu("Prontuário eletrônico");
+
+        menuItemImprimirFichaClinica = new JMenuItem("Imprimir ficha clínica");
+        menuItemImprimirFichaClinica.addActionListener(this);
+        menuProntuario.add(menuItemImprimirFichaClinica);
+
+        getMenuBar().add(menuProntuario);
+    }
 
     public void criaBotaoCadastrarAnimal() {
         buttonCadastrarAnimal = new JButton("Cadastrar animal", new ImageIcon("imagens/icon_pet.png"));
@@ -389,6 +403,12 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         buttonQuestionario = new JButton("Responder questionário", new ImageIcon("imagens/icon_questionario.png"));
         buttonQuestionario.addActionListener(this);
         this.addButtonToRightPanel(buttonQuestionario);
+    }
+    
+    public void criaBotaoImprimirFichaCLinica() {
+        buttonImprimirFichaClinica = new JButton("Imprimir ficha", new ImageIcon("imagens/icon_pdf_pequeno.png"));
+        buttonImprimirFichaClinica.addActionListener(this);
+        this.addButtonToRightPanel(buttonImprimirFichaClinica);
     }
 
     public JMenuBar getMenuBar() {
@@ -506,6 +526,10 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         } else if (source.equals(menuItemRemoverAtendimentoSocial)) {
             PropriedadesBuscaAtendimentoSocial propriedadesBusca = new PropriedadesBuscaAtendimentoSocial(PropriedadesBusca.OPCAO_REMOVER);
             BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE ATENDIMENTO SOCIAL PARA REMOÇÃO", propriedadesBusca);
+            HUMVApp.setNovoPainelCentral(buscaPanel);
+        } else if (source.equals(menuItemImprimirFichaClinica) || source.equals(buttonImprimirFichaClinica)) {
+            PropriedadesBuscaAnimal propriedadesBusca = new PropriedadesBuscaAnimal(PropriedadesBuscaAnimal.OPCAO_FICHA_CLINICA);
+            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE FICHA CLÍNICA DO ANIMAL", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
         }
 

@@ -12,6 +12,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -29,6 +30,8 @@ public class PropriedadesBuscaAnimal extends PropriedadesBusca {
     private AnimalTableModel tableModel;
     private List<Animal> listaAnimais;
     private ResultadoBusca resultadoBusca;
+
+    public static final String OPCAO_FICHA_CLINICA = "Imprimir ficha clínica";
 
     public PropriedadesBuscaAnimal(String tipoOperacao) {
         super(tipoOperacao);
@@ -101,6 +104,11 @@ public class PropriedadesBuscaAnimal extends PropriedadesBusca {
                     case PropriedadesBusca.OPCAO_SELECIONAR:
                         resultadoBusca.setResultado(animalSelecionado);
                         getjFrame().dispose();
+                        break;
+                    case PropriedadesBuscaAnimal.OPCAO_FICHA_CLINICA:
+                        List listaAnimais = new ArrayList();
+                        listaAnimais.add(animalSelecionado);
+                        PrintUtils.printLista(PrintUtils.FICHA_CLINICA, listaAnimais);
                         break;
                     default:
                         break;
