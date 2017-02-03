@@ -24,6 +24,7 @@ public class FabricaMenuAdministrador extends MenuBarFabricaAbstrata {
         super.criaMenuAtendimento();
         super.criaMenuQuestionarioSocioeconomico(soBusca);
         this.criaMenuAtendimentoSocial(soBusca);
+        this.criaMenuMaterial(soBusca);
         super.criaMenuAjuda();
 
         super.criaBotaoCadastrarProcedimento();
