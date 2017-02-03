@@ -23,12 +23,14 @@ public class FabricaMenuRecepcionista extends MenuBarFabricaAbstrata {
         super.criaMenuAtendimento();
         super.criaMenuDono(comRemover);
         super.criaMenuAnimal(comRemover);
+        super.criaMenuProntuarioEletronico();
         super.criaMenuProcedimento(comRemover);
         super.criaMenuQuestionarioSocioeconomico(soBusca);
         super.criaMenuAjuda();
 
         super.criaBotaoVisualizarAgenda();
         super.criaBotaoCadastrarAnimal();
+        super.criaBotaoImprimirFichaCLinica();
     }
 
 }

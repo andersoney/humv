@@ -58,7 +58,7 @@ public class MaterialService {
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "/{codigo}")
-	public String removermaterial(@PathVariable BigInteger codigo, @RequestParam(value = "username") String username) {
+	public String removerMaterial(@PathVariable BigInteger codigo, @RequestParam(value = "username") String username) {
 		return materialServiceImpl.removerMaterial(codigo, username);
 	}
 
