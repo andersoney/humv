@@ -52,7 +52,7 @@ public class AnimalService {
     }
     
     @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public String cadastrarAnimal(@RequestBody Animal animal, @RequestParam(value="username") String  username){
+    public Object cadastrarAnimal(@RequestBody Animal animal, @RequestParam(value="username") String  username){
     	return animalServiceImpl.cadastrarAnimal(animal, username);
     }
     
