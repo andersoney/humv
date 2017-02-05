@@ -152,7 +152,7 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabelNis" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jTextFieldNis" max="32767" attributes="0"/>
+                                          <Component id="jFormattedTextFieldNis" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -173,7 +173,7 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabelNomeDono" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabelNis" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextFieldNis" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jFormattedTextFieldNis" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -260,10 +260,10 @@
                     <Property name="text" type="java.lang.String" value="NIS:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextFieldNis">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldNisActionPerformed"/>
-                  </Events>
+                <Component class="javax.swing.JFormattedTextField" name="jFormattedTextFieldNis">
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jFormattedTextFieldNis.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>

@@ -36,7 +36,7 @@ public class QuestionarioSocioeconomico implements Serializable {
     private Date dataResposta;
     private Integer estadoCivil;
     private Integer idade;
-    private String nis;
+    private Integer nis;
     private String profissao;
     private Integer escolaridade;
     private String ocupacaoAtual;
@@ -125,11 +125,11 @@ public class QuestionarioSocioeconomico implements Serializable {
         this.idade = idade;
     }
 
-    public String getNis() {
+    public Integer getNis() {
         return nis;
     }
 
-    public void setNis(String nis) {
+    public void setNis(Integer nis) {
         this.nis = nis;
     }
 
