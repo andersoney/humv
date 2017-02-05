@@ -32,6 +32,10 @@ public class InterfaceGraficaUtils {
         String msg = "Registro de " + tipoObjeto + " efetuado com sucesso!";
         JOptionPane.showMessageDialog(null, msg, "Registro de " + tipoObjeto, JOptionPane.INFORMATION_MESSAGE);
     }
+    public static void sucessoCadastro(String tipoObjeto,String tipoCodigo,  int id) {
+        String msg = "Registro de " + tipoObjeto + " com "+tipoCodigo + " "+id +" efetuado com sucesso!";
+        JOptionPane.showMessageDialog(null, msg, "Registro de " + tipoObjeto, JOptionPane.INFORMATION_MESSAGE);
+    }
 
     public static String getMensagemErroCadastro(String tipoObjeto) {
         return "O cadastro de " + tipoObjeto + " não pode ser efetuado. Tente novamente mais tarde.";

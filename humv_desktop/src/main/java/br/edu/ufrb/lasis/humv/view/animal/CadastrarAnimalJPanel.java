@@ -501,16 +501,17 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
             } else {
                 return;
             }
-            String resposta = response.getEntity(String.class);
-            if (!resposta.equalsIgnoreCase("ok")) {
+            Object resposta = response.getEntity(Object.class);
+            if (!(resposta instanceof Animal)) { //!resposta.equalsIgnoreCase("ok")
                 if (animalSelecionado == null) {
-                    InterfaceGraficaUtils.erroResposta(resposta);
+                    InterfaceGraficaUtils.erroResposta((String) resposta);
                 } else {
-                    InterfaceGraficaUtils.erroResposta(resposta);
+                    InterfaceGraficaUtils.erroResposta((String) resposta);
                 }
             } else {
                 if (animalSelecionado == null) {
-                    InterfaceGraficaUtils.sucessoCadastro("animal");
+                    Animal a = (Animal) resposta;
+                    InterfaceGraficaUtils.sucessoCadastro("animal","RGHUMV", a.getRghumv().intValue());
                 } else {
                     InterfaceGraficaUtils.sucessoAtualizacao("animal");
                 }
