@@ -29,7 +29,7 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jPanelDadosAnimal" max="32767" attributes="0"/>
-                          <Component id="jPanelDadosDono" pref="435" max="32767" attributes="0"/>
+                          <Component id="jPanelDadosDono" pref="439" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
