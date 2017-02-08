@@ -49,11 +49,11 @@ public class AnimalServiceImpl {
 		return animalDAO.search(palavrachave);
 	}
 
-	public String cadastrarAnimal(Animal animal, String usuarioResponsavel){
+	public Object cadastrarAnimal(Animal animal, String usuarioResponsavel){
 		try{
-			animalDAO.saveAnimal(animal);
+			Animal a = animalDAO.saveAnimal(animal);
 			logger.info("[cadastrarAnimal - " + usuarioResponsavel + "] Animal salvo com sucesso: " + animal.getNome() + ".");
-			return "OK";
+			return a;
 		}catch(DataIntegrityViolationException ex){
 			if(ex.getMessage().toLowerCase().contains("constraint")){
 				//logger.error("[signup] RGHUMV já cadastrado: " + animal.getRghumv() + ".");

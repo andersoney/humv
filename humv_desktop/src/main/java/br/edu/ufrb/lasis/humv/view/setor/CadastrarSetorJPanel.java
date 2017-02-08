@@ -1,6 +1,5 @@
 package br.edu.ufrb.lasis.humv.view.setor;
 
-import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Setor;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
@@ -199,18 +198,16 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel {
                 InterfaceGraficaUtils.sucessoCadastro("setor");
                 cadastroSetorJDialog.fecharDialog(setorRetornado);
             } else {
-                String resposta = response.getEntity(String.class);
-                if (!resposta.equalsIgnoreCase("ok")) {
-                    if (setorSelecionado == null) {
-                        InterfaceGraficaUtils.erroResposta(resposta);
-                    } else {
-                        InterfaceGraficaUtils.erroResposta(resposta);
-                    }
+                Object resposta = response.getEntity(Object.class);
+                if (resposta instanceof Setor && setorSelecionado == null) { //resposta.equalsIgnoreCase("ok")
+                    Setor s = (Setor) resposta;
+                    InterfaceGraficaUtils.sucessoCadastro("setor", "código", s.getCodigo().intValue());
                 } else {
-                    if (setorSelecionado == null) {
-                        InterfaceGraficaUtils.sucessoCadastro("setor");
-                    } else {
+                    String s = (String) resposta;
+                    if (setorSelecionado != null && s.equalsIgnoreCase("ok")) {
                         InterfaceGraficaUtils.sucessoAtualizacao("setor");
+                    } else {
+                        InterfaceGraficaUtils.erroResposta(s);
                     }
                     HUMVApp.exibirMensagemCarregamento();
                     HUMVApp.setPainelCentralComLogo();

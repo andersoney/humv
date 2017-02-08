@@ -32,7 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Classe que cria o Painel Questionario SOcial.
+ * Classe que cria o Painel Questionario Social.
  *
  * @author tassiovale
  * @author Orion && Chacal
@@ -319,6 +319,8 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         jLabelEndereco = new javax.swing.JLabel();
         jLabelTelefone = new javax.swing.JLabel();
         jLabelAnimais = new javax.swing.JLabel();
+        jLabelNis = new javax.swing.JLabel();
+        jFormattedTextFieldNis = new javax.swing.JFormattedTextField();
         jPanelAdicionais = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -484,6 +486,11 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         jLabelAnimais.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabelAnimais.setText("Animais:");
 
+        jLabelNis.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabelNis.setText("NIS:");
+
+        jFormattedTextFieldNis.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+
         javax.swing.GroupLayout jPanelDadosBasicosLayout = new javax.swing.GroupLayout(jPanelDadosBasicos);
         jPanelDadosBasicos.setLayout(jPanelDadosBasicosLayout);
         jPanelDadosBasicosLayout.setHorizontalGroup(
@@ -496,13 +503,19 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
             .addGroup(jPanelDadosBasicosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelDadosBasicosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelNomeDono, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanelDadosBasicosLayout.createSequentialGroup()
-                        .addComponent(jLabelCpfDono, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
+                    .addComponent(jLabelAnimais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDadosBasicosLayout.createSequentialGroup()
+                        .addGroup(jPanelDadosBasicosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabelNomeDono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelCpfDono, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addComponent(jLabelTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabelAnimais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanelDadosBasicosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabelTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanelDadosBasicosLayout.createSequentialGroup()
+                                .addComponent(jLabelNis)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jFormattedTextFieldNis)))))
                 .addContainerGap())
         );
         jPanelDadosBasicosLayout.setVerticalGroup(
@@ -513,7 +526,10 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
                     .addComponent(jButtonPesquisarDono)
                     .addComponent(jButtonCadastrarNovoDono))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabelNomeDono)
+                .addGroup(jPanelDadosBasicosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelNomeDono)
+                    .addComponent(jLabelNis)
+                    .addComponent(jFormattedTextFieldNis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelDadosBasicosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelCpfDono)
@@ -807,7 +823,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
                     .addComponent(jRadioButtonEstudanteNao))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelEstudante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Dados do dono", jPanelDadosDono);
@@ -1610,6 +1626,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
 
         try {
             validarCampoVazio(jFormattedTextFieldIdade, "idade");
+            validarCampoVazio(jFormattedTextFieldNis, "NIS");
             validarCampoVazio(jTextFieldProfissao, "profissão");
             validarCampoVazio(jTextFieldOcupacao, "ocupação");
             validarCampoVazio(jTextFieldTipoConstrucao, "tipo de construção");
@@ -1658,6 +1675,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         questionario.setDono(dono);
         questionario.setDataResposta(Calendar.getInstance().getTime());
         questionario.setIdade(Integer.parseInt(jFormattedTextFieldIdade.getText()));
+        questionario.setNis(Integer.parseInt(jFormattedTextFieldNis.getText()));
         questionario.setEstadoCivil(jComboBoxEstadoCivil.getSelectedIndex()+1);
         questionario.setProfissao(jTextFieldProfissao.getText());
         questionario.setEscolaridade(jComboBoxEscolaridadeDono.getSelectedIndex()+1);
@@ -1822,6 +1840,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
     private javax.swing.JFormattedTextField jFormattedTextFieldExame;
     private javax.swing.JFormattedTextField jFormattedTextFieldGastosMensais;
     private javax.swing.JFormattedTextField jFormattedTextFieldIdade;
+    private javax.swing.JFormattedTextField jFormattedTextFieldNis;
     private javax.swing.JFormattedTextField jFormattedTextFieldRendaFormal;
     private javax.swing.JFormattedTextField jFormattedTextFieldRendaInformal;
     private javax.swing.JLabel jLabel1;
@@ -1872,6 +1891,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
     private javax.swing.JLabel jLabelEndereco;
     private javax.swing.JLabel jLabelFamiliaRendaPerCapita;
     private javax.swing.JLabel jLabelFamiliaRendaTotal;
+    private javax.swing.JLabel jLabelNis;
     private javax.swing.JLabel jLabelNomeDono;
     private javax.swing.JLabel jLabelRendaPerCapta;
     private javax.swing.JLabel jLabelRendaTotal;
