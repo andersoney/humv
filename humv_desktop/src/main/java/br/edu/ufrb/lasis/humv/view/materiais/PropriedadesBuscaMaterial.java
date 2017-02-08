@@ -5,10 +5,8 @@
  */
 package br.edu.ufrb.lasis.humv.view.materiais;
 
-import br.edu.ufrb.lasis.humv.view.setor.*;
 import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Material;
-import br.edu.ufrb.lasis.humv.entity.Setor;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;

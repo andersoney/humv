@@ -55,13 +55,15 @@ public class MaterialDAO extends GenericDAO<Material> implements Serializable {
 
 		BigInteger conversionResult = NumberUtils.convertStringToBigInteger(palavrachave);
 		if (conversionResult != null) {
-			criteria.add( Restrictions.eq("id", conversionResult) );
+			criteria.add( Restrictions.or(
+					Restrictions.eq("id", conversionResult),
+					Restrictions.ilike("discriminacao", "%" + palavrachave + "%") ) );
 		} else {
 			criteria.add(
 					Restrictions.or(
-							Restrictions.ilike("discriminacao", "%" + palavrachave + "%"),
-							Restrictions.ilike("unidade", "%" + palavrachave + "%"),
-							Restrictions.ilike("tipo", "%" + palavrachave + "%")
+							Restrictions.ilike("discriminacao", "%" + palavrachave + "%")
+							//Restrictions.ilike("unidade", "%" + palavrachave + "%"),
+							//Restrictions.ilike("tipo", "%" + palavrachave + "%")
 					)
 			);
 		}

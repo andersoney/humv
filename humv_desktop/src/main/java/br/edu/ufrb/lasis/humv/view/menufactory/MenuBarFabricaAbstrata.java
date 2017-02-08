@@ -19,6 +19,7 @@ import br.edu.ufrb.lasis.humv.view.dono.CadastrarDonoJPanel;
 import br.edu.ufrb.lasis.humv.view.dono.PropriedadesBuscaDono;
 import br.edu.ufrb.lasis.humv.view.main.LoginJDialog;
 import br.edu.ufrb.lasis.humv.view.materiais.CadastrarMaterial;
+import br.edu.ufrb.lasis.humv.view.materiais.PropriedadesBuscaMaterial;
 import br.edu.ufrb.lasis.humv.view.procedimento.CadastrarProcedimentoJPanel;
 import br.edu.ufrb.lasis.humv.view.procedimento.PropriedadesBuscaProcedimento;
 import br.edu.ufrb.lasis.humv.view.projeto.CadastrarProjetoJPanel;
@@ -122,7 +123,7 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
     private JMenuItem menuItemCadastroMaterial,
             menuItemAlteracaoMaterial,
             menuItemRemocaoMaterial,
-            menuItemBusca;
+            menuItemBuscaMaterial;
     
     private JPanel panelButtons;
     private GridBagConstraints panelConstraints;
@@ -392,7 +393,27 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
             menuItemCadastroMaterial.setMnemonic('c');
             menuItemCadastroMaterial.addActionListener(this);
             menuMaterial.add(menuItemCadastroMaterial);
+            
+           menuItemBuscaMaterial = new JMenuItem("Buscar");
+           menuItemBuscaMaterial.setMnemonic('b');
+           menuItemBuscaMaterial.addActionListener(this);
+           menuMaterial.add(menuItemBuscaMaterial);
+           
+           menuItemAlteracaoMaterial = new JMenuItem("Alterar");
+           menuItemAlteracaoMaterial.setMnemonic('a');
+           menuItemAlteracaoMaterial.addActionListener(this);
+           menuMaterial.add(menuItemAlteracaoMaterial);
+           
+                 menuItemRemocaoMaterial = new JMenuItem("Remover");
+           menuItemRemocaoMaterial.setMnemonic('r');
+           menuItemRemocaoMaterial.addActionListener(this);
+           menuMaterial.add(menuItemRemocaoMaterial); 
+          
         }
+        
+        
+         
+        
         getMenuBar().add(menuMaterial);
     }
     
@@ -556,6 +577,18 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
             CadastrarMaterial tela = new CadastrarMaterial();
             System.err.println("Aqui clicou em cadastro");
             HUMVApp.setNovoPainelCentral(tela);
+        }else if (source.equals(menuItemBuscaMaterial)) {
+            PropriedadesBuscaMaterial propriedadesBusca = new PropriedadesBuscaMaterial(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
+            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE MATERIAL PARA VISUALIZAÇÃO/ALTERAÇÃO", propriedadesBusca);
+            HUMVApp.setNovoPainelCentral(buscaPanel);
+        }else if (source.equals(menuItemAlteracaoMaterial)) {
+            PropriedadesBuscaMaterial propriedadesBusca = new PropriedadesBuscaMaterial(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
+            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE MATERIAL PARA ALTERAÇÃO", propriedadesBusca);
+            HUMVApp.setNovoPainelCentral(buscaPanel);
+        }else if (source.equals(menuItemRemocaoMaterial)) {
+            PropriedadesBuscaMaterial propriedadesBusca = new PropriedadesBuscaMaterial(PropriedadesBusca.OPCAO_REMOVER);
+            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE MATERIAL PARA REMOÇÃO", propriedadesBusca);
+            HUMVApp.setNovoPainelCentral(buscaPanel);
         }
     }
     

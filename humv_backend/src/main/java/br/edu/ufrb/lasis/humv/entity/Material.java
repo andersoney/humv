@@ -52,6 +52,10 @@ public class Material implements Serializable {
     public void setTipo(Integer tipo) {
         this.tipo = tipo;
     }
+    
+    public double getValor() {
+        return valor;
+    }
 
     public void setValor(double valor) {
         this.valor = valor;
