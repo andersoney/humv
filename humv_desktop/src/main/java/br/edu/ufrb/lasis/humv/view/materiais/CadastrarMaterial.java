@@ -12,6 +12,7 @@ import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.view.atendimentosocial.CadastrarAtendimentoSocialJPanel;
 import com.sun.jersey.api.client.ClientResponse;
+import java.math.BigInteger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +24,8 @@ public class CadastrarMaterial extends javax.swing.JPanel {
     
     private final static Logger logger = LoggerFactory.getLogger(CadastrarAtendimentoSocialJPanel.class);
     private boolean novo = true;
-
+    private Material materialSlecionado ;
+//criar um objeto material selecionado
     /**
      * Creates new form MateriaisCadastro
      */
@@ -31,15 +33,24 @@ public class CadastrarMaterial extends javax.swing.JPanel {
         initComponents();
     }
 
-    public CadastrarMaterial(Material material) {
+    
+    // Alterar o construtor para receber o material selecionado
+    //criar um custom init components
+    public CadastrarMaterial(Material material) {  
+        this.materialSlecionado = material ;
         initComponents();
-        this.jComboBox1.setSelectedIndex(material.getTipo());
-        this.descriminacaoJTF.setText(material.getDiscriminacao());
-        this.valorJTF.setText("" + material.getValor());
-        this.unidadeJTF.setText(material.getUnidade());
-        novo=false;
+        customInitComponents();
+        
     }
 
+    private void customInitComponents(){
+      this.jComboBox1.setSelectedIndex(materialSlecionado.getTipo());
+        this.descriminacaoJTF.setText(materialSlecionado.getDiscriminacao());
+        this.valorJTF.setText("" + materialSlecionado.getValor());
+        this.unidadeJTF.setText(materialSlecionado.getUnidade());
+        this.jLabelCodigo.setText(""+materialSlecionado.getId());
+        novo=false;  
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,6 +70,8 @@ public class CadastrarMaterial extends javax.swing.JPanel {
         salvarJB = new javax.swing.JButton();
         cancelarJB = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jLabelCodigo = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         descricaoJL.setText("Descriminação");
 
@@ -84,38 +97,40 @@ public class CadastrarMaterial extends javax.swing.JPanel {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Medicamento", "Material" }));
 
+        jLabel1.setText("Código :");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(valorJL, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tipoJL, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(valorJTF, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(unidadeJL)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(unidadeJTF, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(descricaoJL)
+                        .addGap(18, 18, 18)
+                        .addComponent(descriminacaoJTF, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(92, 92, 92)
                         .addComponent(cancelarJB)
                         .addGap(18, 18, 18)
-                        .addComponent(salvarJB))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(unidadeJL)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(unidadeJTF, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(descricaoJL)
-                            .addGap(18, 18, 18)
-                            .addComponent(descriminacaoJTF, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(valorJL)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(tipoJL)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(valorJTF, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
-                                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(37, Short.MAX_VALUE))
+                        .addComponent(salvarJB)))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,11 +151,18 @@ public class CadastrarMaterial extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(valorJL)
                     .addComponent(valorJTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(salvarJB)
-                    .addComponent(cancelarJB))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(salvarJB)
+                            .addComponent(cancelarJB))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabelCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(33, 33, 33))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -160,6 +182,7 @@ public class CadastrarMaterial extends javax.swing.JPanel {
         
         String descricao, unidade, valorST;
         Integer tipo;
+        BigInteger id ;
         Float valor;
         descricao = this.descriminacaoJTF.getText();
         tipo = this.jComboBox1.getSelectedIndex();
@@ -189,6 +212,8 @@ public class CadastrarMaterial extends javax.swing.JPanel {
             if (novo) {
                 response = RESTMethods.post("/api/material", material);
             } else {
+            
+             material.setId(materialSlecionado.getId());
                 response = RESTMethods.put("/api/material", material);
             }
             
@@ -218,6 +243,8 @@ public class CadastrarMaterial extends javax.swing.JPanel {
     private javax.swing.JLabel descricaoJL;
     private javax.swing.JTextField descriminacaoJTF;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelCodigo;
     private javax.swing.JButton salvarJB;
     private javax.swing.JLabel tipoJL;
     private javax.swing.JLabel unidadeJL;
@@ -225,4 +252,6 @@ public class CadastrarMaterial extends javax.swing.JPanel {
     private javax.swing.JLabel valorJL;
     private javax.swing.JTextField valorJTF;
     // End of variables declaration//GEN-END:variables
+
+  
 }
