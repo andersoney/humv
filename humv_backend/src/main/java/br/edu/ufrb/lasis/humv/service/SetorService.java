@@ -47,7 +47,7 @@ public class SetorService {
     }
     
     @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public Object cadastrarSetor(@RequestBody Setor setor, @RequestParam(value="username") String  username){
+    public String cadastrarSetor(@RequestBody Setor setor, @RequestParam(value="username") String  username){
     	return setorServiceImpl.cadastrarSetor(setor, username);
     }
     

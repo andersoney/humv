@@ -51,11 +51,11 @@ public class SetorServiceImpl {
 		return setorDAO.search(palavrachave);
 	}
 
-	public Object cadastrarSetor(Setor setor , String usuarioResponsavel ){
+	public String cadastrarSetor(Setor setor , String usuarioResponsavel ){
 		try{
-			Setor s = setorDAO.saveSetor(setor);
+			setorDAO.saveSetor(setor);
 			logger.info("[signup - " + usuarioResponsavel + "] Setor cadastrado com sucesso: " + setor.getNome() + ".");
-			return s;
+			return ""+setor.getCodigo();
 		}catch(DataIntegrityViolationException ex){
 			if(ex.getMessage().toLowerCase().contains("constraint")){
 				//logger.error("[signup] Nome do setor já cadastrado: " + setor.getNome() + "."); 
