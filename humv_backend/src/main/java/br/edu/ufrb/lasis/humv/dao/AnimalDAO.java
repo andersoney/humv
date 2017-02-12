@@ -42,8 +42,8 @@ public class AnimalDAO  extends GenericDAO<Animal> implements Serializable {
 	 * @param animal animal to be saved
 	 */
 	@Transactional
-	public Animal saveAnimal(Animal animal) {
-		return super.save(animal);
+	public void saveAnimal(Animal animal) {
+		super.save(animal);
 	}
 
 	/**
