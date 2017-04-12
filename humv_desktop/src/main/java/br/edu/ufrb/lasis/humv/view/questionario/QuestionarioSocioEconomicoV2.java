@@ -183,6 +183,8 @@ public class QuestionarioSocioEconomicoV2 extends javax.swing.JPanel {
         jRadioButtonExameDesconto = new javax.swing.JRadioButton();
         jFormattedTextFieldExame = new javax.swing.JFormattedTextField();
         jLabel43 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         jPanelDadosBasicos.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados básicos"));
 
@@ -1193,11 +1195,20 @@ public class QuestionarioSocioEconomicoV2 extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Cobrança", Cobranca);
 
+        jButton1.setText("Salvar");
+
+        jButton2.setText("Cancelar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 723, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(505, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -1206,12 +1217,16 @@ public class QuestionarioSocioEconomicoV2 extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 801, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 798, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 779, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap(31, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1251,6 +1266,8 @@ public class QuestionarioSocioEconomicoV2 extends javax.swing.JPanel {
     private javax.swing.JCheckBox eDependenteF;
     private javax.swing.JCheckBox idosoDependenteQ;
     private javax.swing.JCheckBox incapacitanteT;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonCadastrarNovoDono;
     private javax.swing.JButton jButtonDocumentoRemover;
     private javax.swing.JButton jButtonDocumentoSalvar;
