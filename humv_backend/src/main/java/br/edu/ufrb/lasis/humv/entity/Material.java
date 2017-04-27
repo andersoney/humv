@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "MATERIAL")
+@Table(name = "MATERIAIS")
 public class Material implements Serializable {
 
     private static final long serialVersionUID = -6125748157292589614L;
