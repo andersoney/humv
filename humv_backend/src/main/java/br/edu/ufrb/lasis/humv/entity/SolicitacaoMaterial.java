@@ -10,114 +10,111 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name="SOLICITACOES_MATERIAIS")
+@Table(name = "SOLICITACOES_MATERIAIS")
 public class SolicitacaoMaterial implements Serializable {
 	private static final long serialVersionUID = -2862522164162006684L;
-	
+
 	@Id
-    @GeneratedValue
-    private BigInteger id;
-    
-    @ManyToOne
-    @JoinColumn
-    private Material material;
-    
-    private BigInteger rghumv;
-    private String setor;
-    private int quantidadeSolicitada;
-    private int quantidadeLiberada;
-    private String modelo; // Para materiais cirurgicos, ver R044
-    private String status; // solicitaçao vista, solicitação nao vista.
-    
-    
-    public int getQuantidadeLiberada() {
-        return quantidadeLiberada;
-    }
+	@GeneratedValue
+	private BigInteger id;
 
-    public void setQuantidadeLiberada(int quantidadeLiberada) {
-        this.quantidadeLiberada = quantidadeLiberada;
-    }
-    
-    public BigInteger getId() {
-        return id;
-    }
+	@ManyToOne
+	@JoinColumn
+	private Material material;
+	private BigInteger rghumvAnimal;
+	private String nomeSetor;
+	private String modelo = ""; // será preenchido somente se o material for
+								// cirurgico;
 
-    public void setId(BigInteger id) {
-        this.id = id;
-    }
+	private Integer quantidadeSolicitada;
+	private Integer quantidadeLiberada;
 
-    public String getModelo() {
-        return modelo;
-    }
+	private String situacaoStatus; // solicitaçao vista, solicitação nao vista.
 
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
+	public Integer getQuantidadeLiberada() {
+		return quantidadeLiberada;
+	}
 
-    public String getStatus() {
-        return status;
-    }
+	public void setQuantidadeLiberada(Integer quantidadeLiberada) {
+		this.quantidadeLiberada = quantidadeLiberada;
+	}
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-    
-    /**
-     * @return the material
-     */
-    public Material getMaterial() {
-        return material;
-    }
+	public BigInteger getId() {
+		return id;
+	}
 
-    /**
-     * @param material the material to set
-     */
-    public void setMaterial(Material material) {
-        this.material = material;
-    }
+	public void setId(BigInteger id) {
+		this.id = id;
+	}
 
-    /**
-     * @return the animal
-     */
-    public BigInteger getRghumv() {
-        return rghumv;
-    }
+	public String getSituacaoStatus() {
+		return situacaoStatus;
+	}
 
-    /**
-     * @param rghumv the animal to set
-     */
-    public void setRghumv(BigInteger rghumv) {
-        this.rghumv = rghumv;
-    }
+	public void setSituacaoStatus(String situacaoStatus) {
+		this.situacaoStatus = situacaoStatus;
+	}
 
-    /**
-     * @return the setor
-     */
-    public String getSetor() {
-        return setor;
-    }
+	/**
+	 * @return the material
+	 */
+	public Material getMaterial() {
+		return material;
+	}
 
-    /**
-     * @param setor the setor to set
-     */
-    public void setSetor(String setor) {
-        this.setor = setor;
-    }
+	/**
+	 * @param material
+	 *            the material to set
+	 */
+	public void setMaterial(Material material) {
+		this.material = material;
+	}
 
-    /**
-     * @return the quantidade
-     */
-    public int getQuantidadeSolicitada() {
-        return quantidadeSolicitada;
-    }
+	/**
+	 * @return the animal
+	 */
+	public BigInteger getRghumvAnimal() {
+		return rghumvAnimal;
+	}
 
-    /**
-     * @param quantidadeSolicitada the quantidade to set
-     */
-    public void setQuantidadeSolicitada(int quantidadeSolicitada) {
-        this.quantidadeSolicitada = quantidadeSolicitada;
-    }
+	/**
+	 * @param rghumvAnimal
+	 *            the animal to set
+	 */
+	public void setRghumvAnimal(BigInteger rghumvAnimal) {
+		this.rghumvAnimal = rghumvAnimal;
+	}
+
+	/**
+	 * @return the quantidade
+	 */
+	public Integer getQuantidadeSolicitada() {
+		return quantidadeSolicitada;
+	}
+
+	/**
+	 * @param quantidadeSolicitada
+	 *            the quantidade to set
+	 */
+	public void setQuantidadeSolicitada(int quantidadeSolicitada) {
+		this.quantidadeSolicitada = quantidadeSolicitada;
+	}
+
+	public String getNomeSetor() {
+		return nomeSetor;
+	}
+
+	public void setNomeSetor(String nomeSetor) {
+		this.nomeSetor = nomeSetor;
+	}
+
+	public String getModelo() {
+		return modelo;
+	}
+
+	public void setModelo(String modelo) {
+		this.modelo = modelo;
+	}
 
 }
