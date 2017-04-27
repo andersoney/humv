@@ -21,6 +21,7 @@ public class CadastarLiberacaoMaterialJPanel extends javax.swing.JPanel {
         this.solicitacaoMaterial = solicitacaoMaterial;
         customInit(this.solicitacaoMaterial);
         this.solicitacaoMaterial.setDataLiberacao(new Date());
+        
     }
 
     private void customInit(SolicitacaoMaterial solicitacaoMaterial) {
@@ -30,6 +31,12 @@ public class CadastarLiberacaoMaterialJPanel extends javax.swing.JPanel {
         jLabelRghumvAnimal.setText("RGHUMV do animal: " + solicitacaoMaterial.getRghumvAnimal());
         jLabelQuantidadeSolicitada.setText("Quantidade solicitada: " + solicitacaoMaterial.getQuantidadeSolicitada());
         jLabelQuantidadeEstoque.setText("Quantidade em estoque: " + solicitacaoMaterial.getMaterial().getQuantidadeDisponivel());
+        
+        if (solicitacaoMaterial.isCirurgico()) {
+            jLabelModelo.setText("Modelo: "+solicitacaoMaterial.getModelo());
+        } else {
+            jLabelModelo.setText("");
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -48,6 +55,7 @@ public class CadastarLiberacaoMaterialJPanel extends javax.swing.JPanel {
         jButtonConfirmar = new javax.swing.JButton();
         jLabelTipo = new javax.swing.JLabel();
         jLabelHora = new javax.swing.JLabel();
+        jLabelModelo = new javax.swing.JLabel();
 
         jLabel1.setText("Liberação de  Material");
 
@@ -76,6 +84,8 @@ public class CadastarLiberacaoMaterialJPanel extends javax.swing.JPanel {
 
         jLabelHora.setText("Hora:");
 
+        jLabelModelo.setText("Modelo:                                     ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -84,7 +94,7 @@ public class CadastarLiberacaoMaterialJPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonConfirmar)
                 .addGap(20, 20, 20))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -99,16 +109,19 @@ public class CadastarLiberacaoMaterialJPanel extends javax.swing.JPanel {
                     .addComponent(jLabelRghumvAnimal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelQuantidadeSolicitada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelQuantidadeEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelTipo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabelTipo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabelHora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabelHora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(143, 143, 143)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabelModelo)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -116,7 +129,7 @@ public class CadastarLiberacaoMaterialJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
                 .addComponent(jLabelHora)
                 .addGap(18, 18, 18)
                 .addComponent(jLabelSetor)
@@ -134,7 +147,9 @@ public class CadastarLiberacaoMaterialJPanel extends javax.swing.JPanel {
                     .addComponent(jSpinnerQuantidadeLiberada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabelRghumvAnimal)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelModelo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(jButtonConfirmar)
                 .addContainerGap())
         );
@@ -142,7 +157,7 @@ public class CadastarLiberacaoMaterialJPanel extends javax.swing.JPanel {
 
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
         this.solicitacaoMaterial.setQuantidadeLiberada((Integer) jSpinnerQuantidadeLiberada.getValue());
-        this.solicitacaoMaterial.setSituacaoStatus("Vista e liberada");
+        this.solicitacaoMaterial.setSituacaoStatus("solicitação autorizada");
         try {
             ClientResponse response;
             response = RESTMethods.put("/api/solicitacaoMaterial", solicitacaoMaterial);
@@ -167,6 +182,7 @@ public class CadastarLiberacaoMaterialJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelHora;
     private javax.swing.JLabel jLabelMaterial;
+    private javax.swing.JLabel jLabelModelo;
     private javax.swing.JLabel jLabelQuantidadeEstoque;
     private javax.swing.JLabel jLabelQuantidadeLiberada;
     private javax.swing.JLabel jLabelQuantidadeSolicitada;

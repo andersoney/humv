@@ -10,15 +10,15 @@ public class SolicitacaoMaterial {
 
     private BigInteger rghumvAnimal;
     private String nomeSetor;
-    private String modelo = ""; // será preenchido somente se o material for
-    // cirurgico;
+    private boolean cirurgico = false;
+    private String modelo = ""; // será preenchido somente se o material for cirurgico;
 
     private Integer quantidadeSolicitada;
     private Integer quantidadeLiberada;
     private Date dataSolicitacao;
     private Date dataLiberacao;
 
-    private String situacaoStatus; // solicitaçao vista, solicitação nao vista.
+    private String situacaoStatus = "solicitação não vista"; // solicitaçao vista, solicitação autorizada.
 
     public Date getDataSolicitacao() {
         return dataSolicitacao;
@@ -64,44 +64,26 @@ public class SolicitacaoMaterial {
         this.situacaoStatus = situacaoStatus;
     }
 
-    /**
-     * @return the material
-     */
     public Material getMaterial() {
         return material;
     }
 
-    /**
-     * @param material the material to set
-     */
     public void setMaterial(Material material) {
         this.material = material;
     }
 
-    /**
-     * @return the animal
-     */
     public BigInteger getRghumvAnimal() {
         return rghumvAnimal;
     }
 
-    /**
-     * @param rghumvAnimal the animal to set
-     */
     public void setRghumvAnimal(BigInteger rghumvAnimal) {
         this.rghumvAnimal = rghumvAnimal;
     }
 
-    /**
-     * @return the quantidade
-     */
     public Integer getQuantidadeSolicitada() {
         return quantidadeSolicitada;
     }
 
-    /**
-     * @param quantidadeSolicitada the quantidade to set
-     */
     public void setQuantidadeSolicitada(int quantidadeSolicitada) {
         this.quantidadeSolicitada = quantidadeSolicitada;
     }
@@ -120,6 +102,14 @@ public class SolicitacaoMaterial {
 
     public void setModelo(String modelo) {
         this.modelo = modelo;
+    }
+
+    public boolean isCirurgico() {
+        return cirurgico;
+    }
+
+    public void setCirurgico(boolean cirurgico) {
+        this.cirurgico = cirurgico;
     }
 
 }
