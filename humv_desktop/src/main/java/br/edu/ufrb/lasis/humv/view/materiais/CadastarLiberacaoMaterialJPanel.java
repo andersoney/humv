@@ -6,22 +6,25 @@ import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import com.sun.jersey.api.client.ClientResponse;
+import java.util.Date;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LiberarMaterialJPanel extends javax.swing.JPanel {
+public class CadastarLiberacaoMaterialJPanel extends javax.swing.JPanel {
     private SolicitacaoMaterial solicitacaoMaterial;
-    private final static Logger logger = LoggerFactory.getLogger(LiberarMaterialJPanel.class);
+    private final static Logger logger = LoggerFactory.getLogger(CadastarLiberacaoMaterialJPanel.class);
 
-    public LiberarMaterialJPanel(SolicitacaoMaterial solicitacaoMaterial) {
+    public CadastarLiberacaoMaterialJPanel(SolicitacaoMaterial solicitacaoMaterial) {
         initComponents();
         this.solicitacaoMaterial = solicitacaoMaterial;
         customInit(this.solicitacaoMaterial);
+        this.solicitacaoMaterial.setDataLiberacao(new Date());
     }
 
     private void customInit(SolicitacaoMaterial solicitacaoMaterial) {
+        jLabelHora.setText("Hora: "+ solicitacaoMaterial.getDataSolicitacao());
         jLabelSetor.setText("Setor solicitante: " + solicitacaoMaterial.getNomeSetor());
         jLabelMaterial.setText("Material solicitado: " + solicitacaoMaterial.getMaterial().getDiscriminacao());
         jLabelRghumvAnimal.setText("RGHUMV do animal: " + solicitacaoMaterial.getRghumvAnimal());
@@ -44,6 +47,7 @@ public class LiberarMaterialJPanel extends javax.swing.JPanel {
         jSpinnerQuantidadeLiberada = new javax.swing.JSpinner();
         jButtonConfirmar = new javax.swing.JButton();
         jLabelTipo = new javax.swing.JLabel();
+        jLabelHora = new javax.swing.JLabel();
 
         jLabel1.setText("Liberação de  Material");
 
@@ -70,6 +74,8 @@ public class LiberarMaterialJPanel extends javax.swing.JPanel {
 
         jLabelTipo.setText("Tipo do material:");
 
+        jLabelHora.setText("Hora:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -78,22 +84,16 @@ public class LiberarMaterialJPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonConfirmar)
                 .addGap(20, 20, 20))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabelQuantidadeLiberada)
-                        .addGap(28, 28, 28)
-                        .addComponent(jSpinnerQuantidadeLiberada, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(143, 143, 143)
-                        .addComponent(jLabel1)))
-                .addContainerGap(152, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabelQuantidadeLiberada)
+                        .addGap(28, 28, 28)
+                        .addComponent(jSpinnerQuantidadeLiberada, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabelMaterial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelMaterial, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
                         .addGap(109, 109, 109))
                     .addComponent(jLabelSetor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelRghumvAnimal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -101,12 +101,23 @@ public class LiberarMaterialJPanel extends javax.swing.JPanel {
                     .addComponent(jLabelQuantidadeEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelTipo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabelHora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(143, 143, 143)
+                        .addComponent(jLabel1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addComponent(jLabelHora)
                 .addGap(18, 18, 18)
                 .addComponent(jLabelSetor)
                 .addGap(18, 18, 18)
@@ -123,7 +134,7 @@ public class LiberarMaterialJPanel extends javax.swing.JPanel {
                     .addComponent(jSpinnerQuantidadeLiberada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabelRghumvAnimal)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonConfirmar)
                 .addContainerGap())
         );
@@ -154,6 +165,7 @@ public class LiberarMaterialJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonConfirmar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelHora;
     private javax.swing.JLabel jLabelMaterial;
     private javax.swing.JLabel jLabelQuantidadeEstoque;
     private javax.swing.JLabel jLabelQuantidadeLiberada;

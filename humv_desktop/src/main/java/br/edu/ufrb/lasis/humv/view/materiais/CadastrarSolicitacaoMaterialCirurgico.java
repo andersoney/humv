@@ -1,15 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ufrb.lasis.humv.view.materiais;
+
+import br.edu.ufrb.lasis.humv.HUMVApp;
+import br.edu.ufrb.lasis.humv.entity.Material;
+import br.edu.ufrb.lasis.humv.entity.SolicitacaoMaterial;
+import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
+import br.edu.ufrb.lasis.humv.rest.RESTMethods;
+import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
+import com.sun.jersey.api.client.ClientResponse;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author luiztoni
  */
 public class CadastrarSolicitacaoMaterialCirurgico extends javax.swing.JPanel {
+    private Material material;
+    private String rghumv;
+    private String setor;
+    private int quantidade;
+    private SolicitacaoMaterial solicitacaoMaterial;
+    private final String servicoSolicitacao = "/api/solicitacaoMaterial";
+    private SolicitacaoMaterial solicitacaoSelecionada;
 
     /**
      * Creates new form SolicitarMaterialCirurgico
@@ -39,6 +52,7 @@ public class CadastrarSolicitacaoMaterialCirurgico extends javax.swing.JPanel {
         jSpinnerQuantidade = new javax.swing.JSpinner();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         jLabel4.setText("Solicitação de Material cirurgico");
 
@@ -73,6 +87,8 @@ public class CadastrarSolicitacaoMaterialCirurgico extends javax.swing.JPanel {
 
         jLabel5.setText("Modelo:");
 
+        jLabel6.setText("Hora:                                                                                                                              ");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -88,16 +104,18 @@ public class CadastrarSolicitacaoMaterialCirurgico extends javax.swing.JPanel {
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
                         .addComponent(jSpinnerQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextFieldRghumv, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(0, 0, Short.MAX_VALUE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel5)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldRghumv, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel6))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -117,7 +135,9 @@ public class CadastrarSolicitacaoMaterialCirurgico extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addComponent(jLabel6)
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -155,7 +175,45 @@ public class CadastrarSolicitacaoMaterialCirurgico extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
-
+        setor = jTextFieldSetor.getText();
+        rghumv = jTextFieldRghumv.getText();
+        quantidade = (Integer) jSpinnerQuantidade.getValue();
+        if (material == null) {
+            JOptionPane.showMessageDialog(this, "Você deve escolher um material para prosseguir com a operação.");
+            return;
+        } else {
+            solicitacaoMaterial.setMaterial(material);
+        }
+        if (this.jTextFieldSetor.getText().isEmpty()) {
+            InterfaceGraficaUtils.validaCampoVazio("identificador de setor");
+            return;
+        }
+        ClientResponse response;
+        try {
+            if (solicitacaoSelecionada == null) {
+                response = RESTMethods.post(this.servicoSolicitacao, solicitacaoMaterial);
+            }
+            else if (InterfaceGraficaUtils.dialogoRemoverAlterar("alterar", "solicitação", ""+solicitacaoSelecionada.getId())) {
+                solicitacaoMaterial.setId(solicitacaoSelecionada.getId());
+                response = RESTMethods.put(this.servicoSolicitacao, solicitacaoMaterial);
+            } else {
+                return;
+            }
+            
+            String resposta = response.getEntity(String.class);
+            if (!(resposta.contains("Erro") || resposta.contains("já cadastrado")) && solicitacaoSelecionada == null) { 
+                InterfaceGraficaUtils.sucessoCadastro("solicitação do material");
+            } else {
+                if (solicitacaoSelecionada != null && resposta.equalsIgnoreCase("ok")) {
+                    InterfaceGraficaUtils.sucessoAtualizacao("solicitação do material");
+                } else {
+                    InterfaceGraficaUtils.erroResposta(resposta);
+                }
+                HUMVApp.setPainelCentralComLogo();
+            }
+        } catch (RESTConnectionException ex) {
+            Logger.getLogger(CadastrarSolicitacaoMaterial.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
     private void jTextFieldRghumvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldRghumvActionPerformed
@@ -176,6 +234,7 @@ public class CadastrarSolicitacaoMaterialCirurgico extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSpinner jSpinnerQuantidade;
     private javax.swing.JTextField jTextFieldRghumv;

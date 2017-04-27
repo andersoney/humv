@@ -12,6 +12,7 @@ import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.sun.jersey.api.client.ClientResponse;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -28,6 +29,9 @@ public class CadastrarSolicitacaoMaterial extends javax.swing.JPanel implements 
     public CadastrarSolicitacaoMaterial() {
         initComponents();
         this.solicitacaoMaterial.setSituacaoStatus("não vista");
+        this.solicitacaoMaterial.setDataSolicitacao(new Date());
+        this.jLabelHora.setText("Hora: " + new Date());
+        this.solicitacaoMaterial.setDataLiberacao(null);
     }
 
     public CadastrarSolicitacaoMaterial(SolicitacaoMaterial solicitacaoMaterial) {
@@ -51,6 +55,7 @@ public class CadastrarSolicitacaoMaterial extends javax.swing.JPanel implements 
         jLabelMaterial = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jSpinnerQuantidade = new javax.swing.JSpinner();
+        jLabelHora = new javax.swing.JLabel();
 
         jLabel4.setText("Solicitação de Material");
 
@@ -90,6 +95,8 @@ public class CadastrarSolicitacaoMaterial extends javax.swing.JPanel implements 
 
         jLabel3.setText("Quantidade:");
 
+        jLabelHora.setText("Hora:                                                                                    ");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -113,7 +120,8 @@ public class CadastrarSolicitacaoMaterial extends javax.swing.JPanel implements 
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButtonBuscarMaterial)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabelMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabelMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelHora))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -135,7 +143,9 @@ public class CadastrarSolicitacaoMaterial extends javax.swing.JPanel implements 
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonBuscarMaterial)
                     .addComponent(jLabelMaterial))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabelHora)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -152,9 +162,9 @@ public class CadastrarSolicitacaoMaterial extends javax.swing.JPanel implements 
                     .addGroup(layout.createSequentialGroup()
                         .addGap(104, 104, 104)
                         .addComponent(jLabel4)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 110, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 10, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -164,8 +174,8 @@ public class CadastrarSolicitacaoMaterial extends javax.swing.JPanel implements 
                 .addGap(22, 22, 22)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonConfirmar)
                     .addComponent(jButtonCancelar))
@@ -246,6 +256,7 @@ public class CadastrarSolicitacaoMaterial extends javax.swing.JPanel implements 
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabelHora;
     private javax.swing.JLabel jLabelMaterial;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSpinner jSpinnerQuantidade;
