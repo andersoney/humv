@@ -1,23 +1,44 @@
-package br.edu.ufrb.lasis.humv.entity;
-
+import br.edu.ufrb.lasis.humv.entity.Material;
 import java.math.BigInteger;
-
+import java.util.Date;
 
 public class SolicitacaoMaterial {
 
     private BigInteger id;
     private Material material;
-    
+
     private BigInteger rghumvAnimal;
     private String nomeSetor;
-    private String modelo = ""; // será preenchido somente se o material for cirurgico;
+    private String modelo = ""; // será preenchido somente se o material for
+    // cirurgico;
 
     private Integer quantidadeSolicitada;
     private Integer quantidadeLiberada;
-    
+    private Date dataSolicitacao;
+    private Date dataLiberacao;
+
     private String situacaoStatus; // solicitaçao vista, solicitação nao vista.
-    
-    
+
+    public Date getDataSolicitacao() {
+        return dataSolicitacao;
+    }
+
+    public void setDataSolicitacao(Date dataSolicitacao) {
+        this.dataSolicitacao = dataSolicitacao;
+    }
+
+    public Date getDataLiberacao() {
+        return dataLiberacao;
+    }
+
+    public void setDataLiberacao(Date dataLiberacao) {
+        this.dataLiberacao = dataLiberacao;
+    }
+
+    public void setQuantidadeSolicitada(Integer quantidadeSolicitada) {
+        this.quantidadeSolicitada = quantidadeSolicitada;
+    }
+
     public Integer getQuantidadeLiberada() {
         return quantidadeLiberada;
     }
@@ -25,7 +46,7 @@ public class SolicitacaoMaterial {
     public void setQuantidadeLiberada(Integer quantidadeLiberada) {
         this.quantidadeLiberada = quantidadeLiberada;
     }
-    
+
     public BigInteger getId() {
         return id;
     }
@@ -41,7 +62,7 @@ public class SolicitacaoMaterial {
     public void setSituacaoStatus(String situacaoStatus) {
         this.situacaoStatus = situacaoStatus;
     }
-    
+
     /**
      * @return the material
      */
@@ -83,8 +104,8 @@ public class SolicitacaoMaterial {
     public void setQuantidadeSolicitada(int quantidadeSolicitada) {
         this.quantidadeSolicitada = quantidadeSolicitada;
     }
-    
-     public String getNomeSetor() {
+
+    public String getNomeSetor() {
         return nomeSetor;
     }
 
@@ -99,4 +120,5 @@ public class SolicitacaoMaterial {
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }
+
 }
