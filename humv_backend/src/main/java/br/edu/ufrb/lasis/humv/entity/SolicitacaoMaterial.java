@@ -2,6 +2,7 @@ package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,8 +30,31 @@ public class SolicitacaoMaterial implements Serializable {
 
 	private Integer quantidadeSolicitada;
 	private Integer quantidadeLiberada;
-
+	private Date dataSolicitacao;
+	private Date dataLiberacao;
+	
 	private String situacaoStatus; // solicitaçao vista, solicitação nao vista.
+
+	
+	public Date getDataSolicitacao() {
+		return dataSolicitacao;
+	}
+
+	public void setDataSolicitacao(Date dataSolicitacao) {
+		this.dataSolicitacao = dataSolicitacao;
+	}
+
+	public Date getDataLiberacao() {
+		return dataLiberacao;
+	}
+
+	public void setDataLiberacao(Date dataLiberacao) {
+		this.dataLiberacao = dataLiberacao;
+	}
+
+	public void setQuantidadeSolicitada(Integer quantidadeSolicitada) {
+		this.quantidadeSolicitada = quantidadeSolicitada;
+	}
 
 	public Integer getQuantidadeLiberada() {
 		return quantidadeLiberada;

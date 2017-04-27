@@ -2,6 +2,7 @@ package br.edu.ufrb.lasis.humv.impl;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,6 +72,18 @@ public class SolicitacaoMaterialServiceImpl {
 		logger.info("[removerSolicitacaoMaterial - " + usuarioResponsavel + "] Solicitação de Material "
 				+ solicitacaoMaterial.getId() + " removida com sucesso.");
 		return "OK";
+	}
+	
+	public List<SolicitacaoMaterial> searchByStatus(String status){
+		return solicitacaoMaterialDAO.findByStatus(status);
+	}
+	
+	public List<SolicitacaoMaterial> searchByDataSolicitacao(Date date){
+		return solicitacaoMaterialDAO.findByDataSolicitacao(date);
+	}
+	
+	public List<SolicitacaoMaterial> searchByDataLiberacao(Date date){
+		return solicitacaoMaterialDAO.findByDataLiberacao(date);
 	}
 
 }

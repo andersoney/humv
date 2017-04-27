@@ -1,6 +1,7 @@
 package br.edu.ufrb.lasis.humv.service;
 
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,21 @@ public class SolicitacaoMaterialService {
 	public SolicitacaoMaterial findById(@PathVariable BigInteger id) {
 		return solicitacaoMaterialServiceImpl.findById(id);
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/{status}")
+	public List<SolicitacaoMaterial> findByStatus(@PathVariable String status) {
+		return solicitacaoMaterialServiceImpl.searchByStatus(status);
+	}
 
+	@RequestMapping(method = RequestMethod.GET, value = "/dataLiberacao")
+	public List<SolicitacaoMaterial> findByDataLiberacao(@RequestParam(value="dataLiberacao") Date data) {
+		return solicitacaoMaterialServiceImpl.searchByDataLiberacao(data);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET,  value = "/dataSolicitacao")
+	public List<SolicitacaoMaterial> findByDataSolicitacao(@RequestParam(value="dataSolicitacao") Date data) {
+		return solicitacaoMaterialServiceImpl.searchByDataSolicitacao(data);
+	}
 	@RequestMapping(method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public String cadastrarSolicitacaoMaterial(
 			@RequestBody SolicitacaoMaterial solicitacaoMaterial,
@@ -53,4 +68,6 @@ public class SolicitacaoMaterialService {
 			@RequestParam(value = "username") String username) {
 		return solicitacaoMaterialServiceImpl.removerSolicitacaoMaterial(id, username);
 	}
+	
+	
 }
