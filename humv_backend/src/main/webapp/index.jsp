@@ -82,5 +82,21 @@
     	<li>Alterar: /api/atendimentoSocial (PUT)</li>
     	<li>Excluir: /api/atendimentoSocial/{id} (DELETE)</li>
     </ul>
+    <h2>Material</h2>
+    <ul>
+    	<li>Obter todos: /api/material (GET)</li>
+    	<li>Obter um: /api/material/{id} (GET)</li>
+    	<li>Inserir: /api/material (POST)</li>
+    	<li>Alterar: /api/material (PUT)</li>
+    	<li>Excluir: /api/material/{id} (DELETE)</li>
+    </ul>
+    <h2>Solicitacao e Liberacao de Material</h2>
+    <ul>
+    	<li>Obter todos: /api/solicitacaoMaterial (GET)</li>
+    	<li>Obter um: /api/solicitacaoMaterial/{id} (GET)</li>
+    	<li>Inserir: /api/solicitacaoMaterial (POST)</li>
+    	<li>Alterar: /api/solicitacaoMaterial (PUT)</li>
+    	<li>Excluir: /api/solicitacaoMaterial/{id} (DELETE)</li>
+    </ul>
 </body>
 </html>
