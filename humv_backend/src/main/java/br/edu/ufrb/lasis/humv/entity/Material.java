@@ -18,10 +18,19 @@ public class Material implements Serializable {
     private BigInteger id;
     private String discriminacao;
     private String unidade;
-    private Integer tipo; // material ou medicamento
+    private String tipo; // material ou medicamento
     private double valor; // em R$
+    private int kit = 0; // 1 - para modelo 1, 2 - para modelo 2, 0 - para nenhum modelo, ver R50
+    
+    public int getKit() {
+		return kit;
+	}
 
-    public BigInteger getId() {
+	public void setKit(int kit) {
+		this.kit = kit;
+	}
+
+	public BigInteger getId() {
         return id;
     }
 
@@ -45,11 +54,11 @@ public class Material implements Serializable {
         this.unidade = unidade;
     }
 
-    public Integer getTipo() {
+    public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(Integer tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
     

@@ -55,22 +55,22 @@ public class MaterialDAO extends GenericDAO<Material> implements Serializable {
 
 		BigInteger conversionResult = NumberUtils.convertStringToBigInteger(palavrachave);
 		if (conversionResult != null) {
-			criteria.add( Restrictions.or(
-					Restrictions.eq("id", conversionResult),
-					Restrictions.ilike("discriminacao", "%" + palavrachave + "%") ) );
+			criteria.add( Restrictions.eq("id", conversionResult)  );
 		} else {
-			criteria.add(
-					Restrictions.or(
-							Restrictions.ilike("discriminacao", "%" + palavrachave + "%")
-							//Restrictions.ilike("unidade", "%" + palavrachave + "%"),
-							//Restrictions.ilike("tipo", "%" + palavrachave + "%")
-					)
-			);
+			criteria.add(Restrictions.ilike("discriminacao", "%" + palavrachave + "%"));
 		}
 		
 		return (List<Material>) criteria.list();
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<Material> searchByKitMaterial(int modelo) {
+		Criteria criteria = getCriteria();
+		criteria.add( Restrictions.eq("kit", modelo));	
+		return (List<Material>) criteria.list();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Material> findByDiscriminacao(String discriminacao){
 		Criteria criteria = getCriteria().add(Restrictions.ilike("discriminacao", "%" + discriminacao + "%"));

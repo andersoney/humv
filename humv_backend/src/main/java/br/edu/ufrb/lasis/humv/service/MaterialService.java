@@ -51,6 +51,12 @@ public class MaterialService {
 		materialServiceImpl.cadastrarMaterial(material, username);
 		return material;
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/materiaisKit")
+	public List<Material> searchByKitMaterial(
+			@RequestParam(value = "key") int modelo) {
+		return materialServiceImpl.searchByKitMaterial(modelo);
+	}
 
 	@RequestMapping(method = RequestMethod.PUT, consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public String atualizarMaterial(@RequestBody Material material, @RequestParam(value = "username") String username) {
