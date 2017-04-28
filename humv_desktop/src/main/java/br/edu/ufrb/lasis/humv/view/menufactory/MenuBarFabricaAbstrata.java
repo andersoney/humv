@@ -18,10 +18,10 @@ import br.edu.ufrb.lasis.humv.view.config.ConfiguracoesJPanel;
 import br.edu.ufrb.lasis.humv.view.dono.CadastrarDonoJPanel;
 import br.edu.ufrb.lasis.humv.view.dono.PropriedadesBuscaDono;
 import br.edu.ufrb.lasis.humv.view.main.LoginJDialog;
-import br.edu.ufrb.lasis.humv.view.materiais.CadastrarMaterial;
-import br.edu.ufrb.lasis.humv.view.materiais.CadastrarSolicitacaoMaterial;
-import br.edu.ufrb.lasis.humv.view.materiais.PropriedadesBuscaMaterial;
-import br.edu.ufrb.lasis.humv.view.materiais.PropriedadesBuscaSolicitacaoMaterial;
+import br.edu.ufrb.lasis.humv.view.material.CadastrarMaterial;
+import br.edu.ufrb.lasis.humv.view.solicitacaomaterial.SolicitacaoMaterialJPanel;
+import br.edu.ufrb.lasis.humv.view.material.PropriedadesBuscaMaterial;
+import br.edu.ufrb.lasis.humv.view.solicitacaomaterial.PropriedadesBuscaSolicitacaoMaterial;
 import br.edu.ufrb.lasis.humv.view.procedimento.CadastrarProcedimentoJPanel;
 import br.edu.ufrb.lasis.humv.view.procedimento.PropriedadesBuscaProcedimento;
 import br.edu.ufrb.lasis.humv.view.projeto.CadastrarProjetoJPanel;
@@ -643,7 +643,7 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
             BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE MATERIAL PARA REMOÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
         }else if (source.equals(menuItemCadastroSolicitacaoMaterial)) {
-            CadastrarSolicitacaoMaterial tela = new CadastrarSolicitacaoMaterial();
+            SolicitacaoMaterialJPanel tela = new SolicitacaoMaterialJPanel();
             HUMVApp.setNovoPainelCentral(tela);
         }else if (source.equals(menuItemBuscaSolicitacaoMaterial)) {
             PropriedadesBuscaSolicitacaoMaterial propriedadesBusca = new PropriedadesBuscaSolicitacaoMaterial(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
