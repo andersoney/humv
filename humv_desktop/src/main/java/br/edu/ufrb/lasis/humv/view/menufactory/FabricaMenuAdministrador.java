@@ -35,6 +35,8 @@ public class FabricaMenuAdministrador extends MenuBarFabricaAbstrata {
         super.criaBotaoCadastrarUsuario();
         super.criaBotaoVisualizarAgenda();
         super.criaBotaoResponderQuestionario();
+        super.criaMenuSolicitacaoMaterial(soBusca);
+        super.criaMenuLiberacaoMaterial(soBusca);
     }
 
 }

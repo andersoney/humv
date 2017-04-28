@@ -19,7 +19,9 @@ import br.edu.ufrb.lasis.humv.view.dono.CadastrarDonoJPanel;
 import br.edu.ufrb.lasis.humv.view.dono.PropriedadesBuscaDono;
 import br.edu.ufrb.lasis.humv.view.main.LoginJDialog;
 import br.edu.ufrb.lasis.humv.view.materiais.CadastrarMaterial;
+import br.edu.ufrb.lasis.humv.view.materiais.CadastrarSolicitacaoMaterial;
 import br.edu.ufrb.lasis.humv.view.materiais.PropriedadesBuscaMaterial;
+import br.edu.ufrb.lasis.humv.view.materiais.PropriedadesBuscaSolicitacaoMaterial;
 import br.edu.ufrb.lasis.humv.view.procedimento.CadastrarProcedimentoJPanel;
 import br.edu.ufrb.lasis.humv.view.procedimento.PropriedadesBuscaProcedimento;
 import br.edu.ufrb.lasis.humv.view.projeto.CadastrarProjetoJPanel;
@@ -124,6 +126,16 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
             menuItemAlteracaoMaterial,
             menuItemRemocaoMaterial,
             menuItemBuscaMaterial;
+
+    private JMenu menuSolicitacaoMaterial;
+    private JMenuItem menuItemCadastroSolicitacaoMaterial,
+            menuItemAlteracaoSolicitacaoMaterial,
+            menuItemRemocaoSolicitacaoMaterial,
+            menuItemBuscaSolicitacaoMaterial;
+    
+    private JMenu menuLiberacaoMaterial;
+    private JMenuItem menuItemLiberacaoMaterial,
+            menuItemAlteracaoLiberacaoMaterial;
     
     private JPanel panelButtons;
     private GridBagConstraints panelConstraints;
@@ -389,10 +401,10 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         menuMaterial = new JMenu("Material");
         menuMaterial.setMnemonic('m');
         if (!soBusca) {
-            menuItemCadastroMaterial = new JMenuItem("Cadastrar");
-            menuItemCadastroMaterial.setMnemonic('c');
-            menuItemCadastroMaterial.addActionListener(this);
-            menuMaterial.add(menuItemCadastroMaterial);
+           menuItemCadastroMaterial = new JMenuItem("Cadastrar");
+           menuItemCadastroMaterial.setMnemonic('c');
+           menuItemCadastroMaterial.addActionListener(this);
+           menuMaterial.add(menuItemCadastroMaterial);
             
            menuItemBuscaMaterial = new JMenuItem("Buscar");
            menuItemBuscaMaterial.setMnemonic('b');
@@ -404,17 +416,59 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
            menuItemAlteracaoMaterial.addActionListener(this);
            menuMaterial.add(menuItemAlteracaoMaterial);
            
-                 menuItemRemocaoMaterial = new JMenuItem("Remover");
+           menuItemRemocaoMaterial = new JMenuItem("Remover");
            menuItemRemocaoMaterial.setMnemonic('r');
            menuItemRemocaoMaterial.addActionListener(this);
            menuMaterial.add(menuItemRemocaoMaterial); 
           
         }
-        
-        
-         
-        
         getMenuBar().add(menuMaterial);
+    }
+    
+    public void criaMenuSolicitacaoMaterial(boolean soBusca) {
+        menuSolicitacaoMaterial = new JMenu("Solicitação de Material");
+        menuSolicitacaoMaterial.setMnemonic('s');
+        if (!soBusca) {
+           menuItemCadastroSolicitacaoMaterial = new JMenuItem("Cadastrar");
+           menuItemCadastroSolicitacaoMaterial.setMnemonic('c');
+           menuItemCadastroSolicitacaoMaterial.addActionListener(this);
+           menuSolicitacaoMaterial.add(menuItemCadastroSolicitacaoMaterial);
+            
+           menuItemBuscaSolicitacaoMaterial = new JMenuItem("Buscar");
+           menuItemBuscaSolicitacaoMaterial.setMnemonic('b');
+           menuItemBuscaSolicitacaoMaterial.addActionListener(this);
+           menuSolicitacaoMaterial.add(menuItemBuscaSolicitacaoMaterial);
+           
+           menuItemAlteracaoSolicitacaoMaterial = new JMenuItem("Alterar");
+           menuItemAlteracaoSolicitacaoMaterial.setMnemonic('a');
+           menuItemAlteracaoSolicitacaoMaterial.addActionListener(this);
+           menuSolicitacaoMaterial.add(menuItemAlteracaoSolicitacaoMaterial);
+           
+           menuItemRemocaoSolicitacaoMaterial = new JMenuItem("Remover");
+           menuItemRemocaoSolicitacaoMaterial.setMnemonic('r');
+           menuItemRemocaoSolicitacaoMaterial.addActionListener(this);
+           menuSolicitacaoMaterial.add(menuItemRemocaoSolicitacaoMaterial); 
+          
+        }
+        getMenuBar().add(menuSolicitacaoMaterial);
+    }
+    
+    public void criaMenuLiberacaoMaterial(boolean soBusca) {
+        menuLiberacaoMaterial = new JMenu("Liberação de Material");
+        menuLiberacaoMaterial.setMnemonic('l');
+        if (!soBusca) {
+           menuItemLiberacaoMaterial = new JMenuItem("Liberar");
+           menuItemLiberacaoMaterial.setMnemonic('l');
+           menuItemLiberacaoMaterial.addActionListener(this);
+           menuLiberacaoMaterial.add(menuItemLiberacaoMaterial);
+            
+           menuItemAlteracaoLiberacaoMaterial = new JMenuItem("Alterar");
+           menuItemAlteracaoLiberacaoMaterial.setMnemonic('a');
+           menuItemAlteracaoLiberacaoMaterial.addActionListener(this);
+           menuLiberacaoMaterial.add(menuItemAlteracaoLiberacaoMaterial);
+           
+        }
+        getMenuBar().add(menuLiberacaoMaterial);
     }
     
     public void criaBotaoCadastrarAnimal() {
@@ -575,7 +629,6 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
             HUMVApp.setNovoPainelCentral(buscaPanel);
         } else if (source.equals(menuItemCadastroMaterial)) {
             CadastrarMaterial tela = new CadastrarMaterial();
-            System.err.println("Aqui clicou em cadastro");
             HUMVApp.setNovoPainelCentral(tela);
         }else if (source.equals(menuItemBuscaMaterial)) {
             PropriedadesBuscaMaterial propriedadesBusca = new PropriedadesBuscaMaterial(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
@@ -588,6 +641,21 @@ public abstract class MenuBarFabricaAbstrata implements ActionListener {
         }else if (source.equals(menuItemRemocaoMaterial)) {
             PropriedadesBuscaMaterial propriedadesBusca = new PropriedadesBuscaMaterial(PropriedadesBusca.OPCAO_REMOVER);
             BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE MATERIAL PARA REMOÇÃO", propriedadesBusca);
+            HUMVApp.setNovoPainelCentral(buscaPanel);
+        }else if (source.equals(menuItemCadastroSolicitacaoMaterial)) {
+            CadastrarSolicitacaoMaterial tela = new CadastrarSolicitacaoMaterial();
+            HUMVApp.setNovoPainelCentral(tela);
+        }else if (source.equals(menuItemBuscaSolicitacaoMaterial)) {
+            PropriedadesBuscaSolicitacaoMaterial propriedadesBusca = new PropriedadesBuscaSolicitacaoMaterial(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
+            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE SOLICITAÇÃO DE MATERIAL PARA VISUALIZAÇÃO/ALTERAÇÃO", propriedadesBusca);
+            HUMVApp.setNovoPainelCentral(buscaPanel);
+        }else if (source.equals(menuItemAlteracaoSolicitacaoMaterial)) {
+            PropriedadesBuscaSolicitacaoMaterial propriedadesBusca = new PropriedadesBuscaSolicitacaoMaterial(PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR);
+            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE SOLICITAÇÃO DE MATERIAL PARA ALTERAÇÃO", propriedadesBusca);
+            HUMVApp.setNovoPainelCentral(buscaPanel);
+        }else if (source.equals(menuItemRemocaoSolicitacaoMaterial)) {
+            PropriedadesBuscaSolicitacaoMaterial propriedadesBusca = new PropriedadesBuscaSolicitacaoMaterial(PropriedadesBusca.OPCAO_REMOVER);
+            BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE SOLICITAÇÃO DE MATERIAL PARA REMOÇÃO", propriedadesBusca);
             HUMVApp.setNovoPainelCentral(buscaPanel);
         }
     }
