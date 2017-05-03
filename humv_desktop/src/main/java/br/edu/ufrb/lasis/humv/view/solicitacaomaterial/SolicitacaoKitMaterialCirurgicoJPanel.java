@@ -17,11 +17,13 @@ public class SolicitacaoKitMaterialCirurgicoJPanel extends javax.swing.JPanel {
     private String setor;
     private int quantidade;
     private SolicitacaoMaterial solicitacaoMaterial;
-    private final String servicoSolicitacao = "/api/solicitacaoKitMaterialCirurgico";
+    private final String servicoSolicitacaoKitCirurgico = "/api/solicitacaoKitMaterialCirurgico";
+    private final String servicoMaterial = "/api/material/kit";
     private SolicitacaoMaterial solicitacaoSelecionada;
 
     public SolicitacaoKitMaterialCirurgicoJPanel() {
         initComponents();
+        customInitComponents();
     }
     
     private void customInitComponents() {
@@ -209,11 +211,11 @@ public class SolicitacaoKitMaterialCirurgicoJPanel extends javax.swing.JPanel {
         ClientResponse response;
         try {
             if (solicitacaoSelecionada == null) {
-                response = RESTMethods.post(this.servicoSolicitacao, solicitacaoMaterial);
+                response = RESTMethods.post(this.servicoSolicitacaoKitCirurgico, solicitacaoMaterial);
             }
             else if (InterfaceGraficaUtils.dialogoRemoverAlterar("alterar", "solicitação", ""+solicitacaoSelecionada.getId())) {
                 solicitacaoMaterial.setId(solicitacaoSelecionada.getId());
-                response = RESTMethods.put(this.servicoSolicitacao, solicitacaoMaterial);
+                response = RESTMethods.put(this.servicoSolicitacaoKitCirurgico, solicitacaoMaterial);
             } else {
                 return;
             }

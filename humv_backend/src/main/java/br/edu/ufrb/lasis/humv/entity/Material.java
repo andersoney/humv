@@ -2,6 +2,8 @@ package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,9 +22,36 @@ public class Material implements Serializable {
     private String unidade;
     private String tipo; // material ou medicamento
     private double valor; // em R$
+    private Date validade;
+    private BigInteger numeroNotaFiscal;
     private int kit = 0; // 1 - para modelo 1, 2 - para modelo 2, 0 - para nenhum modelo, ver R50
+    private int quantidadeEmKit = 0;
     
-    public int getKit() {
+    public Date getValidade() {
+		return validade;
+	}
+
+	public void setValidade(Date validade) {
+		this.validade = validade;
+	}
+
+	public BigInteger getNumeroNotaFiscal() {
+		return numeroNotaFiscal;
+	}
+
+	public void setNumeroNotaFiscal(BigInteger numeroNotaFiscal) {
+		this.numeroNotaFiscal = numeroNotaFiscal;
+	}
+
+    public int getQuantidadeEmKit() {
+		return quantidadeEmKit;
+	}
+
+	public void setQuantidadeEmKit(int quantidadeEmKit) {
+		this.quantidadeEmKit = quantidadeEmKit;
+	}
+
+	public int getKit() {
 		return kit;
 	}
 

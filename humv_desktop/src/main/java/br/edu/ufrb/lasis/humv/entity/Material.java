@@ -18,6 +18,25 @@ public class Material implements Serializable {
     private Date validade;
     private BigInteger numeroNotaFiscal;
 
+    private int kit = 0; // 1 - para modelo 1, 2 - para modelo 2, 0 - para nenhum modelo, ver R50
+    private int quantidadeEmKit = 0;
+
+    public int getQuantidadeEmKit() {
+        return quantidadeEmKit;
+    }
+
+    public void setQuantidadeEmKit(int quantidadeEmKit) {
+        this.quantidadeEmKit = quantidadeEmKit;
+    }
+
+    public int getKit() {
+        return kit;
+    }
+
+    public void setKit(int kit) {
+        this.kit = kit;
+    }
+
     public String getModelo() {
         return modelo;
     }
@@ -41,7 +60,7 @@ public class Material implements Serializable {
     public void setValidade(Date validade) {
         this.validade = validade;
     }
-    
+
     public BigInteger getId() {
         return id;
     }
