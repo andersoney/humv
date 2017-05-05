@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -21,8 +22,11 @@ public class Projeto implements Serializable {
 	private BigInteger id;
 	private Date dataCadastro;
 	private String nome;
-	private String nomeResponsavel;
-	private BigInteger siapeResponsavel;
+	
+	@ManyToOne
+    @JoinColumn
+    private Usuario responsavel;
+	
 	private String finalidade;
 	private Date dataInicio;
 	private Date dataFim;
@@ -56,20 +60,12 @@ public class Projeto implements Serializable {
 		this.nome = nome;
 	}
 
-	public String getNomeResponsavel() {
-		return nomeResponsavel;
+	public Usuario getResponsavel() {
+		return responsavel;
 	}
 
-	public void setNomeResponsavel(String nomeResponsavel) {
-		this.nomeResponsavel = nomeResponsavel;
-	}
-
-	public BigInteger getSiapeResponsavel() {
-		return siapeResponsavel;
-	}
-
-	public void setSiapeResponsavel(BigInteger siapeResponsavel) {
-		this.siapeResponsavel = siapeResponsavel;
+	public void setResponsavel(Usuario responsavel) {
+		this.responsavel = responsavel;
 	}
 
 	public String getFinalidade() {

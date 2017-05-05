@@ -19,7 +19,12 @@ public class FabricaMenuFarmaceutico extends MenuBarFabricaAbstrata {
 
     @Override
     public void criaMenuBar() {
+        boolean comRemover = false;
+        super.criaMenuMaterial();
+        super.criaMenuSetor(comRemover);
         super.criaMenuAjuda();
+        
+        super.criaBotaoCadastrarMaterial();
     }
 
 }

@@ -32,11 +32,11 @@
                           <Component id="jPanel1" max="32767" attributes="0"/>
                           <Component id="jPanel2" max="32767" attributes="0"/>
                           <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jPanel3" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="jButtonBuscarAnimal" min="-2" pref="150" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
+                          <Component id="jPanel3" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -67,7 +67,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace pref="12" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="jLabelTitulo" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jButtonBuscarAnimal" min="-2" max="-2" attributes="0"/>
@@ -85,7 +85,7 @@
               <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane2" min="-2" pref="55" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -380,11 +380,10 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
-                      <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
-                      <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
+                      <Component id="jPanel4" max="32767" attributes="0"/>
+                      <Component id="jPanel6" max="32767" attributes="0"/>
+                      <Component id="jPanel5" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -407,18 +406,13 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jRadioButtonConsultasDesconto" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jSpinnerDescontoConsultas" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jRadioButtonConsultasD50" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jRadioButtonConsultasValorNormal" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButtonConsultasValorAula" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButtonConsultasIsencao" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonConsultasD100" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonConsultasD75" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonConsultasD25" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="13" max="32767" attributes="0"/>
+                      <EmptySpace pref="39" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -428,15 +422,14 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jRadioButtonConsultasValorNormal" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jRadioButtonConsultasValorAula" min="-2" max="-2" attributes="0"/>
+                      <Component id="jRadioButtonConsultasD100" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jRadioButtonConsultasIsencao" min="-2" max="-2" attributes="0"/>
+                      <Component id="jRadioButtonConsultasD75" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jRadioButtonConsultasD50" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jRadioButtonConsultasDesconto" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jSpinnerDescontoConsultas" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jRadioButtonConsultasD25" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -450,41 +443,37 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonConsultasValorNormalActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="jRadioButtonConsultasValorAula">
+            <Component class="javax.swing.JRadioButton" name="jRadioButtonConsultasD100">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Valor aula"/>
+                <Property name="text" type="java.lang.String" value="D100%"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonConsultasValorAulaActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonConsultasD100ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="jRadioButtonConsultasIsencao">
+            <Component class="javax.swing.JRadioButton" name="jRadioButtonConsultasD75">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Isen&#xe7;&#xe3;o"/>
+                <Property name="text" type="java.lang.String" value="D75%"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonConsultasIsencaoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonConsultasD75ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="jRadioButtonConsultasDesconto">
+            <Component class="javax.swing.JRadioButton" name="jRadioButtonConsultasD50">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Desconto"/>
+                <Property name="text" type="java.lang.String" value="D50%"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonConsultasDescontoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonConsultasD50ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JSpinner" name="jSpinnerDescontoConsultas">
+            <Component class="javax.swing.JRadioButton" name="jRadioButtonConsultasD25">
               <Properties>
-                <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                  <SpinnerModel initial="0" maximum="100" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
-                </Property>
+                <Property name="text" type="java.lang.String" value="D25%"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel4">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="%"/>
-              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonConsultasD25ActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -504,17 +493,12 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jRadioButtonCirurgiaValorNormal" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButtonCirurgiaValorAula" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButtonCirurgiaIsencao" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="jRadioButtonCirurgiaDesconto" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jSpinnerDescontoCirurgias" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jRadioButtonCirurgiaD100" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonCirurgiaD75" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonCirurgiaD50" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonCirurgiaD25" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="15" max="32767" attributes="0"/>
+                      <EmptySpace pref="67" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -524,15 +508,14 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jRadioButtonCirurgiaValorNormal" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jRadioButtonCirurgiaValorAula" min="-2" max="-2" attributes="0"/>
+                      <Component id="jRadioButtonCirurgiaD100" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jRadioButtonCirurgiaIsencao" min="-2" max="-2" attributes="0"/>
+                      <Component id="jRadioButtonCirurgiaD75" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jRadioButtonCirurgiaD50" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jRadioButtonCirurgiaD25" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jRadioButtonCirurgiaDesconto" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jSpinnerDescontoCirurgias" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -546,41 +529,37 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonCirurgiaValorNormalActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="jRadioButtonCirurgiaValorAula">
+            <Component class="javax.swing.JRadioButton" name="jRadioButtonCirurgiaD100">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Valor aula "/>
+                <Property name="text" type="java.lang.String" value="D100%"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonCirurgiaValorAulaActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonCirurgiaD100ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="jRadioButtonCirurgiaIsencao">
+            <Component class="javax.swing.JRadioButton" name="jRadioButtonCirurgiaD75">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Isen&#xe7;&#xe3;o"/>
+                <Property name="text" type="java.lang.String" value="D75%"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonCirurgiaIsencaoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonCirurgiaD75ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="jRadioButtonCirurgiaDesconto">
+            <Component class="javax.swing.JRadioButton" name="jRadioButtonCirurgiaD50">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Desconto"/>
+                <Property name="text" type="java.lang.String" value="D50%"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonCirurgiaDescontoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonCirurgiaD50ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JSpinner" name="jSpinnerDescontoCirurgias">
+            <Component class="javax.swing.JRadioButton" name="jRadioButtonCirurgiaD25">
               <Properties>
-                <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                  <SpinnerModel initial="0" maximum="100" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
-                </Property>
+                <Property name="text" type="java.lang.String" value="D25%"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel2">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="%"/>
-              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonCirurgiaD25ActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -600,17 +579,12 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jRadioButtonExamesValorNormal" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButtonExamesValorAula" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButtonExamesIsencao" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jRadioButtonExamesDesconto" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jSpinnerDescontoExames" min="-2" pref="47" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jRadioButtonExamesD100" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonExamesD75" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonExamesD50" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonExamesD25" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="14" max="32767" attributes="0"/>
+                      <EmptySpace pref="66" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -620,15 +594,14 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jRadioButtonExamesValorNormal" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jRadioButtonExamesValorAula" min="-2" max="-2" attributes="0"/>
+                      <Component id="jRadioButtonExamesD100" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jRadioButtonExamesIsencao" min="-2" max="-2" attributes="0"/>
+                      <Component id="jRadioButtonExamesD75" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jRadioButtonExamesD50" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jRadioButtonExamesD25" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jRadioButtonExamesDesconto" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jSpinnerDescontoExames" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -642,41 +615,37 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonExamesValorNormalActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="jRadioButtonExamesValorAula">
+            <Component class="javax.swing.JRadioButton" name="jRadioButtonExamesD100">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Valor aula"/>
+                <Property name="text" type="java.lang.String" value="D100%"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonExamesValorAulaActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonExamesD100ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="jRadioButtonExamesIsencao">
+            <Component class="javax.swing.JRadioButton" name="jRadioButtonExamesD75">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Isen&#xe7;&#xe3;o"/>
+                <Property name="text" type="java.lang.String" value="D75%"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonExamesIsencaoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonExamesD75ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="jRadioButtonExamesDesconto">
+            <Component class="javax.swing.JRadioButton" name="jRadioButtonExamesD50">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Desconto"/>
+                <Property name="text" type="java.lang.String" value="D50%"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonExamesDescontoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonExamesD50ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JSpinner" name="jSpinnerDescontoExames">
+            <Component class="javax.swing.JRadioButton" name="jRadioButtonExamesD25">
               <Properties>
-                <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                  <SpinnerModel initial="0" maximum="100" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
-                </Property>
+                <Property name="text" type="java.lang.String" value="D25%"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel3">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="%"/>
-              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonExamesD25ActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

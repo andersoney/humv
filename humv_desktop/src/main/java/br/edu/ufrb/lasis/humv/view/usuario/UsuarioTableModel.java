@@ -6,6 +6,7 @@
 package br.edu.ufrb.lasis.humv.view.usuario;
 
 import br.edu.ufrb.lasis.humv.entity.Usuario;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -14,11 +15,26 @@ import javax.swing.table.AbstractTableModel;
  * @author tassi
  */
 public class UsuarioTableModel extends AbstractTableModel {
-
+    
+    String[] titulos;
     private List<Usuario> lista;
 
+    public UsuarioTableModel() {
+        initArrayTitulos();
+        this.lista = new ArrayList<Usuario>();
+    }
+    
     public UsuarioTableModel(List<Usuario> lista) {
+        initArrayTitulos();
         this.lista = lista;
+    }
+
+    private void initArrayTitulos() {
+        titulos = new String[4];
+        titulos[0] = "Nome";
+        titulos[1] = "E-mail";
+        titulos[2] = "SIAPE";
+        titulos[2] = "Perfil";
     }
 
     public Usuario getUsuarioSelecionado(int index) {
@@ -68,8 +84,11 @@ public class UsuarioTableModel extends AbstractTableModel {
 
     @Override
     public String getColumnName(int column) {
-        String[] nomesColunas = new String[]{"Nome", "E-mail", "SIAPE", "Perfil"};
-        return nomesColunas[column];
+        if (column > 0 || column < titulos.length) {
+            return this.titulos[column];
+        } else {
+            return null;
+        }
     }
 
 }

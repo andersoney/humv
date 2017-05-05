@@ -2,6 +2,7 @@ package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.Date;
 
 public class Material implements Serializable {
 
@@ -10,8 +11,11 @@ public class Material implements Serializable {
     private BigInteger id;
     private String discriminacao;
     private String unidade;
-    private Integer tipo; // material ou medicamento
-    private double valor; // em R$
+    private Integer tipo; // tipo = 0 (meicamento) | 1 (material EPI) | 2 (seringas) | 3 (material cirúrgico)
+    private Double valor;
+    private Date validade;
+    private BigInteger numeroNotaFiscal;
+    private Integer estoque;
 
     public BigInteger getId() {
         return id;
@@ -45,12 +49,36 @@ public class Material implements Serializable {
         this.tipo = tipo;
     }
 
-    public double getValor() {
+    public Double getValor() {
         return valor;
     }
 
-    public void setValor(double valor) {
+    public void setValor(Double valor) {
         this.valor = valor;
+    }
+
+    public Date getValidade() {
+        return validade;
+    }
+
+    public void setValidade(Date validade) {
+        this.validade = validade;
+    }
+
+    public BigInteger getNumeroNotaFiscal() {
+        return numeroNotaFiscal;
+    }
+
+    public void setNumeroNotaFiscal(BigInteger numeroNotaFiscal) {
+        this.numeroNotaFiscal = numeroNotaFiscal;
+    }
+
+    public Integer getEstoque() {
+        return estoque;
+    }
+
+    public void setEstoque(Integer estoque) {
+        this.estoque = estoque;
     }
 
 }

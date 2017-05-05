@@ -198,21 +198,19 @@ public class CadastrarSetorJPanel extends javax.swing.JPanel {
                 InterfaceGraficaUtils.sucessoCadastro("setor");
                 cadastroSetorJDialog.fecharDialog(setorRetornado);
             } else {
-                Object resposta = response.getEntity(Object.class);
-                if (resposta instanceof Setor && setorSelecionado == null) { //resposta.equalsIgnoreCase("ok")
-                    Setor s = (Setor) resposta;
-                    InterfaceGraficaUtils.sucessoCadastro("setor", "código", s.getCodigo().intValue());
+                String resposta = response.getEntity(String.class);
+                if (!(resposta.contains("Erro") || resposta.contains("já cadastrado")) && setorSelecionado == null) { 
+                    InterfaceGraficaUtils.sucessoCadastro("setor", "código", resposta);
                 } else {
-                    String s = (String) resposta;
-                    if (setorSelecionado != null && s.equalsIgnoreCase("ok")) {
+                    if (setorSelecionado != null && resposta.equalsIgnoreCase("ok")) {
                         InterfaceGraficaUtils.sucessoAtualizacao("setor");
                     } else {
-                        InterfaceGraficaUtils.erroResposta(s);
-                    }
-                    HUMVApp.exibirMensagemCarregamento();
-                    HUMVApp.setPainelCentralComLogo();
-                    HUMVApp.esconderMensagemCarregamento();
+                        InterfaceGraficaUtils.erroResposta(resposta);
+                    }   
                 }
+                HUMVApp.exibirMensagemCarregamento();
+                HUMVApp.setPainelCentralComLogo();
+                HUMVApp.esconderMensagemCarregamento();
             }
         } catch (RESTConnectionException ex) {
             InterfaceGraficaUtils.erroConexao();

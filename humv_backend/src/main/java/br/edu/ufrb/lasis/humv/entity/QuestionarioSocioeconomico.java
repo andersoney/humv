@@ -91,8 +91,136 @@ public class QuestionarioSocioeconomico implements Serializable {
     private String analiseBreveResumo;
     private String analiseObservacoes;
     private String analiseConclusoes;
+    
+    private boolean dependeFinanceiramente;
+    private boolean possuiDependentes;
+    private boolean doencaCronica;
+    private boolean trabalhadorInformal;
+    private boolean quebraVinculo;
+    private boolean situacaoIncapacitante;
+    private boolean dividasBanco;
+    private boolean beneficioSocial;
+    private boolean trocaDomicilio;
+    private boolean protecaoAnimal;
+    private boolean primeiroAtendimento;
+    private boolean animalDoado;
+    private boolean atendimentoUrgencia;
+    private boolean naoCondicoesParticular;
+    
 
-    //Relacionado com atributos da classe Atendimento: valor normal, valor aula, desconto ou isenção
+    public boolean isDependeFinanceiramente() {
+		return dependeFinanceiramente;
+	}
+
+	public void setDependeFinanceiramente(boolean dependeFinanceiramente) {
+		this.dependeFinanceiramente = dependeFinanceiramente;
+	}
+
+	public boolean isPossuiDependentes() {
+		return possuiDependentes;
+	}
+
+	public void setPossuiDependentes(boolean possuiDependentes) {
+		this.possuiDependentes = possuiDependentes;
+	}
+
+	public boolean isDoencaCronica() {
+		return doencaCronica;
+	}
+
+	public void setDoencaCronica(boolean doencaCronica) {
+		this.doencaCronica = doencaCronica;
+	}
+
+	public boolean isTrabalhadorInformal() {
+		return trabalhadorInformal;
+	}
+
+	public void setTrabalhadorInformal(boolean trabalhadorInformal) {
+		this.trabalhadorInformal = trabalhadorInformal;
+	}
+
+	public boolean isQuebraVinculo() {
+		return quebraVinculo;
+	}
+
+	public void setQuebraVinculo(boolean quebraVinculo) {
+		this.quebraVinculo = quebraVinculo;
+	}
+
+	public boolean isSituacaoIncapacitante() {
+		return situacaoIncapacitante;
+	}
+
+	public void setSituacaoIncapacitante(boolean situacaoIncapacitante) {
+		this.situacaoIncapacitante = situacaoIncapacitante;
+	}
+
+	public boolean isDividasBanco() {
+		return dividasBanco;
+	}
+
+	public void setDividasBanco(boolean dividasBanco) {
+		this.dividasBanco = dividasBanco;
+	}
+
+	public boolean isBeneficioSocial() {
+		return beneficioSocial;
+	}
+
+	public void setBeneficioSocial(boolean beneficioSocial) {
+		this.beneficioSocial = beneficioSocial;
+	}
+
+	public boolean isTrocaDomicilio() {
+		return trocaDomicilio;
+	}
+
+	public void setTrocaDomicilio(boolean trocaDomicilio) {
+		this.trocaDomicilio = trocaDomicilio;
+	}
+
+	public boolean isProtecaoAnimal() {
+		return protecaoAnimal;
+	}
+
+	public void setProtecaoAnimal(boolean protecaoAnimal) {
+		this.protecaoAnimal = protecaoAnimal;
+	}
+
+	public boolean isPrimeiroAtendimento() {
+		return primeiroAtendimento;
+	}
+
+	public void setPrimeiroAtendimento(boolean primeiroAtendimento) {
+		this.primeiroAtendimento = primeiroAtendimento;
+	}
+
+	public boolean isAnimalDoado() {
+		return animalDoado;
+	}
+
+	public void setAnimalDoado(boolean animalDoado) {
+		this.animalDoado = animalDoado;
+	}
+
+	public boolean isAtendimentoUrgencia() {
+		return atendimentoUrgencia;
+	}
+
+	public void setAtendimentoUrgencia(boolean atendimentoUrgencia) {
+		this.atendimentoUrgencia = atendimentoUrgencia;
+	}
+
+	public boolean isNaoCondicoesParticular() {
+		return naoCondicoesParticular;
+	}
+
+	public void setNaoCondicoesParticular(boolean naoCondicoesParticular) {
+		this.naoCondicoesParticular = naoCondicoesParticular;
+	}
+
+	//Relacionado com atributos da classe Atendimento: valor normal, valor aula, desconto ou isenção
     private Integer tipoCobrancaConsultas;
 
     //Relacionado com atributos da classe Atendimento: valor normal, valor aula, desconto ou isenção

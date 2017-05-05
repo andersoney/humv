@@ -26,8 +26,7 @@ public class FabricaMenuAdministrador extends MenuBarFabricaAbstrata {
         soBusca = true;
         super.criaMenuQuestionarioSocioeconomico(soBusca);
         this.criaMenuAtendimentoSocial(soBusca);
-        soBusca = false;
-        super.criaMenuMaterial(soBusca);
+        super.criaMenuMaterial();
         super.criaMenuAjuda();
 
         super.criaBotaoCadastrarProcedimento();
@@ -35,6 +34,9 @@ public class FabricaMenuAdministrador extends MenuBarFabricaAbstrata {
         super.criaBotaoCadastrarUsuario();
         super.criaBotaoVisualizarAgenda();
         super.criaBotaoResponderQuestionario();
+        super.criaBotaoCadastrarMaterial();
+        //super.criaMenuSolicitacaoMaterial(soBusca);
+        //super.criaMenuLiberacaoMaterial(soBusca);
     }
 
 }

@@ -18,7 +18,6 @@ import br.edu.ufrb.lasis.humv.view.dono.CadastrarDonoJPanel;
 import br.edu.ufrb.lasis.humv.view.dono.PropriedadesBuscaDono;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.sun.jersey.api.client.ClientResponse;
-import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -95,31 +94,38 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         jRadioButtonDocumentosRGDono.addActionListener(this);
         jRadioButtonDocumentosOutro.addActionListener(this);
 
-        buttonGroupConsulta.add(jRadioButtonConsultaAula);
-        buttonGroupConsulta.add(jRadioButtonConsultaDesconto);
-        buttonGroupConsulta.add(jRadioButtonConsultaIsencao);
+        buttonGroupConsulta.add(jRadioButtonConsultaD100);
+        buttonGroupConsulta.add(jRadioButtonConsultaD50);
+        buttonGroupConsulta.add(jRadioButtonConsultaD75);
+        buttonGroupConsulta.add(jRadioButtonConsultaD25);
         buttonGroupConsulta.add(jRadioButtonConsultaNormal);
-        jRadioButtonConsultaAula.addActionListener(this);
-        jRadioButtonConsultaDesconto.addActionListener(this);
-        jRadioButtonConsultaIsencao.addActionListener(this);
+        jRadioButtonConsultaD100.addActionListener(this);
+        jRadioButtonConsultaD50.addActionListener(this);
+        jRadioButtonConsultaD75.addActionListener(this);
+        jRadioButtonConsultaD25.addActionListener(this);
         jRadioButtonConsultaNormal.addActionListener(this);
 
-        buttonGroupExame.add(jRadioButtonExameAula);
-        buttonGroupExame.add(jRadioButtonExameDesconto);
-        buttonGroupExame.add(jRadioButtonExameIsencao);
+        buttonGroupExame.add(jRadioButtonExameD100);
+        buttonGroupExame.add(jRadioButtonExameD50);
+        buttonGroupExame.add(jRadioButtonExameD75);
+        buttonGroupExame.add(jRadioButtonExameD25);
         buttonGroupExame.add(jRadioButtonExameNormal);
-        jRadioButtonExameAula.addActionListener(this);
-        jRadioButtonExameDesconto.addActionListener(this);
-        jRadioButtonExameIsencao.addActionListener(this);
+        jRadioButtonExameD100.addActionListener(this);
+        jRadioButtonExameD50.addActionListener(this);
+        jRadioButtonExameD75.addActionListener(this);
+        jRadioButtonExameD25.addActionListener(this);
         jRadioButtonExameNormal.addActionListener(this);
 
-        buttonGroupCirurgia.add(jRadioButtonCirurgiaAula);
-        buttonGroupCirurgia.add(jRadioButtonCirurgiaDesconto);
-        buttonGroupCirurgia.add(jRadioButtonCirurgiaIsencao);
+        buttonGroupCirurgia.add(jRadioButtonCirurgiaD100);
+        buttonGroupCirurgia.add(jRadioButtonCirurgiaD50);
+        buttonGroupCirurgia.add(jRadioButtonCirurgiaD75);
+        buttonGroupCirurgia.add(jRadioButtonCirurgiaD25);
         buttonGroupCirurgia.add(jRadioButtonCirurgiaNormal);
-        jRadioButtonCirurgiaAula.addActionListener(this);
-        jRadioButtonCirurgiaDesconto.addActionListener(this);
-        jRadioButtonCirurgiaIsencao.addActionListener(this);
+        jRadioButtonCirurgiaD100.addActionListener(this);
+        jRadioButtonCirurgiaD50.addActionListener(this);
+        jRadioButtonCirurgiaD75.addActionListener(this);
+        jRadioButtonCirurgiaD25.addActionListener(this);
+        
         jRadioButtonCirurgiaNormal.addActionListener(this);
         
         buttonGroupValidade.add(jRadioButtonValidadePatologia);
@@ -136,10 +142,24 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         this.jRadioButtonCirurgiaNormal.setSelected(true);
         this.jRadioButtonDocumentosComprovanteEndereco.setSelected(true);
         this.jRadioButtonValidadePatologia.setSelected(true);
-
-        this.jFormattedTextFieldCirurgia.setEnabled(false);
-        this.jFormattedTextFieldConsulta.setEnabled(false);
-        this.jFormattedTextFieldExame.setEnabled(false);
+        
+        this.jRadioButtonAnimalDoadoNao.setSelected(true);
+        this.jRadioButtonAtendimentoUrgenciaNao.setSelected(true);
+        this.jRadioButtonDeficienciaNao.setSelected(true);
+        this.jRadioButtonBeneficioSocialNao.setSelected(true);
+        this.jRadioButtonDeficienciaNao.setSelected(true);
+        this.jRadioButtonDependeFinanceiramenteNao.setSelected(true);
+        this.jRadioButtonDoencaCronicaNao.setSelected(true);
+        this.jRadioButtonEnergiaNao.setSelected(true);
+        this.jRadioButtonEstudanteNao.setSelected(true);
+        this.jRadioButtonNaoCondicoesParticularNao.setSelected(true);
+        this.jRadioButtonTrocaDomicilioNao.setSelected(true);
+        this.jRadioButtonPossuiDividasNao.setSelected(true);
+        this.jRadioButtonPossuiDependenteNao.setSelected(true);
+        this.jRadioButtonPrimeiroAtendimentoVeterinarioNao.setSelected(true);
+        this.jRadioButtonProtecaoAnimalNao.setSelected(true);
+        this.jRadioButtonQuebraDeVinculoNao.setSelected(true);
+        this.jRadioButtonTrabalhadorInformalNao.setSelected(true);
         jTextFieldDocumentoOutro.setEnabled(false);
     }
 
@@ -156,43 +176,44 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
     private void reintroduzirCobranca() {
         if (questionario.getTipoCobrancaCirurgias().equals(QuestionarioSocioeconomico.COBRANCA_NORMAL)) {
             this.jRadioButtonCirurgiaNormal.setSelected(true);
-        } else if (questionario.getTipoCobrancaCirurgias().equals(QuestionarioSocioeconomico.COBRANCA_AULA)) {
-            this.jRadioButtonCirurgiaAula.setSelected(true);
-        } else if (questionario.getTipoCobrancaCirurgias().equals(QuestionarioSocioeconomico.COBRANCA_INSENCAO)) {
-            this.jRadioButtonCirurgiaIsencao.setSelected(true);
-        } else if (questionario.getTipoCobrancaCirurgias().equals(QuestionarioSocioeconomico.COBRANCA_DESCONTO)) {
-            this.jRadioButtonCirurgiaDesconto.setSelected(true);
-            this.jFormattedTextFieldCirurgia.setEnabled(true);
-            this.jFormattedTextFieldCirurgia.setText(ValidationsUtils.convertePrecoParaString(questionario.getValorDescontoCirurgias()));
+        } else if (questionario.getTipoCobrancaCirurgias().equals(QuestionarioSocioeconomico.COBRANCA_D100)) {
+            this.jRadioButtonCirurgiaD100.setSelected(true);
+        } else if (questionario.getTipoCobrancaCirurgias().equals(QuestionarioSocioeconomico.COBRANCA_D75)) {
+            this.jRadioButtonCirurgiaD75.setSelected(true);
+        } else if (questionario.getTipoCobrancaCirurgias().equals(QuestionarioSocioeconomico.COBRANCA_D50)) {
+            this.jRadioButtonCirurgiaD50.setSelected(true);
+        } else if (questionario.getTipoCobrancaCirurgias().equals(QuestionarioSocioeconomico.COBRANCA_D25)) {
+            this.jRadioButtonCirurgiaD25.setSelected(true);
         } else {
             InterfaceGraficaUtils.erroResposta("Erro ao reinserir a forma de cobrança");
         }
 
         if (questionario.getTipoCobrancaConsultas().equals(QuestionarioSocioeconomico.COBRANCA_NORMAL)) {
             this.jRadioButtonConsultaNormal.setSelected(true);
-        } else if (questionario.getTipoCobrancaConsultas().equals(QuestionarioSocioeconomico.COBRANCA_AULA)) {
-            this.jRadioButtonConsultaAula.setSelected(true);
-        } else if (questionario.getTipoCobrancaConsultas().equals(QuestionarioSocioeconomico.COBRANCA_INSENCAO)) {
-            this.jRadioButtonConsultaIsencao.setSelected(true);
-        } else if (questionario.getTipoCobrancaConsultas().equals(QuestionarioSocioeconomico.COBRANCA_DESCONTO)) {
-            this.jRadioButtonConsultaDesconto.setSelected(true);
-            this.jFormattedTextFieldConsulta.setEnabled(false);
-            this.jFormattedTextFieldConsulta.setText(ValidationsUtils.convertePrecoParaString(questionario.getValorDescontoConsultas()));
-        } else {
+        } else if (questionario.getTipoCobrancaConsultas().equals(QuestionarioSocioeconomico.COBRANCA_D100)) {
+            this.jRadioButtonConsultaD100.setSelected(true);
+        } else if (questionario.getTipoCobrancaConsultas().equals(QuestionarioSocioeconomico.COBRANCA_D75)) {
+            this.jRadioButtonConsultaD75.setSelected(true);
+        } else if (questionario.getTipoCobrancaConsultas().equals(QuestionarioSocioeconomico.COBRANCA_D50)) {
+            this.jRadioButtonConsultaD50.setSelected(true);
+        }else if (questionario.getTipoCobrancaConsultas().equals(QuestionarioSocioeconomico.COBRANCA_D25)) {
+            this.jRadioButtonConsultaD25.setSelected(true);
+        }else {
             InterfaceGraficaUtils.erroResposta("Erro ao reinserir a forma de cobrança");
         }
 
         if (questionario.getTipoCobrancaExames().equals(QuestionarioSocioeconomico.COBRANCA_NORMAL)) {
             this.jRadioButtonExameNormal.setSelected(true);
-        } else if (questionario.getTipoCobrancaExames().equals(QuestionarioSocioeconomico.COBRANCA_AULA)) {
-            this.jRadioButtonExameAula.setSelected(true);
-        } else if (questionario.getTipoCobrancaExames().equals(QuestionarioSocioeconomico.COBRANCA_INSENCAO)) {
-            this.jRadioButtonExameIsencao.setSelected(true);
-        } else if (questionario.getTipoCobrancaExames().equals(QuestionarioSocioeconomico.COBRANCA_DESCONTO)) {
-            this.jRadioButtonExameDesconto.setSelected(true);
-            this.jFormattedTextFieldExame.setEnabled(true);
-            this.jFormattedTextFieldExame.setText(ValidationsUtils.convertePrecoParaString(questionario.getValorDescontoExames()));
-        } else {
+        } else if (questionario.getTipoCobrancaExames().equals(QuestionarioSocioeconomico.COBRANCA_D100)) {
+            this.jRadioButtonExameD100.setSelected(true);
+        } else if (questionario.getTipoCobrancaExames().equals(QuestionarioSocioeconomico.COBRANCA_D75)) {
+            this.jRadioButtonExameD75.setSelected(true);
+        } else if (questionario.getTipoCobrancaExames().equals(QuestionarioSocioeconomico.COBRANCA_D50)) {
+            this.jRadioButtonExameD50.setSelected(true);
+        } else if (questionario.getTipoCobrancaExames().equals(QuestionarioSocioeconomico.COBRANCA_D25)) {
+            this.jRadioButtonExameD25.setSelected(true);
+        }
+        else {
             InterfaceGraficaUtils.erroResposta("Erro ao reinserir a forma de cobrança");
         }
     }
@@ -292,11 +313,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         }
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -368,7 +385,6 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         jLabel31 = new javax.swing.JLabel();
         jTextFieldDocumentoOutro = new javax.swing.JTextField();
         jLabel32 = new javax.swing.JLabel();
-        dteDataEntrega = new com.toedter.calendar.JDateChooser();
         jButtonDocumentoSalvar = new javax.swing.JButton();
         jButtonDocumentoRemover = new javax.swing.JButton();
         jRadioButtonDocumentosComprovanteEndereco = new javax.swing.JRadioButton();
@@ -380,6 +396,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         jTableDocumentos = new javax.swing.JTable();
         jCheckBoxNA = new javax.swing.JCheckBox();
         jCheckBoxVistoASocial = new javax.swing.JCheckBox();
+        dteDataEntrega = new com.toedter.calendar.JDateChooser();
         jPanelAnalise = new javax.swing.JPanel();
         jLabel33 = new javax.swing.JLabel();
         jScrollPane7 = new javax.swing.JScrollPane();
@@ -401,23 +418,20 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         jLabel40 = new javax.swing.JLabel();
         jLabel41 = new javax.swing.JLabel();
         jRadioButtonConsultaNormal = new javax.swing.JRadioButton();
-        jRadioButtonConsultaAula = new javax.swing.JRadioButton();
-        jRadioButtonConsultaIsencao = new javax.swing.JRadioButton();
-        jRadioButtonConsultaDesconto = new javax.swing.JRadioButton();
-        jFormattedTextFieldConsulta = new javax.swing.JFormattedTextField();
-        jLabel42 = new javax.swing.JLabel();
+        jRadioButtonConsultaD100 = new javax.swing.JRadioButton();
+        jRadioButtonConsultaD75 = new javax.swing.JRadioButton();
+        jRadioButtonConsultaD50 = new javax.swing.JRadioButton();
         jRadioButtonExameNormal = new javax.swing.JRadioButton();
-        jRadioButtonExameAula = new javax.swing.JRadioButton();
-        jRadioButtonExameIsencao = new javax.swing.JRadioButton();
-        jRadioButtonExameDesconto = new javax.swing.JRadioButton();
-        jFormattedTextFieldExame = new javax.swing.JFormattedTextField();
-        jLabel43 = new javax.swing.JLabel();
+        jRadioButtonExameD100 = new javax.swing.JRadioButton();
+        jRadioButtonExameD75 = new javax.swing.JRadioButton();
+        jRadioButtonExameD50 = new javax.swing.JRadioButton();
         jRadioButtonCirurgiaNormal = new javax.swing.JRadioButton();
-        jRadioButtonCirurgiaAula = new javax.swing.JRadioButton();
-        jRadioButtonCirurgiaIsencao = new javax.swing.JRadioButton();
-        jRadioButtonCirurgiaDesconto = new javax.swing.JRadioButton();
-        jFormattedTextFieldCirurgia = new javax.swing.JFormattedTextField();
-        jLabel44 = new javax.swing.JLabel();
+        jRadioButtonCirurgiaD100 = new javax.swing.JRadioButton();
+        jRadioButtonCirurgiaD75 = new javax.swing.JRadioButton();
+        jRadioButtonCirurgiaD50 = new javax.swing.JRadioButton();
+        jRadioButtonConsultaD25 = new javax.swing.JRadioButton();
+        jRadioButtonExameD25 = new javax.swing.JRadioButton();
+        jRadioButtonCirurgiaD25 = new javax.swing.JRadioButton();
         jPanelComposicaoFamiliar = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableFamiliares = new javax.swing.JTable();
@@ -450,6 +464,52 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         jScrollPane5 = new javax.swing.JScrollPane();
         jTextAreaMotivos = new javax.swing.JTextArea();
         jTextFieldFamiliaRenda = new javax.swing.JTextField();
+        jPanelSituacaoSocial = new javax.swing.JPanel();
+        jRadioButtonDependeFinanceiramenteSim = new javax.swing.JRadioButton();
+        jRadioButtonDependeFinanceiramenteNao = new javax.swing.JRadioButton();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
+        jRadioButtonPossuiDependenteSim = new javax.swing.JRadioButton();
+        jRadioButtonPossuiDependenteNao = new javax.swing.JRadioButton();
+        jRadioButtonDoencaCronicaSim = new javax.swing.JRadioButton();
+        jLabel46 = new javax.swing.JLabel();
+        jRadioButtonDoencaCronicaNao = new javax.swing.JRadioButton();
+        jLabel47 = new javax.swing.JLabel();
+        jRadioButtonDeficienciaSim = new javax.swing.JRadioButton();
+        jRadioButtonDeficienciaNao = new javax.swing.JRadioButton();
+        jLabel48 = new javax.swing.JLabel();
+        jRadioButtonTrabalhadorInformalSim = new javax.swing.JRadioButton();
+        jRadioButtonTrabalhadorInformalNao = new javax.swing.JRadioButton();
+        jLabel49 = new javax.swing.JLabel();
+        jRadioButtonQuebraDeVinculoSim = new javax.swing.JRadioButton();
+        jRadioButtonQuebraDeVinculoNao = new javax.swing.JRadioButton();
+        jLabel50 = new javax.swing.JLabel();
+        jRadioButtonSituacaoIncapacitanteSim = new javax.swing.JRadioButton();
+        jRadioButtonSituacaoIncapacitanteNao = new javax.swing.JRadioButton();
+        jRadioButtonPossuiDividasSim = new javax.swing.JRadioButton();
+        jLabel51 = new javax.swing.JLabel();
+        jRadioButtonPossuiDividasNao = new javax.swing.JRadioButton();
+        jLabel52 = new javax.swing.JLabel();
+        jRadioButtonBeneficioSocialSim = new javax.swing.JRadioButton();
+        jRadioButtonBeneficioSocialNao = new javax.swing.JRadioButton();
+        jLabel53 = new javax.swing.JLabel();
+        jRadioButtonTrocaDomicilioSim = new javax.swing.JRadioButton();
+        jRadioButtonTrocaDomicilioNao = new javax.swing.JRadioButton();
+        jLabel54 = new javax.swing.JLabel();
+        jRadioButtonProtecaoAnimalSim = new javax.swing.JRadioButton();
+        jRadioButtonProtecaoAnimalNao = new javax.swing.JRadioButton();
+        jLabel55 = new javax.swing.JLabel();
+        jRadioButtonPrimeiroAtendimentoVeterinarioSim = new javax.swing.JRadioButton();
+        jRadioButtonPrimeiroAtendimentoVeterinarioNao = new javax.swing.JRadioButton();
+        jLabel56 = new javax.swing.JLabel();
+        jRadioButtonAnimalDoadoSim = new javax.swing.JRadioButton();
+        jRadioButtonAnimalDoadoNao = new javax.swing.JRadioButton();
+        jLabel57 = new javax.swing.JLabel();
+        jRadioButtonAtendimentoUrgenciaSim = new javax.swing.JRadioButton();
+        jRadioButtonAtendimentoUrgenciaNao = new javax.swing.JRadioButton();
+        jLabel58 = new javax.swing.JLabel();
+        jRadioButtonNaoCondicoesParticularSim = new javax.swing.JRadioButton();
+        jRadioButtonNaoCondicoesParticularNao = new javax.swing.JRadioButton();
         jButtonQuestionarioCancelar = new javax.swing.JButton();
         jButtonQuestionarioSalvar = new javax.swing.JButton();
 
@@ -898,16 +958,17 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
                                 .addComponent(jRadioButtonDocumentosOutro))
                             .addComponent(jTextFieldDocumentoOutro, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(dteDataEntrega, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jCheckBoxNA, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBoxVistoASocial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jCheckBoxNA, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jCheckBoxVistoASocial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(dteDataEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanelDocumentosLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 668, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
         jPanelDocumentosLayout.setVerticalGroup(
             jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -915,15 +976,14 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
                 .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelDocumentosLayout.createSequentialGroup()
                         .addGap(22, 22, 22)
-                        .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanelDocumentosLayout.createSequentialGroup()
-                                .addComponent(jLabel31)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jRadioButtonDocumentosComprovanteEndereco))
-                            .addComponent(dteDataEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel31)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButtonDocumentosComprovanteEndereco))
                     .addGroup(jPanelDocumentosLayout.createSequentialGroup()
                         .addGap(17, 17, 17)
-                        .addComponent(jLabel32)))
+                        .addComponent(jLabel32)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dteDataEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDocumentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelDocumentosLayout.createSequentialGroup()
@@ -947,7 +1007,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
                     .addComponent(jButtonDocumentoSalvar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(259, Short.MAX_VALUE))
+                .addContainerGap(261, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Documentos", jPanelDocumentos);
@@ -1049,39 +1109,33 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
 
         jRadioButtonConsultaNormal.setText("Valor normal");
 
-        jRadioButtonConsultaAula.setText("Valor aula");
+        jRadioButtonConsultaD100.setText("D100%");
 
-        jRadioButtonConsultaIsencao.setText("Isenção");
+        jRadioButtonConsultaD75.setText("D75%");
 
-        jRadioButtonConsultaDesconto.setText("Desconto");
-
-        jFormattedTextFieldConsulta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
-
-        jLabel42.setText("%");
+        jRadioButtonConsultaD50.setText("D50%");
 
         jRadioButtonExameNormal.setText("Valor normal");
 
-        jRadioButtonExameAula.setText("Valor aula");
+        jRadioButtonExameD100.setText("D100%");
 
-        jRadioButtonExameIsencao.setText("Isenção");
+        jRadioButtonExameD75.setText("D75%");
 
-        jRadioButtonExameDesconto.setText("Desconto");
-
-        jFormattedTextFieldExame.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
-
-        jLabel43.setText("%");
+        jRadioButtonExameD50.setText("D50%");
 
         jRadioButtonCirurgiaNormal.setText("Valor normal");
 
-        jRadioButtonCirurgiaAula.setText("Valor aula");
+        jRadioButtonCirurgiaD100.setText("D100%");
 
-        jRadioButtonCirurgiaIsencao.setText("Isenção");
+        jRadioButtonCirurgiaD75.setText("D75%");
 
-        jRadioButtonCirurgiaDesconto.setText("Desconto");
+        jRadioButtonCirurgiaD50.setText("D50%");
 
-        jFormattedTextFieldCirurgia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        jRadioButtonConsultaD25.setText("D25%");
 
-        jLabel44.setText("%");
+        jRadioButtonExameD25.setText("D25%");
+
+        jRadioButtonCirurgiaD25.setText("D25%");
 
         javax.swing.GroupLayout CobrancaLayout = new javax.swing.GroupLayout(Cobranca);
         Cobranca.setLayout(CobrancaLayout);
@@ -1097,40 +1151,34 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
                     .addGroup(CobrancaLayout.createSequentialGroup()
                         .addComponent(jRadioButtonConsultaNormal)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButtonConsultaAula)
+                        .addComponent(jRadioButtonConsultaD100)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButtonConsultaIsencao)
+                        .addComponent(jRadioButtonConsultaD75)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButtonConsultaDesconto)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFormattedTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel42))
+                        .addComponent(jRadioButtonConsultaD50)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButtonConsultaD25))
                     .addGroup(CobrancaLayout.createSequentialGroup()
                         .addComponent(jRadioButtonExameNormal)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButtonExameAula)
+                        .addComponent(jRadioButtonExameD100)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButtonExameIsencao)
+                        .addComponent(jRadioButtonExameD75)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButtonExameDesconto)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFormattedTextFieldExame, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel43))
+                        .addComponent(jRadioButtonExameD50)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButtonExameD25))
                     .addGroup(CobrancaLayout.createSequentialGroup()
                         .addComponent(jRadioButtonCirurgiaNormal)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButtonCirurgiaAula)
+                        .addComponent(jRadioButtonCirurgiaD100)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButtonCirurgiaIsencao)
+                        .addComponent(jRadioButtonCirurgiaD75)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButtonCirurgiaDesconto)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFormattedTextFieldCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel44)))
-                .addContainerGap(116, Short.MAX_VALUE))
+                        .addComponent(jRadioButtonCirurgiaD50)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButtonCirurgiaD25)))
+                .addContainerGap(282, Short.MAX_VALUE))
         );
         CobrancaLayout.setVerticalGroup(
             CobrancaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1142,32 +1190,29 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(CobrancaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButtonConsultaNormal)
-                    .addComponent(jRadioButtonConsultaAula)
-                    .addComponent(jRadioButtonConsultaIsencao)
-                    .addComponent(jRadioButtonConsultaDesconto)
-                    .addComponent(jFormattedTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel42))
+                    .addComponent(jRadioButtonConsultaD100)
+                    .addComponent(jRadioButtonConsultaD75)
+                    .addComponent(jRadioButtonConsultaD50)
+                    .addComponent(jRadioButtonConsultaD25))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel40)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(CobrancaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButtonExameNormal)
-                    .addComponent(jRadioButtonExameAula)
-                    .addComponent(jRadioButtonExameIsencao)
-                    .addComponent(jRadioButtonExameDesconto)
-                    .addComponent(jFormattedTextFieldExame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel43))
+                    .addComponent(jRadioButtonExameD100)
+                    .addComponent(jRadioButtonExameD75)
+                    .addComponent(jRadioButtonExameD50)
+                    .addComponent(jRadioButtonExameD25))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel41)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(CobrancaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButtonCirurgiaNormal)
-                    .addComponent(jRadioButtonCirurgiaAula)
-                    .addComponent(jRadioButtonCirurgiaIsencao)
-                    .addComponent(jRadioButtonCirurgiaDesconto)
-                    .addComponent(jFormattedTextFieldCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel44))
-                .addContainerGap(501, Short.MAX_VALUE))
+                    .addComponent(jRadioButtonCirurgiaD100)
+                    .addComponent(jRadioButtonCirurgiaD75)
+                    .addComponent(jRadioButtonCirurgiaD50)
+                    .addComponent(jRadioButtonCirurgiaD25))
+                .addContainerGap(510, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Cobrança", Cobranca);
@@ -1371,6 +1416,405 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         );
 
         jTabbedPane1.addTab("Composição familiar", jPanelComposicaoFamiliar);
+
+        jRadioButtonDependeFinanceiramenteSim.setText("Sim");
+        jRadioButtonDependeFinanceiramenteSim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonDependeFinanceiramenteSimActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonDependeFinanceiramenteNao.setText("Não");
+
+        jLabel26.setText("Depende financeiramente de alguém?");
+
+        jLabel45.setText("Possui algum dependente financeiro?");
+
+        jRadioButtonPossuiDependenteSim.setText("Sim");
+
+        jRadioButtonPossuiDependenteNao.setText("Não");
+        jRadioButtonPossuiDependenteNao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonPossuiDependenteNaoActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonDoencaCronicaSim.setText("Sim");
+        jRadioButtonDoencaCronicaSim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonDoencaCronicaSimActionPerformed(evt);
+            }
+        });
+
+        jLabel46.setText("Algum membro da familia com doença crônica ou situação que requer gastos com tratameno?");
+
+        jRadioButtonDoencaCronicaNao.setText("Não");
+        jRadioButtonDoencaCronicaNao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonDoencaCronicaNaoActionPerformed(evt);
+            }
+        });
+
+        jLabel47.setText("Algum membro idoso ou com alguma deficiencia ou dependencia quimica?");
+
+        jRadioButtonDeficienciaSim.setText("Sim");
+        jRadioButtonDeficienciaSim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonDeficienciaSimActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonDeficienciaNao.setText("Não");
+        jRadioButtonDeficienciaNao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonDeficienciaNaoActionPerformed(evt);
+            }
+        });
+
+        jLabel48.setText("Trabalhador informal e/ou sem renda fixa?");
+
+        jRadioButtonTrabalhadorInformalSim.setText("Sim");
+        jRadioButtonTrabalhadorInformalSim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonTrabalhadorInformalSimActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonTrabalhadorInformalNao.setText("Não");
+        jRadioButtonTrabalhadorInformalNao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonTrabalhadorInformalNaoActionPerformed(evt);
+            }
+        });
+
+        jLabel49.setText("Alguma situação de quebra de vinculo (separação, divorcio, morte) ou outros?");
+
+        jRadioButtonQuebraDeVinculoSim.setText("Sim");
+        jRadioButtonQuebraDeVinculoSim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonQuebraDeVinculoSimActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonQuebraDeVinculoNao.setText("Não");
+        jRadioButtonQuebraDeVinculoNao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonQuebraDeVinculoNaoActionPerformed(evt);
+            }
+        });
+
+        jLabel50.setText("Alguma situação incapacitante para o trabalho? ");
+
+        jRadioButtonSituacaoIncapacitanteSim.setText("Sim");
+        jRadioButtonSituacaoIncapacitanteSim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonSituacaoIncapacitanteSimActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonSituacaoIncapacitanteNao.setText("Não");
+        jRadioButtonSituacaoIncapacitanteNao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonSituacaoIncapacitanteNaoActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonPossuiDividasSim.setText("Sim");
+        jRadioButtonPossuiDividasSim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonPossuiDividasSimActionPerformed(evt);
+            }
+        });
+
+        jLabel51.setText("Possui dividas no banco/emprestimos que possam comprometer a renda?");
+
+        jRadioButtonPossuiDividasNao.setText("Não");
+        jRadioButtonPossuiDividasNao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonPossuiDividasNaoActionPerformed(evt);
+            }
+        });
+
+        jLabel52.setText("Possui algum beneficio social? ");
+
+        jRadioButtonBeneficioSocialSim.setText("Sim");
+        jRadioButtonBeneficioSocialSim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonBeneficioSocialSimActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonBeneficioSocialNao.setText("Não");
+        jRadioButtonBeneficioSocialNao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonBeneficioSocialNaoActionPerformed(evt);
+            }
+        });
+
+        jLabel53.setText("Alguma situação de troca de domicilio? ");
+
+        jRadioButtonTrocaDomicilioSim.setText("Sim");
+        jRadioButtonTrocaDomicilioSim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonTrocaDomicilioSimActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonTrocaDomicilioNao.setText("Não");
+        jRadioButtonTrocaDomicilioNao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonTrocaDomicilioNaoActionPerformed(evt);
+            }
+        });
+
+        jLabel54.setText("Usuário atua na proteção animal?");
+
+        jRadioButtonProtecaoAnimalSim.setText("Sim");
+        jRadioButtonProtecaoAnimalSim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonProtecaoAnimalSimActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonProtecaoAnimalNao.setText("Não");
+        jRadioButtonProtecaoAnimalNao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonProtecaoAnimalNaoActionPerformed(evt);
+            }
+        });
+
+        jLabel55.setText("Primeiro atendimento veterinário do animal?");
+
+        jRadioButtonPrimeiroAtendimentoVeterinarioSim.setText("Sim");
+        jRadioButtonPrimeiroAtendimentoVeterinarioSim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonPrimeiroAtendimentoVeterinarioSimActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonPrimeiroAtendimentoVeterinarioNao.setText("Não");
+        jRadioButtonPrimeiroAtendimentoVeterinarioNao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonPrimeiroAtendimentoVeterinarioNaoActionPerformed(evt);
+            }
+        });
+
+        jLabel56.setText("Animal doado ou resgatado?");
+
+        jRadioButtonAnimalDoadoSim.setText("Sim");
+        jRadioButtonAnimalDoadoSim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonAnimalDoadoSimActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonAnimalDoadoNao.setText("Não");
+        jRadioButtonAnimalDoadoNao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonAnimalDoadoNaoActionPerformed(evt);
+            }
+        });
+
+        jLabel57.setText("Atendimento do animal foi de urgência? ");
+
+        jRadioButtonAtendimentoUrgenciaSim.setText("Sim");
+        jRadioButtonAtendimentoUrgenciaSim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonAtendimentoUrgenciaSimActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonAtendimentoUrgenciaNao.setText("Não");
+        jRadioButtonAtendimentoUrgenciaNao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonAtendimentoUrgenciaNaoActionPerformed(evt);
+            }
+        });
+
+        jLabel58.setText("Não teria condições de acessar a rede particular?");
+
+        jRadioButtonNaoCondicoesParticularSim.setText("Sim");
+        jRadioButtonNaoCondicoesParticularSim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonNaoCondicoesParticularSimActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonNaoCondicoesParticularNao.setText("Não");
+        jRadioButtonNaoCondicoesParticularNao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonNaoCondicoesParticularNaoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelSituacaoSocialLayout = new javax.swing.GroupLayout(jPanelSituacaoSocial);
+        jPanelSituacaoSocial.setLayout(jPanelSituacaoSocialLayout);
+        jPanelSituacaoSocialLayout.setHorizontalGroup(
+            jPanelSituacaoSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelSituacaoSocialLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(jPanelSituacaoSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel26)
+                    .addComponent(jLabel45)
+                    .addComponent(jLabel46)
+                    .addComponent(jLabel47)
+                    .addComponent(jLabel48)
+                    .addComponent(jLabel50)
+                    .addComponent(jLabel51)
+                    .addComponent(jLabel52)
+                    .addComponent(jLabel53)
+                    .addComponent(jLabel54)
+                    .addComponent(jLabel49)
+                    .addComponent(jLabel55)
+                    .addComponent(jLabel56)
+                    .addComponent(jLabel57)
+                    .addComponent(jLabel58))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelSituacaoSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelSituacaoSocialLayout.createSequentialGroup()
+                        .addComponent(jRadioButtonNaoCondicoesParticularSim)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButtonNaoCondicoesParticularNao))
+                    .addGroup(jPanelSituacaoSocialLayout.createSequentialGroup()
+                        .addComponent(jRadioButtonAtendimentoUrgenciaSim)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButtonAtendimentoUrgenciaNao))
+                    .addGroup(jPanelSituacaoSocialLayout.createSequentialGroup()
+                        .addComponent(jRadioButtonAnimalDoadoSim)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButtonAnimalDoadoNao))
+                    .addGroup(jPanelSituacaoSocialLayout.createSequentialGroup()
+                        .addComponent(jRadioButtonProtecaoAnimalSim)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButtonProtecaoAnimalNao))
+                    .addGroup(jPanelSituacaoSocialLayout.createSequentialGroup()
+                        .addComponent(jRadioButtonTrocaDomicilioSim)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButtonTrocaDomicilioNao))
+                    .addGroup(jPanelSituacaoSocialLayout.createSequentialGroup()
+                        .addComponent(jRadioButtonBeneficioSocialSim)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButtonBeneficioSocialNao))
+                    .addGroup(jPanelSituacaoSocialLayout.createSequentialGroup()
+                        .addComponent(jRadioButtonPossuiDividasSim)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButtonPossuiDividasNao))
+                    .addGroup(jPanelSituacaoSocialLayout.createSequentialGroup()
+                        .addComponent(jRadioButtonSituacaoIncapacitanteSim)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButtonSituacaoIncapacitanteNao))
+                    .addGroup(jPanelSituacaoSocialLayout.createSequentialGroup()
+                        .addComponent(jRadioButtonQuebraDeVinculoSim)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButtonQuebraDeVinculoNao))
+                    .addGroup(jPanelSituacaoSocialLayout.createSequentialGroup()
+                        .addComponent(jRadioButtonTrabalhadorInformalSim)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButtonTrabalhadorInformalNao))
+                    .addGroup(jPanelSituacaoSocialLayout.createSequentialGroup()
+                        .addComponent(jRadioButtonDeficienciaSim)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButtonDeficienciaNao))
+                    .addGroup(jPanelSituacaoSocialLayout.createSequentialGroup()
+                        .addComponent(jRadioButtonDependeFinanceiramenteSim)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButtonDependeFinanceiramenteNao))
+                    .addGroup(jPanelSituacaoSocialLayout.createSequentialGroup()
+                        .addComponent(jRadioButtonPossuiDependenteSim)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButtonPossuiDependenteNao))
+                    .addGroup(jPanelSituacaoSocialLayout.createSequentialGroup()
+                        .addComponent(jRadioButtonDoencaCronicaSim)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButtonDoencaCronicaNao))
+                    .addGroup(jPanelSituacaoSocialLayout.createSequentialGroup()
+                        .addComponent(jRadioButtonPrimeiroAtendimentoVeterinarioSim)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButtonPrimeiroAtendimentoVeterinarioNao)))
+                .addContainerGap(183, Short.MAX_VALUE))
+        );
+        jPanelSituacaoSocialLayout.setVerticalGroup(
+            jPanelSituacaoSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelSituacaoSocialLayout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addGroup(jPanelSituacaoSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButtonDependeFinanceiramenteSim)
+                    .addComponent(jRadioButtonDependeFinanceiramenteNao)
+                    .addComponent(jLabel26))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelSituacaoSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel45)
+                    .addComponent(jRadioButtonPossuiDependenteSim)
+                    .addComponent(jRadioButtonPossuiDependenteNao))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelSituacaoSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel46)
+                    .addComponent(jRadioButtonDoencaCronicaSim)
+                    .addComponent(jRadioButtonDoencaCronicaNao))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelSituacaoSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel47)
+                    .addComponent(jRadioButtonDeficienciaSim)
+                    .addComponent(jRadioButtonDeficienciaNao))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelSituacaoSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel48)
+                    .addComponent(jRadioButtonTrabalhadorInformalSim)
+                    .addComponent(jRadioButtonTrabalhadorInformalNao))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelSituacaoSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel49)
+                    .addComponent(jRadioButtonQuebraDeVinculoSim)
+                    .addComponent(jRadioButtonQuebraDeVinculoNao))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelSituacaoSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButtonSituacaoIncapacitanteSim)
+                    .addComponent(jLabel50)
+                    .addComponent(jRadioButtonSituacaoIncapacitanteNao))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelSituacaoSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButtonPossuiDividasSim)
+                    .addComponent(jLabel51)
+                    .addComponent(jRadioButtonPossuiDividasNao))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelSituacaoSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel52)
+                    .addComponent(jRadioButtonBeneficioSocialSim)
+                    .addComponent(jRadioButtonBeneficioSocialNao))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelSituacaoSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel53)
+                    .addComponent(jRadioButtonTrocaDomicilioSim)
+                    .addComponent(jRadioButtonTrocaDomicilioNao))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelSituacaoSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel54)
+                    .addComponent(jRadioButtonProtecaoAnimalSim)
+                    .addComponent(jRadioButtonProtecaoAnimalNao))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelSituacaoSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel55)
+                    .addComponent(jRadioButtonPrimeiroAtendimentoVeterinarioSim)
+                    .addComponent(jRadioButtonPrimeiroAtendimentoVeterinarioNao))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelSituacaoSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel56)
+                    .addComponent(jRadioButtonAnimalDoadoSim)
+                    .addComponent(jRadioButtonAnimalDoadoNao))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelSituacaoSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel57)
+                    .addComponent(jRadioButtonAtendimentoUrgenciaSim)
+                    .addComponent(jRadioButtonAtendimentoUrgenciaNao))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelSituacaoSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel58)
+                    .addComponent(jRadioButtonNaoCondicoesParticularSim)
+                    .addComponent(jRadioButtonNaoCondicoesParticularNao))
+                .addContainerGap(106, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Situação social", jPanelSituacaoSocial);
 
         jButtonQuestionarioCancelar.setIcon(new javax.swing.ImageIcon("imagens/small_cancelar.png"));
         jButtonQuestionarioCancelar.setText("Cancelar");
@@ -1576,48 +2020,48 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
 
     private void setValorTipoConsulta() {
         Integer consulta;
-        if (this.jRadioButtonConsultaAula.isSelected()) {
-            consulta = QuestionarioSocioeconomico.COBRANCA_AULA;
+        if (this.jRadioButtonConsultaD100.isSelected()) {
+            consulta = QuestionarioSocioeconomico.COBRANCA_D100;
         } else if (this.jRadioButtonConsultaNormal.isSelected()) {
             consulta = QuestionarioSocioeconomico.COBRANCA_NORMAL;
-        } else if (this.jRadioButtonConsultaIsencao.isSelected()) {
-            consulta = QuestionarioSocioeconomico.COBRANCA_INSENCAO;
-        } else {
-            consulta = QuestionarioSocioeconomico.COBRANCA_DESCONTO;
-            String descontoConsultaST = this.jFormattedTextFieldConsulta.getText();
-            questionario.setValorDescontoConsultas(ValidationsUtils.converteStringParaPreco(descontoConsultaST));
+        } else if (this.jRadioButtonConsultaD75.isSelected()) {
+            consulta = QuestionarioSocioeconomico.COBRANCA_D75;
+        } else if (this.jRadioButtonConsultaD50.isSelected()) {
+            consulta = QuestionarioSocioeconomico.COBRANCA_D50;
+        }else {
+            consulta = QuestionarioSocioeconomico.COBRANCA_D25;
         }
         questionario.setTipoCobrancaConsultas(consulta);
     }
 
-    private void setValorTipoExame() throws HeadlessException {
+    private void setValorTipoExame() {
         Integer exame;
-        if (this.jRadioButtonExameAula.isSelected()) {
-            exame = QuestionarioSocioeconomico.COBRANCA_AULA;
+        if (this.jRadioButtonExameD100.isSelected()) {
+            exame = QuestionarioSocioeconomico.COBRANCA_D100;
         } else if (this.jRadioButtonExameNormal.isSelected()) {
             exame = QuestionarioSocioeconomico.COBRANCA_NORMAL;
-        } else if (this.jRadioButtonExameIsencao.isSelected()) {
-            exame = QuestionarioSocioeconomico.COBRANCA_INSENCAO;
+        } else if (this.jRadioButtonExameD75.isSelected()) {
+            exame = QuestionarioSocioeconomico.COBRANCA_D75;
+        }else if (this.jRadioButtonExameD50.isSelected()) {
+            exame = QuestionarioSocioeconomico.COBRANCA_D50;
         } else {
-            exame = QuestionarioSocioeconomico.COBRANCA_DESCONTO;
-            String descontoExameST = this.jFormattedTextFieldExame.getText();
-            questionario.setValorDescontoExames(ValidationsUtils.converteStringParaPreco(descontoExameST));
+            exame = QuestionarioSocioeconomico.COBRANCA_D25;
         }
         questionario.setTipoCobrancaExames(exame);
     }
 
-    private void setValorTipoCirugia() throws HeadlessException {
+    private void setValorTipoCirugia() {
         Integer cirugia;
-        if (this.jRadioButtonCirurgiaAula.isSelected()) {
-            cirugia = QuestionarioSocioeconomico.COBRANCA_AULA;
+        if (this.jRadioButtonCirurgiaD100.isSelected()) {
+            cirugia = QuestionarioSocioeconomico.COBRANCA_D100;
         } else if (this.jRadioButtonCirurgiaNormal.isSelected()) {
             cirugia = QuestionarioSocioeconomico.COBRANCA_NORMAL;
-        } else if (this.jRadioButtonCirurgiaIsencao.isSelected()) {
-            cirugia = QuestionarioSocioeconomico.COBRANCA_INSENCAO;
+        } else if (this.jRadioButtonCirurgiaD75.isSelected()) {
+            cirugia = QuestionarioSocioeconomico.COBRANCA_D75;
+        } else if (this.jRadioButtonCirurgiaD50.isSelected()) {
+            cirugia = QuestionarioSocioeconomico.COBRANCA_D50;
         } else {
-            cirugia = QuestionarioSocioeconomico.COBRANCA_DESCONTO;
-            String descontoCirugiaST = this.jFormattedTextFieldCirurgia.getText();
-            questionario.setValorDescontoCirurgias(ValidationsUtils.converteStringParaPreco(descontoCirugiaST));
+            cirugia = QuestionarioSocioeconomico.COBRANCA_D25;
         }
         questionario.setTipoCobrancaCirurgias(cirugia);
     }
@@ -1752,6 +2196,149 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
         this.modelParente.removerParentes(indexRemover);
     }//GEN-LAST:event_jButtonFamiliaRemoverActionPerformed
 
+    private void jRadioButtonDoencaCronicaSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDoencaCronicaSimActionPerformed
+        questionario.setDoencaCronica(true);
+        jRadioButtonDoencaCronicaNao.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonDoencaCronicaSimActionPerformed
+
+    private void jRadioButtonDoencaCronicaNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDoencaCronicaNaoActionPerformed
+        questionario.setDoencaCronica(false);
+        jRadioButtonDoencaCronicaSim.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonDoencaCronicaNaoActionPerformed
+
+    private void jRadioButtonTrabalhadorInformalSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonTrabalhadorInformalSimActionPerformed
+        questionario.setTrabalhadorInformal(true);
+        jRadioButtonTrabalhadorInformalNao.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonTrabalhadorInformalSimActionPerformed
+
+    private void jRadioButtonDependeFinanceiramenteSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDependeFinanceiramenteSimActionPerformed
+        questionario.setDependeFinanceiramente(true);
+        jRadioButtonDeficienciaNao.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonDependeFinanceiramenteSimActionPerformed
+
+    private void jRadioButtonPossuiDependenteNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPossuiDependenteNaoActionPerformed
+        questionario.setDependeFinanceiramente(false);
+        jRadioButtonDeficienciaSim.setSelected(false);
+
+    }//GEN-LAST:event_jRadioButtonPossuiDependenteNaoActionPerformed
+
+    private void jRadioButtonDeficienciaSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDeficienciaSimActionPerformed
+        questionario.setDeficiencia(true);
+        jRadioButtonDeficienciaNao.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonDeficienciaSimActionPerformed
+
+    private void jRadioButtonDeficienciaNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDeficienciaNaoActionPerformed
+        questionario.setDeficiencia(false);
+        jRadioButtonDeficienciaSim.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonDeficienciaNaoActionPerformed
+
+    private void jRadioButtonTrabalhadorInformalNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonTrabalhadorInformalNaoActionPerformed
+        questionario.setTrabalhadorInformal(false);
+        jRadioButtonTrabalhadorInformalSim.setSelected(false);
+
+    }//GEN-LAST:event_jRadioButtonTrabalhadorInformalNaoActionPerformed
+
+    private void jRadioButtonQuebraDeVinculoSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonQuebraDeVinculoSimActionPerformed
+        questionario.setQuebraVinculo(true);
+        jRadioButtonQuebraDeVinculoNao.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonQuebraDeVinculoSimActionPerformed
+
+    private void jRadioButtonQuebraDeVinculoNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonQuebraDeVinculoNaoActionPerformed
+        questionario.setQuebraVinculo(false);
+        jRadioButtonQuebraDeVinculoSim.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonQuebraDeVinculoNaoActionPerformed
+
+    private void jRadioButtonSituacaoIncapacitanteSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonSituacaoIncapacitanteSimActionPerformed
+        questionario.setSituacaoIncapacitante(true);
+        jRadioButtonSituacaoIncapacitanteNao.setSelected(false);
+
+    }//GEN-LAST:event_jRadioButtonSituacaoIncapacitanteSimActionPerformed
+
+    private void jRadioButtonSituacaoIncapacitanteNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonSituacaoIncapacitanteNaoActionPerformed
+        questionario.setSituacaoIncapacitante(false);
+        jRadioButtonSituacaoIncapacitanteSim.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonSituacaoIncapacitanteNaoActionPerformed
+
+    private void jRadioButtonPossuiDividasSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPossuiDividasSimActionPerformed
+        questionario.setDividasBanco(true);
+        jRadioButtonPossuiDividasNao.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonPossuiDividasSimActionPerformed
+
+    private void jRadioButtonPossuiDividasNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPossuiDividasNaoActionPerformed
+        questionario.setDividasBanco(false);
+        jRadioButtonPossuiDividasSim.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonPossuiDividasNaoActionPerformed
+
+    private void jRadioButtonBeneficioSocialSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonBeneficioSocialSimActionPerformed
+        questionario.setBeneficioSocial(true);
+        jRadioButtonBeneficioSocialNao.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonBeneficioSocialSimActionPerformed
+
+    private void jRadioButtonBeneficioSocialNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonBeneficioSocialNaoActionPerformed
+        questionario.setBeneficioSocial(false);
+        jRadioButtonBeneficioSocialSim.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonBeneficioSocialNaoActionPerformed
+
+    private void jRadioButtonTrocaDomicilioSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonTrocaDomicilioSimActionPerformed
+        questionario.setTrocaDomicilio(true);
+        jRadioButtonTrocaDomicilioNao.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonTrocaDomicilioSimActionPerformed
+
+    private void jRadioButtonTrocaDomicilioNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonTrocaDomicilioNaoActionPerformed
+        questionario.setTrocaDomicilio(false);
+        jRadioButtonTrocaDomicilioSim.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonTrocaDomicilioNaoActionPerformed
+
+    private void jRadioButtonProtecaoAnimalSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonProtecaoAnimalSimActionPerformed
+        questionario.setProtecaoAnimal(true);
+        jRadioButtonProtecaoAnimalNao.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonProtecaoAnimalSimActionPerformed
+
+    private void jRadioButtonProtecaoAnimalNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonProtecaoAnimalNaoActionPerformed
+        questionario.setProtecaoAnimal(false);
+        jRadioButtonProtecaoAnimalSim.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonProtecaoAnimalNaoActionPerformed
+
+    private void jRadioButtonPrimeiroAtendimentoVeterinarioSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPrimeiroAtendimentoVeterinarioSimActionPerformed
+        questionario.setPrimeiroAtendimento(true);
+        jRadioButtonPrimeiroAtendimentoVeterinarioNao.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonPrimeiroAtendimentoVeterinarioSimActionPerformed
+
+    private void jRadioButtonPrimeiroAtendimentoVeterinarioNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPrimeiroAtendimentoVeterinarioNaoActionPerformed
+        questionario.setPrimeiroAtendimento(false);
+        jRadioButtonPrimeiroAtendimentoVeterinarioSim.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonPrimeiroAtendimentoVeterinarioNaoActionPerformed
+
+    private void jRadioButtonAnimalDoadoSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAnimalDoadoSimActionPerformed
+        questionario.setAnimalDoado(true);
+        jRadioButtonAnimalDoadoNao.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonAnimalDoadoSimActionPerformed
+
+    private void jRadioButtonAnimalDoadoNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAnimalDoadoNaoActionPerformed
+        questionario.setAnimalDoado(false);
+        jRadioButtonAnimalDoadoSim.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonAnimalDoadoNaoActionPerformed
+
+    private void jRadioButtonAtendimentoUrgenciaSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAtendimentoUrgenciaSimActionPerformed
+        questionario.setAtendimentoUrgencia(true);
+        jRadioButtonAtendimentoUrgenciaNao.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonAtendimentoUrgenciaSimActionPerformed
+
+    private void jRadioButtonAtendimentoUrgenciaNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAtendimentoUrgenciaNaoActionPerformed
+        questionario.setAtendimentoUrgencia(false);
+        jRadioButtonAtendimentoUrgenciaSim.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonAtendimentoUrgenciaNaoActionPerformed
+
+    private void jRadioButtonNaoCondicoesParticularSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonNaoCondicoesParticularSimActionPerformed
+        questionario.setNaoCondicoesParticular(true);
+        jRadioButtonNaoCondicoesParticularNao.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonNaoCondicoesParticularSimActionPerformed
+
+    private void jRadioButtonNaoCondicoesParticularNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonNaoCondicoesParticularNaoActionPerformed
+        questionario.setNaoCondicoesParticular(false);
+        jRadioButtonNaoCondicoesParticularSim.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonNaoCondicoesParticularNaoActionPerformed
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(jRadioButtonEstudanteSim) || e.getSource().equals(jRadioButtonEstudanteNao)) {
@@ -1760,16 +2347,14 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
             } else {
                 habilitarPainelEstudante(false);
             }
-        } else if (e.getSource().equals(jRadioButtonConsultaAula) || e.getSource().equals(jRadioButtonConsultaDesconto)
-                || e.getSource().equals(jRadioButtonConsultaIsencao) || e.getSource().equals(jRadioButtonConsultaNormal)
-                || e.getSource().equals(jRadioButtonExameAula) || e.getSource().equals(jRadioButtonExameDesconto)
-                || e.getSource().equals(jRadioButtonExameIsencao) || e.getSource().equals(jRadioButtonExameNormal)
-                || e.getSource().equals(jRadioButtonCirurgiaAula) || e.getSource().equals(jRadioButtonCirurgiaDesconto)
-                || e.getSource().equals(jRadioButtonCirurgiaIsencao) || e.getSource().equals(jRadioButtonCirurgiaNormal)) {
+        } else if (e.getSource().equals(jRadioButtonConsultaD100) || e.getSource().equals(jRadioButtonConsultaD50)
+                || e.getSource().equals(jRadioButtonConsultaD75) || e.getSource().equals(jRadioButtonConsultaNormal)
+                || e.getSource().equals(jRadioButtonExameD100) || e.getSource().equals(jRadioButtonExameD50)
+                || e.getSource().equals(jRadioButtonExameD75) || e.getSource().equals(jRadioButtonExameNormal)
+                || e.getSource().equals(jRadioButtonCirurgiaD100) || e.getSource().equals(jRadioButtonCirurgiaD50)
+                || e.getSource().equals(jRadioButtonCirurgiaD75) || e.getSource().equals(jRadioButtonCirurgiaNormal)) {
 
-            jFormattedTextFieldConsulta.setEnabled(jRadioButtonConsultaDesconto.isSelected());
-            jFormattedTextFieldExame.setEnabled(jRadioButtonExameDesconto.isSelected());
-            jFormattedTextFieldCirurgia.setEnabled(jRadioButtonCirurgiaDesconto.isSelected());
+        
 
         } else if (e.getSource().equals(jRadioButtonDocumentosBolsaFamilia)
                 || e.getSource().equals(jRadioButtonDocumentosComprovanteEndereco)
@@ -1835,9 +2420,6 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
     private javax.swing.JComboBox<String> jComboBoxEstadoCivil;
     private javax.swing.JFormattedTextField jFormattedIdadeFamilia;
     private javax.swing.JFormattedTextField jFormattedTextFieldAluguel;
-    private javax.swing.JFormattedTextField jFormattedTextFieldCirurgia;
-    private javax.swing.JFormattedTextField jFormattedTextFieldConsulta;
-    private javax.swing.JFormattedTextField jFormattedTextFieldExame;
     private javax.swing.JFormattedTextField jFormattedTextFieldGastosMensais;
     private javax.swing.JFormattedTextField jFormattedTextFieldIdade;
     private javax.swing.JFormattedTextField jFormattedTextFieldNis;
@@ -1861,6 +2443,7 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
@@ -1878,10 +2461,21 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
+    private javax.swing.JLabel jLabel56;
+    private javax.swing.JLabel jLabel57;
+    private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -1904,29 +2498,63 @@ public class QuestionarioSocioEconomicoJPanel extends javax.swing.JPanel impleme
     private javax.swing.JPanel jPanelDocumentos;
     private javax.swing.JPanel jPanelEstudante;
     private javax.swing.JPanel jPanelMateriais;
-    private javax.swing.JRadioButton jRadioButtonCirurgiaAula;
-    private javax.swing.JRadioButton jRadioButtonCirurgiaDesconto;
-    private javax.swing.JRadioButton jRadioButtonCirurgiaIsencao;
+    private javax.swing.JPanel jPanelSituacaoSocial;
+    private javax.swing.JRadioButton jRadioButtonAnimalDoadoNao;
+    private javax.swing.JRadioButton jRadioButtonAnimalDoadoSim;
+    private javax.swing.JRadioButton jRadioButtonAtendimentoUrgenciaNao;
+    private javax.swing.JRadioButton jRadioButtonAtendimentoUrgenciaSim;
+    private javax.swing.JRadioButton jRadioButtonBeneficioSocialNao;
+    private javax.swing.JRadioButton jRadioButtonBeneficioSocialSim;
+    private javax.swing.JRadioButton jRadioButtonCirurgiaD100;
+    private javax.swing.JRadioButton jRadioButtonCirurgiaD25;
+    private javax.swing.JRadioButton jRadioButtonCirurgiaD50;
+    private javax.swing.JRadioButton jRadioButtonCirurgiaD75;
     private javax.swing.JRadioButton jRadioButtonCirurgiaNormal;
-    private javax.swing.JRadioButton jRadioButtonConsultaAula;
-    private javax.swing.JRadioButton jRadioButtonConsultaDesconto;
-    private javax.swing.JRadioButton jRadioButtonConsultaIsencao;
+    private javax.swing.JRadioButton jRadioButtonConsultaD100;
+    private javax.swing.JRadioButton jRadioButtonConsultaD25;
+    private javax.swing.JRadioButton jRadioButtonConsultaD50;
+    private javax.swing.JRadioButton jRadioButtonConsultaD75;
     private javax.swing.JRadioButton jRadioButtonConsultaNormal;
+    private javax.swing.JRadioButton jRadioButtonDeficienciaNao;
+    private javax.swing.JRadioButton jRadioButtonDeficienciaSim;
+    private javax.swing.JRadioButton jRadioButtonDependeFinanceiramenteNao;
+    private javax.swing.JRadioButton jRadioButtonDependeFinanceiramenteSim;
     private javax.swing.JRadioButton jRadioButtonDocumentosBolsaFamilia;
     private javax.swing.JRadioButton jRadioButtonDocumentosComprovanteEndereco;
     private javax.swing.JRadioButton jRadioButtonDocumentosMembroFamilia;
     private javax.swing.JRadioButton jRadioButtonDocumentosOutro;
     private javax.swing.JRadioButton jRadioButtonDocumentosRGDono;
+    private javax.swing.JRadioButton jRadioButtonDoencaCronicaNao;
+    private javax.swing.JRadioButton jRadioButtonDoencaCronicaSim;
     private javax.swing.JRadioButton jRadioButtonEnergiaNao;
     private javax.swing.JRadioButton jRadioButtonEnergiaSim;
     private javax.swing.JRadioButton jRadioButtonEstudanteNao;
     private javax.swing.JRadioButton jRadioButtonEstudanteSim;
-    private javax.swing.JRadioButton jRadioButtonExameAula;
-    private javax.swing.JRadioButton jRadioButtonExameDesconto;
-    private javax.swing.JRadioButton jRadioButtonExameIsencao;
+    private javax.swing.JRadioButton jRadioButtonExameD100;
+    private javax.swing.JRadioButton jRadioButtonExameD25;
+    private javax.swing.JRadioButton jRadioButtonExameD50;
+    private javax.swing.JRadioButton jRadioButtonExameD75;
     private javax.swing.JRadioButton jRadioButtonExameNormal;
+    private javax.swing.JRadioButton jRadioButtonNaoCondicoesParticularNao;
+    private javax.swing.JRadioButton jRadioButtonNaoCondicoesParticularSim;
+    private javax.swing.JRadioButton jRadioButtonPossuiDependenteNao;
+    private javax.swing.JRadioButton jRadioButtonPossuiDependenteSim;
+    private javax.swing.JRadioButton jRadioButtonPossuiDividasNao;
+    private javax.swing.JRadioButton jRadioButtonPossuiDividasSim;
+    private javax.swing.JRadioButton jRadioButtonPrimeiroAtendimentoVeterinarioNao;
+    private javax.swing.JRadioButton jRadioButtonPrimeiroAtendimentoVeterinarioSim;
+    private javax.swing.JRadioButton jRadioButtonProtecaoAnimalNao;
+    private javax.swing.JRadioButton jRadioButtonProtecaoAnimalSim;
+    private javax.swing.JRadioButton jRadioButtonQuebraDeVinculoNao;
+    private javax.swing.JRadioButton jRadioButtonQuebraDeVinculoSim;
     private javax.swing.JRadioButton jRadioButtonSaneamentoNao;
     private javax.swing.JRadioButton jRadioButtonSaneamentoSim;
+    private javax.swing.JRadioButton jRadioButtonSituacaoIncapacitanteNao;
+    private javax.swing.JRadioButton jRadioButtonSituacaoIncapacitanteSim;
+    private javax.swing.JRadioButton jRadioButtonTrabalhadorInformalNao;
+    private javax.swing.JRadioButton jRadioButtonTrabalhadorInformalSim;
+    private javax.swing.JRadioButton jRadioButtonTrocaDomicilioNao;
+    private javax.swing.JRadioButton jRadioButtonTrocaDomicilioSim;
     private javax.swing.JRadioButton jRadioButtonValidade6Meses;
     private javax.swing.JRadioButton jRadioButtonValidadePatologia;
     private javax.swing.JScrollPane jScrollPane1;

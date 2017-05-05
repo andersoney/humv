@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ufrb.lasis.humv.view.materiais;
+package br.edu.ufrb.lasis.humv.view.material;
 
 import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Material;
@@ -85,7 +85,7 @@ public class PropriedadesBuscaMaterial extends PropriedadesBusca {
                 switch (super.getTipoOperacao()) {
                     case PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR:
                         if (InterfaceGraficaUtils.dialogoRemoverAlterar("alterar", "material", materialSelecionado.getDiscriminacao())) {
-                            CadastrarMaterial painel = new CadastrarMaterial(materialSelecionado);
+                            CadastrarMaterialJPanel painel = new CadastrarMaterialJPanel(materialSelecionado);
                             HUMVApp.setNovoPainelCentral(painel);
                         }
                         break;

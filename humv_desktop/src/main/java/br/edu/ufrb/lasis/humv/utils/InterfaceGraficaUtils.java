@@ -32,7 +32,7 @@ public class InterfaceGraficaUtils {
         String msg = "Registro de " + tipoObjeto + " efetuado com sucesso!";
         JOptionPane.showMessageDialog(null, msg, "Registro de " + tipoObjeto, JOptionPane.INFORMATION_MESSAGE);
     }
-    public static void sucessoCadastro(String tipoObjeto,String tipoCodigo,  int id) {
+    public static void sucessoCadastro(String tipoObjeto,String tipoCodigo,  String id) {
         String msg = "Registro de " + tipoObjeto + " com "+tipoCodigo + " "+id +" efetuado com sucesso!";
         JOptionPane.showMessageDialog(null, msg, "Registro de " + tipoObjeto, JOptionPane.INFORMATION_MESSAGE);
     }

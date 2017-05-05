@@ -58,7 +58,7 @@ public class QuestionarioSocioeconomicoService {
 		return questionarioSocioeconomicoServiceImpl;
 	}
 
-	public void setQuestionarioSocioeconomicoServiceImpl(QuestionarioSocioeconomicoServiceImpl atendimentoSocialServiceImpl) {
-		this.questionarioSocioeconomicoServiceImpl = atendimentoSocialServiceImpl;
+	public void setQuestionarioSocioeconomicoServiceImpl(QuestionarioSocioeconomicoServiceImpl SolicitacaoMaterialServiceImpl) {
+		this.questionarioSocioeconomicoServiceImpl = SolicitacaoMaterialServiceImpl;
 	}	
 }

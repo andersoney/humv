@@ -43,8 +43,8 @@ public class SetorDAO  extends GenericDAO<Setor> implements Serializable {
 	 *            the sector to be saved
 	 */
 	@Transactional
-	public Setor saveSetor(Setor setor) {
-		return super.save(setor);
+	public void saveSetor(Setor setor) {
+		super.save(setor);
 	}
 
 	/**

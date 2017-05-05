@@ -36,9 +36,10 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
     private Date data;
     private AtendimentoSocial atendimentoSocial = null;
 
-    private static final String ISENCAO = "Isenção";
-    private static final String DESCONTO = "Desconto";
-    private static final String VALOR_AULA = "Valor aula";
+    private static final String D100 = "Desconto 100%";
+    private static final String D75 = "Desconto 75%";
+    private static final String D50 = "Desconto 50%";
+    private static final String D25 = "Desconto 25%";
     private static final String VALOR_NORMAL = "Valor normal";
 
     public CadastrarAtendimentoSocialJPanel() {
@@ -87,70 +88,72 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
             if (atendimentoSocial.getTipoCobrancaExames().equalsIgnoreCase(VALOR_NORMAL)) {
                 jRadioButtonExamesValorNormal.setSelected(true);
                 jRadioButtonExamesValorNormalActionPerformed(null);
-            } else if (atendimentoSocial.getTipoCobrancaExames().equalsIgnoreCase(VALOR_AULA)) {
-                jRadioButtonExamesValorAula.setSelected(true);
-                jRadioButtonExamesValorAulaActionPerformed(null);
-            } else if (atendimentoSocial.getTipoCobrancaExames().equalsIgnoreCase(ISENCAO)) {
-                jRadioButtonExamesIsencao.setSelected(true);
-                jRadioButtonExamesIsencaoActionPerformed(null);
-            } else if (atendimentoSocial.getTipoCobrancaExames().equalsIgnoreCase(DESCONTO)) {
-                jRadioButtonExamesDesconto.setSelected(true);
-                jSpinnerDescontoExames.setValue(atendimentoSocial.getPercentualDescontoExames());
-                jRadioButtonExamesDescontoActionPerformed(null);
+            } else if (atendimentoSocial.getTipoCobrancaExames().equalsIgnoreCase(D100)) {
+                jRadioButtonExamesD100.setSelected(true);
+                jRadioButtonExamesD100ActionPerformed(null);
+            } else if (atendimentoSocial.getTipoCobrancaExames().equalsIgnoreCase(D75)) {
+                jRadioButtonExamesD75.setSelected(true);
+                jRadioButtonExamesD75ActionPerformed(null);
+            } else if (atendimentoSocial.getTipoCobrancaExames().equalsIgnoreCase(D50)) {
+                jRadioButtonExamesD50.setSelected(true);
+                jRadioButtonExamesD50ActionPerformed(null);
+            } else if (atendimentoSocial.getTipoCobrancaExames().equalsIgnoreCase(D25)) {
+                jRadioButtonExamesD25.setSelected(true);
+                jRadioButtonExamesD25ActionPerformed(null);
             }
 
             if (atendimentoSocial.getTipoCobrancaConsultas().equalsIgnoreCase(VALOR_NORMAL)) {
                 jRadioButtonConsultasValorNormal.setSelected(true);
                 jRadioButtonConsultasValorNormalActionPerformed(null);
-            } else if (atendimentoSocial.getTipoCobrancaConsultas().equalsIgnoreCase(VALOR_AULA)) {
-                jRadioButtonConsultasValorAula.setSelected(true);
-                jRadioButtonConsultasValorAulaActionPerformed(null);
-            } else if (atendimentoSocial.getTipoCobrancaConsultas().equalsIgnoreCase(ISENCAO)) {
-                jRadioButtonConsultasIsencao.setSelected(true);
-                jRadioButtonConsultasIsencaoActionPerformed(null);
-            } else if (atendimentoSocial.getTipoCobrancaConsultas().equalsIgnoreCase(DESCONTO)) {
-                jRadioButtonConsultasDesconto.setSelected(true);
-                jSpinnerDescontoConsultas.setValue(atendimentoSocial.getPercentualDescontoExames());
-                jRadioButtonConsultasDescontoActionPerformed(null);
+            } else if (atendimentoSocial.getTipoCobrancaConsultas().equalsIgnoreCase(D100)) {
+                jRadioButtonConsultasD100.setSelected(true);
+                jRadioButtonConsultasD100ActionPerformed(null);
+            } else if (atendimentoSocial.getTipoCobrancaConsultas().equalsIgnoreCase(D75)) {
+                jRadioButtonConsultasD75.setSelected(true);
+                jRadioButtonConsultasD75ActionPerformed(null);
+            } else if (atendimentoSocial.getTipoCobrancaConsultas().equalsIgnoreCase(D50)) {
+                jRadioButtonConsultasD50.setSelected(true);
+                jRadioButtonConsultasD50ActionPerformed(null);
+            } else if (atendimentoSocial.getTipoCobrancaConsultas().equalsIgnoreCase(D25)) {
+                jRadioButtonConsultasD25.setSelected(true);
+                jRadioButtonConsultasD25ActionPerformed(null);
             }
 
             if (atendimentoSocial.getTipoCobrancaCirurgias().equalsIgnoreCase(VALOR_NORMAL)) {
                 jRadioButtonCirurgiaValorNormal.setSelected(true);
                 jRadioButtonCirurgiaValorNormalActionPerformed(null);
-            } else if (atendimentoSocial.getTipoCobrancaCirurgias().equalsIgnoreCase(VALOR_AULA)) {
-                jRadioButtonCirurgiaValorAula.setSelected(true);
-                jRadioButtonCirurgiaValorAulaActionPerformed(null);
-            } else if (atendimentoSocial.getTipoCobrancaCirurgias().equalsIgnoreCase(ISENCAO)) {
-                jRadioButtonCirurgiaIsencao.setSelected(true);
-                jRadioButtonCirurgiaIsencaoActionPerformed(null);
-            } else if (atendimentoSocial.getTipoCobrancaCirurgias().equalsIgnoreCase(DESCONTO)) {
-                jRadioButtonCirurgiaDesconto.setSelected(true);
-                jSpinnerDescontoCirurgias.setValue(atendimentoSocial.getPercentualDescontoExames());
-                jRadioButtonCirurgiaDescontoActionPerformed(null);
+            } else if (atendimentoSocial.getTipoCobrancaCirurgias().equalsIgnoreCase(D100)) {
+                jRadioButtonCirurgiaD100.setSelected(true);
+                jRadioButtonCirurgiaD100ActionPerformed(null);
+            } else if (atendimentoSocial.getTipoCobrancaCirurgias().equalsIgnoreCase(D75)) {
+                jRadioButtonCirurgiaD75.setSelected(true);
+                jRadioButtonCirurgiaD75ActionPerformed(null);
+            } else if (atendimentoSocial.getTipoCobrancaCirurgias().equalsIgnoreCase(D50)) {
+                jRadioButtonCirurgiaD50.setSelected(true);
+                jRadioButtonCirurgiaD50ActionPerformed(null);
+            } else if (atendimentoSocial.getTipoCobrancaCirurgias().equalsIgnoreCase(D25)) {
+                jRadioButtonCirurgiaD25.setSelected(true);
+                jRadioButtonCirurgiaD25ActionPerformed(null);
             }
         } else {
             buttonGroupCobrancaCirurgias.add(jRadioButtonCirurgiaValorNormal);
-            buttonGroupCobrancaCirurgias.add(jRadioButtonCirurgiaValorAula);
-            buttonGroupCobrancaCirurgias.add(jRadioButtonCirurgiaIsencao);
-            buttonGroupCobrancaCirurgias.add(jRadioButtonCirurgiaDesconto);
+            buttonGroupCobrancaCirurgias.add(jRadioButtonCirurgiaD100);
+            buttonGroupCobrancaCirurgias.add(jRadioButtonCirurgiaD75);
+            buttonGroupCobrancaCirurgias.add(jRadioButtonCirurgiaD50);
 
             buttonGroupCobrancaExames.add(jRadioButtonExamesValorNormal);
-            buttonGroupCobrancaExames.add(jRadioButtonExamesValorAula);
-            buttonGroupCobrancaExames.add(jRadioButtonExamesIsencao);
-            buttonGroupCobrancaExames.add(jRadioButtonExamesDesconto);
+            buttonGroupCobrancaExames.add(jRadioButtonExamesD100);
+            buttonGroupCobrancaExames.add(jRadioButtonExamesD75);
+            buttonGroupCobrancaExames.add(jRadioButtonExamesD50);
 
             buttonGroupCobrancaConsultas.add(jRadioButtonConsultasValorNormal);
-            buttonGroupCobrancaConsultas.add(jRadioButtonConsultasValorAula);
-            buttonGroupCobrancaConsultas.add(jRadioButtonConsultasIsencao);
-            buttonGroupCobrancaConsultas.add(jRadioButtonConsultasDesconto);
+            buttonGroupCobrancaConsultas.add(jRadioButtonConsultasD100);
+            buttonGroupCobrancaConsultas.add(jRadioButtonConsultasD75);
+            buttonGroupCobrancaConsultas.add(jRadioButtonConsultasD50);
 
             jRadioButtonCirurgiaValorNormal.setSelected(true);
             jRadioButtonConsultasValorNormal.setSelected(true);
             jRadioButtonExamesValorNormal.setSelected(true);
-
-            jSpinnerDescontoExames.setEnabled(false);
-            jSpinnerDescontoCirurgias.setEnabled(false);
-            jSpinnerDescontoConsultas.setEnabled(false);
         }
     }
 
@@ -184,25 +187,22 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jRadioButtonConsultasValorNormal = new javax.swing.JRadioButton();
-        jRadioButtonConsultasValorAula = new javax.swing.JRadioButton();
-        jRadioButtonConsultasIsencao = new javax.swing.JRadioButton();
-        jRadioButtonConsultasDesconto = new javax.swing.JRadioButton();
-        jSpinnerDescontoConsultas = new javax.swing.JSpinner();
-        jLabel4 = new javax.swing.JLabel();
+        jRadioButtonConsultasD100 = new javax.swing.JRadioButton();
+        jRadioButtonConsultasD75 = new javax.swing.JRadioButton();
+        jRadioButtonConsultasD50 = new javax.swing.JRadioButton();
+        jRadioButtonConsultasD25 = new javax.swing.JRadioButton();
         jPanel5 = new javax.swing.JPanel();
         jRadioButtonCirurgiaValorNormal = new javax.swing.JRadioButton();
-        jRadioButtonCirurgiaValorAula = new javax.swing.JRadioButton();
-        jRadioButtonCirurgiaIsencao = new javax.swing.JRadioButton();
-        jRadioButtonCirurgiaDesconto = new javax.swing.JRadioButton();
-        jSpinnerDescontoCirurgias = new javax.swing.JSpinner();
-        jLabel2 = new javax.swing.JLabel();
+        jRadioButtonCirurgiaD100 = new javax.swing.JRadioButton();
+        jRadioButtonCirurgiaD75 = new javax.swing.JRadioButton();
+        jRadioButtonCirurgiaD50 = new javax.swing.JRadioButton();
+        jRadioButtonCirurgiaD25 = new javax.swing.JRadioButton();
         jPanel6 = new javax.swing.JPanel();
         jRadioButtonExamesValorNormal = new javax.swing.JRadioButton();
-        jRadioButtonExamesValorAula = new javax.swing.JRadioButton();
-        jRadioButtonExamesIsencao = new javax.swing.JRadioButton();
-        jRadioButtonExamesDesconto = new javax.swing.JRadioButton();
-        jSpinnerDescontoExames = new javax.swing.JSpinner();
-        jLabel3 = new javax.swing.JLabel();
+        jRadioButtonExamesD100 = new javax.swing.JRadioButton();
+        jRadioButtonExamesD75 = new javax.swing.JRadioButton();
+        jRadioButtonExamesD50 = new javax.swing.JRadioButton();
+        jRadioButtonExamesD25 = new javax.swing.JRadioButton();
         jButtonOk = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
@@ -343,30 +343,33 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
             }
         });
 
-        jRadioButtonConsultasValorAula.setText("Valor aula");
-        jRadioButtonConsultasValorAula.addActionListener(new java.awt.event.ActionListener() {
+        jRadioButtonConsultasD100.setText("D100%");
+        jRadioButtonConsultasD100.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonConsultasValorAulaActionPerformed(evt);
+                jRadioButtonConsultasD100ActionPerformed(evt);
             }
         });
 
-        jRadioButtonConsultasIsencao.setText("Isenção");
-        jRadioButtonConsultasIsencao.addActionListener(new java.awt.event.ActionListener() {
+        jRadioButtonConsultasD75.setText("D75%");
+        jRadioButtonConsultasD75.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonConsultasIsencaoActionPerformed(evt);
+                jRadioButtonConsultasD75ActionPerformed(evt);
             }
         });
 
-        jRadioButtonConsultasDesconto.setText("Desconto");
-        jRadioButtonConsultasDesconto.addActionListener(new java.awt.event.ActionListener() {
+        jRadioButtonConsultasD50.setText("D50%");
+        jRadioButtonConsultasD50.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonConsultasDescontoActionPerformed(evt);
+                jRadioButtonConsultasD50ActionPerformed(evt);
             }
         });
 
-        jSpinnerDescontoConsultas.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
-
-        jLabel4.setText("%");
+        jRadioButtonConsultasD25.setText("D25%");
+        jRadioButtonConsultasD25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonConsultasD25ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -375,16 +378,12 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jRadioButtonConsultasDesconto)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jSpinnerDescontoConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel4))
+                    .addComponent(jRadioButtonConsultasD50)
                     .addComponent(jRadioButtonConsultasValorNormal)
-                    .addComponent(jRadioButtonConsultasValorAula)
-                    .addComponent(jRadioButtonConsultasIsencao))
-                .addContainerGap(13, Short.MAX_VALUE))
+                    .addComponent(jRadioButtonConsultasD100)
+                    .addComponent(jRadioButtonConsultasD75)
+                    .addComponent(jRadioButtonConsultasD25))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -392,14 +391,14 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
                 .addContainerGap()
                 .addComponent(jRadioButtonConsultasValorNormal)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButtonConsultasValorAula)
+                .addComponent(jRadioButtonConsultasD100)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButtonConsultasIsencao)
+                .addComponent(jRadioButtonConsultasD75)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButtonConsultasD50)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButtonConsultasDesconto)
-                    .addComponent(jSpinnerDescontoConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)))
+                .addComponent(jRadioButtonConsultasD25)
+                .addContainerGap())
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Cirurgias/Reprodução"));
@@ -411,30 +410,33 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
             }
         });
 
-        jRadioButtonCirurgiaValorAula.setText("Valor aula ");
-        jRadioButtonCirurgiaValorAula.addActionListener(new java.awt.event.ActionListener() {
+        jRadioButtonCirurgiaD100.setText("D100%");
+        jRadioButtonCirurgiaD100.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonCirurgiaValorAulaActionPerformed(evt);
+                jRadioButtonCirurgiaD100ActionPerformed(evt);
             }
         });
 
-        jRadioButtonCirurgiaIsencao.setText("Isenção");
-        jRadioButtonCirurgiaIsencao.addActionListener(new java.awt.event.ActionListener() {
+        jRadioButtonCirurgiaD75.setText("D75%");
+        jRadioButtonCirurgiaD75.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonCirurgiaIsencaoActionPerformed(evt);
+                jRadioButtonCirurgiaD75ActionPerformed(evt);
             }
         });
 
-        jRadioButtonCirurgiaDesconto.setText("Desconto");
-        jRadioButtonCirurgiaDesconto.addActionListener(new java.awt.event.ActionListener() {
+        jRadioButtonCirurgiaD50.setText("D50%");
+        jRadioButtonCirurgiaD50.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonCirurgiaDescontoActionPerformed(evt);
+                jRadioButtonCirurgiaD50ActionPerformed(evt);
             }
         });
 
-        jSpinnerDescontoCirurgias.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
-
-        jLabel2.setText("%");
+        jRadioButtonCirurgiaD25.setText("D25%");
+        jRadioButtonCirurgiaD25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonCirurgiaD25ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -444,15 +446,11 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jRadioButtonCirurgiaValorNormal)
-                    .addComponent(jRadioButtonCirurgiaValorAula)
-                    .addComponent(jRadioButtonCirurgiaIsencao)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jRadioButtonCirurgiaDesconto)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jSpinnerDescontoCirurgias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                    .addComponent(jRadioButtonCirurgiaD100)
+                    .addComponent(jRadioButtonCirurgiaD75)
+                    .addComponent(jRadioButtonCirurgiaD50)
+                    .addComponent(jRadioButtonCirurgiaD25))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -460,14 +458,14 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
                 .addContainerGap()
                 .addComponent(jRadioButtonCirurgiaValorNormal)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButtonCirurgiaValorAula)
+                .addComponent(jRadioButtonCirurgiaD100)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButtonCirurgiaIsencao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButtonCirurgiaDesconto)
-                    .addComponent(jSpinnerDescontoCirurgias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)))
+                .addComponent(jRadioButtonCirurgiaD75)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButtonCirurgiaD50)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButtonCirurgiaD25)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Proc. Amb + exames"));
@@ -479,30 +477,33 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
             }
         });
 
-        jRadioButtonExamesValorAula.setText("Valor aula");
-        jRadioButtonExamesValorAula.addActionListener(new java.awt.event.ActionListener() {
+        jRadioButtonExamesD100.setText("D100%");
+        jRadioButtonExamesD100.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonExamesValorAulaActionPerformed(evt);
+                jRadioButtonExamesD100ActionPerformed(evt);
             }
         });
 
-        jRadioButtonExamesIsencao.setText("Isenção");
-        jRadioButtonExamesIsencao.addActionListener(new java.awt.event.ActionListener() {
+        jRadioButtonExamesD75.setText("D75%");
+        jRadioButtonExamesD75.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonExamesIsencaoActionPerformed(evt);
+                jRadioButtonExamesD75ActionPerformed(evt);
             }
         });
 
-        jRadioButtonExamesDesconto.setText("Desconto");
-        jRadioButtonExamesDesconto.addActionListener(new java.awt.event.ActionListener() {
+        jRadioButtonExamesD50.setText("D50%");
+        jRadioButtonExamesD50.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonExamesDescontoActionPerformed(evt);
+                jRadioButtonExamesD50ActionPerformed(evt);
             }
         });
 
-        jSpinnerDescontoExames.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
-
-        jLabel3.setText("%");
+        jRadioButtonExamesD25.setText("D25%");
+        jRadioButtonExamesD25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonExamesD25ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -512,15 +513,11 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jRadioButtonExamesValorNormal)
-                    .addComponent(jRadioButtonExamesValorAula)
-                    .addComponent(jRadioButtonExamesIsencao)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jRadioButtonExamesDesconto)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jSpinnerDescontoExames, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(jRadioButtonExamesD100)
+                    .addComponent(jRadioButtonExamesD75)
+                    .addComponent(jRadioButtonExamesD50)
+                    .addComponent(jRadioButtonExamesD25))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -528,14 +525,14 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
                 .addContainerGap()
                 .addComponent(jRadioButtonExamesValorNormal)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButtonExamesValorAula)
+                .addComponent(jRadioButtonExamesD100)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButtonExamesIsencao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButtonExamesDesconto)
-                    .addComponent(jSpinnerDescontoExames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)))
+                .addComponent(jRadioButtonExamesD75)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButtonExamesD50)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButtonExamesD25)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -554,11 +551,10 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -592,10 +588,10 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane2)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButtonBuscarAnimal, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabelData)
@@ -618,7 +614,7 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabelTitulo)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonBuscarAnimal)
@@ -635,7 +631,7 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -653,12 +649,12 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
         InterfaceGraficaUtils.exibirJanela(jFrame);
     }//GEN-LAST:event_jButtonBuscarAnimalActionPerformed
 
-    private void jRadioButtonExamesDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonExamesDescontoActionPerformed
-        jSpinnerDescontoExames.setEnabled(true);
-        jRadioButtonExamesIsencao.setSelected(false);
-        jRadioButtonExamesValorAula.setSelected(false);
+    private void jRadioButtonExamesD50ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonExamesD50ActionPerformed
+        jRadioButtonExamesD25.setSelected(false);
+        jRadioButtonExamesD75.setSelected(false);
+        jRadioButtonExamesD100.setSelected(false);
         jRadioButtonExamesValorNormal.setSelected(false);
-    }//GEN-LAST:event_jRadioButtonExamesDescontoActionPerformed
+    }//GEN-LAST:event_jRadioButtonExamesD50ActionPerformed
 
     private void jButtonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOkActionPerformed
         boolean cadastrarNovo;
@@ -679,36 +675,31 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
             atendimentoSocial.setSituacaoAnimal(jComboBoxSituacaoAnimal.getSelectedItem().toString());
             if (jRadioButtonConsultasValorNormal.isSelected()) {
                 atendimentoSocial.setTipoCobrancaConsultas(VALOR_NORMAL);
-            } else if (jRadioButtonConsultasIsencao.isSelected()) {
-                atendimentoSocial.setTipoCobrancaConsultas(ISENCAO);
-            } else if (jRadioButtonConsultasValorAula.isSelected()) {
-                atendimentoSocial.setTipoCobrancaConsultas(VALOR_AULA);
-            } else if (jRadioButtonConsultasDesconto.isSelected()) {
-                atendimentoSocial.setTipoCobrancaConsultas(DESCONTO);
-                Integer descontoConsulta = (Integer) jSpinnerDescontoConsultas.getValue();
-                atendimentoSocial.setPercentualDescontoConsultas(descontoConsulta);
+            } else if (jRadioButtonConsultasD75.isSelected()) {
+                atendimentoSocial.setTipoCobrancaConsultas(D100);
+            } else if (jRadioButtonConsultasD100.isSelected()) {
+                atendimentoSocial.setTipoCobrancaConsultas(D50);
+            } else if (jRadioButtonConsultasD50.isSelected()) {
+                atendimentoSocial.setTipoCobrancaConsultas(D75);
+
             }
             if (jRadioButtonExamesValorNormal.isSelected()) {
                 atendimentoSocial.setTipoCobrancaExames(VALOR_NORMAL);
-            } else if (jRadioButtonExamesIsencao.isSelected()) {
-                atendimentoSocial.setTipoCobrancaExames(ISENCAO);
-            } else if (jRadioButtonExamesValorAula.isSelected()) {
-                atendimentoSocial.setTipoCobrancaExames(VALOR_AULA);
-            } else if (jRadioButtonExamesDesconto.isSelected()) {
-                atendimentoSocial.setTipoCobrancaExames(DESCONTO);
-                Integer descontoExames = (Integer) jSpinnerDescontoExames.getValue();
-                atendimentoSocial.setPercentualDescontoExames(descontoExames);
+            } else if (jRadioButtonExamesD75.isSelected()) {
+                atendimentoSocial.setTipoCobrancaExames(D100);
+            } else if (jRadioButtonExamesD100.isSelected()) {
+                atendimentoSocial.setTipoCobrancaExames(D50);
+            } else if (jRadioButtonExamesD50.isSelected()) {
+                atendimentoSocial.setTipoCobrancaExames(D75);
             }
             if (jRadioButtonCirurgiaValorNormal.isSelected()) {
                 atendimentoSocial.setTipoCobrancaCirurgias(VALOR_NORMAL);
-            } else if (jRadioButtonCirurgiaIsencao.isSelected()) {
-                atendimentoSocial.setTipoCobrancaCirurgias(ISENCAO);
-            } else if (jRadioButtonCirurgiaValorAula.isSelected()) {
-                atendimentoSocial.setTipoCobrancaCirurgias(VALOR_AULA);
-            } else if (jRadioButtonCirurgiaDesconto.isSelected()) {
-                atendimentoSocial.setTipoCobrancaCirurgias(DESCONTO);
-                Integer descontoCirugia = (Integer) jSpinnerDescontoCirurgias.getValue();
-                atendimentoSocial.setPercentualDescontoCirurgias(descontoCirugia);
+            } else if (jRadioButtonCirurgiaD75.isSelected()) {
+                atendimentoSocial.setTipoCobrancaCirurgias(D100);
+            } else if (jRadioButtonCirurgiaD100.isSelected()) {
+                atendimentoSocial.setTipoCobrancaCirurgias(D50);
+            } else if (jRadioButtonCirurgiaD50.isSelected()) {
+                atendimentoSocial.setTipoCobrancaCirurgias(D75);
             }
 
             try {
@@ -750,82 +741,103 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
         }
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
-    private void jRadioButtonCirurgiaDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCirurgiaDescontoActionPerformed
-        jSpinnerDescontoCirurgias.setEnabled(true);
+    private void jRadioButtonCirurgiaD50ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCirurgiaD50ActionPerformed
         jRadioButtonCirurgiaValorNormal.setSelected(false);
-        jRadioButtonCirurgiaValorAula.setSelected(false);
-        jRadioButtonCirurgiaIsencao.setSelected(false);
-    }//GEN-LAST:event_jRadioButtonCirurgiaDescontoActionPerformed
+        jRadioButtonCirurgiaD100.setSelected(false);
+        jRadioButtonCirurgiaD75.setSelected(false);
+        jRadioButtonCirurgiaD25.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonCirurgiaD50ActionPerformed
 
-    private void jRadioButtonCirurgiaIsencaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCirurgiaIsencaoActionPerformed
-        jSpinnerDescontoCirurgias.setEnabled(false);
-        jRadioButtonCirurgiaDesconto.setSelected(false);
-        jRadioButtonCirurgiaValorAula.setSelected(false);
+    private void jRadioButtonCirurgiaD75ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCirurgiaD75ActionPerformed
+        jRadioButtonCirurgiaD50.setSelected(false);
+        jRadioButtonCirurgiaD100.setSelected(false);
+        jRadioButtonCirurgiaD25.setSelected(false);
         jRadioButtonCirurgiaValorNormal.setSelected(false);
-    }//GEN-LAST:event_jRadioButtonCirurgiaIsencaoActionPerformed
+    }//GEN-LAST:event_jRadioButtonCirurgiaD75ActionPerformed
 
-    private void jRadioButtonCirurgiaValorAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCirurgiaValorAulaActionPerformed
-        jSpinnerDescontoCirurgias.setEnabled(false);
-        jRadioButtonCirurgiaDesconto.setSelected(false);
+    private void jRadioButtonCirurgiaD100ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCirurgiaD100ActionPerformed
+        jRadioButtonCirurgiaD50.setSelected(false);
+        jRadioButtonCirurgiaD25.setSelected(false);
         jRadioButtonCirurgiaValorNormal.setSelected(false);
-        jRadioButtonCirurgiaIsencao.setSelected(false);
-    }//GEN-LAST:event_jRadioButtonCirurgiaValorAulaActionPerformed
+        jRadioButtonCirurgiaD75.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonCirurgiaD100ActionPerformed
 
     private void jRadioButtonCirurgiaValorNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCirurgiaValorNormalActionPerformed
-        jSpinnerDescontoCirurgias.setEnabled(false);
-        jRadioButtonCirurgiaDesconto.setSelected(false);
-        jRadioButtonCirurgiaValorAula.setSelected(false);
-        jRadioButtonCirurgiaIsencao.setSelected(false);
+        jRadioButtonCirurgiaD50.setSelected(false);
+        jRadioButtonCirurgiaD100.setSelected(false);
+        jRadioButtonCirurgiaD75.setSelected(false);
+        jRadioButtonCirurgiaD25.setSelected(false);
     }//GEN-LAST:event_jRadioButtonCirurgiaValorNormalActionPerformed
 
-    private void jRadioButtonExamesIsencaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonExamesIsencaoActionPerformed
-        jSpinnerDescontoExames.setEnabled(false);
-        jRadioButtonExamesDesconto.setSelected(false);
-        jRadioButtonExamesValorAula.setSelected(false);
+    private void jRadioButtonExamesD75ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonExamesD75ActionPerformed
+        jRadioButtonExamesD50.setSelected(false);
+        jRadioButtonExamesD25.setSelected(false);
+        jRadioButtonExamesD100.setSelected(false);
         jRadioButtonExamesValorNormal.setSelected(false);
-    }//GEN-LAST:event_jRadioButtonExamesIsencaoActionPerformed
+    }//GEN-LAST:event_jRadioButtonExamesD75ActionPerformed
 
-    private void jRadioButtonExamesValorAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonExamesValorAulaActionPerformed
-        jSpinnerDescontoExames.setEnabled(false);
-        jRadioButtonExamesDesconto.setSelected(false);
+    private void jRadioButtonExamesD100ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonExamesD100ActionPerformed
+        jRadioButtonExamesD50.setSelected(false);
+        jRadioButtonExamesD25.setSelected(false);
         jRadioButtonExamesValorNormal.setSelected(false);
-        jRadioButtonExamesIsencao.setSelected(false);
-    }//GEN-LAST:event_jRadioButtonExamesValorAulaActionPerformed
+        jRadioButtonExamesD75.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonExamesD100ActionPerformed
 
     private void jRadioButtonExamesValorNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonExamesValorNormalActionPerformed
-        jSpinnerDescontoExames.setEnabled(false);
-        jRadioButtonExamesDesconto.setSelected(false);
-        jRadioButtonExamesValorAula.setSelected(false);
-        jRadioButtonExamesIsencao.setSelected(false);
+        jRadioButtonExamesD50.setSelected(false);
+        jRadioButtonExamesD100.setSelected(false);
+        jRadioButtonExamesD75.setSelected(false);
+        jRadioButtonExamesD25.setSelected(false);
     }//GEN-LAST:event_jRadioButtonExamesValorNormalActionPerformed
 
     private void jRadioButtonConsultasValorNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonConsultasValorNormalActionPerformed
-        jSpinnerDescontoConsultas.setEnabled(false);
-        jRadioButtonConsultasIsencao.setSelected(false);
-        jRadioButtonConsultasValorAula.setSelected(false);
-        jRadioButtonConsultasDesconto.setSelected(false);
+        jRadioButtonConsultasD75.setSelected(false);
+        jRadioButtonConsultasD100.setSelected(false);
+        jRadioButtonConsultasD50.setSelected(false);
+        jRadioButtonConsultasD25.setSelected(false);
     }//GEN-LAST:event_jRadioButtonConsultasValorNormalActionPerformed
 
-    private void jRadioButtonConsultasValorAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonConsultasValorAulaActionPerformed
-        jSpinnerDescontoConsultas.setEnabled(false);
-        jRadioButtonConsultasIsencao.setSelected(false);
-        jRadioButtonConsultasDesconto.setSelected(false);
+    private void jRadioButtonConsultasD100ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonConsultasD100ActionPerformed
+        jRadioButtonConsultasD75.setSelected(false);
+        jRadioButtonConsultasD50.setSelected(false);
+        jRadioButtonConsultasD25.setSelected(false);
         jRadioButtonConsultasValorNormal.setSelected(false);
-    }//GEN-LAST:event_jRadioButtonConsultasValorAulaActionPerformed
+    }//GEN-LAST:event_jRadioButtonConsultasD100ActionPerformed
 
-    private void jRadioButtonConsultasIsencaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonConsultasIsencaoActionPerformed
-        jSpinnerDescontoConsultas.setEnabled(false);
-        jRadioButtonConsultasDesconto.setSelected(false);
-        jRadioButtonConsultasValorAula.setSelected(false);
+    private void jRadioButtonConsultasD75ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonConsultasD75ActionPerformed
+        jRadioButtonConsultasD50.setSelected(false);
+        jRadioButtonConsultasD100.setSelected(false);
+        jRadioButtonConsultasD25.setSelected(false);
         jRadioButtonConsultasValorNormal.setSelected(false);
-    }//GEN-LAST:event_jRadioButtonConsultasIsencaoActionPerformed
+    }//GEN-LAST:event_jRadioButtonConsultasD75ActionPerformed
 
-    private void jRadioButtonConsultasDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonConsultasDescontoActionPerformed
-        jSpinnerDescontoConsultas.setEnabled(true);
-        jRadioButtonConsultasIsencao.setSelected(false);
-        jRadioButtonConsultasValorAula.setSelected(false);
+    private void jRadioButtonConsultasD50ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonConsultasD50ActionPerformed
+        jRadioButtonConsultasD75.setSelected(false);
+        jRadioButtonConsultasD100.setSelected(false);
+        jRadioButtonConsultasD25.setSelected(false);
         jRadioButtonConsultasValorNormal.setSelected(false);
-    }//GEN-LAST:event_jRadioButtonConsultasDescontoActionPerformed
+    }//GEN-LAST:event_jRadioButtonConsultasD50ActionPerformed
+
+    private void jRadioButtonCirurgiaD25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCirurgiaD25ActionPerformed
+        jRadioButtonCirurgiaD50.setSelected(false);
+        jRadioButtonCirurgiaD100.setSelected(false);
+        jRadioButtonCirurgiaD75.setSelected(false);
+        jRadioButtonCirurgiaValorNormal.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonCirurgiaD25ActionPerformed
+
+    private void jRadioButtonExamesD25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonExamesD25ActionPerformed
+        jRadioButtonExamesD50.setSelected(false);
+        jRadioButtonExamesD100.setSelected(false);
+        jRadioButtonExamesD75.setSelected(false);
+        jRadioButtonExamesValorNormal.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonExamesD25ActionPerformed
+
+    private void jRadioButtonConsultasD25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonConsultasD25ActionPerformed
+        jRadioButtonConsultasD75.setSelected(false);
+        jRadioButtonConsultasD100.setSelected(false);
+        jRadioButtonConsultasD50.setSelected(false);
+        jRadioButtonConsultasValorNormal.setSelected(false);
+    }//GEN-LAST:event_jRadioButtonConsultasD25ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupCobrancaCirurgias;
@@ -838,9 +850,6 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelCpf;
     private javax.swing.JLabel jLabelData;
     private javax.swing.JLabel jLabelEmail;
@@ -857,23 +866,23 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JRadioButton jRadioButtonCirurgiaDesconto;
-    private javax.swing.JRadioButton jRadioButtonCirurgiaIsencao;
-    private javax.swing.JRadioButton jRadioButtonCirurgiaValorAula;
+    private javax.swing.JRadioButton jRadioButtonCirurgiaD100;
+    private javax.swing.JRadioButton jRadioButtonCirurgiaD25;
+    private javax.swing.JRadioButton jRadioButtonCirurgiaD50;
+    private javax.swing.JRadioButton jRadioButtonCirurgiaD75;
     private javax.swing.JRadioButton jRadioButtonCirurgiaValorNormal;
-    private javax.swing.JRadioButton jRadioButtonConsultasDesconto;
-    private javax.swing.JRadioButton jRadioButtonConsultasIsencao;
-    private javax.swing.JRadioButton jRadioButtonConsultasValorAula;
+    private javax.swing.JRadioButton jRadioButtonConsultasD100;
+    private javax.swing.JRadioButton jRadioButtonConsultasD25;
+    private javax.swing.JRadioButton jRadioButtonConsultasD50;
+    private javax.swing.JRadioButton jRadioButtonConsultasD75;
     private javax.swing.JRadioButton jRadioButtonConsultasValorNormal;
-    private javax.swing.JRadioButton jRadioButtonExamesDesconto;
-    private javax.swing.JRadioButton jRadioButtonExamesIsencao;
-    private javax.swing.JRadioButton jRadioButtonExamesValorAula;
+    private javax.swing.JRadioButton jRadioButtonExamesD100;
+    private javax.swing.JRadioButton jRadioButtonExamesD25;
+    private javax.swing.JRadioButton jRadioButtonExamesD50;
+    private javax.swing.JRadioButton jRadioButtonExamesD75;
     private javax.swing.JRadioButton jRadioButtonExamesValorNormal;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSpinner jSpinnerDescontoCirurgias;
-    private javax.swing.JSpinner jSpinnerDescontoConsultas;
-    private javax.swing.JSpinner jSpinnerDescontoExames;
     private javax.swing.JTextArea jTextAreaObservacoesDono;
     private javax.swing.JTextArea jTextAreaObservacoesGerais;
     // End of variables declaration//GEN-END:variables
@@ -899,22 +908,18 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() instanceof JRadioButton && buttonGroupCobrancaCirurgias.equals(e.getSource())) {
-            if (e.getSource().equals(jRadioButtonCirurgiaDesconto)) {
-                jSpinnerDescontoCirurgias.setEnabled(true);
-                atendimentoSocial.setTipoCobrancaCirurgias(DESCONTO);
-                int desconto = Integer.parseInt(jSpinnerDescontoCirurgias.getValue().toString());
-                atendimentoSocial.setPercentualDescontoCirurgias(desconto);
+            if (e.getSource().equals(jRadioButtonCirurgiaD50)) {
+                atendimentoSocial.setTipoCobrancaCirurgias(D75);
 
             } else {
-                jSpinnerDescontoCirurgias.setEnabled(false);
-                if (e.getSource().equals(jRadioButtonCirurgiaIsencao)) {
-                    atendimentoSocial.setTipoCobrancaCirurgias(ISENCAO);
+                if (e.getSource().equals(jRadioButtonCirurgiaD75)) {
+                    atendimentoSocial.setTipoCobrancaCirurgias(D100);
                     int desconto = 100;
                     atendimentoSocial.setPercentualDescontoCirurgias(desconto);
 
-                } else if (e.getSource().equals(jRadioButtonCirurgiaValorAula)) {
+                } else if (e.getSource().equals(jRadioButtonCirurgiaD100)) {
                     int desconto = Integer.parseInt(HUMVConfigUtils.getPorcentagemDescontoValorAula());
-                    atendimentoSocial.setTipoCobrancaCirurgias(VALOR_AULA);
+                    atendimentoSocial.setTipoCobrancaCirurgias(D50);
                     atendimentoSocial.setPercentualDescontoCirurgias(desconto);
                 } else if (e.getSource().equals(jRadioButtonCirurgiaValorNormal)) {
                     atendimentoSocial.setTipoCobrancaCirurgias(VALOR_NORMAL);
@@ -923,21 +928,17 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
                 }
             }
         } else if (e.getSource() instanceof JRadioButton && buttonGroupCobrancaExames.equals(e.getSource())) {
-            if (e.getSource().equals(jRadioButtonExamesDesconto)) {
-                jSpinnerDescontoExames.setEnabled(true);
-                atendimentoSocial.setTipoCobrancaExames(DESCONTO);
-                int desconto = Integer.parseInt(jSpinnerDescontoExames.getValue().toString());
-                atendimentoSocial.setPercentualDescontoExames(desconto);
+            if (e.getSource().equals(jRadioButtonExamesD50)) {
+                atendimentoSocial.setTipoCobrancaExames(D75);
             } else {
-                jSpinnerDescontoExames.setEnabled(false);
-                if (e.getSource().equals(jRadioButtonExamesIsencao)) {
-                    atendimentoSocial.setTipoCobrancaExames(ISENCAO);
+                if (e.getSource().equals(jRadioButtonExamesD75)) {
+                    atendimentoSocial.setTipoCobrancaExames(D100);
                     int desconto = 100;
                     atendimentoSocial.setPercentualDescontoExames(desconto);
-                } else if (e.getSource().equals(jRadioButtonExamesValorAula)) {
+                } else if (e.getSource().equals(jRadioButtonExamesD100)) {
                     int desconto = Integer.parseInt(HUMVConfigUtils.getPorcentagemDescontoValorAula());
                     atendimentoSocial.setPercentualDescontoConsultas(desconto);
-                    atendimentoSocial.setTipoCobrancaExames(VALOR_AULA);
+                    atendimentoSocial.setTipoCobrancaExames(D50);
                 } else if (e.getSource().equals(jRadioButtonExamesValorNormal)) {
                     int desconto = 0;
                     atendimentoSocial.setPercentualDescontoExames(desconto);
@@ -945,21 +946,17 @@ public class CadastrarAtendimentoSocialJPanel extends javax.swing.JPanel impleme
                 }
             }
         } else if (e.getSource() instanceof JRadioButton && buttonGroupCobrancaConsultas.equals(e.getSource())) {
-            if (e.getSource().equals(jRadioButtonConsultasDesconto)) {
-                jSpinnerDescontoConsultas.setEnabled(true);
-                atendimentoSocial.setTipoCobrancaConsultas(DESCONTO);
-                int desconto = Integer.parseInt(jSpinnerDescontoCirurgias.getValue().toString());
-                atendimentoSocial.setPercentualDescontoConsultas(desconto);
+            if (e.getSource().equals(jRadioButtonConsultasD50)) {
+                atendimentoSocial.setTipoCobrancaConsultas(D75);
             } else {
-                jSpinnerDescontoConsultas.setEnabled(false);
-                if (e.getSource().equals(jRadioButtonConsultasIsencao)) {
-                    atendimentoSocial.setTipoCobrancaConsultas(ISENCAO);
+                if (e.getSource().equals(jRadioButtonConsultasD75)) {
+                    atendimentoSocial.setTipoCobrancaConsultas(D100);
                     int desconto = 0;
                     atendimentoSocial.setPercentualDescontoConsultas(desconto);
-                } else if (e.getSource().equals(jRadioButtonConsultasValorAula)) {
+                } else if (e.getSource().equals(jRadioButtonConsultasD100)) {
                     int desconto = Integer.parseInt(HUMVConfigUtils.getPorcentagemDescontoValorAula());
                     atendimentoSocial.setPercentualDescontoConsultas(desconto);
-                    atendimentoSocial.setTipoCobrancaConsultas(VALOR_AULA);
+                    atendimentoSocial.setTipoCobrancaConsultas(D50);
                 } else if (e.getSource().equals(jRadioButtonConsultasValorNormal)) {
                     atendimentoSocial.setTipoCobrancaConsultas(VALOR_NORMAL);
                     int desconto = 0;

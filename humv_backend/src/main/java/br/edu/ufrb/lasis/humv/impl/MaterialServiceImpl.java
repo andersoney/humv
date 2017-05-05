@@ -36,6 +36,10 @@ public class MaterialServiceImpl {
 	public List<Material> search(String palavrachave) {
 		return materialDAO.search(palavrachave);
 	}
+	
+	public List<Material> searchByKitMaterial(int modelo) {
+		return materialDAO.searchByKitMaterial(modelo);
+	}
 
 	public String cadastrarMaterial(Material material, String usuarioResponsavel) {
 		try {

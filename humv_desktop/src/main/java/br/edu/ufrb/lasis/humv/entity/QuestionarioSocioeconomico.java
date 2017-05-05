@@ -25,10 +25,10 @@ public class QuestionarioSocioeconomico implements Serializable {
     public static final Integer ESTADO_CIVIL_VIUVO = 5;
 
     public static final Integer COBRANCA_NORMAL = 0;
-    public static final Integer COBRANCA_AULA = 1;
-    public static final Integer COBRANCA_INSENCAO = 2;
-    public static final Integer COBRANCA_DESCONTO = 3;
-
+    public static final Integer COBRANCA_D100 = 1;
+    public static final Integer COBRANCA_D75 = 2;
+    public static final Integer COBRANCA_D50 = 3;
+    public static final Integer COBRANCA_D25 = 3;
     private BigInteger id;
 
     private Dono dono;
@@ -85,6 +85,142 @@ public class QuestionarioSocioeconomico implements Serializable {
     
     private boolean validade6Meses;
 
+    private boolean dependeFinanceiramente;
+    private boolean possuiDependentes;
+    private boolean doencaCronica;
+    private boolean trabalhadorInformal;
+    private boolean quebraVinculo;
+    private boolean situacaoIncapacitante;
+    private boolean dividasBanco;
+    private boolean beneficioSocial;
+    private boolean trocaDomicilio;
+    private boolean protecaoAnimal;
+    private boolean primeiroAtendimento;
+    private boolean animalDoado;
+    private boolean atendimentoUrgencia;
+    private boolean naoCondicoesParticular;
+    private boolean deficiencia;
+
+    public boolean isDeficiencia() {
+        return deficiencia;
+    }
+
+    public void setDeficiencia(boolean deficiencia) {
+        this.deficiencia = deficiencia;
+    }
+    
+    public boolean isDependeFinanceiramente() {
+        return dependeFinanceiramente;
+    }
+
+    public void setDependeFinanceiramente(boolean dependeFinanceiramente) {
+        this.dependeFinanceiramente = dependeFinanceiramente;
+    }
+
+    public boolean isPossuiDependentes() {
+        return possuiDependentes;
+    }
+
+    public void setPossuiDependentes(boolean possuiDependentes) {
+        this.possuiDependentes = possuiDependentes;
+    }
+
+    public boolean isDoencaCronica() {
+        return doencaCronica;
+    }
+
+    public void setDoencaCronica(boolean doencaCronica) {
+        this.doencaCronica = doencaCronica;
+    }
+
+    public boolean isTrabalhadorInformal() {
+        return trabalhadorInformal;
+    }
+
+    public void setTrabalhadorInformal(boolean trabalhadorInformal) {
+        this.trabalhadorInformal = trabalhadorInformal;
+    }
+
+    public boolean isQuebraVinculo() {
+        return quebraVinculo;
+    }
+
+    public void setQuebraVinculo(boolean quebraVinculo) {
+        this.quebraVinculo = quebraVinculo;
+    }
+
+    public boolean isSituacaoIncapacitante() {
+        return situacaoIncapacitante;
+    }
+
+    public void setSituacaoIncapacitante(boolean situacaoIncapacitante) {
+        this.situacaoIncapacitante = situacaoIncapacitante;
+    }
+
+    public boolean isDividasBanco() {
+        return dividasBanco;
+    }
+
+    public void setDividasBanco(boolean dividasBanco) {
+        this.dividasBanco = dividasBanco;
+    }
+
+    public boolean isBeneficioSocial() {
+        return beneficioSocial;
+    }
+
+    public void setBeneficioSocial(boolean beneficioSocial) {
+        this.beneficioSocial = beneficioSocial;
+    }
+
+    public boolean isTrocaDomicilio() {
+        return trocaDomicilio;
+    }
+
+    public void setTrocaDomicilio(boolean trocaDomicilio) {
+        this.trocaDomicilio = trocaDomicilio;
+    }
+
+    public boolean isProtecaoAnimal() {
+        return protecaoAnimal;
+    }
+
+    public void setProtecaoAnimal(boolean protecaoAnimal) {
+        this.protecaoAnimal = protecaoAnimal;
+    }
+
+    public boolean isPrimeiroAtendimento() {
+        return primeiroAtendimento;
+    }
+
+    public void setPrimeiroAtendimento(boolean primeiroAtendimento) {
+        this.primeiroAtendimento = primeiroAtendimento;
+    }
+
+    public boolean isAnimalDoado() {
+        return animalDoado;
+    }
+
+    public void setAnimalDoado(boolean animalDoado) {
+        this.animalDoado = animalDoado;
+    }
+
+    public boolean isAtendimentoUrgencia() {
+        return atendimentoUrgencia;
+    }
+
+    public void setAtendimentoUrgencia(boolean atendimentoUrgencia) {
+        this.atendimentoUrgencia = atendimentoUrgencia;
+    }
+
+    public boolean isNaoCondicoesParticular() {
+        return naoCondicoesParticular;
+    }
+
+    public void setNaoCondicoesParticular(boolean naoCondicoesParticular) {
+        this.naoCondicoesParticular = naoCondicoesParticular;
+    }
+    
     public Date getDataResposta() {
         return dataResposta;
     }

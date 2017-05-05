@@ -8,15 +8,18 @@ package br.edu.ufrb.lasis.humv.view.projeto;
 import br.edu.ufrb.lasis.humv.HUMVApp;
 import br.edu.ufrb.lasis.humv.entity.Projeto;
 import br.edu.ufrb.lasis.humv.entity.Setor;
+import br.edu.ufrb.lasis.humv.entity.Usuario;
 import java.util.Date;
 import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
-import br.edu.ufrb.lasis.humv.view.setor.SetorListaJDialog;
-import com.fasterxml.jackson.core.type.TypeReference;
+import br.edu.ufrb.lasis.humv.utils.ResultadoBusca;
+import br.edu.ufrb.lasis.humv.view.busca.BuscaJPanel;
+import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
+import br.edu.ufrb.lasis.humv.view.setor.PropriedadesBuscaSetor;
+import br.edu.ufrb.lasis.humv.view.usuario.PropriedadesBuscaUsuario;
 import com.sun.jersey.api.client.ClientResponse;
-import java.io.IOException;
-import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import org.slf4j.Logger;
@@ -26,12 +29,13 @@ import org.slf4j.LoggerFactory;
  *
  * @author Luiz
  */
-public class CadastrarProjetoJPanel extends javax.swing.JPanel {
+public class CadastrarProjetoJPanel extends javax.swing.JPanel implements ResultadoBusca{
 
     private final static Logger logger = LoggerFactory.getLogger(CadastrarProjetoJPanel.class);
     private final String servicoProjeto = "/api/projeto";
     private Projeto projetoSelecionado;
-    private Setor setor;
+    private Usuario responsavel = null;
+    private Setor setor = null;
 
     public void setSetor(Setor setor) {
         this.setor = setor;
@@ -58,8 +62,8 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
             jTextFieldFinalidade.setText(projetoSelecionado.getFinalidade());
             jTextFieldNomeProjeto.setText(projetoSelecionado.getNome());
             jTextAreaPublicoAlvo.setText(projetoSelecionado.getPublicoAlvo());
-            jTextFieldSiape.setText(projetoSelecionado.getSiapeResponsavel());
-            jTextFieldNomeOrientador.setText(projetoSelecionado.getNomeResponsavel());
+            jLabelNomeResponsavel.setText("Nome: " + projetoSelecionado.getResponsavel().getNome());
+            jLabelSiapeResponsavel.setText("SIAPE: " + projetoSelecionado.getResponsavel().getSiape());
             jDateChooserFim.setDate(projetoSelecionado.getDataFim());
             jDateChooserInicio.setDate(projetoSelecionado.getDataInicio());
             jLabelNomeSetor.setText("Nome: " + projetoSelecionado.getSetor().getNome());
@@ -74,13 +78,12 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabelTitulo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jTextFieldNomeOrientador = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jTextFieldSiape = new javax.swing.JTextField();
+        jLabelNomeResponsavel = new javax.swing.JLabel();
+        jLabelSiapeResponsavel = new javax.swing.JLabel();
+        pesquisarResponsavel = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        jButtonExibirLista = new javax.swing.JButton();
         jLabelNomeSetor = new javax.swing.JLabel();
+        pesquisarSetor = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jTextFieldNomeProjeto = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -105,69 +108,75 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do responsável"));
 
-        jLabel3.setText("Nome:");
+        jLabelNomeResponsavel.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabelNomeResponsavel.setText("Nome:");
 
-        jLabel4.setText("SIAPE:");
+        jLabelSiapeResponsavel.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabelSiapeResponsavel.setText("SIAPE:");
 
-        jLabel5.setText("Setor de atuação:");
-
-        jButtonExibirLista.setIcon(new javax.swing.ImageIcon("imagens/small_lista.png"));
-        jButtonExibirLista.setText("Exibir lista");
-        jButtonExibirLista.addActionListener(new java.awt.event.ActionListener() {
+        pesquisarResponsavel.setIcon(new javax.swing.ImageIcon("imagens/small_buscar.png"));
+        pesquisarResponsavel.setText("Buscar responsável");
+        pesquisarResponsavel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonExibirListaActionPerformed(evt);
+                pesquisarResponsavelActionPerformed(evt);
             }
         });
 
+        jLabel5.setText("Setor de atuação:");
+
         jLabelNomeSetor.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabelNomeSetor.setText("Nome:");
+
+        pesquisarSetor.setIcon(new javax.swing.ImageIcon("imagens/small_buscar.png"));
+        pesquisarSetor.setText("Buscar setor");
+        pesquisarSetor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesquisarSetorActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldNomeOrientador)
-                    .addComponent(jLabel3)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jTextFieldSiape, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelSiapeResponsavel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelNomeResponsavel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jButtonExibirLista, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabelNomeSetor, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(26, 26, 26)
-                                .addComponent(jLabel5)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addComponent(pesquisarResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(pesquisarSetor, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelNomeSetor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(7, 7, 7)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldNomeOrientador, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldSiape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap()
+                        .addComponent(pesquisarResponsavel))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButtonExibirLista)
-                            .addComponent(jLabelNomeSetor))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(40, 40, 40)
+                        .addComponent(jLabelNomeResponsavel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabelSiapeResponsavel)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelNomeSetor)
+                    .addComponent(pesquisarSetor)))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do projeto"));
@@ -178,9 +187,9 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
 
         jLabel7.setText("Duração:");
 
-        jLabel8.setText("De:");
+        jLabel8.setText("Início:");
 
-        jLabel9.setText("até");
+        jLabel9.setText("Término:");
 
         jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pesquisa", "Extensão" }));
 
@@ -212,11 +221,10 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jLabel7)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10))
-                        .addGap(40, 40, 40))
+                            .addComponent(jLabel10)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,23 +256,22 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
                     .addComponent(jDateChooserInicio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jTextFieldFinalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel3Layout.createSequentialGroup()
                                     .addComponent(jLabel7)
-                                    .addComponent(jLabel10))
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel8)
-                                            .addComponent(jLabel9)))))
-                            .addComponent(jDateChooserFim, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(26, 26, 26)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel8)
+                                        .addComponent(jLabel9))
+                                    .addGap(5, 5, 5))
+                                .addComponent(jDateChooserFim, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(18, 18, 18)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -302,8 +309,8 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
                                 .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButtonConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -312,14 +319,14 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabelTitulo)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonConfirmar)
                     .addComponent(jButtonCancelar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -339,53 +346,37 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonExibirListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExibirListaActionPerformed
-        try {
-            ClientResponse response = RESTMethods.get("/api/setor");
-            List<Setor> lista = (List<Setor>) RESTMethods.getObjectsFromJSON(response, new TypeReference<List<Setor>>() {
-            });
-            if (lista.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Não existem setores cadastrados.", "Lista de setores", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                new SetorListaJDialog(this, lista).setVisible(true);
-            }
-        } catch (RESTConnectionException | IOException ex) {
-            InterfaceGraficaUtils.erroConexao();
-            logger.error("mensagem: " + ex.getMessage(), ex);
-        }
-    }//GEN-LAST:event_jButtonExibirListaActionPerformed
-
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
-        Date dataInicio, dataFim;
-        if (this.jTextFieldNomeOrientador.getText().isEmpty()) {
-            InterfaceGraficaUtils.validaCampoVazio("nome do orientador");
+        if (responsavel == null) {
+            JOptionPane.showMessageDialog(this, "Você deve escolher ou cadastrar um responsável para prosseguir com a operação.");
             return;
         }
-        String nomeOrientador = this.jTextFieldNomeOrientador.getText();
-        if (this.jTextFieldSiape.getText().isEmpty()) {
-            InterfaceGraficaUtils.validaCampoVazio("SIAPE");
+        
+        if (setor == null) {
+            JOptionPane.showMessageDialog(this, "Você deve escolher ou cadastrar um setor de atuação para prosseguir com a operação.");
             return;
         }
-        String siape = this.jTextFieldSiape.getText();
 
-        if (this.jTextFieldNomeProjeto.getText().isEmpty()) {
+        String nomeProjeto = this.jTextFieldNomeProjeto.getText();
+        if (nomeProjeto.isEmpty()) {
             InterfaceGraficaUtils.validaCampoVazio("nome do projeto");
             return;
         }
-        String nomeProjeto = this.jTextFieldNomeProjeto.getText();
 
-        if (this.jTextFieldFinalidade.getText().isEmpty()) {
+        String finalidade = this.jTextFieldFinalidade.getText();
+        if (finalidade.isEmpty()) {
             InterfaceGraficaUtils.validaCampoVazio("finalidade");
             return;
         }
-        String finalidade = this.jTextFieldFinalidade.getText();
 
-        if (this.jTextAreaPublicoAlvo.getText().isEmpty()) {
+        String publicoAlvo = this.jTextAreaPublicoAlvo.getText();
+        if (publicoAlvo.isEmpty()) {
             InterfaceGraficaUtils.validaCampoVazio("público alvo");
             return;
         }
-        String publicoAlvo = this.jTextAreaPublicoAlvo.getText();
+
         Projeto projeto = new Projeto();
+        Date dataInicio, dataFim;
         dataInicio = jDateChooserInicio.getDate();
         dataFim = jDateChooserFim.getDate();
         String tipo = jComboBoxTipo.getName();
@@ -394,8 +385,7 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
         projeto.setDataInicio(dataInicio);
         projeto.setSetor(setor);
         projeto.setTipo(tipo);
-        projeto.setSiapeResponsavel(siape);
-        projeto.setNomeResponsavel(nomeOrientador);
+        projeto.setResponsavel(responsavel);
         projeto.setPublicoAlvo(publicoAlvo);
         projeto.setNome(nomeProjeto);
         projeto.setFinalidade(finalidade);
@@ -439,10 +429,36 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
+    private void pesquisarResponsavelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisarResponsavelActionPerformed
+        JFrame jFrame = new JFrame("Busca de responsável");
+        PropriedadesBuscaUsuario propriedadesBusca = new PropriedadesBuscaUsuario(PropriedadesBusca.OPCAO_SELECIONAR, jFrame, this);
+        BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE RESPONSÁVEL", propriedadesBusca);
+        jFrame.setContentPane(buscaPanel);
+        InterfaceGraficaUtils.exibirJanela(jFrame);
+    }//GEN-LAST:event_pesquisarResponsavelActionPerformed
+
+    private void pesquisarSetorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisarSetorActionPerformed
+        JFrame jFrame = new JFrame("Busca de setor");
+        PropriedadesBuscaSetor propriedadesBusca = new PropriedadesBuscaSetor(PropriedadesBusca.OPCAO_SELECIONAR, jFrame, this);
+        BuscaJPanel buscaPanel = new BuscaJPanel("BUSCA DE SETOR", propriedadesBusca);
+        jFrame.setContentPane(buscaPanel);
+        InterfaceGraficaUtils.exibirJanela(jFrame);
+    }//GEN-LAST:event_pesquisarSetorActionPerformed
+
+    @Override
+    public void setResultado(Object resultado) {
+        if(resultado instanceof Usuario){
+            this.responsavel = (Usuario) resultado;
+            this.jLabelNomeResponsavel.setText("Nome: " + this.responsavel.getNome());
+            this.jLabelSiapeResponsavel.setText("SIAPE: " + this.responsavel.getSiape());
+        } else if(resultado instanceof Setor){
+            this.setor = (Setor) resultado;
+            this.jLabelNomeSetor.setText("Nome: " + setor.getNome());
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonConfirmar;
-    private javax.swing.JButton jButtonExibirLista;
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JComboBox<String> jComboBoxTipo;
     private com.toedter.calendar.JDateChooser jDateChooserFim;
@@ -450,14 +466,14 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelNomeResponsavel;
     private javax.swing.JLabel jLabelNomeSetor;
+    private javax.swing.JLabel jLabelSiapeResponsavel;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -465,8 +481,9 @@ public class CadastrarProjetoJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextAreaPublicoAlvo;
     private javax.swing.JTextField jTextFieldFinalidade;
-    private javax.swing.JTextField jTextFieldNomeOrientador;
     private javax.swing.JTextField jTextFieldNomeProjeto;
-    private javax.swing.JTextField jTextFieldSiape;
+    private javax.swing.JButton pesquisarResponsavel;
+    private javax.swing.JButton pesquisarSetor;
     // End of variables declaration//GEN-END:variables
+
 }

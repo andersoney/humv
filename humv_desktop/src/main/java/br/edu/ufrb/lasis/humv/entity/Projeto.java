@@ -10,8 +10,7 @@ public class Projeto implements Serializable {
     private BigInteger id;
     private Date dataCadastro;
     private String nome;
-    private String nomeResponsavel;
-    private String siapeResponsavel;
+    private Usuario responsavel;
     private String finalidade;
     private Date dataInicio;
     private Date dataFim;
@@ -43,20 +42,12 @@ public class Projeto implements Serializable {
         this.nome = nome;
     }
 
-    public String getNomeResponsavel() {
-        return nomeResponsavel;
+    public Usuario getResponsavel() {
+        return responsavel;
     }
 
-    public void setNomeResponsavel(String nomeResponsavel) {
-        this.nomeResponsavel = nomeResponsavel;
-    }
-
-    public String getSiapeResponsavel() {
-        return siapeResponsavel;
-    }
-
-    public void setSiapeResponsavel(String siapeResponsavel) {
-        this.siapeResponsavel = siapeResponsavel;
+    public void setResponsavel(Usuario responsavel) {
+        this.responsavel = responsavel;
     }
 
     public String getFinalidade() {
