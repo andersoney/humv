@@ -22,6 +22,7 @@ public class Material implements Serializable {
     private Double valor;
     private BigInteger numeroNotaFiscal;
     private Integer estoque;
+    private Integer estoqueMinimo;
 
 	public BigInteger getId() {
 		return id;
@@ -77,6 +78,14 @@ public class Material implements Serializable {
 
 	public void setEstoque(Integer estoque) {
 		this.estoque = estoque;
+	}
+
+	public Integer getEstoqueMinimo() {
+		return estoqueMinimo;
+	}
+
+	public void setEstoqueMinimo(Integer estoqueMinimo) {
+		this.estoqueMinimo = estoqueMinimo;
 	}
 
 }

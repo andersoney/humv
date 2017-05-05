@@ -66,6 +66,8 @@ public class CadastrarMaterialJPanel extends javax.swing.JPanel {
         jFormattedTextFieldValor = new javax.swing.JFormattedTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jTextFieldEstoqueMinimo = new javax.swing.JTextField();
 
         descricaoJL.setText("Discriminação:");
 
@@ -97,14 +99,23 @@ public class CadastrarMaterialJPanel extends javax.swing.JPanel {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("CADASTRO DE MATERIAL");
 
+        jLabel3.setText("Estoque mínimo (quantidade):");
+
+        jTextFieldEstoqueMinimo.setColumns(4);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 378, Short.MAX_VALUE)
+                        .addComponent(cancelarJB, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(salvarJB, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(descricaoJL)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -122,16 +133,16 @@ public class CadastrarMaterialJPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jFormattedTextFieldValor, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(cancelarJB, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(salvarJB, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextFieldEstoqueMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -147,7 +158,11 @@ public class CadastrarMaterialJPanel extends javax.swing.JPanel {
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(jFormattedTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTextFieldEstoqueMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(salvarJB)
                     .addComponent(cancelarJB))
@@ -182,12 +197,30 @@ public class CadastrarMaterialJPanel extends javax.swing.JPanel {
             InterfaceGraficaUtils.dialogoMensagem("Campo unidade vazio.", "Campo Unidade não pode ser vazio.");
             return;
         }
+        
+        int estoqueMinimo = 0;
+        if (this.jTextFieldEstoqueMinimo.getText().isEmpty()) {
+            InterfaceGraficaUtils.validaCampoVazio("estoque mínimo");
+            return;
+        } else {
+            try {
+                estoqueMinimo = Integer.parseInt(this.jTextFieldEstoqueMinimo.getText());
+                if(estoqueMinimo < 0){
+                    InterfaceGraficaUtils.validaCampoInvalido("idade");
+                    return;
+                }
+            } catch (NumberFormatException ex) {
+                InterfaceGraficaUtils.validaCampoInvalido("idade");
+                return;
+            }
+        }
 
         Material material = new Material();
         material.setDiscriminacao(descricao);
         material.setTipo(tipo);
         material.setUnidade(unidade);
         material.setValor(valor);
+        material.setEstoqueMinimo(estoqueMinimo);
         
         try {
             ClientResponse response;
@@ -229,6 +262,8 @@ public class CadastrarMaterialJPanel extends javax.swing.JPanel {
     private javax.swing.JFormattedTextField jFormattedTextFieldValor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField jTextFieldEstoqueMinimo;
     private javax.swing.JButton salvarJB;
     private javax.swing.JLabel tipoJL;
     private javax.swing.JLabel unidadeJL;
