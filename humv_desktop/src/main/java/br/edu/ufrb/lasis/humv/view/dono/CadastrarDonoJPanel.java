@@ -335,7 +335,7 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         boolean sair = InterfaceGraficaUtils.dialogoCancelar("o cadastro", "dono");
         if (sair) {
-            if(jFrame != null){
+            if (jFrame != null) {
                 jFrame.dispose();
             } else {
                 HUMVApp.setPainelCentralComLogo();
@@ -351,21 +351,29 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
             return;
         }
 
-        if (jRadioButtonCpf.isSelected() && !HUMVApp.getUsuarioLogado().getPerfil().equals(Usuario.PERFIL_ADMINISTRADOR)) {
-            if (!ValidationsUtils.isCPF(MaskUtils.removeMascara(jTextFieldCpf.getText()))) {
-                InterfaceGraficaUtils.validaCampoInvalido("CPF");
-                return;
-            } else {
+        if (jRadioButtonCpf.isSelected()) {
+            if (!HUMVApp.getUsuarioLogado().getPerfil().equals(Usuario.PERFIL_ADMINISTRADOR)) {
+                if (!ValidationsUtils.isCPF(MaskUtils.removeMascara(jTextFieldCpf.getText()))) {
+                    InterfaceGraficaUtils.validaCampoInvalido("CPF");
+                    return;
+                } else {
+                    cpfCnpj = MaskUtils.removeMascara(jTextFieldCpf.getText());
+                }
+            } else if (ValidationsUtils.isCPF(MaskUtils.removeMascara(jTextFieldCpf.getText()))) {
                 cpfCnpj = MaskUtils.removeMascara(jTextFieldCpf.getText());
             }
-        }
-
-        if (jRadioButtonCnpj.isSelected() && !HUMVApp.getUsuarioLogado().getPerfil().equals(Usuario.PERFIL_ADMINISTRADOR)) {
-            if (!ValidationsUtils.isCNPJ(MaskUtils.removeMascara(jTextFieldCnpj.getText()))) {
-                InterfaceGraficaUtils.validaCampoInvalido("CNPJ");
-                return;
-            } else {
-                cpfCnpj = MaskUtils.removeMascara(jTextFieldCnpj.getText());
+        } else {
+            if (jRadioButtonCnpj.isSelected()) {
+                if (!HUMVApp.getUsuarioLogado().getPerfil().equals(Usuario.PERFIL_ADMINISTRADOR)) {
+                    if (!ValidationsUtils.isCNPJ(MaskUtils.removeMascara(jTextFieldCnpj.getText()))) {
+                        InterfaceGraficaUtils.validaCampoInvalido("CNPJ");
+                        return;
+                    } else {
+                        cpfCnpj = MaskUtils.removeMascara(jTextFieldCnpj.getText());
+                    }
+                } else if (ValidationsUtils.isCNPJ(MaskUtils.removeMascara(jTextFieldCnpj.getText()))) {
+                    cpfCnpj = MaskUtils.removeMascara(jTextFieldCnpj.getText());
+                }
             }
         }
 
