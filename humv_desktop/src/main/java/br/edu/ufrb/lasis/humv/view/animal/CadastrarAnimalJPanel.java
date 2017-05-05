@@ -29,11 +29,10 @@ import org.slf4j.LoggerFactory;
 public class CadastrarAnimalJPanel extends javax.swing.JPanel implements ResultadoBusca {
 
     private final static Logger logger = LoggerFactory.getLogger(CadastrarAnimalJPanel.class);
-    private boolean grande = false;
     private Dono dono = null;
     private String porte;
     private final String servicoAnimal = "/api/animal";
-    private Animal animalSelecionado;
+    private Animal animalSelecionado = null;
     private static final String[] ESPECIES = {Animal.ESPECIE_CANINO, Animal.ESPECIE_FELINO, Animal.ESPECIE_CAPRINO, Animal.ESPECIE_OVINO, Animal.ESPECIE_BOVINO, Animal.ESPECIE_EQUINO, Animal.ESPECIE_SUINO, Animal.ESPECIE_OUTROS};
 
     public CadastrarAnimalJPanel() {
@@ -49,11 +48,11 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
         customInitComponents();
     }
 
-    public CadastrarAnimalJPanel(boolean Pequeno) {
+    public CadastrarAnimalJPanel(boolean pequeno) {
         initComponents();
         this.jLabelTitulo.setText("CADASTRO DE ANIMAL");
         this.jRadioButtonPequenoPorte.setSelected(true);
-        if (Pequeno) {
+        if (pequeno) {
             this.jRadioButtonPequenoPorte.setSelected(true);
             jRadioButtonPequenoPorteActionPerformed(null);
             this.jRadioButtonGrandePorte.setEnabled(false);
@@ -218,8 +217,8 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
                                 .addComponent(jLabelHora)
                                 .addGap(83, 83, 83))
                             .addComponent(jSpinnerHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabelNomeDono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
-                    .addComponent(jLabelCpfDono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabelCpfDono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelNomeDono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanelDadosDonoLayout.createSequentialGroup()
                 .addComponent(jButtonPesquisarDono, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -404,7 +403,7 @@ public class CadastrarAnimalJPanel extends javax.swing.JPanel implements Resulta
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanelDadosAnimal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanelDadosDono, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                            .addComponent(jPanelDadosDono, javax.swing.GroupLayout.PREFERRED_SIZE, 439, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );

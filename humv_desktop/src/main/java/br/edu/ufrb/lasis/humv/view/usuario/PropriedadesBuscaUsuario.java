@@ -11,13 +11,16 @@ import br.edu.ufrb.lasis.humv.rest.RESTConnectionException;
 import br.edu.ufrb.lasis.humv.rest.RESTMethods;
 import br.edu.ufrb.lasis.humv.utils.InterfaceGraficaUtils;
 import br.edu.ufrb.lasis.humv.reports.PrintUtils;
+import br.edu.ufrb.lasis.humv.utils.ResultadoBusca;
 import br.edu.ufrb.lasis.humv.view.busca.PropriedadesBusca;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.sun.jersey.api.client.ClientResponse;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,9 +33,17 @@ public class PropriedadesBuscaUsuario extends PropriedadesBusca {
     private final static Logger logger = LoggerFactory.getLogger(PropriedadesBuscaUsuario.class);
     private UsuarioTableModel tableModel;
     private List<Usuario> listaUsuarios;
+    private ResultadoBusca resultadoBusca;
 
     public PropriedadesBuscaUsuario(String tipoOperacao) {
         super(tipoOperacao);
+    }
+    
+    public PropriedadesBuscaUsuario(String tipoOperacao, JFrame jFrame, ResultadoBusca resultadoBusca) {
+        super(tipoOperacao, jFrame);
+        this.resultadoBusca = resultadoBusca;
+        tableModel = new UsuarioTableModel();
+        super.setTabelaResultado(new JTable(tableModel));
     }
 
     @Override
@@ -87,6 +98,10 @@ public class PropriedadesBuscaUsuario extends PropriedadesBusca {
                                 logger.error("mensagem: " + ex.getMessage(), ex);
                             }
                         }
+                        break;
+                    case PropriedadesBusca.OPCAO_SELECIONAR:
+                        resultadoBusca.setResultado(usuarioSelecionado);
+                        getjFrame().dispose();
                         break;
                     default:
                         break;

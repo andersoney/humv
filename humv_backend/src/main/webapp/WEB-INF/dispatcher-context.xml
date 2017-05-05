@@ -19,7 +19,7 @@
 	<!-- Enables the Spring MVC @RestController programming model -->
 	<tx:annotation-driven />
 
-	<!-- Make this available across all of Spring MVC -->
+	<!-- Make this available across all of Spring MVC --> 
 	<mvc:annotation-driven
 		content-negotiation-manager="contentManager" />
 

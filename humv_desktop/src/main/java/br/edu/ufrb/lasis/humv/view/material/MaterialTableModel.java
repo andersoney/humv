@@ -5,7 +5,6 @@
  */
 package br.edu.ufrb.lasis.humv.view.material;
 
-
 import br.edu.ufrb.lasis.humv.entity.Material;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +30,11 @@ public class MaterialTableModel extends AbstractTableModel {
     }
 
     private void initArrayTitulos() {
-        titulos = new String[2];
-        titulos[0] = "Discriminação do Material";
-        titulos[1] = "Código do Material";
+        titulos = new String[4];
+        titulos[0] = "Código";
+        titulos[1] = "Discriminação";
+        titulos[2] = "Quantidade";
+        titulos[3] = "Unidade de medida";
     }
 
     public Material getMaterialSelecionado(int index) {
@@ -73,9 +74,13 @@ public class MaterialTableModel extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch (columnIndex) {
             case 0:
-                return this.materiais.get(rowIndex).getDiscriminacao();
-            case 1:
                 return this.materiais.get(rowIndex).getId();
+            case 1:
+                return this.materiais.get(rowIndex).getDiscriminacao();
+            case 2:
+                return this.materiais.get(rowIndex).getEstoque();
+            case 3:
+                return this.materiais.get(rowIndex).getUnidade();
 
         }
         return null;

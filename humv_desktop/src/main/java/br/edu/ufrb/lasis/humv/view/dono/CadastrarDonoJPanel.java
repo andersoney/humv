@@ -26,7 +26,7 @@ public class CadastrarDonoJPanel extends javax.swing.JPanel {
     private final String servicoDono = "/api/dono";
     private String cpfCnpj;
     private String tipoDocumento;
-    private Dono donoSelecionado;
+    private Dono donoSelecionado = null;
     private JFrame jFrame;
     private ResultadoBusca resultadoBusca;
 

@@ -11,55 +11,11 @@ public class Material implements Serializable {
     private BigInteger id;
     private String discriminacao;
     private String unidade;
-    private Integer tipo; // material ou medicamento
-    private String modelo; // Aplicavel apenas a materiais cirurgicos 
-    private int quantidadeDisponivel; // Quantidade em estoque do material
-    private double valor; // em R$
+    private Integer tipo; // tipo = 0 (meicamento) | 1 (material EPI) | 2 (seringas) | 3 (material cirúrgico)
+    private Double valor;
     private Date validade;
     private BigInteger numeroNotaFiscal;
-
-    private int kit = 0; // 1 - para modelo 1, 2 - para modelo 2, 0 - para nenhum modelo, ver R50
-    private int quantidadeEmKit = 0;
-
-    public int getQuantidadeEmKit() {
-        return quantidadeEmKit;
-    }
-
-    public void setQuantidadeEmKit(int quantidadeEmKit) {
-        this.quantidadeEmKit = quantidadeEmKit;
-    }
-
-    public int getKit() {
-        return kit;
-    }
-
-    public void setKit(int kit) {
-        this.kit = kit;
-    }
-
-    public String getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
-
-    public BigInteger getNumeroNotaFiscal() {
-        return numeroNotaFiscal;
-    }
-
-    public void setNumeroNotaFiscal(BigInteger numeroNotaFiscal) {
-        this.numeroNotaFiscal = numeroNotaFiscal;
-    }
-
-    public Date getValidade() {
-        return validade;
-    }
-
-    public void setValidade(Date validade) {
-        this.validade = validade;
-    }
+    private Integer estoque;
 
     public BigInteger getId() {
         return id;
@@ -93,20 +49,36 @@ public class Material implements Serializable {
         this.tipo = tipo;
     }
 
-    public double getValor() {
+    public Double getValor() {
         return valor;
     }
 
-    public void setValor(double valor) {
+    public void setValor(Double valor) {
         this.valor = valor;
     }
 
-    public int getQuantidadeDisponivel() {
-        return quantidadeDisponivel;
+    public Date getValidade() {
+        return validade;
     }
 
-    public void setQuantidadeDisponivel(int quantidadeDisponivel) {
-        this.quantidadeDisponivel = quantidadeDisponivel;
+    public void setValidade(Date validade) {
+        this.validade = validade;
+    }
+
+    public BigInteger getNumeroNotaFiscal() {
+        return numeroNotaFiscal;
+    }
+
+    public void setNumeroNotaFiscal(BigInteger numeroNotaFiscal) {
+        this.numeroNotaFiscal = numeroNotaFiscal;
+    }
+
+    public Integer getEstoque() {
+        return estoque;
+    }
+
+    public void setEstoque(Integer estoque) {
+        this.estoque = estoque;
     }
 
 }

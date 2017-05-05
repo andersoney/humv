@@ -18,7 +18,6 @@ import br.edu.ufrb.lasis.humv.view.dono.CadastrarDonoJPanel;
 import br.edu.ufrb.lasis.humv.view.dono.PropriedadesBuscaDono;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.sun.jersey.api.client.ClientResponse;
-import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;

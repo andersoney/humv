@@ -85,7 +85,7 @@ public class PropriedadesBuscaMaterial extends PropriedadesBusca {
                 switch (super.getTipoOperacao()) {
                     case PropriedadesBusca.OPCAO_VISUALIZAR_ALTERAR:
                         if (InterfaceGraficaUtils.dialogoRemoverAlterar("alterar", "material", materialSelecionado.getDiscriminacao())) {
-                            CadastrarMaterial painel = new CadastrarMaterial(materialSelecionado);
+                            CadastrarMaterialJPanel painel = new CadastrarMaterialJPanel(materialSelecionado);
                             HUMVApp.setNovoPainelCentral(painel);
                         }
                         break;

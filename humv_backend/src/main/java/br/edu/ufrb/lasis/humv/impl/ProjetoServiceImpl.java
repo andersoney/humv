@@ -52,10 +52,6 @@ public class ProjetoServiceImpl {
 	}
 
 	public String atualizarProjeto(Projeto projeto, String usuarioResponsavel){
-		if(projetoDAO.findBySiapeResponsavel(projeto.getSiapeResponsavel())==null){
-			//logger.error("[signup] Nenhum projeto com o ID " + projeto.getId() + "foi encontrado no sistema.");
-			return "Nenhum projeto com o ID " + projeto.getId() + " encontrado no sistema. Por favor, informe um ID diferente.";
-		}
 		projetoDAO.updateProjeto(projeto);
 		logger.info("[atualizarProjeto - " + usuarioResponsavel + "] Projeto " + projeto.getNome() + " atualizado com sucesso.");
 		return "OK";

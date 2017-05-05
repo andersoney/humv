@@ -77,7 +77,7 @@ public class ProjetoTableModel extends AbstractTableModel {
             case 0:
                 return this.projetos.get(rowIndex).getNome();
             case 1:
-                return this.projetos.get(rowIndex).getNomeResponsavel();
+                return this.projetos.get(rowIndex).getResponsavel().getNome();
 
         }
         return null;

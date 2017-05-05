@@ -12,8 +12,8 @@ import javax.swing.table.AbstractTableModel;
  */
 public class DonoTableModel extends AbstractTableModel {
 
-    String[] titulos;
-    List<Dono> donos;
+    private String[] titulos;
+    private List<Dono> donos;
 
     public DonoTableModel(List<Dono> donos) {
         initArrayTitulos();
