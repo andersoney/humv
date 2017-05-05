@@ -2,8 +2,6 @@ package br.edu.ufrb.lasis.humv.entity;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,7 +20,6 @@ public class Material implements Serializable {
     private String unidade;
     private Integer tipo; // tipo = 0 (meicamento) | 1 (material EPI) | 2 (seringas) | 3 (material cirúrgico)
     private Double valor;
-    private Date validade;
     private BigInteger numeroNotaFiscal;
     private Integer estoque;
 
@@ -64,14 +61,6 @@ public class Material implements Serializable {
 
 	public void setValor(Double valor) {
 		this.valor = valor;
-	}
-
-	public Date getValidade() {
-		return validade;
-	}
-
-	public void setValidade(Date validade) {
-		this.validade = validade;
 	}
 
 	public BigInteger getNumeroNotaFiscal() {

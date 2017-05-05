@@ -44,7 +44,6 @@ public class CadastrarMaterialJPanel extends javax.swing.JPanel {
         this.descriminacaoJTF.setText(materialSelecionado.getDiscriminacao());
         this.jFormattedTextFieldValor.setText(ValidationsUtils.convertePrecoParaString(materialSelecionado.getValor()));
         this.unidadeJTF.setText(materialSelecionado.getUnidade());
-        this.dteValidade.setDate(materialSelecionado.getValidade());
     }
 
     /**
@@ -67,8 +66,6 @@ public class CadastrarMaterialJPanel extends javax.swing.JPanel {
         jFormattedTextFieldValor = new javax.swing.JFormattedTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        dteValidade = new com.toedter.calendar.JDateChooser();
 
         descricaoJL.setText("Discriminação:");
 
@@ -100,8 +97,6 @@ public class CadastrarMaterialJPanel extends javax.swing.JPanel {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("CADASTRO DE MATERIAL");
 
-        jLabel3.setText("Validade (opcional):");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -127,10 +122,7 @@ public class CadastrarMaterialJPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jFormattedTextFieldValor, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(dteValidade, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(cancelarJB, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(salvarJB, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -155,15 +147,10 @@ public class CadastrarMaterialJPanel extends javax.swing.JPanel {
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(jFormattedTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dteValidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(salvarJB)
-                        .addComponent(cancelarJB)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(salvarJB)
+                    .addComponent(cancelarJB))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -201,7 +188,6 @@ public class CadastrarMaterialJPanel extends javax.swing.JPanel {
         material.setTipo(tipo);
         material.setUnidade(unidade);
         material.setValor(valor);
-        material.setValidade(dteValidade.getDate());
         
         try {
             ClientResponse response;
@@ -239,12 +225,10 @@ public class CadastrarMaterialJPanel extends javax.swing.JPanel {
     private javax.swing.JButton cancelarJB;
     private javax.swing.JLabel descricaoJL;
     private javax.swing.JTextField descriminacaoJTF;
-    private com.toedter.calendar.JDateChooser dteValidade;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JFormattedTextField jFormattedTextFieldValor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JButton salvarJB;
     private javax.swing.JLabel tipoJL;
     private javax.swing.JLabel unidadeJL;
