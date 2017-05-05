@@ -22,8 +22,8 @@ public class MaskUtils {
 
     public static JFormattedTextField mascaraTelefone() {
         try {
-            javax.swing.text.MaskFormatter telefone = new javax.swing.text.MaskFormatter("(##)#####-####");
-            JFormattedTextField jFormattedTextField = new JFormattedTextField(telefone);
+            //javax.swing.text.MaskFormatter telefone = new javax.swing.text.MaskFormatter("(##)#####-####");
+            JFormattedTextField jFormattedTextField = new JFormattedTextField();
             return jFormattedTextField;
         } catch (Exception e) {
             logger.error("mensagem: " + e.getMessage(), e);
