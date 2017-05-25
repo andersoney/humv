@@ -3,6 +3,7 @@ package br.edu.ufrb.lasis.humv.entity;
 import java.io.Serializable;
 import java.math.BigInteger;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 //import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
 import javax.persistence.Id;
@@ -36,7 +37,7 @@ public class Procedimento implements Serializable {
 	public static final Integer TIPO_OUTROS = 4;
 
 	@Id
-	//@GeneratedValue
+	@GeneratedValue
 	private BigInteger codigo;
 	private String nome;
 	private double valor;

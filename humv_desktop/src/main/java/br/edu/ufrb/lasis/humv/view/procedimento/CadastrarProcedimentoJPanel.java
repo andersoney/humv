@@ -16,7 +16,6 @@ import br.edu.ufrb.lasis.humv.view.setor.PropriedadesBuscaSetor;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.sun.jersey.api.client.ClientResponse;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -56,7 +55,6 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements R
         if (procedimentoSelecionado != null) {
             jLabelTitulo.setText("ALTERAÇÃO DO PROCEDIMENTO");
             jTextFieldNome.setText(procedimentoSelecionado.getNome());
-            jTextFieldCodigo.setText(procedimentoSelecionado.getCodigo().toString());
             jTextFieldPreco.setText("" + ValidationsUtils.convertePrecoParaString(procedimentoSelecionado.getValor()));
             setor = procedimentoSelecionado.getSetor();
             nomeSetor = procedimentoSelecionado.getSetor().getNome();
@@ -95,8 +93,6 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements R
         jPanelInformacoesProcedimento = new javax.swing.JPanel();
         jTextFieldNome = new javax.swing.JTextField();
         jLabelNome = new javax.swing.JLabel();
-        jTextFieldCodigo = new javax.swing.JTextField();
-        jLabelCodigo = new javax.swing.JLabel();
         jTextFieldPreco = new javax.swing.JTextField();
         jLabelPreco = new javax.swing.JLabel();
         jLabelTitulo = new javax.swing.JLabel();
@@ -167,8 +163,6 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements R
 
         jLabelNome.setText("Nome:");
 
-        jLabelCodigo.setText("Código:");
-
         jLabelPreco.setText("Preço R$ (ex.: 40,00):");
 
         javax.swing.GroupLayout jPanelInformacoesProcedimentoLayout = new javax.swing.GroupLayout(jPanelInformacoesProcedimento);
@@ -178,35 +172,28 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements R
             .addGroup(jPanelInformacoesProcedimentoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelInformacoesProcedimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldNome)
                     .addGroup(jPanelInformacoesProcedimentoLayout.createSequentialGroup()
-                        .addGroup(jPanelInformacoesProcedimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelNome)
-                            .addComponent(jLabelCodigo)
-                            .addComponent(jTextFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(48, 48, 48)
-                        .addGroup(jPanelInformacoesProcedimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelPreco))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jLabelNome)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelInformacoesProcedimentoLayout.createSequentialGroup()
+                        .addComponent(jLabelPreco)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanelInformacoesProcedimentoLayout.setVerticalGroup(
             jPanelInformacoesProcedimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelInformacoesProcedimentoLayout.createSequentialGroup()
                 .addGap(5, 5, 5)
-                .addComponent(jLabelNome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelInformacoesProcedimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelNome))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelInformacoesProcedimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelCodigo)
-                    .addComponent(jLabelPreco))
-                .addGap(10, 10, 10)
-                .addGroup(jPanelInformacoesProcedimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelPreco)
                     .addComponent(jTextFieldPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabelTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -255,7 +242,7 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements R
                 .addComponent(jLabelTitulo)
                 .addGap(18, 18, 18)
                 .addComponent(jPanelInformacoesSetor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanelInformacoesProcedimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -274,11 +261,7 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements R
             return;
         }
         String nome = this.jTextFieldNome.getText();
-        if (this.jTextFieldCodigo.getText().isEmpty()) {
-            InterfaceGraficaUtils.validaCampoVazio("código");
-            return;
-        }
-        BigInteger codigo = new BigInteger(jTextFieldCodigo.getText());
+        
         if (jTextFieldPreco.getText().isEmpty()) {
             InterfaceGraficaUtils.validaCampoVazio("preço");
             return;
@@ -288,7 +271,6 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements R
 
         Procedimento procedimento = new Procedimento();
         procedimento.setValor(valor);
-        procedimento.setCodigo(codigo);
         procedimento.setNome(nome);
         procedimento.setSetor(setor);
         try {
@@ -361,14 +343,12 @@ public class CadastrarProcedimentoJPanel extends javax.swing.JPanel implements R
     private javax.swing.JButton jButtonConfirmar;
     private javax.swing.JButton jButtonExibirLista;
     private javax.swing.JButton jButtonPesqusar;
-    private javax.swing.JLabel jLabelCodigo;
     private javax.swing.JLabel jLabelNome;
     private javax.swing.JLabel jLabelNomeSetor;
     private javax.swing.JLabel jLabelPreco;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanelInformacoesProcedimento;
     private javax.swing.JPanel jPanelInformacoesSetor;
-    private javax.swing.JTextField jTextFieldCodigo;
     private javax.swing.JTextField jTextFieldNome;
     private javax.swing.JTextField jTextFieldPreco;
     // End of variables declaration//GEN-END:variables
